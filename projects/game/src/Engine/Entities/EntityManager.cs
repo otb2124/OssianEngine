@@ -13,8 +13,8 @@ namespace Entities
 
         public void Init()
         {
-            ent1 = new PhysicalEntity(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(0, -50));
-            ent2 = new PhysicalEntity(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(0, -100));
+            ent1 = new PhysicalEntity(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(0, -50), new Vector2(10, 10), 0.5f, 0.5f);
+            ent2 = new PhysicalEntity(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(0, -100), new Vector2(100, 10), 1, 0, 0.2f);
         }
 
         public void Update()

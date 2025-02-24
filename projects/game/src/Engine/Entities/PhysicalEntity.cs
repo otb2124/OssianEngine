@@ -8,22 +8,21 @@ namespace Entities
 
         public FlatBody body;
 
-        public PhysicalEntity(BodyDynamics bodyDynamics, BodyShapeType bodyShapeType, Vector2 pos) : base() 
+        public PhysicalEntity(BodyDynamics bodyDynamics, BodyShapeType bodyShapeType, Vector2 pos, Vector2 size, float density, float resitution, float rotation = 0f) : base() 
         {
 
             bool isStatic = bodyDynamics == BodyDynamics.STATIC;
-
 
             string errorMsg;
             bool success;
             if (bodyShapeType == BodyShapeType.Box)
             {
-                success = FlatBody.CreateBoxBody(100, 10, 1, isStatic, 0, out body, out errorMsg);
-                body.RotateTo(0.2f);
+                success = FlatBody.CreateBoxBody(size.X, size.Y, density, isStatic, resitution, out body, out errorMsg);
+                body.RotateTo(rotation);
             }
             else
             {
-                success = FlatBody.CreateCircleBody(5, 0.5f, isStatic, 0.5f, out body, out errorMsg);
+                success = FlatBody.CreateCircleBody(size.X, density, isStatic, resitution, out body, out errorMsg);
             }
 
             body.MoveTo(FlatConverter.ToFlatVector(pos));
