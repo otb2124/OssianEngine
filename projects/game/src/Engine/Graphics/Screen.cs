@@ -77,7 +77,7 @@ namespace Graphics
 
         public void Present(Sprites sprites)
         {
-            Present(sprites, Color.Black);
+            Present(sprites, Color.CornflowerBlue);
         }
 
         public void Present(Sprites sprites, Color backgroundColor, bool textureFiltering = true)

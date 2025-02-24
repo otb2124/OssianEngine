@@ -11,7 +11,10 @@ namespace App
     public class Game : Microsoft.Xna.Framework.Game
     {
         FlatBody body1;
-        Color color = Color.Red;
+        Color color1 = Color.Red;
+
+        FlatBody body2;
+        Color color2 = Color.Blue;
 
         public Game()
         {
@@ -44,11 +47,15 @@ namespace App
             Graphics.Graphics.camera = new Camera(Graphics.Graphics.screen, this);
             Graphics.Graphics.camera.zoom = 20;
 
-            string errorMsg;
-            bool success = FlatBody.CreateBoxBody(10, 10, 1, false, 0, out body1, out errorMsg);
-            body1.MoveTo(FlatVector.Zero);
+                //ENTITIES
+                string errorMsg;
+                bool success = FlatBody.CreateBoxBody(10, 10, 1, false, 0, out body1, out errorMsg);
+                body1.MoveTo(FlatVector.Zero);
+                Physics.Physics.flatWorld.AddBody(body1);
 
-            Physics.Physics.flatWorld.AddBody(body1);
+                bool success1 = FlatBody.CreateBoxBody(100, 10, 1, true, 0, out body2, out errorMsg);
+                body2.MoveTo(new FlatVector(0, -100));
+                Physics.Physics.flatWorld.AddBody(body2);
 
             Physics.Physics.watch = new Stopwatch();
             Physics.Physics.sampleTimer.Start();
@@ -95,8 +102,9 @@ namespace App
             Graphics.Graphics.screen.Set();
             Graphics.Graphics.shapes.Begin(Graphics.Graphics.camera);
 
-            //ENTITIES
-            Graphics.Graphics.shapes.DrawBoxFill(Physics.FlatConverter.ToVector2(body1.Position), body1.Width, body1.Height, body1.Angle, color);
+                //ENTITIES
+                Graphics.Graphics.shapes.DrawBoxFill(Physics.FlatConverter.ToVector2(body1.Position), body1.Width, body1.Height, body1.Angle, color1);
+                Graphics.Graphics.shapes.DrawBoxFill(Physics.FlatConverter.ToVector2(body2.Position), body2.Width, body2.Height, body2.Angle, color2);
 
             Graphics.Graphics.sprites.Begin(Graphics.Graphics.camera);
 
@@ -109,7 +117,7 @@ namespace App
             Graphics.Graphics.sprites.End();
 
             Graphics.Graphics.screen.Unset();
-            Graphics.Graphics.screen.Present(Graphics.Graphics.sprites);
+            Graphics.Graphics.screen.Present(Graphics.Graphics.sprites, Color.Black, true);
 
             base.Draw(gameTime);
         }
