@@ -27,6 +27,20 @@ namespace Inputs
         public void Update()
         {
 
+            if (Inputs.mouse.IsLeftMouseButtonPressed())
+            {
+                Debug.WriteLine("leftm");
+            }
+            else if (Inputs.mouse.IsRightMouseButtonPressed())
+            {
+                Debug.WriteLine("rightm");
+            }
+
+            if (Inputs.keyboard.IsKeyClicked(Keys.LeftControl))
+            {
+                Debug.WriteLine("ctr");
+            }
+
             /*
             if (game.gameState == game.PLAYSTATE)
             {
@@ -331,7 +345,7 @@ namespace Inputs
 
 
             */
-            
+
 
         }
 
