@@ -9,7 +9,7 @@ namespace Entities
     public class Entity
     {
         public Entity() {}
-        public void Update() {}
-        public void Draw() {}
+        public virtual void Update() {}
+        public virtual void Draw() {}
     }
 }

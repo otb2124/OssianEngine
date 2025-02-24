@@ -6,19 +6,22 @@ namespace Entities
     public class EntityManager
     {
 
-        PhysicalEntity ent1;
-        PhysicalEntity ent2;
-        static Color color1 = Color.Red;
-        static Color color2 = Color.Blue;
+        Entity ent1;
+        Entity ent2;
+
+        Player player;
 
         public void Init()
         {
-            ent1 = new PhysicalEntity(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(0, -50), new Vector2(10, 10), 0.5f, 0.5f);
-            ent2 = new PhysicalEntity(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(0, -100), new Vector2(100, 10), 1, 0, 0.2f);
+            ent1 = new LivingEntity(FlatBodyFactory.FlatBodyPreset.PLATFORM, new Vector2(0, -50), 0.2f);
+            ent2 = new LivingEntity(FlatBodyFactory.FlatBodyPreset.CIRCLE, new Vector2(0, 0));
+
+            player = new Player(new Vector2(0, 20), 0f);
         }
 
         public void Update()
         {
+            player.Update();
         }
 
 
@@ -26,6 +29,8 @@ namespace Entities
         {
             ent1.Draw();
             ent2.Draw();
+
+            player.Draw();
         }
     }
 }

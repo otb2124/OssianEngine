@@ -14,7 +14,10 @@ namespace Inputs
 
 
         Game game;
-        public int SilenceCounter;
+
+        public bool moveRightPressed;
+        public bool moveLeftPressed;
+        public bool jumpPressed;
 
 
         public KeyHandler(Game game) {
@@ -29,16 +32,38 @@ namespace Inputs
 
             if (Inputs.mouse.IsLeftMouseButtonPressed())
             {
-                Debug.WriteLine("leftm");
+                //Debug.WriteLine("leftm");
             }
             else if (Inputs.mouse.IsRightMouseButtonPressed())
             {
-                Debug.WriteLine("rightm");
+                //Debug.WriteLine("rightm");
             }
 
             if (Inputs.keyboard.IsKeyClicked(Keys.LeftControl))
             {
-                Debug.WriteLine("ctr");
+                //Debug.WriteLine("ctr");
+            }
+
+
+            jumpPressed = Inputs.keyboard.IsKeyClicked(Keys.Space);
+
+            if (Inputs.keyboard.IsKeyDown(Keys.D))
+            {
+                this.moveRightPressed = true;
+            }
+            if(Inputs.keyboard.IsKeyDown(Keys.A))
+            {
+                this.moveLeftPressed = true;
+            }
+
+
+            if(Inputs.keyboard.IsKeyReleased(Keys.D))
+            {
+                this.moveRightPressed = false;
+            }
+            if (Inputs.keyboard.IsKeyReleased(Keys.A))
+            {
+                this.moveLeftPressed = false;
             }
 
             /*

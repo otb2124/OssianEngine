@@ -60,6 +60,7 @@ namespace App
             Graphics.Graphics.gameTime = gameTime;
             Inputs.Inputs.Update();
             Physics.Physics.Update();
+            Entities.Entities.entityManager.Update();
 
             Graphics.Graphics.camera.Update();
 
