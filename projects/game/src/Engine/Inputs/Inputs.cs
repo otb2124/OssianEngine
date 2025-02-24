@@ -11,5 +11,14 @@ namespace Inputs
         public static FlatKeyboard keyboard;
         public static FlatMouse mouse;
         public static KeyHandler keyHandler;
+
+        public static void Update()
+        {
+            keyboard = FlatKeyboard.Instance;
+            mouse = FlatMouse.Instance;
+            keyboard.Update();
+            mouse.Update();
+            keyHandler.Update();
+        }
     }
 }

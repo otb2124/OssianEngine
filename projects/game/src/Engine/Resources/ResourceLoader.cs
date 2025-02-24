@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace Resources
 {
-    public class ResourceLoader
+    public static class ResourceLoader
     {
 
-        public Font[] fonts;
-        public Sprite[] sprites;
-
-        public ResourceLoader() { }
-        
-        public void LoadResources()
+        public static Font[] fonts;
+        public static Sprite[] sprites;
+        public static void LoadResources()
         {
             sprites = new Sprite[10];
             sprites[0] = new Sprite("sprite0.png", 0);

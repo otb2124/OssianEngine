@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -7,11 +8,18 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Physics
 {
-    public enum ShapeType
+    public enum BodyShapeType
     {
         Circle = 0,
         Box = 1,
     }
+
+    public enum BodyDynamics
+    {
+        DYNAMIC = 0,
+        STATIC = 1,
+    }
+
 
     public sealed class FlatBody
     {
@@ -21,7 +29,7 @@ namespace Physics
         private float angularVelocity;
         public FlatVector force;
 
-        public readonly ShapeType ShapeType;
+        public BodyShapeType BodyShapeType;
         public float Density;
         public float Mass;
         public readonly float InvMass;
@@ -70,7 +78,7 @@ namespace Physics
         }
 
         private FlatBody(float density, float mass, float inertia, float restitution, float area,
-            bool isStatic, float radius, float width, float height, FlatVector[] vertices, ShapeType shapeType)
+            bool isStatic, float radius, float width, float height, FlatVector[] vertices, BodyShapeType BodyShapeType)
         {
             position = FlatVector.Zero;
             linearVelocity = FlatVector.Zero;
@@ -78,7 +86,7 @@ namespace Physics
             angularVelocity = 0f;
             force = FlatVector.Zero;
 
-            ShapeType = shapeType;
+            BodyShapeType = BodyShapeType;
             Density = density;
             Mass = mass;
             InvMass = mass > 0f ? 1f / mass : 0f;
@@ -93,7 +101,7 @@ namespace Physics
             StaticFriction = 0.6f;
             DynamicFriction = 0.4f;
 
-            if (ShapeType is ShapeType.Box)
+            if (BodyShapeType is BodyShapeType.Box)
             {
                 this.vertices = vertices;
                 transformedVertices = new FlatVector[this.vertices.Length];
@@ -168,7 +176,7 @@ namespace Physics
                 float maxX = float.MinValue;
                 float maxY = float.MinValue;
 
-                if (ShapeType is ShapeType.Box)
+                if (BodyShapeType is BodyShapeType.Box)
                 {
                     FlatVector[] vertices = GetTransformedVertices();
 
@@ -182,7 +190,7 @@ namespace Physics
                         if (v.Y > maxY) { maxY = v.Y; }
                     }
                 }
-                else if (ShapeType is ShapeType.Circle)
+                else if (BodyShapeType is BodyShapeType.Circle)
                 {
                     minX = position.X - Radius;
                     minY = position.Y - Radius;
@@ -191,7 +199,7 @@ namespace Physics
                 }
                 else
                 {
-                    throw new Exception("Unknown ShapeType.");
+                    throw new Exception("Unknown BodyShapeType.");
                 }
 
                 aabb = new FlatAABB(minX, minY, maxX, maxY);
@@ -306,7 +314,7 @@ namespace Physics
             
 
 
-            body = new FlatBody(density, mass, inertia, restitution, area, isStatic, radius, 0f, 0f, null, ShapeType.Circle);
+            body = new FlatBody(density, mass, inertia, restitution, area, isStatic, radius, 0f, 0f, null, BodyShapeType.Circle);
             return true;
         }
 
@@ -358,7 +366,7 @@ namespace Physics
 
             FlatVector[] vertices = CreateBoxVertices(width, height);
 
-            body = new FlatBody(density, mass, inertia, restitution, area, isStatic, 0f, width, height, vertices, ShapeType.Box);
+            body = new FlatBody(density, mass, inertia, restitution, area, isStatic, 0f, width, height, vertices, BodyShapeType.Box);
             return true;
         }
 
@@ -410,7 +418,7 @@ namespace Physics
             angularVelocity = existingBody.AngularVelocity;
             force = existingBody.force;
 
-            ShapeType = existingBody.ShapeType;
+            BodyShapeType = existingBody.BodyShapeType;
             Density = existingBody.Density;
             Mass = existingBody.Mass;
             InvMass = existingBody.InvMass;
@@ -425,7 +433,7 @@ namespace Physics
             StaticFriction = existingBody.StaticFriction;
             DynamicFriction = existingBody.DynamicFriction;
 
-            if (existingBody.ShapeType == ShapeType.Box)
+            if (existingBody.BodyShapeType == BodyShapeType.Box)
             {
                 // Recreate vertices with new height
                 vertices = CreateBoxVertices(existingBody.Width, newHeight);
@@ -439,6 +447,25 @@ namespace Physics
 
             transformUpdateRequired = true;
             aabbUpdateRequired = true;
+        }
+
+
+
+
+
+        public void Draw()
+        {
+            if (this.BodyShapeType == BodyShapeType.Box)
+            {
+                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(Position), Width, Height, Angle, Color.Red);
+            }
+            else
+            {
+                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(Position), Radius, 26, Color.Blue);
+            }
+
+            
+
         }
 
 

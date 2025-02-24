@@ -49,30 +49,30 @@ namespace Physics
             contact2 = FlatVector.Zero;
             contactCount = 0;
 
-            ShapeType shapeTypeA = bodyA.ShapeType;
-            ShapeType shapeTypeB = bodyB.ShapeType;
+            BodyShapeType BodyShapeTypeA = bodyA.BodyShapeType;
+            BodyShapeType BodyShapeTypeB = bodyB.BodyShapeType;
 
-            if (shapeTypeA is ShapeType.Box)
+            if (BodyShapeTypeA is BodyShapeType.Box)
             {
-                if (shapeTypeB is ShapeType.Box)
+                if (BodyShapeTypeB is BodyShapeType.Box)
                 {
                     FindPolygonsContactPoints(bodyA.GetTransformedVertices(), bodyB.GetTransformedVertices(),
                         out contact1, out contact2, out contactCount);
                 }
-                else if (shapeTypeB is ShapeType.Circle)
+                else if (BodyShapeTypeB is BodyShapeType.Circle)
                 {
                     FindCirclePolygonContactPoint(bodyB.Position, bodyB.Radius, bodyA.Position, bodyA.GetTransformedVertices(), out contact1);
                     contactCount = 1;
                 }
             }
-            else if (shapeTypeA is ShapeType.Circle)
+            else if (BodyShapeTypeA is BodyShapeType.Circle)
             {
-                if (shapeTypeB is ShapeType.Box)
+                if (BodyShapeTypeB is BodyShapeType.Box)
                 {
                     FindCirclePolygonContactPoint(bodyA.Position, bodyA.Radius, bodyB.Position, bodyB.GetTransformedVertices(), out contact1);
                     contactCount = 1;
                 }
-                else if (shapeTypeB is ShapeType.Circle)
+                else if (BodyShapeTypeB is BodyShapeType.Circle)
                 {
                     FindCirclesContactPoint(bodyA.Position, bodyA.Radius, bodyB.Position, out contact1);
                     contactCount = 1;
@@ -183,19 +183,19 @@ namespace Physics
             normal = FlatVector.Zero;
             depth = 0f;
 
-            ShapeType shapeTypeA = bodyA.ShapeType;
-            ShapeType shapeTypeB = bodyB.ShapeType;
+            BodyShapeType BodyShapeTypeA = bodyA.BodyShapeType;
+            BodyShapeType BodyShapeTypeB = bodyB.BodyShapeType;
 
-            if (shapeTypeA is ShapeType.Box)
+            if (BodyShapeTypeA is BodyShapeType.Box)
             {
-                if (shapeTypeB is ShapeType.Box)
+                if (BodyShapeTypeB is BodyShapeType.Box)
                 {
                     return IntersectPolygons(
                         bodyA.Position, bodyA.GetTransformedVertices(),
                         bodyB.Position, bodyB.GetTransformedVertices(),
                         out normal, out depth);
                 }
-                else if (shapeTypeB is ShapeType.Circle)
+                else if (BodyShapeTypeB is BodyShapeType.Circle)
                 {
                     bool result = IntersectCirclePolygon(
                         bodyB.Position, bodyB.Radius,
@@ -206,16 +206,16 @@ namespace Physics
                     return result;
                 }
             }
-            else if (shapeTypeA is ShapeType.Circle)
+            else if (BodyShapeTypeA is BodyShapeType.Circle)
             {
-                if (shapeTypeB is ShapeType.Box)
+                if (BodyShapeTypeB is BodyShapeType.Box)
                 {
                     return IntersectCirclePolygon(
                         bodyA.Position, bodyA.Radius,
                         bodyB.Position, bodyB.GetTransformedVertices(),
                         out normal, out depth);
                 }
-                else if (shapeTypeB is ShapeType.Circle)
+                else if (BodyShapeTypeB is BodyShapeType.Circle)
                 {
                     return IntersectCircles(
                         bodyA.Position, bodyA.Radius,
