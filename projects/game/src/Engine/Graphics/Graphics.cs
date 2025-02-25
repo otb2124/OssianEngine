@@ -24,7 +24,7 @@ namespace Graphics
 
             Entities.Entities.entityManager.Draw();
             //UIMANAGER
-            UI.UIManager.Draw();
+            UI.UI.UIManager.Draw();
             //Texture2D texture, Vector2 position, Rectangle? sourceRectangle, Color color, float rotation, Vector2 origin, Vector2 scale, SpriteEffects effect, float layerDepth
 
             shapes.End();
