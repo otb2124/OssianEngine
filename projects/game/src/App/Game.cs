@@ -42,6 +42,7 @@ namespace App
 
             Graphics.Graphics.camera = new Camera(Graphics.Graphics.screen, this);
             Graphics.Graphics.camera.zoom = 20;
+            Graphics.Graphics.cameraOperator = new CameraOperator(Graphics.Graphics.camera);
 
             //ENTITIES
             Entities.Entities.Init();
@@ -63,7 +64,9 @@ namespace App
             Inputs.Inputs.Update();
             Physics.Physics.Update();
             Entities.Entities.entityManager.Update();
+            
 
+            Graphics.Graphics.cameraOperator.Update();
             Graphics.Graphics.camera.Update();
 
             base.Update(gameTime);

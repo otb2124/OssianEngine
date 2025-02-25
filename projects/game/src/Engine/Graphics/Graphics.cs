@@ -10,6 +10,7 @@ namespace Graphics
         public static Shapes shapes;
         public static GraphicsDeviceManager graphicsDeviceManager;
         public static Camera camera;
+        public static CameraOperator cameraOperator;
         public static Screen screen;
         public static GameTime gameTime;
 
@@ -31,16 +32,6 @@ namespace Graphics
 
             screen.Unset();
             screen.Present(sprites, Color.Black, true);
-        }
-
-        public static void DrawShapes()
-        {
-
-        }
-
-        public static void DrawSprites()
-        {
-
         }
     }
 }

@@ -23,10 +23,10 @@ namespace Physics
             switch(preset)
             {
                 case FlatBodyPreset.PLATFORM:
-                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(100, 10), 1, 0);
+                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(200, 10), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.BOX:
-                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50, 50), 1, 0);
+                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50, 50), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.CIRCLE:
                     body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 0.5f);

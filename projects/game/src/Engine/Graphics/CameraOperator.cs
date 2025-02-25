@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Physics;
 
 namespace Graphics
@@ -48,12 +49,36 @@ namespace Graphics
             */
 
 
-            camera.position = Vector2.Zero;
+            //camera.position = Vector2.Zero;
+            
 
+            //move
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
+            {
+                camera.MoveUp(1f);
+            }
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED])
+            {
+                camera.MoveUp(-1f);
+            }
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED])
+            {
+                camera.MoveRight(1f);
+            }
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED])
+            {
+                camera.MoveRight(-1f);
+            }
 
-
-
-
+            //zoom
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
+            {
+                camera.MoveZ(-1f);
+            }
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
+            {
+                camera.MoveZ(1f);
+            }
         }
 
 

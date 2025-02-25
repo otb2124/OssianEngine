@@ -17,7 +17,7 @@ namespace Graphics
         private float aspectRatio;
         private float fieldOfView;
         private double baseZ;
-        private double z;
+        public double z;
 
         public int zoom;
         private bool isStickToPlayer = true;
@@ -263,27 +263,14 @@ namespace Graphics
         }
 
 
-        public void MoveLeft(float amount)
-        {
-            // Move the camera to the left by the specified amount
-            position.X -= amount;
-        }
-
         public void MoveRight(float amount)
         {
-            // Move the camera to the right by the specified amount
             position.X += amount;
         }
 
         public void MoveUp(float amount)
         {
-            // Move the camera upward by the specified amount
             position.Y += amount;
-        }
-
-        public void MoveDown(float amount)
-        {
-            position.Y -= amount;
         }
 
         public void CheckPlayer()
@@ -310,7 +297,7 @@ namespace Graphics
             // Move the camera to keep the player's rectangle within the camera's view
             if (playerRect.Left < left)
             {
-                MoveLeft(left - playerRect.Left);
+                MoveRight(-(left - playerRect.Left));
             }
             else if (playerRect.Right > right)
             {

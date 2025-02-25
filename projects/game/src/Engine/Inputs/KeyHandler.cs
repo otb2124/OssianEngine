@@ -15,6 +15,8 @@ namespace Inputs
             CAMERARIGHTPRESSED,
             CAMERAUPPRESSED,
             CAMERADOWNPRESSED,
+            CAMERAZOOMUPPRESSED,
+            CAMERAZOOMDOWNPRESSED,
         }
 
         public Dictionary<KeyStates, bool> keyStates = new Dictionary<KeyStates, bool>
@@ -25,7 +27,9 @@ namespace Inputs
             { KeyStates.CAMERALEFTPRESSED, false },
             { KeyStates.CAMERARIGHTPRESSED, false },
             { KeyStates.CAMERAUPPRESSED, false },
-            { KeyStates.CAMERADOWNPRESSED, false }
+            { KeyStates.CAMERADOWNPRESSED, false },
+            { KeyStates.CAMERAZOOMUPPRESSED, false },
+            { KeyStates.CAMERAZOOMDOWNPRESSED, false }
         };
 
 
@@ -37,7 +41,9 @@ namespace Inputs
             { (KeyStates.CAMERALEFTPRESSED, false), Keys.Left },
             { (KeyStates.CAMERARIGHTPRESSED, false), Keys.Right },
             { (KeyStates.CAMERAUPPRESSED, false), Keys.Up },
-            { (KeyStates.CAMERADOWNPRESSED, false), Keys.Down }
+            { (KeyStates.CAMERADOWNPRESSED, false), Keys.Down },
+            { (KeyStates.CAMERAZOOMUPPRESSED, false), Keys.OemPlus },
+            { (KeyStates.CAMERAZOOMDOWNPRESSED, false), Keys.OemMinus }
         };
 
         
