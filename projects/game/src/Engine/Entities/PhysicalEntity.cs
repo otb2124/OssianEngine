@@ -26,6 +26,9 @@ namespace Entities
         {
             this.body.Draw(sprite);
 
+            //Debug
+            //this.body.Draw();
+
             base.Draw();
         }
     }

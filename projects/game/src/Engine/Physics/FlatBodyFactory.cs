@@ -10,8 +10,9 @@ namespace Physics
         public enum FlatBodyPreset
         {
             PLATFORM,
+            BOX,
             CIRCLE,
-            HUMANOID
+            HUMANOID,
         }
 
 
@@ -23,6 +24,9 @@ namespace Physics
             {
                 case FlatBodyPreset.PLATFORM:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(100, 10), 1, 0);
+                    break;
+                case FlatBodyPreset.BOX:
+                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50, 50), 1, 0);
                     break;
                 case FlatBodyPreset.CIRCLE:
                     body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 0.5f);
