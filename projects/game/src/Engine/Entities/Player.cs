@@ -1,18 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Resources;
 
 namespace Entities
 {
     public class Player : LivingEntity
     {
 
-        public Player(Vector2 pos, float rotation) : base(FlatBodyFactory.FlatBodyPreset.HUMANOID, pos, rotation)
+        public Player(Vector2 pos, float rotation) : base(FlatBodyFactory.FlatBodyPreset.HUMANOID, Sprite.Sprites.HERO, pos, rotation)
         {
 
         }
@@ -20,21 +15,20 @@ namespace Entities
 
         public override void Update()
         {
-            if(Inputs.Inputs.keyHandler.moveRightPressed)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
             {
                 body.Move(new FlatVector(1, 0));
             }
             
-            if(Inputs.Inputs.keyHandler.moveLeftPressed)
+            if(Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
             {
                 body.Move(new FlatVector(-1, 0));
             }
 
-            if (Inputs.Inputs.keyHandler.jumpPressed)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
             {
                 body.Move(new FlatVector(0, 10));
             }
-
 
             base.Update();
         }

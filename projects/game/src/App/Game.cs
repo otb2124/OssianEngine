@@ -29,6 +29,8 @@ namespace App
 
             this.Window.Position = new Point(10, 40);
 
+            ResourceLoader.LoadResources();
+
             FlatUtil.SetRelativeBackBufferSize(Graphics.Graphics.graphicsDeviceManager, 0.85f);
             Graphics.Graphics.screen = new Screen(this, 1280, 768);
             Graphics.Graphics.sprites = new Sprites(this);
@@ -36,7 +38,7 @@ namespace App
 
             Physics.Physics.flatWorld = new FlatWorld();
 
-            Inputs.Inputs.keyHandler = new KeyHandler(this);
+            Inputs.Inputs.keyHandler = new KeyHandler();
 
             Graphics.Graphics.camera = new Camera(Graphics.Graphics.screen, this);
             Graphics.Graphics.camera.zoom = 20;
@@ -52,7 +54,7 @@ namespace App
 
         protected override void LoadContent()
         {
-            ResourceLoader.LoadResources();
+            
         }
 
         protected override void Update(GameTime gameTime)

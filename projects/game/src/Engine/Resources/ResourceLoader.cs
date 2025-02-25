@@ -9,12 +9,21 @@ namespace Resources
     public static class ResourceLoader
     {
 
+        public static readonly string GLOBAL_RES_PATH = "../../../../res/";
+
         public static Font[] fonts;
-        public static Sprite[] sprites;
+        public static Dictionary<Sprite.Sprites, Sprite> sprites;
+
+
         public static void LoadResources()
         {
-            sprites = new Sprite[10];
-            sprites[0] = new Sprite("sprite0.png", 0);
+
+            sprites = new Dictionary<Sprite.Sprites, Sprite>
+            {
+                { Sprite.Sprites.PLATFORM, new Sprite("entities/platform.png") },
+                { Sprite.Sprites.CIRCLE, new Sprite("entities/circle.png") },
+                { Sprite.Sprites.HERO, new Sprite("entities/hero.png") }
+            };
 
             fonts = new Font[10];
             fonts[0] = new Font("font0.ttf", 0);

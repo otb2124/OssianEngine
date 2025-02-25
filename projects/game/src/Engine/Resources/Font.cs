@@ -11,14 +11,14 @@ namespace Resources
     public class Font : Resource
     {
         public SpriteFont font;
-        public Font(string path, int id) : base(path, id) 
+        public Font(string path, int id) : base(path) 
         {
 
         }
 
         public override void Load()
         {
-            string path1 = path + "../../../../res/fonts/";
+            string path1 = ResourceLoader.GLOBAL_RES_PATH + "fonts/" + path;
         }
     }
 

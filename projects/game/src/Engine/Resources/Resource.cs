@@ -9,12 +9,10 @@ namespace Resources
     public class Resource
     {
         public string path;
-        public int id;
 
-        public Resource(string path, int id) 
+        public Resource(string path) 
         {
             this.path = path;
-            this.id = id;
         }
 
         public virtual void Load() { }

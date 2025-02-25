@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -463,9 +465,11 @@ namespace Physics
             {
                 Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(Position), Radius, 26, Color.Blue);
             }
+        }
 
-            
-
+        public void Draw(Sprite sprite)
+        {
+            Graphics.Graphics.sprites.Draw(sprite.texture, FlatConverter.ToVector2(Position), new Rectangle(0, 0, sprite.texture.Width, sprite.texture.Height), Color.White, Angle, Vector2.Zero, Vector2.One, SpriteEffects.FlipVertically, 0f);
         }
 
 
