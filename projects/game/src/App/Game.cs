@@ -47,6 +47,8 @@ namespace App
             //ENTITIES
             Entities.Entities.Init();
 
+            UI.UI.Init();
+
             Physics.Physics.watch = new Stopwatch();
             Physics.Physics.sampleTimer.Start();
 
