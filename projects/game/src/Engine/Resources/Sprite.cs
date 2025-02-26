@@ -9,6 +9,7 @@ namespace Resources
         public enum Sprites
         {
             PLATFORM,
+            CRATE,
             CIRCLE,
             HERO,
             CURSOR,
