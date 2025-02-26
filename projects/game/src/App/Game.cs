@@ -64,10 +64,10 @@ namespace App
         protected override void Update(GameTime gameTime)
         {
             Graphics.Graphics.gameTime = gameTime;
+            UI.UI.UIManager.Update();
             Inputs.Inputs.Update();
             Physics.Physics.Update();
             Entities.Entities.entityManager.Update();
-            
 
             Graphics.Graphics.cameraOperator.Update();
             Graphics.Graphics.camera.Update();
