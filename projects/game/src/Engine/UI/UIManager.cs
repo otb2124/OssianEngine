@@ -21,7 +21,7 @@ namespace UI
 
         public void Init()
         {
-
+            components.Add(new UICursorComponent());
         }
 
         public void Draw()

@@ -22,7 +22,8 @@ namespace Resources
             {
                 { Sprite.Sprites.PLATFORM, new Sprite("entities/platform.png") },
                 { Sprite.Sprites.CIRCLE, new Sprite("entities/circle.png") },
-                { Sprite.Sprites.HERO, new Sprite("entities/hero.png") }
+                { Sprite.Sprites.HERO, new Sprite("entities/hero.png") },
+                { Sprite.Sprites.CURSOR, new Sprite("ui/sprite0.png") },
             };
 
             fonts = new Font[10];

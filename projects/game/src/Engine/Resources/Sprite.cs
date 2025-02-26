@@ -10,7 +10,8 @@ namespace Resources
         {
             PLATFORM,
             CIRCLE,
-            HERO
+            HERO,
+            CURSOR
         }
 
         public Texture2D texture;
