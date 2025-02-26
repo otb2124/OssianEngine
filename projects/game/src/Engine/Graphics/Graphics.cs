@@ -6,7 +6,7 @@ namespace Graphics
 {
     public static class Graphics
     {
-        public static int ResolutionX = 1280, ResolutionY = 768;
+        public static int ResolutionX = 1280, ResolutionY = 720;
 
         public static Sprites sprites;
         public static Shapes shapes;

@@ -26,7 +26,7 @@ namespace Graphics
         private Vector2 up;
 
         private const float MinZ = 1f;
-        private const float MaxZ = 2000f;
+        private const float MaxZ = 1000f;
 
         private const int MinZoom = 1;
         private const int MaxZoom = 32;
