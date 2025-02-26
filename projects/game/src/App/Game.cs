@@ -6,6 +6,7 @@ using Physics;
 using Resources;
 using System;
 using System.Diagnostics;
+using Utils;
 
 namespace App
 {
@@ -42,8 +43,7 @@ namespace App
             Inputs.Inputs.keyHandler = new KeyHandler();
 
             Graphics.Graphics.camera = new Camera(Graphics.Graphics.screen, this);
-            Graphics.Graphics.camera.z = 200;
-            Graphics.Graphics.cameraOperator = new CameraOperator(Graphics.Graphics.camera);
+            Graphics.Graphics.Init();
 
             //ENTITIES
             Entities.Entities.Init();
@@ -52,6 +52,11 @@ namespace App
 
             Physics.Physics.watch = new Stopwatch();
             Physics.Physics.sampleTimer.Start();
+
+
+            GameStateManager.gameState = GameStateManager.GameStates.playState;
+            GameStateManager.gameMode = GameStateManager.GameModes.playMode;
+
 
             base.Initialize();
         }
@@ -63,14 +68,15 @@ namespace App
 
         protected override void Update(GameTime gameTime)
         {
+            GameStateManager.CheckGameStatusChange();
+
             Graphics.Graphics.gameTime = gameTime;
             UI.UI.UIManager.Update();
             Inputs.Inputs.Update();
             Physics.Physics.Update();
             Entities.Entities.entityManager.Update();
 
-            Graphics.Graphics.cameraOperator.Update();
-            Graphics.Graphics.camera.Update();
+            Graphics.Graphics.Update();
 
             base.Update(gameTime);
         }

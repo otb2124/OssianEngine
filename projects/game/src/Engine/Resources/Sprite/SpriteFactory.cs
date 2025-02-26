@@ -27,9 +27,9 @@ namespace Resources
                 case Sprites.CRATE:
                     return new Sprite("entities/crate.png");
                 case Sprites.HERO:
-                    return new Sprite("entities/hero.png");
+                    return new Sprite("entities/hero.png") { zIndex = 100 };
                 case Sprites.MOB:
-                    return new Sprite("entities/mob.png");
+                    return new Sprite("entities/mob.png") { zIndex = 100 };
                 case Sprites.BACKGROUND:
                     return new Sprite("entities/bg.png") { zIndex = -100 };
                 case Sprites.DRAGON:

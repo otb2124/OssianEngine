@@ -452,56 +452,5 @@ namespace Physics
         }
 
 
-
-
-
-        public void Draw()
-        {
-            if (this.BodyShapeType == BodyShapeType.Box)
-            {
-                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(Position), Width, Height, Angle, Color.Red);
-            }
-            else
-            {
-                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(Position), Radius, 26, Color.Blue);
-            }
-        }
-
-        public void Draw(Sprite sprite)
-        {
-            float scaleX = 1f;
-            float scaleY = 1f;
-            Vector2 newPos = new Vector2(Position.X, Position.Y);
-            Vector2 textureCenter = new Vector2(sprite.texture.Width / 2f, sprite.texture.Height / 2f);
-
-            if (this.BodyShapeType == BodyShapeType.Box)
-            {
-                scaleX = Width / sprite.texture.Width;
-                scaleY = Height / sprite.texture.Height;
-                newPos =  FlatConverter.ToVector2(Position) - new Vector2(Width / 2f, Height / 2f);
-                newPos += new Vector2(sprite.texture.Width / 2f * scaleX, sprite.texture.Height / 2f * scaleY);
-            }
-            else
-            {
-                scaleX = Radius / sprite.texture.Width *2;
-                scaleY = Radius / sprite.texture.Height *2;
-                newPos = FlatConverter.ToVector2(Position) - new Vector2(Radius, Radius);
-                newPos += new Vector2(sprite.texture.Width / 2f * scaleX, sprite.texture.Height / 2f * scaleY);
-            }
-
-            sprite.Draw(
-                newPos,
-                new Rectangle(0, 0, sprite.texture.Width, sprite.texture.Height),
-                Color.White,
-                Angle,
-                textureCenter,
-                new Vector2(scaleX, scaleY),
-                SpriteEffects.FlipVertically, 0f);
-        }
-
-
-
-
-
     }
 }

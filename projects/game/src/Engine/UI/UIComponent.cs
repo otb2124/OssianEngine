@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using System.ComponentModel;
-using System;
-using SharpDX.Direct2D1.Effects;
-using Graphics;
-using System.Reflection.Metadata;
 using Resources;
 
 
@@ -56,12 +51,12 @@ namespace UI
         public virtual void Draw()
         {
             Sprite.Draw(
-                adjPosition,
+                Vector2.Zero,
                 new Rectangle(0, 0, Sprite.texture.Width, Sprite.texture.Height),
                 Color.White,
                 0f,
                 Vector2.Zero,
-                adjScale,
+                Vector2.One,
                 SpriteEffects.FlipVertically, 0f);
         }
     }

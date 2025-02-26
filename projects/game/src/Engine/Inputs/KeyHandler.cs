@@ -8,15 +8,22 @@ namespace Inputs
 
         public enum KeyStates
         {
+            //player movement
             JUMPPRESSED,
             MOVERIGHTPRESSED,
             MOVELEFTPRESSED,
+
+            //camera
             CAMERALEFTPRESSED,
             CAMERARIGHTPRESSED,
             CAMERAUPPRESSED,
             CAMERADOWNPRESSED,
+
             CAMERAZOOMUPPRESSED,
             CAMERAZOOMDOWNPRESSED,
+
+            //debug
+            DEBUGPRESSED
         }
 
         public Dictionary<KeyStates, bool> keyStates = new Dictionary<KeyStates, bool>
@@ -29,7 +36,8 @@ namespace Inputs
             { KeyStates.CAMERAUPPRESSED, false },
             { KeyStates.CAMERADOWNPRESSED, false },
             { KeyStates.CAMERAZOOMUPPRESSED, false },
-            { KeyStates.CAMERAZOOMDOWNPRESSED, false }
+            { KeyStates.CAMERAZOOMDOWNPRESSED, false },
+            { KeyStates.DEBUGPRESSED, false }
         };
 
 
@@ -43,7 +51,8 @@ namespace Inputs
             { (KeyStates.CAMERAUPPRESSED, false), Keys.Up },
             { (KeyStates.CAMERADOWNPRESSED, false), Keys.Down },
             { (KeyStates.CAMERAZOOMUPPRESSED, false), Keys.OemPlus },
-            { (KeyStates.CAMERAZOOMDOWNPRESSED, false), Keys.OemMinus }
+            { (KeyStates.CAMERAZOOMDOWNPRESSED, false), Keys.OemMinus },
+            { (KeyStates.DEBUGPRESSED, true), Keys.T },
         };
 
         

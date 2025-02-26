@@ -18,7 +18,6 @@ namespace Entities
         public override void Draw()
         {
             this.sprite.Draw(spritePos);
-            base.Draw();
         }
     }
 }

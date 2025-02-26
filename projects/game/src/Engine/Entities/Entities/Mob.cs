@@ -9,7 +9,6 @@ namespace Entities
 
         public Mob(Vector2 pos, float rotation) : base(ModelFactory.Models.MOB, pos, rotation)
         {
-            sprite.zIndex = -10;
         }
 
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
+using SharpDX.MediaFoundation;
 
 namespace Resources
 {
@@ -17,33 +18,39 @@ namespace Resources
         }
 
 
-        public static FlatBody createFlatBody(FlatBodyPreset preset)
+        public static FlatBody createFlatBody(FlatBodyPreset preset, Vector2 offSet)
         {
             FlatBody body;
 
             switch (preset)
             {
                 case FlatBodyPreset.PLATFORM:
-                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(200, 10), 0.5f, 0.5f);
+                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(200-offSet.X, 10-offSet.Y), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.BLOCK:
-                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50, 50), 0.5f, 0.5f);
+                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50 - offSet.X, 50 - offSet.Y), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.BOX:
-                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(10, 10), 0.5f, 0.5f);
+                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(10 - offSet.X, 10 - offSet.Y), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.CIRCLE:
-                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 0);
+                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10 - offSet.X, 10 - offSet.Y), 0.5f, 0);
                     break;
                 case FlatBodyPreset.HUMANOID:
-                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20, 40), 10, 0);
+                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 40 - offSet.Y), 10, 0);
                     break;
                 default:
-                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(10, 10), 1, 0);
+                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(10 - offSet.X, 10 - offSet.Y), 1, 0);
                     break;
             }
 
             return body;
+        }
+
+
+        public static FlatBody createFlatBody(FlatBodyPreset preset)
+        {
+            return createFlatBody(preset, Vector2.Zero);
         }
 
 

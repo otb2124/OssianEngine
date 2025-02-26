@@ -22,11 +22,11 @@ namespace Entities
         public override void Draw()
         {
             this.model.Draw();
+        }
 
-            //Debug
-            //this.body.Draw();
-
-            //base.Draw();
+        public override void DrawDebug()
+        {
+            this.model.DrawDebug();
         }
     }
 }

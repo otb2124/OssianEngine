@@ -8,7 +8,7 @@ namespace Resources
     {
         
         public Texture2D texture;
-        public int zIndex;
+        public int zIndex = 0;
 
         public Sprite(string path): base(path)
         {
@@ -20,7 +20,6 @@ namespace Resources
             using (FileStream fileStream = new FileStream(ResourceLoader.GLOBAL_RES_PATH + "sprites/" + this.path, FileMode.Open))
             {
                 this.texture = Texture2D.FromStream(Graphics.Graphics.graphicsDeviceManager.GraphicsDevice, fileStream);
-                this.zIndex = 0;
             }
         }
 
