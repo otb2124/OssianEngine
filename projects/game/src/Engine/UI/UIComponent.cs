@@ -42,8 +42,7 @@ namespace UI
 
         public virtual void Draw()
         {
-            Graphics.Graphics.sprites.Draw(
-                Sprite.texture,
+            Sprite.Draw(
                 Vector2.Zero,
                 new Rectangle(0, 0, Sprite.texture.Width, Sprite.texture.Height),
                 Color.White,
