@@ -17,6 +17,7 @@ namespace Entities
             body.MoveTo(FlatConverter.ToFlatVector(pos));
             body.RotateTo(rotation);
             Physics.Physics.flatWorld.AddBody(body);
+            body.owner = this;
 
             this.sprite = ResourceLoader.sprites[sprite];
         }

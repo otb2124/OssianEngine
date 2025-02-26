@@ -10,11 +10,14 @@ namespace Entities
     {
 
         public static EntityManager entityManager;
+        public static StatsManager statsManager;
 
         public static void Init()
         {
             entityManager = new EntityManager();
             entityManager.Init();
+
+            statsManager = new StatsManager();
         }
     }
 }

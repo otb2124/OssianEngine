@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Physics
 {
@@ -27,6 +29,8 @@ namespace Physics
         private FlatVector[] rbList;
         private FlatVector[] frictionImpulseList;
         private float[] jList;
+
+        public Object owner;
 
         public int BodyCount
         {
@@ -131,61 +135,27 @@ namespace Physics
                 {
 
                     {
-                        /*if (
 
-                            (bodyA.owner is Projectile projectile && projectile.projectileType != Projectile.ProjectileType.granade) || (bodyB.owner is Projectile projectile1 && projectile1.projectileType != Projectile.ProjectileType.granade) ||
+                        Physics.collisionHandler.Collide(bodyA, bodyB);
 
-                            (bodyA.owner is DecorationEntity) || (bodyB.owner is DecorationEntity) ||
-
-
-
-
-
-                            (bodyA.owner is GroupMember && bodyB.owner is GroupMember) ||
-
-                            (bodyA.owner is PlatformEntity platform && bodyB.owner is GroupMember && !platform.isCollidable) ||
-                            (bodyA.owner is GroupMember && bodyB.owner is PlatformEntity platform1 && !platform1.isCollidable) ||
-
-
-
-
-
-
-                            (bodyA.owner is InterractiveItem && bodyB.owner is DynamicEntity) ||
-                            (bodyA.owner is DynamicEntity && bodyB.owner is InterractiveItem) ||
-
-                            (bodyA.owner is LadderEntity && bodyB.owner is DynamicEntity) ||
-                            (bodyA.owner is DynamicEntity && bodyB.owner is LadderEntity) ||
-
-
-                            (bodyA.owner is FlatEntity flent && flent.isBossPart && bodyB.owner is FlatEntity flent1 && flent1.isBossPart) ||
-
-
-
-                            (bodyA.owner is NPC && bodyB.owner is NPC) ||
-
-                            (bodyA.owner is NPC && bodyB.owner is DynamicEntity) ||
-                            (bodyA.owner is DynamicEntity && bodyB.owner is NPC))
-
-
-
-                            
+                        if (Physics.collisionHandler.IgnoreCollision(bodyA, bodyB))
                         {
                             continue;
-                        }*/
+                        }
+
+
 
                         SeparateBodies(bodyA, bodyB, normal * depth);
                         Collisions.FindContactPoints(bodyA, bodyB, out FlatVector contact1, out FlatVector contact2, out int contactCount);
                         FlatManifold contact = new FlatManifold(bodyA, bodyB, normal, depth, contact1, contact2, contactCount);
                         ResolveCollisionWithRotationAndFriction(in contact);
 
-
-
-                        /*if(bodyA.owner is GroupMember || bodyB.owner is GroupMember)
+                        //disable velocity processes
+                        if(bodyA.owner is Player || bodyB.owner is Player)
                         {
                             bodyA.LinearVelocity = new FlatVector(0, bodyA.LinearVelocity.Y);
                             bodyB.LinearVelocity = new FlatVector(0, bodyB.LinearVelocity.Y);
-                        }*/
+                        }
                     }
 
                 }
@@ -324,14 +294,9 @@ namespace Physics
             FlatBody bodyA = contact.BodyA;
             FlatBody bodyB = contact.BodyB;
 
-            /*
-            bool isBodyAGroupMember = bodyA.owner is GroupMember;
-            bool isBodyBGroupMember = bodyB.owner is GroupMember;
-
-            bool disableInertia = isBodyAGroupMember || isBodyBGroupMember;
-            */
-            bool disableInertia = false;
-
+            //disable rotation
+            bool isBodyAGroupMember = bodyA.owner is Player || bodyB.owner is Player;
+            bool disableInertia = isBodyAGroupMember;
 
             if (disableInertia)
             {

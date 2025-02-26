@@ -88,7 +88,7 @@ namespace Physics
             angularVelocity = 0f;
             force = FlatVector.Zero;
 
-            BodyShapeType = BodyShapeType;
+            this.BodyShapeType = BodyShapeType;
             Density = density;
             Mass = mass;
             InvMass = mass > 0f ? 1f / mass : 0f;

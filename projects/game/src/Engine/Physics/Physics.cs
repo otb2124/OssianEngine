@@ -21,6 +21,8 @@ namespace Physics
 
         public static FlatWorld flatWorld;
 
+        public static CollisionHandler collisionHandler;
+
         public static void Update()
         {
             FlatWorld.TransformCount = 0;

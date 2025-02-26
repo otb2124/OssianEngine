@@ -37,11 +37,12 @@ namespace App
             Graphics.Graphics.shapes = new Shapes(this);
 
             Physics.Physics.flatWorld = new FlatWorld();
+            Physics.Physics.collisionHandler = new CollisionHandler();
 
             Inputs.Inputs.keyHandler = new KeyHandler();
 
             Graphics.Graphics.camera = new Camera(Graphics.Graphics.screen, this);
-            Graphics.Graphics.camera.zoom = 20;
+            Graphics.Graphics.camera.z = 200;
             Graphics.Graphics.cameraOperator = new CameraOperator(Graphics.Graphics.camera);
 
             //ENTITIES

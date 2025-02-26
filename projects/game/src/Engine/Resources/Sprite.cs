@@ -28,5 +28,10 @@ namespace Resources
                 this.texture = Texture2D.FromStream(Graphics.Graphics.graphicsDeviceManager.GraphicsDevice, fileStream);
             }
         }
+
+        public void Draw()
+        {
+
+        }
     }
 }
