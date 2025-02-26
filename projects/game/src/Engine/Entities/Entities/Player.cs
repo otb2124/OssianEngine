@@ -19,8 +19,8 @@ namespace Entities
             stats.maxHP = 100;
             stats.HP = 100;
             stats.dmg = 1;
-            stats.maxSpeed = 5;
-            stats.speed = 5;
+            stats.maxSpeed = 1;
+            stats.speed = 1;
 
             base.setStats();
         }
@@ -33,12 +33,12 @@ namespace Entities
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
             {
-                model.body.Move(new FlatVector(1, 0));
+                model.body.Move(new FlatVector(stats.speed, 0));
             }
             
             if(Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
             {
-                model.body.Move(new FlatVector(-1, 0));
+                model.body.Move(new FlatVector(-stats.speed, 0));
             }
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])

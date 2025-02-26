@@ -73,11 +73,11 @@ namespace Graphics
             //zoom
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
             {
-                camera.MoveZ(-1f);
+                camera.MoveZ(-2f);
             }
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
             {
-                camera.MoveZ(1f);
+                camera.MoveZ(2f);
             }
         }
 

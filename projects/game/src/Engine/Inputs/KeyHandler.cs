@@ -43,7 +43,7 @@ namespace Inputs
 
         public Dictionary<(KeyStates state, bool clickOnly), Keys> keyBindings = new Dictionary<(KeyStates, bool), Keys>
         {
-            { (KeyStates.JUMPPRESSED, true), Keys.Space },
+            { (KeyStates.JUMPPRESSED, false), Keys.Space },
             { (KeyStates.MOVERIGHTPRESSED, false), Keys.D },
             { (KeyStates.MOVELEFTPRESSED, false), Keys.A },
             { (KeyStates.CAMERALEFTPRESSED, false), Keys.Left },

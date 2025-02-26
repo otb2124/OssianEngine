@@ -16,7 +16,7 @@ namespace Entities
         {
             stats.maxHP = 100;
             stats.HP = 100;
-            stats.dmg = 1;
+            stats.dmg = 1f;
             stats.maxSpeed = 5;
             stats.speed = 5;
 

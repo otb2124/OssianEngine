@@ -122,8 +122,6 @@ namespace Graphics
             ScreenW = Graphics.ResolutionX;
             ScreenH = Graphics.ResolutionY;
 
-            cameraOperator = new CameraOperator(this);
-
             Update();
 
         }
@@ -133,7 +131,6 @@ namespace Graphics
 
         public void Update()
         {
-            cameraOperator.Update();
 
             Matrix translation = Matrix.CreateTranslation(-position.X, -position.Y, 0);
 
