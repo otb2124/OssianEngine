@@ -9,7 +9,7 @@ namespace Entities
         public Sprite sprite;
         public Vector2 spritePos;
 
-        public SpriteEntity(Sprite.Sprites sprite, Vector2 pos) : base()
+        public SpriteEntity(SpriteFactory.Sprites sprite, Vector2 pos) : base()
         {
             this.sprite = ResourceLoader.sprites[sprite];
             this.spritePos = pos;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Diagnostics;
+using Physics;
 
-namespace Physics
+namespace Resources
 {
     public static class FlatBodyFactory
     {
@@ -21,7 +21,7 @@ namespace Physics
         {
             FlatBody body;
 
-            switch(preset)
+            switch (preset)
             {
                 case FlatBodyPreset.PLATFORM:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(200, 10), 0.5f, 0.5f);
@@ -36,7 +36,7 @@ namespace Physics
                     body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 0);
                     break;
                 case FlatBodyPreset.HUMANOID:
-                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(10, 15), 10, 0);
+                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20, 40), 10, 0);
                     break;
                 default:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(10, 10), 1, 0);

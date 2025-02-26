@@ -12,34 +12,34 @@ namespace Resources
         public static readonly string GLOBAL_RES_PATH = "../../../../res/";
 
         public static Font[] fonts;
-        public static Dictionary<Sprite.Sprites, Sprite> sprites;
+        public static Dictionary<SpriteFactory.Sprites, Sprite> sprites;
 
 
         public static void LoadResources()
         {
-
-            sprites = new Dictionary<Sprite.Sprites, Sprite>
-            {
-
-                //ENTITIES
-                { Sprite.Sprites.PLATFORM, new Sprite("entities/platform.png") },
-                { Sprite.Sprites.CIRCLE, new Sprite("entities/ball.png") },
-                { Sprite.Sprites.CRATE, new Sprite("entities/crate.png") },
-                { Sprite.Sprites.HERO, new Sprite("entities/hero.png") },
-                { Sprite.Sprites.MOB, new Sprite("entities/mob.png") },
-
-                //BG
-                { Sprite.Sprites.BACKGROUND, new Sprite("entities/bg.png") { zIndex = -100 } },
-
-                //DECOR
-                { Sprite.Sprites.DRAGON, new Sprite("entities/dragon.png") { zIndex = -100 } },
-
-                //UI
-                { Sprite.Sprites.CURSOR, new Sprite("ui/sprite0.png") },
-            };
-
+            LoadSprites();
             fonts = new Font[10];
             fonts[0] = new Font("font0.ttf", 0);
+        }
+
+        public static void LoadSprites()
+        {
+            SpriteFactory.Sprites[] spritesToUse = new SpriteFactory.Sprites[]
+            {
+                SpriteFactory.Sprites.PLATFORM,
+                SpriteFactory.Sprites.CIRCLE,
+                SpriteFactory.Sprites.CRATE,
+                SpriteFactory.Sprites.HERO,
+                SpriteFactory.Sprites.MOB,
+                SpriteFactory.Sprites.BACKGROUND,
+                SpriteFactory.Sprites.DRAGON,
+                SpriteFactory.Sprites.CURSOR
+            };
+            sprites = new Dictionary<SpriteFactory.Sprites, Sprite>();
+            foreach (var spriteEnum in spritesToUse)
+            {
+                sprites[spriteEnum] = SpriteFactory.CreateSprite(spriteEnum);
+            }
         }
     }
 }

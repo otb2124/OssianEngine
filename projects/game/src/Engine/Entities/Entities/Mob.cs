@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Physics;
 using Resources;
 
 
@@ -8,7 +7,7 @@ namespace Entities
     public class Mob : LivingEntity
     {
 
-        public Mob(Vector2 pos, float rotation) : base(FlatBodyFactory.FlatBodyPreset.HUMANOID, Sprite.Sprites.MOB, pos, rotation)
+        public Mob(Vector2 pos, float rotation) : base(ModelFactory.Models.MOB, pos, rotation)
         {
             sprite.zIndex = -10;
         }

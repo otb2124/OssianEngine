@@ -13,7 +13,7 @@ namespace UI
     {
         public UICursorComponent()
         {
-            Sprite = ResourceLoader.sprites[Resources.Sprite.Sprites.CURSOR];
+            Sprite = ResourceLoader.sprites[SpriteFactory.Sprites.CURSOR];
         }
 
         public override void Update()

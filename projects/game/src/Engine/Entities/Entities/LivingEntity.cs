@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Physics;
 using Resources;
 
 namespace Entities
@@ -8,7 +7,7 @@ namespace Entities
     {
 
         public Stats stats;
-        public LivingEntity(FlatBodyFactory.FlatBodyPreset preset, Sprite.Sprites sprite, Vector2 pos, float rotation = 0f) : base(preset, sprite, pos, rotation)
+        public LivingEntity(ModelFactory.Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
             this.stats = new Stats();
             setStats();

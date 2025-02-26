@@ -7,23 +7,21 @@ namespace Entities
     public class PhysicalEntity : SpriteEntity
     {
 
-        public FlatBody body;
+        public Model model;
 
-        public PhysicalEntity(FlatBodyFactory.FlatBodyPreset preset, Sprite.Sprites sprite, Vector2 pos, float rotation = 0f) : base(sprite, pos) 
+        public PhysicalEntity(ModelFactory.Models modelPreset, Vector2 pos, float rotation = 0f) : base(ModelFactory.GetSpriteFromModel(modelPreset), pos) 
         {
-            body = FlatBodyFactory.createFlatBody(preset);
-            body.MoveTo(FlatConverter.ToFlatVector(pos));
-            body.RotateTo(rotation);
-            Physics.Physics.flatWorld.AddBody(body);
-            body.owner = this;
-
-            this.sprite = ResourceLoader.sprites[sprite];
+            model = ModelFactory.createModel(modelPreset);
+            model.body.MoveTo(FlatConverter.ToFlatVector(pos));
+            model.body.RotateTo(rotation);
+            Physics.Physics.flatWorld.AddBody(model.body);
+            model.body.owner = this;
         }
 
 
         public override void Draw()
         {
-            this.body.Draw(sprite);
+            this.model.Draw();
 
             //Debug
             //this.body.Draw();

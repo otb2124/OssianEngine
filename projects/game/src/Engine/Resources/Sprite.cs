@@ -6,18 +6,7 @@ namespace Resources
 {
     public class Sprite : Resource
     {
-        public enum Sprites
-        {
-            PLATFORM,
-            CRATE,
-            CIRCLE,
-            HERO,
-            CURSOR,
-            BACKGROUND,
-            MOB,
-            DRAGON,
-        }
-
+        
         public Texture2D texture;
         public int zIndex;
 

@@ -8,7 +8,7 @@ namespace Entities
     public class Player : LivingEntity
     {
 
-        public Player(Vector2 pos) : base(FlatBodyFactory.FlatBodyPreset.HUMANOID, Sprite.Sprites.HERO, pos, 0f)
+        public Player(Vector2 pos) : base(ModelFactory.Models.HERO, pos, 0f)
         {
             
         }
@@ -33,17 +33,17 @@ namespace Entities
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
             {
-                body.Move(new FlatVector(1, 0));
+                model.body.Move(new FlatVector(1, 0));
             }
             
             if(Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
             {
-                body.Move(new FlatVector(-1, 0));
+                model.body.Move(new FlatVector(-1, 0));
             }
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
             {
-                body.Move(new FlatVector(0, 10));
+                model.body.Move(new FlatVector(0, 10));
             }
 
             base.Update();
