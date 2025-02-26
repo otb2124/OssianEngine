@@ -23,7 +23,7 @@ namespace Resources
 
                 //ENTITIES
                 { Sprite.Sprites.PLATFORM, new Sprite("entities/platform.png") },
-                { Sprite.Sprites.CIRCLE, new Sprite("entities/circle.png") },
+                { Sprite.Sprites.CIRCLE, new Sprite("entities/ball.png") },
                 { Sprite.Sprites.HERO, new Sprite("entities/hero.png") },
                 { Sprite.Sprites.MOB, new Sprite("entities/mob.png") },
 
