@@ -10,7 +10,6 @@ namespace Entities
 
         List<Entity> entities;
 
-
         public EntityManager()
         {
             entities = new List<Entity>();

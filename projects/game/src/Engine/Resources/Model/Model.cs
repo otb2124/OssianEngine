@@ -35,10 +35,6 @@ namespace Resources
 
         public void Draw()
         {
-
-            
-
-
             //model
             float scaleX = 1f;
             float scaleY = 1f;

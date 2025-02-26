@@ -20,7 +20,7 @@ namespace Physics
         public static readonly int MaxIterations = 128;
 
         private FlatVector gravity;
-        public static readonly int gravityMultiplier = 5;
+        public static readonly int gravityMultiplier = 20;
 
         public List<FlatBody> bodyList;
         private List<(int, int)> contactPairs;
