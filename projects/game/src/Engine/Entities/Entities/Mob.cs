@@ -8,9 +8,9 @@ namespace Entities
     public class Mob : LivingEntity
     {
 
-        public Mob(Vector2 pos, float rotation) : base(FlatBodyFactory.FlatBodyPreset.HUMANOID, Sprite.Sprites.HERO, pos, rotation)
+        public Mob(Vector2 pos, float rotation) : base(FlatBodyFactory.FlatBodyPreset.HUMANOID, Sprite.Sprites.MOB, pos, rotation)
         {
-
+            sprite.zIndex = -10;
         }
 
 

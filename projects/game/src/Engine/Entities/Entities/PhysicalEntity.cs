@@ -1,17 +1,15 @@
-﻿using Graphics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
 
 namespace Entities
 {
-    public class PhysicalEntity : Entity
+    public class PhysicalEntity : SpriteEntity
     {
 
         public FlatBody body;
-        public Sprite sprite;
 
-        public PhysicalEntity(FlatBodyFactory.FlatBodyPreset preset, Sprite.Sprites sprite, Vector2 pos, float rotation = 0f) : base() 
+        public PhysicalEntity(FlatBodyFactory.FlatBodyPreset preset, Sprite.Sprites sprite, Vector2 pos, float rotation = 0f) : base(sprite, pos) 
         {
             body = FlatBodyFactory.createFlatBody(preset);
             body.MoveTo(FlatConverter.ToFlatVector(pos));
@@ -30,7 +28,7 @@ namespace Entities
             //Debug
             //this.body.Draw();
 
-            base.Draw();
+            //base.Draw();
         }
     }
 }

@@ -489,8 +489,7 @@ namespace Physics
                 newPos += new Vector2(sprite.texture.Width / 2f * scaleX, sprite.texture.Height / 2f * scaleY);
             }
 
-            Graphics.Graphics.sprites.Draw(
-                sprite.texture,
+            sprite.Draw(
                 newPos,
                 new Rectangle(0, 0, sprite.texture.Width, sprite.texture.Height),
                 Color.White,

@@ -20,9 +20,20 @@ namespace Resources
 
             sprites = new Dictionary<Sprite.Sprites, Sprite>
             {
+
+                //ENTITIES
                 { Sprite.Sprites.PLATFORM, new Sprite("entities/platform.png") },
                 { Sprite.Sprites.CIRCLE, new Sprite("entities/circle.png") },
                 { Sprite.Sprites.HERO, new Sprite("entities/hero.png") },
+                { Sprite.Sprites.MOB, new Sprite("entities/mob.png") },
+
+                //BG
+                { Sprite.Sprites.BACKGROUND, new Sprite("entities/bg.png") { zIndex = -100 } },
+
+                //DECOR
+                { Sprite.Sprites.DRAGON, new Sprite("entities/dragon.png") { zIndex = -100 } },
+
+                //UI
                 { Sprite.Sprites.CURSOR, new Sprite("ui/sprite0.png") },
             };
 

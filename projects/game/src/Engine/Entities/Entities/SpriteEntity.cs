@@ -7,14 +7,17 @@ namespace Entities
     {
 
         public Sprite sprite;
+        public Vector2 spritePos;
 
-        public SpriteEntity(Sprite.Sprites sprite, Vector2 pos, float rotation = 0f) : base()
+        public SpriteEntity(Sprite.Sprites sprite, Vector2 pos) : base()
         {
             this.sprite = ResourceLoader.sprites[sprite];
+            this.spritePos = pos;
         }
 
         public override void Draw()
         {
+            this.sprite.Draw(spritePos);
             base.Draw();
         }
     }

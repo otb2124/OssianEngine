@@ -32,7 +32,7 @@ namespace App
             ResourceLoader.LoadResources();
 
             FlatUtil.SetRelativeBackBufferSize(Graphics.Graphics.graphicsDeviceManager, 0.85f);
-            Graphics.Graphics.screen = new Screen(this, 1280, 768);
+            Graphics.Graphics.screen = new Screen(this, 1280, 720);
             Graphics.Graphics.sprites = new Sprites(this);
             Graphics.Graphics.shapes = new Shapes(this);
 
