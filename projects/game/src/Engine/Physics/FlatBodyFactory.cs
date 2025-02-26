@@ -33,10 +33,10 @@ namespace Physics
                     body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(10, 10), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.CIRCLE:
-                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 0.5f);
+                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 0);
                     break;
                 case FlatBodyPreset.HUMANOID:
-                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(10, 15), 1, 0);
+                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(10, 15), 10, 0);
                     break;
                 default:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(10, 10), 1, 0);

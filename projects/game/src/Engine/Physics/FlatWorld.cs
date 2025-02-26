@@ -20,6 +20,8 @@ namespace Physics
         public static readonly int MaxIterations = 128;
 
         private FlatVector gravity;
+        public static readonly int gravityMultiplier = 5;
+
         public List<FlatBody> bodyList;
         private List<(int, int)> contactPairs;
 
@@ -39,7 +41,7 @@ namespace Physics
 
         public FlatWorld()
         {
-            gravity = new FlatVector(0f, -9.81f * 2);
+            gravity = new FlatVector(0f, -9.81f * gravityMultiplier);
             bodyList = new List<FlatBody>();
             contactPairs = new List<(int, int)>();
 
