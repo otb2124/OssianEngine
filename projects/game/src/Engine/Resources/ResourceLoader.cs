@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Resources
 {
@@ -12,7 +8,7 @@ namespace Resources
         public static readonly string GLOBAL_RES_PATH = "../../../../res/";
 
         public static Font[] fonts;
-        public static Dictionary<SpriteFactory.Sprites, Sprite> sprites;
+        public static Dictionary<SpriteSheet.SpriteSheets, SpriteSheet> spriteSheets;
 
 
         public static void LoadResources()
@@ -24,21 +20,19 @@ namespace Resources
 
         public static void LoadSprites()
         {
-            SpriteFactory.Sprites[] spritesToUse = new SpriteFactory.Sprites[]
+            SpriteSheet.SpriteSheets[] spritesToUse = new SpriteSheet.SpriteSheets[]
             {
-                SpriteFactory.Sprites.PLATFORM,
-                SpriteFactory.Sprites.CIRCLE,
-                SpriteFactory.Sprites.CRATE,
-                SpriteFactory.Sprites.HERO,
-                SpriteFactory.Sprites.MOB,
-                SpriteFactory.Sprites.BACKGROUND,
-                SpriteFactory.Sprites.DRAGON,
-                SpriteFactory.Sprites.CURSOR
+                SpriteSheet.SpriteSheets.DECOR,
+                SpriteSheet.SpriteSheets.HERO,
+                SpriteSheet.SpriteSheets.MOB,
+                SpriteSheet.SpriteSheets.BACKGROUND,
+                SpriteSheet.SpriteSheets.DRAGON,
+                SpriteSheet.SpriteSheets.CURSOR
             };
-            sprites = new Dictionary<SpriteFactory.Sprites, Sprite>();
+            spriteSheets = new Dictionary<SpriteSheet.SpriteSheets, SpriteSheet>();
             foreach (var spriteEnum in spritesToUse)
             {
-                sprites[spriteEnum] = SpriteFactory.CreateSprite(spriteEnum);
+                spriteSheets[spriteEnum] = new SpriteSheet(spriteEnum);
             }
         }
     }

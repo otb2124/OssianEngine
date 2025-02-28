@@ -1,32 +1,32 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.IO;
+using static Resources.SpriteSheet;
 
 namespace Resources
 {
-    public class Sprite : Resource
+    public class Sprite
     {
-        
-        public Texture2D texture;
+
+        public SpriteSheets spriteSheetId;
+        public Rectangle srcRect;
         public int zIndex = 0;
 
-        public Sprite(string path): base(path)
+        public Sprite(SpriteSheets spriteSheet, Rectangle srcRect)
         {
-            this.Load();
+            this.spriteSheetId = spriteSheet;
+            this.srcRect = srcRect;
         }
 
-        public override void Load()
+        public Sprite(SpriteSheets spriteSheet)
         {
-            using (FileStream fileStream = new FileStream(ResourceLoader.GLOBAL_RES_PATH + "sprites/" + this.path, FileMode.Open))
-            {
-                this.texture = Texture2D.FromStream(Graphics.Graphics.graphicsDeviceManager.GraphicsDevice, fileStream);
-            }
+            this.spriteSheetId = spriteSheet;
+            this.srcRect = ResourceLoader.spriteSheets[spriteSheetId].texture.Bounds;
         }
 
-        public void Draw(Vector2 pos, Rectangle srcRect, Color color, float rot, Vector2 origin, Vector2 scale, SpriteEffects effect, float layerDepth)
+        public void Draw(Vector2 pos, Color color, float rot, Vector2 origin, Vector2 scale, SpriteEffects effect, float layerDepth)
         {
             Graphics.Graphics.sprites.Draw(
-                texture,
+                ResourceLoader.spriteSheets[spriteSheetId].texture,
                 pos,
                 srcRect,
                 color,
@@ -43,10 +43,9 @@ namespace Resources
         {
             Draw(
                 pos,
-                new Rectangle(0, 0, texture.Width, texture.Height),
                 Color.White,
                 0f,
-                new Vector2(texture.Width/2, texture.Height/2),
+                new Vector2(ResourceLoader.spriteSheets[spriteSheetId].texture.Width/2, ResourceLoader.spriteSheets[spriteSheetId].texture.Height/2),
                 Vector2.One,
                 SpriteEffects.FlipVertically,
                 0f

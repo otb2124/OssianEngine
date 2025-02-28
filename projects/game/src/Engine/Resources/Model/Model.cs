@@ -36,32 +36,32 @@ namespace Resources
         public void Draw()
         {
             //model
+            Rectangle spriteSize = sprite.srcRect;
             float scaleX = 1f;
             float scaleY = 1f;
             Vector2 newPos = new Vector2(body.Position.X, body.Position.Y);
-            Vector2 textureCenter = new Vector2(sprite.texture.Width / 2f, sprite.texture.Height / 2f);
+            Vector2 textureCenter = new Vector2(spriteSize.Width / 2f, spriteSize.Height / 2f);
 
             float bodyWidth = body.Width + bodyOffset.X;
             float bodyHeight = body.Height + bodyOffset.Y;
 
             if (body.BodyShapeType == BodyShapeType.Box)
             {
-                scaleX = bodyWidth / sprite.texture.Width;
-                scaleY = bodyHeight / sprite.texture.Height;
+                scaleX = bodyWidth / spriteSize.Width;
+                scaleY = bodyHeight / spriteSize.Height;
                 newPos = FlatConverter.ToVector2(body.Position) - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
-                newPos += new Vector2(sprite.texture.Width / 2f * scaleX, sprite.texture.Height / 2f * scaleY);
+                newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
             }
             else
             {
-                scaleX = body.Radius / sprite.texture.Width * 2;
-                scaleY = body.Radius / sprite.texture.Height * 2;
+                scaleX = body.Radius / spriteSize.Width * 2;
+                scaleY = body.Radius / spriteSize.Height * 2;
                 newPos = FlatConverter.ToVector2(body.Position) - new Vector2(body.Radius, body.Radius);
-                newPos += new Vector2(sprite.texture.Width / 2f * scaleX, sprite.texture.Height / 2f * scaleY);
+                newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
             }
 
             sprite.Draw(
                 newPos,
-                new Rectangle(0, 0, sprite.texture.Width, sprite.texture.Height),
                 Color.White,
                 body.Angle,
                 textureCenter,

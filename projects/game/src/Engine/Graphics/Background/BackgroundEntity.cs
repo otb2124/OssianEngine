@@ -18,9 +18,9 @@ namespace Graphics
         public bool isStickToCamera;
         public bool isStickToZoom;
 
-        public BackgroundEntity(SpriteFactory.Sprites spritePreset, Vector2 pos) 
+        public BackgroundEntity(StaticSpriteFactory.StaticSprites spritePreset, Vector2 pos) 
         {
-            sprite = ResourceLoader.sprites[spritePreset];
+            sprite = StaticSpriteFactory.GetSprite(spritePreset);
             this.pos = pos;
         }
 

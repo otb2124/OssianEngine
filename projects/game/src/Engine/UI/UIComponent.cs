@@ -52,7 +52,6 @@ namespace UI
         {
             Sprite.Draw(
                 Vector2.Zero,
-                new Rectangle(0, 0, Sprite.texture.Width, Sprite.texture.Height),
                 Color.White,
                 0f,
                 Vector2.Zero,

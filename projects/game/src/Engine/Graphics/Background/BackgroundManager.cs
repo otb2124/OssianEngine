@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Resources;
 
 namespace Graphics
 {
@@ -15,8 +12,8 @@ namespace Graphics
         public void Init()
         {
             backgrounds = new List<BackgroundEntity>();
-            backgrounds.Add(new BackgroundEntity(Resources.SpriteFactory.Sprites.BACKGROUND, Vector2.Zero) { isStickToCamera = true});
-            backgrounds.Add(new BackgroundEntity(Resources.SpriteFactory.Sprites.DRAGON, new Vector2(-200, 0)));
+            backgrounds.Add(new BackgroundEntity(StaticSpriteFactory.StaticSprites.BACKGROUND, Vector2.Zero) { isStickToCamera = true});
+            backgrounds.Add(new BackgroundEntity(StaticSpriteFactory.StaticSprites.DRAGON, new Vector2(-200, 0)));
         }
 
         public void Update()

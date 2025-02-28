@@ -26,29 +26,29 @@ namespace Resources
                     offset = new Vector2(10, 5);
                     return new Model(
                         FlatBodyFactory.createFlatBody(FlatBodyFactory.FlatBodyPreset.HUMANOID, offset),
-                        ResourceLoader.sprites[SpriteFactory.Sprites.HERO])
+                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.HERO))
                     { bodyOffset = offset };
                 case Models.CRATE_BIG:
                     return new Model(
-                        FlatBodyFactory.createFlatBody(FlatBodyFactory.FlatBodyPreset.BLOCK), 
-                        ResourceLoader.sprites[SpriteFactory.Sprites.CRATE]);
+                        FlatBodyFactory.createFlatBody(FlatBodyFactory.FlatBodyPreset.BLOCK),
+                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.CRATE));
                 case Models.CRATE_SMALL:
                     return new Model(FlatBodyFactory.createFlatBody(
-                        FlatBodyFactory.FlatBodyPreset.BOX), 
-                        ResourceLoader.sprites[SpriteFactory.Sprites.CRATE]);
+                        FlatBodyFactory.FlatBodyPreset.BOX),
+                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.CRATE));
                 case Models.BALL:
                     return new Model(FlatBodyFactory.createFlatBody(
-                        FlatBodyFactory.FlatBodyPreset.CIRCLE), 
-                        ResourceLoader.sprites[SpriteFactory.Sprites.CIRCLE]);
+                        FlatBodyFactory.FlatBodyPreset.CIRCLE),
+                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.CIRCLE));
                 case Models.PLATFORM:
                     return new Model(FlatBodyFactory.createFlatBody(
-                        FlatBodyFactory.FlatBodyPreset.PLATFORM), 
-                        ResourceLoader.sprites[SpriteFactory.Sprites.PLATFORM]);
+                        FlatBodyFactory.FlatBodyPreset.PLATFORM),
+                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.PLATFORM));
                 case Models.MOB:
                     offset = new Vector2(10, 5);
                     return new Model(FlatBodyFactory.createFlatBody(
                         FlatBodyFactory.FlatBodyPreset.HUMANOID, offset),
-                        ResourceLoader.sprites[SpriteFactory.Sprites.MOB])
+                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.MOB))
                     { bodyOffset = offset };
                 default:
                     throw new ArgumentOutOfRangeException(nameof(model), model, null);
@@ -57,22 +57,22 @@ namespace Resources
 
 
 
-        public static SpriteFactory.Sprites GetSpriteFromModel(Models model)
+        public static StaticSpriteFactory.StaticSprites GetSpriteFromModel(Models model)
         {
             switch (model)
             {
                 case Models.HERO:
-                    return SpriteFactory.Sprites.HERO;
+                    return StaticSpriteFactory.StaticSprites.HERO;
                 case Models.CRATE_BIG:
-                    return SpriteFactory.Sprites.CRATE;
+                    return StaticSpriteFactory.StaticSprites.CRATE;
                 case Models.CRATE_SMALL:
-                    return SpriteFactory.Sprites.CRATE;
+                    return StaticSpriteFactory.StaticSprites.CRATE;
                 case Models.BALL:
-                    return SpriteFactory.Sprites.CIRCLE;
+                    return StaticSpriteFactory.StaticSprites.CIRCLE;
                 case Models.PLATFORM:
-                    return SpriteFactory.Sprites.PLATFORM;
+                    return StaticSpriteFactory.StaticSprites.PLATFORM;
                 case Models.MOB:
-                    return SpriteFactory.Sprites.MOB;
+                    return StaticSpriteFactory.StaticSprites.MOB;
                 default:
                     throw new ArgumentException("Unknown model type", nameof(model));
             }
