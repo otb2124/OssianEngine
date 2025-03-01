@@ -1,7 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
+using Graphics;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Graphics;
+using static Graphics.Animation;
+using System;
+using Model = Resources.Model;
 
 namespace Entities
 {
@@ -12,7 +17,6 @@ namespace Entities
         {
             
         }
-
 
         public override void setStats()
         {
@@ -26,24 +30,42 @@ namespace Entities
         }
 
 
+
+        public override void SetAnimations()
+        {
+            model.aManager = new AnimationManager();
+
+            float frameSpeed = 0.2f;
+            model.AddAnimation(Directions.LEFT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
+            model.AddAnimation(Directions.RIGHT, AnimationStates.IDLE, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
+        }
+
+
         public override void Update()
         {
+            model.aManager.Update(new Tuple<Directions, AnimationStates>(model.direction, model.animationState));
+            model.modelState = Model.ModelStates.IDLE;
 
-            Debug.WriteLine(stats.HP);
+            //Debug.WriteLine(stats.HP);
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
             {
                 model.body.Move(new FlatVector(stats.speed, 0));
+                model.modelState = Model.ModelStates.MOVING;
+                model.direction = Directions.RIGHT;
             }
             
             if(Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
             {
                 model.body.Move(new FlatVector(-stats.speed, 0));
+                model.modelState = Model.ModelStates.MOVING;
+                model.direction = Directions.LEFT;
             }
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
             {
                 model.body.Move(new FlatVector(0, 10));
+                model.modelState = Model.ModelStates.MOVING;
             }
 
             base.Update();

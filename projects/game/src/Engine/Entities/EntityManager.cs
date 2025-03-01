@@ -46,7 +46,7 @@ namespace Entities
 
         public void Draw()
         {
-            foreach (var entity in entities.Where(e => e is SpriteEntity).OrderBy(e => ((SpriteEntity)e).sprite.zIndex))
+            foreach (var entity in entities.Where(e => e is PhysicalEntity))
             {
                 entity.Draw();
             }

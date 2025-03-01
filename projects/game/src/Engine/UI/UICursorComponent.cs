@@ -1,19 +1,13 @@
 ﻿using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Graphics;
-using System.Drawing.Drawing2D;
 
 namespace UI
 {
     class UICursorComponent : UIComponent
     {
-        public UICursorComponent()
+        public UICursorComponent() : base()
         {
-            Sprite = StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.CURSOR);
+            this.sprite = StaticSpriteFactory.StaticSprites.CURSOR;
+            setAnimations();
         }
 
         public override void Update()

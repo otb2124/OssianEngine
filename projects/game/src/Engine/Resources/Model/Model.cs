@@ -1,42 +1,75 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using SharpDX.Direct3D9;
+using SharpDX.MediaFoundation;
+using System;
+using System.Reflection;
 using Utils;
+using static Entities.PhysicalEntity;
+using static Graphics.Animation;
+using static Resources.ModelFactory;
 
 
 namespace Resources
 {
     public class Model
     {
-        public FlatBody body;
-        public Sprite sprite;
-        public Vector2 bodyOffset;
 
-        public Model(FlatBody body, Sprite sprite)
+        public enum ModelStates
         {
-            this.body = body;
-            this.sprite = sprite;
+            IDLE,
+            MOVING
         }
 
+        public FlatBody body;
+        public StaticSpriteFactory.StaticSprites sprite;
+
+        public AnimationManager aManager;
+
+        public Vector2 bodyOffset;
+        public Directions direction;
+        public AnimationStates animationState;
+        public ModelStates modelState;
+
+        public Model(ModelPreset preset)
+        {
+            this.bodyOffset = preset.offset;
+            this.body = FlatBodyFactory.createFlatBody(preset.bodyPreset, this.bodyOffset);
+            this.sprite = preset.spritePreset;
+
+            aManager = new AnimationManager();
+        }
+
+        public void AddAnimation(Directions Directions, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 frameSize, float eachFrameDuration, SpriteEffects effect)
+        {
+            StaticSpriteFactory.SpriteData data = StaticSpriteFactory.spriteMappings[this.sprite];
+            aManager.AddAnimation(new Tuple<Directions, AnimationStates>(Directions, animationState), new Animation(data.sheet, framesCount, startPos, frameSize, eachFrameDuration, effect));
+        }
+
+        public void setSingleAnimation()
+        {
+            aManager = new AnimationManager();
+            float frameSpeed = 0.0f;
+            StaticSpriteFactory.SpriteData data = StaticSpriteFactory.spriteMappings[this.sprite];
+            AddAnimation(Directions.LEFT, AnimationStates.IDLE, 1, data.srcRect.Location.ToVector2(), data.srcRect.Size.ToVector2(), frameSpeed, SpriteEffects.None);
+        }
         public void DrawDebug()
         {
-            
-             if (this.body.BodyShapeType == BodyShapeType.Box)
-             {
+            if (this.body.BodyShapeType == BodyShapeType.Box)
+            {
                 Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(body.Position), body.Width, body.Height, body.Angle, Color.Red);
-             }
-             else
-             {
+            }
+            else
+            {
                 Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(body.Position), body.Radius, 26, Color.Blue);
-             }
-            
+            }
         }
-
         public void Draw()
         {
             //model
-            Rectangle spriteSize = sprite.srcRect;
+            Rectangle spriteSize = aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
             Vector2 newPos = new Vector2(body.Position.X, body.Position.Y);
@@ -60,8 +93,10 @@ namespace Resources
                 newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
             }
 
-            sprite.Draw(
+            Graphics.Graphics.sprites.Draw(
+                ResourceLoader.spriteSheets[aManager.GetCurrent().spriteSheet].texture,
                 newPos,
+                aManager.GetCurrent().GetCurrentFrame(),
                 Color.White,
                 body.Angle,
                 textureCenter,

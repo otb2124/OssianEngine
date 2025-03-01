@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Resources
 {
@@ -16,66 +17,48 @@ namespace Resources
             MOB
         }
 
-        public static Model createModel(Models model)
+        public struct ModelPreset
         {
-            Vector2 offset;
+            public FlatBodyFactory.FlatBodyPreset bodyPreset;
+            public StaticSpriteFactory.StaticSprites spritePreset;
+            public Vector2 offset;
 
-            switch (model)
+            public ModelPreset(FlatBodyFactory.FlatBodyPreset bodyPreset, StaticSpriteFactory.StaticSprites spritePreset, Vector2 offset)
             {
-                case Models.HERO:
-                    offset = new Vector2(10, 5);
-                    return new Model(
-                        FlatBodyFactory.createFlatBody(FlatBodyFactory.FlatBodyPreset.HUMANOID, offset),
-                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.HERO))
-                    { bodyOffset = offset };
-                case Models.CRATE_BIG:
-                    return new Model(
-                        FlatBodyFactory.createFlatBody(FlatBodyFactory.FlatBodyPreset.BLOCK),
-                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.CRATE));
-                case Models.CRATE_SMALL:
-                    return new Model(FlatBodyFactory.createFlatBody(
-                        FlatBodyFactory.FlatBodyPreset.BOX),
-                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.CRATE));
-                case Models.BALL:
-                    return new Model(FlatBodyFactory.createFlatBody(
-                        FlatBodyFactory.FlatBodyPreset.CIRCLE),
-                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.CIRCLE));
-                case Models.PLATFORM:
-                    return new Model(FlatBodyFactory.createFlatBody(
-                        FlatBodyFactory.FlatBodyPreset.PLATFORM),
-                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.PLATFORM));
-                case Models.MOB:
-                    offset = new Vector2(10, 5);
-                    return new Model(FlatBodyFactory.createFlatBody(
-                        FlatBodyFactory.FlatBodyPreset.HUMANOID, offset),
-                        StaticSpriteFactory.GetSprite(StaticSpriteFactory.StaticSprites.MOB))
-                    { bodyOffset = offset };
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(model), model, null);
+                this.bodyPreset = bodyPreset;
+                this.spritePreset = spritePreset;
+                this.offset = offset;
             }
         }
 
+        private static readonly Dictionary<Models, ModelPreset> modelPresets = new()
+        {
+            { Models.HERO, new ModelPreset(FlatBodyFactory.FlatBodyPreset.HUMANOID, StaticSpriteFactory.StaticSprites.HERO, new Vector2(10, 5)) },
+            { Models.CRATE_BIG, new ModelPreset(FlatBodyFactory.FlatBodyPreset.BLOCK, StaticSpriteFactory.StaticSprites.CRATE, Vector2.Zero) },
+            { Models.CRATE_SMALL, new ModelPreset(FlatBodyFactory.FlatBodyPreset.BOX, StaticSpriteFactory.StaticSprites.CRATE, Vector2.Zero) },
+            { Models.BALL, new ModelPreset(FlatBodyFactory.FlatBodyPreset.CIRCLE, StaticSpriteFactory.StaticSprites.CIRCLE, Vector2.Zero) },
+            { Models.PLATFORM, new ModelPreset(FlatBodyFactory.FlatBodyPreset.PLATFORM, StaticSpriteFactory.StaticSprites.PLATFORM, Vector2.Zero) },
+            { Models.MOB, new ModelPreset(FlatBodyFactory.FlatBodyPreset.HUMANOID, StaticSpriteFactory.StaticSprites.MOB, new Vector2(10, 5)) }
+        };
 
+        public static Model CreateModel(Models model)
+        {
+            if (!modelPresets.TryGetValue(model, out var preset))
+            {
+                throw new ArgumentOutOfRangeException(nameof(model), model, "Invalid model type");
+            }
+
+            return new Model(preset);
+        }
 
         public static StaticSpriteFactory.StaticSprites GetSpriteFromModel(Models model)
         {
-            switch (model)
+            if (modelPresets.TryGetValue(model, out var preset))
             {
-                case Models.HERO:
-                    return StaticSpriteFactory.StaticSprites.HERO;
-                case Models.CRATE_BIG:
-                    return StaticSpriteFactory.StaticSprites.CRATE;
-                case Models.CRATE_SMALL:
-                    return StaticSpriteFactory.StaticSprites.CRATE;
-                case Models.BALL:
-                    return StaticSpriteFactory.StaticSprites.CIRCLE;
-                case Models.PLATFORM:
-                    return StaticSpriteFactory.StaticSprites.PLATFORM;
-                case Models.MOB:
-                    return StaticSpriteFactory.StaticSprites.MOB;
-                default:
-                    throw new ArgumentException("Unknown model type", nameof(model));
+                return preset.spritePreset;
             }
+
+            throw new ArgumentException("Unknown model type", nameof(model));
         }
 
 

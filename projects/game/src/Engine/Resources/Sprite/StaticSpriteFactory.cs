@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using static Resources.SpriteSheet;
 
 namespace Resources
 {
     public static class StaticSpriteFactory
     {
-
         public enum StaticSprites
         {
             PLATFORM,
@@ -19,33 +19,32 @@ namespace Resources
             DRAGON,
         }
 
-        public static Sprite GetSprite(StaticSprites sprite)
+        public struct SpriteData
         {
-            switch (sprite)
+            public SpriteSheets sheet;
+            public Rectangle srcRect;
+            public float z;
+            public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z)
             {
-                case StaticSprites.PLATFORM:
-                    return new Sprite(SpriteSheets.DECOR, new Rectangle(0,128,100,10));
-                case StaticSprites.CIRCLE:
-                    return new Sprite(SpriteSheets.DECOR, new Rectangle(0,0,64,64));
-                case StaticSprites.CRATE:
-                    return new Sprite(SpriteSheets.DECOR, new Rectangle(0,64,64,64));
-
-
-                case StaticSprites.HERO:
-                    return new Sprite(SpriteSheets.HERO);
-                case StaticSprites.MOB:
-                    return new Sprite(SpriteSheets.MOB);
-                case StaticSprites.BACKGROUND:
-                    return new Sprite(SpriteSheets.BACKGROUND);
-                case StaticSprites.DRAGON:
-                    return new Sprite(SpriteSheets.DRAGON);
-                case StaticSprites.CURSOR:
-                    return new Sprite(SpriteSheets.CURSOR);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sprite), sprite, null);
+                this.sheet = sheet;
+                this.srcRect = srcRect;
+                this.z = z;
             }
-        
         }
+
+        public static readonly Dictionary<StaticSprites, SpriteData> spriteMappings = new()
+        {
+            { StaticSprites.PLATFORM, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 128, 100, 10), 0)},
+            { StaticSprites.CIRCLE, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 0, 64, 64), 0)},
+            { StaticSprites.CRATE, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 64, 64, 64), 0)},
+
+            { StaticSprites.HERO, new SpriteData(SpriteSheets.HERO, new Rectangle(0,0,48,96), 100)},
+            { StaticSprites.MOB, new SpriteData(SpriteSheets.MOB, new Rectangle(0,0,48,96), 100)},
+
+            { StaticSprites.BACKGROUND, new SpriteData(SpriteSheets.BACKGROUND, new Rectangle(0,0,1280,720), 0) },
+            { StaticSprites.DRAGON, new SpriteData(SpriteSheets.DRAGON, new Rectangle(0,0,128,64), 10) },
+
+            { StaticSprites.CURSOR, new SpriteData(SpriteSheets.CURSOR, new Rectangle(0,0,64,64), 0) }
+        };
     }
-    
 }

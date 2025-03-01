@@ -64,14 +64,6 @@ namespace Resources
 
 
 
-        public Sprite GetSprite(Rectangle srcRect)
-        {
-            return new Sprite(id, srcRect);
-        }
-
-
-
-
         public int GetTotalNumberOfSprites(Vector2 gridItemSize)
         {
             return GetTotalCols((int)gridItemSize.X) + GetTotalRows((int)gridItemSize.Y);
