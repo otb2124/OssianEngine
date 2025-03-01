@@ -2,7 +2,6 @@
 using Physics;
 using Resources;
 using Graphics;
-using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
 using static Graphics.Animation;
 using System;

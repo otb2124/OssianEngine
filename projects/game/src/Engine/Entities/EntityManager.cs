@@ -46,7 +46,9 @@ namespace Entities
 
         public void Draw()
         {
-            foreach (var entity in entities.Where(e => e is PhysicalEntity))
+            foreach (var entity in entities
+                .Where(e => e is PhysicalEntity)
+                .OrderBy(e => StaticSpriteFactory.spriteMappings[((PhysicalEntity)e).model.sprite].z))
             {
                 entity.Draw();
             }

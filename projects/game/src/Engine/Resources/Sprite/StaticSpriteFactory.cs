@@ -39,7 +39,7 @@ namespace Resources
             { StaticSprites.CRATE, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 64, 64, 64), 0)},
 
             { StaticSprites.HERO, new SpriteData(SpriteSheets.HERO, new Rectangle(0,0,48,96), 100)},
-            { StaticSprites.MOB, new SpriteData(SpriteSheets.MOB, new Rectangle(0,0,48,96), 100)},
+            { StaticSprites.MOB, new SpriteData(SpriteSheets.MOB, new Rectangle(0,0,48,96), 99)},
 
             { StaticSprites.BACKGROUND, new SpriteData(SpriteSheets.BACKGROUND, new Rectangle(0,0,1280,720), 0) },
             { StaticSprites.DRAGON, new SpriteData(SpriteSheets.DRAGON, new Rectangle(0,0,128,64), 10) },
