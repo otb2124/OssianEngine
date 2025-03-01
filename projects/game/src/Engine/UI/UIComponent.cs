@@ -45,23 +45,6 @@ namespace UI
         }
 
 
-
-        public virtual void setAnimations()
-        {
-            aManager = new AnimationManager();
-            float frameSpeed = 0.0f;
-            StaticSpriteFactory.SpriteData data = StaticSpriteFactory.spriteMappings[this.sprite];
-            AddAnimation(Directions.LEFT, AnimationStates.IDLE, 1, data.srcRect.Location.ToVector2(), data.srcRect.Size.ToVector2(), frameSpeed, SpriteEffects.None);
-        }
-
-
-        public void AddAnimation(Directions Directions, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 frameSize, float eachFrameDuration, SpriteEffects effect)
-        {
-            StaticSpriteFactory.SpriteData data = StaticSpriteFactory.spriteMappings[this.sprite];
-            aManager.AddAnimation(new Tuple<Directions, AnimationStates>(Directions, animationState), new Animation(data.sheet, framesCount, startPos, frameSize, eachFrameDuration, effect));
-        }
-
-
         public virtual void Update()
         {
             adjPosition = Position;

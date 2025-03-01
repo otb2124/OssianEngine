@@ -36,8 +36,8 @@ namespace Entities
             model.aManager = new AnimationManager();
 
             float frameSpeed = 0.2f;
-            model.AddAnimation(Directions.LEFT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
-            model.AddAnimation(Directions.RIGHT, AnimationStates.IDLE, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(model.sprite, Directions.LEFT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
+            model.aManager.AddAnimation(model.sprite, Directions.RIGHT, AnimationStates.IDLE, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
         }
 
 

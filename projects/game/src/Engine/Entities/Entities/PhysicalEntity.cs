@@ -30,7 +30,7 @@ namespace Entities
 
         public virtual void SetAnimations()
         {
-            this.model.setSingleAnimation();
+            this.model.aManager.AddStaticAnimation(this.model.sprite);
         }
 
         public override void Draw()

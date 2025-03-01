@@ -7,7 +7,7 @@ namespace UI
         public UICursorComponent() : base()
         {
             this.sprite = StaticSpriteFactory.StaticSprites.CURSOR;
-            setAnimations();
+            this.aManager.AddStaticAnimation(this.sprite);
         }
 
         public override void Update()
