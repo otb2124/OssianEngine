@@ -71,9 +71,9 @@ namespace App
             GameStateManager.CheckGameStatusChange();
 
             Graphics.Graphics.gameTime = gameTime;
-            UI.UI.UIManager.Update();
             Inputs.Inputs.Update();
             Physics.Physics.Update();
+            UI.UI.UIManager.Update();
             Entities.Entities.entityManager.Update();
 
             Graphics.Graphics.Update();

@@ -7,6 +7,7 @@ using static Graphics.Animation;
 using System;
 using Model = Resources.Model;
 using Utils;
+using System.Diagnostics;
 
 namespace Entities
 {
@@ -50,7 +51,7 @@ namespace Entities
         public override void Update()
         {
 
-            if(KeyHandlerUtil.isPlayerMoving())
+            if (KeyHandlerUtil.isPlayerMoving())
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                 {

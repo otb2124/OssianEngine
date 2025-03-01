@@ -7,6 +7,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using static Entities.PhysicalEntity;
 using static Graphics.Animation;
 using System;
+using System.Diagnostics;
 
 
 namespace UI
@@ -49,6 +50,8 @@ namespace UI
         {
             adjPosition = Position;
             adjScale = Scale;
+
+            Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().X);
 
             if (stickToCamera)
             {
