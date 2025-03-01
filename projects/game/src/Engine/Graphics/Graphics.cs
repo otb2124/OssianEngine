@@ -19,7 +19,6 @@ namespace Graphics
 
         public static void Init()
         {
-            camera.z = 200;
             cameraOperator = new CameraOperator(camera);
             backgroundManager = new BackgroundManager();
             backgroundManager.Init();

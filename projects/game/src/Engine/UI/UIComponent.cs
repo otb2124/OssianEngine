@@ -18,41 +18,43 @@ namespace UI
         public AnimationManager aManager;
         public StaticSpriteFactory.StaticSprites sprite;
 
-        public Vector2 Position; //needs reload
-        public Vector2 adjPosition; //needs reload
-        public Vector2 Scale; //needs reload
-        public Vector2 adjScale;
-        public float Rotation; //needs reload
-        public Rectangle Bounds; //needs reload
+        public Vector2 Position;
+        public float Rotation;
         public Vector2 Origin;
+        public Vector2 Scale;
+
+        public Vector2 adjPosition;
+        public float adjRotation;
+        public Vector2 adjOrigin;
+        public Vector2 adjScale;
 
         public bool stickToCamera;
         public bool stickToZoom;
         public bool stickToCursor;
-
-        public Vector2 ZoomOrigin;
 
         public UIComponent()
         {
             aManager = new AnimationManager();
 
             Position = Vector2.Zero;
-            Scale = new Vector2(1, 1);
             Rotation = 0f;
-            Bounds = new Rectangle(0, 0, 0, 0);
             Origin = Vector2.Zero;
-
-            ZoomOrigin = Vector2.Zero;
+            Scale = new Vector2(1, 1);
         }
 
 
         public virtual void Update()
         {
-            adjPosition = Position - new Vector2(Graphics.Graphics.screen.Width/2, Graphics.Graphics.screen.Height/2);
+            adjPosition = Position;
+            adjRotation = Rotation;
+            adjOrigin = Origin;
             adjScale = Scale;
 
-            //Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().X);
-            //Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().Y);
+            //important
+            if (stickToCursor && stickToZoom)
+            {
+                stickToCamera = false;
+            }
 
             if (stickToCamera)
             {
@@ -61,18 +63,23 @@ namespace UI
 
             if (stickToCursor)
             {
-                adjPosition += Inputs.Inputs.mouse.GetMouseScreenPosition();
+                adjPosition += new Vector2(Inputs.Inputs.mouse.GetMouseWorldPosition().X, Inputs.Inputs.mouse.GetMouseWorldPosition().Y);
+                // worldPos + cameraPos = screenPos
             }
 
-            Debug.WriteLine(adjPosition); // ce tam de ti pysav-> TODO: should i inverse y? - eto ono, tam nada fix gaga
-            // and also would be better if sprite draw was starting from top left corner with positive values to bottom-right corner
-
+            if (stickToZoom)
+            {
+                float currentZoom = (float)Graphics.Graphics.camera.Z;
+                float baseZoom = (float)Graphics.Graphics.camera.BaseZ;
+                adjScale *= currentZoom / baseZoom;
+            }
         }
+
 
         public virtual void Draw()
         {
 
-            this.aManager.GetCurrent().Draw(adjPosition, Color.White, 0f, Vector2.Zero, Scale, 0f);
+            this.aManager.GetCurrent().Draw(adjPosition, Color.White, adjRotation, adjOrigin, adjScale, 0f);
         }
     }
 }

@@ -235,15 +235,10 @@ namespace Graphics
 
         public void GetExtents(out float left, out float right, out float bottom, out float top)
         {
-            // Calculate half the width and height of the view
             float halfWidth = (float)(aspectRatio * z * Math.Tan(fieldOfView * 0.5f));
             float halfHeight = (float)(z * Math.Tan(fieldOfView * 0.5f));
-
-            // Calculate the position of the camera's center
             float centerX = position.X;
             float centerY = position.Y;
-
-            // Calculate the bounds of the camera's view
             left = centerX - halfWidth;
             right = centerX + halfWidth;
             bottom = centerY - halfHeight;
@@ -268,61 +263,6 @@ namespace Graphics
         public void MoveUp(float amount)
         {
             position.Y += amount;
-        }
-
-        public void CheckPlayer()
-        {
-
-
-            GetExtents(out float left, out float right, out float bottom, out float top);
-
-            // Create an invisible rectangle around the player
-            Rectangle playerRect = new Rectangle(
-                (int)position.X - 50, // Make the rectangle wider than the player
-                (int)position.Y + 50, // Make the rectangle taller than the player
-                100, // Width of the rectangle
-                100 // Height of the rectangle
-            );
-
-            // Check if the camera's view intersects with the player's rectangle
-            if (playerRect.Intersects(new Rectangle((int)left, (int)top, (int)(right - left), (int)(bottom - top))))
-            {
-                // The player's rectangle is within the camera's view, no need to move the camera
-                return;
-            }
-
-            // Move the camera to keep the player's rectangle within the camera's view
-            if (playerRect.Left < left)
-            {
-                MoveRight(-(left - playerRect.Left));
-            }
-            else if (playerRect.Right > right)
-            {
-                MoveRight(playerRect.Right - right);
-            }
-
-            /*if (playerRect.Top < top)
-            {
-                MoveUp(top - playerRect.Top);
-            }
-            else if (playerRect.Bottom > bottom)
-            {
-                MoveDown(playerRect.Bottom - bottom);
-            }*/
-
-
-            //position.Y = game.player.Body.Position.Y;
-        }
-
-
-        public Vector2 WorldToScreen(Vector2 worldPosition)
-        {
-            // Calculate the scaled position based on the camera's zoom level and screen resolution
-            Vector2 relativePosition = worldPosition - Position;
-            Vector2 scaledPosition = relativePosition * 20.0f / Zoom;
-            Vector2 screenPosition = scaledPosition + new Vector2(ScreenW / 2, ScreenH / 2);
-
-            return screenPosition;
         }
 
     }

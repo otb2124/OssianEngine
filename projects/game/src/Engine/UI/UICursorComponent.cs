@@ -1,5 +1,5 @@
-﻿using Resources;
-using System.Diagnostics;
+﻿using Microsoft.Xna.Framework;
+using Resources;
 
 namespace UI
 {
@@ -9,8 +9,14 @@ namespace UI
         {
             this.sprite = StaticSpriteFactory.StaticSprites.CURSOR;
             this.aManager.AddStaticAnimation(this.sprite);
+
+
+            Position = Vector2.Zero;
+            Origin = StaticSpriteFactory.spriteMappings[sprite].srcRect.Size.ToVector2()/2;
+
             stickToCamera = true;
             stickToCursor = true;
+            stickToZoom = true;
         }
 
         public override void Update()
