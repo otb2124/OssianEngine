@@ -33,6 +33,8 @@ namespace Entities
 
         public void Update()
         {
+
+            //hitboxes
             foreach (var entA in entities)
             {
                 if (entA is LivingEntity livingA)
@@ -47,6 +49,8 @@ namespace Entities
                 }
             }
 
+
+            //updates for player and ai
             foreach (var entity in entities)
             {
                 if(entity is Player)
@@ -58,6 +62,7 @@ namespace Entities
         }
 
 
+        //models
         public void Draw()
         {
             foreach (var entity in entities
@@ -68,7 +73,9 @@ namespace Entities
             }
         }
 
-        public void DrawShapes()
+
+        //collisions
+        public void DrawCollides()
         {
             foreach (var entity in entities.Where(e => e is PhysicalEntity))
             {
@@ -76,6 +83,12 @@ namespace Entities
             }
         }
 
+        
+        //hitboxes
+        public void DrawHitboxes()
+        {
+
+        }
 
     }
 }

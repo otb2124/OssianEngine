@@ -35,20 +35,35 @@ namespace Graphics
         {
             screen.Set();
 
+            //bg
             sprites.Begin(camera);
             backgroundManager.Draw();
             sprites.End();
 
+
+            //colliders
             if(GameStateManager.gameMode == GameStateManager.GameModes.debugMode)
             {
                 shapes.Begin(camera);
-                Entities.Entities.entityManager.DrawShapes();
+                Entities.Entities.entityManager.DrawCollides();
                 shapes.End();
             }
             
-
+            //entity sprites
             sprites.Begin(camera);
             Entities.Entities.entityManager.Draw();
+            sprites.End();
+
+            //hitboxes over models (fix to over entity sprites, but under weapon sprites)
+            if (GameStateManager.gameMode == GameStateManager.GameModes.debugMode)
+            {
+                shapes.Begin(camera);
+                Entities.Entities.entityManager.DrawHitboxes();
+                shapes.End();
+            }
+
+            //ui
+            sprites.Begin(camera);
             UI.UI.UIManager.Draw();
             sprites.End();
 
