@@ -28,6 +28,7 @@ namespace UI
 
         public bool stickToCamera;
         public bool stickToZoom;
+        public bool stickToCursor;
 
         public Vector2 ZoomOrigin;
 
@@ -41,28 +42,36 @@ namespace UI
             Bounds = new Rectangle(0, 0, 0, 0);
             Origin = Vector2.Zero;
 
-            stickToCamera = true;
             ZoomOrigin = Vector2.Zero;
         }
 
 
         public virtual void Update()
         {
-            adjPosition = Position;
+            adjPosition = Position - new Vector2(Graphics.Graphics.screen.Width/2, Graphics.Graphics.screen.Height/2);
             adjScale = Scale;
 
             Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().X);
+            Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().Y);
 
             if (stickToCamera)
             {
                 adjPosition += Graphics.Graphics.camera.Position;
             }
+
+            if (stickToCursor)
+            {
+                adjPosition += Inputs.Inputs.mouse.GetMouseScreenPosition();
+            }
+
+
+
         }
 
         public virtual void Draw()
         {
 
-            this.aManager.GetCurrent().Draw(adjPosition, Color.White, 0f, Vector2.Zero, Vector2.One, 0f);
+            this.aManager.GetCurrent().Draw(adjPosition, Color.White, 0f, Vector2.Zero, Scale, 0f);
         }
     }
 }

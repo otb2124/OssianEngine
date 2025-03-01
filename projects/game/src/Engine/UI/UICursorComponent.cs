@@ -9,6 +9,8 @@ namespace UI
         {
             this.sprite = StaticSpriteFactory.StaticSprites.CURSOR;
             this.aManager.AddStaticAnimation(this.sprite);
+            stickToCamera = true;
+            stickToCursor = true;
         }
 
         public override void Update()
