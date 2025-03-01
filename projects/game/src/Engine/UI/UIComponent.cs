@@ -51,8 +51,8 @@ namespace UI
             adjPosition = Position - new Vector2(Graphics.Graphics.screen.Width/2, Graphics.Graphics.screen.Height/2);
             adjScale = Scale;
 
-            Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().X);
-            Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().Y);
+            //Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().X);
+            //Debug.WriteLine(Inputs.Inputs.mouse.GetMouseScreenPosition().Y);
 
             if (stickToCamera)
             {
@@ -64,7 +64,8 @@ namespace UI
                 adjPosition += Inputs.Inputs.mouse.GetMouseScreenPosition();
             }
 
-
+            Debug.WriteLine(adjPosition); // ce tam de ti pysav-> TODO: should i inverse y? - eto ono, tam nada fix gaga
+            // and also would be better if sprite draw was starting from top left corner with positive values to bottom-right corner
 
         }
 
