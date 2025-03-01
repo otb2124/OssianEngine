@@ -68,8 +68,6 @@ namespace Inputs
             }
         }
 
-
-
         public void Update()
         {
             HandleKeyClicks();
