@@ -48,13 +48,11 @@ namespace Physics
             Type typeA = bodyA.owner.GetType();
             Type typeB = bodyB.owner.GetType();
 
-            if (typeA == typeof(Player) && typeB == typeof(Mob))
+
+            //dealDamage on collision
+            if (typeA == typeof(Player) && typeB == typeof(Mob) || typeA == typeof(Mob) && typeB == typeof(Player))
             {
-                Entities.Entities.statsManager.DealDamage((LivingEntity)bodyB.owner, (LivingEntity)bodyA.owner);
-            }
-            else if (typeA == typeof(Mob) && typeB == typeof(Player))
-            {
-                Entities.Entities.statsManager.DealDamage((LivingEntity)bodyA.owner, (LivingEntity)bodyB.owner);
+                ((LivingEntity)bodyB.owner).sManager.DealDamageTo((LivingEntity)bodyA.owner);
             }
         }
 

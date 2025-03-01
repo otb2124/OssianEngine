@@ -21,11 +21,10 @@ namespace Entities
 
         public override void setStats()
         {
-            stats.maxHP = 100;
-            stats.HP = 100;
-            stats.dmg = 1;
-            stats.maxSpeed = 1;
-            stats.speed = 1;
+            sManager.stats.maxHP = 100;
+            sManager.stats.HP = 100;
+            sManager.stats.maxSpeed = 1;
+            sManager.stats.speed = 1;
 
             base.setStats();
         }
@@ -51,18 +50,20 @@ namespace Entities
         public override void Update()
         {
 
+            Debug.WriteLine(this.sManager.stats.HP);
+
             if (KeyHandlerUtil.isPlayerMoving())
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                 {
-                    model.body.Move(new FlatVector(stats.speed, 0));
+                    model.body.Move(new FlatVector(sManager.stats.speed, 0));
                     model.modelState = Model.ModelStates.MOVING;
                     model.direction = Directions.RIGHT;
                 }
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
                 {
-                    model.body.Move(new FlatVector(-stats.speed, 0));
+                    model.body.Move(new FlatVector(-sManager.stats.speed, 0));
                     model.modelState = Model.ModelStates.MOVING;
                     model.direction = Directions.LEFT;
                 }

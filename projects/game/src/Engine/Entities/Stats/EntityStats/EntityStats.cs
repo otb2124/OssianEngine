@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Stats
+    public class EntityStats
     {
+
         public float maxHP;
         public float HP;
-
         public float maxSpeed;
         public float speed;
-
-        public float dmg;
     }
 }

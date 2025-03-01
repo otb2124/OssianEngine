@@ -33,6 +33,20 @@ namespace Entities
 
         public void Update()
         {
+            foreach (var entA in entities)
+            {
+                if (entA is LivingEntity livingA)
+                {
+                    foreach (var entB in entities)
+                    {
+                        if (entB is LivingEntity livingB && entA != entB)
+                        {
+                            Entities.hitboxHandler.CheckForCollisions(livingA, livingB);
+                        }
+                    }
+                }
+            }
+
             foreach (var entity in entities)
             {
                 if(entity is Player)

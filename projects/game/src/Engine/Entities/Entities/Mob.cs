@@ -14,11 +14,12 @@ namespace Entities
 
         public override void setStats()
         {
-            stats.maxHP = 100;
-            stats.HP = 100;
-            stats.dmg = 1f;
-            stats.maxSpeed = 5;
-            stats.speed = 5;
+            sManager.stats.maxHP = 100;
+            sManager.stats.HP = 100;
+            sManager.stats.maxSpeed = 5;
+            sManager.stats.speed = 5;
+
+            sManager.equipmentManager.weaponL.physDmg = 1;
 
             base.setStats();
         }

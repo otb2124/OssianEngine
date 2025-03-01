@@ -6,10 +6,10 @@ namespace Entities
     public class LivingEntity : PhysicalEntity
     {
 
-        public Stats stats;
+        public StatsManager sManager;
         public LivingEntity(ModelFactory.Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
-            this.stats = new Stats();
+            this.sManager = new StatsManager();
             setStats();
         }
 

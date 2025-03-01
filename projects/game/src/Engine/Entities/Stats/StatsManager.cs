@@ -1,19 +1,28 @@
-﻿using System;
+﻿using Equipment;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI;
 
 namespace Entities
 {
     public class StatsManager
     {
-        public StatsManager() { }
+        public EntityStats stats;
+        public EquipmentManager equipmentManager;
 
-
-        public void DealDamage(LivingEntity from, LivingEntity to) 
+        public StatsManager()
         {
-            to.stats.HP = to.stats.HP - from.stats.dmg;
+            stats = new EntityStats();
+            equipmentManager = new EquipmentManager();
+        }
+
+        public void DealDamageTo(LivingEntity target)
+        {
+            target.sManager.stats.HP -= this.equipmentManager.GetCurrentWeapon().physDmg;
         }
     }
 }

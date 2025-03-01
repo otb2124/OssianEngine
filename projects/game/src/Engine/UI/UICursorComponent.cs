@@ -10,7 +10,6 @@ namespace UI
             this.sprite = StaticSpriteFactory.StaticSprites.CURSOR;
             this.aManager.AddStaticAnimation(this.sprite);
 
-
             Position = Vector2.Zero;
             Origin = StaticSpriteFactory.spriteMappings[sprite].srcRect.Size.ToVector2()/2;
 
