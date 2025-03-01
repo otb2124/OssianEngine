@@ -58,15 +58,8 @@ namespace UI
 
         public virtual void Draw()
         {
-            Graphics.Graphics.sprites.Draw(
-                 ResourceLoader.spriteSheets[aManager.GetCurrent().spriteSheet].texture,
-                 adjPosition,
-                 aManager.GetCurrent().GetCurrentFrame(),
-                 Color.White,
-                 0f,
-                 Vector2.Zero,
-                 Vector2.One,
-                 SpriteEffects.FlipVertically, 0f);
+
+            this.aManager.GetCurrent().Draw(adjPosition, Color.White, 0f, Vector2.Zero, Vector2.One, 0f);
         }
     }
 }

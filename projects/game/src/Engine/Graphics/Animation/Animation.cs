@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Resources;
+using SharpDX.Direct2D1.Effects;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using UI;
 
 namespace Graphics
 {
@@ -73,9 +76,18 @@ namespace Graphics
         }
 
 
-        public void Draw(Vector2 position)
+        public void Draw(Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth)
         {
-            //Globals.sprites.Draw(texture, position, GetCurrentFrame(), Color.White, 0f, Vector2.Zero, Globals.gameScale, effect, 0f);
+            Graphics.sprites.Draw(
+                ResourceLoader.spriteSheets[spriteSheet].texture,
+                position,
+                GetCurrentFrame(),
+                color,
+                angle,
+                origin,
+                scale,
+                effect | SpriteEffects.FlipVertically,
+                layerDepth);
         }
 
         public Rectangle GetCurrentFrame()

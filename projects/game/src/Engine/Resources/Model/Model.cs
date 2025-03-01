@@ -78,15 +78,8 @@ namespace Resources
                 newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
             }
 
-            Graphics.Graphics.sprites.Draw(
-                ResourceLoader.spriteSheets[aManager.GetCurrent().spriteSheet].texture,
-                newPos,
-                aManager.GetCurrent().GetCurrentFrame(),
-                Color.White,
-                body.Angle,
-                textureCenter,
-                new Vector2(scaleX, scaleY),
-                SpriteEffects.FlipVertically, 0f);
+
+            this.aManager.GetCurrent().Draw(newPos, Color.White, body.Angle, textureCenter, new Vector2(scaleX, scaleY), 0f);
         }
 
     }
