@@ -45,7 +45,7 @@ namespace Graphics
             if(GameStateManager.gameMode == GameStateManager.GameModes.debugMode)
             {
                 shapes.Begin(camera);
-                Entities.Entities.entityManager.DrawCollides();
+                Entities.Entities.entityManager.DrawColliders();
                 shapes.End();
             }
             

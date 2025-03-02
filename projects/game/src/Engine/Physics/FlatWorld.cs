@@ -119,6 +119,13 @@ namespace Physics
                     {
                         continue;
                     }
+                    else
+                    {
+                        if (Physics.collisionHandler.IgnoreCollision(bodyA, bodyB))
+                        {
+                            continue;
+                        }
+                    }
 
                     contactPairs.Add((i, j));
                 }
@@ -137,16 +144,6 @@ namespace Physics
                 {
 
                     {
-
-                        Physics.collisionHandler.Collide(bodyA, bodyB);
-
-                        if (Physics.collisionHandler.IgnoreCollision(bodyA, bodyB))
-                        {
-                            continue;
-                        }
-
-
-
                         SeparateBodies(bodyA, bodyB, normal * depth);
                         Collisions.FindContactPoints(bodyA, bodyB, out FlatVector contact1, out FlatVector contact2, out int contactCount);
                         FlatManifold contact = new FlatManifold(bodyA, bodyB, normal, depth, contact1, contact2, contactCount);

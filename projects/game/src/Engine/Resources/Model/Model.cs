@@ -40,15 +40,15 @@ namespace Resources
             this.sprite = preset.spritePreset;
             aManager = new AnimationManager();
         }
-        public void DrawDebug()
+        public void DrawCollider()
         {
             if (this.body.BodyShapeType == BodyShapeType.Box)
             {
-                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(body.Position), body.Width, body.Height, body.Angle, Color.Red);
+                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(body.Position), body.Width, body.Height, body.Angle, Color.Green);
             }
             else
             {
-                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(body.Position), body.Radius, 26, Color.Blue);
+                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(body.Position), body.Radius, 26, Color.Green);
             }
         }
         public void Draw()

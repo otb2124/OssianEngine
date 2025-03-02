@@ -38,9 +38,9 @@ namespace Entities
             this.model.Draw();
         }
 
-        public override void DrawDebug()
+        public override void DrawCollider()
         {
-            this.model.DrawDebug();
+            this.model.DrawCollider();
         }
     }
 }

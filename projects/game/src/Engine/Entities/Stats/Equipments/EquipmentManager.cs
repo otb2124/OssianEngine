@@ -24,6 +24,9 @@ namespace Equipment
         public EquipmentManager()
         {
             weaponL = new Weapon();
+
+            weaponHB = new Hitbox();
+            armorHB = new Hitbox();
         }
 
 

@@ -12,6 +12,7 @@ namespace Entities
         public virtual void Update() {}
         public virtual void Draw() {}
 
-        public virtual void DrawDebug() {}
+        public virtual void DrawCollider() {}
+        public virtual void DrawHitbox() { }
     }
 }

@@ -39,6 +39,8 @@ namespace Entities
             {
                 if (entA is LivingEntity livingA)
                 {
+                    entA.Update();
+
                     foreach (var entB in entities)
                     {
                         if (entB is LivingEntity livingB && entA != entB)
@@ -46,16 +48,6 @@ namespace Entities
                             Entities.hitboxHandler.CheckForCollisions(livingA, livingB);
                         }
                     }
-                }
-            }
-
-
-            //updates for player and ai
-            foreach (var entity in entities)
-            {
-                if(entity is Player)
-                {
-                    entity.Update();
                 }
             }
             
@@ -75,11 +67,11 @@ namespace Entities
 
 
         //collisions
-        public void DrawCollides()
+        public void DrawColliders()
         {
             foreach (var entity in entities.Where(e => e is PhysicalEntity))
             {
-                entity.DrawDebug();
+                entity.DrawCollider();
             }
         }
 
@@ -87,7 +79,10 @@ namespace Entities
         //hitboxes
         public void DrawHitboxes()
         {
-
+            foreach (var entity in entities.Where(e => e is LivingEntity))
+            {
+                entity.DrawHitbox();
+            }
         }
 
     }

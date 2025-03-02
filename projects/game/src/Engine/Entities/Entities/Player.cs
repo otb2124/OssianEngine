@@ -49,6 +49,8 @@ namespace Entities
 
         public override void Update()
         {
+            this.sManager.equipmentManager.weaponHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width*2, this.model.body.Height/4));
+            this.sManager.equipmentManager.armorHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height-20));
 
             Debug.WriteLine(this.sManager.stats.HP);
 

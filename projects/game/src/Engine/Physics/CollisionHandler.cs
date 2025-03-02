@@ -42,19 +42,5 @@ namespace Physics
             return false;
         }
 
-
-        public void Collide(FlatBody bodyA, FlatBody bodyB)
-        {
-            Type typeA = bodyA.owner.GetType();
-            Type typeB = bodyB.owner.GetType();
-
-
-            //dealDamage on collision
-            if (typeA == typeof(Player) && typeB == typeof(Mob) || typeA == typeof(Mob) && typeB == typeof(Player))
-            {
-                ((LivingEntity)bodyB.owner).sManager.DealDamageTo((LivingEntity)bodyA.owner);
-            }
-        }
-
     }
 }

@@ -22,5 +22,11 @@ namespace Entities
         {
             base.Draw();
         }
+
+        public override void DrawHitbox()
+        {
+            sManager.equipmentManager.weaponHB.Draw(Color.Red);
+            sManager.equipmentManager.armorHB.Draw(Color.Blue);
+        }
     }
 }
