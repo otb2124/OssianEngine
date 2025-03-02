@@ -1,11 +1,8 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Physics;
 using Resources;
-using System.Diagnostics;
 using static Entities.PhysicalEntity;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Entities
 {
@@ -26,6 +23,43 @@ namespace Entities
             this.sprite = StaticSpriteFactory.StaticSprites.SWORD;
             this.aManager.AddStaticAnimation(this.sprite);
         }
+
+        public void Swing()
+        {
+            if (isSwinging)
+                return;
+
+            isSwinging = true;
+            currentSwingTime = 0f;
+        }
+
+        public void UpdateSwing(Directions direction)
+        {
+            if (!isSwinging)
+            {
+                float startRotation = direction == Directions.LEFT ? 0 : 180;
+                hitbox.extends.Rotation = MathHelper.ToRadians(startRotation);
+                return;
+            }
+
+            currentSwingTime += (float)Graphics.Graphics.gameTime.ElapsedGameTime.TotalSeconds;
+
+            float startRotationSwing = direction == Directions.LEFT ? -180 : 180;
+            float endRotationSwing = direction == Directions.LEFT ? 0 : 0;
+
+            if (currentSwingTime >= swingSpeed)
+            {
+                hitbox.extends.Rotation = MathHelper.ToRadians(endRotationSwing);
+                isSwinging = false;
+            }
+            else
+            {
+                float rotationAmount = MathHelper.ToRadians(startRotationSwing) + (MathHelper.ToRadians(endRotationSwing) - MathHelper.ToRadians(startRotationSwing)) * (currentSwingTime / swingSpeed);
+                hitbox.extends.Rotation = rotationAmount;
+            }
+        }
+
+
 
 
         public override void Draw(Directions direction)

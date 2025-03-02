@@ -28,6 +28,9 @@ namespace Entities
             sManager.stats.maxSpeed = 1;
             sManager.stats.speed = 1;
 
+            sManager.equipmentManager.weaponL.physDmg = 1;
+            sManager.equipmentManager.weaponL.swingSpeed = 0.5f;
+
             base.setStats();
         }
 
@@ -55,40 +58,26 @@ namespace Entities
 
             if (KeyHandlerUtil.isPlayerMoving())
             {
-               this.UpdateMovement();
+                this.UpdateMovement();
             }
             else
             {
-                model.modelState = Model.ModelStates.IDLE;
-            }
+                if(!(this.model.modelState == Model.ModelStates.ATTACKING))
+                {
+                    model.modelState = Model.ModelStates.IDLE;
+                }
 
+
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED])
+                {
+                    model.modelState = Model.ModelStates.ATTACKING;
+                }
+            }
 
             UpdateHitboxes();
 
             UpdateAnimationState();
             base.Update();
-        }
-
-
-        public void UpdateHitboxes()
-        {
-            float horizontalOffset = this.model.direction == Directions.RIGHT ? 10f : -10f;
-            float weaponRot = this.model.direction == Directions.RIGHT ? MathHelper.DegreesToRadians(90) : MathHelper.DegreesToRadians(-90);
-            Vector2 weaponPosition = FlatConverter.ToVector2(this.model.body.Position) + new Vector2(horizontalOffset, 0);
-
-            //weapon
-            this.sManager.equipmentManager.GetCurrentWeapon().hitbox.Update(
-                weaponPosition,
-                new Vector2(this.model.body.Width, this.model.body.Height),
-                weaponRot
-            );
-
-            //armor
-            this.sManager.equipmentManager.armorHB.Update(
-                FlatConverter.ToVector2(this.model.body.Position),
-                new Vector2(this.model.body.Width, this.model.body.Height - 20),
-                0f
-            );
         }
 
 
@@ -115,6 +104,57 @@ namespace Entities
             }
         }
 
+
+
+        public void UpdateHitboxes()
+        {
+
+            //weapon
+            float horizontalOffset = this.model.direction == Directions.RIGHT ? 10f : -10f;
+            float weaponRot = this.model.direction == Directions.RIGHT ? MathHelper.DegreesToRadians(90) : MathHelper.DegreesToRadians(-90);
+            Vector2 weaponPosition = FlatConverter.ToVector2(this.model.body.Position) + new Vector2(horizontalOffset, 0);
+
+            
+            if (this.model.modelState == Model.ModelStates.ATTACKING)
+            {
+                this.sManager.equipmentManager.Update(
+                    weaponPosition,
+                    new Vector2(this.model.body.Width, this.model.body.Height)
+                );
+
+
+                if (!this.sManager.equipmentManager.GetCurrentWeapon().isSwinging)
+                {
+                    this.sManager.equipmentManager.GetCurrentWeapon().Swing();
+                }
+
+                this.sManager.equipmentManager.GetCurrentWeapon().UpdateSwing(this.model.direction);
+
+                if (!this.sManager.equipmentManager.GetCurrentWeapon().isSwinging)
+                {
+                    this.model.modelState = Model.ModelStates.IDLE;
+                }
+            }
+            else
+            {
+                this.sManager.equipmentManager.Update(
+                new Vector2(0,0),
+                new Vector2(0, 0)
+                );
+                this.sManager.equipmentManager.GetCurrentWeapon().isSwinging = false;
+            }
+
+
+            //armor
+            this.sManager.equipmentManager.armorHB.Update(
+                FlatConverter.ToVector2(this.model.body.Position),
+                new Vector2(this.model.body.Width, this.model.body.Height - 20),
+                0f
+            );
+        }
+
+
+        
         public void UpdateAnimationState()
         {
             switch(model.modelState)
@@ -133,6 +173,14 @@ namespace Entities
         public override void Draw()
         {
             base.Draw();
+        }
+
+        public override void DrawWeapon()
+        {
+            if (this.model.modelState == Model.ModelStates.ATTACKING)
+            {
+                sManager.equipmentManager.Draw(this.model.direction);
+            }
         }
 
     }

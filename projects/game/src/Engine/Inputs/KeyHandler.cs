@@ -8,10 +8,11 @@ namespace Inputs
 
         public enum KeyStates
         {
-            //player movement
+            //player keys
             JUMPPRESSED,
             MOVERIGHTPRESSED,
             MOVELEFTPRESSED,
+            ATTACKPRESSED,
 
             //camera
             CAMERALEFTPRESSED,
@@ -28,30 +29,44 @@ namespace Inputs
 
         public Dictionary<KeyStates, bool> keyStates = new Dictionary<KeyStates, bool>
         {
+            //player keys
             { KeyStates.JUMPPRESSED, false },
             { KeyStates.MOVERIGHTPRESSED, false },
             { KeyStates.MOVELEFTPRESSED, false },
+            { KeyStates.ATTACKPRESSED, false },
+
+            //camera
             { KeyStates.CAMERALEFTPRESSED, false },
             { KeyStates.CAMERARIGHTPRESSED, false },
             { KeyStates.CAMERAUPPRESSED, false },
             { KeyStates.CAMERADOWNPRESSED, false },
+
             { KeyStates.CAMERAZOOMUPPRESSED, false },
             { KeyStates.CAMERAZOOMDOWNPRESSED, false },
+
+            //debug
             { KeyStates.DEBUGPRESSED, false }
         };
 
 
         public Dictionary<(KeyStates state, bool clickOnly), Keys> keyBindings = new Dictionary<(KeyStates, bool), Keys>
         {
+            //player keys
             { (KeyStates.JUMPPRESSED, false), Keys.Space },
             { (KeyStates.MOVERIGHTPRESSED, false), Keys.D },
             { (KeyStates.MOVELEFTPRESSED, false), Keys.A },
+            { (KeyStates.ATTACKPRESSED, true), Keys.LeftControl },
+
+            //camera
             { (KeyStates.CAMERALEFTPRESSED, false), Keys.Left },
             { (KeyStates.CAMERARIGHTPRESSED, false), Keys.Right },
             { (KeyStates.CAMERAUPPRESSED, false), Keys.Up },
             { (KeyStates.CAMERADOWNPRESSED, false), Keys.Down },
+
             { (KeyStates.CAMERAZOOMUPPRESSED, false), Keys.OemPlus },
             { (KeyStates.CAMERAZOOMDOWNPRESSED, false), Keys.OemMinus },
+
+            //debug
             { (KeyStates.DEBUGPRESSED, true), Keys.T },
         };
 

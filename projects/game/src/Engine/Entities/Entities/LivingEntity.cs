@@ -24,7 +24,7 @@ namespace Entities
         }
 
 
-        public void DrawWeapon()
+        public virtual void DrawWeapon()
         {
             sManager.equipmentManager.Draw(this.model.direction);
         }

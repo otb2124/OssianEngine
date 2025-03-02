@@ -6,10 +6,10 @@ namespace Utils
 {
     public class RotatedRectangle
     {
-        public Vector2 Center { get; set; }
-        public float Width { get; set; }
-        public float Height { get; set; }
-        public float Rotation { get; set; }
+        public Vector2 Center;
+        public float Width;
+        public float Height;
+        public float Rotation;
 
 
         public RotatedRectangle()

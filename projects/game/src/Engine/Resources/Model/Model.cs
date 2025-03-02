@@ -20,7 +20,8 @@ namespace Resources
         public enum ModelStates
         {
             IDLE,
-            MOVING
+            MOVING,
+            ATTACKING,
         }
 
         public FlatBody body;

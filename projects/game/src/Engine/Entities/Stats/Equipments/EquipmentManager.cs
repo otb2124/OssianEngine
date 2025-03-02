@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
 using static Entities.PhysicalEntity;
+using static Resources.Model;
 
 namespace Equipment
 {
@@ -40,6 +41,16 @@ namespace Equipment
             {
                 return weaponR;
             }
+        }
+
+        public void Update(Vector2 hitboxpos, Vector2 hitboxsize)
+        {
+            GetCurrentWeapon().hitbox.Update(hitboxpos, hitboxsize);
+        }
+
+        public void Update(Vector2 hitboxpos, Vector2 hitboxsize, float angle)
+        {
+            GetCurrentWeapon().hitbox.Update(hitboxpos, hitboxsize, angle);
         }
 
 

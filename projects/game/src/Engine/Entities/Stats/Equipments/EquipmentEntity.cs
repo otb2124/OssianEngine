@@ -8,8 +8,11 @@ namespace Entities
     public class EquipmentEntity
     {
 
-        
+        public float swingSpeed;
         public float physDmg;
+        public float currentSwingTime = 0f;
+        public bool isSwinging = false;
+
         public float physDef;
 
 

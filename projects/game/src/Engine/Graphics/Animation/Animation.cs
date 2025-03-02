@@ -17,7 +17,8 @@ namespace Graphics
         public enum AnimationStates
         {
             IDLE,
-            MOVING
+            MOVING,
+            ATTACKING
         }
 
         public SpriteSheet.SpriteSheets spriteSheet;
