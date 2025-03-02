@@ -23,10 +23,15 @@ namespace Entities
             base.Draw();
         }
 
+
+        public void DrawWeapon()
+        {
+            sManager.equipmentManager.Draw(this.model.direction);
+        }
+
         public override void DrawHitbox()
         {
-            sManager.equipmentManager.weaponHB.Draw(Color.Red);
-            sManager.equipmentManager.armorHB.Draw(Color.Blue);
+            sManager.equipmentManager.DrawHitbox();
         }
     }
 }

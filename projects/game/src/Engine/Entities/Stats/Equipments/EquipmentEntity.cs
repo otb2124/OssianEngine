@@ -1,5 +1,6 @@
 ﻿using System;
 using Utils;
+using static Entities.PhysicalEntity;
 
 
 namespace Entities
@@ -12,7 +13,7 @@ namespace Entities
         public float physDef;
 
 
-        public virtual void Draw(Hitbox hitbox)
+        public virtual void Draw(Directions direction)
         {
 
         }

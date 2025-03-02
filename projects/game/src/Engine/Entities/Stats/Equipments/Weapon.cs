@@ -1,7 +1,10 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using Resources;
+using System.Diagnostics;
+using static Entities.PhysicalEntity;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Entities
@@ -12,8 +15,12 @@ namespace Entities
         public AnimationManager aManager;
         public StaticSpriteFactory.StaticSprites sprite;
 
+        public Hitbox hitbox;
+
         public Weapon()
         {
+            hitbox = new Hitbox();
+
             aManager = new AnimationManager();
 
             this.sprite = StaticSpriteFactory.StaticSprites.SWORD;
@@ -21,31 +28,36 @@ namespace Entities
         }
 
 
-
-        public override void Draw(Hitbox hitboxData)
+        public override void Draw(Directions direction)
         {
             //model
             Rectangle spriteSize = aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
-            Vector2 newPos = new Vector2(hitboxData.extends.Center.X, hitboxData.extends.Center.Y);
+            Vector2 newPos = new Vector2(hitbox.extends.Center.X, hitbox.extends.Center.Y);
             Vector2 textureCenter = new Vector2(spriteSize.Width / 2f, spriteSize.Height / 2f);
 
             //for offsets
             //float bodyWidth = hitboxData.extends.Width + bodyOffset.X;
             //float bodyHeight = hitboxData.extends.Height + bodyOffset.Y;
 
-            float bodyWidth = hitboxData.extends.Width;
-            float bodyHeight = hitboxData.extends.Height;
+            float bodyWidth = hitbox.extends.Width;
+            float bodyHeight = hitbox.extends.Height;
 
             scaleX = bodyWidth / spriteSize.Width;
             scaleY = bodyHeight / spriteSize.Height;
-            newPos = hitboxData.extends.Center - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
+            newPos = hitbox.extends.Center - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
             newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
-            
+
+            SpriteEffects spriteEffect = direction == Directions.RIGHT ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+            this.aManager.GetCurrent().Draw(newPos, Color.White, hitbox.extends.Rotation, textureCenter, new Vector2(scaleX, scaleY), spriteEffect, 0f);
+        }
 
 
-            this.aManager.GetCurrent().Draw(newPos, Color.White, hitboxData.extends.Rotation, textureCenter, new Vector2(scaleX, scaleY), 0f);
+        public void DrawHitbox()
+        {
+            this.hitbox.Draw(Color.Red);
         }
 
 

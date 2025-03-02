@@ -90,6 +90,20 @@ namespace Graphics
                 layerDepth);
         }
 
+        public void Draw(Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, SpriteEffects newEffect, float layerDepth)
+        {
+            Graphics.sprites.Draw(
+                ResourceLoader.spriteSheets[spriteSheet].texture,
+                position,
+                GetCurrentFrame(),
+                color,
+                angle,
+                origin,
+                scale,
+                newEffect,
+                layerDepth);
+        }
+
         public Rectangle GetCurrentFrame()
         {
             return sourceRectangles[currentFrame];

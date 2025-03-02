@@ -65,7 +65,7 @@ namespace Entities
 
                 if (entity is LivingEntity livingEntity)
                 {
-                    livingEntity.sManager.equipmentManager.GetCurrentWeapon().Draw(livingEntity.sManager.equipmentManager.weaponHB);
+                    livingEntity.DrawWeapon();
                 }
             }
         }

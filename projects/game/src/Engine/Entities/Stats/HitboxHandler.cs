@@ -13,11 +13,11 @@ namespace Entities
         public void CheckForCollisions(LivingEntity entA, LivingEntity entB)
         {
             //check both ways
-            if(CheckForHit(entA.sManager.equipmentManager.weaponHB, entB.sManager.equipmentManager.armorHB))
+            if(CheckForHit(entA.sManager.equipmentManager.GetCurrentWeapon().hitbox, entB.sManager.equipmentManager.armorHB))
             {
                 HandleHit(entA, entB);
             }
-            if (CheckForHit(entA.sManager.equipmentManager.armorHB, entB.sManager.equipmentManager.weaponHB))
+            if (CheckForHit(entA.sManager.equipmentManager.armorHB, entB.sManager.equipmentManager.GetCurrentWeapon().hitbox))
             {
                 HandleHit(entB, entA);
             }

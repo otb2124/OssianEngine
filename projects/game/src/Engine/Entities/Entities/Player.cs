@@ -9,6 +9,7 @@ using Model = Resources.Model;
 using Utils;
 using System.Diagnostics;
 using MathHelper = Utils.MathHelper;
+using static Entities.PhysicalEntity;
 
 namespace Entities
 {
@@ -50,40 +51,68 @@ namespace Entities
 
         public override void Update()
         {
-            this.sManager.equipmentManager.weaponHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height), MathHelper.DegreesToRadians(270));
-            this.sManager.equipmentManager.armorHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height-20), 0f);
-
             Debug.WriteLine(this.sManager.stats.HP);
 
             if (KeyHandlerUtil.isPlayerMoving())
             {
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
-                {
-                    model.body.Move(new FlatVector(sManager.stats.speed, 0));
-                    model.modelState = Model.ModelStates.MOVING;
-                    model.direction = Directions.RIGHT;
-                }
-
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
-                {
-                    model.body.Move(new FlatVector(-sManager.stats.speed, 0));
-                    model.modelState = Model.ModelStates.MOVING;
-                    model.direction = Directions.LEFT;
-                }
-
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
-                {
-                    model.body.Move(new FlatVector(0, 10));
-                    model.modelState = Model.ModelStates.MOVING;
-                }
+               this.UpdateMovement();
             }
             else
             {
                 model.modelState = Model.ModelStates.IDLE;
             }
 
+
+            UpdateHitboxes();
+
             UpdateAnimationState();
             base.Update();
+        }
+
+
+        public void UpdateHitboxes()
+        {
+            float horizontalOffset = this.model.direction == Directions.RIGHT ? 10f : -10f;
+            float weaponRot = this.model.direction == Directions.RIGHT ? MathHelper.DegreesToRadians(90) : MathHelper.DegreesToRadians(-90);
+            Vector2 weaponPosition = FlatConverter.ToVector2(this.model.body.Position) + new Vector2(horizontalOffset, 0);
+
+            //weapon
+            this.sManager.equipmentManager.GetCurrentWeapon().hitbox.Update(
+                weaponPosition,
+                new Vector2(this.model.body.Width, this.model.body.Height),
+                weaponRot
+            );
+
+            //armor
+            this.sManager.equipmentManager.armorHB.Update(
+                FlatConverter.ToVector2(this.model.body.Position),
+                new Vector2(this.model.body.Width, this.model.body.Height - 20),
+                0f
+            );
+        }
+
+
+        public void UpdateMovement()
+        {
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
+            {
+                model.body.Move(new FlatVector(sManager.stats.speed, 0));
+                model.modelState = Model.ModelStates.MOVING;
+                model.direction = Directions.RIGHT;
+            }
+
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
+            {
+                model.body.Move(new FlatVector(-sManager.stats.speed, 0));
+                model.modelState = Model.ModelStates.MOVING;
+                model.direction = Directions.LEFT;
+            }
+
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
+            {
+                model.body.Move(new FlatVector(0, 10));
+                model.modelState = Model.ModelStates.MOVING;
+            }
         }
 
         public void UpdateAnimationState()

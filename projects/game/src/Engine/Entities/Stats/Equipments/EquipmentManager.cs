@@ -1,4 +1,6 @@
 ﻿using Entities;
+using Microsoft.Xna.Framework;
+using static Entities.PhysicalEntity;
 
 namespace Equipment
 {
@@ -17,7 +19,6 @@ namespace Equipment
         public Armor chestplate;
         public Armor helmet;
 
-        public Hitbox weaponHB;
         public Hitbox armorHB;
 
 
@@ -25,7 +26,6 @@ namespace Equipment
         {
             weaponL = new Weapon();
 
-            weaponHB = new Hitbox();
             armorHB = new Hitbox();
         }
 
@@ -40,6 +40,19 @@ namespace Equipment
             {
                 return weaponR;
             }
+        }
+
+
+        public void DrawHitbox()
+        {
+            this.GetCurrentWeapon().DrawHitbox();
+            this.armorHB.Draw(Color.Blue);
+        }
+
+
+        public void Draw(Directions direction)
+        {
+            this.GetCurrentWeapon().Draw(direction);
         }
     }
 }
