@@ -1,4 +1,5 @@
-﻿using Graphics;
+﻿using CSPlatformerSandbox.Engine.Entities.Stats;
+using Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Resources;
@@ -12,11 +13,11 @@ namespace Entities
         public AnimationManager aManager;
         public StaticSpriteFactory.StaticSprites sprite;
 
-        public Hitbox hitbox;
+        public WeaponHitbox hitbox;
 
         public Weapon()
         {
-            hitbox = new Hitbox();
+            hitbox = new WeaponHitbox();
 
             aManager = new AnimationManager();
 
@@ -68,19 +69,19 @@ namespace Entities
             Rectangle spriteSize = aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
-            Vector2 newPos = new Vector2(hitbox.extends.Center.X, hitbox.extends.Center.Y);
+            Vector2 newPos = new Vector2(hitbox.outerHalf.Center.X, hitbox.outerHalf.Center.Y);
             Vector2 textureCenter = new Vector2(spriteSize.Width / 2f, spriteSize.Height / 2f);
 
             //for offsets
             //float bodyWidth = hitboxData.extends.Width + bodyOffset.X;
             //float bodyHeight = hitboxData.extends.Height + bodyOffset.Y;
 
-            float bodyWidth = hitbox.extends.Width;
-            float bodyHeight = hitbox.extends.Height;
+            float bodyWidth = hitbox.outerHalf.Width;
+            float bodyHeight = hitbox.outerHalf.Height;
 
             scaleX = bodyWidth / spriteSize.Width;
             scaleY = bodyHeight / spriteSize.Height;
-            newPos = hitbox.extends.Center - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
+            newPos = hitbox.outerHalf.Center - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
             newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
 
             SpriteEffects spriteEffect = direction == Directions.RIGHT ? SpriteEffects.FlipHorizontally : SpriteEffects.None;

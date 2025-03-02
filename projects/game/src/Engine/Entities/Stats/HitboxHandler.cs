@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSPlatformerSandbox.Engine.Entities.Stats;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Entities
             {
                 HandleHit(entA, entB);
             }
-            if (CheckForHit(entA.sManager.equipmentManager.armorHB, entB.sManager.equipmentManager.GetCurrentWeapon().hitbox))
+            if (CheckForHit(entB.sManager.equipmentManager.GetCurrentWeapon().hitbox, entA.sManager.equipmentManager.armorHB))
             {
                 HandleHit(entB, entA);
             }
@@ -25,11 +26,11 @@ namespace Entities
         }
 
 
-        public bool CheckForHit(Hitbox hitboxFrom, Hitbox hitboxTo)
+        public bool CheckForHit(WeaponHitbox hitboxFrom, Hitbox hitboxTo)
         {
             if (hitboxFrom != null && hitboxTo != null)
             {
-                if (hitboxFrom.extends.Intersects(hitboxTo.extends))
+                if (hitboxFrom.outerHalf.Intersects(hitboxTo.extends))
                 {
                     return true;
                 }

@@ -109,7 +109,7 @@ namespace Graphics
 
             aspectRatio = screen.Width / (float)screen.Height;
             fieldOfView = MathHelper.PiOver2;
-            baseZ = GetZFromHeight(screen.Height);
+            baseZ = 100;
             z = baseZ;
 
             angle = 0f;
@@ -142,7 +142,7 @@ namespace Graphics
         }
 
 
-        private double GetZFromHeight(double height)
+        public double GetZFromHeight(double height)
         {
             double result = height * 0.5d / Math.Tan(fieldOfView * 0.5d);
             return result;

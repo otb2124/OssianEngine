@@ -8,6 +8,7 @@ using static Entities.PhysicalEntity;
 using static Graphics.Animation;
 using System;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 
 namespace UI
@@ -70,7 +71,7 @@ namespace UI
             if (stickToZoom)
             {
                 float currentZoom = (float)Graphics.Graphics.camera.Z;
-                float baseZoom = (float)Graphics.Graphics.camera.BaseZ;
+                float baseZoom = (float)Graphics.Graphics.camera.GetZFromHeight(Graphics.Graphics.screen.Height);
                 adjScale *= currentZoom / baseZoom;
             }
         }
