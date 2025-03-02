@@ -8,6 +8,7 @@ using System;
 using Model = Resources.Model;
 using Utils;
 using System.Diagnostics;
+using MathHelper = Utils.MathHelper;
 
 namespace Entities
 {
@@ -49,8 +50,8 @@ namespace Entities
 
         public override void Update()
         {
-            this.sManager.equipmentManager.weaponHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width*2, this.model.body.Height/4));
-            this.sManager.equipmentManager.armorHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height-20));
+            this.sManager.equipmentManager.weaponHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height), MathHelper.DegreesToRadians(270));
+            this.sManager.equipmentManager.armorHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height-20), 0f);
 
             Debug.WriteLine(this.sManager.stats.HP);
 

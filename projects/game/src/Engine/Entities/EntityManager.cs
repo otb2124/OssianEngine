@@ -62,6 +62,11 @@ namespace Entities
                 .OrderBy(e => StaticSpriteFactory.spriteMappings[((PhysicalEntity)e).model.sprite].z))
             {
                 entity.Draw();
+
+                if (entity is LivingEntity livingEntity)
+                {
+                    livingEntity.sManager.equipmentManager.GetCurrentWeapon().Draw(livingEntity.sManager.equipmentManager.weaponHB);
+                }
             }
         }
 

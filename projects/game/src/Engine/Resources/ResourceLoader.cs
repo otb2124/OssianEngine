@@ -14,8 +14,6 @@ namespace Resources
         public static void LoadResources()
         {
             LoadSprites();
-            fonts = new Font[10];
-            fonts[0] = new Font("font0.ttf", 0);
         }
 
         public static void LoadSprites()
@@ -27,13 +25,20 @@ namespace Resources
                 SpriteSheet.SpriteSheets.MOB,
                 SpriteSheet.SpriteSheets.BACKGROUND,
                 SpriteSheet.SpriteSheets.DRAGON,
-                SpriteSheet.SpriteSheets.CURSOR
+                SpriteSheet.SpriteSheets.CURSOR,
+                SpriteSheet.SpriteSheets.WEAPONS
             };
             spriteSheets = new Dictionary<SpriteSheet.SpriteSheets, SpriteSheet>();
             foreach (var spriteEnum in spritesToUse)
             {
                 spriteSheets[spriteEnum] = new SpriteSheet(spriteEnum);
             }
+        }
+
+        public static void LoadFonts()
+        {
+            fonts = new Font[10];
+            fonts[0] = new Font("font0.ttf", 0);
         }
     }
 }

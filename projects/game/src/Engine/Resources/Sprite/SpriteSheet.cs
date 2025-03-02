@@ -16,6 +16,7 @@ namespace Resources
             BACKGROUND,
             MOB,
             DRAGON,
+            WEAPONS
         }
 
 
@@ -48,6 +49,8 @@ namespace Resources
                     return "bg/dragon.png";
                 case SpriteSheets.CURSOR:
                     return "ui/sprite0.png";
+                case SpriteSheets.WEAPONS:
+                    return "entities/weapons.png";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), id, null);
             }

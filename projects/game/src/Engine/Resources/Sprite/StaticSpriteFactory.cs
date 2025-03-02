@@ -17,6 +17,7 @@ namespace Resources
             BACKGROUND,
             MOB,
             DRAGON,
+            SWORD,
         }
 
         public struct SpriteData
@@ -44,7 +45,9 @@ namespace Resources
             { StaticSprites.BACKGROUND, new SpriteData(SpriteSheets.BACKGROUND, new Rectangle(0,0,1280,720), 0) },
             { StaticSprites.DRAGON, new SpriteData(SpriteSheets.DRAGON, new Rectangle(0,0,128,64), 10) },
 
-            { StaticSprites.CURSOR, new SpriteData(SpriteSheets.CURSOR, new Rectangle(0,0,64,64), 0) }
+            { StaticSprites.CURSOR, new SpriteData(SpriteSheets.CURSOR, new Rectangle(0,0,64,64), 0) },
+
+            { StaticSprites.SWORD, new SpriteData(SpriteSheets.WEAPONS, new Rectangle(0,0,32,64), 200) }
         };
     }
 }

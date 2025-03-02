@@ -19,9 +19,9 @@ namespace Entities
             extends = new RotatedRectangle();
         }
 
-        public void Update(Vector2 pos, Vector2 size)
+        public void Update(Vector2 pos, Vector2 size, float rot)
         {
-            this.extends = new RotatedRectangle(pos, size);
+            this.extends = new RotatedRectangle(pos, size, rot);
         }
 
         public void Draw(Color color)
