@@ -27,6 +27,9 @@ namespace Resources
         {
             { StaticSprites.GRAPHICS_PARALLAX_0_0, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,0,1280,720), -100) },
             { StaticSprites.GRAPHICS_PARALLAX_0_1, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,720,1280,720), -99) },
+            { StaticSprites.GRAPHICS_PARALLAX_0_2, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,720*2,1920,720), -98) },
+            { StaticSprites.GRAPHICS_PARALLAX_0_3, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,720*3,2344,720), -97) },
+
             { StaticSprites.GRAPHICS_CLOUD_0, new SpriteData(SpriteSheets.GRAPHICS_CLOUDS, new Rectangle(0,0,360,128), 2) },
             { StaticSprites.GRAPHICS_SUN, new SpriteData(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },

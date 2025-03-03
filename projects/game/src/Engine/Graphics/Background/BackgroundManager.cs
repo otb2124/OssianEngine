@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Resources;
 using Utils;
-using Entities;
 using System.Linq;
 
 namespace Graphics
@@ -39,11 +38,12 @@ namespace Graphics
 
         public void Update()
         {
-            parallax.Update();
+            
 
 
             if(GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
             {
+                parallax.Update();
                 BackgroundEntityDynamicsHandler.Handle();
             }
             

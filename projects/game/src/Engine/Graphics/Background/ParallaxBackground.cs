@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Resources;
+using System.Linq;
 using UI;
 using Utils;
 
@@ -9,20 +10,29 @@ namespace Graphics
     public class ParallaxBackground
     {
 
-        public Vector2 pos;
-        public Vector2 origin;
-
         public AnimationManager[] aManagers;
         public StaticSprites[] layers;
+        public float[] layerSpeeds;
+        public Vector2[] positions;
 
         public ParallaxBackground()
         {
-            this.origin = Vector2.Zero;
-
             SetLayers(new StaticSprites[] { 
                 StaticSprites.GRAPHICS_PARALLAX_0_0, 
-                StaticSprites.GRAPHICS_PARALLAX_0_1 
+                StaticSprites.GRAPHICS_PARALLAX_0_1,
+                StaticSprites.GRAPHICS_PARALLAX_0_2,
+                StaticSprites.GRAPHICS_PARALLAX_0_3,
             });
+
+            layerSpeeds = new float[]
+            {
+                1.0f,
+                1.0f,
+                1.0f/1.5f,
+                1.0f/1.5f/1.5f,
+            };
+
+            positions = new Vector2[4];
         }
 
         public void SetLayers(StaticSprites[] sprites)
@@ -39,7 +49,12 @@ namespace Graphics
 
         public void Update()
         {
+            float cameraposX = Graphics.camera.Position.X;
 
+            for (int i = 0; i < layers.Length; i++)
+            {
+                positions[i].X = cameraposX * layerSpeeds[i];
+            }
         }
 
         public void Draw()
@@ -48,11 +63,10 @@ namespace Graphics
             {
                 Rectangle srcRect = aManagers[i].GetCurrent().GetCurrentFrame();
 
-                Vector2 adjustedPos = pos;
+                Vector2 adjustedPos = positions[i];
                 Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
                 Vector2 adjustedScale = Vector2.One;
 
-                adjustedPos += Graphics.camera.position;
                 Graphics.sprites.Draw(
                      ResourceLoader.spriteSheets[aManagers[i].GetCurrent().spriteSheet].texture,
                 adjustedPos,
@@ -69,11 +83,10 @@ namespace Graphics
         {
                 Rectangle srcRect = aManagers[0].GetCurrent().GetCurrentFrame();
 
-                Vector2 adjustedPos = pos;
+                Vector2 adjustedPos = positions[0];
                 Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
                 Vector2 adjustedScale = Vector2.One;
 
-                adjustedPos += Graphics.camera.position;
                 Graphics.sprites.Draw(
                      ResourceLoader.spriteSheets[aManagers[0].GetCurrent().spriteSheet].texture,
                 adjustedPos,
