@@ -25,26 +25,34 @@ namespace Resources
 
         public string GetSpriteSheetTexturePath()
         {
+
             switch (id)
             {
-                case SpriteSheets.DECOR:
-                    return "entities/decor.png";
-                case SpriteSheets.HERO:
-                    return "entities/hero.png";
-                case SpriteSheets.MOB:
-                    return "entities/mob.png";
-                case SpriteSheets.BACKGROUND:
-                    return "bg/bg.png";
-                case SpriteSheets.DRAGON:
-                    return "bg/dragon.png";
-                case SpriteSheets.BG_CLOUDS:
-                    return "bg/clouds.png";
-                case SpriteSheets.BG_SUN:
-                    return "bg/sun.png";
-                case SpriteSheets.UI:
-                    return "ui/ui.png";
-                case SpriteSheets.WEAPONS:
-                    return "entities/weapons.png";
+                //graphics
+                case SpriteSheets.GRAPHICS_PARALLAX_0:
+                    return "graphics/parallax/bg0.png";
+                case SpriteSheets.GRAPHICS_STATIC:
+                    return "graphics/static.png";
+                case SpriteSheets.GRAPHICS_SUN:
+                    return "graphics/sun.png";
+                case SpriteSheets.GRAPHICS_CLOUDS:
+                    return "graphics/rain/clouds.png";
+
+                //entities
+                case SpriteSheets.ENTITIES_PLAYER:
+                    return "entities/dynamic/player.png";
+                case SpriteSheets.ENTITIES_MOB0:
+                    return "entities/dynamic/mob0.png";
+                case SpriteSheets.ENTITIES_STATIC:
+                    return "entities/static/static.png";
+                case SpriteSheets.ENTITIES_WEAPONS:
+                    return "entities/equipment/weapons.png";
+
+                //UI
+                case SpriteSheets.UI_CURSOR:
+                    return "ui/cursor.png";
+                case SpriteSheets.UI_GAME_ICON:
+                    return "ui/gameicon.png";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), id, null);
             }

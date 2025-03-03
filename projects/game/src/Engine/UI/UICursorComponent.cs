@@ -8,7 +8,7 @@ namespace UI
     {
         public UICursorComponent() : base()
         {
-            this.sprite = StaticSprites.CURSOR;
+            this.sprite = StaticSprites.UI_CURSOR;
             this.aManager.AddStaticAnimation(this.sprite);
 
             Position = Vector2.Zero;

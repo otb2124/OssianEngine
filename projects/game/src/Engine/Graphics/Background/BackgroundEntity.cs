@@ -43,7 +43,7 @@ namespace Graphics
             Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
             Vector2 adjustedScale = Vector2.One;
 
-            if (this.sprite == StaticSprites.BG_SUN)
+            if (this.sprite == StaticSprites.GRAPHICS_SUN)
             {
                 adjustedScale = new Vector2(10, 10);
             }

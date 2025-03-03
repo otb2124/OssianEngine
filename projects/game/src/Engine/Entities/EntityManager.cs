@@ -21,8 +21,8 @@ namespace Entities
             entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(0, -50), 0.2f));
             entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(150, -50)));
 
-            entities.Add(new PhysicalEntity(Models.CRATE_BIG, new Vector2(-100, -50)));
-            entities.Add(new PhysicalEntity(Models.CRATE_BIG, new Vector2(-200, -50)));
+            entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-100, -50)));
+            entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-200, -50)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 0)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 30)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 50)));
@@ -32,8 +32,8 @@ namespace Entities
             entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(-100, -200)));
             entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(50, -200)));
             entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(200, -200)));
-            entities.Add(new PhysicalEntity(Models.CRATE_SMALL, new Vector2(-50, -150)));
-            entities.Add(new PhysicalEntity(Models.CRATE_SMALL, new Vector2(-65, -150)));
+            entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-50, -150)));
+            entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-65, -150)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-70, -150)));
 
             entities.Add(new Mob(new Vector2(-60, -140), 0f));

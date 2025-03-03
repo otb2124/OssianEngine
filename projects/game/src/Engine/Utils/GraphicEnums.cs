@@ -8,49 +8,93 @@ namespace Utils
 {
     public enum SpriteSheets
     {
-        DECOR,
-        HERO,
-        UI,
-        BACKGROUND,
-        BG_CLOUDS,
-        BG_SUN,
-        MOB,
-        DRAGON,
-        WEAPONS
+        //--------
+        //GRAPHICS
+        //parallax
+        GRAPHICS_PARALLAX_0,
+
+        //static
+        GRAPHICS_STATIC,
+        
+        //sun
+        GRAPHICS_SUN,
+
+        //rain
+        GRAPHICS_CLOUDS,
+
+        //--------
+        //ENTITIES
+        //livingentities
+        ENTITIES_PLAYER,
+        ENTITIES_MOB0,
+
+        //physicalentities
+        ENTITIES_STATIC,
+
+        //equipment
+        ENTITIES_WEAPONS,
+
+        //--
+        //UI
+        UI_CURSOR,
+        UI_GAME_ICON
     }
 
     public enum StaticSprites
     {
-        PLATFORM,
-        CRATE,
-        CRATE_SMALL,
-        CIRCLE,
-        HERO,
-        CURSOR,
-        BACKGROUND,
-        BG_CLOUD_0,
-        BG_SUN,
-        MOB,
-        DRAGON,
-        SWORD,
-        SWORD_0,
+        //--------
+        //GRAPHICS
+        //parallax
+        GRAPHICS_PARALLAX_0_0,
+        GRAPHICS_PARALLAX_0_1,
+
+        //static
+        GRAPHICS_STATIC_DRAGON,
+
+        //sun
+        GRAPHICS_SUN,
+
+        //rain
+        GRAPHICS_CLOUD_0,
+
+        //--------
+        //ENTITIES
+        //livingentities
+        ENTITIES_PLAYER,
+        ENTITIES_MOB0,
+
+        //physicalentities
+        ENTITIES_STATIC_BALL,
+        ENTITIES_STATIC_CIRCLE,
+        ENTITIES_STATIC_CRATE_0,
+        ENTITIES_STATIC_CRATE_1,
+        ENTITIES_STATIC_PLATFORM,
+
+        //equipment
+        ENTITIES_WEAPONS_SWORD0,
+        ENTITIES_WEAPONS_SWORD1,
+
+        //--
+        //UI
+        UI_CURSOR,
+        UI_GAME_ICON
     }
 
 
     public enum FlatBodyPreset
     {
         PLATFORM,
-        BLOCK,
-        BOX,
+        CRATE_0,
+        CRATE_1,
         CIRCLE,
         HUMANOID,
     }
 
     public enum Models
     {
-        HERO,
-        CRATE_BIG,
-        CRATE_SMALL,
+        PLAYER,
+        CRATE_0,
+        CRATE_1,
         BALL,
         PLATFORM,
         MOB

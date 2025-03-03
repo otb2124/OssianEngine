@@ -26,12 +26,12 @@ namespace Resources
 
         private static readonly Dictionary<Models, ModelPreset> modelPresets = new()
         {
-            { Models.HERO, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.HERO, new Vector2(10, 5)) },
-            { Models.CRATE_BIG, new ModelPreset(FlatBodyPreset.BLOCK, StaticSprites.CRATE, Vector2.Zero) },
-            { Models.CRATE_SMALL, new ModelPreset(FlatBodyPreset.BOX, StaticSprites.CRATE_SMALL, Vector2.Zero) },
-            { Models.BALL, new ModelPreset(FlatBodyPreset.CIRCLE, StaticSprites.CIRCLE, Vector2.Zero) },
-            { Models.PLATFORM, new ModelPreset(FlatBodyPreset.PLATFORM, StaticSprites.PLATFORM, Vector2.Zero) },
-            { Models.MOB, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.MOB, new Vector2(10, 5)) }
+            { Models.PLAYER, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_PLAYER, new Vector2(10, 5)) },
+            { Models.CRATE_0, new ModelPreset(FlatBodyPreset.CRATE_0, StaticSprites.ENTITIES_STATIC_CRATE_0, Vector2.Zero) },
+            { Models.CRATE_1, new ModelPreset(FlatBodyPreset.CRATE_1, StaticSprites.ENTITIES_STATIC_CRATE_1, Vector2.Zero) },
+            { Models.BALL, new ModelPreset(FlatBodyPreset.CIRCLE, StaticSprites.ENTITIES_STATIC_BALL, Vector2.Zero) },
+            { Models.PLATFORM, new ModelPreset(FlatBodyPreset.PLATFORM, StaticSprites.ENTITIES_STATIC_PLATFORM, Vector2.Zero) },
+            { Models.MOB, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_MOB0, new Vector2(10, 5)) }
         };
 
         public static Model CreateModel(Models model)

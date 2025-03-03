@@ -8,7 +8,7 @@ namespace Graphics
     public static class BackgroundEntityDynamicsHandler
     {
         private static float cloudSpawnTimer = 0f;
-        private const float CloudSpawnInterval = 0.5f;
+        private const float CloudSpawnInterval = 1f;
 
         public static void Handle()
         {
@@ -62,10 +62,10 @@ namespace Graphics
 
         private static void SpawnCloud()
         {
-            float spawnX = Graphics.camera.Position.X + Graphics.screen.Width + 50;
-            float spawnY = RandomHelper.RandomFloating(Graphics.camera.Position.Y - (Graphics.screen.Height + 100), Graphics.camera.Position.Y + (Graphics.screen.Height + 100)); 
+            float spawnX = Graphics.camera.Position.X + Graphics.screen.Width/2 + 170;
+            float spawnY = RandomHelper.RandomFloating(Graphics.camera.Position.Y - (Graphics.screen.Height/2 + 100), Graphics.camera.Position.Y + (Graphics.screen.Height/2 + 100)); 
 
-            BackgroundEntity newCloud = new BackgroundEntity(StaticSprites.BG_CLOUD_0, new Vector2(spawnX, spawnY), BackgroundEntity.BGEntityDynamics.CLOUD);
+            BackgroundEntity newCloud = new BackgroundEntity(StaticSprites.GRAPHICS_CLOUD_0, new Vector2(spawnX, spawnY), BackgroundEntity.BGEntityDynamics.CLOUD);
             Graphics.backgroundManager.AddEntity(newCloud);
         }
     }

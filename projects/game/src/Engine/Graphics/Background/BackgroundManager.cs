@@ -17,6 +17,7 @@ namespace Graphics
             CLOUDS
         }
 
+        public ParallaxBackground parallax;
         public List<BackgroundEntity> backgrounds;
         public List<BackgroundEntity> backgroundsToRemove;
 
@@ -25,15 +26,22 @@ namespace Graphics
         public void Init()
         {
             state = BGState.CLOUDS;
+
+            //parallax
+            parallax = new ParallaxBackground();
+
+            //bg entities
             backgrounds = new List<BackgroundEntity>();
             backgroundsToRemove = new List<BackgroundEntity>();
-            backgrounds.Add(new BackgroundEntity(StaticSprites.BACKGROUND, Vector2.Zero, BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true});
-            backgrounds.Add(new BackgroundEntity(StaticSprites.DRAGON, new Vector2(-200, 0), BackgroundEntity.BGEntityDynamics.STATIC));
-            backgrounds.Add(new BackgroundEntity(StaticSprites.BG_SUN, new Vector2(-200, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true });
+            backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_STATIC_DRAGON, new Vector2(-200, 0), BackgroundEntity.BGEntityDynamics.STATIC));
+            backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_SUN, new Vector2(-200, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true });
         }
 
         public void Update()
         {
+            parallax.Update();
+
+
             if(GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
             {
                 BackgroundEntityDynamicsHandler.Handle();
@@ -61,29 +69,20 @@ namespace Graphics
         {
             if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
             {
+                parallax.Draw();
+
                 foreach (var background in backgrounds
                 .Where(e => e is BackgroundEntity)
                 .OrderBy(e => StaticSpriteFactory.spriteMappings[(e).sprite].z))
                 {
-                    if (!(background.sprite == StaticSprites.BACKGROUND))
-                    {
-                        background.Draw();
-                    }
+                    background.Draw();   
                 }
             }
         }
 
         public void DrawCanvas()
         {
-            foreach (var background in backgrounds
-                .Where(e => e is BackgroundEntity))
-            {
-                if(background.sprite == StaticSprites.BACKGROUND)
-                {
-                    background.Draw();
-                }
-                
-            }
+            parallax.DrawCanvas();
         }
 
     }

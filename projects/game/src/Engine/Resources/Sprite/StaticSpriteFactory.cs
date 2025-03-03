@@ -25,23 +25,28 @@ namespace Resources
 
         public static readonly Dictionary<StaticSprites, SpriteData> spriteMappings = new()
         {
-            { StaticSprites.PLATFORM, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 128, 128, 16), 0)},
-            { StaticSprites.CIRCLE, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 0, 64, 64), 0)},
-            { StaticSprites.CRATE, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 64, 64, 64), 0)},
-            { StaticSprites.CRATE_SMALL, new SpriteData(SpriteSheets.DECOR, new Rectangle(64, 64, 16, 16), 0)},
+            { StaticSprites.GRAPHICS_PARALLAX_0_0, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,0,1280,720), -100) },
+            { StaticSprites.GRAPHICS_PARALLAX_0_1, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,720,1280,720), -99) },
+            { StaticSprites.GRAPHICS_CLOUD_0, new SpriteData(SpriteSheets.GRAPHICS_CLOUDS, new Rectangle(0,0,360,128), 2) },
+            { StaticSprites.GRAPHICS_SUN, new SpriteData(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
+            { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
 
-            { StaticSprites.HERO, new SpriteData(SpriteSheets.HERO, new Rectangle(0,0,48,96), 100)},
-            { StaticSprites.MOB, new SpriteData(SpriteSheets.MOB, new Rectangle(0,0,48,96), 99)},
 
-            { StaticSprites.BACKGROUND, new SpriteData(SpriteSheets.BACKGROUND, new Rectangle(0,0,1280,720), -1) },
-            { StaticSprites.BG_CLOUD_0, new SpriteData(SpriteSheets.BG_CLOUDS, new Rectangle(0,0,360,128), 2) },
-            { StaticSprites.BG_SUN, new SpriteData(SpriteSheets.BG_SUN, new Rectangle(0,0,64,64), 0) },
-            { StaticSprites.DRAGON, new SpriteData(SpriteSheets.DRAGON, new Rectangle(0,0,128,64), 1) },
+            { StaticSprites.ENTITIES_STATIC_PLATFORM, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128, 128, 16), 0)},
+            { StaticSprites.ENTITIES_STATIC_BALL, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 0, 64, 64), 0)},
+            { StaticSprites.ENTITIES_STATIC_CRATE_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 64, 64, 64), 0)},
+            { StaticSprites.ENTITIES_STATIC_CRATE_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 0)},
 
-            { StaticSprites.CURSOR, new SpriteData(SpriteSheets.UI, new Rectangle(64,0,32,32), 0) },
+            { StaticSprites.ENTITIES_PLAYER, new SpriteData(SpriteSheets.ENTITIES_PLAYER, new Rectangle(0,0,48,96), 100)},
+            { StaticSprites.ENTITIES_MOB0, new SpriteData(SpriteSheets.ENTITIES_MOB0, new Rectangle(0,0,48,96), 99)},
 
-            { StaticSprites.SWORD, new SpriteData(SpriteSheets.WEAPONS, new Rectangle(0,0,32,64), 200) },
-            { StaticSprites.SWORD_0, new SpriteData(SpriteSheets.WEAPONS, new Rectangle(32,0,32,64), 200) }
+
+
+            { StaticSprites.UI_GAME_ICON, new SpriteData(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
+            { StaticSprites.UI_CURSOR, new SpriteData(SpriteSheets.UI_CURSOR, new Rectangle(0,0,32,32), 0) },
+
+            { StaticSprites.ENTITIES_WEAPONS_SWORD0, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(0,0,32,64), 200) },
+            { StaticSprites.ENTITIES_WEAPONS_SWORD1, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(32,0,32,64), 200) }
         };
     }
 }

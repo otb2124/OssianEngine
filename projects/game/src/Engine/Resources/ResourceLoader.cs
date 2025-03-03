@@ -21,15 +21,36 @@ namespace Resources
         {
             SpriteSheets[] spritesToUse = new SpriteSheets[]
             {
-                SpriteSheets.DECOR,
-                SpriteSheets.HERO,
-                SpriteSheets.MOB,
-                SpriteSheets.BACKGROUND,
-                SpriteSheets.BG_CLOUDS,
-                SpriteSheets.BG_SUN,
-                SpriteSheets.DRAGON,
-                SpriteSheets.UI,
-                SpriteSheets.WEAPONS
+                //--------
+                //GRAPHICS
+                //parallax
+                SpriteSheets.GRAPHICS_PARALLAX_0,
+
+                //static
+                SpriteSheets.GRAPHICS_STATIC,
+        
+                //sun
+                SpriteSheets.GRAPHICS_SUN,
+
+                //rain
+                SpriteSheets.GRAPHICS_CLOUDS,
+
+                //--------
+                //ENTITIES
+                //livingentities
+                SpriteSheets.ENTITIES_PLAYER,
+                SpriteSheets.ENTITIES_MOB0,
+
+                //physicalentities
+                SpriteSheets.ENTITIES_STATIC,
+
+                //equipment
+                SpriteSheets.ENTITIES_WEAPONS,
+
+                //--
+                //UI
+                SpriteSheets.UI_CURSOR,
+                SpriteSheets.UI_GAME_ICON
             };
             spriteSheets = new Dictionary<SpriteSheets, SpriteSheet>();
             foreach (var spriteEnum in spritesToUse)

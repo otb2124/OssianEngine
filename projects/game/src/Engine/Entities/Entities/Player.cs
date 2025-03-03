@@ -12,7 +12,7 @@ namespace Entities
     public class Player : LivingEntity
     {
 
-        public Player(Vector2 pos) : base(Models.HERO, pos, 0f)
+        public Player(Vector2 pos) : base(Models.PLAYER, pos, 0f)
         {
             
         }

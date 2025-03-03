@@ -2,7 +2,6 @@
 using Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Resources;
 using Utils;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 
@@ -22,7 +21,7 @@ namespace Entities
 
             aManager = new AnimationManager();
 
-            this.sprite = StaticSprites.SWORD_0;
+            this.sprite = StaticSprites.ENTITIES_WEAPONS_SWORD0;
             this.aManager.AddStaticAnimation(this.sprite);
         }
 

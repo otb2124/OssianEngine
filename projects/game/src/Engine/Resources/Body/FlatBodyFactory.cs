@@ -21,10 +21,10 @@ namespace Resources
                 case FlatBodyPreset.PLATFORM:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(128-offSet.X, 16-offSet.Y), 0.5f, 0.5f);
                     break;
-                case FlatBodyPreset.BLOCK:
+                case FlatBodyPreset.CRATE_0:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50 - offSet.X, 50 - offSet.Y), 0.5f, 0.5f);
                     break;
-                case FlatBodyPreset.BOX:
+                case FlatBodyPreset.CRATE_1:
                     body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(10 - offSet.X, 10 - offSet.Y), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.CIRCLE:
