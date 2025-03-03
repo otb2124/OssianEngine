@@ -1,21 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
-using Resources;
 using Graphics;
 using Microsoft.Xna.Framework.Graphics;
-using static Graphics.Animation;
-using System;
-using Model = Resources.Model;
 using Utils;
-using System.Diagnostics;
 using MathHelper = Utils.MathHelper;
+using System.Diagnostics;
+using System;
 
 namespace Entities
 {
     public class Player : LivingEntity
     {
 
-        public Player(Vector2 pos) : base(ModelFactory.Models.HERO, pos, 0f)
+        public Player(Vector2 pos) : base(Models.HERO, pos, 0f)
         {
             
         }
@@ -61,15 +58,15 @@ namespace Entities
             }
             else
             {
-                if(!(this.model.modelState == Model.ModelStates.ATTACKING))
+                if(!(this.model.modelState == ModelStates.ATTACKING))
                 {
-                    model.modelState = Model.ModelStates.IDLE;
+                    model.modelState = ModelStates.IDLE;
                 }
 
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED])
                 {
-                    model.modelState = Model.ModelStates.ATTACKING;
+                    model.modelState = ModelStates.ATTACKING;
                 }
             }
 
@@ -85,21 +82,21 @@ namespace Entities
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
             {
                 model.body.Move(new FlatVector(sManager.stats.speed, 0));
-                model.modelState = Model.ModelStates.MOVING;
+                model.modelState = ModelStates.MOVING;
                 model.direction = Directions.RIGHT;
             }
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
             {
                 model.body.Move(new FlatVector(-sManager.stats.speed, 0));
-                model.modelState = Model.ModelStates.MOVING;
+                model.modelState = ModelStates.MOVING;
                 model.direction = Directions.LEFT;
             }
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
             {
                 model.body.Move(new FlatVector(0, 10));
-                model.modelState = Model.ModelStates.MOVING;
+                model.modelState = ModelStates.MOVING;
             }
         }
 
@@ -114,7 +111,7 @@ namespace Entities
             Vector2 weaponPosition = FlatConverter.ToVector2(this.model.body.Position) + new Vector2(horizontalOffset, 0);
 
             
-            if (this.model.modelState == Model.ModelStates.ATTACKING)
+            if (this.model.modelState == ModelStates.ATTACKING)
             {
                 this.sManager.equipmentManager.GetCurrentWeapon().hitbox.Update(
                     weaponPosition,
@@ -131,7 +128,7 @@ namespace Entities
 
                 if (!this.sManager.equipmentManager.GetCurrentWeapon().isSwinging)
                 {
-                    this.model.modelState = Model.ModelStates.IDLE;
+                    this.model.modelState = ModelStates.IDLE;
                 }
             }
             else
@@ -158,10 +155,10 @@ namespace Entities
         {
             switch(model.modelState)
             {
-                case Model.ModelStates.MOVING:
+                case ModelStates.MOVING:
                     model.animationState = AnimationStates.MOVING;
                     break;
-                case Model.ModelStates.IDLE:
+                case ModelStates.IDLE:
                     model.animationState = AnimationStates.IDLE;
                     break;
             }
@@ -176,7 +173,7 @@ namespace Entities
 
         public override void DrawWeapon()
         {
-            if (this.model.modelState == Model.ModelStates.ATTACKING)
+            if (this.model.modelState == ModelStates.ATTACKING)
             {
                 sManager.equipmentManager.Draw(this.model.direction);
             }

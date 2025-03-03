@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Resources;
+using Utils;
 
 namespace UI
 {
@@ -7,7 +8,7 @@ namespace UI
     {
         public UICursorComponent() : base()
         {
-            this.sprite = StaticSpriteFactory.StaticSprites.CURSOR;
+            this.sprite = StaticSprites.CURSOR;
             this.aManager.AddStaticAnimation(this.sprite);
 
             Position = Vector2.Zero;

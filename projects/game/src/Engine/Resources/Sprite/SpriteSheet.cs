@@ -2,24 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
+using Utils;
 
 
 namespace Resources
 {
     public class SpriteSheet
     {
-        public enum SpriteSheets
-        {
-            DECOR,
-            HERO,
-            CURSOR,
-            BACKGROUND,
-            MOB,
-            DRAGON,
-            WEAPONS
-        }
-
-
+        
         public SpriteSheets id;
         public Texture2D texture;
 
@@ -47,8 +37,12 @@ namespace Resources
                     return "bg/bg.png";
                 case SpriteSheets.DRAGON:
                     return "bg/dragon.png";
-                case SpriteSheets.CURSOR:
-                    return "ui/sprite0.png";
+                case SpriteSheets.BG_CLOUDS:
+                    return "bg/clouds.png";
+                case SpriteSheets.BG_SUN:
+                    return "bg/sun.png";
+                case SpriteSheets.UI:
+                    return "ui/ui.png";
                 case SpriteSheets.WEAPONS:
                     return "entities/weapons.png";
                 default:

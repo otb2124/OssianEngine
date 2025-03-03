@@ -58,15 +58,12 @@ namespace Graphics
             GC.SuppressFinalize(this);
         }
 
-        public void Begin(Camera camera = null, bool textureFiltering = false, SpriteBlendType blendType = SpriteBlendType.Alpha)
+        public void Begin(Camera camera = null, BlendState blendState = null)
         {
-            SamplerState samplerState = SamplerState.PointClamp;
-            if (textureFiltering)
-            {
-                samplerState = SamplerState.AnisotropicClamp;
-            }
+            SpriteBlendType blendType = SpriteBlendType.Alpha;  // Default blending type
+            bool textureFiltering = false;
 
-            // TODO: Do I need to offset the projection by 1/2 pixel?
+            SamplerState samplerState = textureFiltering ? SamplerState.AnisotropicClamp : SamplerState.PointClamp;
 
             if (camera is null)
             {
@@ -76,27 +73,23 @@ namespace Graphics
             }
             else
             {
-                // Update the camera's view and projection matrices if the camera Z position has changed.
                 camera.Update();
-
                 effect.View = camera.View;
                 effect.Projection = camera.Projection;
 
-                // TODO: Do I really want anisotropic filtering whenever the camera is farther away then the base Z.
                 if (camera.Z > camera.BaseZ)
                 {
                     samplerState = SamplerState.AnisotropicClamp;
                 }
             }
 
-            BlendState blendState = BlendState.AlphaBlend;
-            if (blendType == SpriteBlendType.Additive)
-            {
-                blendState = BlendState.Additive;
-            }
+            // If no BlendState is passed, default to Alpha blending (NonPremultiplied)
+            blendState = blendState ?? BlendState.NonPremultiplied;
 
             sprites.Begin(samplerState: samplerState, blendState: blendState, rasterizerState: RasterizerState.CullNone, effect: effect);
         }
+
+
 
         public void End()
         {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Utils;
 
 namespace Resources
 {
@@ -8,7 +9,7 @@ namespace Resources
         public static readonly string GLOBAL_RES_PATH = "../../../../res/";
 
         public static Font[] fonts;
-        public static Dictionary<SpriteSheet.SpriteSheets, SpriteSheet> spriteSheets;
+        public static Dictionary<SpriteSheets, SpriteSheet> spriteSheets;
 
 
         public static void LoadResources()
@@ -18,17 +19,19 @@ namespace Resources
 
         public static void LoadSprites()
         {
-            SpriteSheet.SpriteSheets[] spritesToUse = new SpriteSheet.SpriteSheets[]
+            SpriteSheets[] spritesToUse = new SpriteSheets[]
             {
-                SpriteSheet.SpriteSheets.DECOR,
-                SpriteSheet.SpriteSheets.HERO,
-                SpriteSheet.SpriteSheets.MOB,
-                SpriteSheet.SpriteSheets.BACKGROUND,
-                SpriteSheet.SpriteSheets.DRAGON,
-                SpriteSheet.SpriteSheets.CURSOR,
-                SpriteSheet.SpriteSheets.WEAPONS
+                SpriteSheets.DECOR,
+                SpriteSheets.HERO,
+                SpriteSheets.MOB,
+                SpriteSheets.BACKGROUND,
+                SpriteSheets.BG_CLOUDS,
+                SpriteSheets.BG_SUN,
+                SpriteSheets.DRAGON,
+                SpriteSheets.UI,
+                SpriteSheets.WEAPONS
             };
-            spriteSheets = new Dictionary<SpriteSheet.SpriteSheets, SpriteSheet>();
+            spriteSheets = new Dictionary<SpriteSheets, SpriteSheet>();
             foreach (var spriteEnum in spritesToUse)
             {
                 spriteSheets[spriteEnum] = new SpriteSheet(spriteEnum);

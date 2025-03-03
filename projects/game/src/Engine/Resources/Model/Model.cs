@@ -1,11 +1,6 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Physics;
-using SharpDX.Direct3D9;
-using SharpDX.MediaFoundation;
-using System;
-using System.Reflection;
 using Utils;
 using static Entities.PhysicalEntity;
 using static Graphics.Animation;
@@ -17,15 +12,8 @@ namespace Resources
     public class Model
     {
 
-        public enum ModelStates
-        {
-            IDLE,
-            MOVING,
-            ATTACKING,
-        }
-
         public FlatBody body;
-        public StaticSpriteFactory.StaticSprites sprite;
+        public StaticSprites sprite;
 
         public AnimationManager aManager;
 
@@ -43,13 +31,16 @@ namespace Resources
         }
         public void DrawCollider()
         {
+
+            Color drawColor = new Color((byte)Color.Green.R, (byte)Color.Green.G, (byte)Color.Green.B, (byte)64);
+
             if (this.body.BodyShapeType == BodyShapeType.Box)
             {
-                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(body.Position), body.Width, body.Height, body.Angle, Color.Green);
+                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(body.Position), body.Width, body.Height, body.Angle, drawColor);
             }
             else
             {
-                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(body.Position), body.Radius, 26, Color.Green);
+                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(body.Position), body.Radius, 26, drawColor);
             }
         }
         public void Draw()

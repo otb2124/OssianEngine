@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Resources;
 using Graphics;
+using Utils;
 
 
 namespace UI
@@ -10,7 +11,7 @@ namespace UI
     {
 
         public AnimationManager aManager;
-        public StaticSpriteFactory.StaticSprites sprite;
+        public StaticSprites sprite;
 
         public Vector2 Position;
         public float Rotation;

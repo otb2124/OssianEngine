@@ -1,25 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using Utils;
 using static Resources.SpriteSheet;
 
 namespace Resources
 {
     public static class StaticSpriteFactory
     {
-        public enum StaticSprites
-        {
-            PLATFORM,
-            CRATE,
-            CIRCLE,
-            HERO,
-            CURSOR,
-            BACKGROUND,
-            MOB,
-            DRAGON,
-            SWORD,
-            SWORD_0
-        }
+        
 
         public struct SpriteData
         {
@@ -36,17 +25,20 @@ namespace Resources
 
         public static readonly Dictionary<StaticSprites, SpriteData> spriteMappings = new()
         {
-            { StaticSprites.PLATFORM, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 128, 100, 10), 0)},
+            { StaticSprites.PLATFORM, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 128, 128, 16), 0)},
             { StaticSprites.CIRCLE, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 0, 64, 64), 0)},
             { StaticSprites.CRATE, new SpriteData(SpriteSheets.DECOR, new Rectangle(0, 64, 64, 64), 0)},
+            { StaticSprites.CRATE_SMALL, new SpriteData(SpriteSheets.DECOR, new Rectangle(64, 64, 16, 16), 0)},
 
             { StaticSprites.HERO, new SpriteData(SpriteSheets.HERO, new Rectangle(0,0,48,96), 100)},
             { StaticSprites.MOB, new SpriteData(SpriteSheets.MOB, new Rectangle(0,0,48,96), 99)},
 
-            { StaticSprites.BACKGROUND, new SpriteData(SpriteSheets.BACKGROUND, new Rectangle(0,0,1280,720), 0) },
-            { StaticSprites.DRAGON, new SpriteData(SpriteSheets.DRAGON, new Rectangle(0,0,128,64), 10) },
+            { StaticSprites.BACKGROUND, new SpriteData(SpriteSheets.BACKGROUND, new Rectangle(0,0,1280,720), -1) },
+            { StaticSprites.BG_CLOUD_0, new SpriteData(SpriteSheets.BG_CLOUDS, new Rectangle(0,0,360,128), 2) },
+            { StaticSprites.BG_SUN, new SpriteData(SpriteSheets.BG_SUN, new Rectangle(0,0,64,64), 0) },
+            { StaticSprites.DRAGON, new SpriteData(SpriteSheets.DRAGON, new Rectangle(0,0,128,64), 1) },
 
-            { StaticSprites.CURSOR, new SpriteData(SpriteSheets.CURSOR, new Rectangle(0,0,64,64), 0) },
+            { StaticSprites.CURSOR, new SpriteData(SpriteSheets.UI, new Rectangle(64,0,32,32), 0) },
 
             { StaticSprites.SWORD, new SpriteData(SpriteSheets.WEAPONS, new Rectangle(0,0,32,64), 200) },
             { StaticSprites.SWORD_0, new SpriteData(SpriteSheets.WEAPONS, new Rectangle(32,0,32,64), 200) }

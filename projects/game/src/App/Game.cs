@@ -18,7 +18,7 @@ namespace App
             Graphics.Graphics.graphicsDeviceManager  = new GraphicsDeviceManager(this);
             Graphics.Graphics.graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
             //Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             IsFixedTimeStep = true;
 
             const double UpdatesPerSecond = 60d;

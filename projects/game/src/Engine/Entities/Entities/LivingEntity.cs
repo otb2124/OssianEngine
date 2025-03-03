@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Resources;
+using Utils;
 
 namespace Entities
 {
@@ -7,7 +8,7 @@ namespace Entities
     {
 
         public StatsManager sManager;
-        public LivingEntity(ModelFactory.Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
+        public LivingEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
             this.sManager = new StatsManager();
             setStats();

@@ -3,7 +3,8 @@ using Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Resources;
-using static Entities.PhysicalEntity;
+using Utils;
+using MathHelper = Microsoft.Xna.Framework.MathHelper;
 
 namespace Entities
 {
@@ -11,7 +12,7 @@ namespace Entities
     {
 
         public AnimationManager aManager;
-        public StaticSpriteFactory.StaticSprites sprite;
+        public StaticSprites sprite;
 
         public WeaponHitbox hitbox;
 
@@ -21,7 +22,7 @@ namespace Entities
 
             aManager = new AnimationManager();
 
-            this.sprite = StaticSpriteFactory.StaticSprites.SWORD_0;
+            this.sprite = StaticSprites.SWORD_0;
             this.aManager.AddStaticAnimation(this.sprite);
         }
 

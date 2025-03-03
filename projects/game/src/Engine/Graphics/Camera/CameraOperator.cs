@@ -55,19 +55,19 @@ namespace Graphics
             //move
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
             {
-                camera.MoveUp(1f);
+                camera.MoveUp(2f);
             }
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED])
             {
-                camera.MoveUp(-1f);
+                camera.MoveUp(-2f);
             }
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED])
             {
-                camera.MoveRight(1f);
+                camera.MoveRight(2f);
             }
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED])
             {
-                camera.MoveRight(-1f);
+                camera.MoveRight(-2f);
             }
 
             //zoom
@@ -78,50 +78,6 @@ namespace Graphics
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
             {
                 camera.MoveZ(2f);
-            }
-        }
-
-
-
-
-
-
-
-        public void MoveFor(Vector2 target, float time)
-        {
-            // Calculate the direction from the camera position to the target position
-            Vector2 direction = Vector2.Normalize(target - camera.position);
-
-            // Calculate the total frames needed to complete the movement
-            float frames = time * 60;
-
-            // Calculate the distance to the target position
-            float distanceToTarget = Vector2.Distance(camera.position, target);
-
-            // Calculate the necessary speed to cover the distance in the given time
-            float speed = distanceToTarget / time;
-
-            // Calculate the incremental movement per frame based on the desired speed and time
-            float distancePerFrame = distanceToTarget / frames;
-            Vector2 deltaMovement = direction * distancePerFrame * speed;
-
-            // Check if the camera has reached or passed the target position
-            if (camera.counter >= frames || distanceToTarget <= distancePerFrame)
-            {
-
-                // Reset movement-related variables
-                camera.isMoving = false;
-                camera.counter = 0;
-                camera.hasMoved = true;
-            }
-            else
-            {
-                // Move the camera towards the target position
-                camera.position += deltaMovement;
-
-                // Increment the counter
-                camera.counter++;
-                camera.isMoving = true;
             }
         }
 

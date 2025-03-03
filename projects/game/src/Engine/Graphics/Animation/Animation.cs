@@ -9,19 +9,14 @@ using Resources;
 using SharpDX.Direct2D1.Effects;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using UI;
+using Utils;
 
 namespace Graphics
 {
     public class Animation
     {
-        public enum AnimationStates
-        {
-            IDLE,
-            MOVING,
-            ATTACKING
-        }
 
-        public SpriteSheet.SpriteSheets spriteSheet;
+        public SpriteSheets spriteSheet;
         public List<Rectangle> sourceRectangles = new List<Rectangle>();
         public int frames;
         public int currentFrame;
@@ -30,7 +25,7 @@ namespace Graphics
         public bool active;
         public SpriteEffects effect;
 
-        public Animation(SpriteSheet.SpriteSheets spriteSheet, int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime, SpriteEffects effect)
+        public Animation(SpriteSheets spriteSheet, int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime, SpriteEffects effect)
         {
             this.spriteSheet = spriteSheet;
             this.frames = framesCountX;

@@ -10,21 +10,28 @@ using static Entities.PhysicalEntity;
 using static Graphics.Animation;
 using UI;
 using System.Diagnostics;
+using Utils;
 
 namespace Graphics
 {
     public class BackgroundEntity
     {
+        public enum BGEntityDynamics
+        {
+            STATIC,
+            CLOUD,
+        }
 
         public Vector2 pos;
         public Vector2 origin;
-        public StaticSpriteFactory.StaticSprites sprite;
+        public StaticSprites sprite;
+        public BGEntityDynamics type;
         public AnimationManager aManager;
 
         public bool isStickToCamera;
         public bool isStickToZoom;
 
-        public BackgroundEntity(StaticSpriteFactory.StaticSprites spritePreset, Vector2 pos) 
+        public BackgroundEntity(StaticSprites spritePreset, Vector2 pos, BGEntityDynamics type) 
         {
             sprite = spritePreset;
             this.pos = pos;
@@ -32,11 +39,8 @@ namespace Graphics
 
             this.aManager = new AnimationManager();
             this.aManager.AddStaticAnimation(this.sprite);
-        }
 
-        public void Update()
-        {
-            
+            this.type = type;
         }
 
         public void Draw()
@@ -46,10 +50,17 @@ namespace Graphics
 
             Vector2 adjustedPos = pos;
             Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
+            Vector2 adjustedScale = Vector2.One;
 
             if (isStickToCamera)
             {
                 adjustedPos += Graphics.camera.position;
+            }
+            if (isStickToZoom)
+            {
+                float currentZoom = (float)Graphics.camera.Z;
+                float baseZoom = (float)Graphics.camera.GetZFromHeight(Graphics.screen.Height);
+                adjustedScale *= currentZoom / baseZoom;
             }
 
             Graphics.sprites.Draw(
@@ -59,7 +70,7 @@ namespace Graphics
                  Color.White,
                  0f,
                  adjustedOrigin,
-                 Vector2.One,
+                 adjustedScale,
                  SpriteEffects.FlipVertically, 0f);
         }
     }

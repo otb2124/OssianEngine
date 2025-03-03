@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
 using SharpDX.MediaFoundation;
+using Utils;
 
 namespace Resources
 {
@@ -8,14 +9,7 @@ namespace Resources
     {
 
 
-        public enum FlatBodyPreset
-        {
-            PLATFORM,
-            BLOCK,
-            BOX,
-            CIRCLE,
-            HUMANOID,
-        }
+        
 
 
         public static FlatBody createFlatBody(FlatBodyPreset preset, Vector2 offSet)
@@ -25,7 +19,7 @@ namespace Resources
             switch (preset)
             {
                 case FlatBodyPreset.PLATFORM:
-                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(200-offSet.X, 10-offSet.Y), 0.5f, 0.5f);
+                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(128-offSet.X, 16-offSet.Y), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.BLOCK:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50 - offSet.X, 50 - offSet.Y), 0.5f, 0.5f);

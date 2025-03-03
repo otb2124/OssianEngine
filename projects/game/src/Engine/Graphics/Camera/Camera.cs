@@ -6,8 +6,6 @@ namespace Graphics
     public sealed class Camera
     {
 
-        private Game game;
-        private Screen screen;
         public Vector2 position;
         private Matrix view;
         private Matrix proj;
@@ -28,11 +26,6 @@ namespace Graphics
 
         private const int MinZoom = 1;
         private const int MaxZoom = 32;
-
-        public int counter = 0;
-        public bool isMoving = false, hasMoved = false;
-
-        public int ScreenResW, ScreenResH, ScreenW, ScreenH;
 
         public CameraOperator cameraOperator;
 
@@ -94,8 +87,6 @@ namespace Graphics
 
         public Camera(Screen screen, Game game)
         {
-            this.game = game;
-            this.screen = screen ?? throw new ArgumentNullException("screen");
             position = Vector2.Zero;
             view = Matrix.Identity;
             proj = Matrix.Identity;
@@ -109,11 +100,6 @@ namespace Graphics
             up = new Vector2(MathF.Sin(angle), MathF.Cos(angle));
 
             zoom = 1;
-
-            ScreenResW = screen.Width;
-            ScreenResH = screen.Height;
-            ScreenW = Graphics.ResolutionX;
-            ScreenH = Graphics.ResolutionY;
 
             Update();
 

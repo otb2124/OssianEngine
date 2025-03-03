@@ -96,7 +96,7 @@ namespace Graphics
 
             Rectangle destinationRectangle = CalculateDestinationRectangle();
 
-            sprites.Begin(null, textureFiltering, SpriteBlendType.Alpha);
+            sprites.Begin(null, BlendState.Opaque);
             sprites.Draw(target, destinationRectangle, Color.White);
             sprites.End();
         }

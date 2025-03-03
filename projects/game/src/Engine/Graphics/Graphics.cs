@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Runtime.CompilerServices;
 using Utils;
 
@@ -36,13 +37,17 @@ namespace Graphics
             screen.Set();
 
             //bg
-            sprites.Begin(camera);
-            backgroundManager.Draw();
+            sprites.Begin(camera, BlendState.Additive);
+            backgroundManager.DrawCanvas();  // Draw background with additive blending
             sprites.End();
 
+            // Draw other background elements: Alpha blending (for transparency)
+            sprites.Begin(camera, BlendState.NonPremultiplied); // Use NonPremultiplied for alpha blending
+            backgroundManager.Draw();  // Draw foreground elements with alpha blending
+            sprites.End();
 
             //colliders
-            if(GameStateManager.gameMode == GameStateManager.GameModes.debugMode)
+            if (GameStateManager.gameMode == GameStateManager.GameModes.debugMode)
             {
                 shapes.Begin(camera);
                 Entities.Entities.entityManager.DrawColliders();
