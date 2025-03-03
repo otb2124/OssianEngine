@@ -9,7 +9,6 @@ using Model = Resources.Model;
 using Utils;
 using System.Diagnostics;
 using MathHelper = Utils.MathHelper;
-using static Entities.PhysicalEntity;
 
 namespace Entities
 {
@@ -29,7 +28,7 @@ namespace Entities
             sManager.stats.speed = 1;
 
             sManager.equipmentManager.weaponL.physDmg = 1;
-            sManager.equipmentManager.weaponL.swingSpeed = 0.5f;
+            sManager.equipmentManager.weaponL.swingSpeed = 0.4f;
 
             base.setStats();
         }
@@ -117,7 +116,7 @@ namespace Entities
             
             if (this.model.modelState == Model.ModelStates.ATTACKING)
             {
-                this.sManager.equipmentManager.Update(
+                this.sManager.equipmentManager.GetCurrentWeapon().hitbox.Update(
                     weaponPosition,
                     new Vector2(this.model.body.Width, this.model.body.Height)
                 );
@@ -137,7 +136,7 @@ namespace Entities
             }
             else
             {
-                this.sManager.equipmentManager.Update(
+                this.sManager.equipmentManager.GetCurrentWeapon().hitbox.Update(
                 new Vector2(0,0),
                 new Vector2(0, 0)
                 );

@@ -2,13 +2,6 @@
 using Microsoft.Xna.Framework;
 using Resources;
 using Graphics;
-using SharpDX.Direct2D1.Effects;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-using static Entities.PhysicalEntity;
-using static Graphics.Animation;
-using System;
-using System.Diagnostics;
-using System.Windows.Forms;
 
 
 namespace UI

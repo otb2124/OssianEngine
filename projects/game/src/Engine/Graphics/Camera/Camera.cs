@@ -6,8 +6,6 @@ namespace Graphics
     public sealed class Camera
     {
 
-        #region Fields
-
         private Game game;
         private Screen screen;
         public Vector2 position;
@@ -25,8 +23,8 @@ namespace Graphics
         private float angle;
         private Vector2 up;
 
-        private const float MinZ = 1f;
-        private const float MaxZ = 1000f;
+        private const float MinZ = 20f;
+        private const float MaxZ = 350f;
 
         private const int MinZoom = 1;
         private const int MaxZoom = 32;
@@ -37,10 +35,6 @@ namespace Graphics
         public int ScreenResW, ScreenResH, ScreenW, ScreenH;
 
         public CameraOperator cameraOperator;
-
-        #endregion
-
-        #region Properties
 
         public Vector2 Position
         {
@@ -97,7 +91,6 @@ namespace Graphics
             get { return angle; }
         }
 
-        #endregion
 
         public Camera(Screen screen, Game game)
         {

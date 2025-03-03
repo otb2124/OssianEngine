@@ -43,11 +43,6 @@ namespace Equipment
             }
         }
 
-        public void Update(Vector2 hitboxpos, Vector2 hitboxsize)
-        {
-            GetCurrentWeapon().hitbox.Update(hitboxpos, hitboxsize);
-        }
-
         public void Update(Vector2 hitboxpos, Vector2 hitboxsize, float angle)
         {
             GetCurrentWeapon().hitbox.Update(hitboxpos, hitboxsize, angle);

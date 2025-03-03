@@ -21,7 +21,7 @@ namespace Entities
 
             aManager = new AnimationManager();
 
-            this.sprite = StaticSpriteFactory.StaticSprites.SWORD;
+            this.sprite = StaticSpriteFactory.StaticSprites.SWORD_0;
             this.aManager.AddStaticAnimation(this.sprite);
         }
 
