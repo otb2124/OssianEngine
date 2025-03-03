@@ -34,7 +34,11 @@ namespace Graphics
 
         public void Update()
         {
-            BackgroundEntityDynamicsHandler.Handle();   
+            if(GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
+            {
+                BackgroundEntityDynamicsHandler.Handle();
+            }
+            
 
             foreach (var backgroundEntity in backgroundsToRemove)
             {
@@ -55,13 +59,16 @@ namespace Graphics
 
         public void Draw()
         {
-            foreach (var background in backgrounds
+            if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
+            {
+                foreach (var background in backgrounds
                 .Where(e => e is BackgroundEntity)
                 .OrderBy(e => StaticSpriteFactory.spriteMappings[(e).sprite].z))
-            {
-                if (!(background.sprite == StaticSprites.BACKGROUND))
                 {
-                    background.Draw();
+                    if (!(background.sprite == StaticSprites.BACKGROUND))
+                    {
+                        background.Draw();
+                    }
                 }
             }
         }

@@ -1,15 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Entities.PhysicalEntity;
-using static Graphics.Animation;
-using UI;
-using System.Diagnostics;
 using Utils;
 
 namespace Graphics
