@@ -52,6 +52,12 @@ namespace Graphics
             Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
             Vector2 adjustedScale = Vector2.One;
 
+            if (this.sprite == StaticSprites.BG_SUN)
+            {
+                adjustedScale = new Vector2(10, 10);
+            }
+            
+
             if (isStickToCamera)
             {
                 adjustedPos += Graphics.camera.position;
