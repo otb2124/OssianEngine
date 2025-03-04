@@ -23,8 +23,15 @@ namespace Utils
             debugMode
         }
 
-        public static GameStates gameState = GameStates.playState;
-        public static GameModes gameMode = GameModes.playMode;
+        public static GameStates gameState;
+        public static GameModes gameMode;
+
+
+        public static void SetDefault()
+        {
+            gameState = GameStates.playState;
+            gameMode = GameModes.playMode;
+        }
 
 
         public static void CheckGameStatusChange()

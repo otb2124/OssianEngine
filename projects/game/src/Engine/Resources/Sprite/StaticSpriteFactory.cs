@@ -35,7 +35,11 @@ namespace Resources
             { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
 
 
-            { StaticSprites.ENTITIES_STATIC_PLATFORM, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128, 128, 16), 0)},
+            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128, 80, 32), 0)},
+            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128+32, 32, 16), 0)},
+            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_2, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(32, 128+32, 32, 16), 0)},
+
+
             { StaticSprites.ENTITIES_STATIC_BALL, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 0, 64, 64), 0)},
             { StaticSprites.ENTITIES_STATIC_CRATE_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 64, 64, 64), 0)},
             { StaticSprites.ENTITIES_STATIC_CRATE_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 0)},

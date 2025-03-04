@@ -21,6 +21,8 @@ namespace Entities
             entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(0, -50), 0.2f));
             entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(150, -50)));
 
+            entities.Add(new PlatformEntity(Models.PLATFORM, new Vector2(150, 100), 0f));
+
             entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-100, -50)));
             entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-200, -50)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 0)));

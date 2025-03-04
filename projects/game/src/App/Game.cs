@@ -54,8 +54,7 @@ namespace App
             Physics.Physics.sampleTimer.Start();
 
 
-            GameStateManager.gameState = GameStateManager.GameStates.playState;
-            GameStateManager.gameMode = GameStateManager.GameModes.playMode;
+            GameStateManager.SetDefault();
 
 
             base.Initialize();

@@ -19,7 +19,7 @@ namespace Resources
             switch (preset)
             {
                 case FlatBodyPreset.PLATFORM:
-                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(128-offSet.X, 16-offSet.Y), 0.5f, 0.5f);
+                    body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(128-offSet.X, 32-offSet.Y), 0.5f, 0.5f);
                     break;
                 case FlatBodyPreset.CRATE_0:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50 - offSet.X, 50 - offSet.Y), 0.5f, 0.5f);

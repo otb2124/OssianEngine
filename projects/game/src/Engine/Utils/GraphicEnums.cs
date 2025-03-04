@@ -68,9 +68,15 @@ namespace Utils
         //physicalentities
         ENTITIES_STATIC_BALL,
         ENTITIES_STATIC_CIRCLE,
+
+        //crates
         ENTITIES_STATIC_CRATE_0,
         ENTITIES_STATIC_CRATE_1,
-        ENTITIES_STATIC_PLATFORM,
+
+        //platforms
+        ENTITIES_STATIC_PLATFORM_0_0,
+        ENTITIES_STATIC_PLATFORM_0_1,
+        ENTITIES_STATIC_PLATFORM_0_2,
 
         //equipment
         ENTITIES_WEAPONS_SWORD0,
