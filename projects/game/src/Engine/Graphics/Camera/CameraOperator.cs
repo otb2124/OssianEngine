@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
@@ -8,7 +9,8 @@ namespace Graphics
     public class CameraOperator
     {
 
-        Camera camera;
+        public Camera camera;
+        public float cameraSpeed = 2f;
 
         public CameraOperator(Camera camera)
         {
@@ -50,25 +52,40 @@ namespace Graphics
 
 
             //camera.position = Vector2.Zero;
-            
+
 
             //move
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
-            {
-                camera.MoveUp(2f);
-            }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED])
-            {
-                camera.MoveUp(-2f);
-            }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED])
-            {
-                camera.MoveRight(2f);
-            }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED])
-            {
-                camera.MoveRight(-2f);
-            }
+            Rectangle bounds = Graphics.backgroundManager.parallax.bounds;
+            Vector2 newPos = new Vector2((camera.position.X + cameraSpeed)*(float)(camera.Z/camera.BaseZ), camera.position.Y + cameraSpeed*(float)(camera.Z / camera.BaseZ)); 
+
+
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED] && newPos.Y <= bounds.Height)
+                {
+                    camera.MoveUp(cameraSpeed);
+                }
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED] && newPos.Y >= bounds.Y)
+                {
+                    camera.MoveUp(-cameraSpeed);
+                }
+
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED] && newPos.X <= bounds.Width)
+                {
+                    camera.MoveRight(cameraSpeed);
+                }
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED] && newPos.X >= bounds.X)
+                {
+                    camera.MoveRight(-cameraSpeed);
+                }
+            
+
+
+
+
+
+
+
+
+
 
             //zoom
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])

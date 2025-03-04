@@ -21,8 +21,8 @@ namespace Graphics
         private float angle;
         private Vector2 up;
 
-        private const float MinZ = 20f;
-        private const float MaxZ = 350f;
+        public float MinZ = 20f;
+        public float MaxZ = 350f;
 
         private const int MinZoom = 1;
         private const int MaxZoom = 32;
@@ -93,7 +93,7 @@ namespace Graphics
 
             aspectRatio = screen.Width / (float)screen.Height;
             fieldOfView = MathHelper.PiOver2;
-            baseZ = 100;
+            baseZ = 200;
             z = baseZ;
 
             angle = 0f;

@@ -15,6 +15,8 @@ namespace Graphics
         public float[] layerSpeeds;
         public Vector2[] positions;
 
+        public Rectangle bounds;
+
         public ParallaxBackground()
         {
             SetLayers(new StaticSprites[] { 
@@ -33,6 +35,13 @@ namespace Graphics
             };
 
             positions = new Vector2[4];
+
+            int lastIndex = layers.Length - 1;
+            AnimationManager lastAnim = new AnimationManager();
+            lastAnim.AddStaticAnimation(layers[lastIndex]);
+
+            Rectangle lastFrame = lastAnim.GetCurrent().GetCurrentFrame();
+            bounds = new Rectangle(-Graphics.screen.Width/2, 0, lastFrame.Width, lastFrame.Height);
         }
 
         public void SetLayers(StaticSprites[] sprites)
