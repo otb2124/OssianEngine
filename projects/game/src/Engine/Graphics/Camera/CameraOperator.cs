@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
 using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Physics;
+using System.Drawing;
 
 namespace Graphics
 {
@@ -55,8 +53,22 @@ namespace Graphics
 
 
             //move
-            Rectangle bounds = Graphics.backgroundManager.parallax.bounds;
-            Vector2 newPos = new Vector2((camera.position.X + cameraSpeed)*(float)(camera.Z/camera.BaseZ), camera.position.Y + cameraSpeed*(float)(camera.Z / camera.BaseZ)); 
+            RectangleF bounds = Graphics.backgroundManager.parallax.bounds;
+
+            float currentZoom = (float)camera.Z;
+            float baseZoom = camera.MaxZ;
+            float adjScale = currentZoom / baseZoom;
+
+            bounds.X /= adjScale;
+            bounds.Y /= adjScale;
+            bounds.Width /= adjScale;
+            bounds.Height /= adjScale;
+
+
+            Debug.WriteLine(bounds.ToString());
+
+
+            Vector2 newPos = new Vector2(camera.position.X, camera.position.Y); 
 
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED] && newPos.Y <= bounds.Height)

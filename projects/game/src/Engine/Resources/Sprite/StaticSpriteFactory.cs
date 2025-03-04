@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using Utils;
-using static Resources.SpriteSheet;
 
 namespace Resources
 {
@@ -35,9 +33,9 @@ namespace Resources
             { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
 
 
-            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128, 80, 32), 0)},
-            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128+32, 32, 16), 0)},
-            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_2, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(32, 128+32, 32, 16), 0)},
+            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128, 80, 32), -5)},
+            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128+32, 32, 16), -5)},
+            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_2, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(32, 128+32, 32, 16), -5)},
 
 
             { StaticSprites.ENTITIES_STATIC_BALL, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 0, 64, 64), 0)},

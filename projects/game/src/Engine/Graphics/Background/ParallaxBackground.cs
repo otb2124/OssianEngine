@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Resources;
-using System.Linq;
-using UI;
+using System.Drawing;
 using Utils;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Graphics
 {
@@ -15,7 +16,7 @@ namespace Graphics
         public float[] layerSpeeds;
         public Vector2[] positions;
 
-        public Rectangle bounds;
+        public RectangleF bounds;
 
         public ParallaxBackground()
         {
@@ -41,7 +42,7 @@ namespace Graphics
             lastAnim.AddStaticAnimation(layers[lastIndex]);
 
             Rectangle lastFrame = lastAnim.GetCurrent().GetCurrentFrame();
-            bounds = new Rectangle(-Graphics.screen.Width/2, 0, lastFrame.Width, lastFrame.Height);
+            bounds = new RectangleF(-(lastFrame.Width / 2 * (Graphics.cameraOperator.cameraSpeed * layerSpeeds[lastIndex])), -Graphics.screen.Height/4, lastFrame.Width / 2 * (Graphics.cameraOperator.cameraSpeed * layerSpeeds[lastIndex]), Graphics.screen.Height/4);
         }
 
         public void SetLayers(StaticSprites[] sprites)

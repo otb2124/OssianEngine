@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Runtime.CompilerServices;
 using Utils;
 
 namespace Graphics
@@ -45,14 +44,6 @@ namespace Graphics
             sprites.Begin(camera, BlendState.NonPremultiplied, true);
             backgroundManager.Draw();
             sprites.End();
-
-            //colliders
-            if (GameStateManager.gameMode == GameStateManager.GameModes.debugMode)
-            {
-                shapes.Begin(camera);
-                Entities.Entities.entityManager.DrawColliders();
-                shapes.End();
-            }
             
             //entity sprites
             sprites.Begin(camera);
@@ -63,6 +54,7 @@ namespace Graphics
             if (GameStateManager.gameMode == GameStateManager.GameModes.debugMode)
             {
                 shapes.Begin(camera);
+                Entities.Entities.entityManager.DrawColliders();
                 Entities.Entities.entityManager.DrawHitboxes();
                 shapes.End();
             }

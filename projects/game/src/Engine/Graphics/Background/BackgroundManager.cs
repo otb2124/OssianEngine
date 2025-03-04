@@ -24,7 +24,7 @@ namespace Graphics
 
         public void Init()
         {
-            state = BGState.CLOUDS;
+            state = BGState.NONE;
 
             //parallax
             parallax = new ParallaxBackground();
