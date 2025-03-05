@@ -44,6 +44,9 @@ namespace Resources
                 //physicalentities
                 SpriteSheets.ENTITIES_STATIC,
 
+                //platforms
+                SpriteSheets.ENTITIES_PLATFORMS,
+
                 //equipment
                 SpriteSheets.ENTITIES_WEAPONS,
 

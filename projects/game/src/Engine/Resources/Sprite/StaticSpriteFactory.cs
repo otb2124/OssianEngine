@@ -32,12 +32,6 @@ namespace Resources
             { StaticSprites.GRAPHICS_SUN, new SpriteData(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
 
-
-            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128, 80, 32), -5)},
-            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 128+32, 32, 16), -5)},
-            { StaticSprites.ENTITIES_STATIC_PLATFORM_0_2, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(32, 128+32, 32, 16), -5)},
-
-
             { StaticSprites.ENTITIES_STATIC_BALL, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 0, 64, 64), 0)},
             { StaticSprites.ENTITIES_STATIC_CRATE_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 64, 64, 64), 0)},
             { StaticSprites.ENTITIES_STATIC_CRATE_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 0)},
@@ -53,5 +47,36 @@ namespace Resources
             { StaticSprites.ENTITIES_WEAPONS_SWORD0, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(0,0,32,64), 200) },
             { StaticSprites.ENTITIES_WEAPONS_SWORD1, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(32,0,32,64), 200) }
         };
+
+
+
+        public static SpriteData[] PlatformCut(Vector2 pos, int tileSize = 32)
+        {
+            SpriteData[] data = new SpriteData[13];
+
+            // Top row (Y = pos.Y)
+            data[0] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), -5);
+            data[1] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize, (int)pos.Y, tileSize, tileSize), -5);
+            data[2] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), -5);
+            data[3] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y, tileSize, tileSize), -5);
+
+            // Middle row (Y = pos.Y + tileSize)
+            data[4] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X, (int)pos.Y + tileSize, tileSize, tileSize), -5);
+            data[5] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize, (int)pos.Y + tileSize, tileSize, tileSize), -5);
+            data[6] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), -5);
+            data[7] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), -5);
+
+            // Bottom row (Y = pos.Y + 2 * tileSize)
+            data[8] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X, (int)pos.Y + 2 * tileSize, tileSize, tileSize), -5);
+            data[9] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize, (int)pos.Y + 2 * tileSize, tileSize, tileSize), -5);
+            data[10] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y + 2 * tileSize, tileSize, tileSize), -5);
+            data[11] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y + 2 * tileSize, tileSize, tileSize), -5);
+
+            // Extra sprites (adjusted carefully)
+            data[12] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize / 2, (int)pos.Y + tileSize + tileSize / 3, tileSize, tileSize), -5);
+
+            return data;
+        }
+
     }
 }

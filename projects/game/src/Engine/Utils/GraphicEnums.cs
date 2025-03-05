@@ -31,6 +31,9 @@ namespace Utils
         //physicalentities
         ENTITIES_STATIC,
 
+        //platforms
+        ENTITIES_PLATFORMS,
+
         //equipment
         ENTITIES_WEAPONS,
 
@@ -73,11 +76,6 @@ namespace Utils
         ENTITIES_STATIC_CRATE_0,
         ENTITIES_STATIC_CRATE_1,
 
-        //platforms
-        ENTITIES_STATIC_PLATFORM_0_0,
-        ENTITIES_STATIC_PLATFORM_0_1,
-        ENTITIES_STATIC_PLATFORM_0_2,
-
         //equipment
         ENTITIES_WEAPONS_SWORD0,
         ENTITIES_WEAPONS_SWORD1,
@@ -91,7 +89,6 @@ namespace Utils
 
     public enum FlatBodyPreset
     {
-        PLATFORM,
         CRATE_0,
         CRATE_1,
         CIRCLE,
@@ -104,7 +101,6 @@ namespace Utils
         CRATE_0,
         CRATE_1,
         BALL,
-        PLATFORM,
         MOB
     }
 

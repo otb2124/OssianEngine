@@ -65,7 +65,7 @@ namespace Graphics
             bounds.Height /= adjScale;
 
 
-            Debug.WriteLine(bounds.ToString());
+            //Debug.WriteLine(bounds.ToString());
 
 
             Vector2 newPos = new Vector2(camera.position.X, camera.position.Y); 

@@ -30,29 +30,31 @@ namespace Resources
             {
                 //graphics
                 case SpriteSheets.GRAPHICS_PARALLAX_0:
-                    return "graphics/parallax/bg0.png";
+                    return "graphics/parallax/bg0";
                 case SpriteSheets.GRAPHICS_STATIC:
-                    return "graphics/static.png";
+                    return "graphics/static";
                 case SpriteSheets.GRAPHICS_SUN:
-                    return "graphics/sun.png";
+                    return "graphics/sun";
                 case SpriteSheets.GRAPHICS_CLOUDS:
-                    return "graphics/rain/clouds.png";
+                    return "graphics/rain/clouds";
 
                 //entities
                 case SpriteSheets.ENTITIES_PLAYER:
-                    return "entities/dynamic/player.png";
+                    return "entities/dynamic/player";
                 case SpriteSheets.ENTITIES_MOB0:
-                    return "entities/dynamic/mob0.png";
+                    return "entities/dynamic/mob0";
                 case SpriteSheets.ENTITIES_STATIC:
-                    return "entities/static/static.png";
+                    return "entities/static/static";
+                case SpriteSheets.ENTITIES_PLATFORMS:
+                    return "entities/static/platforms";
                 case SpriteSheets.ENTITIES_WEAPONS:
-                    return "entities/equipment/weapons.png";
+                    return "entities/equipment/weapons";
 
                 //UI
                 case SpriteSheets.UI_CURSOR:
-                    return "ui/cursor.png";
+                    return "ui/cursor";
                 case SpriteSheets.UI_GAME_ICON:
-                    return "ui/gameicon.png";
+                    return "ui/gameicon";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), id, null);
             }
@@ -60,7 +62,7 @@ namespace Resources
 
         public void Load(string path)
         {
-            using (FileStream fileStream = new FileStream(ResourceLoader.GLOBAL_RES_PATH + "sprites/" + path, FileMode.Open))
+            using (FileStream fileStream = new FileStream(ResourceLoader.GLOBAL_RES_PATH + "sprites/" + path + ".png", FileMode.Open))
             {
                 this.texture = Texture2D.FromStream(Graphics.Graphics.graphicsDeviceManager.GraphicsDevice, fileStream);
             }

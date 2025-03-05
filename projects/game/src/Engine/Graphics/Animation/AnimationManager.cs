@@ -16,11 +16,14 @@ namespace Graphics
 
 
 
+        public void AddStaticAnimation(StaticSpriteFactory.SpriteData spriteData)
+        {
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, AnimationStates.IDLE), new Animation(spriteData.sheet, 1, spriteData.srcRect.Location.ToVector2(), spriteData.srcRect.Size.ToVector2(), 0f, SpriteEffects.None));
+        }
         public void AddStaticAnimation(StaticSprites sprite)
         {
-            float frameSpeed = 0.0f;
             StaticSpriteFactory.SpriteData data = StaticSpriteFactory.spriteMappings[sprite];
-            AddAnimation(sprite, Directions.LEFT, AnimationStates.IDLE, 1, data.srcRect.Location.ToVector2(), data.srcRect.Size.ToVector2(), frameSpeed, SpriteEffects.None);
+            AddStaticAnimation(data);
         }
         public void AddAnimation(StaticSprites sprite, Directions Directions, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 frameSize, float eachFrameDuration, SpriteEffects effect)
         {

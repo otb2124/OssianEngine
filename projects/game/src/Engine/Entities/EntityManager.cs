@@ -18,10 +18,10 @@ namespace Entities
 
         public void Init()
         {
-            entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(0, -50), 0.2f));
-            entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(150, -50)));
-
-            entities.Add(new PlatformEntity(Models.PLATFORM, new Vector2(150, 100), 0f));
+            entities.Add(new PlatformEntity(new Vector2(0, -50), 0.2f));
+            entities.Add(new PlatformEntity(new Vector2(150, -50), new Vector2(3, 2)));
+            entities.Add(new PlatformEntity(new Vector2(150, 100), new Vector2(3, 3), 0.75f));
+            entities.Add(new PlatformEntity(new Vector2(300, 100), new Vector2(3, 3)));
 
             entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-100, -50)));
             entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-200, -50)));
@@ -31,9 +31,10 @@ namespace Entities
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-20, 100)));
             entities.Add(new Player(new Vector2(0, 20)));
 
-            entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(-100, -200)));
-            entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(50, -200)));
-            entities.Add(new PhysicalEntity(Models.PLATFORM, new Vector2(200, -200)));
+            entities.Add(new PlatformEntity(new Vector2(-100, -200), 0f));
+            entities.Add(new PlatformEntity(new Vector2(50, -200), 0f));
+            entities.Add(new PlatformEntity(new Vector2(200, -200), 0f));
+
             entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-50, -150)));
             entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-65, -150)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-70, -150)));
@@ -68,9 +69,21 @@ namespace Entities
         //models
         public void Draw()
         {
-            foreach (var entity in entities
-                .Where(e => e is PhysicalEntity)
-                .OrderBy(e => StaticSpriteFactory.spriteMappings[((PhysicalEntity)e).model.sprite].z))
+            var sortedEntities = entities
+               .OrderBy(e =>
+               {
+                   if (e is PlatformEntity platform)
+                   {
+                       return -5;
+                   }
+                   else if (e is PhysicalEntity physical)
+                   {
+                       return StaticSpriteFactory.spriteMappings[((PhysicalEntity)e).model.sprite].z;
+                   }
+                   return float.MaxValue; // Default for other entities
+               });
+
+            foreach (var entity in sortedEntities)
             {
                 entity.Draw();
 
@@ -85,7 +98,7 @@ namespace Entities
         //collisions
         public void DrawColliders()
         {
-            foreach (var entity in entities.Where(e => e is PhysicalEntity))
+            foreach (var entity in entities.Where(e => e is PhysicalEntity || e is PlatformEntity))
             {
                 entity.DrawCollider();
             }

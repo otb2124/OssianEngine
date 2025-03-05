@@ -30,8 +30,6 @@ namespace Resources
             { Models.CRATE_0, new ModelPreset(FlatBodyPreset.CRATE_0, StaticSprites.ENTITIES_STATIC_CRATE_0, Vector2.Zero) },
             { Models.CRATE_1, new ModelPreset(FlatBodyPreset.CRATE_1, StaticSprites.ENTITIES_STATIC_CRATE_1, Vector2.Zero) },
             { Models.BALL, new ModelPreset(FlatBodyPreset.CIRCLE, StaticSprites.ENTITIES_STATIC_BALL, Vector2.Zero) },
-
-            { Models.PLATFORM, new ModelPreset(FlatBodyPreset.PLATFORM, StaticSprites.ENTITIES_STATIC_PLATFORM_0_0, new Vector2(10, 30)) },
             { Models.MOB, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_MOB0, new Vector2(10, 5)) }
         };
 
