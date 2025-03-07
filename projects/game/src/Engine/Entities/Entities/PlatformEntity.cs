@@ -9,14 +9,26 @@ namespace Entities
 {
     public class PlatformEntity : Entity
     {
+        public enum PlatformPerspective
+        {
+            RIGHT,
+            LEFT,
+            BOTH
+        }
 
         public Vector2 layout;
         public FlatBody body;
         public AnimationManager[] aManagers;
 
-        public PlatformEntity(Vector2 pos, Vector2 layout, float rot = 0f) : base()
+        public float baseSpriteZ;
+        public float spriteZ;
+
+        public PlatformPerspective perspective = PlatformPerspective.LEFT;
+
+
+        public PlatformEntity(Vector2 pos, float spriteZ, float layoutX = 3, float layoutY = 2, float rot = 0f) : base()
         {
-            this.layout = layout;
+            this.layout = new Vector2(layoutX, layoutY);
             this.body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32*layout.X, 32), 1f, 0.5f);
             body.MoveTo(FlatConverter.ToFlatVector(pos));
             body.RotateTo(rot);
@@ -31,25 +43,9 @@ namespace Entities
                 aManagers[i] = new AnimationManager();
                 aManagers[i].AddStaticAnimation(data[i]);
             }
-        }
 
-        public PlatformEntity(Vector2 pos, float rot = 0f) : base()
-        {
-            this.layout = new Vector2(3,1);
-            this.body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32), 1f, 0.5f);
-            body.MoveTo(FlatConverter.ToFlatVector(pos));
-            body.RotateTo(rot);
-            Physics.Physics.flatWorld.AddBody(body);
-            body.owner = this;
-
-            StaticSpriteFactory.SpriteData[] data = StaticSpriteFactory.PlatformCut(Vector2.Zero);
-            aManagers = new AnimationManager[data.Length];
-
-            for (int i = 0; i < aManagers.Length; i++)
-            {
-                aManagers[i] = new AnimationManager();
-                aManagers[i].AddStaticAnimation(data[i]);
-            }
+            baseSpriteZ = spriteZ;
+            this.spriteZ = baseSpriteZ;
         }
 
 
@@ -59,6 +55,13 @@ namespace Entities
                 new Vector2(2, 1), new int[][]
                 {
                     new int[] { 0, 2, },
+                }
+            },
+            {
+                new Vector2(2, 2), new int[][]
+                {
+                    new int[] { 0, 2, },
+                    new int[] { 8, 10, },
                 }
             },
             { 

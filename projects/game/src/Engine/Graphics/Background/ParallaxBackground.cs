@@ -20,11 +20,13 @@ namespace Graphics
 
         public ParallaxBackground()
         {
-            SetLayers(new StaticSprites[] { 
-                StaticSprites.GRAPHICS_PARALLAX_0_0, 
+            SetLayers(new StaticSprites[] {
+                StaticSprites.GRAPHICS_PARALLAX_0_0,
                 StaticSprites.GRAPHICS_PARALLAX_0_1,
                 StaticSprites.GRAPHICS_PARALLAX_0_2,
                 StaticSprites.GRAPHICS_PARALLAX_0_3,
+
+                StaticSprites.GRAPHICS_PARALLAX_0_N,
             });
 
             layerSpeeds = new float[]
@@ -33,16 +35,17 @@ namespace Graphics
                 1.0f,
                 1.0f/1.5f,
                 1.0f/1.5f/1.5f,
+                0.0f,
             };
 
-            positions = new Vector2[4];
+            positions = new Vector2[5];
 
-            int lastIndex = layers.Length - 1;
+            int lastIndex = layers.Length - 2;
             AnimationManager lastAnim = new AnimationManager();
             lastAnim.AddStaticAnimation(layers[lastIndex]);
 
             Rectangle lastFrame = lastAnim.GetCurrent().GetCurrentFrame();
-            bounds = new RectangleF(-(lastFrame.Width / 2 * (Graphics.cameraOperator.cameraSpeed * layerSpeeds[lastIndex])), -Graphics.screen.Height/4, lastFrame.Width / 2 * (Graphics.cameraOperator.cameraSpeed * layerSpeeds[lastIndex]), Graphics.screen.Height/4);
+            bounds = new RectangleF(-(lastFrame.Width / 2 * (Graphics.cameraOperator.cameraSpeed * layerSpeeds[lastIndex])), -Graphics.screen.Height / 4, lastFrame.Width / 2 * (Graphics.cameraOperator.cameraSpeed * layerSpeeds[lastIndex]), Graphics.screen.Height / 4);
         }
 
         public void SetLayers(StaticSprites[] sprites)
@@ -69,7 +72,7 @@ namespace Graphics
 
         public void Draw()
         {
-            for (int i = 1; i < aManagers.Length; i++)
+            for (int i = 1; i < aManagers.Length - 1; i++)
             {
                 Rectangle srcRect = aManagers[i].GetCurrent().GetCurrentFrame();
 
@@ -91,16 +94,36 @@ namespace Graphics
 
         public void DrawCanvas()
         {
-                Rectangle srcRect = aManagers[0].GetCurrent().GetCurrentFrame();
+            Rectangle srcRect = aManagers[0].GetCurrent().GetCurrentFrame();
 
-                Vector2 adjustedPos = positions[0];
-                Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
-                Vector2 adjustedScale = Vector2.One;
+            Vector2 adjustedPos = positions[0];
+            Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
+            Vector2 adjustedScale = Vector2.One;
 
-                Graphics.sprites.Draw(
-                     ResourceLoader.spriteSheets[aManagers[0].GetCurrent().spriteSheet].texture,
-                adjustedPos,
-                     aManagers[0].GetCurrent().GetCurrentFrame(),
+            Graphics.sprites.Draw(
+                 ResourceLoader.spriteSheets[aManagers[0].GetCurrent().spriteSheet].texture,
+            adjustedPos,
+                 aManagers[0].GetCurrent().GetCurrentFrame(),
+                 Color.White,
+                 0f,
+                 adjustedOrigin,
+                 adjustedScale,
+                 SpriteEffects.FlipVertically, 0f);
+        }
+
+
+        public void DrawParallaxN()
+        {
+            Rectangle srcRect = aManagers[aManagers.Length-1].GetCurrent().GetCurrentFrame();
+
+            Vector2 adjustedPos = positions[aManagers.Length - 1];
+            Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
+            Vector2 adjustedScale = Vector2.One;
+
+            Graphics.sprites.Draw(
+            ResourceLoader.spriteSheets[aManagers[aManagers.Length - 1].GetCurrent().spriteSheet].texture,
+            adjustedPos,
+            aManagers[aManagers.Length - 1].GetCurrent().GetCurrentFrame(),
                      Color.White,
                      0f,
                      adjustedOrigin,

@@ -48,6 +48,7 @@ namespace Graphics
             //entity sprites
             sprites.Begin(camera);
             Entities.Entities.entityManager.Draw();
+            backgroundManager.DrawParallaxN();
             sprites.End();
 
             //hitboxes over models (fix to over entity sprites, but under weapon sprites)
@@ -59,8 +60,8 @@ namespace Graphics
                 shapes.End();
             }
 
-            //ui
             sprites.Begin(camera);
+            //ui
             UI.UI.UIManager.Draw();
             sprites.End();
 

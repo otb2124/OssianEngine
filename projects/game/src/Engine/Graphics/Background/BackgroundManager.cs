@@ -82,7 +82,15 @@ namespace Graphics
 
         public void DrawCanvas()
         {
-            parallax.DrawCanvas();
+            if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
+            {
+                parallax.DrawCanvas();
+            }
+        }
+
+        public void DrawParallaxN()
+        {
+            parallax.DrawParallaxN();   
         }
 
     }

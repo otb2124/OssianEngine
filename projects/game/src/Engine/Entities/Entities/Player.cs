@@ -50,7 +50,7 @@ namespace Entities
 
         public override void Update()
         {
-            Debug.WriteLine(this.sManager.stats.HP);
+            //Debug.WriteLine(this.sManager.stats.HP);
 
             if (KeyHandlerUtil.isPlayerMoving())
             {
@@ -168,6 +168,8 @@ namespace Entities
 
         public override void Draw()
         {
+            Debug.WriteLine(spriteZ);
+
             base.Draw();
         }
 

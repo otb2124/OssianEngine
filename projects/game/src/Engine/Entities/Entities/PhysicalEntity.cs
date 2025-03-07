@@ -11,8 +11,10 @@ namespace Entities
     public class PhysicalEntity : Entity
     {
         
-
         public Resources.Model model;
+
+        public float baseSpriteZ;
+        public float spriteZ;
 
         public PhysicalEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base() 
         {
@@ -21,6 +23,9 @@ namespace Entities
             model.body.RotateTo(rotation);
             Physics.Physics.flatWorld.AddBody(model.body);
             model.body.owner = this;
+
+            this.baseSpriteZ = StaticSpriteFactory.spriteMappings[this.model.sprite].z;
+            this.spriteZ = baseSpriteZ;
 
             SetAnimations();
         }

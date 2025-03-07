@@ -52,6 +52,7 @@ namespace Utils
         GRAPHICS_PARALLAX_0_1,
         GRAPHICS_PARALLAX_0_2,
         GRAPHICS_PARALLAX_0_3,
+        GRAPHICS_PARALLAX_0_N,
 
         //static
         GRAPHICS_STATIC_DRAGON,
