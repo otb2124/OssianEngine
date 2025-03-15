@@ -53,6 +53,7 @@ namespace Resources
                 //--
                 //UI
                 SpriteSheets.UI_CURSOR,
+                SpriteSheets.UI_FRAMES,
                 SpriteSheets.UI_GAME_ICON
             };
             spriteSheets = new Dictionary<SpriteSheets, SpriteSheet>();

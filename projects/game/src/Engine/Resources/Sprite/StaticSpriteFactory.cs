@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Utils;
 
@@ -14,12 +15,23 @@ namespace Resources
             public Rectangle srcRect;
             public float z;
             public float currentZ;
+            public SpriteEffects effect;
             public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z)
             {
                 this.sheet = sheet;
                 this.srcRect = srcRect;
                 this.currentZ = z;
                 this.z = currentZ;
+                this.effect = SpriteEffects.None;
+            }
+
+            public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z, SpriteEffects neweffect)
+            {
+                this.sheet = sheet;
+                this.srcRect = srcRect;
+                this.currentZ = z;
+                this.z = currentZ;
+                this.effect = neweffect;
             }
         }
 
@@ -77,6 +89,18 @@ namespace Resources
 
             // Extra sprites (adjusted carefully)
             data[12] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize / 2, (int)pos.Y + tileSize + tileSize / 3, tileSize, tileSize), 0);
+
+            return data;
+        }
+
+        public static SpriteData[] UIFrameCut(Vector2 pos, int tileSize)
+        {
+            SpriteData[] data = new SpriteData[4];
+
+            data[0] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0); //left top corner
+            data[1] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally); //right top corner
+            data[2] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically); //left bottom corner
+            data[3] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically); //right bottom corner
 
             return data;
         }

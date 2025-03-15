@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Resources;
 using Utils;
+using Graphics;
 
 namespace UI
 {
@@ -9,10 +10,10 @@ namespace UI
         public UICursorComponent() : base()
         {
             this.sprite = StaticSprites.UI_CURSOR;
-            this.aManager.AddStaticAnimation(this.sprite);
+            this.Init();
 
             Position = Vector2.Zero;
-            Origin = StaticSpriteFactory.spriteMappings[sprite].srcRect.Size.ToVector2()/2;
+            Origin = StaticSpriteFactory.spriteMappings[sprite].srcRect.Size.ToVector2() / 2;
 
             stickToCamera = true;
             stickToCursor = true;
@@ -29,7 +30,6 @@ namespace UI
 
         public override void Draw()
         {
-
             base.Draw();
         }
     }

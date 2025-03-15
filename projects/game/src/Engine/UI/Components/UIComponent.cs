@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Resources;
 using Graphics;
 using Utils;
+using System.Diagnostics;
 
 
 namespace UI
@@ -27,14 +28,20 @@ namespace UI
         public bool stickToZoom;
         public bool stickToCursor;
 
+        public UIComponent[] children;
+
         public UIComponent()
         {
-            aManager = new AnimationManager();
-
             Position = Vector2.Zero;
             Rotation = 0f;
             Origin = Vector2.Zero;
             Scale = new Vector2(1, 1);
+        }
+
+        public virtual void Init()
+        {
+            aManager = new AnimationManager();
+            aManager.AddStaticAnimation(this.sprite);
         }
 
 
@@ -73,8 +80,11 @@ namespace UI
 
         public virtual void Draw()
         {
-
-            this.aManager.GetCurrent().Draw(adjPosition, Color.White, adjRotation, adjOrigin, adjScale, 0f);
+            if (aManager != null)
+            {
+                aManager.GetCurrent().Draw(adjPosition, Color.White, adjRotation, adjOrigin, adjScale, 0f);
+            }
+                   
         }
     }
 }

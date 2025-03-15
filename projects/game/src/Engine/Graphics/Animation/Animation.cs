@@ -25,7 +25,7 @@ namespace Graphics
         public bool active;
         public SpriteEffects effect;
 
-        public Animation(SpriteSheets spriteSheet, int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime, SpriteEffects effect)
+        public Animation(SpriteSheets spriteSheet, int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime, SpriteEffects neweffect)
         {
             this.spriteSheet = spriteSheet;
             this.frames = framesCountX;
@@ -33,7 +33,7 @@ namespace Graphics
             this.frameTimeLeft = frameTime;
             currentFrame = 0;
             active = true;
-            this.effect = effect;
+            this.effect = neweffect;
 
             for (int i = 0; i < frames; i++)
             {

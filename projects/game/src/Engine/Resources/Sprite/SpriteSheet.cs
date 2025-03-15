@@ -53,6 +53,8 @@ namespace Resources
                 //UI
                 case SpriteSheets.UI_CURSOR:
                     return "ui/cursor";
+                case SpriteSheets.UI_FRAMES:
+                    return "ui/frames";
                 case SpriteSheets.UI_GAME_ICON:
                     return "ui/gameicon";
                 default:

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Resources;
 using System;
 using System.Collections.Generic;
-using static Graphics.Animation;
 using Utils;
 using Microsoft.Xna.Framework;
 
@@ -14,21 +13,17 @@ namespace Graphics
         public Dictionary<Tuple<Directions, AnimationStates>, Animation> anims = new Dictionary<Tuple<Directions, AnimationStates>, Animation>();
         public Tuple<Directions, AnimationStates> lastKey;
 
-
-
         public void AddStaticAnimation(StaticSpriteFactory.SpriteData spriteData)
         {
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, AnimationStates.IDLE), new Animation(spriteData.sheet, 1, spriteData.srcRect.Location.ToVector2(), spriteData.srcRect.Size.ToVector2(), 0f, SpriteEffects.None));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, AnimationStates.IDLE), new Animation(spriteData.sheet, 1, spriteData.srcRect.Location.ToVector2(), spriteData.srcRect.Size.ToVector2(), 0f, spriteData.effect));
         }
         public void AddStaticAnimation(StaticSprites sprite)
         {
-            StaticSpriteFactory.SpriteData data = StaticSpriteFactory.spriteMappings[sprite];
-            AddStaticAnimation(data);
+            AddStaticAnimation(StaticSpriteFactory.spriteMappings[sprite]);
         }
         public void AddAnimation(StaticSprites sprite, Directions Directions, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 frameSize, float eachFrameDuration, SpriteEffects effect)
         {
-            StaticSpriteFactory.SpriteData data = StaticSpriteFactory.spriteMappings[sprite];
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions, animationState), new Animation(data.sheet, framesCount, startPos, frameSize, eachFrameDuration, effect));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions, animationState), new Animation(StaticSpriteFactory.spriteMappings[sprite].sheet, framesCount, startPos, frameSize, eachFrameDuration, effect));
         }
 
         public void AddAnimation(Tuple<Directions, AnimationStates> key, Animation animation)

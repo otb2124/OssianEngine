@@ -40,6 +40,7 @@ namespace Utils
         //--
         //UI
         UI_CURSOR,
+        UI_FRAMES,
         UI_GAME_ICON
     }
 

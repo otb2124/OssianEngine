@@ -39,6 +39,11 @@ namespace Entities
             entities.Add(new PlatformEntity(new Vector2(-100, -200), 47));
             entities.Add(new PlatformEntity(new Vector2(50, -200),   47));
             entities.Add(new PlatformEntity(new Vector2(200, -200),  47));
+            entities.Add(new PlatformEntity(new Vector2(400, -200), 47));
+            entities.Add(new PlatformEntity(new Vector2(600, -200), 47));
+            entities.Add(new PlatformEntity(new Vector2(800, -200), 47));
+            entities.Add(new PlatformEntity(new Vector2(1000, -200), 47));
+            entities.Add(new PlatformEntity(new Vector2(1200, -200), 47));
 
             entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-50, -150)));
             entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-65, -150)));
@@ -46,7 +51,6 @@ namespace Entities
 
             entities.Add(new Mob(new Vector2(-60, -140), 0f));
             entities.Add(new Mob(new Vector2(-150, -140), 0f));
-
 
             entities.Add(new PlatformEntity(new Vector2(0, -350), 46, 3, 2));
         }
