@@ -95,12 +95,20 @@ namespace Resources
 
         public static SpriteData[] UIFrameCut(Vector2 pos, int tileSize)
         {
-            SpriteData[] data = new SpriteData[4];
+            SpriteData[] data = new SpriteData[9];
 
-            data[0] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0); //left top corner
-            data[1] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally); //right top corner
-            data[2] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically); //left bottom corner
-            data[3] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically); //right bottom corner
+            data[0] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically); //left top corner
+            data[1] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically | SpriteEffects.FlipHorizontally); //right top corner
+            data[2] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0); //left bottom corner
+            data[3] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally); //right bottom corner
+
+            data[4] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X + tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically); //top border
+            data[5] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X + tileSize, (int)pos.Y, tileSize, tileSize), 0); //bottom border
+
+            data[6] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y + tileSize, tileSize, tileSize), 0); //left border
+            data[7] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X, (int)pos.Y + tileSize, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally); //right border
+
+            data[8] = new SpriteData(SpriteSheets.UI_FRAMES, new Rectangle((int)pos.X + tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0); //right border
 
             return data;
         }

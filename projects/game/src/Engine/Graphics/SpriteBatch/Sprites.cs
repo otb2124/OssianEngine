@@ -57,7 +57,7 @@ namespace Graphics
             GC.SuppressFinalize(this);
         }
 
-        public void Begin(Camera camera = null, BlendState blendState = null, bool anisotroph = false)
+        public void Begin(Camera camera = null, BlendState blendState = null, bool zAnisoTroph = false, bool alwaysAnisoTroph = false)
         {
             bool textureFiltering = false;
 
@@ -75,7 +75,11 @@ namespace Graphics
                 effect.View = camera.View;
                 effect.Projection = camera.Projection;
 
-                if (camera.Z > camera.BaseZ && anisotroph)
+                if (camera.Z > camera.BaseZ && zAnisoTroph)
+                {
+                    samplerState = SamplerState.AnisotropicClamp;
+                }
+                else if(alwaysAnisoTroph)
                 {
                     samplerState = SamplerState.AnisotropicClamp;
                 }

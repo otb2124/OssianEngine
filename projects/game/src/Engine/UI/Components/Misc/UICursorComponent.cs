@@ -9,6 +9,8 @@ namespace UI
     {
         public UICursorComponent() : base()
         {
+            type = ComponentTypes.CURSOR;
+
             this.sprite = StaticSprites.UI_CURSOR;
             this.Init();
 

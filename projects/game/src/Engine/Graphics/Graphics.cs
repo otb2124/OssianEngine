@@ -60,7 +60,7 @@ namespace Graphics
                 shapes.End();
             }
 
-            sprites.Begin(camera);
+            sprites.Begin(camera, BlendState.NonPremultiplied, false, true);
             //ui
             UI.UI.UIManager.Draw();
             sprites.End();

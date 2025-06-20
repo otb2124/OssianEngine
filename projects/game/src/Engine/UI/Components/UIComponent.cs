@@ -11,6 +11,12 @@ namespace UI
     public class UIComponent
     {
 
+        public enum ComponentTypes
+        {
+            CURSOR,
+            FRAME,
+        }
+
         public AnimationManager aManager;
         public StaticSprites sprite;
 
@@ -27,8 +33,13 @@ namespace UI
         public bool stickToCamera;
         public bool stickToZoom;
         public bool stickToCursor;
+        public bool applyHalfScreenOrigin;
 
         public UIComponent[] children;
+
+        public Color? Tint { get; set; } = null;
+
+        public ComponentTypes type;
 
         public UIComponent()
         {
@@ -52,28 +63,36 @@ namespace UI
             adjOrigin = Origin;
             adjScale = Scale;
 
-            //important
-            if (stickToCursor && stickToZoom)
+            if (applyHalfScreenOrigin)
             {
-                stickToCamera = false;
+                adjPosition -= new Vector2(Graphics.Graphics.screen.Width / 2, Graphics.Graphics.screen.Height / 2);
             }
 
-            if (stickToCamera)
-            {
-                adjPosition += Graphics.Graphics.camera.Position;
-            }
-
-            if (stickToCursor)
-            {
-                adjPosition += new Vector2(Inputs.Inputs.mouse.GetMouseWorldPosition().X, Inputs.Inputs.mouse.GetMouseWorldPosition().Y);
-                // worldPos + cameraPos = screenPos
-            }
-
+            float zoomFactor = 1f;
             if (stickToZoom)
             {
                 float currentZoom = (float)Graphics.Graphics.camera.Z;
                 float baseZoom = (float)Graphics.Graphics.camera.GetZFromHeight(Graphics.Graphics.screen.Height);
-                adjScale *= currentZoom / baseZoom;
+                zoomFactor = currentZoom / baseZoom;
+                adjScale *= zoomFactor;
+            }
+
+            if (stickToCursor)
+            {
+                Vector2 mouseWorldPos = Inputs.Inputs.mouse.GetMouseWorldPosition();
+                adjPosition = mouseWorldPos;
+            }
+            else if (stickToCamera)
+            {
+                adjPosition += Graphics.Graphics.camera.Position;
+                if (stickToZoom)
+                {
+                    adjPosition = Graphics.Graphics.camera.Position + (adjPosition - Graphics.Graphics.camera.Position) * zoomFactor;
+                }
+            }
+            else if (stickToZoom)
+            {
+                adjPosition = Graphics.Graphics.camera.Position + (adjPosition - Graphics.Graphics.camera.Position) * zoomFactor;
             }
         }
 
@@ -82,7 +101,8 @@ namespace UI
         {
             if (aManager != null)
             {
-                aManager.GetCurrent().Draw(adjPosition, Color.White, adjRotation, adjOrigin, adjScale, 0f);
+                Color color = Tint ?? Color.White;
+                aManager.GetCurrent().Draw(adjPosition, color, adjRotation, adjOrigin, adjScale, 0f);
             }
                    
         }

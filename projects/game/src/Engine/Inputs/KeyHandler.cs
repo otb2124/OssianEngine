@@ -23,6 +23,9 @@ namespace Inputs
             CAMERAZOOMUPPRESSED,
             CAMERAZOOMDOWNPRESSED,
 
+            //UI
+            TOGGLEMENUPRESSED,
+
             //debug
             DEBUGPRESSED
         }
@@ -43,6 +46,9 @@ namespace Inputs
 
             { KeyStates.CAMERAZOOMUPPRESSED, false },
             { KeyStates.CAMERAZOOMDOWNPRESSED, false },
+
+            //ui
+            { KeyStates.TOGGLEMENUPRESSED, false },
 
             //debug
             { KeyStates.DEBUGPRESSED, false }
@@ -65,6 +71,9 @@ namespace Inputs
 
             { (KeyStates.CAMERAZOOMUPPRESSED, false), Keys.OemPlus },
             { (KeyStates.CAMERAZOOMDOWNPRESSED, false), Keys.OemMinus },
+
+            //ui
+            { (KeyStates.TOGGLEMENUPRESSED, true), Keys.Escape },
 
             //debug
             { (KeyStates.DEBUGPRESSED, true), Keys.T },

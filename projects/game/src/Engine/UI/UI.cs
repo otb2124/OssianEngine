@@ -11,10 +11,13 @@ namespace UI
     {
 
         public static UIManager UIManager;
+        public static UINavigator UINavigator;
 
         public static void Init()
         {
             UIManager = new UIManager();
+            UINavigator = new UINavigator();
+
             UIManager.Init();
         }
     }
