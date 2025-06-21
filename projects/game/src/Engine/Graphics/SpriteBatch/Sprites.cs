@@ -137,5 +137,10 @@ namespace Graphics
         {
             sprites.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.FlipVertically, 0f);
         }
+
+        public void DrawString(SpriteFont font, string text, Vector2 position, float rotation, Vector2 origin, Vector2 scale, Color color, SpriteEffects effect, float layerDepth)
+        {
+            sprites.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.FlipVertically | effect, 0f);
+        }
     }
 }

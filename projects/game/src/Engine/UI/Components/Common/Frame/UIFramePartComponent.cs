@@ -26,13 +26,15 @@ namespace UI
             INNER
         }
 
-        public UIFramePartType type;
+        public UIFramePartType frameType;
 
         public const int FRAMEPARTSIZE = 16;
 
-        public UIFramePartComponent(UIFramePartType type, Vector2 framePos, Vector2 frameSize) : base()
+        public UIFramePartComponent(int id, UIFramePartType frameType, Vector2 framePos, Vector2 frameSize) : base(id)
         {
-            this.type = type;
+            this.frameType = frameType;
+
+            type = UIComponentTypes.FRAMEPART;
 
             aManager = new AnimationManager();
             aManager.AddStaticAnimation(mapFramePartSpriteData());
@@ -46,7 +48,7 @@ namespace UI
 
         private StaticSpriteFactory.SpriteData mapFramePartSpriteData()
         {
-            switch(type)
+            switch(frameType)
             {
                 case UIFramePartType.CORNER_LB:
                     return StaticSpriteFactory.UIFrameCut(new Vector2(0, 0), 16)[2];
@@ -98,7 +100,7 @@ namespace UI
             Vector2 leftBorder = new Vector2(framePos.X - cornerSize.X, framePos.Y + cornerSize.Y);
             Vector2 rightBorder = new Vector2(leftBorder.X + frameSize.X, leftBorder.Y);
 
-            switch (type)
+            switch (frameType)
             {
 
                 case UIFramePartType.CORNER_LB:
@@ -137,7 +139,7 @@ namespace UI
             Vector2 frameSizeInTiles = new Vector2(frameSize.X / cornerSize.X/2, frameSize.Y / cornerSize.Y/2);
             Vector2 frameSizeInTilesWithCornerOffset = new Vector2(frameSizeInTiles.X - 1, frameSizeInTiles.Y - 1);
 
-            switch (type)
+            switch (frameType)
             {
                 case UIFramePartType.BORDER_T:
                     adjustedScale *= new Vector2(frameSizeInTilesWithCornerOffset.X, 1);

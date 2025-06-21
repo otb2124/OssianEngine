@@ -1,6 +1,7 @@
 ﻿using Graphics;
 using Inputs;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using Resources;
@@ -17,7 +18,6 @@ namespace App
         {
             Graphics.Graphics.graphicsDeviceManager  = new GraphicsDeviceManager(this);
             Graphics.Graphics.graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
-            //Content.RootDirectory = "Content";
             IsMouseVisible = false;
             IsFixedTimeStep = true;
 
@@ -29,6 +29,9 @@ namespace App
         {
 
             this.Window.Position = new Point(10, 40);
+
+            Graphics.Graphics.contentManager = Content;
+            Graphics.Graphics.contentManager.RootDirectory = "Content";
 
             ResourceLoader.LoadResources();
 

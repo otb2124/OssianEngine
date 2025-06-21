@@ -12,6 +12,27 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="res\**" />
+    <EmbeddedResource Remove="res\**" />
+    <None Remove="res\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Content\res\fonts\Roboto_12_Regular.xnb" />
+    <None Remove="Content\res\fonts\Roboto_18_Regular.xnb" />
+    <None Remove="Content\res\fonts\Roboto_26_Regular.xnb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\res\fonts\Roboto_12_Regular.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\fonts\Roboto_18_Regular.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\fonts\Roboto_26_Regular.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>

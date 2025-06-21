@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,13 @@ namespace UI
 {
     public class UIManager
     {
+        public static UIManager Instance { get; private set; }
         public List<UIComponent> components;
-
+        private static int nextId = 4;
 
         public UIManager()
         {
+            Instance = this;
             components = new List<UIComponent>();
         }
 
@@ -24,12 +27,11 @@ namespace UI
             UI.UINavigator.HandleInitialNavigation();
         }
 
-
-        public UIComponent GetComponent(UIComponent.ComponentTypes type)
+        public UIComponent GetComponent(UIComponent.UIComponentTypes type, int id = -1)
         {
             foreach (UIComponent component in components)
             {
-                UIComponent result = FindComponentRecursive(component, type);
+                UIComponent result = FindComponentRecursive(component, type, id);
                 if (result != null)
                 {
                     return result;
@@ -38,9 +40,9 @@ namespace UI
             return null;
         }
 
-        private UIComponent FindComponentRecursive(UIComponent component, UIComponent.ComponentTypes type)
+        private UIComponent FindComponentRecursive(UIComponent component, UIComponent.UIComponentTypes type, int id)
         {
-            if (component.type == type)
+            if (component.type == type && (id == -1 || component.Id == id))
             {
                 return component;
             }
@@ -49,7 +51,7 @@ namespace UI
             {
                 foreach (UIComponent child in component.children)
                 {
-                    UIComponent result = FindComponentRecursive(child, type);
+                    UIComponent result = FindComponentRecursive(child, type, id);
                     if (result != null)
                     {
                         return result;
@@ -60,12 +62,11 @@ namespace UI
             return null;
         }
 
-        public bool RemoveLatestComponent(UIComponent.ComponentTypes type)
+        public bool RemoveComponent(UIComponent.UIComponentTypes type, int id)
         {
-
             for (int i = components.Count - 1; i >= 0; i--)
             {
-                if (RemoveLatestComponentRecursive(components[i], type, components, i))
+                if (RemoveComponentRecursive(components[i], type, id, components, i))
                 {
                     return true;
                 }
@@ -73,22 +74,22 @@ namespace UI
             return false;
         }
 
-        private bool RemoveLatestComponentRecursive(UIComponent component, UIComponent.ComponentTypes type, List<UIComponent> parentList, int indexInParent)
+        private bool RemoveComponentRecursive(UIComponent component, UIComponent.UIComponentTypes type, int id, List<UIComponent> parentList, int indexInParent)
         {
-
             if (component.children != null)
             {
-                for (int i = component.children.Length - 1; i >= 0; i--)
+                List<UIComponent> childrenList = component.children.ToList();
+                for (int j = childrenList.Count - 1; j >= 0; j--)
                 {
-                    if (RemoveLatestComponentRecursive(component.children[i], type, component.children.ToList(), i))
+                    if (RemoveComponentRecursive(childrenList[j], type, id, childrenList, j))
                     {
-                        component.children = component.children.ToList().Where((c, idx) => idx != i).ToArray();
+                        component.children = childrenList.ToArray();
                         return true;
                     }
                 }
             }
 
-            if (component.type == type)
+            if (component.type == type && component.Id == id)
             {
                 parentList.RemoveAt(indexInParent);
                 return true;
@@ -97,7 +98,7 @@ namespace UI
             return false;
         }
 
-        public int RemoveAllComponents(UIComponent.ComponentTypes type)
+        public int RemoveAllComponents(UIComponent.UIComponentTypes type)
         {
             int removedCount = 0;
 
@@ -109,16 +110,16 @@ namespace UI
             return removedCount;
         }
 
-        private int RemoveAllComponentsRecursive(UIComponent component, UIComponent.ComponentTypes type, List<UIComponent> parentList, int indexInParent)
+        private int RemoveAllComponentsRecursive(UIComponent component, UIComponent.UIComponentTypes type, List<UIComponent> parentList, int indexInParent)
         {
             int removedCount = 0;
 
             if (component.children != null)
             {
                 List<UIComponent> childrenList = component.children.ToList();
-                for (int i = childrenList.Count - 1; i >= 0; i--)
+                for (int j = childrenList.Count - 1; j >= 0; j--)
                 {
-                    removedCount += RemoveAllComponentsRecursive(childrenList[i], type, childrenList, i);
+                    removedCount += RemoveAllComponentsRecursive(childrenList[j], type, childrenList, j);
                 }
                 component.children = childrenList.ToArray();
             }
@@ -132,26 +133,59 @@ namespace UI
             return removedCount;
         }
 
+        public void ToggleComponent(UIComponent component, UIComponent.UIComponentTypes type)
+        {
+            if (component == null)
+            {
+                return;
+            }
+
+            component.type = type;
+            if (component.Id == -1)
+            {
+                component.Id = GenerateUniqueId();
+            }
+
+            if (GetComponent(type, component.Id) != null)
+            {
+                RemoveComponent(type, component.Id);
+            }
+            else
+            {
+                components.Add(component);
+            }
+        }
+
+        public int GenerateUniqueId()
+        {
+            int id = nextId++;
+            return id;
+        }
 
         public void Update()
         {
             UI.UINavigator.HandleNavigation();
 
+            for (int i = 0; i < components.Count; i++)
             {
-                for (int i = 0; i < components.Count; i++)
-                {
-                    components[i].Update();
-                }
+                components[i].Update();
             }
         }
 
         public void Draw()
         {
+            for (int i = 0; i < components.Count; i++)
             {
-                for (int i = 0; i < components.Count; i++)
+                if (components[i].type != UIComponent.UIComponentTypes.CURSOR)
                 {
                     components[i].Draw();
                 }
+            }
+
+            UIComponent cursor = GetComponent(UIComponent.UIComponentTypes.CURSOR);
+            if (cursor != null)
+            {
+                cursor.Draw();
             }
         }
     }

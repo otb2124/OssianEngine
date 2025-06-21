@@ -66,7 +66,6 @@ namespace Resources
         public static void LoadFonts()
         {
             fonts = new Font[10];
-            fonts[0] = new Font("font0.ttf", 0);
         }
     }
 }

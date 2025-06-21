@@ -1,0 +1,56 @@
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Utils;
+
+namespace UI
+{
+    public class UIButtonIconFrameComponent : UIComponent
+    {
+
+
+        public UIButtonIconFrameComponent(int id, int buttonid, Vector2 position, Vector2 paddings) : base(id)
+        {
+            type = UIComponentTypes.BUTTON_ICON_FRAME;
+
+            Position = new Vector2(position.X + paddings.X / 2 - UIFramePartComponent.FRAMEPARTSIZE, position.Y + paddings.Y / 2);
+
+            this.sprite = StaticSprites.UI_GAME_ICON;
+            this.Init();
+
+            Vector2 Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
+
+            stickToCamera = true;
+            stickToZoom = true;
+            applyHalfScreenOrigin = true;
+
+            children = new UIComponent[1];
+            children[0] = new UIButtonFrameComponent(-1, buttonid, position, Size+paddings, new Vector2(0, Graphics.Graphics.screen.Height / 2 + Size.Y));
+        }
+
+
+        public override void Update()
+        {
+            if (children != null)
+            {
+                children[0].Update();
+            }
+
+            base.Update();
+        }
+
+        public override void Draw()
+        {
+            if (children != null)
+            {
+                children[0].Draw();
+            }
+
+            base.Draw();
+        }
+    }
+}

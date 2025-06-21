@@ -168,7 +168,7 @@ namespace Entities
 
         public override void Draw()
         {
-            Debug.WriteLine(spriteZ);
+            //Debug.WriteLine(spriteZ);
 
             base.Draw();
         }

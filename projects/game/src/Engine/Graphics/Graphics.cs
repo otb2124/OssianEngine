@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Utils;
 
@@ -11,6 +12,7 @@ namespace Graphics
         public static Sprites sprites;
         public static Shapes shapes;
         public static GraphicsDeviceManager graphicsDeviceManager;
+        public static ContentManager contentManager;
         public static Camera camera;
         public static CameraOperator cameraOperator;
         public static Screen screen;

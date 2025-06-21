@@ -1,0 +1,77 @@
+﻿using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using System.Reflection.Metadata;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UI
+{
+    public class UIButtonHandler
+    {
+
+        public UIButtonHandler() { }
+
+
+        public void CheckHover(int id, Vector2 position, Vector2 size)
+        {
+
+            float yOffset = Graphics.Graphics.screen.Height / 2;
+
+            RectangleF buttonRect = new RectangleF(new PointF(position.X, position.Y - yOffset), new SizeF(size.X, size.Y));
+
+            if (buttonRect.Contains(new PointF(Inputs.Inputs.mouse.GetMouseScreenPosition().X, Inputs.Inputs.mouse.GetMouseScreenPosition().Y)))
+            {
+                HandleHover(id);
+                CheckClick(id, position, size);
+            }
+            
+        }
+
+        public void CheckClick(int id, Vector2 position, Vector2 size)
+        {
+            if(Inputs.Inputs.mouse.IsLeftMouseButtonPressed())
+            {
+                HandleClick(id);
+            }
+        }
+
+        public void HandleHover(int id)
+        {
+
+            Debug.WriteLine("Button with id " + id + " on hover");
+
+
+            switch (id)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                default:
+                    Debug.WriteLine("Button with id " + "empty" + " on hover");
+                    break;
+            }
+        }
+
+
+        public void HandleClick(int id)
+        {
+            Debug.WriteLine("Button with id " + id + " was hit");
+
+            switch (id)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                default:
+                    Debug.WriteLine("Button with id " + "empty" + " was hit");
+                    break;
+            }
+        }
+    }
+}

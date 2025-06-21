@@ -12,11 +12,13 @@ namespace UI
 
         public static UIManager UIManager;
         public static UINavigator UINavigator;
+        public static UIButtonHandler UIButtonHandler;
 
         public static void Init()
         {
             UIManager = new UIManager();
             UINavigator = new UINavigator();
+            UIButtonHandler= new UIButtonHandler();
 
             UIManager.Init();
         }

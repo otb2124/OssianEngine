@@ -11,10 +11,20 @@ namespace UI
     public class UIComponent
     {
 
-        public enum ComponentTypes
+        public enum UIComponentTypes
         {
+            //COMMON
+            //FRAME
+            FRAME, FRAMEPART,
+            //TEXT
+            TEXT, TEXT_FRAME,
+            //BUTTON
+            BUTTON, BUTTON_FRAME, BUTTON_TEXT_FRAME, BUTTON_ICON, BUTTON_ICON_FRAME,
+            //MISC
             CURSOR,
-            FRAME,
+
+            //MENU
+            MENU_INGAME,
         }
 
         public AnimationManager aManager;
@@ -37,12 +47,18 @@ namespace UI
 
         public UIComponent[] children;
 
+        public string text;
+        public Font font;
+
         public Color? Tint { get; set; } = null;
 
-        public ComponentTypes type;
+        public UIComponentTypes type;
 
-        public UIComponent()
+        public int Id { get; set; }
+
+        public UIComponent(int id)
         {
+            Id = id;
             Position = Vector2.Zero;
             Rotation = 0f;
             Origin = Vector2.Zero;
@@ -103,6 +119,12 @@ namespace UI
             {
                 Color color = Tint ?? Color.White;
                 aManager.GetCurrent().Draw(adjPosition, color, adjRotation, adjOrigin, adjScale, 0f);
+            }
+
+            if(text != null)
+            {
+                Color color = Tint ?? Color.White;
+                font.Draw(text, adjPosition, 0f, Vector2.Zero, Scale, color);
             }
                    
         }

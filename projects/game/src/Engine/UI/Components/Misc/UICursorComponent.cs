@@ -7,15 +7,16 @@ namespace UI
 {
     class UICursorComponent : UIComponent
     {
-        public UICursorComponent() : base()
+        public UICursorComponent() : base(0)
         {
-            type = ComponentTypes.CURSOR;
+            type = UIComponentTypes.CURSOR;
 
             this.sprite = StaticSprites.UI_CURSOR;
             this.Init();
 
             Position = Vector2.Zero;
             Origin = StaticSpriteFactory.spriteMappings[sprite].srcRect.Size.ToVector2() / 2;
+            Scale /= 2;
 
             stickToCamera = true;
             stickToCursor = true;
