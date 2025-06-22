@@ -36,7 +36,7 @@ namespace Utils
 
         public static void CheckGameStatusChange()
         {
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.DEBUGPRESSED])
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEDEBUGPRESSED])
             {
                 gameMode = gameMode == GameModes.playMode ? GameModes.debugMode : GameModes.playMode;
             }

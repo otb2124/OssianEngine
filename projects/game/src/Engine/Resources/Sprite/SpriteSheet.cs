@@ -57,6 +57,10 @@ namespace Resources
                     return "ui/frames";
                 case SpriteSheets.UI_GAME_ICON:
                     return "ui/gameicon";
+                case SpriteSheets.UI_ICONS:
+                    return "ui/icons";
+                case SpriteSheets.UI_HUD:
+                    return "ui/hud";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(id), id, null);
             }

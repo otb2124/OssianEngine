@@ -14,7 +14,7 @@ namespace UI
     {
         public static UIManager Instance { get; private set; }
         public List<UIComponent> components;
-        private static int nextId = 4;
+        private static int nextId = 10;
 
         public UIManager()
         {

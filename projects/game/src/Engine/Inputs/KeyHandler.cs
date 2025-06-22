@@ -25,9 +25,10 @@ namespace Inputs
 
             //UI
             TOGGLEMENUPRESSED,
+            TOGGLEHUDPRESSED,
 
             //debug
-            DEBUGPRESSED
+            TOGGLEDEBUGPRESSED
         }
 
         public Dictionary<KeyStates, bool> keyStates = new Dictionary<KeyStates, bool>
@@ -49,9 +50,10 @@ namespace Inputs
 
             //ui
             { KeyStates.TOGGLEMENUPRESSED, false },
+            { KeyStates.TOGGLEHUDPRESSED, false },
 
             //debug
-            { KeyStates.DEBUGPRESSED, false }
+            { KeyStates.TOGGLEDEBUGPRESSED, false }
         };
 
 
@@ -74,9 +76,10 @@ namespace Inputs
 
             //ui
             { (KeyStates.TOGGLEMENUPRESSED, true), Keys.Escape },
+            { (KeyStates.TOGGLEHUDPRESSED, true), Keys.F1 },
 
             //debug
-            { (KeyStates.DEBUGPRESSED, true), Keys.T },
+            { (KeyStates.TOGGLEDEBUGPRESSED, true), Keys.F3 },
         };
 
         

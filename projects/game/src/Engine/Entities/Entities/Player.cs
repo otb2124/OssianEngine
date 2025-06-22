@@ -20,9 +20,11 @@ namespace Entities
         public override void setStats()
         {
             sManager.stats.maxHP = 100;
-            sManager.stats.HP = sManager.stats.maxHP;
             sManager.stats.maxSpeed = 2;
-            sManager.stats.speed = sManager.stats.maxSpeed;
+            sManager.stats.maxMana = 100;
+            sManager.stats.maxEndurance = 100;
+
+            sManager.stats.Refill();
 
             sManager.equipmentManager.weaponL.physDmg = 1;
             sManager.equipmentManager.weaponL.swingSpeed = 0.4f;

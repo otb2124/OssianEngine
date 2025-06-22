@@ -113,5 +113,17 @@ namespace Resources
             return data;
         }
 
+        public static SpriteData[] UIHUDStatBarCut(Vector2 pos, int tileSize)
+        {
+            SpriteData[] data = new SpriteData[4];
+
+            data[0] = new SpriteData(SpriteSheets.UI_HUD, new Rectangle((int)pos.X+tileSize*0, (int)pos.Y, tileSize, tileSize), 0);
+            data[1] = new SpriteData(SpriteSheets.UI_HUD, new Rectangle((int)pos.X + tileSize * 1, (int)pos.Y, tileSize, tileSize), 0);
+            data[2] = new SpriteData(SpriteSheets.UI_HUD, new Rectangle((int)pos.X + tileSize * 2, (int)pos.Y, tileSize, tileSize), 0);
+            data[3] = new SpriteData(SpriteSheets.UI_HUD, new Rectangle((int)pos.X + tileSize * 3, (int)pos.Y, tileSize, tileSize), 0);
+
+            return data;
+        }
+
     }
 }

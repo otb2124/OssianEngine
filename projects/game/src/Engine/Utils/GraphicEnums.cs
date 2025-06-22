@@ -41,7 +41,9 @@ namespace Utils
         //UI
         UI_CURSOR,
         UI_FRAMES,
-        UI_GAME_ICON
+        UI_GAME_ICON,
+        UI_ICONS,
+        UI_HUD
     }
 
     public enum StaticSprites
@@ -84,6 +86,7 @@ namespace Utils
 
         //--
         //UI
+        //MISC
         UI_CURSOR,
         UI_GAME_ICON
     }

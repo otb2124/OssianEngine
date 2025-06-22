@@ -48,8 +48,11 @@ namespace UI
             switch (id)
             {
                 case 0:
-                    break;
                 case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
                     break;
                 default:
                     Debug.WriteLine("Button with id " + "empty" + " on hover");
@@ -65,8 +68,12 @@ namespace UI
             switch (id)
             {
                 case 0:
-                    break;
                 case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    UI.UINavigator.HandleDynamicButtonNavigation(id);
                     break;
                 default:
                     Debug.WriteLine("Button with id " + "empty" + " was hit");

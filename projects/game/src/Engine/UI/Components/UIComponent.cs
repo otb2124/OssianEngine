@@ -4,6 +4,7 @@ using Resources;
 using Graphics;
 using Utils;
 using System.Diagnostics;
+using static Resources.StaticSpriteFactory;
 
 
 namespace UI
@@ -18,17 +19,25 @@ namespace UI
             FRAME, FRAMEPART,
             //TEXT
             TEXT, TEXT_FRAME,
+            //ICON
+            ICON,
             //BUTTON
             BUTTON, BUTTON_FRAME, BUTTON_TEXT_FRAME, BUTTON_ICON, BUTTON_ICON_FRAME,
+            //BARS
+            STAT_BAR,
             //MISC
             CURSOR,
+            WARNING_WINDOW,
 
             //MENU
-            MENU_INGAME,
+            MENU_INGAME, MENU_INGAME_INVENTORY, MENU_INGAME_SKILLS, MENU_INGAME_QUESTBOOK, MENU_INGAME_STATISTICS,
+            //HUD
+            HUD,
         }
 
         public AnimationManager aManager;
         public StaticSprites sprite;
+        public SpriteData spriteData;
 
         public Vector2 Position;
         public float Rotation;
@@ -64,13 +73,6 @@ namespace UI
             Origin = Vector2.Zero;
             Scale = new Vector2(1, 1);
         }
-
-        public virtual void Init()
-        {
-            aManager = new AnimationManager();
-            aManager.AddStaticAnimation(this.sprite);
-        }
-
 
         public virtual void Update()
         {

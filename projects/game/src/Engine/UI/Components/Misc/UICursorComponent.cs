@@ -7,12 +7,13 @@ namespace UI
 {
     class UICursorComponent : UIComponent
     {
-        public UICursorComponent() : base(0)
+        public UICursorComponent(int id) : base(id)
         {
             type = UIComponentTypes.CURSOR;
 
             this.sprite = StaticSprites.UI_CURSOR;
-            this.Init();
+            aManager = new AnimationManager();
+            aManager.AddStaticAnimation(this.sprite);
 
             Position = Vector2.Zero;
             Origin = StaticSpriteFactory.spriteMappings[sprite].srcRect.Size.ToVector2() / 2;

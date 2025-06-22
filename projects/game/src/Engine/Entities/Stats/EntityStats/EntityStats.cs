@@ -11,7 +11,23 @@ namespace Entities
 
         public float maxHP;
         public float HP;
+
         public float maxSpeed;
         public float speed;
+
+        public float maxMana;
+        public float mana;
+
+        public float maxEndurance;
+        public float endurance;
+
+
+        public void Refill()
+        {
+            HP = maxHP;
+            speed = maxSpeed;
+            mana = maxMana;
+            endurance = maxEndurance;
+        }
     }
 }

@@ -54,7 +54,9 @@ namespace Resources
                 //UI
                 SpriteSheets.UI_CURSOR,
                 SpriteSheets.UI_FRAMES,
-                SpriteSheets.UI_GAME_ICON
+                SpriteSheets.UI_GAME_ICON,
+                SpriteSheets.UI_ICONS,
+                SpriteSheets.UI_HUD,
             };
             spriteSheets = new Dictionary<SpriteSheets, SpriteSheet>();
             foreach (var spriteEnum in spritesToUse)

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,14 +14,15 @@ namespace UI
     {
 
 
-        public UIButtonIconFrameComponent(int id, int buttonid, Vector2 position, Vector2 paddings) : base(id)
+        public UIButtonIconFrameComponent(int id, int buttonid, Vector2 position, StaticSprites sprite, Vector2 paddings) : base(id)
         {
             type = UIComponentTypes.BUTTON_ICON_FRAME;
 
             Position = new Vector2(position.X + paddings.X / 2 - UIFramePartComponent.FRAMEPARTSIZE, position.Y + paddings.Y / 2);
 
-            this.sprite = StaticSprites.UI_GAME_ICON;
-            this.Init();
+            this.sprite = sprite;
+            aManager = new AnimationManager();
+            aManager.AddStaticAnimation(this.sprite);
 
             Vector2 Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
 

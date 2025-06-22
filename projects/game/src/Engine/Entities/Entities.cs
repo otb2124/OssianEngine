@@ -19,5 +19,7 @@ namespace Entities
 
             hitboxHandler = new HitboxHandler();
         }
+
+        public static Player player;
     }
 }

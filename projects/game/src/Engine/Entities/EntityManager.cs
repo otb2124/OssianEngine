@@ -33,7 +33,9 @@ namespace Entities
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 30)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 50)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-20, 100)));
-            entities.Add(new Player(new Vector2(0, 20)));
+
+            Entities.player = new Player(new Vector2(0, 20));
+            entities.Add(Entities.player);
 
             entities.Add(new PlatformEntity(new Vector2(-200, -200), 47));
             entities.Add(new PlatformEntity(new Vector2(-100, -200), 47));
