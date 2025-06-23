@@ -9,6 +9,7 @@ namespace Entities
     public class Mob : LivingEntity
     {
 
+
         public Mob(Vector2 pos, float rotation) : base(Models.MOB, pos, rotation)
         {
         }

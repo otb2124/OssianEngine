@@ -7,7 +7,7 @@ using MathHelper = Microsoft.Xna.Framework.MathHelper;
 
 namespace Entities
 {
-    public class Weapon : EquipmentEntity
+    public class Weapon : Equipment
     {
 
         public AnimationManager aManager;

@@ -57,17 +57,13 @@ namespace Resources
                 SpriteSheets.UI_GAME_ICON,
                 SpriteSheets.UI_ICONS,
                 SpriteSheets.UI_HUD,
+                SpriteSheets.UI_ITEMS,
             };
             spriteSheets = new Dictionary<SpriteSheets, SpriteSheet>();
             foreach (var spriteEnum in spritesToUse)
             {
                 spriteSheets[spriteEnum] = new SpriteSheet(spriteEnum);
             }
-        }
-
-        public static void LoadFonts()
-        {
-            fonts = new Font[10];
         }
     }
 }

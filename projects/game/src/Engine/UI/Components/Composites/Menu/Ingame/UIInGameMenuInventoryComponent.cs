@@ -23,9 +23,10 @@ namespace UI
            
             type = UIComponentTypes.MENU_INGAME_INVENTORY;
 
-            children = new UIComponent[2];
+            children = new UIComponent[3];
             children[0] = new UIFrameComponent(-1, Position, frameSize);
             children[1] = new UITextStringComponent(-1, new Vector2(Position.X + frameSize.X/2, Position.Y + frameSize.Y - 30), "Inventory", new string[] { "Roboto", "12", "Regular" }, Vector2.One);
+            children[2] = new UIInventoryComponent(-1, new Vector2(Position.X + frameSize.X / 2, Position.Y + frameSize.Y - 100), Entities.Entities.player);
         }
 
         public override void Update()

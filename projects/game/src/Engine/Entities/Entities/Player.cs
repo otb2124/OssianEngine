@@ -29,9 +29,14 @@ namespace Entities
             sManager.equipmentManager.weaponL.physDmg = 1;
             sManager.equipmentManager.weaponL.swingSpeed = 0.4f;
 
+            sManager.inventory.SlotsAmount = 20;
+            sManager.inventory.AddItem(Items.HEALTH_POTION);
+            sManager.inventory.AddItem(Items.NOTE);
+            sManager.inventory.AddItem(Items.SWORD_HILT);
+            sManager.inventory.AddItem(Items.CALL_DOG);
+
             base.setStats();
         }
-
 
 
         public override void SetAnimations()

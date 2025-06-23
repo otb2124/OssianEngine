@@ -7,6 +7,7 @@ namespace Entities
     {
 
         public StatsManager sManager;
+
         public LivingEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
             this.sManager = new StatsManager();

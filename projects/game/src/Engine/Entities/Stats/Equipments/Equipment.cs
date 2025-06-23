@@ -5,7 +5,7 @@ using static Entities.PhysicalEntity;
 
 namespace Entities
 {
-    public class EquipmentEntity
+    public class Equipment : Item
     {
 
         public float swingSpeed;
@@ -15,10 +15,11 @@ namespace Entities
 
         public float physDef;
 
-
-        public virtual void Draw(Directions direction)
+        public Equipment() : base(Items.SWORD, 1, "Equipment", "desc", ItemRarity.COMMON)
         {
 
         }
+
+        public virtual void Draw(Directions direction){}
     }
 }

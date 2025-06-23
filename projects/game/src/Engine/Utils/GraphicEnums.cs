@@ -43,7 +43,8 @@ namespace Utils
         UI_FRAMES,
         UI_GAME_ICON,
         UI_ICONS,
-        UI_HUD
+        UI_HUD,
+        UI_ITEMS,
     }
 
     public enum StaticSprites

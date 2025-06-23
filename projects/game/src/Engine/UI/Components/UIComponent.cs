@@ -32,7 +32,9 @@ namespace UI
             //WINDOWS
             WARNING_WINDOW,
             //HUD
-            HUD, CURSOR, PLAYER_INDICATORS
+            HUD, CURSOR, PLAYER_INDICATORS,
+            //INVENTORY
+            INVENTORY, INVENTORY_SLOT
         }
 
         public AnimationManager aManager;

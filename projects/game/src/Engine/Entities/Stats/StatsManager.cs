@@ -14,12 +14,16 @@ namespace Entities
     {
         public EntityStats stats;
         public EquipmentManager equipmentManager;
+        public Inventory inventory;
 
         public StatsManager()
         {
             stats = new EntityStats();
             equipmentManager = new EquipmentManager();
+
+            inventory = new Inventory();
         }
+
 
         public void DealDamageTo(LivingEntity target)
         {

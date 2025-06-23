@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Utils;
@@ -54,6 +55,8 @@ namespace Resources
 
             { StaticSprites.ENTITIES_PLAYER, new SpriteData(SpriteSheets.ENTITIES_PLAYER, new Rectangle(0,0,48,96), 100)},
             { StaticSprites.ENTITIES_MOB0, new SpriteData(SpriteSheets.ENTITIES_MOB0, new Rectangle(0,0,48,96), 99)},
+
+
 
 
 
@@ -122,6 +125,39 @@ namespace Resources
             data[1] = new SpriteData(SpriteSheets.UI_HUD, new Rectangle((int)pos.X + tileSize * 1, (int)pos.Y, tileSize, tileSize), 0);
             data[2] = new SpriteData(SpriteSheets.UI_HUD, new Rectangle((int)pos.X + tileSize * 2, (int)pos.Y, tileSize, tileSize), 0);
             data[3] = new SpriteData(SpriteSheets.UI_HUD, new Rectangle((int)pos.X + tileSize * 3, (int)pos.Y, tileSize, tileSize), 0);
+
+            return data;
+        }
+
+
+        public static Dictionary<Items, Point> itemUISpriteMappings = new()
+        {
+            { Items.SWORD,         new Point(0,0) },
+            { Items.CHESTPLATE,    new Point(0,1) },
+            { Items.HELMET,        new Point(0,2) },
+            { Items.BOOTS,         new Point(0,3) },
+            { Items.GLOVES,        new Point(0,4) },
+            { Items.NECKLACE,      new Point(0,5) },
+            { Items.BELT,          new Point(0,6) },
+            { Items.RING,          new Point(0,7) },
+            { Items.CALL_DOG,      new Point(0,8) },
+            { Items.CALL_FIREFLY,  new Point(0,9) },
+            { Items.BACKPACK,      new Point(0,10) },
+            { Items.HEALTH_POTION, new Point(0,11) },
+            { Items.SWORD_HILT,    new Point(0,12) },
+            { Items.GOLDEN_KEY,    new Point(0,13) },
+            { Items.NOTE,          new Point(0,14) },
+            { Items.COIN,          new Point(0,15) },
+        };
+
+        public static SpriteData GetItemUISprite(Items item)
+        {
+            SpriteData data = new SpriteData();
+
+            Point iconSize = new Point(64, 64);
+            Point spriteSheetLocation = itemUISpriteMappings[item];
+
+            data = new SpriteData(SpriteSheets.UI_ITEMS, new Rectangle(spriteSheetLocation*iconSize, iconSize), 0);
 
             return data;
         }
