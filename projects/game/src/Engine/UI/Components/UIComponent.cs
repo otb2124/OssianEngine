@@ -26,13 +26,13 @@ namespace UI
             //BARS
             STAT_BAR,
             //MISC
-            CURSOR,
-            WARNING_WINDOW,
 
             //MENU
             MENU_INGAME, MENU_INGAME_INVENTORY, MENU_INGAME_SKILLS, MENU_INGAME_QUESTBOOK, MENU_INGAME_STATISTICS,
+            //WINDOWS
+            WARNING_WINDOW,
             //HUD
-            HUD,
+            HUD, CURSOR, PLAYER_INDICATORS
         }
 
         public AnimationManager aManager;

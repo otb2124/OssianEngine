@@ -32,7 +32,7 @@ namespace Entities
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 0)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 30)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 50)));
-            entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-20, 100)));
+            entities.Add(new InteractiveEntity(Models.COIN, new Vector2(-20, 100), new Vector2(100, 100)));
 
             Entities.player = new Player(new Vector2(0, 20));
             entities.Add(Entities.player);
@@ -65,7 +65,7 @@ namespace Entities
 
                 if (entA is PhysicalEntity phent)
                 {
-                    if (entA is LivingEntity livingA)
+                    if (entA is LivingEntity || entA is InteractiveEntity)
                     {
                         entA.Update();
 
@@ -73,7 +73,18 @@ namespace Entities
                         {
                             if (entB is LivingEntity livingB && entA != entB)
                             {
-                                Entities.hitboxHandler.CheckForCollisions(livingA, livingB);
+
+                                //check for attack hit
+                                if (entA is LivingEntity livingA)
+                                {
+                                    HitboxChecker.CheckForCollisions(livingA, livingB);
+                                }
+
+                                //check for interraction
+                                if(entA is InteractiveEntity interactiveA && livingB is Player)
+                                {
+                                    HitboxChecker.CheckForInterraction(interactiveA, livingB);
+                                }
                             }
                         }
                     }
@@ -155,7 +166,7 @@ namespace Entities
         //hitboxes
         public void DrawHitboxes()
         {
-            foreach (var entity in entities.Where(e => e is LivingEntity))
+            foreach (var entity in entities.Where(e => e is LivingEntity || e is InteractiveEntity))
             {
                 entity.DrawHitbox();
             }

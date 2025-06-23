@@ -10,14 +10,11 @@ namespace Entities
     {
 
         public static EntityManager entityManager;
-        public static HitboxHandler hitboxHandler;
 
         public static void Init()
         {
             entityManager = new EntityManager();
             entityManager.Init();
-
-            hitboxHandler = new HitboxHandler();
         }
 
         public static Player player;

@@ -21,7 +21,7 @@ namespace UI
         public UIStatBarStatBindings Stat;
         public float currentXScale = 1;
 
-        public UIStatBarComponent(int id, Vector2 pos, UIStatBarStatBindings stat, float maxValue, float currentValue) : base(id)
+        public UIStatBarComponent(int id, Vector2 pos, UIStatBarStatBindings stat) : base(id)
         {
             type = UIComponentTypes.STAT_BAR;
             Position = pos;
@@ -29,39 +29,36 @@ namespace UI
             Stat = stat;
 
 
-            int spriteSheetOffsetY = 0;
+            int spriteSheetOffsetX = 0;
 
             switch(Stat)
             {
                 case UIStatBarStatBindings.PLAYER_HEALTH:
-                    spriteSheetOffsetY += 0;
+                    spriteSheetOffsetX += 0;
                     break;
                 case UIStatBarStatBindings.PLAYER_MANA:
-                    spriteSheetOffsetY += 32;
+                    spriteSheetOffsetX += 64;
                     break;
                 case UIStatBarStatBindings.PLAYER_ENDURANCE:
-                    spriteSheetOffsetY += 64;
+                    spriteSheetOffsetX += 128;
                     break;
             }
 
-            SpriteData[] spriteData = StaticSpriteFactory.UIHUDStatBarCut(new Vector2(0, 0 + spriteSheetOffsetY), 32);
+            SpriteData[] spriteData = StaticSpriteFactory.UIHUDStatBarCut(new Vector2(0 + spriteSheetOffsetX, 0), 64);
 
-            Vector2 scale = new Vector2(1.5f, 1.5f);
+            Vector2 scale = new Vector2(1, 1);
 
-            children = new UIComponent[4];
-            children[0] = new UIIconComponent(-1, spriteData[0], Position, scale);
-            children[1] = new UIIconComponent(-1, spriteData[1], new Vector2(Position.X + 32*scale.X, Position.Y), scale);
-            children[2] = new UIIconComponent(-1, spriteData[2], new Vector2(Position.X + 64*scale.X, Position.Y), scale);
+            children = new UIComponent[1];
                 
-            children[3] = new UIIconComponent(-1, spriteData[3], new Vector2(Position.X + 16*scale.X, Position.Y), scale);
+            children[0] = new UIIconComponent(-1, spriteData[3], new Vector2(Position.X + 16*scale.X, Position.Y), scale);
 
-            currentXScale = scale.X + 3;
+            currentXScale = scale.X;
         }
 
 
         public void RescaleCurrent()
         {
-            ((UIIconComponent)children[3]).Scale.X = currentXScale;
+            ((UIIconComponent)children[0]).Scale.X = currentXScale;
 
 
             float rescaleMultiplier = 1;
@@ -91,7 +88,7 @@ namespace UI
                     break;
             }
 
-            ((UIIconComponent)children[3]).Scale.X = rescaleMultiplier*3;
+            ((UIIconComponent)children[0]).Scale.X = rescaleMultiplier*1.65f;
         }
 
 
@@ -101,10 +98,7 @@ namespace UI
 
             if (children != null)
             {
-                for (int i = 0; i < children.Length; i++)
-                {
-                    children[i].Update();
-                }
+                children[0].Update();
             }
         }
 
@@ -112,13 +106,7 @@ namespace UI
         {
             if (children != null)
             {
-
-                children[3].Draw();
-
-                for (int i = 0; i < 3; i++)
-                {
-                    children[i].Draw();
-                }
+                children[0].Draw();
             }
         }
     }

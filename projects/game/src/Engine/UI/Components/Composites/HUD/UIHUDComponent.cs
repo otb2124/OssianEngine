@@ -19,14 +19,12 @@ namespace UI
 
             type = UIComponentTypes.HUD;
 
-            children = new UIComponent[4];
+            children = new UIComponent[2];
             children[0] = new UICursorComponent(-1);
 
             //INDICATORS
             Vector2 topLeft = new Vector2(0, Graphics.Graphics.screen.Height - 32*1.5f);
-            children[1] = new UIStatBarComponent(-1, new Vector2(Position.X + 10, Position.Y + topLeft.Y), UIStatBarComponent.UIStatBarStatBindings.PLAYER_HEALTH, 100, 100);
-            children[2] = new UIStatBarComponent(-1, new Vector2(Position.X + 10, Position.Y + topLeft.Y - 20), UIStatBarComponent.UIStatBarStatBindings.PLAYER_MANA, 100, 100);
-            children[3] = new UIStatBarComponent(-1, new Vector2(Position.X + 10, Position.Y + topLeft.Y - 40), UIStatBarComponent.UIStatBarStatBindings.PLAYER_ENDURANCE, 100, 100);
+            children[1] = new UIPlayerIndicatorsComponent(-1, new Vector2(Position.X, Position.Y + topLeft.Y - 16));
         }
 
         public override void Update()

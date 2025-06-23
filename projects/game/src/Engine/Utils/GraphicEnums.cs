@@ -103,9 +103,7 @@ namespace Utils
     public enum Models
     {
         PLAYER,
-        CRATE_0,
-        CRATE_1,
-        BALL,
+        CRATE_0, CRATE_1, BALL, COIN,
         MOB
     }
 

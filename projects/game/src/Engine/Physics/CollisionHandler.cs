@@ -13,7 +13,7 @@ namespace Physics
 
         private static readonly Dictionary<Type, HashSet<Type>> ignoreCollisionTransformation = new()
         {
-            { typeof(Player), new() { typeof(Mob) } },
+            { typeof(Player), new() { typeof(Mob)} },
 
             //{ typeof(Mob), new() { typeof(PhysicalEntity), typeof(LivingEntity) } },
 

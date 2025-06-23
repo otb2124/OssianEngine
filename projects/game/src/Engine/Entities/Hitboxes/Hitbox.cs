@@ -11,7 +11,6 @@ namespace Entities
         public Hitbox()
         {
             extends = new RotatedRectangle();
-            
         }
 
         public virtual void Update(Vector2 pos, Vector2 size)
