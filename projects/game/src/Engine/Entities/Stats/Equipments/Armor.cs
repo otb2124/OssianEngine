@@ -10,6 +10,13 @@ namespace Entities
     public class Armor : Equipment
     {
 
-        
+        public Armor() : base()
+        {
+            Type = ItemLib.ItemTypes.ARMOR;
+            Value = 10;
+            Name = "Armor";
+            Description = "desc";
+            Rarity = ItemRarity.COMMON;
+        }
     }
 }

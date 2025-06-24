@@ -23,19 +23,24 @@ namespace Entities
     public class Item
     {
 
-        public Items Type;
+        public ItemLib.ItemTypes Type;
         public int Value;
         public string Name;
         public string Description;
         public ItemRarity Rarity;
 
-        public Item(Items type, int value, string name, string description, ItemRarity rarity)
+        public Item(ItemLib.ItemTypes type, int value, string name, string description, ItemRarity rarity)
         {
             Value = value;
             Name = name;
             Description = description;
             Rarity = rarity;
             Type = type;
+        }
+
+        public Item()
+        {
+
         }
     }
 }

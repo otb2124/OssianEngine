@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    internal class QuestItem
+    public class QuestItem : Item
     {
+        public QuestItem(int value, string name, string description, ItemRarity rarity) : base(ItemLib.ItemTypes.QUEST_ITEM, value, name, description, rarity)
+        {
+
+        }
     }
 }

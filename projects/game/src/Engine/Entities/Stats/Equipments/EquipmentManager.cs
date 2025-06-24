@@ -26,7 +26,7 @@ namespace Equipment
 
         public EquipmentManager()
         {
-            weaponL = new Weapon();
+            weaponL = ((Weapon)ItemFactory.itemMappings[new ItemKey(ItemLib.Weapons.TERRABLADE)]);
 
             armorHB = new Hitbox();
         }

@@ -130,27 +130,27 @@ namespace Resources
         }
 
 
-        public static Dictionary<Items, Point> itemUISpriteMappings = new()
+        public static Dictionary<ItemKey, Point> itemUISpriteMappings = new()
         {
-            { Items.SWORD,         new Point(0,0) },
-            { Items.CHESTPLATE,    new Point(0,1) },
-            { Items.HELMET,        new Point(0,2) },
-            { Items.BOOTS,         new Point(0,3) },
-            { Items.GLOVES,        new Point(0,4) },
-            { Items.NECKLACE,      new Point(0,5) },
-            { Items.BELT,          new Point(0,6) },
-            { Items.RING,          new Point(0,7) },
-            { Items.CALL_DOG,      new Point(0,8) },
-            { Items.CALL_FIREFLY,  new Point(0,9) },
-            { Items.BACKPACK,      new Point(0,10) },
-            { Items.HEALTH_POTION, new Point(0,11) },
-            { Items.SWORD_HILT,    new Point(0,12) },
-            { Items.GOLDEN_KEY,    new Point(0,13) },
-            { Items.NOTE,          new Point(0,14) },
-            { Items.COIN,          new Point(0,15) },
+            { new ItemKey(ItemLib.Weapons.TERRABLADE), new Point(0,0) },
+            { new ItemKey(ItemLib.Armors.IRON_CHESTPLATE), new Point(0,1) },
+            { new ItemKey(ItemLib.Armors.IRON_HELMET), new Point(0,2) },
+            { new ItemKey(ItemLib.Armors.IRON_BOOTS), new Point(0,3) },
+            { new ItemKey(ItemLib.Armors.IRON_GLOVES), new Point(0,4) },
+            { new ItemKey(ItemLib.Accessories.IRON_NECKLACE), new Point(0,5) },
+            { new ItemKey(ItemLib.Accessories.IRON_BELT), new Point(0,6) },
+            { new ItemKey(ItemLib.Accessories.IRON_RING), new Point(0,7) },
+            { new ItemKey(ItemLib.Accessories.CALL_DOG), new Point(0,8) },
+            { new ItemKey(ItemLib.Accessories.CALL_BUTTERFLY), new Point(0,9) },
+            { new ItemKey(ItemLib.Accessories.BACKPACK), new Point(0,10) },
+            { new ItemKey(ItemLib.Consumables.HEALTH_POTION), new Point(0,11) },
+            { new ItemKey(ItemLib.Materials.SWORD_HILT), new Point(0,12) },
+            { new ItemKey(ItemLib.Keys.GOLDEN_KEY), new Point(0,13) },
+            { new ItemKey(ItemLib.QuestItems.NOTE), new Point(0,14) },
+            { new ItemKey(ItemLib.Currencies.GOLD_COIN), new Point(0,15) },
         };
 
-        public static SpriteData GetItemUISprite(Items item)
+        public static SpriteData GetItemUISprite(Item item)
         {
             SpriteData data = new SpriteData();
 

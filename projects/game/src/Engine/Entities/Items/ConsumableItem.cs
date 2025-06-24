@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    internal class ConsumableItem
+    public class ConsumableItem : Item
     {
+
+        public ConsumableItem(int value, string name, string description, ItemRarity rarity) : base(ItemLib.ItemTypes.CONSUMABLE, value, name, description, rarity)
+        {
+
+        }
     }
 }

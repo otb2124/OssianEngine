@@ -15,8 +15,14 @@ namespace Entities
 
         public WeaponHitbox hitbox;
 
-        public Weapon()
+        public Weapon(ItemKey item) : base()
         {
+            Type = ItemLib.ItemTypes.WEAPON;
+            Value = 10;
+            Name = "Sword";
+            Description = "desc";
+            Rarity = ItemRarity.COMMON;
+
             hitbox = new WeaponHitbox();
 
             aManager = new AnimationManager();

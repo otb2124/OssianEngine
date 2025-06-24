@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    internal class MaterialItem
+    public class MaterialItem : Item
     {
+
+        public MaterialItem(ItemKey itemKey) : base(ItemLib.ItemTypes.MATERIAL, value, name, description, rarity)
+        {
+            Type = ItemLib.ItemTypes.WEAPON;
+            Value = 10;
+            Name = "Sword";
+            Description = "desc";
+            Rarity = ItemRarity.COMMON;
+        }
     }
 }

@@ -18,9 +18,9 @@ namespace Entities
         }
 
 
-        public void AddItem(Items item)
+        public void AddItem(ItemKey itemKey)
         {
-            Items.Add(ItemFactory.itemMappings[item]);
+            Items.Add(ItemFactory.itemMappings[itemKey]);
         }
     }
 }

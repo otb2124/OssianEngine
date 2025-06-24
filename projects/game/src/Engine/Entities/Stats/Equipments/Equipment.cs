@@ -15,7 +15,7 @@ namespace Entities
 
         public float physDef;
 
-        public Equipment() : base(Items.SWORD, 1, "Equipment", "desc", ItemRarity.COMMON)
+        public Equipment(ItemLib.ItemTypes type, int value, string name, string description, ItemRarity rarity) : base(type, value, name, description, rarity)
         {
 
         }

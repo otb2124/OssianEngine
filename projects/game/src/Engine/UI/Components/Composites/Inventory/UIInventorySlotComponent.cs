@@ -14,7 +14,7 @@ namespace UI
     public class UIInventorySlotComponent : UIComponent
     {
 
-        public Items Item;
+        public Item Item;
 
         public UIInventorySlotComponent(int id, Vector2 pos) : base(id)
         {
@@ -30,7 +30,7 @@ namespace UI
             children[1] = new UIIconComponent(-1, spriteData, Position, new Vector2(1, 1));
         }
 
-        public void SetItem(Items item)
+        public void SetItem(Item item)
         {
             this.Item = item;
             children[1] = new UIIconComponent(-1, StaticSpriteFactory.GetItemUISprite(item), new Vector2(Position.X, Position.Y), new Vector2(1, 1));
