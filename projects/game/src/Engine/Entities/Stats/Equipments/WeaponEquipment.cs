@@ -7,7 +7,7 @@ using MathHelper = Microsoft.Xna.Framework.MathHelper;
 
 namespace Entities
 {
-    public class Weapon : Equipment
+    public class WeaponEquipment : Equipment
     {
 
         public AnimationManager aManager;
@@ -15,20 +15,33 @@ namespace Entities
 
         public WeaponHitbox hitbox;
 
-        public Weapon(ItemKey item) : base()
-        {
-            Type = ItemLib.ItemTypes.WEAPON;
-            Value = 10;
-            Name = "Sword";
-            Description = "desc";
-            Rarity = ItemRarity.COMMON;
+        public float swingSpeed;
+        public float currentSwingTime = 0f;
+        public bool isSwinging = false;
 
+        public WeaponEquipment(ItemKey itemKey) : base(itemKey)
+        {
             hitbox = new WeaponHitbox();
 
             aManager = new AnimationManager();
 
             this.sprite = StaticSprites.ENTITIES_WEAPONS_SWORD0;
             this.aManager.AddStaticAnimation(this.sprite);
+        }
+
+        public override void SetItem()
+        {
+            switch(ItemKey.EnumValue)
+            {
+                case ItemLib.Weapons.TERRABLADE:
+                    Name = "Terrablade";
+                    Description = "A terrablade";
+                    Value = 500;
+                    Rarity = ItemRarity.COMMON;
+                    PhysDmg = 1;
+                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    break;
+            }
         }
 
         public void Swing()
@@ -65,9 +78,6 @@ namespace Entities
                 hitbox.extends.Rotation = rotationAmount;
             }
         }
-
-
-
 
         public override void Draw(Directions direction)
         {

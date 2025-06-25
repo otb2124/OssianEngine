@@ -27,6 +27,9 @@ namespace Resources
                 case FlatBodyPreset.CIRCLE:
                     body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10 - offSet.X, 10 - offSet.Y), 0.5f, 2);
                     break;
+                case FlatBodyPreset.COIN:
+                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(5 - offSet.X, 5 - offSet.Y), 0.5f, 2);
+                    break;
                 case FlatBodyPreset.HUMANOID:
                     body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 40 - offSet.Y), 10, 0);
                     break;

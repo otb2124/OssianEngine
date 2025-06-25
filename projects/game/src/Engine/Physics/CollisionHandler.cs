@@ -20,7 +20,7 @@ namespace Physics
             /*
             { typeof(GroupMember), new() { typeof(GroupMember) } },
             { typeof(PlatformEntity), new() { typeof(GroupMember) } },
-            { typeof(InterractiveItem), new() { typeof(DynamicEntity) } },
+            { typeof(InteractiveItemEntity), new() { typeof(DynamicEntity) } },
             { typeof(LadderEntity), new() { typeof(DynamicEntity) } },
             { typeof(FlatEntity), new() { typeof(FlatEntity) } },
             { typeof(NPC), new() { typeof(NPC), typeof(DynamicEntity) } }

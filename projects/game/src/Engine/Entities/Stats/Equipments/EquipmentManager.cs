@@ -15,24 +15,22 @@ namespace Equipment
         }
 
         public WeaponHand currentHand = WeaponHand.LEFT;
-        public Weapon weaponL;
-        public Weapon weaponR;
+        public WeaponEquipment weaponL;
+        public WeaponEquipment weaponR;
 
-        public Armor chestplate;
-        public Armor helmet;
-
-        public Hitbox armorHB;
+        public ArmorEquipment chestplate;
+        //public ArmorEquipment helmet;
 
 
         public EquipmentManager()
         {
-            weaponL = ((Weapon)ItemFactory.itemMappings[new ItemKey(ItemLib.Weapons.TERRABLADE)]);
+            weaponL = (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE));
 
-            armorHB = new Hitbox();
+            chestplate = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE));
         }
 
 
-        public Weapon GetCurrentWeapon()
+        public WeaponEquipment GetCurrentWeapon()
         {
             if(currentHand == WeaponHand.LEFT)
             {
@@ -53,7 +51,7 @@ namespace Equipment
         public void DrawHitbox()
         {
             this.GetCurrentWeapon().DrawHitbox();
-            this.armorHB.Draw(Color.Blue);
+            this.chestplate.armorHB.Draw(Color.Blue);
         }
 
 

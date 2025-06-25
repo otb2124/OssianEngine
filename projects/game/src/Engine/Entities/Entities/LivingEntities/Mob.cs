@@ -22,7 +22,7 @@ namespace Entities
             sManager.stats.maxSpeed = 5;
             sManager.stats.speed = 5;
 
-            sManager.equipmentManager.weaponL.physDmg = 1;
+            sManager.equipmentManager.weaponL.PhysDmg = 1;
 
             base.setStats();
         }
@@ -31,7 +31,7 @@ namespace Entities
         public override void Update()
         {
             this.sManager.equipmentManager.GetCurrentWeapon().hitbox.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width * 2, this.model.body.Height), 0f);
-            this.sManager.equipmentManager.armorHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height), 0f);
+            this.sManager.equipmentManager.chestplate.armorHB.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height), 0f);
         }
 
 

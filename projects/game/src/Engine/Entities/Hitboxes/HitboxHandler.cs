@@ -13,14 +13,35 @@ namespace Entities
 
         public static void HandleHit(LivingEntity fromEnt, LivingEntity toEnt)
         {
-            Debug.WriteLine("hit!");
+            //Debug.WriteLine("hit!");
             fromEnt.sManager.DealDamageTo(toEnt);
         }
 
 
         public static void HandleInterraction(InteractiveEntity interractiveEnt, LivingEntity livingEnt)
         {
-            Debug.WriteLine("interraction!");
+            //Debug.WriteLine("interraction!");
+            if(interractiveEnt is InteractiveItemEntity itemInterractiveEnt)
+            {
+                HandleInterractiveItemInterraction(itemInterractiveEnt, livingEnt);
+            }
+        }
+
+        public static void HandleInterractiveItemInterraction(InteractiveItemEntity itemEnt, LivingEntity livingEnt)
+        {
+            if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP)
+            {
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERRACTIONPRESSED])
+                {
+                    Entities.player.sManager.inventory.AddInventory(itemEnt.Containment);
+                    Entities.entityManager.entities.Remove(itemEnt);
+                }
+            }
+            else if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP_AUTO)
+            {
+                Entities.player.sManager.inventory.AddInventory(itemEnt.Containment);
+                Entities.entityManager.entities.Remove(itemEnt);
+            }
         }
     }
 }

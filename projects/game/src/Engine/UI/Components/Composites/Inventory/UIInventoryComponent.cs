@@ -33,7 +33,7 @@ namespace UI
 
                     if(inventory.Items.Count > i)
                     {
-                        ((UIInventorySlotComponent)children[i]).SetItem(inventory.Items[i].Type);
+                        ((UIInventorySlotComponent)children[i]).SetItem(inventory.Items[i]);
                     }
                 }
             }

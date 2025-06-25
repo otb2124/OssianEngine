@@ -27,7 +27,7 @@ namespace Entities
             IRON_BELT,
             IRON_RING,
             CALL_DOG,
-            CALL_BUTTERFLY,
+            CALL_FIREFLY,
             BACKPACK,
         }
 

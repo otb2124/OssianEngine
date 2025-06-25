@@ -22,7 +22,7 @@ namespace Entities
 
     public class Item
     {
-
+        public ItemKey ItemKey;
         public ItemLib.ItemTypes Type;
         public int Value;
         public string Name;
@@ -38,7 +38,14 @@ namespace Entities
             Type = type;
         }
 
-        public Item()
+        public Item(ItemKey itemKey)
+        {
+            ItemKey = itemKey;
+
+            SetItem();
+        }
+
+        public virtual void SetItem()
         {
 
         }

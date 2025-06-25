@@ -26,14 +26,16 @@ namespace Entities
 
             sManager.stats.Refill();
 
-            sManager.equipmentManager.weaponL.physDmg = 1;
+            sManager.equipmentManager.weaponL.PhysDmg = 1;
             sManager.equipmentManager.weaponL.swingSpeed = 0.4f;
 
             sManager.inventory.SlotsAmount = 20;
-            sManager.inventory.AddItem(Items.HEALTH_POTION);
-            sManager.inventory.AddItem(Items.NOTE);
-            sManager.inventory.AddItem(Items.SWORD_HILT);
-            sManager.inventory.AddItem(Items.CALL_DOG);
+            sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Consumables.HEALTH_POTION)));
+            sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
+            sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Materials.SWORD_HILT)));
+
+
+            Debug.WriteLine(sManager.inventory.Items[0].Name);
 
             base.setStats();
         }
@@ -149,7 +151,7 @@ namespace Entities
 
 
             //armor
-            this.sManager.equipmentManager.armorHB.Update(
+            this.sManager.equipmentManager.chestplate.armorHB.Update(
                 FlatConverter.ToVector2(this.model.body.Position),
                 new Vector2(this.model.body.Width, this.model.body.Height - 20),
                 0f

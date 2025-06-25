@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using Resources;
 using Utils;
-using static Graphics.Animation;
 
 namespace Entities
 {
@@ -18,6 +17,16 @@ namespace Entities
 
         public PhysicalEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base() 
         {
+            Init(modelPreset, pos, rotation);
+        }
+
+        public PhysicalEntity() : base()
+        {
+
+        }
+
+        public virtual void Init(Models modelPreset, Vector2 pos, float rotation = 0f)
+        {
             model = ModelFactory.CreateModel(modelPreset);
             model.body.MoveTo(FlatConverter.ToFlatVector(pos));
             model.body.RotateTo(rotation);
@@ -30,6 +39,7 @@ namespace Entities
             SetAnimations();
         }
 
+
         public virtual void SetAnimations()
         {
             this.model.aManager.AddStaticAnimation(this.model.sprite);
@@ -37,6 +47,7 @@ namespace Entities
 
         public override void Draw()
         {
+            model.DrawAngle = model.body.Angle;
             this.model.Draw();
         }
 

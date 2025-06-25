@@ -12,7 +12,7 @@ namespace Entities
     public class EntityManager
     {
 
-        List<Entity> entities;
+        public List<Entity> entities;
 
         public EntityManager()
         {
@@ -26,29 +26,28 @@ namespace Entities
 
         public void Update()
         {
+            var entitiesSnapshot = entities.ToList();
 
-            foreach (var entA in entities)
+            foreach (var entA in entitiesSnapshot)
             {
-
                 if (entA is PhysicalEntity phent)
                 {
                     if (entA is LivingEntity || entA is InteractiveEntity)
                     {
                         entA.Update();
 
-                        foreach (var entB in entities)
+                        foreach (var entB in entitiesSnapshot)
                         {
                             if (entB is LivingEntity livingB && entA != entB)
                             {
-
-                                //check for attack hit
+                                // Check for attack hit
                                 if (entA is LivingEntity livingA)
                                 {
                                     HitboxChecker.CheckForCollisions(livingA, livingB);
                                 }
 
-                                //check for interraction
-                                if(entA is InteractiveEntity interactiveA && livingB is Player)
+                                // Check for interaction
+                                if (entA is InteractiveEntity interactiveA && livingB is Player)
                                 {
                                     HitboxChecker.CheckForInterraction(interactiveA, livingB);
                                 }
@@ -57,7 +56,6 @@ namespace Entities
                     }
 
                     HandlePlatformOverlay(phent);
-
                 }
             }
         }

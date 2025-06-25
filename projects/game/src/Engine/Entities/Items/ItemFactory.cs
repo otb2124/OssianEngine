@@ -21,13 +21,13 @@ namespace Entities
             switch(GetItemType(itemKey))
             {
                 case ItemTypes.WEAPON:
-                    item = new Weapon(itemKey);
+                    item = new WeaponEquipment(itemKey);
                     break;
                 case ItemTypes.ARMOR:
-                    item = new Armor(itemKey);
+                    item = new ArmorEquipment(itemKey);
                     break;
                 case ItemTypes.ACCESSORY:
-                    item = new Armor(itemKey);
+                    item = new AccessoryEquipment(itemKey);
                     break;
                 case ItemTypes.CONSUMABLE:
                     item = new ConsumableItem(itemKey);

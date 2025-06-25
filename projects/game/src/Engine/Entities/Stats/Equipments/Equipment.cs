@@ -8,14 +8,32 @@ namespace Entities
     public class Equipment : Item
     {
 
-        public float swingSpeed;
-        public float physDmg;
-        public float currentSwingTime = 0f;
-        public bool isSwinging = false;
+        public enum EquipmentSlotsTake 
+        {
+            WEAPON_SINGLE,
+            WEAPON_DOUBLE,
 
-        public float physDef;
+            TORSO,
+            HEAD,
+            LEGS,
+            HANDS,
 
-        public Equipment(ItemLib.ItemTypes type, int value, string name, string description, ItemRarity rarity) : base(type, value, name, description, rarity)
+            NECKLACE,
+            BELT,
+            RING_L,
+            RING_R,
+
+            PET,
+            PET_LIGHT,
+            CONTAINMENT,
+        }
+
+        public EquipmentSlotsTake EquipmentSlot;
+
+        public float PhysDmg;
+        public float PhysDef;
+
+        public Equipment(ItemKey itemKey) : base(itemKey)
         {
 
         }

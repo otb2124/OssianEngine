@@ -17,10 +17,26 @@ namespace Entities
             Items = new List<Item>();
         }
 
-
-        public void AddItem(ItemKey itemKey)
+        public Inventory(ItemKey[] keys)
         {
-            Items.Add(ItemFactory.itemMappings[itemKey]);
+            Items = new List<Item>();
+            foreach (var key in keys)
+            {
+                Items.Add(ItemFactory.CreateItem(key));
+            }
+        }
+
+        public void AddItem(Item item)
+        {
+            Items.Add(item);
+        }
+
+        public void AddInventory(Inventory inventory)
+        {
+            foreach (var item in inventory.Items)
+            {
+                AddItem(item);
+            }
         }
     }
 }

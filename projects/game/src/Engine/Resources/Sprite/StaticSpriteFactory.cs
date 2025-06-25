@@ -48,7 +48,7 @@ namespace Resources
             { StaticSprites.GRAPHICS_SUN, new SpriteData(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
 
-            { StaticSprites.ENTITIES_STATIC_CIRCLE, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 0, 32, 32), 98)},
+            { StaticSprites.ENTITIES_STATIC_COIN, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 0, 64, 64), 98)},
             { StaticSprites.ENTITIES_STATIC_BALL, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 0, 64, 64), 98)},
             { StaticSprites.ENTITIES_STATIC_CRATE_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 64, 64, 64), 98)},
             { StaticSprites.ENTITIES_STATIC_CRATE_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 98)},
@@ -141,7 +141,7 @@ namespace Resources
             { new ItemKey(ItemLib.Accessories.IRON_BELT), new Point(0,6) },
             { new ItemKey(ItemLib.Accessories.IRON_RING), new Point(0,7) },
             { new ItemKey(ItemLib.Accessories.CALL_DOG), new Point(0,8) },
-            { new ItemKey(ItemLib.Accessories.CALL_BUTTERFLY), new Point(0,9) },
+            { new ItemKey(ItemLib.Accessories.CALL_FIREFLY), new Point(0,9) },
             { new ItemKey(ItemLib.Accessories.BACKPACK), new Point(0,10) },
             { new ItemKey(ItemLib.Consumables.HEALTH_POTION), new Point(0,11) },
             { new ItemKey(ItemLib.Materials.SWORD_HILT), new Point(0,12) },
@@ -155,7 +155,7 @@ namespace Resources
             SpriteData data = new SpriteData();
 
             Point iconSize = new Point(64, 64);
-            Point spriteSheetLocation = itemUISpriteMappings[item];
+            Point spriteSheetLocation = itemUISpriteMappings[item.ItemKey];
 
             data = new SpriteData(SpriteSheets.UI_ITEMS, new Rectangle(spriteSheetLocation*iconSize, iconSize), 0);
 

@@ -25,7 +25,7 @@ namespace Entities
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 0)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 30)));
             entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 50)));
-            entities.Add(new InteractiveEntity(Models.COIN, new Vector2(-20, 100), new Vector2(100, 100)));
+            entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 100)));
 
             Entities.player = new Player(new Vector2(0, 20));
             entities.Add(Entities.player);

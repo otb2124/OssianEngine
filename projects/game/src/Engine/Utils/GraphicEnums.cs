@@ -75,7 +75,7 @@ namespace Utils
 
         //physicalentities
         ENTITIES_STATIC_BALL,
-        ENTITIES_STATIC_CIRCLE,
+        ENTITIES_STATIC_COIN,
 
         //crates
         ENTITIES_STATIC_CRATE_0,
@@ -98,6 +98,7 @@ namespace Utils
         CRATE_0,
         CRATE_1,
         CIRCLE,
+        COIN,
         HUMANOID,
     }
 

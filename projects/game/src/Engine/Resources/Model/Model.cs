@@ -1,6 +1,8 @@
-﻿using Graphics;
+﻿using Entities;
+using Graphics;
 using Microsoft.Xna.Framework;
 using Physics;
+using System.Drawing.Drawing2D;
 using Utils;
 using static Entities.PhysicalEntity;
 using static Graphics.Animation;
@@ -21,6 +23,8 @@ namespace Resources
         public Directions direction;
         public AnimationStates animationState;
         public ModelStates modelState;
+
+        public float DrawAngle = 0;
 
         public Model(ModelPreset preset)
         {
@@ -70,8 +74,7 @@ namespace Resources
                 newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
             }
 
-
-            this.aManager.GetCurrent().Draw(newPos, Color.White, body.Angle, textureCenter, new Vector2(scaleX, scaleY), 0f);
+            this.aManager.GetCurrent().Draw(newPos, Color.White, DrawAngle, textureCenter, new Vector2(scaleX, scaleY), 0f);
         }
 
     }
