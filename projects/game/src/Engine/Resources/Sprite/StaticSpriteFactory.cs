@@ -38,12 +38,6 @@ namespace Resources
 
         public static readonly Dictionary<StaticSprites, SpriteData> spriteMappings = new()
         {
-            { StaticSprites.GRAPHICS_PARALLAX_0_0, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,0,1280,720), -100) },
-            { StaticSprites.GRAPHICS_PARALLAX_0_1, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,720,1280,720), -99) },
-            { StaticSprites.GRAPHICS_PARALLAX_0_2, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,720*2,1920,720), -98) },
-            { StaticSprites.GRAPHICS_PARALLAX_0_3, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,720*3,2344,720), -97) },
-            { StaticSprites.GRAPHICS_PARALLAX_0_N, new SpriteData(SpriteSheets.GRAPHICS_PARALLAX_0, new Rectangle(0,720*4,2344,720), 1000) },
-
             { StaticSprites.GRAPHICS_CLOUD_0, new SpriteData(SpriteSheets.GRAPHICS_CLOUDS, new Rectangle(0,0,360,128), 2) },
             { StaticSprites.GRAPHICS_SUN, new SpriteData(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
@@ -55,9 +49,6 @@ namespace Resources
 
             { StaticSprites.ENTITIES_PLAYER, new SpriteData(SpriteSheets.ENTITIES_PLAYER, new Rectangle(0,0,48,96), 100)},
             { StaticSprites.ENTITIES_MOB0, new SpriteData(SpriteSheets.ENTITIES_MOB0, new Rectangle(0,0,48,96), 99)},
-
-
-
 
 
             { StaticSprites.UI_GAME_ICON, new SpriteData(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
@@ -161,6 +152,38 @@ namespace Resources
 
             return data;
         }
+
+
+
+
+        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, SpriteData> backgroundCanvasLayerSprites = new()
+        {
+            { Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING, new SpriteData(SpriteSheets.GRAPHICS_BG0_CANVAS, new Rectangle(0, 0, 1280, 720), -100) },
+        };
+
+        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, SpriteData[]> backgroundBackLayerSprites = new()
+        {
+            { Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,
+                new SpriteData[]
+                {
+                    new SpriteData(SpriteSheets.GRAPHICS_BG0_B0, new Rectangle(0, 0, 1280, 720), -99),
+                    new SpriteData(SpriteSheets.GRAPHICS_BG0_B1, new Rectangle(0, 0, 1920, 720), -98),
+                    new SpriteData(SpriteSheets.GRAPHICS_BG0_B2, new Rectangle(0, 0, 2240, 720), -97)
+                }
+            }
+        };
+
+        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, SpriteData[]> backgroundFrontLayerSprites = new()
+        {
+            { Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,
+                new SpriteData[]
+                {
+                    new SpriteData(SpriteSheets.GRAPHICS_BG0_F0, new Rectangle(0, 0, 2560, 720), 1000)
+                }
+            }
+        };
+
+        
 
     }
 }

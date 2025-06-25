@@ -1070,7 +1070,7 @@ namespace Graphics
                 y1 = y2;
             }
 
-            // Debugging: Draw the center of the elipse.
+            // Debugging: DrawParallaxBackLayers the center of the elipse.
             //this.DrawBoxFill(center, 4, 4, color);
         }
 
@@ -1156,7 +1156,7 @@ namespace Graphics
                 y1 = y2;
             }
 
-            // Draw the final line segment that connects back to the first.
+            // DrawParallaxBackLayers the final line segment that connects back to the first.
             this.DrawLine(x1, y1, firstX, firstY, color);
         }
 

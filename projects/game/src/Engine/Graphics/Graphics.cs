@@ -42,7 +42,7 @@ namespace Graphics
             backgroundManager.DrawCanvas();
             sprites.End();
 
-            // Draw other background elements: Alpha blending (for transparency)
+            // DrawParallaxBackLayers other background elements: Alpha blending (for transparency)
             sprites.Begin(camera, BlendState.NonPremultiplied, true);
             backgroundManager.Draw();
             sprites.End();
@@ -50,7 +50,7 @@ namespace Graphics
             //entity sprites
             sprites.Begin(camera);
             Entities.Entities.entityManager.Draw();
-            backgroundManager.DrawParallaxN();
+            backgroundManager.DrawParallaxFrontLayers();
             sprites.End();
 
             //hitboxes over models (fix to over entity sprites, but under weapon sprites)

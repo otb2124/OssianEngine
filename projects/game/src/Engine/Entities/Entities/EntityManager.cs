@@ -12,21 +12,19 @@ namespace Entities
     public class EntityManager
     {
 
-        public List<Entity> entities;
-
         public EntityManager()
         {
-            entities = new List<Entity>();
+            
         }
 
         public void Init()
         {
-            EntitySetter.setEntities(this.entities);
+            Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities = EntitySetter.FillEntityMap(Entities.entityMapManager.CurrentMapId);
         }
 
         public void Update()
         {
-            var entitiesSnapshot = entities.ToList();
+            var entitiesSnapshot = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.ToList();
 
             foreach (var entA in entitiesSnapshot)
             {
@@ -71,7 +69,7 @@ namespace Entities
                 ? phent.model.body.Height
                 : phent.model.body.Radius * 2;
 
-            foreach (var plent in entities.OfType<PlatformEntity>())
+            foreach (var plent in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.OfType<PlatformEntity>())
             {
                 float platformTopY = plent.body.Position.Y + plent.body.Height;
 
@@ -99,7 +97,7 @@ namespace Entities
         //models
         public void Draw()
         {
-            var sortedEntities = entities
+            var sortedEntities = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities
                 .OrderBy(e =>
                     (e is PlatformEntity plent) ? plent.spriteZ
                     : (e is PhysicalEntity phent) ? phent.spriteZ
@@ -121,7 +119,7 @@ namespace Entities
         //collisions
         public void DrawColliders()
         {
-            foreach (var entity in entities.Where(e => e is PhysicalEntity || e is PlatformEntity))
+            foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Where(e => e is PhysicalEntity || e is PlatformEntity))
             {
                 entity.DrawCollider();
             }
@@ -131,7 +129,7 @@ namespace Entities
         //hitboxes
         public void DrawHitboxes()
         {
-            foreach (var entity in entities.Where(e => e is LivingEntity || e is InteractiveEntity))
+            foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Where(e => e is LivingEntity || e is InteractiveEntity))
             {
                 entity.DrawHitbox();
             }

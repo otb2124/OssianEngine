@@ -10,7 +10,7 @@ namespace Graphics
     {
 
 
-        public enum BGState
+        public enum BackgroundState
         {
             NONE,
             CLOUDS
@@ -19,28 +19,19 @@ namespace Graphics
         public ParallaxBackground parallax;
         public List<BackgroundEntity> backgrounds;
         public List<BackgroundEntity> backgroundsToRemove;
-
-        public BGState state;
+        public BackgroundState state;
 
         public void Init()
         {
-            state = BGState.NONE;
-
-            //parallax
-            parallax = new ParallaxBackground();
-
-            //bg entities
-            backgrounds = new List<BackgroundEntity>();
+            state = BackgroundSetter.SetBackgroundState(Entities.Entities.entityMapManager.CurrentMapId);
+            parallax = BackgroundSetter.SetParallax(Entities.Entities.entityMapManager.CurrentMapId);
+            backgrounds = BackgroundSetter.SetBackgrounds(Entities.Entities.entityMapManager.CurrentMapId);
             backgroundsToRemove = new List<BackgroundEntity>();
-            backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_STATIC_DRAGON, new Vector2(-200, 0), BackgroundEntity.BGEntityDynamics.STATIC));
-            backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_SUN, new Vector2(-200, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true });
         }
 
         public void Update()
         {
             
-
-
             if(GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
             {
                 parallax.Update();
@@ -69,7 +60,7 @@ namespace Graphics
         {
             if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
             {
-                parallax.Draw();
+                parallax.DrawParallaxBackLayers();
 
                 foreach (var background in backgrounds
                 .Where(e => e is BackgroundEntity)
@@ -88,9 +79,9 @@ namespace Graphics
             }
         }
 
-        public void DrawParallaxN()
+        public void DrawParallaxFrontLayers()
         {
-            parallax.DrawParallaxN();   
+            parallax.DrawParallaxFrontLayers();   
         }
 
     }

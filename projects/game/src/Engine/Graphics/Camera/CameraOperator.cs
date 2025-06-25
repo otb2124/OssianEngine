@@ -53,7 +53,7 @@ namespace Graphics
 
 
             //move
-            RectangleF bounds = Graphics.backgroundManager.parallax.bounds;
+            RectangleF bounds = new RectangleF(-10000, -10000, 10000, 10000);
 
             float currentZoom = (float)camera.Z;
             float baseZoom = camera.MaxZ;

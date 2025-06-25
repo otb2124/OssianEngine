@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Entities
+{
+    public class EntityMap
+    {
+
+        public Point Size;
+        public int Id;
+        public List<Entity> Entities;
+
+        public EntityMap(int id)
+        {
+            Id = id;
+            Init();
+        }
+
+        public void Init()
+        {
+            switch(Id)
+            {
+                case 0:
+                    Size = new Point(2560, 720);
+                    break;
+            }
+            
+        }
+    }
+}

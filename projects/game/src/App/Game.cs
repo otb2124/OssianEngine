@@ -46,10 +46,10 @@ namespace App
             Inputs.Inputs.keyHandler = new KeyHandler();
 
             Graphics.Graphics.camera = new Camera(Graphics.Graphics.screen, this);
-            Graphics.Graphics.Init();
-
+            
             //ENTITIES
             Entities.Entities.Init();
+            Graphics.Graphics.Init();
 
             UI.UI.Init();
 

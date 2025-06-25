@@ -10,9 +10,13 @@ namespace Entities
     {
 
         public static EntityManager entityManager;
+        public static EntityMapManager entityMapManager;
 
         public static void Init()
         {
+            entityMapManager = new EntityMapManager();
+            entityMapManager.Init();
+
             entityManager = new EntityManager();
             entityManager.Init();
         }

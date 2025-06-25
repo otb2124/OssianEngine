@@ -41,9 +41,9 @@ namespace Graphics
         {
             switch (Graphics.backgroundManager.state)
             {
-                case BackgroundManager.BGState.NONE:
+                case BackgroundManager.BackgroundState.NONE:
                     break;
-                case BackgroundManager.BGState.CLOUDS:
+                case BackgroundManager.BackgroundState.CLOUDS:
                     HandleCloudStateLogic();
                     break;
             }

@@ -29,8 +29,18 @@ namespace Resources
             switch (id)
             {
                 //graphics
-                case SpriteSheets.GRAPHICS_PARALLAX_0:
-                    return "graphics/parallax/bg0";
+                case SpriteSheets.GRAPHICS_BG0_CANVAS:
+                    return "graphics/parallax/bg0/canvas";
+                case SpriteSheets.GRAPHICS_BG0_B0:
+                    return "graphics/parallax/bg0/B0";
+                case SpriteSheets.GRAPHICS_BG0_B1:
+                    return "graphics/parallax/bg0/B1";
+                case SpriteSheets.GRAPHICS_BG0_B2:
+                    return "graphics/parallax/bg0/B2";
+                case SpriteSheets.GRAPHICS_BG0_F0:
+                    return "graphics/parallax/bg0/F0";
+
+
                 case SpriteSheets.GRAPHICS_STATIC:
                     return "graphics/static";
                 case SpriteSheets.GRAPHICS_SUN:

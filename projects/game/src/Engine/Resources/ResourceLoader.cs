@@ -24,7 +24,11 @@ namespace Resources
                 //--------
                 //GRAPHICS
                 //parallax
-                SpriteSheets.GRAPHICS_PARALLAX_0,
+                SpriteSheets.GRAPHICS_BG0_CANVAS,
+                SpriteSheets.GRAPHICS_BG0_B0,
+                SpriteSheets.GRAPHICS_BG0_B1,
+                SpriteSheets.GRAPHICS_BG0_B2,
+                SpriteSheets.GRAPHICS_BG0_F0,
 
                 //static
                 SpriteSheets.GRAPHICS_STATIC,
