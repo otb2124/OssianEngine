@@ -166,7 +166,7 @@ namespace Resources
             { Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,
                 new SpriteData[]
                 {
-                    new SpriteData(SpriteSheets.GRAPHICS_BG0_B0, new Rectangle(0, 0, 1280, 720), -99),
+                    new SpriteData(SpriteSheets.GRAPHICS_BG0_B0, new Rectangle(0, 0, 1600, 720), -99),
                     new SpriteData(SpriteSheets.GRAPHICS_BG0_B1, new Rectangle(0, 0, 1920, 720), -98),
                     new SpriteData(SpriteSheets.GRAPHICS_BG0_B2, new Rectangle(0, 0, 2240, 720), -97)
                 }

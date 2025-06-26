@@ -19,21 +19,15 @@ namespace Graphics
         public Vector2 Position;
         public AnimationManager aManager;
 
+        public bool StickToCameraY;
 
         //wider = faster
-        public ParallaxLayer(SpriteData spriteData)
-        {
-            Sprite = spriteData;
-            LayerSpeed = spriteData.srcRect.Width / 2560f;
-
-            Position = new Vector2();
-        }
-
-        public ParallaxLayer(SpriteData spriteData, float speed)
+        public ParallaxLayer(SpriteData spriteData, float speed, bool stickToCameraY = false)
         {
             Sprite = spriteData;
             LayerSpeed = speed;
             Position = new Vector2();
+            StickToCameraY = stickToCameraY;
         }
 
         public void Init()
@@ -47,6 +41,12 @@ namespace Graphics
             float cameraposX = Graphics.camera.Position.X;
 
             Position.X = cameraposX * LayerSpeed;
+
+            if(StickToCameraY)
+            {
+                float cameraposY = Graphics.camera.Position.Y;
+                Position.Y = cameraposY;
+            }
         }
 
         public void Draw()
@@ -54,7 +54,7 @@ namespace Graphics
             Rectangle srcRect = aManager.GetCurrent().GetCurrentFrame();
 
             Vector2 adjustedPos = Position;
-            Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
+            Vector2 adjustedOrigin = new Vector2(srcRect.Width/2, srcRect.Height/2);
             Vector2 adjustedScale = Vector2.One;
 
             Graphics.sprites.Draw(

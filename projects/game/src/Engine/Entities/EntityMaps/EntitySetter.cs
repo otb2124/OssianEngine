@@ -19,7 +19,7 @@ namespace Entities
             switch (id)
             {
                 case 0:
-                    Entities.player = new Player(new Vector2(0, 20));
+                    Entities.player = new Player(new Vector2(0, 50));
                     entities.Add(Entities.player);
 
                     entities.Add(new PlatformEntity(new Vector2(150, 100), 50, 3, 3, 0.75f));

@@ -42,12 +42,14 @@ namespace Graphics
 
         public void SetLayers()
         {
-            ParallaxCanvasLayer = new ParallaxLayer(backgroundCanvasLayerSprites[Type], 1.0f);
+            ParallaxCanvasLayer = new ParallaxLayer(backgroundCanvasLayerSprites[Type], 1.0f, true);
 
             ParallaxBackLayers = new ParallaxLayer[backgroundBackLayerSprites[Type].Length];
             for (int i = 0; i < ParallaxBackLayers.Length; i++)
             {
-                ParallaxBackLayers[i] = new ParallaxLayer(backgroundBackLayerSprites[Type][i], 0.5f);
+                float speed = (1 - (float)(i + 1) / (float)(ParallaxBackLayers.Length + 1));
+
+                ParallaxBackLayers[i] = new ParallaxLayer(backgroundBackLayerSprites[Type][i], speed);
             }
 
             ParallaxFrontLayers = new ParallaxLayer[backgroundFrontLayerSprites[Type].Length];

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Diagnostics;
 using System.Drawing;
+using Point = Microsoft.Xna.Framework.Point;
 
 namespace Graphics
 {
@@ -51,18 +52,23 @@ namespace Graphics
 
             //camera.position = Vector2.Zero;
 
+            Vector2 mapSize = Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Size.ToVector2();
+            Vector2 screenSize = new Vector2(Graphics.screen.Width, Graphics.screen.Height);
 
-            //move
-            RectangleF bounds = new RectangleF(-10000, -10000, 10000, 10000);
+            float topBound = mapSize.Y - screenSize.Y * 1.5f;
+            float bottomBound = -mapSize.Y + screenSize.Y * 1.5f;
+                //+ screenSize.Y * 0.5f;
+            float leftBound = -mapSize.X + screenSize.X * 1.5f;
+            float rightBound = mapSize.X - screenSize.X * 1.5f;
 
             float currentZoom = (float)camera.Z;
             float baseZoom = camera.MaxZ;
             float adjScale = currentZoom / baseZoom;
 
-            bounds.X /= adjScale;
-            bounds.Y /= adjScale;
-            bounds.Width /= adjScale;
-            bounds.Height /= adjScale;
+            topBound /= adjScale;
+            bottomBound /= adjScale;
+            leftBound /= adjScale;
+            rightBound /= adjScale;
 
 
             //Debug.WriteLine(bounds.ToString());
@@ -71,32 +77,24 @@ namespace Graphics
             Vector2 newPos = new Vector2(camera.position.X, camera.position.Y); 
 
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED] && newPos.Y <= bounds.Height)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED] && newPos.Y <= topBound)
                 {
                     camera.MoveUp(cameraSpeed);
                 }
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED] && newPos.Y >= bounds.Y)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED] && newPos.Y >= bottomBound)
                 {
                     camera.MoveUp(-cameraSpeed);
                 }
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED] && newPos.X <= bounds.Width)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED] && newPos.X <= rightBound)
                 {
                     camera.MoveRight(cameraSpeed);
                 }
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED] && newPos.X >= bounds.X)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED] && newPos.X >= leftBound)
                 {
                     camera.MoveRight(-cameraSpeed);
                 }
             
-
-
-
-
-
-
-
-
 
 
             //zoom

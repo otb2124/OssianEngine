@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace Entities
             switch(Id)
             {
                 case 0:
-                    Size = new Point(2560, 720);
+                    Size = new Point(2560, 1440);
                     break;
             }
             
