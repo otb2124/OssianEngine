@@ -27,19 +27,22 @@ namespace UI
             {
                 children = new UIComponent[inventory.SlotsAmount];
 
-                for (global::System.Int32 i = 0; i < inventory.SlotsAmount; i++)
-                {
-                    children[i] = new UIInventorySlotComponent(id, new Vector2(Position.X + 64*i, Position.Y));
-
-                    if(inventory.Items.Count > i)
-                    {
-                        ((UIInventorySlotComponent)children[i]).SetItem(inventory.Items[i]);
-                    }
-                }
+                SetInventory(inventory);
             }
-            
         }
 
+        public void SetInventory(Inventory inventory)
+        {
+            for (global::System.Int32 i = 0; i < inventory.SlotsAmount; i++)
+            {
+                children[i] = new UIInventorySlotComponent(-1, new Vector2(Position.X + 64 * i, Position.Y));
+
+                if (inventory.Items.Count > i)
+                {
+                    ((UIInventorySlotComponent)children[i]).SetItem(inventory.Items[i]);
+                }
+            }
+        }
 
         public override void Update()
         {

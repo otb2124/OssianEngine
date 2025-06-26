@@ -2,6 +2,7 @@
 using Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Resources;
 using Utils;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
 
@@ -25,8 +26,8 @@ namespace Entities
 
             aManager = new AnimationManager();
 
-            this.sprite = StaticSprites.ENTITIES_WEAPONS_SWORD0;
-            this.aManager.AddStaticAnimation(this.sprite);
+            this.sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
+            this.aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
         }
 
         public override void SetItem()

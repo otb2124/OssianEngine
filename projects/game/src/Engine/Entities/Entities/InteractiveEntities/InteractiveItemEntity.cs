@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 
 namespace Entities
 {
@@ -25,6 +26,12 @@ namespace Entities
         public InteractiveItemType interactiveItemType;
 
         public InteractiveItemEntity(Utils.Models modelPreset, Vector2 pos, Vector2 interactionFieldSize, InteractiveItemType interactiveItemType, Inventory containment) : base(modelPreset, pos, interactionFieldSize)
+        {
+            this.interactiveItemType = interactiveItemType;
+            Containment = containment;
+        }
+
+        public InteractiveItemEntity(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractiveItemType interactiveItemType, Inventory containment) : base(sprite, body, pos, interactionFieldSize)
         {
             this.interactiveItemType = interactiveItemType;
             Containment = containment;
@@ -52,6 +59,14 @@ namespace Entities
             this.interactiveItemType = interactiveItemType;
             Containment = containment;
             base.Init(modelPreset, pos, interactionFieldSize);
+        }
+
+
+        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractiveItemType interactiveItemType, Inventory containment)
+        {
+            this.interactiveItemType = interactiveItemType;
+            Containment = containment;
+            base.Init(sprite, body, pos, interactionFieldSize);
         }
     }
 }

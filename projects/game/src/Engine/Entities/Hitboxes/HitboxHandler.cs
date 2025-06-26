@@ -34,12 +34,15 @@ namespace Entities
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERRACTIONPRESSED])
                 {
                     Entities.player.sManager.inventory.AddInventory(itemEnt.Containment);
+                    Physics.Physics.flatWorld.RemoveBody(itemEnt.model.body);
                     Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
+                    
                 }
             }
             else if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP_AUTO)
             {
                 Entities.player.sManager.inventory.AddInventory(itemEnt.Containment);
+                Physics.Physics.flatWorld.RemoveBody(itemEnt.model.body);
                 Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
             }
         }

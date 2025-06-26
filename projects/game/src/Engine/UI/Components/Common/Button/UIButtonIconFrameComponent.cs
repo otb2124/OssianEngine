@@ -1,5 +1,6 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,7 +23,7 @@ namespace UI
 
             this.sprite = sprite;
             aManager = new AnimationManager();
-            aManager.AddStaticAnimation(this.sprite);
+            aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
 
             Vector2 Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
 

@@ -22,13 +22,29 @@ namespace Entities
             Items = new List<Item>();
             foreach (var key in keys)
             {
-                Items.Add(ItemFactory.CreateItem(key));
+                AddItem(ItemFactory.CreateItem(key));
             }
         }
 
         public void AddItem(Item item)
         {
-            Items.Add(item);
+            Item existing = GetItemWithItemKey(item.ItemKey);
+
+            if(item.Stackable)
+            {
+                if (existing != null)
+                {
+                    existing.Count++;
+                }
+                else
+                {
+                    Items.Add(item);
+                }
+            }
+            else
+            {
+                Items.Add(item);
+            }
         }
 
         public void AddInventory(Inventory inventory)
@@ -37,6 +53,12 @@ namespace Entities
             {
                 AddItem(item);
             }
+        }
+
+
+        public Item GetItemWithItemKey(ItemKey key)
+        {
+            return Items?.FirstOrDefault(item => item?.ItemKey == key);
         }
     }
 }

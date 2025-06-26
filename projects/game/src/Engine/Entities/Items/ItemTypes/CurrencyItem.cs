@@ -11,7 +11,7 @@ namespace Entities
 
         public CurrencyItem(ItemKey itemKey) : base(itemKey)
         {
-
+            Stackable = true;
         }
 
 

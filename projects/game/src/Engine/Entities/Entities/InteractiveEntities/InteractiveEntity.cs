@@ -17,6 +17,12 @@ namespace Entities
             InteractionField = new Hitbox();
         }
 
+        public InteractiveEntity(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize) : base(sprite, body, pos)
+        {
+            InteractionFieldSize = interactionFieldSize;
+            InteractionField = new Hitbox();
+        }
+
         public InteractiveEntity() : base()
         {
             
@@ -27,6 +33,13 @@ namespace Entities
             InteractionFieldSize = interactionFieldSize;
             InteractionField = new Hitbox();
             base.Init(modelPreset, pos);
+        }
+
+        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize)
+        {
+            InteractionFieldSize = interactionFieldSize;
+            InteractionField = new Hitbox();
+            base.Init(sprite, body, pos);
         }
 
         public override void Update()

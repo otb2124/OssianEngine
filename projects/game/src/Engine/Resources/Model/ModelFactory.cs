@@ -10,7 +10,7 @@ namespace Resources
 
         
 
-        public struct ModelPreset
+        public class ModelPreset
         {
             public FlatBodyPreset bodyPreset;
             public StaticSprites spritePreset;
@@ -42,6 +42,11 @@ namespace Resources
             }
 
             return new Model(preset);
+        }
+
+        public static Model CreateModel(StaticSprites sprite, FlatBodyPreset body)
+        {
+            return new Model(new ModelPreset(body, sprite, new Vector2(0, 0)));
         }
 
         public static StaticSprites GetSpriteFromModel(Models model)

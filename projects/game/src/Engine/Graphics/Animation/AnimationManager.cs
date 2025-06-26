@@ -17,13 +17,10 @@ namespace Graphics
         {
             AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, AnimationStates.IDLE), new Animation(spriteData.sheet, 1, spriteData.srcRect.Location.ToVector2(), spriteData.srcRect.Size.ToVector2(), 0f, spriteData.effect));
         }
-        public void AddStaticAnimation(StaticSprites sprite)
+
+        public void AddAnimation(StaticSpriteFactory.SpriteData spriteData, Directions Directions, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 frameSize, float eachFrameDuration, SpriteEffects effect)
         {
-            AddStaticAnimation(StaticSpriteFactory.spriteMappings[sprite]);
-        }
-        public void AddAnimation(StaticSprites sprite, Directions Directions, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 frameSize, float eachFrameDuration, SpriteEffects effect)
-        {
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions, animationState), new Animation(StaticSpriteFactory.spriteMappings[sprite].sheet, framesCount, startPos, frameSize, eachFrameDuration, effect));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions, animationState), new Animation(spriteData.sheet, framesCount, startPos, frameSize, eachFrameDuration, effect));
         }
 
         public void AddAnimation(Tuple<Directions, AnimationStates> key, Animation animation)

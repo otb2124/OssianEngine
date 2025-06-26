@@ -29,7 +29,7 @@ namespace Graphics
             this.origin = Vector2.Zero;
 
             this.aManager = new AnimationManager();
-            this.aManager.AddStaticAnimation(this.sprite);
+            this.aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
 
             this.type = type;
         }
@@ -43,7 +43,7 @@ namespace Graphics
             Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
             Vector2 adjustedScale = Vector2.One;
 
-            if (this.sprite == StaticSprites.GRAPHICS_SUN)
+            if (this.sprite == StaticSprites.GRAPHICS_SUN || this.sprite ==  StaticSprites.GRAPHICS_MOON)
             {
                 adjustedScale = new Vector2(10, 10);
             }

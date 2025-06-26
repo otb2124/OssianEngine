@@ -84,7 +84,21 @@ namespace Entities
                     new int[] { 4, 5, 6 },
                     new int[] { 8, 9, 10 },
                 }
-            }
+            },
+            {
+                new Vector2(5, 2), new int[][]
+                {
+                    new int[] { 0, 1, 1, 1, 2 },
+                    new int[] { 8, 9, 9, 9, 10 },
+                }
+            },
+            {
+                new Vector2(10, 2), new int[][]
+                {
+                    new int[] { 0, 1, 1, 1, 2 },
+                    new int[] { 8, 9, 9, 9, 10 },
+                }
+            },
         };
 
 

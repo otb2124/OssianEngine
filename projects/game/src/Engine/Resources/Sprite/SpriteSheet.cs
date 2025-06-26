@@ -41,10 +41,32 @@ namespace Resources
                     return "graphics/parallax/bg0/F0";
 
 
+
+                //graphics
+                case SpriteSheets.GRAPHICS_BG1_CANVAS:
+                    return "graphics/parallax/bg1/canvas";
+                case SpriteSheets.GRAPHICS_BG1_B0:
+                    return "graphics/parallax/bg1/B0";
+                case SpriteSheets.GRAPHICS_BG1_B1:
+                    return "graphics/parallax/bg1/B1";
+                case SpriteSheets.GRAPHICS_BG1_B2:
+                    return "graphics/parallax/bg1/B2";
+                case SpriteSheets.GRAPHICS_BG1_B3:
+                    return "graphics/parallax/bg1/B3";
+                case SpriteSheets.GRAPHICS_BG1_B4:
+                    return "graphics/parallax/bg1/B4";
+                case SpriteSheets.GRAPHICS_BG1_B5:
+                    return "graphics/parallax/bg1/B5";
+                case SpriteSheets.GRAPHICS_BG1_F0:
+                    return "graphics/parallax/bg1/F0";
+
+
                 case SpriteSheets.GRAPHICS_STATIC:
                     return "graphics/static";
                 case SpriteSheets.GRAPHICS_SUN:
                     return "graphics/sun";
+                case SpriteSheets.GRAPHICS_MOON:
+                    return "graphics/moon";
                 case SpriteSheets.GRAPHICS_CLOUDS:
                     return "graphics/rain/clouds";
 

@@ -23,28 +23,24 @@ namespace Entities
                     entities.Add(Entities.player);
 
                     entities.Add(new PlatformEntity(new Vector2(150, 100), 50, 3, 3, 0.75f));
-                    entities.Add(new PlatformEntity(new Vector2(300, 100), 50, 3, 3));
-                    entities.Add(new PlatformEntity(new Vector2(0, -50), 49, 3, 2, 0.2f));
-                    entities.Add(new PlatformEntity(new Vector2(150, -50), 49, 3, 2));
-
+                    entities.Add(new PlatformEntity(new Vector2(300, 100), 49, 3, 3));
+                    entities.Add(new PlatformEntity(new Vector2(0, -50), 47, 3, 2, 0.2f));
+                    entities.Add(new PlatformEntity(new Vector2(150, -50), 48, 5, 2));
+                    entities.Add(new PlatformEntity(new Vector2(-75, -200), 40, 5, 2));
+                    entities.Add(new PlatformEntity(new Vector2(50, -200), 44));
+                    entities.Add(new PlatformEntity(new Vector2(200, -200), 43));
+                    entities.Add(new PlatformEntity(new Vector2(400, -200), 42));
+                    entities.Add(new PlatformEntity(new Vector2(600, -200), 41));
+                    entities.Add(new PlatformEntity(new Vector2(800, -200), 40));
+                    entities.Add(new PlatformEntity(new Vector2(1000, -200), 39));
+                    entities.Add(new PlatformEntity(new Vector2(1200, -200), 38));
+                    entities.Add(new PlatformEntity(new Vector2(0, -350), 37, 10, 2));
 
                     entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-100, -50)));
                     entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-200, -50)));
                     entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 0)));
                     entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 30)));
                     entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 50)));
-                    entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 100)));
-
-                    entities.Add(new PlatformEntity(new Vector2(-200, -200), 47));
-                    entities.Add(new PlatformEntity(new Vector2(-100, -200), 47));
-                    entities.Add(new PlatformEntity(new Vector2(50, -200), 47));
-                    entities.Add(new PlatformEntity(new Vector2(200, -200), 47));
-                    entities.Add(new PlatformEntity(new Vector2(400, -200), 47));
-                    entities.Add(new PlatformEntity(new Vector2(600, -200), 47));
-                    entities.Add(new PlatformEntity(new Vector2(800, -200), 47));
-                    entities.Add(new PlatformEntity(new Vector2(1000, -200), 47));
-                    entities.Add(new PlatformEntity(new Vector2(1200, -200), 47));
-
                     entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-50, -150)));
                     entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-65, -150)));
                     entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-70, -150)));
@@ -52,7 +48,12 @@ namespace Entities
                     entities.Add(new Mob(new Vector2(-60, -140), 0f));
                     entities.Add(new Mob(new Vector2(-150, -140), 0f));
 
-                    entities.Add(new PlatformEntity(new Vector2(0, -350), 46, 3, 2));
+                    entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 100)));
+                    entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(20, 115)));
+                    entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(30, 110)));
+                    entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(40, 105)));
+
+                    entities.Add(new InteractiveItemEntity(StaticSprites.ENTITIES_WEAPONS_TERRABLADE, FlatBodyPreset.ITEM_DROP, new Vector2(0, 300), new Vector2(30, 30), InteractiveItemEntity.InteractiveItemType.PICKUP, new Inventory(new ItemKey[] {new ItemKey(ItemLib.Weapons.TERRABLADE)})));
 
                     break;
                 case 1:

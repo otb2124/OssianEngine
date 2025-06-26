@@ -17,11 +17,21 @@ namespace Utils
         GRAPHICS_BG0_B2,
         GRAPHICS_BG0_F0,
 
+        GRAPHICS_BG1_CANVAS,
+        GRAPHICS_BG1_B0,
+        GRAPHICS_BG1_B1,
+        GRAPHICS_BG1_B2,
+        GRAPHICS_BG1_B3,
+        GRAPHICS_BG1_B4,
+        GRAPHICS_BG1_B5,
+        GRAPHICS_BG1_F0,
+
         //static
         GRAPHICS_STATIC,
         
         //sun
         GRAPHICS_SUN,
+        GRAPHICS_MOON,
 
         //rain
         GRAPHICS_CLOUDS,
@@ -67,6 +77,7 @@ namespace Utils
 
         //sun
         GRAPHICS_SUN,
+        GRAPHICS_MOON,
 
         //rain
         GRAPHICS_CLOUD_0,
@@ -86,8 +97,8 @@ namespace Utils
         ENTITIES_STATIC_CRATE_1,
 
         //equipment
-        ENTITIES_WEAPONS_SWORD0,
-        ENTITIES_WEAPONS_SWORD1,
+        ENTITIES_WEAPONS_TERRABLADE,
+        ENTITIES_WEAPONS_IRON_SWORD,
 
         //--
         //UI
@@ -103,13 +114,15 @@ namespace Utils
         CRATE_1,
         CIRCLE,
         COIN,
+        ITEM_DROP,
         HUMANOID,
     }
 
     public enum Models
     {
         PLAYER,
-        CRATE_0, CRATE_1, BALL, COIN,
+        CRATE_0, CRATE_1, BALL, COIN, 
+        ITEM_DROP,
         MOB
     }
 

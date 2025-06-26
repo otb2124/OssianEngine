@@ -18,7 +18,7 @@ namespace Graphics
             switch (Id)
             {
                 case 0:
-                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_SUN, new Vector2(0, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true });
+                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_MOON, new Vector2(0, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true });
                     break;
                 case 1:
                     backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_SUN, new Vector2(0, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true });
@@ -39,7 +39,7 @@ namespace Graphics
             {
                 case 0:
 
-                    parallax = new ParallaxBackground(ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING);
+                    parallax = new ParallaxBackground(ParallaxBackground.ParallaxBackgrounds.GREEN);
                     break;
 
                 case 1:

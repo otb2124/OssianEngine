@@ -6,6 +6,7 @@ using Utils;
 using MathHelper = Utils.MathHelper;
 using System.Diagnostics;
 using System;
+using Resources;
 
 namespace Entities
 {
@@ -47,13 +48,13 @@ namespace Entities
             float frameSpeed = 0;
             //idle
             frameSpeed = 0.2f;
-            model.aManager.AddAnimation(model.sprite, Directions.LEFT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
-            model.aManager.AddAnimation(model.sprite, Directions.RIGHT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
+            model.aManager.AddAnimation(StaticSpriteFactory.spriteMappings[model.sprite], Directions.LEFT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(StaticSpriteFactory.spriteMappings[model.sprite], Directions.RIGHT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
 
             //move
             frameSpeed = 0.2f;
-            model.aManager.AddAnimation(model.sprite, Directions.LEFT, AnimationStates.MOVING, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
-            model.aManager.AddAnimation(model.sprite, Directions.RIGHT, AnimationStates.MOVING, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
+            model.aManager.AddAnimation(StaticSpriteFactory.spriteMappings[model.sprite], Directions.LEFT, AnimationStates.MOVING, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(StaticSpriteFactory.spriteMappings[model.sprite], Directions.RIGHT, AnimationStates.MOVING, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
         }
 
 

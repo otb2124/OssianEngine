@@ -33,6 +33,7 @@ namespace Resources
             this.sprite = preset.spritePreset;
             aManager = new AnimationManager();
         }
+
         public void DrawCollider()
         {
 

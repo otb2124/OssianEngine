@@ -28,6 +28,8 @@ namespace Entities
         public string Name;
         public string Description;
         public ItemRarity Rarity;
+        public bool Stackable = false;
+        public int Count = 1;
 
         public Item(ItemLib.ItemTypes type, int value, string name, string description, ItemRarity rarity)
         {

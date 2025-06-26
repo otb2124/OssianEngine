@@ -40,6 +40,7 @@ namespace Resources
         {
             { StaticSprites.GRAPHICS_CLOUD_0, new SpriteData(SpriteSheets.GRAPHICS_CLOUDS, new Rectangle(0,0,360,128), 2) },
             { StaticSprites.GRAPHICS_SUN, new SpriteData(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
+            { StaticSprites.GRAPHICS_MOON, new SpriteData(SpriteSheets.GRAPHICS_MOON, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
 
             { StaticSprites.ENTITIES_STATIC_COIN, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 0, 64, 64), 98)},
@@ -54,8 +55,8 @@ namespace Resources
             { StaticSprites.UI_GAME_ICON, new SpriteData(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.UI_CURSOR, new SpriteData(SpriteSheets.UI_CURSOR, new Rectangle(0,0,32,32), 0) },
 
-            { StaticSprites.ENTITIES_WEAPONS_SWORD0, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(0,0,32,64), 200) },
-            { StaticSprites.ENTITIES_WEAPONS_SWORD1, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(32,0,32,64), 200) }
+            { StaticSprites.ENTITIES_WEAPONS_TERRABLADE, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(0,0,32,64), 200) },
+            { StaticSprites.ENTITIES_WEAPONS_IRON_SWORD, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(32,0,32,64), 200) }
         };
 
 
@@ -158,27 +159,53 @@ namespace Resources
 
         public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, SpriteData> backgroundCanvasLayerSprites = new()
         {
-            { Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING, new SpriteData(SpriteSheets.GRAPHICS_BG0_CANVAS, new Rectangle(0, 0, 1280, 720), -100) },
+            { 
+                Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING, new SpriteData(SpriteSheets.GRAPHICS_BG0_CANVAS, new Rectangle(0, 0, 1280, 720), -100)
+            },
+            {
+                Graphics.ParallaxBackground.ParallaxBackgrounds.GREEN, new SpriteData(SpriteSheets.GRAPHICS_BG1_CANVAS, new Rectangle(0, 0, 1280, 720), -100)
+            },
         };
 
         public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, SpriteData[]> backgroundBackLayerSprites = new()
         {
-            { Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,
+            { 
+                Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,
                 new SpriteData[]
                 {
                     new SpriteData(SpriteSheets.GRAPHICS_BG0_B0, new Rectangle(0, 0, 1600, 720), -99),
                     new SpriteData(SpriteSheets.GRAPHICS_BG0_B1, new Rectangle(0, 0, 1920, 720), -98),
                     new SpriteData(SpriteSheets.GRAPHICS_BG0_B2, new Rectangle(0, 0, 2240, 720), -97)
                 }
+            },
+            {
+                Graphics.ParallaxBackground.ParallaxBackgrounds.GREEN,
+                new SpriteData[]
+                {
+                    new SpriteData(SpriteSheets.GRAPHICS_BG1_B0, new Rectangle(0, 0, 1462, 720), -99),
+                    new SpriteData(SpriteSheets.GRAPHICS_BG1_B1, new Rectangle(0, 0, 1645, 720), -98),
+                    new SpriteData(SpriteSheets.GRAPHICS_BG1_B2, new Rectangle(0, 0, 1828, 720), -97),
+                    new SpriteData(SpriteSheets.GRAPHICS_BG1_B3, new Rectangle(0, 0, 2011, 720), -97),
+                    new SpriteData(SpriteSheets.GRAPHICS_BG1_B4, new Rectangle(0, 0, 2195, 720), -97),
+                    new SpriteData(SpriteSheets.GRAPHICS_BG1_B5, new Rectangle(0, 0, 2377, 720), -97)
+                }
             }
         };
 
         public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, SpriteData[]> backgroundFrontLayerSprites = new()
         {
-            { Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,
+            { 
+                Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,
                 new SpriteData[]
                 {
                     new SpriteData(SpriteSheets.GRAPHICS_BG0_F0, new Rectangle(0, 0, 2560, 720), 1000)
+                }
+            },
+            {
+                Graphics.ParallaxBackground.ParallaxBackgrounds.GREEN,
+                new SpriteData[]
+                {
+                    new SpriteData(SpriteSheets.GRAPHICS_BG1_F0, new Rectangle(0, 0, 2560, 720), 1000)
                 }
             }
         };

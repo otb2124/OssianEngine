@@ -15,6 +15,7 @@ namespace Graphics
         public enum ParallaxBackgrounds
         {
             SEASIDE_EVENING,
+            GREEN,
         }
 
         public ParallaxBackgrounds Type;

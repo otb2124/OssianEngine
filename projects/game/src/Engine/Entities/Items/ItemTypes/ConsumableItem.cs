@@ -11,7 +11,7 @@ namespace Entities
 
         public ConsumableItem(ItemKey itemKey) : base(itemKey)
         {
-
+            Stackable = true;
         }
 
 

@@ -10,7 +10,7 @@ namespace Entities
     {
         public QuestItem(ItemKey itemKey) : base(itemKey)
         {
-
+            Stackable = true;
         }
 
 

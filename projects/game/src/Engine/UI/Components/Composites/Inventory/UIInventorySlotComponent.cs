@@ -22,18 +22,23 @@ namespace UI
 
             type = UIComponentTypes.INVENTORY_SLOT;
 
-            children = new UIComponent[2];
+            children = new UIComponent[3];
 
             SpriteData emptySlot = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(0, 64, 64, 64), 0);
 
             children[0] = new UIButtonIconComponent(-1, 15, Position, emptySlot);
             children[1] = new UIIconComponent(-1, spriteData, Position, new Vector2(1, 1));
+            children[2] = new UITextStringComponent(-1, Position, "", new string[] {"Roboto", "12", "Regular"}, Vector2.One);
         }
 
         public void SetItem(Item item)
         {
-            this.Item = item;
-            children[1] = new UIIconComponent(-1, StaticSpriteFactory.GetItemUISprite(item), new Vector2(Position.X, Position.Y), new Vector2(1, 1));
+            Item = item;
+            children[1] = new UIIconComponent(-1, StaticSpriteFactory.GetItemUISprite(Item), new Vector2(Position.X, Position.Y), new Vector2(1, 1));
+            if(Item.Count > 1)
+            {
+                children[2] = new UITextStringComponent(-1, Position, Item.Count + "", new string[] { "Roboto", "12", "Regular" }, Vector2.One);
+            }
         }
 
         public override void Update()

@@ -11,7 +11,7 @@ namespace Entities
 
         public KeyItem(ItemKey itemKey) : base(itemKey)
         {
-
+            Stackable = true;
         }
 
 

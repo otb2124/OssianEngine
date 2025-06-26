@@ -30,11 +30,22 @@ namespace Resources
                 SpriteSheets.GRAPHICS_BG0_B2,
                 SpriteSheets.GRAPHICS_BG0_F0,
 
+                SpriteSheets.GRAPHICS_BG1_CANVAS,
+                SpriteSheets.GRAPHICS_BG1_B0,
+                SpriteSheets.GRAPHICS_BG1_B1,
+                SpriteSheets.GRAPHICS_BG1_B2,
+                SpriteSheets.GRAPHICS_BG1_B3,
+                SpriteSheets.GRAPHICS_BG1_B4,
+                SpriteSheets.GRAPHICS_BG1_B5,
+                SpriteSheets.GRAPHICS_BG1_F0,
+
+
                 //static
                 SpriteSheets.GRAPHICS_STATIC,
         
                 //sun
                 SpriteSheets.GRAPHICS_SUN,
+                SpriteSheets.GRAPHICS_MOON,
 
                 //rain
                 SpriteSheets.GRAPHICS_CLOUDS,

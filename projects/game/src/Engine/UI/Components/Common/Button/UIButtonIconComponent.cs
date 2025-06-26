@@ -24,7 +24,7 @@ namespace UI
 
             this.sprite = sprite;
             aManager = new AnimationManager();
-            aManager.AddStaticAnimation(this.sprite);
+            aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
 
             Position = position;
             Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
