@@ -59,7 +59,7 @@ namespace Graphics
             switch (Id)
             {
                 case 0:
-                    state = BackgroundState.CLOUDS;
+                    state = BackgroundState.NONE;
                     break;
             }
 

@@ -27,6 +27,9 @@ namespace Entities
                 case 0:
                     Size = new Point(2560, 1440);
                     break;
+                case 1:
+                    Size = new Point(2560, 1440);
+                    break;
             }
             
         }

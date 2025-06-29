@@ -43,14 +43,12 @@ namespace Resources
             { StaticSprites.GRAPHICS_MOON, new SpriteData(SpriteSheets.GRAPHICS_MOON, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.GRAPHICS_STATIC_DRAGON, new SpriteData(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
 
-            { StaticSprites.ENTITIES_STATIC_COIN, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 0, 64, 64), 98)},
             { StaticSprites.ENTITIES_STATIC_BALL, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 0, 64, 64), 98)},
             { StaticSprites.ENTITIES_STATIC_CRATE_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 64, 64, 64), 98)},
             { StaticSprites.ENTITIES_STATIC_CRATE_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 98)},
 
-            { StaticSprites.ENTITIES_PLAYER, new SpriteData(SpriteSheets.ENTITIES_PLAYER, new Rectangle(0,0,48,96), 100)},
+            { StaticSprites.ENTITIES_PLAYER, new SpriteData(SpriteSheets.ENTITIES_PLAYER, new Rectangle(0,0,64,128), 100)},
             { StaticSprites.ENTITIES_MOB0, new SpriteData(SpriteSheets.ENTITIES_MOB0, new Rectangle(0,0,48,96), 99)},
-
 
             { StaticSprites.UI_GAME_ICON, new SpriteData(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.UI_CURSOR, new SpriteData(SpriteSheets.UI_CURSOR, new Rectangle(0,0,32,32), 0) },
@@ -144,17 +142,20 @@ namespace Resources
 
         public static SpriteData GetItemUISprite(Item item)
         {
+            return GetItemUISpriteByItemKey(item.ItemKey);
+        }
+
+        public static SpriteData GetItemUISpriteByItemKey(ItemKey itemKey)
+        {
             SpriteData data = new SpriteData();
 
             Point iconSize = new Point(64, 64);
-            Point spriteSheetLocation = itemUISpriteMappings[item.ItemKey];
+            Point spriteSheetLocation = itemUISpriteMappings[itemKey];
 
-            data = new SpriteData(SpriteSheets.UI_ITEMS, new Rectangle(spriteSheetLocation*iconSize, iconSize), 0);
+            data = new SpriteData(SpriteSheets.UI_ITEMS, new Rectangle(spriteSheetLocation * iconSize, iconSize), 100);
 
             return data;
         }
-
-
 
 
         public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, SpriteData> backgroundCanvasLayerSprites = new()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
+using Resources;
 using System.Diagnostics;
 using Utils;
 
@@ -23,6 +24,12 @@ namespace Entities
             InteractionField = new Hitbox();
         }
 
+        public InteractiveEntity(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize) : base(spriteData, body, pos)
+        {
+            InteractionFieldSize = interactionFieldSize;
+            InteractionField = new Hitbox();
+        }
+
         public InteractiveEntity() : base()
         {
             
@@ -40,6 +47,13 @@ namespace Entities
             InteractionFieldSize = interactionFieldSize;
             InteractionField = new Hitbox();
             base.Init(sprite, body, pos);
+        }
+
+        public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize)
+        {
+            InteractionFieldSize = interactionFieldSize;
+            InteractionField = new Hitbox();
+            base.Init(spriteData, body, pos);
         }
 
         public override void Update()

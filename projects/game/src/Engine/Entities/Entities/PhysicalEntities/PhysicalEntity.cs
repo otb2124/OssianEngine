@@ -25,6 +25,11 @@ namespace Entities
             Init(sprite, body, pos, rotation);
         }
 
+        public PhysicalEntity(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f) : base()
+        {
+            Init(spriteData, body, pos, rotation);
+        }
+
         public PhysicalEntity() : base()
         {
 
@@ -38,7 +43,7 @@ namespace Entities
             Physics.Physics.flatWorld.AddBody(model.body);
             model.body.owner = this;
 
-            this.baseSpriteZ = StaticSpriteFactory.spriteMappings[this.model.sprite].z;
+            this.baseSpriteZ = this.model.spriteData.z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -52,7 +57,21 @@ namespace Entities
             Physics.Physics.flatWorld.AddBody(model.body);
             model.body.owner = this;
 
-            this.baseSpriteZ = StaticSpriteFactory.spriteMappings[this.model.sprite].z;
+            this.baseSpriteZ = this.model.spriteData.z;
+            this.spriteZ = baseSpriteZ;
+
+            SetAnimations();
+        }
+
+        public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
+        {
+            model = ModelFactory.CreateModel(spriteData, body);
+            model.body.MoveTo(FlatConverter.ToFlatVector(pos));
+            model.body.RotateTo(rotation);
+            Physics.Physics.flatWorld.AddBody(model.body);
+            model.body.owner = this;
+
+            this.baseSpriteZ = this.model.spriteData.z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -61,7 +80,7 @@ namespace Entities
 
         public virtual void SetAnimations()
         {
-            this.model.aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.model.sprite]);
+            this.model.aManager.AddStaticAnimation(this.model.spriteData);
         }
 
         public override void Draw()

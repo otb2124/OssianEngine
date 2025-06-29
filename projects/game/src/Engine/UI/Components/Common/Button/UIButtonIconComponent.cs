@@ -18,7 +18,7 @@ namespace UI
         public Vector2 Size;
         public int ButtonId;
 
-        public UIButtonIconComponent(int id, int buttonid, Vector2 position, StaticSprites sprite) : base(id)
+        public UIButtonIconComponent(int id, int buttonid, Vector2 position, StaticSprites sprite, Vector2 scale) : base(id)
         {
             type = UIComponentTypes.BUTTON_ICON;
 
@@ -33,9 +33,11 @@ namespace UI
             stickToCamera = true;
             stickToZoom = true;
             applyHalfScreenOrigin = true;
+
+            Scale = scale;
         }
 
-        public UIButtonIconComponent(int id, int buttonid, Vector2 position, SpriteData spriteData) : base(id)
+        public UIButtonIconComponent(int id, int buttonid, Vector2 position, SpriteData spriteData, Vector2 scale) : base(id)
         {
             type = UIComponentTypes.BUTTON_ICON;
 
@@ -50,6 +52,8 @@ namespace UI
             stickToCamera = true;
             stickToZoom = true;
             applyHalfScreenOrigin = true;
+
+            Scale = scale;
         }
 
         public override void Update()

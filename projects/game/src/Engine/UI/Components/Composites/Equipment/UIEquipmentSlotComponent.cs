@@ -11,12 +11,12 @@ using Utils;
 
 namespace UI
 {
-    public class UIInventorySlotComponent : UIComponent
+    public class UIEquipmentSlotComponent : UIComponent
     {
 
-        public Item Item;
+        public Entities.Equipment Item;
 
-        public UIInventorySlotComponent(int id, Vector2 pos) : base(id)
+        public UIEquipmentSlotComponent(int id, Vector2 pos) : base(id)
         {
             Position = pos;
 
@@ -31,11 +31,11 @@ namespace UI
             children[2] = new UITextStringComponent(-1, Position, "", 0, Vector2.One);
         }
 
-        public void SetItem(Item item)
+        public void SetItem(Entities.Equipment item)
         {
             Item = item;
             children[1] = new UIIconComponent(-1, StaticSpriteFactory.GetItemUISprite(Item), new Vector2(Position.X, Position.Y), new Vector2(0.75f, 0.75f));
-            if(Item.Count > 1)
+            if (Item.Count > 1)
             {
                 children[2] = new UITextStringComponent(-1, Position, Item.Count + "", 0, Vector2.One);
             }
@@ -47,11 +47,11 @@ namespace UI
             {
                 for (int i = 0; i < children.Length; i++)
                 {
-                    if(children[i] != null)
+                    if (children[i] != null)
                     {
                         children[i].Update();
                     }
-                    
+
                 }
             }
         }
@@ -66,7 +66,7 @@ namespace UI
                     {
                         children[i].Draw();
                     }
-                    
+
                 }
             }
         }

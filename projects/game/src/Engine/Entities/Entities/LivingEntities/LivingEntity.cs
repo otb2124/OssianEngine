@@ -11,10 +11,10 @@ namespace Entities
         public LivingEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
             this.sManager = new StatsManager();
-            setStats();
+            SetStats();
         }
 
-        public virtual void setStats()
+        public virtual void SetStats()
         {
 
         }

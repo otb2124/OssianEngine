@@ -1,12 +1,11 @@
-﻿using Microsoft.Xna.Framework;
-using Physics;
-using Graphics;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Physics;
+using System;
+using System.Diagnostics;
 using Utils;
 using MathHelper = Utils.MathHelper;
-using System.Diagnostics;
-using System;
-using Resources;
 
 namespace Entities
 {
@@ -18,7 +17,7 @@ namespace Entities
             
         }
 
-        public override void setStats()
+        public override void SetStats()
         {
             sManager.stats.maxHP = 100;
             sManager.stats.maxSpeed = 2;
@@ -27,18 +26,23 @@ namespace Entities
 
             sManager.stats.Refill();
 
-            sManager.equipmentManager.weaponL.PhysDmg = 1;
-            sManager.equipmentManager.weaponL.swingSpeed = 0.4f;
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment = (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE));
 
-            sManager.inventory.SlotsAmount = 20;
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment.PhysDmg = 1;
+            ((WeaponEquipment)sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment).swingSpeed = 0.4f;
+
+            sManager.inventory.SlotsAmount = 42;
             sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Consumables.HEALTH_POTION)));
             sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
             sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Materials.SWORD_HILT)));
+            sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Materials.SWORD_HILT)));
+            sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
 
 
             Debug.WriteLine(sManager.inventory.Items[0].Name);
 
-            base.setStats();
+            base.SetStats();
         }
 
 
@@ -47,14 +51,19 @@ namespace Entities
             model.aManager = new AnimationManager();
             float frameSpeed = 0;
             //idle
-            frameSpeed = 0.2f;
-            model.aManager.AddAnimation(StaticSpriteFactory.spriteMappings[model.sprite], Directions.LEFT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
-            model.aManager.AddAnimation(StaticSpriteFactory.spriteMappings[model.sprite], Directions.RIGHT, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
+            frameSpeed = 0.1f;
+            model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.IDLE, 6, new Vector2(0, 0), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.IDLE, 6, new Vector2(0, 0), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
 
             //move
-            frameSpeed = 0.2f;
-            model.aManager.AddAnimation(StaticSpriteFactory.spriteMappings[model.sprite], Directions.LEFT, AnimationStates.MOVING, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.FlipHorizontally);
-            model.aManager.AddAnimation(StaticSpriteFactory.spriteMappings[model.sprite], Directions.RIGHT, AnimationStates.MOVING, 4, new Vector2(0, 96), new Vector2(48, 96), frameSpeed, SpriteEffects.None);
+            frameSpeed = 0.04f;
+            model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.MOVING, 8, new Vector2(0, 128), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.MOVING, 8, new Vector2(0, 128), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+
+            //jump
+            frameSpeed = 0.04f;
+            model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.JUMPING, 1, new Vector2(0, 128*2), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.JUMPING, 1, new Vector2(0, 128*2), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
         }
 
 
@@ -105,8 +114,8 @@ namespace Entities
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
             {
-                model.body.Move(new FlatVector(0, 10));
-                model.modelState = ModelStates.MOVING;
+                model.body.Jump(2.5f);
+                model.modelState = ModelStates.JUMPING;
             }
         }
 
@@ -152,7 +161,7 @@ namespace Entities
 
 
             //armor
-            this.sManager.equipmentManager.chestplate.armorHB.Update(
+            ((ArmorEquipment)this.sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).armorHB.Update(
                 FlatConverter.ToVector2(this.model.body.Position),
                 new Vector2(this.model.body.Width, this.model.body.Height - 20),
                 0f
@@ -170,6 +179,9 @@ namespace Entities
                     break;
                 case ModelStates.IDLE:
                     model.animationState = AnimationStates.IDLE;
+                    break;
+                case ModelStates.JUMPING:
+                    model.animationState = AnimationStates.JUMPING;
                     break;
             }
 

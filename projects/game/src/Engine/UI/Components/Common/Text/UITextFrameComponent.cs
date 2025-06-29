@@ -16,7 +16,7 @@ namespace UI
         public Vector2 FrameSize;
         public Vector2 FramePos;
 
-        public UITextFrameComponent(int id, Vector2 position, string text, string[] fontAttr, Vector2 scale, Vector2 paddings) : base(id)
+        public UITextFrameComponent(int id, Vector2 position, string text, int fontId, Vector2 scale, Vector2 paddings) : base(id)
         {
             Position = position;
             Paddings = paddings;
@@ -24,7 +24,7 @@ namespace UI
             type = UIComponentTypes.TEXT_FRAME;
 
             children = new UIComponent[2];
-            children[0] = new UITextStringComponent(-1, Position, text, fontAttr, scale);
+            children[0] = new UITextStringComponent(-1, Position, text, fontId, scale);
             children[1] = CalculateFrameProperties(children[0] as UITextStringComponent);
         }
 

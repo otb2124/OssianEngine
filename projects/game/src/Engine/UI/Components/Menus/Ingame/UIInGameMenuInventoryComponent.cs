@@ -10,10 +10,10 @@ using static Resources.StaticSpriteFactory;
 
 namespace UI
 {
-    public class UIInGameMenuSkillsComponent : UIComponent
+    public class UIInGameMenuInventoryComponent : UIComponent
     {
 
-        public UIInGameMenuSkillsComponent(int id) : base(id)
+        public UIInGameMenuInventoryComponent(int id) : base(id)
         {
             Vector2 inGameMenuSize = new Vector2(80, (64+12)*6);
             Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.screen.Height - inGameMenuSize.Y - 10);
@@ -21,12 +21,12 @@ namespace UI
             Vector2 frameSize = new Vector2(Graphics.Graphics.screen.Width - (inGameMenuSize.X + 10 + 10 + 10), Graphics.Graphics.screen.Height - (10+10));
             Position = new Vector2(inGameMenuPos.X + inGameMenuSize.X + 10, Graphics.Graphics.screen.Height - frameSize.Y - 10);
            
+            type = UIComponentTypes.MENU_INGAME_INVENTORY;
 
-            type = UIComponentTypes.MENU_INGAME_SKILLS;
-
-            children = new UIComponent[2];
-            children[0] = new UIFrameComponent(-1, Position, frameSize);
-            children[1] = new UITextStringComponent(-1, new Vector2(Position.X + frameSize.X / 2, Position.Y + frameSize.Y - 30), "Skills", new string[] { "Roboto", "12", "Regular" }, Vector2.One);
+            children = new UIComponent[3];
+            children[0] = new UITextStringComponent(-1, new Vector2(Position.X + frameSize.X/2, Position.Y + frameSize.Y - 30), "Inventory", 0, Vector2.One);
+            children[1] = new UIInventoryComponent(-1, new Vector2(Position.X + 10, Position.Y + frameSize.Y - 100), Entities.Entities.player);
+            children[2] = new UIEquipmentComponent(-1, new Vector2(Position.X + 10 + frameSize.X/2, Position.Y + frameSize.Y - 100), Entities.Entities.player);
         }
 
         public override void Update()

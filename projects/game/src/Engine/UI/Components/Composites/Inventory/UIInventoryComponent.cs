@@ -15,17 +15,26 @@ namespace UI
 
         public UIInventoryComponent(int id, Vector2 pos, LivingEntity ent) : base(id)
         {
-            Position = pos;
+            Position = new Vector2(pos.X, pos.Y);
 
             type = UIComponentTypes.INVENTORY;
+
+
+            Vector2 inGameMenuSize = new Vector2(80, (64 + 12) * 6);
+            Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.screen.Height - inGameMenuSize.Y - 10);
+
+            Vector2 frameSize = new Vector2((inGameMenuSize.X + 10 + 10 + 10 + 10 + 10)*3, Graphics.Graphics.screen.Height - (10 + 10));
+            Vector2 framePos = new Vector2(inGameMenuPos.X + inGameMenuSize.X + 10, Graphics.Graphics.screen.Height - frameSize.Y - 10);
 
             Inventory inventory = ent.sManager.inventory;
 
             children = new UIComponent[0];
+            
 
             if (inventory.SlotsAmount > 0 )
             {
-                children = new UIComponent[inventory.SlotsAmount];
+                children = new UIComponent[inventory.SlotsAmount + 1];
+                children[0] = new UIFrameComponent(-1, framePos, frameSize);
 
                 SetInventory(inventory);
             }
@@ -33,13 +42,27 @@ namespace UI
 
         public void SetInventory(Inventory inventory)
         {
-            for (global::System.Int32 i = 0; i < inventory.SlotsAmount; i++)
-            {
-                children[i] = new UIInventorySlotComponent(-1, new Vector2(Position.X + 64 * i, Position.Y));
+            int slotsCount = inventory.SlotsAmount;
+            int slotsInRow = 7;
+            int rowsCount = (int)Math.Ceiling((float)slotsCount / slotsInRow);
 
-                if (inventory.Items.Count > i)
+            for (int row = 0; row < rowsCount; row++)
+            {
+                for (int col = 0; col < slotsInRow && (row * slotsInRow + col) < slotsCount; col++)
                 {
-                    ((UIInventorySlotComponent)children[i]).SetItem(inventory.Items[i]);
+                    int index = row * slotsInRow + col + 1;
+                    children[index] = new UIInventorySlotComponent(
+                        -1,
+                        new Vector2(
+                            Position.X + (((64 * 0.75f) + 4) * col),
+                            Position.Y - (((64 * 0.75f) + 4) * row)
+                        )
+                    );
+
+                    if (index < inventory.Items.Count)
+                    {
+                        ((UIInventorySlotComponent)children[index]).SetItem(inventory.Items[index]);
+                    }
                 }
             }
         }

@@ -17,10 +17,10 @@ namespace UI
 
 
 
-        public UITextStringComponent(int id, Vector2 position, string text, string[] fontAttr, Vector2 scale) : base(id)
+        public UITextStringComponent(int id, Vector2 position, string text, int fontId, Vector2 scale) : base(id)
         {
             this.text = text;
-            this.font = new Font(fontAttr);
+            this.font = ResourceLoader.fonts[fontId];
 
             stickToCamera = true;
             stickToZoom = true;

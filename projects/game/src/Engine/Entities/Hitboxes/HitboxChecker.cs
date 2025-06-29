@@ -14,11 +14,11 @@ namespace Entities
         public static void CheckForCollisions(LivingEntity entA, LivingEntity entB)
         {
             //check both ways
-            if(CheckForHit(entA.sManager.equipmentManager.GetCurrentWeapon().hitbox, entB.sManager.equipmentManager.chestplate.armorHB))
+            if(CheckForHit(entA.sManager.equipmentManager.GetCurrentWeapon().hitbox, ((ArmorEquipment)entB.sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).armorHB))
             {
                 HitboxHandler.HandleHit(entA, entB);
             }
-            if (CheckForHit(entB.sManager.equipmentManager.GetCurrentWeapon().hitbox, entA.sManager.equipmentManager.chestplate.armorHB))
+            if (CheckForHit(entB.sManager.equipmentManager.GetCurrentWeapon().hitbox, ((ArmorEquipment)entA.sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).armorHB))
             {
                 HitboxHandler.HandleHit(entB, entA);
             }
@@ -26,7 +26,7 @@ namespace Entities
 
         public static void CheckForInterraction(InteractiveEntity interractiveEnt, LivingEntity livingEnt)
         {
-            if(CheckForInterraction(livingEnt.sManager.equipmentManager.chestplate.armorHB, interractiveEnt.InteractionField))
+            if(CheckForInterraction(((ArmorEquipment)livingEnt.sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).armorHB, interractiveEnt.InteractionField))
             {
                 HitboxHandler.HandleInterraction(interractiveEnt, livingEnt);
             }

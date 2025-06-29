@@ -11,12 +11,12 @@ namespace UI
     public class UIButtonTextFrameComponent : UIComponent
     {
 
-        public UIButtonTextFrameComponent(int id, int ButtonId, Vector2 position, string text, string[] fontAttr, Vector2 scale, Vector2 paddings) : base(id)
+        public UIButtonTextFrameComponent(int id, int ButtonId, Vector2 position, string text, int fontId, Vector2 scale, Vector2 paddings) : base(id)
         {
             type = UIComponentTypes.BUTTON_TEXT_FRAME;
 
             children = new UIComponent[2];
-            children[0] = new UITextFrameComponent(-1, position, text, fontAttr, scale, paddings);
+            children[0] = new UITextFrameComponent(-1, position, text, fontId, scale, paddings);
 
             Position = ((UITextFrameComponent)children[0]).FramePos;
 

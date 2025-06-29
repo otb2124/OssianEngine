@@ -12,14 +12,16 @@ namespace Resources
 {
     public class Font : Resource
     {
-        public SpriteFont[] fonts;
-        public string[] fontNames;
+        public SpriteFont[] fontTypes;
+        public string[] fontTypeNames;
+
+
         public Font(string[] fontAttr) : base(fontAttr[0] + "_" + fontAttr[1] + "_" + fontAttr[2]) 
         {
-            SetFonts();
+            LoadFontTypes();
         }
 
-        public void SetFonts()
+        public void LoadFontTypes()
         {
             string fontsDirectory = Path.Combine("Content", "res", "fonts");
 
@@ -27,26 +29,26 @@ namespace Resources
 
             if (fontFiles.Length > 0)
             {
-                fonts = new SpriteFont[fontFiles.Length];
-                fontNames = new string[fontFiles.Length];
+                fontTypes = new SpriteFont[fontFiles.Length];
+                fontTypeNames = new string[fontFiles.Length];
 
                 for (int i = 0; i < fontFiles.Length; i++)
                 {
                     string fontPath = Path.Combine("res", "fonts", Path.GetFileNameWithoutExtension(fontFiles[i]));
 
-                    fonts[i] = Graphics.Graphics.contentManager.Load<SpriteFont>(fontPath);
-                    fontNames[i] = Path.GetFileNameWithoutExtension(fontFiles[i]);
+                    fontTypes[i] = Graphics.Graphics.contentManager.Load<SpriteFont>(fontPath);
+                    fontTypeNames[i] = Path.GetFileNameWithoutExtension(fontFiles[i]);
                 }
             }
         }
 
         public SpriteFont GetCurrentFont()
         {
-            for (int i = 0; i < fonts.Length; i++)
+            for (int i = 0; i < fontTypes.Length; i++)
             {
-                if (fontNames[i] == this.path)
+                if (fontTypeNames[i] == this.path)
                 {
-                    return fonts[i];
+                    return fontTypes[i];
                 }
             }
 

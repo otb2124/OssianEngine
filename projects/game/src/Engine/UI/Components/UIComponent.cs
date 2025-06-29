@@ -128,7 +128,7 @@ namespace UI
             if(text != null)
             {
                 Color color = Tint ?? Color.White;
-                font.Draw(text, adjPosition, 0f, Vector2.Zero, Scale, color);
+                font.Draw(text, adjPosition, 0f, adjOrigin, adjScale, color);
             }
                    
         }

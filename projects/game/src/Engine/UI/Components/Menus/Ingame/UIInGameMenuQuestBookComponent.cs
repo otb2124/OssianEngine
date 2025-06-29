@@ -26,7 +26,7 @@ namespace UI
 
             children = new UIComponent[2];
             children[0] = new UIFrameComponent(-1, Position, frameSize);
-            children[1] = new UITextStringComponent(-1, new Vector2(Position.X + frameSize.X / 2, Position.Y + frameSize.Y - 30), "QuestBook", new string[] { "Roboto", "12", "Regular" }, Vector2.One);
+            children[1] = new UITextStringComponent(-1, new Vector2(Position.X + frameSize.X / 2, Position.Y + frameSize.Y - 30), "QuestBook", 0, Vector2.One);
         }
 
         public override void Update()

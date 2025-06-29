@@ -10,10 +10,10 @@ using static Resources.StaticSpriteFactory;
 
 namespace UI
 {
-    public class UIInGameMenuStatisticsComponent : UIComponent
+    public class UIInGameMenuSkillsComponent : UIComponent
     {
 
-        public UIInGameMenuStatisticsComponent(int id) : base(id)
+        public UIInGameMenuSkillsComponent(int id) : base(id)
         {
             Vector2 inGameMenuSize = new Vector2(80, (64+12)*6);
             Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.screen.Height - inGameMenuSize.Y - 10);
@@ -22,11 +22,11 @@ namespace UI
             Position = new Vector2(inGameMenuPos.X + inGameMenuSize.X + 10, Graphics.Graphics.screen.Height - frameSize.Y - 10);
            
 
-            type = UIComponentTypes.MENU_INGAME_STATISTICS;
+            type = UIComponentTypes.MENU_INGAME_SKILLS;
 
             children = new UIComponent[2];
             children[0] = new UIFrameComponent(-1, Position, frameSize);
-            children[1] = new UITextStringComponent(-1, new Vector2(Position.X + frameSize.X / 2, Position.Y + frameSize.Y - 30), "Statistics", new string[] { "Roboto", "12", "Regular" }, Vector2.One);
+            children[1] = new UITextStringComponent(-1, new Vector2(Position.X + frameSize.X / 2, Position.Y + frameSize.Y - 30), "Skills", 0, Vector2.One);
         }
 
         public override void Update()

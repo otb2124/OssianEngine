@@ -37,7 +37,7 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Engine\UI\Components\Composites\Menu\Main\" />
+    <Folder Include="Engine\UI\Components\Menus\Main\" />
     <Folder Include="Engine\UI\Components\Misc\" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">

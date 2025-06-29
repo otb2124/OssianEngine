@@ -15,6 +15,7 @@ namespace Resources
         public static void LoadResources()
         {
             LoadSprites();
+            LoadFonts();
         }
 
         public static void LoadSprites()
@@ -74,10 +75,38 @@ namespace Resources
                 SpriteSheets.UI_HUD,
                 SpriteSheets.UI_ITEMS,
             };
+
             spriteSheets = new Dictionary<SpriteSheets, SpriteSheet>();
             foreach (var spriteEnum in spritesToUse)
             {
                 spriteSheets[spriteEnum] = new SpriteSheet(spriteEnum);
+            }
+        }
+
+
+
+        public static void LoadFonts()
+        {
+            string[][] fontAttributesToUse = new string[][]
+            {
+                new string[]
+                {
+                    "Roboto", "12", "Regular"
+                },
+                new string[]
+                {
+                    "Roboto", "12", "Regular"
+                },
+                new string[]
+                {
+                    "Roboto", "12", "Regular"
+                },
+            };
+
+            fonts = new Font[fontAttributesToUse.Length];
+            for (int i = 0; i < fonts.Length; i++)
+            {
+                fonts[i] = new Font(fontAttributesToUse[i]);
             }
         }
     }

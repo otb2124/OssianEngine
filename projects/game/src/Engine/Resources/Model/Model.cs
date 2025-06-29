@@ -15,7 +15,7 @@ namespace Resources
     {
 
         public FlatBody body;
-        public StaticSprites sprite;
+        public StaticSpriteFactory.SpriteData spriteData;
 
         public AnimationManager aManager;
 
@@ -30,7 +30,7 @@ namespace Resources
         {
             this.bodyOffset = preset.offset;
             this.body = FlatBodyFactory.createFlatBody(preset.bodyPreset, this.bodyOffset);
-            this.sprite = preset.spritePreset;
+            this.spriteData = preset.spriteData;
             aManager = new AnimationManager();
         }
 

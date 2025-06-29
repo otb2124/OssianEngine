@@ -90,7 +90,6 @@ namespace Utils
 
         //physicalentities
         ENTITIES_STATIC_BALL,
-        ENTITIES_STATIC_COIN,
 
         //crates
         ENTITIES_STATIC_CRATE_0,
@@ -121,7 +120,7 @@ namespace Utils
     public enum Models
     {
         PLAYER,
-        CRATE_0, CRATE_1, BALL, COIN, 
+        CRATE_0, CRATE_1, BALL,
         ITEM_DROP,
         MOB
     }
@@ -130,6 +129,7 @@ namespace Utils
     {
         IDLE,
         MOVING,
+        JUMPING,
         ATTACKING,
     }
 
@@ -137,6 +137,7 @@ namespace Utils
     {
         IDLE,
         MOVING,
+        JUMPING,
         ATTACKING
     }
 

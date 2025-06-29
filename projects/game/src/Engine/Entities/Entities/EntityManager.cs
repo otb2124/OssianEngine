@@ -64,7 +64,6 @@ namespace Entities
             float closestPlatformY = float.MaxValue;
             float closestPlatformZ = phent.baseSpriteZ;
 
-            // Determine the entity's height based on its body shape
             float entityHeight = (phent.model.body.BodyShapeType == BodyShapeType.Box)
                 ? phent.model.body.Height
                 : phent.model.body.Radius * 2;
@@ -73,14 +72,14 @@ namespace Entities
             {
                 float platformTopY = plent.body.Position.Y + plent.body.Height;
 
-                // Apply condition for X position before considering this platform
+                /*
                 if (phent.model.body.Position.X < plent.body.Position.X + plent.body.Height / 2 &&
                     platformTopY > (phent.model.body.Position.Y + entityHeight) &&
                     platformTopY < closestPlatformY)
                 {
                     closestPlatformY = platformTopY;
                     closestPlatformZ = plent.spriteZ;
-                }
+                }*/
             }
 
             if (closestPlatformY != float.MaxValue)

@@ -244,6 +244,11 @@ namespace Physics
             aabbUpdateRequired = true;
         }
 
+        public void Jump(float amount)
+        {
+            position += new FlatVector(0, amount);
+        }
+
         public void MoveTo(FlatVector position)
         {
             this.position = position;
@@ -371,33 +376,6 @@ namespace Physics
             body = new FlatBody(density, mass, inertia, restitution, area, isStatic, 0f, width, height, vertices, BodyShapeType.Box);
             return true;
         }
-
-
-
-        public void Jump(float jumpForce)
-        {
-            
-
-            if (!(LinearVelocity.Y > 0.2f || LinearVelocity.Y < -0.2f))
-            {
-
-                if (!IsStatic)
-                {
-                    ApplyForce(new FlatVector(0f, jumpForce * 50));
-                }
-
-
-                /*if(owner is GroupMember)
-                {
-                    Restitution = 0.1f;
-                    InvInertia = 0f;
-                    StaticFriction = 0f;
-                    DynamicFriction = 0f;
-                    
-                }*/
-            }
-        }
-
 
 
 
