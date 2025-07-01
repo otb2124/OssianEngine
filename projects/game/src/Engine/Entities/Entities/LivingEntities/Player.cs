@@ -29,9 +29,6 @@ namespace Entities
             sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment = (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE));
             sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE));
 
-            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment.PhysDmg = 1;
-            ((WeaponEquipment)sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment).swingSpeed = 0.4f;
-
             sManager.inventory.SlotsAmount = 42;
             sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Consumables.HEALTH_POTION)));
             sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
@@ -39,8 +36,7 @@ namespace Entities
             sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Materials.SWORD_HILT)));
             sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
 
-
-            Debug.WriteLine(sManager.inventory.Items[0].Name);
+            status = LivingEntityStatus.FRIENDLY;
 
             base.SetStats();
         }
@@ -161,7 +157,7 @@ namespace Entities
 
 
             //armor
-            ((ArmorEquipment)this.sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).armorHB.Update(
+            ((ArmorEquipment)this.sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).hitbox.Update(
                 FlatConverter.ToVector2(this.model.body.Position),
                 new Vector2(this.model.body.Width, this.model.body.Height - 20),
                 0f

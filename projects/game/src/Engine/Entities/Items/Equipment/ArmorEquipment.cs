@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Entities
     public class ArmorEquipment : Equipment
     {
 
-        public Hitbox armorHB;
+        public Hitbox hitbox;
 
         public ArmorEquipment(ItemKey itemKey) : base(itemKey)
         {
@@ -57,8 +58,21 @@ namespace Entities
 
             if(EquipmentSlot == EquipmentSlotsTake.TORSO)
             {
-                armorHB = new Hitbox();
+                hitbox = new Hitbox();
             }
+        }
+
+
+
+        public void DrawHitbox()
+        {
+            this.hitbox.Draw(Color.Blue);
+        }
+
+
+        public void Update()
+        {
+
         }
     }
 }

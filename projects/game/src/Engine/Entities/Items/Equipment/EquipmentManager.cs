@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
+using UI;
 using Utils;
 using static Entities.PhysicalEntity;
 using static Resources.Model;
@@ -64,6 +65,11 @@ namespace Entities
             }
         }
 
+        public ArmorEquipment GetCurrentArmor()
+        {
+            return ((ArmorEquipment)GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment);
+        }
+
         public void Update(Vector2 hitboxpos, Vector2 hitboxsize, float angle)
         {
             GetCurrentWeapon().hitbox.Update(hitboxpos, hitboxsize, angle);
@@ -72,8 +78,8 @@ namespace Entities
 
         public void DrawHitbox()
         {
-            this.GetCurrentWeapon().DrawHitbox();
-            ((ArmorEquipment)GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).armorHB.Draw(Color.Blue);
+            GetCurrentWeapon().DrawHitbox();
+            GetCurrentArmor().DrawHitbox();
         }
 
 
