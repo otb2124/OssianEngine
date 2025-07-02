@@ -60,6 +60,14 @@ namespace Entities
                     PhysDef = 10;
                     EquipmentSlot = EquipmentSlotsTake.CONTAINMENT;
                     break;
+                case ItemLib.Accessories.LEATHER_CAPE:
+                    Name = "Leather Cape";
+                    Description = "An iron chestplate";
+                    Value = 100;
+                    Rarity = ItemRarity.COMMON;
+                    PhysDef = 5;
+                    EquipmentSlot = EquipmentSlotsTake.CAPE;
+                    break;
             }
         }
     }

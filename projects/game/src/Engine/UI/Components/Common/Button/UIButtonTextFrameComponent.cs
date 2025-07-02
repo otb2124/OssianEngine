@@ -22,8 +22,8 @@ namespace UI
 
             children[1] = new UIButtonComponent(-1, ButtonId, new Vector2(Position.X, Position.Y + Graphics.Graphics.screen.Height + ((UITextFrameComponent)children[0]).FrameSize.Y), ((UITextFrameComponent)children[0]).FrameSize);
 
-            Debug.WriteLine(Position);
-            Debug.WriteLine(((UIButtonComponent)children[1]).Size);
+            Console.WriteLine(Position);
+            Console.WriteLine(((UIButtonComponent)children[1]).Size);
         }
 
 

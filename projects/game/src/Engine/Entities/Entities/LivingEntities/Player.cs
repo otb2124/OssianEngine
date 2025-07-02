@@ -28,6 +28,17 @@ namespace Entities
 
             sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment = (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE));
             sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.HELMET).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_HELMET));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.GLOVES).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_GLOVES));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.BOOTS).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_BOOTS));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CAPE).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.LEATHER_CAPE));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.NECKLACE).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_NECKLACE));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.BELT).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_BELT));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_RING));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_RING));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CONTAINMENT).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.BACKPACK));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.PET).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.CALL_DOG));
+            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.PET_LIGHT).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.CALL_FIREFLY));
 
             sManager.inventory.SlotsAmount = 42;
             sManager.inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Consumables.HEALTH_POTION)));
@@ -65,7 +76,6 @@ namespace Entities
 
         public override void Update()
         {
-            //Debug.WriteLine(this.sManager.stats.HP);
 
             if (KeyHandlerUtil.isPlayerMoving())
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using App;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -26,6 +27,8 @@ namespace Utils
         public static GameStates gameState;
         public static GameModes gameMode;
 
+        public static bool exitRequested;
+
 
         public static void SetDefault()
         {
@@ -40,6 +43,15 @@ namespace Utils
             {
                 gameMode = gameMode == GameModes.playMode ? GameModes.debugMode : GameModes.playMode;
             }
+            if(exitRequested)
+            {
+                
+            }
+        }
+
+        public static void RequestExit()
+        {
+            exitRequested = true;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Entities
             GLOVES,
 
             NECKLACE,
+            CAPE,
             BELT,
             RING_L,
             RING_R,

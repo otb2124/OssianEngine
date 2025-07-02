@@ -19,6 +19,7 @@ namespace Entities
             HANDS,
 
             NECKLACE,
+            CAPE,
             BELT,
             RING_L,
             RING_R,

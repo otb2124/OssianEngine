@@ -23,7 +23,7 @@ namespace Entities
 
         public EquipmentManager()
         {
-            slots = new EquipmentSlot[13];
+            slots = new EquipmentSlot[14];
             slots[0] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L);
             slots[1] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_R);
             slots[2] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE);
@@ -31,12 +31,13 @@ namespace Entities
             slots[4] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.BOOTS);
             slots[5] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.GLOVES);
             slots[6] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.NECKLACE);
-            slots[7] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.BELT);
-            slots[8] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L);
-            slots[9] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R);
-            slots[10] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.PET);
-            slots[11] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.PET_LIGHT);
-            slots[12] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.CONTAINMENT);
+            slots[7] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.CAPE);
+            slots[8] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.BELT);
+            slots[9] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L);
+            slots[10] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R);
+            slots[11] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.PET);
+            slots[12] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.PET_LIGHT);
+            slots[13] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.CONTAINMENT);
         }
 
 

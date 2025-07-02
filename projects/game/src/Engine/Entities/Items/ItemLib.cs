@@ -24,6 +24,7 @@ namespace Entities
         public enum Accessories
         {
             IRON_NECKLACE,
+            LEATHER_CAPE,
             IRON_BELT,
             IRON_RING,
             CALL_DOG,

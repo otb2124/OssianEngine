@@ -13,7 +13,9 @@ namespace App
 {
     public class Game : Microsoft.Xna.Framework.Game
     {
-        
+
+        ConsoleCommandManager commandManager;
+
         public Game()
         {
             Graphics.Graphics.graphicsDeviceManager  = new GraphicsDeviceManager(this);
@@ -60,6 +62,9 @@ namespace App
             GameStateManager.SetDefault();
 
 
+            commandManager = new ConsoleCommandManager();
+
+
             base.Initialize();
         }
 
@@ -78,6 +83,8 @@ namespace App
             UI.UI.UIManager.Update();
             Entities.Entities.entityManager.Update();
 
+            commandManager.ProcessCommands();
+
             Graphics.Graphics.Update();
 
             base.Update(gameTime);
@@ -90,6 +97,12 @@ namespace App
             Graphics.Graphics.Draw();
 
             base.Draw(gameTime);
+        }
+
+        protected override void OnExiting(object sender, EventArgs args)
+        {
+            //commandManager.Dispose();
+            base.OnExiting(sender, args);
         }
     }
 }
