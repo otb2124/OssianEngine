@@ -61,28 +61,25 @@ namespace Resources
 
         public static SpriteData[] PlatformCut(Vector2 pos, int tileSize = 32)
         {
-            SpriteData[] data = new SpriteData[13];
+            SpriteData[] data = new SpriteData[8];
 
-            // Top row (Y = pos.Y)
-            data[0] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize), 0);
-            data[1] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            //outer corner
+            data[0] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            //top border
+            data[1] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            //inner corner
             data[2] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            //pillar top
             data[3] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
-
-            // Middle row (Y = pos.Y + tileSize)
-            data[4] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X, (int)pos.Y + tileSize, tileSize, tileSize), 0);
-            data[5] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
+            //left border
+            data[4] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
+            //inner
+            data[5] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
+            //inner alt
             data[6] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
+            //pillar bottom
             data[7] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
 
-            // Bottom row (Y = pos.Y + 2 * tileSize)
-            data[8] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X, (int)pos.Y + 2 * tileSize, tileSize, tileSize), 0);
-            data[9] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize, (int)pos.Y + 2 * tileSize, tileSize, tileSize), 0);
-            data[10] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y + 2 * tileSize, tileSize, tileSize), 0);
-            data[11] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y + 2 * tileSize, tileSize, tileSize), 0);
-
-            // Extra sprites (adjusted carefully)
-            data[12] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + tileSize / 2, (int)pos.Y + tileSize + tileSize / 3, tileSize, tileSize), 0);
 
             return data;
         }

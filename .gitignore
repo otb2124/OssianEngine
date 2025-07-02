@@ -17,9 +17,6 @@ obj/
 *.sdf
 *.sqlite
 
-# XNA specific build outputs
-*.xnb
-
 # NuGet packages
 packages/
 *.nupkg

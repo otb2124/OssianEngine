@@ -25,6 +25,8 @@ namespace Entities
             statsManager.stats.enduranceUnlockSec = 1.5f;
             statsManager.stats.enduranceJumpCostSec = 60;
             statsManager.stats.enduranceAttackCost = 40;
+            statsManager.stats.rollMultiplier = 2f;
+            statsManager.stats.enduranceRollCostSec = 200;
 
             statsManager.stats.maxHP = 100;
             statsManager.stats.maxSpeed = 2;
@@ -94,6 +96,11 @@ namespace Entities
             frameSpeed = 0.1f;
             model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.BATTLE_MOVING, 8, new Vector2(0, 128 * 5), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
             model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.BATTLE_MOVING, 8, new Vector2(0, 128 * 5), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+
+            //battleRoll
+            frameSpeed = 0.1f;
+            model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.BATTLE_ROLL, 8, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.BATTLE_ROLL, 8, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
         }
 
 
@@ -196,6 +203,22 @@ namespace Entities
                 model.modelState = ModelStates.JUMPING;
                 statsManager.stats.endurance -= statsManager.stats.enduranceJumpCostSec/60;
             }
+
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (statsManager.stats.endurance - (statsManager.stats.enduranceRollCostSec / 60)) > 0 && statsManager.stats.IsWeaponOut)
+            {
+
+                if(model.direction == Directions.RIGHT)
+                {
+                    model.body.Move(new FlatVector(statsManager.stats.speed * statsManager.stats.rollMultiplier, 0));
+                }
+                else
+                {
+                    model.body.Move(new FlatVector(-statsManager.stats.speed * statsManager.stats.rollMultiplier, 0));
+                }
+                
+                model.modelState = ModelStates.BATTLE_ROLL;
+                statsManager.stats.endurance -= statsManager.stats.enduranceRollCostSec / 60;
+            }
         }
 
 
@@ -270,6 +293,9 @@ namespace Entities
                     break;
                 case ModelStates.BATTLE_MOVING:
                     model.animationState = AnimationStates.BATTLE_MOVING;
+                    break;
+                case ModelStates.BATTLE_ROLL:
+                    model.animationState = AnimationStates.BATTLE_ROLL;
                     break;
             }
 

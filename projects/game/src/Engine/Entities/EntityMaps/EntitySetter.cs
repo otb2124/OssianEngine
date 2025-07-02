@@ -23,8 +23,8 @@ namespace Entities
                     Entities.player = new Player(new Vector2(0, 50));
                     entities.Add(Entities.player);
 
-                    entities.Add(new PlatformEntity(new Vector2(0, -50), 47, 3, 2, 0.2f));
-                    entities.Add(new PlatformEntity(new Vector2(150, -50), 48, 5, 2));
+                    //entities.Add(new PlatformEntity(new Vector2(0, -50), 47, 3, 2, 0.2f));
+                    //entities.Add(new PlatformEntity(new Vector2(150, -50), 48, 5, 2));
                     entities.Add(new PlatformEntity(new Vector2(-75, -200), 40, 5, 2));
                     entities.Add(new PlatformEntity(new Vector2(50, -200), 44));
                     entities.Add(new PlatformEntity(new Vector2(200, -200), 43));
