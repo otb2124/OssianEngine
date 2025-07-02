@@ -131,7 +131,9 @@ namespace Utils
         MOVING,
         JUMPING,
         ATTACKING,
-        SPRINTING
+        SPRINTING,
+        BATTLE_IDLE,
+        BATTLE_MOVING
     }
 
     public enum AnimationStates
@@ -140,7 +142,9 @@ namespace Utils
         MOVING,
         JUMPING,
         ATTACKING,
-        SPRINTING
+        SPRINTING,
+        BATTLE_IDLE,
+        BATTLE_MOVING
     }
 
 

@@ -80,10 +80,20 @@ namespace Entities
             model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.JUMPING, 1, new Vector2(0, 128*2), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
             model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.JUMPING, 1, new Vector2(0, 128*2), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
 
-            //jump
-            //frameSpeed = 0.1f;
+            //sprint
+            frameSpeed = 0.1f;
             model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.SPRINTING, 8, new Vector2(0, 128 * 3), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
             model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.SPRINTING, 8, new Vector2(0, 128 * 3), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+
+            //battleIdle
+            frameSpeed = 0.1f;
+            model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.BATTLE_IDLE, 8, new Vector2(0, 128 * 4), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.BATTLE_IDLE, 8, new Vector2(0, 128 * 4), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+
+            //battleMoving
+            frameSpeed = 0.1f;
+            model.aManager.AddAnimation(model.spriteData, Directions.LEFT, AnimationStates.BATTLE_MOVING, 8, new Vector2(0, 128 * 5), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            model.aManager.AddAnimation(model.spriteData, Directions.RIGHT, AnimationStates.BATTLE_MOVING, 8, new Vector2(0, 128 * 5), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
         }
 
 
@@ -91,6 +101,13 @@ namespace Entities
         {
 
             statsManager.stats.OnUsingEndurance = false;
+
+
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
+            {
+                statsManager.stats.IsWeaponOut = !statsManager.stats.IsWeaponOut;
+            }
+
 
             if (KeyHandlerUtil.isPlayerMoving())
             {
@@ -101,10 +118,15 @@ namespace Entities
                 if(!(this.model.modelState == ModelStates.ATTACKING))
                 {
                     model.modelState = ModelStates.IDLE;
+
+                    if(statsManager.stats.IsWeaponOut)
+                    {
+                        model.modelState = ModelStates.BATTLE_IDLE;
+                    }
                 }
 
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceAttackCost) > 0)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceAttackCost) > 0 && statsManager.stats.IsWeaponOut)
                 {
                     statsManager.stats.endurance -= statsManager.stats.enduranceAttackCost;
                     model.modelState = ModelStates.ATTACKING;
@@ -126,7 +148,7 @@ namespace Entities
             {
                 model.direction = Directions.RIGHT;
 
-                if(Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceSprintCostSec / 60) > 0 && !statsManager.stats.OnEnduranceRegen)
+                if(Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceSprintCostSec / 60) > 0 && !statsManager.stats.OnEnduranceRegen && !statsManager.stats.IsWeaponOut)
                 {
                     model.body.Move(new FlatVector(statsManager.stats.speed*statsManager.stats.sprintMultiplier, 0));
                     model.modelState = ModelStates.SPRINTING;
@@ -137,6 +159,11 @@ namespace Entities
                 {
                     model.body.Move(new FlatVector(statsManager.stats.speed, 0));
                     model.modelState = ModelStates.MOVING;
+
+                    if (statsManager.stats.IsWeaponOut)
+                    {
+                        model.modelState = ModelStates.BATTLE_MOVING;
+                    }
                 }
             }
 
@@ -144,7 +171,7 @@ namespace Entities
             {
                 model.direction = Directions.LEFT;
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceSprintCostSec/60) > 0 && !statsManager.stats.OnEnduranceRegen)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceSprintCostSec/60) > 0 && !statsManager.stats.OnEnduranceRegen && !statsManager.stats.IsWeaponOut)
                 {
                     model.body.Move(new FlatVector(-statsManager.stats.speed * statsManager.stats.sprintMultiplier, 0));
                     model.modelState = ModelStates.SPRINTING;
@@ -155,10 +182,15 @@ namespace Entities
                 {
                     model.body.Move(new FlatVector(-statsManager.stats.speed, 0));
                     model.modelState = ModelStates.MOVING;
+
+                    if (statsManager.stats.IsWeaponOut)
+                    {
+                        model.modelState = ModelStates.BATTLE_MOVING;
+                    }
                 }
             }
 
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (statsManager.stats.endurance - (statsManager.stats.enduranceJumpCostSec/60)) > 0)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (statsManager.stats.endurance - (statsManager.stats.enduranceJumpCostSec/60)) > 0 && !statsManager.stats.IsWeaponOut)
             {
                 model.body.Jump(statsManager.stats.jumpSpeed);
                 model.modelState = ModelStates.JUMPING;
@@ -194,7 +226,7 @@ namespace Entities
 
                 if (!this.statsManager.equipmentManager.GetCurrentWeapon().isSwinging)
                 {
-                    this.model.modelState = ModelStates.IDLE;
+                    this.model.modelState = ModelStates.BATTLE_IDLE;
                 }
             }
             else
@@ -232,6 +264,12 @@ namespace Entities
                     break;
                 case ModelStates.SPRINTING:
                     model.animationState = AnimationStates.SPRINTING;
+                    break;
+                case ModelStates.BATTLE_IDLE:
+                    model.animationState = AnimationStates.BATTLE_IDLE;
+                    break;
+                case ModelStates.BATTLE_MOVING:
+                    model.animationState = AnimationStates.BATTLE_MOVING;
                     break;
             }
 

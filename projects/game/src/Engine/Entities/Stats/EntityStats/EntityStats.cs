@@ -32,6 +32,8 @@ namespace Entities
         public bool OnEnduranceRegen = false;
         public bool OnUsingEndurance = false;
 
+        public bool IsWeaponOut = false;
+
         public int enduranceUnlockCounter = 0;
         public float enduranceUnlockSec;
 
