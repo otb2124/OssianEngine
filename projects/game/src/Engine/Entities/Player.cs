@@ -20,19 +20,25 @@ namespace Entities
         public override void SetStats()
         {
             statsManager.stats.sprintMultiplier = 1.5f;
+            statsManager.stats.enduranceSprintCostSec = 20;
+
             statsManager.stats.enduranceRegenSec = 10;
-            statsManager.stats.enduranceSprintCostSec = 40;
             statsManager.stats.enduranceUnlockSec = 1.5f;
-            statsManager.stats.enduranceJumpCostSec = 60;
+
             statsManager.stats.enduranceAttackCost = 40;
+
             statsManager.stats.rollMultiplier = 2f;
             statsManager.stats.enduranceRollCostSec = 200;
+
+            statsManager.stats.jumpSpeed = 2.5f;
+            statsManager.stats.enduranceJumpCostSec = 40;
 
             statsManager.stats.maxHP = 100;
             statsManager.stats.maxSpeed = 2;
             statsManager.stats.maxMana = 100;
             statsManager.stats.maxEndurance = 100;
-            statsManager.stats.jumpSpeed = 2.5f;
+
+            
 
             statsManager.stats.Refill();
 
