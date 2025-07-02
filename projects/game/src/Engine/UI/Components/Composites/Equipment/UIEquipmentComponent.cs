@@ -19,7 +19,7 @@ namespace UI
 
             type = UIComponentTypes.EQUIPMENT;
 
-            EquipmentSlot[] slots = ent.sManager.equipmentManager.slots;
+            EquipmentSlot[] slots = ent.statsManager.equipmentManager.slots;
 
             Vector2 inGameMenuSize = new Vector2(80, (64 + 12) * 6);
             Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.screen.Height - inGameMenuSize.Y - 10);

@@ -14,7 +14,7 @@ namespace Entities
         public static void HandleHit(LivingEntity fromEnt, LivingEntity toEnt)
         {
             //Debug.WriteLine("hit!");
-            fromEnt.sManager.DealDamageTo(toEnt);
+            fromEnt.statsManager.DealDamageTo(toEnt);
         }
 
 
@@ -33,7 +33,7 @@ namespace Entities
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERRACTIONPRESSED])
                 {
-                    Entities.player.sManager.inventory.AddInventory(itemEnt.Containment);
+                    Entities.player.statsManager.inventory.AddInventory(itemEnt.Containment);
                     Physics.Physics.flatWorld.RemoveBody(itemEnt.model.body);
                     Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
                     
@@ -41,7 +41,7 @@ namespace Entities
             }
             else if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP_AUTO)
             {
-                Entities.player.sManager.inventory.AddInventory(itemEnt.Containment);
+                Entities.player.statsManager.inventory.AddInventory(itemEnt.Containment);
                 Physics.Physics.flatWorld.RemoveBody(itemEnt.model.body);
                 Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
             }

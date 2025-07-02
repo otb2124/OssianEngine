@@ -15,12 +15,25 @@ namespace Entities
         public float maxSpeed;
         public float speed;
 
+        public float jumpSpeed;
+
+        public float sprintMultiplier;
+
         public float maxMana;
         public float mana;
 
         public float maxEndurance;
         public float endurance;
+        public float enduranceRegenSec;
+        public float enduranceSprintCostSec;
+        public float enduranceJumpCostSec;
+        public float enduranceAttackCost;
 
+        public bool OnEnduranceRegen = false;
+        public bool OnUsingEndurance = false;
+
+        public int enduranceUnlockCounter = 0;
+        public float enduranceUnlockSec;
 
         public void Refill()
         {
@@ -28,6 +41,28 @@ namespace Entities
             speed = maxSpeed;
             mana = maxMana;
             endurance = maxEndurance;
+        }
+
+
+        public void RegenEndurance()
+        {
+            OnEnduranceRegen = false;
+
+            if(endurance < maxEndurance && !OnUsingEndurance)
+            {
+                enduranceUnlockCounter++;
+
+                if(enduranceUnlockCounter < enduranceUnlockSec*60)
+                {
+                    OnEnduranceRegen = true;
+                }
+
+                endurance+=enduranceRegenSec/60;
+            }
+            else
+            {
+                enduranceUnlockCounter = 0;
+            }
         }
     }
 }

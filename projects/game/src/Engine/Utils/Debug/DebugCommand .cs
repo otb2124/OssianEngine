@@ -10,21 +10,14 @@ namespace Utils
     public class DebugCommand : IConsoleCommand
     {
         public string Name => "debug";
-        public string Description => "Toggle debug mode [on|off]";
-
+        public string Description => "Toggle debug mode";
 
         public void Execute(string[] args)
         {
-            if (args.Length != 1 || (args[0] != "on" && args[0] != "off"))
-            {
-                Console.WriteLine("Usage: /debug [on|off]");
-                return;
-            }
-            bool debugOn = args[0] == "on";
+            bool isDebugMode = GameStateManager.gameMode == GameStateManager.GameModes.debugMode;
+            GameStateManager.gameMode = isDebugMode ? GameStateManager.GameModes.playMode : GameStateManager.GameModes.debugMode;
 
-            GameStateManager.gameMode = debugOn ? GameStateManager.GameModes.debugMode : GameStateManager.GameModes.playMode;
-
-            Console.WriteLine($"Debug mode {(debugOn ? "enabled" : "disabled")}");
+            Console.WriteLine($"Debug mode {(isDebugMode ? "disabled" : "enabled")}");
         }
     }
 }

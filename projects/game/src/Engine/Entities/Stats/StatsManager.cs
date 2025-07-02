@@ -26,7 +26,7 @@ namespace Entities
 
         public void DealDamageTo(LivingEntity target)
         {
-            target.sManager.stats.HP -= this.equipmentManager.GetCurrentWeapon().PhysDmg;
+            target.statsManager.stats.HP -= this.equipmentManager.GetCurrentWeapon().PhysDmg;
         }
     }
 }

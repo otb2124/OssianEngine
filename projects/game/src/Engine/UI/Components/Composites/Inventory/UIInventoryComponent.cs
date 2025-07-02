@@ -26,7 +26,7 @@ namespace UI
             Vector2 frameSize = new Vector2((inGameMenuSize.X + 10 + 10 + 10 + 10 + 10)*3, Graphics.Graphics.screen.Height - (10 + 10));
             Vector2 framePos = new Vector2(inGameMenuPos.X + inGameMenuSize.X + 10, Graphics.Graphics.screen.Height - frameSize.Y - 10);
 
-            Inventory inventory = ent.sManager.inventory;
+            Inventory inventory = ent.statsManager.inventory;
 
             children = new UIComponent[0];
             

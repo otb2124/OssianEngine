@@ -18,15 +18,15 @@ namespace Entities
 
         public override void SetStats()
         {
-            sManager.stats.maxHP = 100;
-            sManager.stats.HP = 100;
-            sManager.stats.maxSpeed = 5;
+            statsManager.stats.maxHP = 100;
+            statsManager.stats.HP = 100;
+            statsManager.stats.maxSpeed = 5;
 
-            sManager.stats.Refill();
+            statsManager.stats.Refill();
 
-            sManager.equipmentManager = new EquipmentManager();
-            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment = (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE));
-            sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE));
+            statsManager.equipmentManager = new EquipmentManager();
+            statsManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment = (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE));
+            statsManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE));
 
             base.SetStats();
         }
@@ -34,8 +34,8 @@ namespace Entities
 
         public override void Update()
         {
-            this.sManager.equipmentManager.GetCurrentWeapon().hitbox.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width * 2, this.model.body.Height), 0f);
-            ((ArmorEquipment)this.sManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).hitbox.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height), 0f);
+            this.statsManager.equipmentManager.GetCurrentWeapon().hitbox.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width * 2, this.model.body.Height), 0f);
+            ((ArmorEquipment)this.statsManager.equipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment).hitbox.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width, this.model.body.Height), 0f);
         }
 
 

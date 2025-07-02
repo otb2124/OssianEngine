@@ -14,11 +14,11 @@ namespace Entities
         public static void CheckForCollisions(LivingEntity entA, LivingEntity entB)
         {
             //check both ways
-            if(CheckForHit(entA.sManager.equipmentManager.GetCurrentWeapon().hitbox, entB.sManager.equipmentManager.GetCurrentArmor().hitbox))
+            if(CheckForHit(entA.statsManager.equipmentManager.GetCurrentWeapon().hitbox, entB.statsManager.equipmentManager.GetCurrentArmor().hitbox))
             {
                 HitboxHandler.HandleHit(entA, entB);
             }
-            if (CheckForHit(entB.sManager.equipmentManager.GetCurrentWeapon().hitbox, entA.sManager.equipmentManager.GetCurrentArmor().hitbox))
+            if (CheckForHit(entB.statsManager.equipmentManager.GetCurrentWeapon().hitbox, entA.statsManager.equipmentManager.GetCurrentArmor().hitbox))
             {
                 HitboxHandler.HandleHit(entB, entA);
             }
@@ -26,7 +26,7 @@ namespace Entities
 
         public static void CheckForInterraction(InteractiveEntity interractiveEnt, LivingEntity livingEnt)
         {
-            if(CheckForInterraction(livingEnt.sManager.equipmentManager.GetCurrentArmor().hitbox, interractiveEnt.InteractionField))
+            if(CheckForInterraction(livingEnt.statsManager.equipmentManager.GetCurrentArmor().hitbox, interractiveEnt.InteractionField))
             {
                 HitboxHandler.HandleInterraction(interractiveEnt, livingEnt);
             }

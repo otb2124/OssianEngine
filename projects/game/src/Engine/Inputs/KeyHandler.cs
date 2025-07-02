@@ -13,6 +13,7 @@ namespace Inputs
             MOVERIGHTPRESSED,
             MOVELEFTPRESSED,
             ATTACKPRESSED,
+            SPRINTPRESSED,
             INTERRACTIONPRESSED,
 
             //camera
@@ -39,6 +40,7 @@ namespace Inputs
             { KeyStates.MOVERIGHTPRESSED, false },
             { KeyStates.MOVELEFTPRESSED, false },
             { KeyStates.ATTACKPRESSED, false },
+            { KeyStates.SPRINTPRESSED, false },
             { KeyStates.INTERRACTIONPRESSED, false },
 
             //camera
@@ -66,6 +68,7 @@ namespace Inputs
             { (KeyStates.MOVERIGHTPRESSED, false), Keys.D },
             { (KeyStates.MOVELEFTPRESSED, false), Keys.A },
             { (KeyStates.ATTACKPRESSED, true), Keys.LeftControl },
+            { (KeyStates.SPRINTPRESSED, false), Keys.LeftShift },
             { (KeyStates.INTERRACTIONPRESSED, true), Keys.Enter },
 
             //camera

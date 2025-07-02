@@ -6,7 +6,7 @@ namespace Entities
     public class LivingEntity : PhysicalEntity
     {
 
-        public StatsManager sManager;
+        public StatsManager statsManager;
 
 
         public enum LivingEntityStatus
@@ -21,7 +21,7 @@ namespace Entities
 
         public LivingEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
-            this.sManager = new StatsManager();
+            this.statsManager = new StatsManager();
             SetStats();
         }
 
@@ -38,12 +38,12 @@ namespace Entities
 
         public virtual void DrawWeapon()
         {
-            sManager.equipmentManager.Draw(this.model.direction);
+            statsManager.equipmentManager.Draw(this.model.direction);
         }
 
         public override void DrawHitbox()
         {
-            sManager.equipmentManager.DrawHitbox();
+            statsManager.equipmentManager.DrawHitbox();
         }
     }
 }
