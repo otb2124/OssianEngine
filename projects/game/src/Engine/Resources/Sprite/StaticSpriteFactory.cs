@@ -59,51 +59,68 @@ namespace Resources
 
 
 
-        public static SpriteData[] PlatformCut(Vector2 pos, int tileSize = 32)
+        public static SpriteData[] TileSetCut(Vector2 pos, int tileSize = 32)
         {
             SpriteData[] data = new SpriteData[16];
 
             //outer corner left top
-            data[0] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            data[0] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
             //outer corner right top
-            data[1] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
+            data[1] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
             //outer corner left bottom
-            data[2] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically);
+            data[2] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically);
             //outer corner right bottom
-            data[3] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
+            data[3] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
 
             //top border
-            data[4] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            data[4] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
             //bottom border
-            data[5] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically);
+            data[5] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically);
 
 
             //inner corner right top
-            data[6] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            data[6] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
             //inner corner left top
-            data[7] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
+            data[7] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
             //inner corner right bottom
-            data[8] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically);
+            data[8] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipVertically);
             //inner corner left bottom
-            data[9] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
+            data[9] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally | SpriteEffects.FlipVertically);
 
             //pillar top
-            data[10] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            data[10] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
 
             //left border
-            data[11] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
+            data[11] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
             //right border
-            data[12] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
+            data[12] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
 
             //inner
-            data[13] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
+            data[13] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
             //inner alt
-            data[14] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
+            data[14] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
             //pillar bottom
-            data[15] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
+            data[15] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 3 * tileSize, (int)pos.Y + tileSize, tileSize, tileSize), 0);
 
 
             return data;
+        }
+
+        public static SpriteData[] PlatformSetCut(Vector2 pos, int tileSize = 32)
+        {
+            SpriteData[] data = new SpriteData[3];
+            
+            //left
+            data[0] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+
+            //center
+            data[1] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+
+            //right
+            data[2] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
+
+            return data;
+
         }
 
         public static SpriteData[] UIFrameCut(Vector2 pos, int tileSize)

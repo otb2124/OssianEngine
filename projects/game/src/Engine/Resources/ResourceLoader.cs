@@ -62,6 +62,7 @@ namespace Resources
 
                 //platforms
                 SpriteSheets.ENTITIES_PLATFORMS,
+                SpriteSheets.ENTITIES_TILES,
 
                 //equipment
                 SpriteSheets.ENTITIES_WEAPONS,

@@ -31,7 +31,7 @@ namespace Entities
             statsManager.stats.enduranceRollCostSec = 200;
 
             statsManager.stats.jumpSpeed = 2.5f;
-            statsManager.stats.enduranceJumpCostSec = 40;
+            statsManager.stats.enduranceJumpCostSec = 60;
 
             statsManager.stats.maxHP = 100;
             statsManager.stats.maxSpeed = 2;

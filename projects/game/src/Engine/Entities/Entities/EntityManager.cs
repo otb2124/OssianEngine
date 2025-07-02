@@ -52,43 +52,8 @@ namespace Entities
                             }
                         }
                     }
-
-                    HandlePlatformOverlay(phent);
                 }
             }
-        }
-
-        public void HandlePlatformOverlay(PhysicalEntity phent)
-        {
-            float lowestZ = phent.baseSpriteZ;
-            float closestPlatformY = float.MaxValue;
-            float closestPlatformZ = phent.baseSpriteZ;
-
-            float entityHeight = (phent.model.body.BodyShapeType == BodyShapeType.Box)
-                ? phent.model.body.Height
-                : phent.model.body.Radius * 2;
-
-            foreach (var plent in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.OfType<PlatformEntity>())
-            {
-                float platformTopY = plent.Body.Position.Y + plent.Body.Height;
-
-                /*
-                if (phent.model.Body.Position.X < plent.Body.Position.X + plent.Body.Height / 2 &&
-                    platformTopY > (phent.model.Body.Position.Y + entityHeight) &&
-                    platformTopY < closestPlatformY)
-                {
-                    closestPlatformY = platformTopY;
-                    closestPlatformZ = plent.spriteZ;
-                }*/
-            }
-
-            if (closestPlatformY != float.MaxValue)
-            {
-                lowestZ = closestPlatformZ - 1;
-            }
-
-            phent.spriteZ = lowestZ;
-
         }
 
 
@@ -98,8 +63,9 @@ namespace Entities
         {
             var sortedEntities = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities
                 .OrderBy(e =>
-                    (e is PlatformEntity plent) ? 0
+                    (e is TileEntity plent) ? 0
                     : (e is PhysicalEntity phent) ? phent.spriteZ
+                    : (e is PlatformEntity platformEntity) ? 0
                     : float.MaxValue);
 
             foreach (var entity in sortedEntities)
@@ -118,7 +84,7 @@ namespace Entities
         //collisions
         public void DrawColliders()
         {
-            foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Where(e => e is PhysicalEntity || e is PlatformEntity))
+            foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities)
             {
                 entity.DrawCollider();
             }
@@ -128,7 +94,7 @@ namespace Entities
         //hitboxes
         public void DrawHitboxes()
         {
-            foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Where(e => e is LivingEntity || e is InteractiveEntity))
+            foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities)
             {
                 entity.DrawHitbox();
             }

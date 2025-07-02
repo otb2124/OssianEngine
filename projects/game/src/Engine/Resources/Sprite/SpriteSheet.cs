@@ -77,8 +77,11 @@ namespace Resources
                     return "entities/dynamic/mob0";
                 case SpriteSheets.ENTITIES_STATIC:
                     return "entities/static/static";
+                case SpriteSheets.ENTITIES_TILES:
+                    return "entities/static/tiles";
                 case SpriteSheets.ENTITIES_PLATFORMS:
                     return "entities/static/platforms";
+                     
                 case SpriteSheets.ENTITIES_WEAPONS:
                     return "entities/equipment/weapons";
 

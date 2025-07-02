@@ -47,6 +47,7 @@ namespace Utils
 
         //platforms
         ENTITIES_PLATFORMS,
+        ENTITIES_TILES,
 
         //equipment
         ENTITIES_WEAPONS,
