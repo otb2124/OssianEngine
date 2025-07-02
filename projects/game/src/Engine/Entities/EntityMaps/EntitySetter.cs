@@ -25,17 +25,16 @@ namespace Entities
 
                     //entities.Add(new PlatformEntity(new Vector2(0, -50), 47, 3, 2, 0.2f));
                     //entities.Add(new PlatformEntity(new Vector2(150, -50), 48, 5, 2));
-                    entities.Add(new PlatformEntity(new Vector2(-75, -200), new Vector2(3, 3)));
-                    entities.Add(new PlatformEntity(new Vector2(50, -200), new Vector2(3, 1)));
-                    entities.Add(new PlatformEntity(new Vector2(200, -200), new Vector2(2, 1)));
-                    entities.Add(new PlatformEntity(new Vector2(400, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(600, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(800, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(1000, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(1200, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(350, -350), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(0, -350), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(-350, -350), new Vector2(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(-75, -200), new Point(3, 3)));
+                    entities.Add(new PlatformEntity(new Vector2(50, -200), new Point(3, 1)));
+                    entities.Add(new PlatformEntity(new Vector2(200, -200), new Point(2, 1)));
+                    entities.Add(new PlatformEntity(new Vector2(400, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(600, -200), new Point(3, 2), 20));
+                    entities.Add(new PlatformEntity(new Vector2(800, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(1000, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(1200, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(350, -350), new Point(20, 1)));
+                    entities.Add(new PlatformEntity(new Vector2(-350, 200), new Point(15, 1)));
 
                     entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-100, -50)));
                     entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-200, -50)));
@@ -61,20 +60,20 @@ namespace Entities
                     Entities.player = new Player(new Vector2(0, 20));
                     entities.Add(Entities.player);
 
-                    entities.Add(new PlatformEntity(new Vector2(300, 100), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(150, -50), new Vector2(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(300, 100), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(150, -50), new Point(3, 2)));
 
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 100)));
 
-                    entities.Add(new PlatformEntity(new Vector2(-200, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(-100, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(50, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(200, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(400, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(600, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(800, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(1000, -200), new Vector2(3, 2)));
-                    entities.Add(new PlatformEntity(new Vector2(1200, -200), new Vector2(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(-200, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(-100, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(50, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(200, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(400, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(600, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(800, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(1000, -200), new Point(3, 2)));
+                    entities.Add(new PlatformEntity(new Vector2(1200, -200), new Point(3, 2)));
 
                     break;
             }
