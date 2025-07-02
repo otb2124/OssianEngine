@@ -391,7 +391,7 @@ namespace Physics
 
         public FlatBody(FlatBody existingBody, float newHeight, float newWidth)
         {
-            // Copy properties from the existing body
+            // Copy properties from the existing Body
             position = existingBody.Position;
             linearVelocity = existingBody.LinearVelocity;
             angle = existingBody.Angle;

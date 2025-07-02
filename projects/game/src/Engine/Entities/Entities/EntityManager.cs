@@ -70,11 +70,11 @@ namespace Entities
 
             foreach (var plent in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.OfType<PlatformEntity>())
             {
-                float platformTopY = plent.body.Position.Y + plent.body.Height;
+                float platformTopY = plent.Body.Position.Y + plent.Body.Height;
 
                 /*
-                if (phent.model.body.Position.X < plent.body.Position.X + plent.body.Height / 2 &&
-                    platformTopY > (phent.model.body.Position.Y + entityHeight) &&
+                if (phent.model.Body.Position.X < plent.Body.Position.X + plent.Body.Height / 2 &&
+                    platformTopY > (phent.model.Body.Position.Y + entityHeight) &&
                     platformTopY < closestPlatformY)
                 {
                     closestPlatformY = platformTopY;

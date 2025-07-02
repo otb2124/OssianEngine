@@ -58,12 +58,12 @@ namespace Physics
             bodyList.Add(body);
 
             /*
-            if (body.owner is GroupMember)
+            if (Body.owner is GroupMember)
             {
                 // Disable inertia and friction
-                body.InvInertia = 0f;
-                body.StaticFriction = 0f;
-                body.DynamicFriction = 0f;
+                Body.InvInertia = 0f;
+                Body.StaticFriction = 0f;
+                Body.DynamicFriction = 0f;
             }*/
         }
 

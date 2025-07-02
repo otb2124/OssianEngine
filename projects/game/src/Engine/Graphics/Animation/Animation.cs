@@ -71,10 +71,24 @@ namespace Graphics
             }
         }
 
-
-        public void Draw(Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth)
+        public void Draw(Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth, bool revertVerticalDraw = false)
         {
-            Graphics.sprites.Draw(
+            if(revertVerticalDraw)
+            {
+                Graphics.sprites.Draw(
+                ResourceLoader.spriteSheets[spriteSheet].texture,
+                position,
+                GetCurrentFrame(),
+                color,
+                angle,
+                origin,
+                scale,
+                effect,
+                layerDepth);
+            }
+            else
+            {
+                Graphics.sprites.Draw(
                 ResourceLoader.spriteSheets[spriteSheet].texture,
                 position,
                 GetCurrentFrame(),
@@ -84,6 +98,7 @@ namespace Graphics
                 scale,
                 effect | SpriteEffects.FlipVertically,
                 layerDepth);
+            }
         }
 
         public void Draw(Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, SpriteEffects newEffect, float layerDepth)
