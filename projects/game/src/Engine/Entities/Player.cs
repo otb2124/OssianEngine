@@ -20,23 +20,23 @@ namespace Entities
         public override void SetStats()
         {
             statsManager.stats.sprintMultiplier = 1.5f;
-            statsManager.stats.enduranceSprintCostSec = 20;
+            statsManager.stats.staminaSprintCostSec = 20;
 
-            statsManager.stats.enduranceRegenSec = 10;
-            statsManager.stats.enduranceUnlockSec = 1.5f;
+            statsManager.stats.staminaRegenSec = 20;
+            statsManager.stats.staminaUnlockSec = 1.5f;
 
-            statsManager.stats.enduranceAttackCost = 40;
+            statsManager.stats.staminaAttackCost = 40;
 
             statsManager.stats.rollMultiplier = 2f;
-            statsManager.stats.enduranceRollCostSec = 200;
+            statsManager.stats.staminaRollCostSec = 200;
 
             statsManager.stats.jumpSpeed = 2.5f;
-            statsManager.stats.enduranceJumpCostSec = 60;
+            statsManager.stats.staminaJumpCostSec = 60;
 
             statsManager.stats.maxHP = 100;
             statsManager.stats.maxSpeed = 2;
             statsManager.stats.maxMana = 100;
-            statsManager.stats.maxEndurance = 100;
+            statsManager.stats.maxStamina = 100;
 
             
 
@@ -113,7 +113,7 @@ namespace Entities
         public override void Update()
         {
 
-            statsManager.stats.OnUsingEndurance = false;
+            statsManager.stats.OnUsingStamina = false;
 
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
@@ -139,14 +139,14 @@ namespace Entities
                 }
 
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceAttackCost) > 0 && statsManager.stats.IsWeaponOut)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED] && (statsManager.stats.stamina - statsManager.stats.staminaAttackCost) > 0 && statsManager.stats.IsWeaponOut)
                 {
-                    statsManager.stats.endurance -= statsManager.stats.enduranceAttackCost;
+                    statsManager.stats.stamina -= statsManager.stats.staminaAttackCost;
                     model.modelState = ModelStates.ATTACKING;
                 }
             }
 
-            statsManager.stats.RegenEndurance();
+            statsManager.stats.RegenStamina();
 
             UpdateHitboxes();
 
@@ -161,12 +161,12 @@ namespace Entities
             {
                 model.direction = Directions.RIGHT;
 
-                if(Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceSprintCostSec / 60) > 0 && !statsManager.stats.OnEnduranceRegen && !statsManager.stats.IsWeaponOut)
+                if(Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (statsManager.stats.stamina - statsManager.stats.staminaSprintCostSec / 60) > 0 && !statsManager.stats.OnStaminaRegen && !statsManager.stats.IsWeaponOut)
                 {
                     model.body.Move(new FlatVector(statsManager.stats.speed*statsManager.stats.sprintMultiplier, 0));
                     model.modelState = ModelStates.SPRINTING;
-                    statsManager.stats.OnUsingEndurance = true;
-                    statsManager.stats.endurance-=statsManager.stats.enduranceSprintCostSec/60;
+                    statsManager.stats.OnUsingStamina = true;
+                    statsManager.stats.stamina-=statsManager.stats.staminaSprintCostSec/60;
                 }
                 else
                 {
@@ -184,12 +184,12 @@ namespace Entities
             {
                 model.direction = Directions.LEFT;
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (statsManager.stats.endurance - statsManager.stats.enduranceSprintCostSec/60) > 0 && !statsManager.stats.OnEnduranceRegen && !statsManager.stats.IsWeaponOut)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (statsManager.stats.stamina - statsManager.stats.staminaSprintCostSec/60) > 0 && !statsManager.stats.OnStaminaRegen && !statsManager.stats.IsWeaponOut)
                 {
                     model.body.Move(new FlatVector(-statsManager.stats.speed * statsManager.stats.sprintMultiplier, 0));
                     model.modelState = ModelStates.SPRINTING;
-                    statsManager.stats.OnUsingEndurance = true;
-                    statsManager.stats.endurance -= statsManager.stats.enduranceSprintCostSec / 60;
+                    statsManager.stats.OnUsingStamina = true;
+                    statsManager.stats.stamina -= statsManager.stats.staminaSprintCostSec / 60;
                 }
                 else
                 {
@@ -203,14 +203,14 @@ namespace Entities
                 }
             }
 
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (statsManager.stats.endurance - (statsManager.stats.enduranceJumpCostSec/60)) > 0 && !statsManager.stats.IsWeaponOut)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (statsManager.stats.stamina - (statsManager.stats.staminaJumpCostSec/60)) > 0 && !statsManager.stats.IsWeaponOut)
             {
                 model.body.Jump(statsManager.stats.jumpSpeed);
                 model.modelState = ModelStates.JUMPING;
-                statsManager.stats.endurance -= statsManager.stats.enduranceJumpCostSec/60;
+                statsManager.stats.stamina -= statsManager.stats.staminaJumpCostSec/60;
             }
 
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (statsManager.stats.endurance - (statsManager.stats.enduranceRollCostSec / 60)) > 0 && statsManager.stats.IsWeaponOut)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (statsManager.stats.stamina - (statsManager.stats.staminaRollCostSec / 60)) > 0 && statsManager.stats.IsWeaponOut)
             {
 
                 if(model.direction == Directions.RIGHT)
@@ -223,7 +223,7 @@ namespace Entities
                 }
                 
                 model.modelState = ModelStates.BATTLE_ROLL;
-                statsManager.stats.endurance -= statsManager.stats.enduranceRollCostSec / 60;
+                statsManager.stats.stamina -= statsManager.stats.staminaRollCostSec / 60;
             }
         }
 

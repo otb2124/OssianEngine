@@ -15,15 +15,15 @@ namespace Entities
         public float maxMana;
         public float mana;
 
-        public float maxEndurance;
-        public float endurance;
-        public float enduranceRegenSec;
-        public float enduranceSprintCostSec;
-        public float enduranceJumpCostSec;
-        public float enduranceRollCostSec;
-        public float enduranceAttackCost;
-        public int enduranceUnlockCounter = 0;
-        public float enduranceUnlockSec;
+        public float maxStamina;
+        public float stamina;
+        public float staminaRegenSec;
+        public float staminaSprintCostSec;
+        public float staminaJumpCostSec;
+        public float staminaRollCostSec;
+        public float staminaAttackCost;
+        public int staminaUnlockCounter = 0;
+        public float staminaUnlockSec;
 
         public float maxSpeed;
         public float speed;
@@ -31,8 +31,8 @@ namespace Entities
         public float rollMultiplier;
         public float sprintMultiplier;
 
-        public bool OnEnduranceRegen = false;
-        public bool OnUsingEndurance = false;
+        public bool OnStaminaRegen = false;
+        public bool OnUsingStamina = false;
 
         public bool IsWeaponOut = false;
         
@@ -42,28 +42,28 @@ namespace Entities
             HP = maxHP;
             speed = maxSpeed;
             mana = maxMana;
-            endurance = maxEndurance;
+            stamina = maxStamina;
         }
 
 
-        public void RegenEndurance()
+        public void RegenStamina()
         {
-            OnEnduranceRegen = false;
+            OnStaminaRegen = false;
 
-            if(endurance < maxEndurance && !OnUsingEndurance)
+            if(stamina < maxStamina && !OnUsingStamina)
             {
-                enduranceUnlockCounter++;
+                staminaUnlockCounter++;
 
-                if(enduranceUnlockCounter < enduranceUnlockSec*60)
+                if(staminaUnlockCounter < staminaUnlockSec*60)
                 {
-                    OnEnduranceRegen = true;
+                    OnStaminaRegen = true;
                 }
 
-                endurance+=enduranceRegenSec/60;
+                stamina+=staminaRegenSec/60;
             }
             else
             {
-                enduranceUnlockCounter = 0;
+                staminaUnlockCounter = 0;
             }
         }
     }

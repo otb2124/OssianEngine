@@ -81,7 +81,7 @@ namespace UI
                     break;
                 case UIStatBarStatBindings.PLAYER_ENDURANCE:
                     rescaleMultiplier = MathHelper.Clamp(
-                            Entities.Entities.player.statsManager.stats.endurance / Entities.Entities.player.statsManager.stats.maxEndurance,
+                            Entities.Entities.player.statsManager.stats.stamina / Entities.Entities.player.statsManager.stats.maxStamina,
                             0f,
                             1f
                         );

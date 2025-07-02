@@ -33,12 +33,13 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(800,  0), new Point(3, 2)));
                     entities.Add(new TileEntity(new Vector2(1000, 0), new Point(2, 2)));
                     entities.Add(new TileEntity(new Vector2(1200, 0), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(-150, 200), new Point(15, 1)));
+                    entities.Add(new TileEntity(new Vector2(-150, 190), new Point(15, 1)));
                     entities.Add(new TileEntity(new Vector2(0, -250), new Point(20, 1), 0, true));
                     entities.Add(new TileEntity(new Vector2(-500, -230), new Point(12, 2), 0, true));
                     entities.Add(new TileEntity(new Vector2(500, -230), new Point(12, 2), 0, true));
 
                     entities.Add(new PlatformEntity(new Vector2(0, 90), 5));
+                    entities.Add(new PlatformEntity(new Vector2(140, 150), 5));
 
                     entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-200, 150)));
                     entities.Add(new PhysicalEntity(Models.BALL, new Vector2(0, 200)));
