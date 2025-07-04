@@ -31,10 +31,10 @@ namespace Entities
         public float rollMultiplier;
         public float sprintMultiplier;
 
+        public float bodyDamage;
+
         public bool OnStaminaRegen = false;
         public bool OnUsingStamina = false;
-
-        public bool IsWeaponOut = false;
         
 
         public void Refill()
@@ -65,6 +65,11 @@ namespace Entities
             {
                 staminaUnlockCounter = 0;
             }
+        }
+
+        public void ReceiveDamage(float amount)
+        {
+            HP -= amount;
         }
     }
 }

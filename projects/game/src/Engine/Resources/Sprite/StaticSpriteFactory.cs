@@ -48,7 +48,8 @@ namespace Resources
             { StaticSprites.ENTITIES_STATIC_CRATE_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 98)},
 
             { StaticSprites.ENTITIES_PLAYER, new SpriteData(SpriteSheets.ENTITIES_PLAYER, new Rectangle(0,0,64,128), 100)},
-            { StaticSprites.ENTITIES_MOB0, new SpriteData(SpriteSheets.ENTITIES_MOB0, new Rectangle(0,0,48,96), 99)},
+            { StaticSprites.ENTITIES_BANDIT, new SpriteData(SpriteSheets.ENTITIES_BANDIT, new Rectangle(0,0,48,96), 99)},
+            { StaticSprites.ENTITIES_SLIME, new SpriteData(SpriteSheets.ENTITIES_SLIME, new Rectangle(0,0,64,64), 99)},
 
             { StaticSprites.UI_GAME_ICON, new SpriteData(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.UI_CURSOR, new SpriteData(SpriteSheets.UI_CURSOR, new Rectangle(0,0,32,32), 0) },
@@ -59,10 +60,26 @@ namespace Resources
 
 
 
-        public static SpriteData[] TileSetCut(Vector2 pos, int tileSize = 32)
+        public static SpriteData[] TileSetCut(TileEntity.TileSets tileSet)
         {
             SpriteData[] data = new SpriteData[16];
 
+            Vector2 pos = Vector2.Zero;
+            int tileSize = 32;
+
+            switch (tileSet)
+            {
+                case TileEntity.TileSets.SET0:
+                    pos = Vector2.Zero;
+                    break;
+                case TileEntity.TileSets.SET1:
+                    pos = new Vector2(0, tileSize*2*1);
+                    break;
+            }
+
+
+
+            
             //outer corner left top
             data[0] = new SpriteData(SpriteSheets.ENTITIES_TILES, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
             //outer corner right top

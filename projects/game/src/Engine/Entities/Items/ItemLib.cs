@@ -10,11 +10,13 @@ namespace Entities
     {
         public enum Weapons
         {
+            BARE_HAND,
             TERRABLADE,
         }
 
         public enum Armors
         {
+            NAKED_TORSO,
             IRON_CHESTPLATE,
             IRON_HELMET,
             IRON_BOOTS,

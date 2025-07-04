@@ -13,13 +13,13 @@ namespace UI
     public class UIEquipmentComponent : UIComponent
     {
 
-        public UIEquipmentComponent(int id, Vector2 pos, LivingEntity ent) : base(id)
+        public UIEquipmentComponent(int id, Vector2 pos, EquipmentEntity ent) : base(id)
         {
             Position = pos;
 
             type = UIComponentTypes.EQUIPMENT;
 
-            EquipmentSlot[] slots = ent.statsManager.equipmentManager.slots;
+            EquipmentSlot[] slots = ent.EquipmentManager.slots;
 
             Vector2 inGameMenuSize = new Vector2(80, (64 + 12) * 6);
             Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.screen.Height - inGameMenuSize.Y - 10);

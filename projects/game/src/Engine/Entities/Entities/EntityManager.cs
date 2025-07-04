@@ -26,30 +26,44 @@ namespace Entities
         {
             var entitiesSnapshot = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.ToList();
 
-            foreach (var entA in entitiesSnapshot)
+            foreach (var entFrom in entitiesSnapshot)
             {
-                if (entA is PhysicalEntity phent)
+
+                //if entityFrom is physical
+                if (entFrom is PhysicalEntity)
                 {
-                    if (entA is LivingEntity || entA is InteractiveEntity)
+
+                    //if entityFrom is stats or interactive
+                    if (entFrom is StatsEntity || entFrom is InteractiveEntity)
                     {
-                        entA.Update();
+                        entFrom.Update();
 
-                        foreach (var entB in entitiesSnapshot)
+
+
+                        //contact A to B
+                        foreach (var entTo in entitiesSnapshot)
                         {
-                            if (entB is LivingEntity livingB && entA != entB)
-                            {
-                                // Check for attack hit
-                                if (entA is LivingEntity livingA)
-                                {
-                                    HitboxChecker.CheckForCollisions(livingA, livingB);
-                                }
 
-                                // Check for interaction
-                                if (entA is InteractiveEntity interactiveA && livingB is Player)
+                            if(entFrom != entTo)
+                            {
+                                //if entityTo is also stats 
+                                if (entTo is StatsEntity)
                                 {
-                                    HitboxChecker.CheckForInterraction(interactiveA, livingB);
+
+                                    HitboxChecker.CheckForCollision((StatsEntity)entFrom, (StatsEntity)entTo);
+
+                                    if (entTo is EquipmentEntity eqEnt && entFrom != entTo)
+                                    {
+                                        // Check for interaction
+                                        if (entFrom is InteractiveEntity && entTo is Player)
+                                        {
+                                            HitboxChecker.CheckForInterraction((InteractiveEntity)entFrom, (EquipmentEntity)entTo);
+                                        }
+                                    }
                                 }
                             }
+
+                            
                         }
                     }
                 }
@@ -72,9 +86,9 @@ namespace Entities
             {
                 entity.Draw();
 
-                if (entity is LivingEntity livingEntity)
+                if (entity is EquipmentEntity eqEntity)
                 {
-                    livingEntity.DrawWeapon();
+                    eqEntity.DrawWeapon();
                 }
             }
         }
@@ -86,7 +100,10 @@ namespace Entities
         {
             foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities)
             {
-                entity.DrawCollider();
+                if (entity is PhysicalEntity physEnt)
+                {
+                    physEnt.DrawCollider();
+                }
             }
         }
 
@@ -96,7 +113,10 @@ namespace Entities
         {
             foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities)
             {
-                entity.DrawHitbox();
+                if (entity is StatsEntity statsEntity)
+                {
+                    statsEntity.DrawHitboxes();
+                }
             }
         }
 

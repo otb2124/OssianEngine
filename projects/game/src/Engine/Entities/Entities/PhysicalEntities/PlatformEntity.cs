@@ -2,17 +2,11 @@
 using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Resources.StaticSpriteFactory;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Entities
 {
-    public class PlatformEntity : Entity
+    public class PlatformEntity : PhysicalEntity
     {
 
         FlatBody Body;

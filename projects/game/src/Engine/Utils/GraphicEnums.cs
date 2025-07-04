@@ -40,7 +40,8 @@ namespace Utils
         //ENTITIES
         //livingentities
         ENTITIES_PLAYER,
-        ENTITIES_MOB0,
+        ENTITIES_BANDIT,
+        ENTITIES_SLIME,
 
         //physicalentities
         ENTITIES_STATIC,
@@ -87,7 +88,8 @@ namespace Utils
         //ENTITIES
         //livingentities
         ENTITIES_PLAYER,
-        ENTITIES_MOB0,
+        ENTITIES_BANDIT,
+        ENTITIES_SLIME,
 
         //physicalentities
         ENTITIES_STATIC_BALL,
@@ -116,6 +118,7 @@ namespace Utils
         COIN,
         ITEM_DROP,
         HUMANOID,
+        ANIMAL,
     }
 
     public enum Models
@@ -123,7 +126,8 @@ namespace Utils
         PLAYER,
         CRATE_0, CRATE_1, BALL,
         ITEM_DROP,
-        MOB
+        BANDIT,
+        SLIME,
     }
 
     public enum ModelStates

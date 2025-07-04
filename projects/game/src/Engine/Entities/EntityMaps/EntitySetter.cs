@@ -23,20 +23,18 @@ namespace Entities
                     Entities.player = new Player(new Vector2(0, 50));
                     entities.Add(Entities.player);
 
-                    //entities.Add(new TileEntity(new Vector2(0, -50), 47, 3, 2, 0.2f));
-                    //entities.Add(new TileEntity(new Vector2(150, -50), 48, 5, 2));
-                    entities.Add(new TileEntity(new Vector2(-75,  0), new Point(3, 3)));
-                    entities.Add(new TileEntity(new Vector2(50,   0), new Point(3, 1)));
-                    entities.Add(new TileEntity(new Vector2(200,  0), new Point(2, 1)));
-                    entities.Add(new TileEntity(new Vector2(400,  0), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(600,  0), new Point(3, 2), 20));
-                    entities.Add(new TileEntity(new Vector2(800,  0), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(1000, 0), new Point(2, 2)));
-                    entities.Add(new TileEntity(new Vector2(1200, 0), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(-150, 190), new Point(15, 1)));
-                    entities.Add(new TileEntity(new Vector2(0, -250), new Point(20, 1), 0, true));
-                    entities.Add(new TileEntity(new Vector2(-500, -230), new Point(12, 2), 0, true));
-                    entities.Add(new TileEntity(new Vector2(500, -230), new Point(12, 2), 0, true));
+                    entities.Add(new TileEntity(new Vector2(-75,  0), new Point(3, 3), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(50,   0), new Point(3, 1), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(200,  0), new Point(2, 1), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(400,  0), new Point(3, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(600,  0), new Point(3, 2), TileEntity.TileSets.SET0, 0.2f));
+                    entities.Add(new TileEntity(new Vector2(800,  0), new Point(3, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(1000, 0), new Point(2, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(1200, 0), new Point(3, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(-150, 190), new Point(15, 1), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(0, -250), new Point(20, 1), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(-500, -230), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(500, -230), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
 
                     entities.Add(new PlatformEntity(new Vector2(0, 90), 5));
                     entities.Add(new PlatformEntity(new Vector2(140, 150), 5));
@@ -49,8 +47,8 @@ namespace Entities
                     entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-65, 50)));
                     entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-70, 50)));
 
-                    entities.Add(new Mob(new Vector2(-60, 100), 0f));
-                    entities.Add(new Mob(new Vector2(-150, 100), 0f));
+                    entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(-60, 100), 0f));
+                    entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(-150, 100), 0f));
 
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 300)));
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(20, 335)));
@@ -64,20 +62,12 @@ namespace Entities
                     Entities.player = new Player(new Vector2(0, 20));
                     entities.Add(Entities.player);
 
-                    entities.Add(new TileEntity(new Vector2(300, 100), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(150, -50), new Point(3, 2)));
+                    entities.Add(new AnimalMob(Models.SLIME, new Vector2(-250, 100), 0f));
+                    entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(250, 100), 0f));
 
-                    entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 100)));
-
-                    entities.Add(new TileEntity(new Vector2(-200, -200), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(-100, -200), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(50, -200), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(200, -200), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(400, -200), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(600, -200), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(800, -200), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(1000, -200), new Point(3, 2)));
-                    entities.Add(new TileEntity(new Vector2(1200, -200), new Point(3, 2)));
+                    entities.Add(new TileEntity(new Vector2(0, -250), new Point(20, 1), TileEntity.TileSets.SET1, 0, true));
+                    entities.Add(new TileEntity(new Vector2(-500, -230), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
+                    entities.Add(new TileEntity(new Vector2(500, -230), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
 
                     break;
             }

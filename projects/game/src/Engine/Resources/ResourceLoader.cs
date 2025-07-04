@@ -55,7 +55,8 @@ namespace Resources
                 //ENTITIES
                 //livingentities
                 SpriteSheets.ENTITIES_PLAYER,
-                SpriteSheets.ENTITIES_MOB0,
+                SpriteSheets.ENTITIES_BANDIT,
+                SpriteSheets.ENTITIES_SLIME,
 
                 //physicalentities
                 SpriteSheets.ENTITIES_STATIC,

@@ -1,5 +1,7 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
+using Physics;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,9 +72,13 @@ namespace Entities
         }
 
 
-        public void Update()
+        public void Update(Model model)
         {
-
+            hitbox.Update(
+                FlatConverter.ToVector2(model.body.Position),
+                new Vector2(model.body.Width, model.body.Height),
+                0f
+            );
         }
     }
 }

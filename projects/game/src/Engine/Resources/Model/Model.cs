@@ -50,7 +50,7 @@ namespace Resources
         }
         public void Draw()
         {
-            //model
+            //Model
             Rectangle spriteSize = aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;

@@ -1,10 +1,12 @@
-﻿using CSPlatformerSandbox.Engine.Entities.Stats;
-using Graphics;
+﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Physics;
 using Resources;
+using System.Reflection;
 using Utils;
 using MathHelper = Microsoft.Xna.Framework.MathHelper;
+using Model = Resources.Model;
 
 namespace Entities
 {
@@ -34,6 +36,15 @@ namespace Entities
         {
             switch(ItemKey.EnumValue)
             {
+                case ItemLib.Weapons.BARE_HAND:
+                    Name = "Bare hands";
+                    Description = "A terrablade";
+                    Value = 0;
+                    Rarity = ItemRarity.COMMON;
+                    PhysDmg = 1;
+                    swingSpeed = 0.4f;
+                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    break;
                 case ItemLib.Weapons.TERRABLADE:
                     Name = "Terrablade";
                     Description = "A terrablade";
@@ -81,9 +92,46 @@ namespace Entities
             }
         }
 
+
+        public void Update(Model model)
+        {
+            float horizontalOffset = model.direction == Directions.RIGHT ? 10f : -10f;
+            float weaponRot = model.direction == Directions.RIGHT ? Utils.MathHelper.DegreesToRadians(90) : Utils.MathHelper.DegreesToRadians(-90);
+            Vector2 weaponPosition = FlatConverter.ToVector2(model.body.Position) + new Vector2(horizontalOffset, 0);
+
+            if (model.modelState == ModelStates.ATTACKING)
+            {
+                hitbox.Update(
+                weaponPosition,
+                new Vector2(model.body.Width, model.body.Height)
+                );
+
+
+                if (!isSwinging)
+                {
+                    Swing();
+                }
+
+                UpdateSwing(model.direction);
+
+                if (!isSwinging)
+                {
+                    model.modelState = ModelStates.BATTLE_IDLE;
+                }
+            }
+            else
+            {
+                hitbox.Update(
+                new Vector2(0, 0),
+                new Vector2(0, 0)
+                );
+                isSwinging = false;
+            }
+        }
+
         public override void Draw(Directions direction)
         {
-            //model
+            //Model
             Rectangle spriteSize = aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;

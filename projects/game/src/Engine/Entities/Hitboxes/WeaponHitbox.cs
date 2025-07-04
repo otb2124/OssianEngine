@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Utils;
 
-namespace CSPlatformerSandbox.Engine.Entities.Stats
+namespace Entities
 {
     public class WeaponHitbox : Hitbox
     {

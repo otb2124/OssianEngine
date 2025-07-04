@@ -40,7 +40,8 @@ namespace Utils
                 new ExitCommand(),
                 new DebugCommand(),
                 new SpawnCommand(),
-                new ClearCommand()
+                new ClearCommand(),
+                new RefillCommand()
             };
             commands.Add("help", new HelpCommand(commandList));
             foreach (var command in commandList)
@@ -60,7 +61,7 @@ namespace Utils
                 }
                 else if (!string.IsNullOrWhiteSpace(input))
                 {
-                    Console.WriteLine("Invalid command. Commands must start with '/'. Type /help for commands.");
+                    Console.WriteLine("Invalid command. CommandPool must start with '/'. Type /help for commands.");
                 }
             }
         }

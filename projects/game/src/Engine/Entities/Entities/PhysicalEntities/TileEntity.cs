@@ -11,8 +11,14 @@ using System;
 
 namespace Entities
 {
-    public class TileEntity : Entity
+    public class TileEntity : PhysicalEntity
     {
+
+        public enum TileSets
+        {
+            SET0,
+            SET1
+        }
 
         public static Dictionary<Vector2, int[][]> layoutToIndicies = new()
         {
@@ -55,17 +61,20 @@ namespace Entities
         public AnimationManager[] aManagers;
         public int[][] Indicies;
         public bool IsGrounding;
+        public TileSets TileSet;
 
-        public TileEntity(Vector2 pos, Point layout, float rot = 0f, bool isGrounding = false) : base()
+        public TileEntity(Vector2 pos, Point layout, TileSets tileSet, float rot = 0f, bool isGrounding = false) : base()
         {
+            TileSet = tileSet;
             this.Indicies = GenerateIndicies(layout.X, layout.Y, isGrounding);
             this.Body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32 * layout.Y), 1f, 0.5f);
             IsGrounding = isGrounding;
             Init(pos, rot);
         }
 
-        public TileEntity(Vector2 pos, int[][] indiciesMap, float rot = 0f) : base()
+        public TileEntity(Vector2 pos, int[][] indiciesMap, TileSets tileSet, float rot = 0f) : base()
         {
+            TileSet = tileSet;
             this.Indicies = indiciesMap;
             this.Body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * indiciesMap[0].Length, 32 * indiciesMap.Length), 1f, 0.5f);
             Init(pos, rot);
@@ -78,7 +87,7 @@ namespace Entities
             Physics.Physics.flatWorld.AddBody(Body);
             Body.owner = this;
 
-            SpriteData[] data = TileSetCut(Vector2.Zero);
+            SpriteData[] data = TileSetCut(TileSet);
             aManagers = new AnimationManager[data.Length];
 
             for (int i = 0; i < aManagers.Length; i++)
@@ -202,8 +211,8 @@ namespace Entities
                 for (int x = Indicies.Length; x < Indicies.Length + 25; x++)
                 {
                     for (int y = 0; y < Indicies[0].Length; y++)
-                    {
-                        int tileIndex = (x + y) % 2 == 0 ? 13 : 14;
+                    { 
+                        int tileIndex = (x + y) % 8 == 0 ? 14 : 13;
                         Vector2 localPos = new Vector2(y * 32, x * 32);
                         Vector2 rotatedPos = Vector2.Transform(localPos, rotationMatrix);
                         Vector2 worldPos = new Vector2(FlatConverter.ToVector2(Body.Position).X + rotatedPos.X, FlatConverter.ToVector2(Body.Position).Y - rotatedPos.Y + (Indicies.Length-1) * 32);

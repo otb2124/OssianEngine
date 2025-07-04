@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using Resources;
+using System;
 using Utils;
 
 namespace Entities
@@ -10,7 +11,7 @@ namespace Entities
     public class PhysicalEntity : Entity
     {
         
-        public Resources.Model model;
+        public Resources.Model Model;
 
         public float baseSpriteZ;
         public float spriteZ;
@@ -37,13 +38,13 @@ namespace Entities
 
         public virtual void Init(Models modelPreset, Vector2 pos, float rotation = 0f)
         {
-            model = ModelFactory.CreateModel(modelPreset);
-            model.body.MoveTo(FlatConverter.ToFlatVector(pos));
-            model.body.RotateTo(rotation);
-            Physics.Physics.flatWorld.AddBody(model.body);
-            model.body.owner = this;
+            Model = ModelFactory.CreateModel(modelPreset);
+            Model.body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.body.RotateTo(rotation);
+            Physics.Physics.flatWorld.AddBody(Model.body);
+            Model.body.owner = this;
 
-            this.baseSpriteZ = this.model.spriteData.z;
+            this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -51,13 +52,13 @@ namespace Entities
 
         public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
         {
-            model = ModelFactory.CreateModel(sprite, body);
-            model.body.MoveTo(FlatConverter.ToFlatVector(pos));
-            model.body.RotateTo(rotation);
-            Physics.Physics.flatWorld.AddBody(model.body);
-            model.body.owner = this;
+            Model = ModelFactory.CreateModel(sprite, body);
+            Model.body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.body.RotateTo(rotation);
+            Physics.Physics.flatWorld.AddBody(Model.body);
+            Model.body.owner = this;
 
-            this.baseSpriteZ = this.model.spriteData.z;
+            this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -65,33 +66,70 @@ namespace Entities
 
         public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
         {
-            model = ModelFactory.CreateModel(spriteData, body);
-            model.body.MoveTo(FlatConverter.ToFlatVector(pos));
-            model.body.RotateTo(rotation);
-            Physics.Physics.flatWorld.AddBody(model.body);
-            model.body.owner = this;
+            Model = ModelFactory.CreateModel(spriteData, body);
+            Model.body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.body.RotateTo(rotation);
+            Physics.Physics.flatWorld.AddBody(Model.body);
+            Model.body.owner = this;
 
-            this.baseSpriteZ = this.model.spriteData.z;
+            this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
         }
 
+        public virtual void UpdateAnimationState()
+        {
+            switch (Model.modelState)
+            {
+                case ModelStates.MOVING:
+                    Model.animationState = AnimationStates.MOVING;
+                    break;
+                case ModelStates.IDLE:
+                    Model.animationState = AnimationStates.IDLE;
+                    break;
+                case ModelStates.JUMPING:
+                    Model.animationState = AnimationStates.JUMPING;
+                    break;
+                case ModelStates.SPRINTING:
+                    Model.animationState = AnimationStates.SPRINTING;
+                    break;
+                case ModelStates.BATTLE_IDLE:
+                    Model.animationState = AnimationStates.BATTLE_IDLE;
+                    break;
+                case ModelStates.BATTLE_MOVING:
+                    Model.animationState = AnimationStates.BATTLE_MOVING;
+                    break;
+                case ModelStates.BATTLE_ROLL:
+                    Model.animationState = AnimationStates.BATTLE_ROLL;
+                    break;
+            }
+
+            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));
+        }
+
+
+        public override void Update()
+        {
+            UpdateAnimationState();
+            base.Update();
+        }
+
 
         public virtual void SetAnimations()
         {
-            this.model.aManager.AddStaticAnimation(this.model.spriteData);
+            this.Model.aManager.AddStaticAnimation(this.Model.spriteData);
         }
 
         public override void Draw()
         {
-            model.DrawAngle = model.body.Angle;
-            this.model.Draw();
+            Model.DrawAngle = Model.body.Angle;
+            this.Model.Draw();
         }
 
-        public override void DrawCollider()
+        public virtual void DrawCollider()
         {
-            this.model.DrawCollider();
+            this.Model.DrawCollider();
         }
     }
 }

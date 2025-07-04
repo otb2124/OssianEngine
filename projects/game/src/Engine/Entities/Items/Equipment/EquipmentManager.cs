@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
+using Physics;
 using UI;
 using Utils;
 using static Entities.PhysicalEntity;
@@ -19,6 +20,8 @@ namespace Entities
         public WeaponHand currentHand = WeaponHand.LEFT;
 
         public EquipmentSlot[] slots;
+
+        public bool IsWeaponOut = false;
 
 
         public EquipmentManager()
@@ -70,6 +73,7 @@ namespace Entities
         {
             return ((ArmorEquipment)GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment);
         }
+
 
         public void Update(Vector2 hitboxpos, Vector2 hitboxsize, float angle)
         {

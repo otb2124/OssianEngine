@@ -1,43 +1,72 @@
-﻿using CSPlatformerSandbox.Engine.Entities.Stats;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 
 namespace Entities
 {
     public static class HitboxChecker
     {
 
-        public static void CheckForCollisions(LivingEntity entA, LivingEntity entB)
+        public static void CheckForCollision(StatsEntity entA, StatsEntity entB)
         {
-            //check both ways
-            if(CheckForHit(entA.statsManager.equipmentManager.GetCurrentWeapon().hitbox, entB.statsManager.equipmentManager.GetCurrentArmor().hitbox))
+            if (entA == entB) return;
+
+            (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float damageB) = (entA, entB) switch
             {
-                HitboxHandler.HandleHit(entA, entB);
+                (EquipmentEntity eqA, EquipmentEntity eqB) => (
+                    eqA.EquipmentManager.GetCurrentWeapon().hitbox.outerHalf,
+                    eqB.EquipmentManager.GetCurrentArmor().hitbox.extends,
+                    eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
+                    eqB.EquipmentManager.GetCurrentWeapon().PhysDmg
+                ),
+                (NonHumanoidEntity nhA, NonHumanoidEntity nhB) => (
+                    nhA.DamageHitbox.extends,
+                    nhB.BodyHitbox.extends,
+                    nhA.Stats.bodyDamage,
+                    nhB.Stats.bodyDamage
+                ),
+                (NonHumanoidEntity nhA, EquipmentEntity eqB) => (
+                    nhA.DamageHitbox.extends,
+                    eqB.EquipmentManager.GetCurrentArmor().hitbox.extends,
+                    nhA.Stats.bodyDamage,
+                    eqB.EquipmentManager.GetCurrentWeapon().PhysDmg
+                ),
+                //possibly redundant part of code
+                (EquipmentEntity eqA, NonHumanoidEntity nhB) => (
+                    eqA.EquipmentManager.GetCurrentWeapon().hitbox.outerHalf,
+                    nhB.BodyHitbox.extends,
+                    eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
+                    nhB.Stats.bodyDamage
+                ),
+                _ => (null, null, 0f, 0f)
+            };
+
+
+            if (CheckIntersection(hitboxA, hitboxB))
+            {
+                BattleHandler.HandleHit(entB, damageA);
             }
-            if (CheckForHit(entB.statsManager.equipmentManager.GetCurrentWeapon().hitbox, entA.statsManager.equipmentManager.GetCurrentArmor().hitbox))
+
+        }
+
+        public static void CheckForInterraction(InteractiveEntity interactiveEnt, EquipmentEntity livingEnt)
+        {
+            if (CheckIntersection(livingEnt.EquipmentManager.GetCurrentArmor().hitbox.extends, interactiveEnt.InteractionField.extends))
             {
-                HitboxHandler.HandleHit(entB, entA);
+                InteractionHandler.HandleInterraction(interactiveEnt, livingEnt);
             }
         }
 
-        public static void CheckForInterraction(InteractiveEntity interractiveEnt, LivingEntity livingEnt)
-        {
-            if(CheckForInterraction(livingEnt.statsManager.equipmentManager.GetCurrentArmor().hitbox, interractiveEnt.InteractionField))
-            {
-                HitboxHandler.HandleInterraction(interractiveEnt, livingEnt);
-            }
-        }
 
-
-        public static bool CheckForHit(WeaponHitbox weaponhitboxFrom, Hitbox hitboxTo)
+        public static bool CheckForHit(RotatedRectangle from, RotatedRectangle to)
         {
-            if (weaponhitboxFrom != null && hitboxTo != null)
+            if (from != null && to != null)
             {
-                if (weaponhitboxFrom.outerHalf.Intersects(hitboxTo.extends))
+                if (from.Intersects(to))
                 {
                     return true;
                 }
@@ -46,17 +75,9 @@ namespace Entities
             return false;
         }
 
-        public static bool CheckForInterraction(Hitbox hitboxFrom, Hitbox hitboxTo)
-        {
-            if (hitboxFrom != null && hitboxTo != null)
-            {
-                if (hitboxFrom.extends.Intersects(hitboxTo.extends))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+        private static bool CheckIntersection(RotatedRectangle from, RotatedRectangle to) 
+        { 
+            return from != null && to != null && from.Intersects(to); 
         }
 
     }

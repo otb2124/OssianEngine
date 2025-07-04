@@ -58,22 +58,20 @@ namespace Entities
 
         public override void Update()
         {
-            InteractionField.Update(FlatConverter.ToVector2(this.model.body.Position), new Vector2(this.model.body.Width + InteractionFieldSize.X, this.model.body.Height + InteractionFieldSize.Y), 0);
+            InteractionField.Update(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width + InteractionFieldSize.X, this.Model.body.Height + InteractionFieldSize.Y), 0);
             base.Update();
         }
 
         public override void Draw()
         {
-            model.DrawAngle = 0;
-            this.model.Draw();
+            Model.DrawAngle = 0;
+            this.Model.Draw();
         }
 
 
-        public override void DrawHitbox()
+        public virtual void DrawInterractionField()
         {
             InteractionField.Draw(Color.Red);
-
-            base.DrawHitbox();
         }
     }
 }

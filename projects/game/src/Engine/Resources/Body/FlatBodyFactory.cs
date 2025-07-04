@@ -36,6 +36,9 @@ namespace Resources
                 case FlatBodyPreset.HUMANOID:
                     body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 40 - offSet.Y), 10, 0);
                     break;
+                case FlatBodyPreset.ANIMAL:
+                    body = createFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 20 - offSet.Y), 10, 0);
+                    break;
                 default:
                     body = createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(10 - offSet.X, 10 - offSet.Y), 1, 0);
                     break;

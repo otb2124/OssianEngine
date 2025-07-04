@@ -37,14 +37,15 @@ namespace Resources
             { Models.CRATE_0, new ModelPreset(FlatBodyPreset.CRATE_0, StaticSprites.ENTITIES_STATIC_CRATE_0, Vector2.Zero) },
             { Models.CRATE_1, new ModelPreset(FlatBodyPreset.CRATE_1, StaticSprites.ENTITIES_STATIC_CRATE_1, Vector2.Zero) },
             { Models.BALL, new ModelPreset(FlatBodyPreset.CIRCLE, StaticSprites.ENTITIES_STATIC_BALL, Vector2.Zero) },
-            { Models.MOB, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_MOB0, new Vector2(10, 5)) }
+            { Models.BANDIT, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_BANDIT, new Vector2(10, 5)) },
+            { Models.SLIME, new ModelPreset(FlatBodyPreset.ANIMAL, StaticSprites.ENTITIES_SLIME,  new Vector2(0, 0)) }
         };
 
         public static Model CreateModel(Models model)
         {
             if (!modelPresets.TryGetValue(model, out var preset))
             {
-                throw new ArgumentOutOfRangeException(nameof(model), model, "Invalid model type");
+                throw new ArgumentOutOfRangeException(nameof(model), model, "Invalid Model type");
             }
 
             return new Model(preset);
