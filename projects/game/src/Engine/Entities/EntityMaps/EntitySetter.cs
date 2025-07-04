@@ -63,6 +63,7 @@ namespace Entities
                     entities.Add(Entities.player);
 
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-250, 100), 0f));
+                    entities.Add(new AnimalMob(Models.SLIME, new Vector2(-200, 100), 0f));
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(250, 100), 0f));
 
                     entities.Add(new TileEntity(new Vector2(0, -250), new Point(20, 1), TileEntity.TileSets.SET1, 0, true));

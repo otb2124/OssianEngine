@@ -37,7 +37,6 @@ namespace Entities
                 CurrentCommand = CurrentQueue.Dequeue();
                 CurrentCommand.CommandTime = 0f;
                 IsExecutingCommand = true;
-                Console.WriteLine(CurrentCommand.Duration);
             }
 
             if (IsExecutingCommand && CurrentCommand != null)

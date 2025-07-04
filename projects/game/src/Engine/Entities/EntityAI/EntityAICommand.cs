@@ -52,7 +52,7 @@ namespace Entities
 
         public void StandStill()
         {
-            
+            Entity.Model.modelState = ModelStates.IDLE;
         }
 
         public void Move()
@@ -63,6 +63,7 @@ namespace Entities
 
         public void Move(Directions direction)
         {
+            Entity.Model.modelState = ModelStates.IDLE;
             Entity.Model.direction = direction;
 
             float speed = Entity.Stats.speed;
@@ -78,6 +79,7 @@ namespace Entities
 
         public void Jump()
         {
+            Entity.Model.modelState = ModelStates.JUMPING;
             Entity.Model.body.Jump(Entity.Stats.jumpSpeed);
         }
 

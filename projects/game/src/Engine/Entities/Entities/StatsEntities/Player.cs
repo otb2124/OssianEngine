@@ -2,10 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
-using System;
-using System.Diagnostics;
 using Utils;
-using MathHelper = Utils.MathHelper;
 
 namespace Entities
 {
@@ -42,7 +39,7 @@ namespace Entities
 
             Stats.Refill();
 
-            status = LivingEntityStatus.FRIENDLY;
+            EntityFraction = EntityFractions.PLAYER;
         }
 
 

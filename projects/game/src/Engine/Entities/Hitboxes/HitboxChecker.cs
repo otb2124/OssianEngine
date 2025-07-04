@@ -5,11 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
+using static Entities.StatsEntity;
 
 namespace Entities
 {
     public static class HitboxChecker
     {
+
+        private static readonly Dictionary<EntityFractions, HashSet<EntityFractions>> ignoreHit = new()
+        {
+            { EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL } },
+        };
+
+
 
         public static void CheckForCollision(StatsEntity entA, StatsEntity entB)
         {
@@ -35,7 +43,6 @@ namespace Entities
                     nhA.Stats.bodyDamage,
                     eqB.EquipmentManager.GetCurrentWeapon().PhysDmg
                 ),
-                //possibly redundant part of code
                 (EquipmentEntity eqA, NonHumanoidEntity nhB) => (
                     eqA.EquipmentManager.GetCurrentWeapon().hitbox.outerHalf,
                     nhB.BodyHitbox.extends,
@@ -46,12 +53,19 @@ namespace Entities
             };
 
 
-            if (CheckIntersection(hitboxA, hitboxB))
+            if (CheckIntersection(hitboxA, hitboxB) && CanDealDamage(entA.EntityFraction, entB.EntityFraction))
             {
                 BattleHandler.HandleHit(entB, damageA);
             }
 
         }
+
+        private static bool CanDealDamage(EntityFractions attacker, EntityFractions target)
+        {
+            return !ignoreHit.TryGetValue(attacker, out var targets) || !targets.Contains(target);
+        }
+
+
 
         public static void CheckForInterraction(InteractiveEntity interactiveEnt, EquipmentEntity livingEnt)
         {

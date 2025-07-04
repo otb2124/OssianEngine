@@ -11,14 +11,15 @@ namespace Entities
         public EntityStats Stats;
         public Inventory Inventory;
 
-        public enum LivingEntityStatus
+        public enum EntityFractions
         {
-            FRIENDLY,
             NEUTRAL,
-            AGGRESSIVE,
+            PLAYER,
+            ANIMAL,
+            BANDIT,
         };
 
-        public LivingEntityStatus status;
+        public EntityFractions EntityFraction;
 
         public StatsEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
@@ -49,7 +50,7 @@ namespace Entities
         public virtual void SetStats()
         {
             Stats = new EntityStats();
-            status = LivingEntityStatus.NEUTRAL;
+            EntityFraction = EntityFractions.NEUTRAL;
         }
 
         public virtual void SetInventory()

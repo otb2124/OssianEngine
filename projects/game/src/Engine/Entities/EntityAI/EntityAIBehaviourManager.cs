@@ -18,6 +18,7 @@ namespace Entities
         {
             NONE,
             IDLE,
+            IDLE_RANDOM,
             AGGRO,
         };
 
@@ -87,6 +88,19 @@ namespace Entities
                             };
                             
                             break;
+                        case BehaviourCases.IDLE_RANDOM:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f, true),
+                                new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
+                                new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f, true),
+                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
+                            };
+
+                            CommandPool = Shuffle();
+
+                            break;
                     }
                     break;
             }
@@ -104,6 +118,22 @@ namespace Entities
                 currentQueue.Enqueue(command);
             }
 
+        }
+
+
+        private EntityAICommand[] Shuffle()
+        {
+            var list = CommandPool.ToList();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = RandomHelper.RandomInteger(0, n + 1);
+                var temp = list[k];
+                list[k] = list[n];
+                list[n] = temp;
+            }
+            return list.ToArray();
         }
     }
 }
