@@ -27,8 +27,6 @@ namespace Graphics
         private const int MinZoom = 1;
         private const int MaxZoom = 32;
 
-        public CameraOperator cameraOperator;
-
         public Vector2 Position
         {
             get { return position; }
@@ -87,7 +85,7 @@ namespace Graphics
 
         public Camera(Screen screen, Game game)
         {
-            position = Vector2.Zero;
+            position = new Vector2(0, -Graphics.screen.Height/2f);
             view = Matrix.Identity;
             proj = Matrix.Identity;
 
@@ -110,13 +108,8 @@ namespace Graphics
 
         public void Update()
         {
-
             Matrix translation = Matrix.CreateTranslation(-position.X, -position.Y, 0);
-
-            // Calculate the view matrix by combining translation with the look-at matrix
             view = translation * Matrix.CreateLookAt(new Vector3(0, 0, (float)z), Vector3.Zero, new Vector3(up, 0f));
-
-            // Update the projection matrix
             proj = Matrix.CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, MinZ, MaxZ);
         }
 

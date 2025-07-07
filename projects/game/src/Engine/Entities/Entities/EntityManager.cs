@@ -50,15 +50,21 @@ namespace Entities
                                 if (entTo is StatsEntity)
                                 {
 
-                                    HitboxChecker.CheckForCollision((StatsEntity)entFrom, (StatsEntity)entTo);
-
-                                    if (entTo is EquipmentEntity eqEnt && entFrom != entTo)
+                                    if(entFrom is StatsEntity)
                                     {
-                                        // Check for interaction
-                                        if (entFrom is InteractiveEntity && entTo is Player)
-                                        {
-                                            HitboxChecker.CheckForInterraction((InteractiveEntity)entFrom, (EquipmentEntity)entTo);
-                                        }
+                                        HitboxChecker.CheckForCollision((StatsEntity)entFrom, (StatsEntity)entTo);
+                                    }
+
+                                    
+
+                                    
+                                }
+                                else
+                                {
+                                    // Check for interaction
+                                    if (entFrom is InteractiveEntity && entTo is Player)
+                                    {
+                                        HitboxChecker.CheckForInterraction((InteractiveEntity)entFrom, (EquipmentEntity)entTo);
                                     }
                                 }
                             }

@@ -16,7 +16,7 @@ namespace Entities
         public EntityMapManager()
         {
             MapsCount = 2;
-            CurrentMapId = 1;
+            CurrentMapId = 0;
         }
 
         public void Init()

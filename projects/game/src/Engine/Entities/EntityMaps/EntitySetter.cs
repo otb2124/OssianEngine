@@ -23,18 +23,18 @@ namespace Entities
                     Entities.player = new Player(new Vector2(0, 50));
                     entities.Add(Entities.player);
 
-                    entities.Add(new TileEntity(new Vector2(-75,  0), new Point(3, 3), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(50,   0), new Point(3, 1), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(200,  0), new Point(2, 1), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(400,  0), new Point(3, 2), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(600,  0), new Point(3, 2), TileEntity.TileSets.SET0, 0.2f));
-                    entities.Add(new TileEntity(new Vector2(800,  0), new Point(3, 2), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(1000, 0), new Point(2, 2), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(1200, 0), new Point(3, 2), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(-150, 190), new Point(15, 1), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(0, -250), new Point(20, 1), TileEntity.TileSets.SET0, 0, true));
-                    entities.Add(new TileEntity(new Vector2(-500, -230), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
-                    entities.Add(new TileEntity(new Vector2(500, -230), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(-75,  -250), new Point(3, 3), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(50,   -250), new Point(3, 1), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(200,  -250), new Point(2, 1), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(400,  -250), new Point(3, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(600,  -250), new Point(3, 2), TileEntity.TileSets.SET0, 0.2f));
+                    entities.Add(new TileEntity(new Vector2(800,  -250), new Point(3, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(1000, -250), new Point(2, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(1200, -250), new Point(3, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(-150,   90), new Point(15, 1), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(0,    -500), new Point(20, 1), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(-500, -550), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(500, -550), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
 
                     entities.Add(new PlatformEntity(new Vector2(0, 90), 5));
                     entities.Add(new PlatformEntity(new Vector2(140, 150), 5));
@@ -65,6 +65,13 @@ namespace Entities
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-250, 100), 0f));
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-200, 100), 0f));
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(250, 100), 0f));
+
+                    entities.Add(new PlatformEntity(new Vector2(-500, -150), 5));
+                    entities.Add(new PlatformEntity(new Vector2(500, -150), 5));
+                    entities.Add(new PlatformEntity(new Vector2(-500, -100), 5));
+                    entities.Add(new PlatformEntity(new Vector2(500, -100), 5));
+                    entities.Add(new PlatformEntity(new Vector2(-500, -50), 5));
+                    entities.Add(new PlatformEntity(new Vector2(500, -50), 5));
 
                     entities.Add(new TileEntity(new Vector2(0, -250), new Point(20, 1), TileEntity.TileSets.SET1, 0, true));
                     entities.Add(new TileEntity(new Vector2(-500, -230), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));

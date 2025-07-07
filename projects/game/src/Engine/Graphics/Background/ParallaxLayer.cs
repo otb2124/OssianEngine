@@ -26,7 +26,7 @@ namespace Graphics
         {
             Sprite = spriteData;
             LayerSpeed = speed;
-            Position = new Vector2();
+            Position = new Vector2(0, -Graphics.screen.Height/2f);
             StickToCameraY = stickToCameraY;
         }
 
