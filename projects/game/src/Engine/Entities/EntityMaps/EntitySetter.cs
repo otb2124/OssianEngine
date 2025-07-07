@@ -32,9 +32,9 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(1000, -250), new Point(2, 2), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(1200, -250), new Point(3, 2), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(-150,   90), new Point(15, 1), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(0,    -500), new Point(20, 1), TileEntity.TileSets.SET0, 0, true));
-                    entities.Add(new TileEntity(new Vector2(-500, -550), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
-                    entities.Add(new TileEntity(new Vector2(500, -550), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(0,    -625), new Point(20, 1), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(500,  -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
 
                     entities.Add(new PlatformEntity(new Vector2(0, 90), 5));
                     entities.Add(new PlatformEntity(new Vector2(140, 150), 5));

@@ -1,18 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
+using Physics;
+using System;
 
 namespace Graphics
 {
     public class CameraOperator
     {
-        public Camera camera;
-        public float cameraSpeed = 5f;
-        private Vector2 targetPosition;
+        public Camera camera; 
+        public float cameraSpeed = 5f; 
+        private Vector2 targetPosition; 
         private readonly float transitionSpeed = 0.05f;
 
         public CameraOperator(Camera camera)
         {
             this.camera = camera;
-            targetPosition = camera.position; 
+            targetPosition = camera.position;
         }
 
         public void Update()
@@ -24,15 +26,20 @@ namespace Graphics
             float baseZoom = (float)camera.GetZFromHeight(Graphics.screen.Height);
             float adjScale = currentZoom / baseZoom;
 
-            float cameraWidth = screenSize.X / adjScale;
-            float cameraHeight = screenSize.Y / adjScale;
+            // Calculate bounds
+            float leftBound = (-mapSize.X + screenSize.X * 1.5f) / adjScale;
+            float rightBound = (mapSize.X - screenSize.X * 1.5f) / adjScale;
+            float bottomBound = (-mapSize.Y + screenSize.Y * 1.5f) / adjScale;
+            float topBound = (mapSize.Y - screenSize.Y * 1.5f) / adjScale;
 
-            float topBound = (mapSize.Y - screenSize.Y * 1.5f);
-            float bottomBound = (-mapSize.Y + screenSize.Y * 1.5f);
-            float leftBound = (-mapSize.X + screenSize.X * 1.5f);
-            float rightBound = (mapSize.X - screenSize.X * 1.5f);
+            Vector2 playerPosition = FlatConverter.ToVector2(Entities.Entities.player.Model.body.Position);
 
-            // Handle movement inputs
+            float distToLeft = playerPosition.X - leftBound;
+            float distToRight = rightBound - playerPosition.X;
+
+            float minDistance = MathHelper.Min(distToLeft, distToRight);
+            
+
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
             {
                 targetPosition.Y += cameraSpeed;
@@ -50,7 +57,6 @@ namespace Graphics
                 targetPosition.X -= cameraSpeed;
             }
 
-            // Zoom
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
             {
                 camera.MoveZ(-2f);
@@ -67,3 +73,4 @@ namespace Graphics
         }
     }
 }
+
