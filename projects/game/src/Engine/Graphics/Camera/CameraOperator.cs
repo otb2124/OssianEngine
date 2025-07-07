@@ -1,19 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
-using System.Diagnostics;
-using System.Drawing;
-using Point = Microsoft.Xna.Framework.Point;
 
 namespace Graphics
 {
     public class CameraOperator
     {
-
         public Camera camera;
-        public float cameraSpeed = 2f;
+        public float cameraSpeed = 5f;
+        private Vector2 targetPosition;
+        private readonly float transitionSpeed = 0.05f;
 
         public CameraOperator(Camera camera)
         {
             this.camera = camera;
+            targetPosition = camera.position; 
         }
 
         public void Update()
@@ -21,35 +20,34 @@ namespace Graphics
             Vector2 mapSize = Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Size.ToVector2();
             Vector2 screenSize = new Vector2(Graphics.screen.Width, Graphics.screen.Height);
 
-            // Calculate bounds with zoom adjustment
             float currentZoom = (float)camera.Z;
-            float baseZoom = camera.MaxZ;
+            float baseZoom = (float)camera.GetZFromHeight(Graphics.screen.Height);
             float adjScale = currentZoom / baseZoom;
 
-            // Apply zoom scaling to all bounds
-            float topBound = (mapSize.Y - screenSize.Y * 1.5f) / adjScale;
-            float bottomBound = (-mapSize.Y + screenSize.Y * 1.5f) / adjScale;
-            float leftBound = (-mapSize.X + screenSize.X * 1.5f) / adjScale;
-            float rightBound = (mapSize.X - screenSize.X * 1.5f) / adjScale;
+            float cameraWidth = screenSize.X / adjScale;
+            float cameraHeight = screenSize.Y / adjScale;
 
-            Vector2 newPos = camera.position;
+            float topBound = (mapSize.Y - screenSize.Y * 1.5f);
+            float bottomBound = (-mapSize.Y + screenSize.Y * 1.5f);
+            float leftBound = (-mapSize.X + screenSize.X * 1.5f);
+            float rightBound = (mapSize.X - screenSize.X * 1.5f);
 
-            // Movement
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED] && newPos.Y < topBound)
+            // Handle movement inputs
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
             {
-                camera.MoveUp(cameraSpeed);
+                targetPosition.Y += cameraSpeed;
             }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED] && newPos.Y > bottomBound)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED])
             {
-                camera.MoveUp(-cameraSpeed);
+                targetPosition.Y -= cameraSpeed;
             }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED] && newPos.X < rightBound)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED])
             {
-                camera.MoveRight(cameraSpeed);
+                targetPosition.X += cameraSpeed;
             }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED] && newPos.X > leftBound)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED])
             {
-                camera.MoveRight(-cameraSpeed);
+                targetPosition.X -= cameraSpeed;
             }
 
             // Zoom
@@ -61,6 +59,11 @@ namespace Graphics
             {
                 camera.MoveZ(2f);
             }
+
+            targetPosition.X = MathHelper.Clamp(targetPosition.X, leftBound, rightBound);
+            targetPosition.Y = MathHelper.Clamp(targetPosition.Y, bottomBound, topBound);
+
+            camera.position = Vector2.Lerp(camera.position, targetPosition, transitionSpeed);
         }
     }
 }
