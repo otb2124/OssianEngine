@@ -66,6 +66,20 @@ namespace Entities
         }
 
 
+        public bool HasPlayer()
+        {
+            return Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Contains(Entities.player);
+        }
+
+        public void AddEntity(Entity ent)
+        {
+            if (ent is PhysicalEntity physicalEntity)
+            {
+                Physics.Physics.flatWorld.AddBody(physicalEntity.Model.body);
+            }
+            Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Add(ent);
+
+        }
         public void RemoveEntity(Entity ent)
         {
             if (ent is PhysicalEntity physicalEntity)

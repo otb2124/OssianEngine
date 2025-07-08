@@ -16,7 +16,6 @@ namespace Utils
         public void Execute(string[] args)
         {
             Entities.Entities.player.Stats.Refill();
-
             Console.WriteLine($"Player Stats Refilled");
         }
     }

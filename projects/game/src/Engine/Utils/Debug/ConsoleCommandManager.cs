@@ -42,7 +42,9 @@ namespace Utils
                 new SpawnCommand(),
                 new ClearCommand(),
                 new RefillCommand(),
-                new GodCommand()
+                new GodCommand(),
+                new ResCommand(),
+                new KillCommand()
             };
             commands.Add("help", new HelpCommand(commandList));
             foreach (var command in commandList)
