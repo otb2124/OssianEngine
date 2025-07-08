@@ -69,7 +69,7 @@ namespace Entities
         }
 
 
-        public virtual void DrawInterractionField()
+        public virtual void DrawInteractionField()
         {
             InteractionField.Draw(Color.Red);
         }

@@ -26,6 +26,10 @@ namespace Resources
 
         public float DrawAngle = 0;
 
+
+        public Model()
+        {
+        }
         public Model(ModelPreset preset)
         {
             this.bodyOffset = preset.offset;

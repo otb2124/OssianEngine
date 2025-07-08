@@ -20,9 +20,6 @@ namespace Entities
             switch (id)
             {
                 case 0:
-                    Entities.player = new Player(new Vector2(0, 50));
-                    entities.Add(Entities.player);
-
                     entities.Add(new TileEntity(new Vector2(-75,  -250), new Point(3, 3), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(50,   -250), new Point(3, 1), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(200,  -250), new Point(2, 1), TileEntity.TileSets.SET0));
@@ -59,9 +56,6 @@ namespace Entities
 
                     break;
                 case 1:
-                    Entities.player = new Player(new Vector2(0, 20));
-                    entities.Add(Entities.player);
-
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-250, 100), 0f));
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-200, 100), 0f));
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(250, 100), 0f));

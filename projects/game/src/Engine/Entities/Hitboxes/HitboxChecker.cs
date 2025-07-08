@@ -17,8 +17,6 @@ namespace Entities
             { EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL } },
         };
 
-
-
         public static void CheckForCollision(StatsEntity entA, StatsEntity entB)
         {
             if (entA == entB) return;

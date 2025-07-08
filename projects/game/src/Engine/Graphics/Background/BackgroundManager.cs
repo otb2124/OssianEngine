@@ -53,6 +53,14 @@ namespace Graphics
             this.entitiesToRemove.Add(ent);
         }
 
+        public void RemoveAll()
+        {
+            foreach (BackgroundEntity entities in entities)
+            {
+                RemoveEntity(entities);
+            }
+        }
+
         public void Draw()
         {
             if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)

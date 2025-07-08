@@ -9,7 +9,7 @@ namespace Entities
     public class Player : EquipmentEntity
     {
 
-        public Player(Vector2 pos) : base(Models.PLAYER, pos, 0f)
+        public Player() : base(Models.PLAYER, Vector2.Zero, 0f)
         {
             
         }

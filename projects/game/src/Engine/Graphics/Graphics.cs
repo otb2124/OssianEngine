@@ -44,7 +44,7 @@ namespace Graphics
             backgroundManager.DrawCanvas();
             sprites.End();
 
-            // DrawParallaxBackLayers other background elements: Alpha blending (for transparency)
+            //bg layers
             sprites.Begin(camera, BlendState.NonPremultiplied);
             backgroundManager.Draw();
             sprites.End();
@@ -61,6 +61,7 @@ namespace Graphics
                 shapes.Begin(camera);
                 Entities.Entities.entityManager.DrawColliders();
                 Entities.Entities.entityManager.DrawHitboxes();
+                Entities.Entities.eventManager.DrawColliders();
                 shapes.End();
             }
 

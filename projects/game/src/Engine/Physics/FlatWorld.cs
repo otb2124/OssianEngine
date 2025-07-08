@@ -72,6 +72,19 @@ namespace Physics
             return bodyList.Remove(body);
         }
 
+
+        public void RefreshList(List<Entity> newList)
+        {
+            bodyList.Clear();
+            for (int i = 0; i < newList.Count; i++)
+            {
+                if (newList[i] is PhysicalEntity phent)
+                {
+                    AddBody(phent.Model.body);
+                }
+            }
+        }
+
         public bool GetBody(int index, out FlatBody body)
         {
             body = null;

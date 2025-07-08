@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Physics;
+using SharpDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +19,6 @@ namespace Entities
         public EntityMapManager()
         {
             MapsCount = 2;
-            CurrentMapId = 1;
         }
 
         public void Init()
@@ -26,7 +28,32 @@ namespace Entities
             for (int i = 0; i < MapsCount; i++)
             {
                 maps[i] = new EntityMap(i);
+                maps[i].Entities = EntitySetter.FillEntityMap(i);
             }
         }
+
+        public void ChangeMap(int nextId, Vector2 playerPos)
+        {
+            if(Entities.player == null)
+            {
+                Entities.player = new Player();
+            }
+            else
+            {
+                Entities.entityMapManager.maps[CurrentMapId].Entities.Remove(Entities.player);
+            }
+
+            CurrentMapId = nextId;
+            Entities.player.Model.body.MoveTo(FlatConverter.ToFlatVector(playerPos));
+            Entities.entityMapManager.maps[nextId].Entities.Add(Entities.player);
+
+            Physics.Physics.flatWorld.RefreshList(Entities.entityMapManager.maps[nextId].Entities);
+
+            Graphics.Graphics.backgroundManager.RemoveAll();
+            Graphics.Graphics.backgroundManager.Init();
+
+            Entities.eventManager.Init();
+        }
+
     }
 }

@@ -19,7 +19,7 @@ namespace Entities
 
         public void Init()
         {
-            Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities = EntitySetter.FillEntityMap(Entities.entityMapManager.CurrentMapId);
+            //Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities = EntitySetter.FillEntityMap(Entities.entityMapManager.CurrentMapId);
         }
 
         public void Update()
@@ -38,8 +38,6 @@ namespace Entities
                     {
                         entFrom.Update();
 
-
-
                         //contact A to B
                         foreach (var entTo in entitiesSnapshot)
                         {
@@ -49,20 +47,11 @@ namespace Entities
                                 //if entityTo is also stats 
                                 if (entTo is StatsEntity)
                                 {
-
                                     if(entFrom is StatsEntity)
                                     {
                                         HitboxChecker.CheckForCollision((StatsEntity)entFrom, (StatsEntity)entTo);
                                     }
-
-                                    
-
-                                    
-                                }
-                                else
-                                {
-                                    // Check for interaction
-                                    if (entFrom is InteractiveEntity && entTo is Player)
+                                    else if (entFrom is InteractiveEntity && entTo is Player)
                                     {
                                         HitboxChecker.CheckForInterraction((InteractiveEntity)entFrom, (EquipmentEntity)entTo);
                                     }
@@ -76,6 +65,30 @@ namespace Entities
             }
         }
 
+
+        public void RemoveEntity(Entity ent)
+        {
+            if (ent is PhysicalEntity physicalEntity)
+            {
+                Physics.Physics.flatWorld.RemoveBody(physicalEntity.Model.body);
+            }
+            Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(ent);
+            
+        }
+
+
+        public void RemoveAll()
+        {
+            var entitiesSnapshot = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.ToList();
+            foreach (Entity entity in entitiesSnapshot)
+            {
+                if(!(entity is Player))
+                {
+                    RemoveEntity(entity);
+                }
+                
+            }
+        }
 
 
         //models
@@ -109,6 +122,11 @@ namespace Entities
                 if (entity is PhysicalEntity physEnt)
                 {
                     physEnt.DrawCollider();
+
+                    if (entity is InteractiveEntity iEnt)
+                    {
+                        iEnt.DrawInteractionField();
+                    }
                 }
             }
         }

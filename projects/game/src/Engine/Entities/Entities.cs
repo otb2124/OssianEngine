@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 
 namespace Entities
 {
@@ -11,6 +7,7 @@ namespace Entities
 
         public static EntityManager entityManager;
         public static EntityMapManager entityMapManager;
+        public static EventManager eventManager;
 
         public static void Init()
         {
@@ -18,7 +15,7 @@ namespace Entities
             entityMapManager.Init();
 
             entityManager = new EntityManager();
-            entityManager.Init();
+            eventManager = new EventManager();
         }
 
         public static Player player;

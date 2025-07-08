@@ -1,4 +1,5 @@
-﻿using Graphics;
+﻿using Entities;
+using Graphics;
 using Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -58,19 +59,16 @@ namespace App
             Physics.Physics.watch = new Stopwatch();
             Physics.Physics.sampleTimer.Start();
 
-
             GameStateManager.SetDefault();
 
-
             commandManager = new ConsoleCommandManager();
-
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            
+            Entities.Entities.entityMapManager.ChangeMap(0, new Vector2(0, 20));
         }
 
         protected override void Update(GameTime gameTime)
@@ -82,6 +80,7 @@ namespace App
             Physics.Physics.Update();
             UI.UI.UIManager.Update();
             Entities.Entities.entityManager.Update();
+            Entities.Entities.eventManager.Update();
 
             commandManager.ProcessCommands();
 
