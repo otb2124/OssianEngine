@@ -18,10 +18,10 @@ namespace Graphics
             switch (Id)
             {
                 case 0:
-                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_MOON, new Vector2(0, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true });
+                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_MOON, new Vector2(0, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true, DrawnBeforeParallax = true });
                     break;
                 case 1:
-                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_SUN, new Vector2(0, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true });
+                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_SUN, new Vector2(0, 150), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true, DrawnBeforeParallax = true });
                     break;
             }
 

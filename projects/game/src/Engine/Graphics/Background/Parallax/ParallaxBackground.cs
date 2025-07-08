@@ -101,6 +101,11 @@ namespace Graphics
             }
         }
 
+        public void DrawParallaxBackLayer(int id)
+        {
+            ParallaxBackLayers[id].Draw();
+        }
+
         public void DrawParallaxFrontLayers()
         {
             foreach(var item in ParallaxFrontLayers)

@@ -22,6 +22,8 @@ namespace Graphics
         public bool isStickToCamera;
         public bool isStickToZoom;
 
+        public bool DrawnBeforeParallax = false;
+
         public BackgroundEntity(StaticSprites spritePreset, Vector2 pos, BGEntityDynamics type) 
         {
             sprite = spritePreset;

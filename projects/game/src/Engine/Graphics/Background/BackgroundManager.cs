@@ -60,13 +60,20 @@ namespace Graphics
         {
             if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
             {
+                foreach (var background in backgrounds
+                    .Where(e => e is BackgroundEntity && e.DrawnBeforeParallax)
+                    .OrderBy(e => StaticSpriteFactory.spriteMappings[e.sprite].z))
+                {
+                    background.Draw();
+                }
+
                 parallax.DrawParallaxBackLayers();
 
                 foreach (var background in backgrounds
-                .Where(e => e is BackgroundEntity)
-                .OrderBy(e => StaticSpriteFactory.spriteMappings[(e).sprite].z))
+                    .Where(e => e is BackgroundEntity && !e.DrawnBeforeParallax)
+                    .OrderBy(e => StaticSpriteFactory.spriteMappings[e.sprite].z))
                 {
-                    background.Draw();   
+                    background.Draw();
                 }
             }
         }
@@ -81,7 +88,10 @@ namespace Graphics
 
         public void DrawParallaxFrontLayers()
         {
-            parallax.DrawParallaxFrontLayers();   
+            if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
+            {
+                parallax.DrawParallaxFrontLayers();
+            }
         }
 
     }
