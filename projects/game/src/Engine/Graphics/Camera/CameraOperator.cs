@@ -26,7 +26,7 @@ namespace Graphics
 
             // Zoom
             float currentZoom = (float)camera.Z;
-            float initialZoom = (float)camera.MaxZ;
+            float initialZoom = (float)camera.MaxZ*1.5f;
             float adjScale = currentZoom / initialZoom;
 
             // Camera screen bounds (adjusted for zoom)
