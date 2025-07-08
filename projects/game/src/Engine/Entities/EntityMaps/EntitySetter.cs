@@ -76,7 +76,7 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(0, -630), new Point(20, 1), TileEntity.TileSets.SET1, 0, true));
                     entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
                     entities.Add(new TileEntity(new Vector2(500, -600), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
-
+                    entities.Add(new TileEntity(new Vector2(1000, -600), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
                     entities.Add(new TileEntity(new Vector2(-1000, -600), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
 
                     break;

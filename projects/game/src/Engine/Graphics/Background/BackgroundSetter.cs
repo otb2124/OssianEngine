@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Utils;
-using static Graphics.BackgroundManager;
 
 namespace Graphics
 {
@@ -10,7 +9,7 @@ namespace Graphics
 
 
 
-        public static List<BackgroundEntity> SetBackgrounds(int Id)
+        public static List<BackgroundEntity> SetEntities(int Id)
         {
 
             List<BackgroundEntity> backgrounds = new List<BackgroundEntity>();
@@ -18,10 +17,10 @@ namespace Graphics
             switch (Id)
             {
                 case 0:
-                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_MOON, new Vector2(0, 200), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true, DrawnBeforeParallax = true });
+                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_MOON, new Vector2(0, 200), 1) { isStickToCamera = true, isStickToZoom = true });
                     break;
                 case 1:
-                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_SUN, new Vector2(0, 150), BackgroundEntity.BGEntityDynamics.STATIC) { isStickToCamera = true, isStickToZoom = true, DrawnBeforeParallax = true });
+                    backgrounds.Add(new BackgroundEntity(StaticSprites.GRAPHICS_SUN, new Vector2(0, 150), 1) { isStickToCamera = true, isStickToZoom = true });
                     break;
             }
 
@@ -32,7 +31,7 @@ namespace Graphics
         public static ParallaxBackground SetParallax(int id)
         {
 
-            ParallaxBackground parallax = new ParallaxBackground(ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING);
+            ParallaxBackground parallax = new ParallaxBackground(ParallaxBackground.ParallaxBackgrounds.GREEN);
                         
 
             switch (id)
@@ -51,19 +50,22 @@ namespace Graphics
         }
 
 
-        public static BackgroundState SetBackgroundState(int Id)
+
+        public static List<DynamicBackgroundEvent> SetDynamicBackgroundEvents(int id)
         {
+            List<DynamicBackgroundEvent> list = new List<DynamicBackgroundEvent>();
 
-            BackgroundState state = BackgroundState.NONE;
-
-            switch (Id)
+            switch (id)
             {
                 case 0:
-                    state = BackgroundState.NONE;
+                    break;
+                case 1:
+                    list.Add(new DynamicBackgroundEvent(DynamicBackgroundEvent.DynamicBackgroundEvents.CLOUDY_SKY));
                     break;
             }
 
-            return state;
+            return list;
         }
+
     }
 }

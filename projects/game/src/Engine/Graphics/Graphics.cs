@@ -17,6 +17,8 @@ namespace Graphics
         public static CameraOperator cameraOperator;
         public static Screen screen;
         public static GameTime gameTime;
+
+
         public static BackgroundManager backgroundManager;
 
         public static void Init()
@@ -43,7 +45,7 @@ namespace Graphics
             sprites.End();
 
             // DrawParallaxBackLayers other background elements: Alpha blending (for transparency)
-            sprites.Begin(camera, BlendState.NonPremultiplied, true);
+            sprites.Begin(camera, BlendState.NonPremultiplied);
             backgroundManager.Draw();
             sprites.End();
             

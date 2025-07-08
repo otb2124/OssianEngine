@@ -7,24 +7,18 @@ namespace Graphics
 {
     public class BackgroundEntity
     {
-        public enum BGEntityDynamics
-        {
-            STATIC,
-            CLOUD,
-        }
 
         public Vector2 pos;
         public Vector2 origin;
         public StaticSprites sprite;
-        public BGEntityDynamics type;
         public AnimationManager aManager;
 
         public bool isStickToCamera;
         public bool isStickToZoom;
 
-        public bool DrawnBeforeParallax = false;
+        public int LayerToDrawOn;
 
-        public BackgroundEntity(StaticSprites spritePreset, Vector2 pos, BGEntityDynamics type) 
+        public BackgroundEntity(StaticSprites spritePreset, Vector2 pos, int layerToDrawOn) 
         {
             sprite = spritePreset;
             this.pos = pos;
@@ -33,12 +27,11 @@ namespace Graphics
             this.aManager = new AnimationManager();
             this.aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
 
-            this.type = type;
+            LayerToDrawOn = layerToDrawOn;
         }
 
         public void Draw()
         {
-
             Rectangle srcRect = aManager.GetCurrent().GetCurrentFrame();
 
             Vector2 adjustedPos = pos;

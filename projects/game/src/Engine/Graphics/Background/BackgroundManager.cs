@@ -9,24 +9,18 @@ namespace Graphics
     public class BackgroundManager
     {
 
-
-        public enum BackgroundState
-        {
-            NONE,
-            CLOUDS
-        }
-
         public ParallaxBackground parallax;
-        public List<BackgroundEntity> backgrounds;
-        public List<BackgroundEntity> backgroundsToRemove;
-        public BackgroundState state;
+        public List<DynamicBackgroundEvent> events;
+
+        public List<BackgroundEntity> entities;
+        public List<BackgroundEntity> entitiesToRemove;
 
         public void Init()
         {
-            state = BackgroundSetter.SetBackgroundState(Entities.Entities.entityMapManager.CurrentMapId);
+            events = BackgroundSetter.SetDynamicBackgroundEvents(Entities.Entities.entityMapManager.CurrentMapId);
             parallax = BackgroundSetter.SetParallax(Entities.Entities.entityMapManager.CurrentMapId);
-            backgrounds = BackgroundSetter.SetBackgrounds(Entities.Entities.entityMapManager.CurrentMapId);
-            backgroundsToRemove = new List<BackgroundEntity>();
+            entities = BackgroundSetter.SetEntities(Entities.Entities.entityMapManager.CurrentMapId);
+            entitiesToRemove = new List<BackgroundEntity>();
         }
 
         public void Update()
@@ -35,42 +29,68 @@ namespace Graphics
             if(GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
             {
                 parallax.Update();
-                BackgroundEntityDynamicsHandler.Handle();
+                for (global::System.Int32 i = 0; i < events.Count; i++)
+                {
+                    events[i].Update();
+                }
             }
             
 
-            foreach (var backgroundEntity in backgroundsToRemove)
+            foreach (var backgroundEntity in entitiesToRemove)
             {
-                backgrounds.Remove(backgroundEntity);
+                entities.Remove(backgroundEntity);
             }
         }
 
         public void AddEntity(BackgroundEntity ent)
         {
-            this.backgrounds.Add(ent);
+            this.entities.Add(ent);
         }
 
 
         public void RemoveEntity(BackgroundEntity ent)
         {
-            this.backgroundsToRemove.Add(ent);
+            this.entitiesToRemove.Add(ent);
         }
 
         public void Draw()
         {
             if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
             {
-                foreach (var background in backgrounds
-                    .Where(e => e is BackgroundEntity && e.DrawnBeforeParallax)
+                // Draw entities before the first parallax layer (LayerToDrawOn < 0)
+                foreach (var background in entities
+                    .Where(e => e is BackgroundEntity && e.LayerToDrawOn < 0)
                     .OrderBy(e => StaticSpriteFactory.spriteMappings[e.sprite].z))
                 {
                     background.Draw();
                 }
 
-                parallax.DrawParallaxBackLayers();
+                // Draw interleaved entities and parallax back layers
+                for (int i = 0; i < parallax.ParallaxBackLayers.Length; i++)
+                {
+                    // Draw entities for LayerToDrawOn == i (before layer i)
+                    foreach (var background in entities
+                        .Where(e => e is BackgroundEntity && e.LayerToDrawOn == i)
+                        .OrderBy(e => StaticSpriteFactory.spriteMappings[e.sprite].z))
+                    {
+                        background.Draw();
+                    }
 
-                foreach (var background in backgrounds
-                    .Where(e => e is BackgroundEntity && !e.DrawnBeforeParallax)
+                    // Draw parallax back layer i
+                    parallax.DrawParallaxBackLayer(i);
+                }
+
+                // Draw entities over the last parallax back layer (LayerToDrawOn == Length)
+                foreach (var background in entities
+                    .Where(e => e is BackgroundEntity && e.LayerToDrawOn == parallax.ParallaxBackLayers.Length)
+                    .OrderBy(e => StaticSpriteFactory.spriteMappings[e.sprite].z))
+                {
+                    background.Draw();
+                }
+
+                // Draw entities after all parallax back layers (LayerToDrawOn > Length)
+                foreach (var background in entities
+                    .Where(e => e is BackgroundEntity && e.LayerToDrawOn > parallax.ParallaxBackLayers.Length)
                     .OrderBy(e => StaticSpriteFactory.spriteMappings[e.sprite].z))
                 {
                     background.Draw();
