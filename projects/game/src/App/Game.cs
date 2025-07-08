@@ -68,7 +68,7 @@ namespace App
 
         protected override void LoadContent()
         {
-            Entities.Entities.entityMapManager.ChangeMap(0, new Vector2(0, 20));
+            Entities.Entities.entityMapManager.ChangeMap(0, new Vector2(0, 100));
         }
 
         protected override void Update(GameTime gameTime)

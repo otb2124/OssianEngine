@@ -19,8 +19,7 @@ namespace Entities
                 case 0:
                     events = new List<Event>()
                     {
-                        { new MapChangeEvent(0, new Vector2(500, -400), new Vector2(40, 200), Utils.Directions.RIGHT, 1, new Vector2(0, 100)) }
-                        
+                        { new MapChangeEvent(0, new Vector2(500, -400), new Vector2(40, 200), Utils.Directions.RIGHT, 1, new Vector2(0, -400)) }
                     };
                     break;
                 case 1:
