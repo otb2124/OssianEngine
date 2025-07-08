@@ -16,16 +16,16 @@ namespace Graphics
         public double z;
 
         public int zoom;
-        private bool isStickToPlayer = true;
+        private bool IsStickToPlayer = true;
 
         private float angle;
         private Vector2 up;
 
-        public float MinZ = 20f;
-        public float MaxZ = 350f;
+        public float MinZ = 60f;
+        public float MaxZ = 240f;
 
         private const int MinZoom = 1;
-        private const int MaxZoom = 32;
+        private const int MaxZoom = 4;
 
         public Vector2 Position
         {
@@ -91,7 +91,7 @@ namespace Graphics
 
             aspectRatio = screen.Width / (float)screen.Height;
             fieldOfView = MathHelper.PiOver2;
-            baseZ = 200;
+            baseZ = 150;
             z = baseZ;
 
             angle = 0f;

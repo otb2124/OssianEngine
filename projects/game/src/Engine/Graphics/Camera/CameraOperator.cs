@@ -19,27 +19,29 @@ namespace Graphics
 
         public void Update()
         {
-            Vector2 mapSize = Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Size.ToVector2();
+            this.targetPosition = FlatConverter.ToVector2(Entities.Entities.player.Model.body.Position);
+
+            Vector2 mapSize = Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Size.ToVector2() / 2f;
             Vector2 screenSize = new Vector2(Graphics.screen.Width, Graphics.screen.Height);
 
+            // Zoom
             float currentZoom = (float)camera.Z;
-            float baseZoom = (float)camera.GetZFromHeight(Graphics.screen.Height);
-            float adjScale = currentZoom / baseZoom;
+            float initialZoom = (float)camera.MaxZ;
+            float adjScale = currentZoom / initialZoom;
 
-            // Calculate bounds
-            float leftBound = (-mapSize.X + screenSize.X * 1.5f) / adjScale;
-            float rightBound = (mapSize.X - screenSize.X * 1.5f) / adjScale;
-            float bottomBound = (-mapSize.Y + screenSize.Y * 1.5f) / adjScale;
-            float topBound = (mapSize.Y - screenSize.Y * 1.5f) / adjScale;
+            // Camera screen bounds (adjusted for zoom)
+            float cameraLeft = targetPosition.X - (screenSize.X / 2 * adjScale);
+            float cameraRight = targetPosition.X + (screenSize.X / 2 * adjScale);
+            float cameraTop = targetPosition.Y + (screenSize.Y / 2 * adjScale);
+            float cameraBottom = targetPosition.Y - (screenSize.Y / 2 * adjScale);
 
-            Vector2 playerPosition = FlatConverter.ToVector2(Entities.Entities.player.Model.body.Position);
+            // World bounds
+            float leftBound = -mapSize.X;
+            float rightBound = mapSize.X;
+            float topBound = mapSize.Y;
+            float bottomBound = -mapSize.Y;
 
-            float distToLeft = playerPosition.X - leftBound;
-            float distToRight = rightBound - playerPosition.X;
-
-            float minDistance = MathHelper.Min(distToLeft, distToRight);
-            
-
+            // Camera movement
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
             {
                 targetPosition.Y += cameraSpeed;
@@ -66,8 +68,26 @@ namespace Graphics
                 camera.MoveZ(2f);
             }
 
-            targetPosition.X = MathHelper.Clamp(targetPosition.X, leftBound, rightBound);
-            targetPosition.Y = MathHelper.Clamp(targetPosition.Y, bottomBound, topBound);
+            float clampedX = targetPosition.X;
+            float clampedY = targetPosition.Y;
+
+            if (cameraLeft < leftBound)
+            {
+                targetPosition.X += leftBound - cameraLeft;
+            }
+            else if (cameraRight > rightBound)
+            {
+                targetPosition.X += rightBound - cameraRight;
+            }
+
+            if (cameraBottom < bottomBound)
+            {
+                targetPosition.Y += bottomBound - cameraBottom;
+            }
+            else if (cameraTop > topBound)
+            {
+                targetPosition.Y += topBound - cameraTop;
+            }
 
             camera.position = Vector2.Lerp(camera.position, targetPosition, transitionSpeed);
         }

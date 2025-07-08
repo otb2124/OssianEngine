@@ -66,16 +66,16 @@ namespace Entities
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-200, 100), 0f));
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(250, 100), 0f));
 
-                    entities.Add(new PlatformEntity(new Vector2(-500, -150), 5));
-                    entities.Add(new PlatformEntity(new Vector2(500, -150), 5));
-                    entities.Add(new PlatformEntity(new Vector2(-500, -100), 5));
-                    entities.Add(new PlatformEntity(new Vector2(500, -100), 5));
-                    entities.Add(new PlatformEntity(new Vector2(-500, -50), 5));
-                    entities.Add(new PlatformEntity(new Vector2(500, -50), 5));
+                    entities.Add(new PlatformEntity(new Vector2(-500, -550), 5));
+                    entities.Add(new PlatformEntity(new Vector2(500, -550), 5));
+                    entities.Add(new PlatformEntity(new Vector2(-500, -500), 5));
+                    entities.Add(new PlatformEntity(new Vector2(500, -500), 5));
+                    entities.Add(new PlatformEntity(new Vector2(-500, -450), 5));
+                    entities.Add(new PlatformEntity(new Vector2(500, -450), 5));
 
-                    entities.Add(new TileEntity(new Vector2(0, -250), new Point(20, 1), TileEntity.TileSets.SET1, 0, true));
-                    entities.Add(new TileEntity(new Vector2(-500, -230), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
-                    entities.Add(new TileEntity(new Vector2(500, -230), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
+                    entities.Add(new TileEntity(new Vector2(0, -630), new Point(20, 1), TileEntity.TileSets.SET1, 0, true));
+                    entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
+                    entities.Add(new TileEntity(new Vector2(500, -600), new Point(12, 2), TileEntity.TileSets.SET1, 0, true));
 
                     break;
             }
