@@ -30,7 +30,6 @@ namespace Utils
             RegisterCommands();
 
             Console.WriteLine("Starting console input thread...");
-            Console.WriteLine("DEV MODE: F3\nHUD OFF: F1");
             inputThread.Start();
         }
 
@@ -39,10 +38,11 @@ namespace Utils
             var commandList = new List<IConsoleCommand>
             {
                 new ExitCommand(),
-                new DebugCommand(),
+                new DevModeCommand(),
                 new SpawnCommand(),
                 new ClearCommand(),
-                new RefillCommand()
+                new RefillCommand(),
+                new GodCommand()
             };
             commands.Add("help", new HelpCommand(commandList));
             foreach (var command in commandList)
@@ -87,7 +87,7 @@ namespace Utils
             string commandName = parts[0].ToLower();
             string[] args = parts.Skip(1).ToArray();
 
-            if (commands.TryGetValue(commandName, out var cmd))
+            if (commands.TryGetValue(commandName, out var cmd) && !(cmd.IsForDebug && !GameStateManager.IsDevMode))
             {
                 cmd.Execute(args);
             }

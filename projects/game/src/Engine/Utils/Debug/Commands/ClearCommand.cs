@@ -12,6 +12,7 @@ namespace Utils
 
         public string Name => "clear";
         public string Description => "Clear the console";
+        public bool IsForDebug => false;
 
         public void Execute(string[] args)
         {

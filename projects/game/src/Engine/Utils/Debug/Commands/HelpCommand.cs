@@ -14,6 +14,7 @@ namespace Utils
         private readonly IEnumerable commands;
         public string Name => "help";
         public string Description => "Show available commands";
+        public bool IsForDebug => false;
 
         public HelpCommand(IEnumerable<IConsoleCommand> commands)
         {
@@ -25,7 +26,15 @@ namespace Utils
             Console.WriteLine("Available commands:");
             foreach (IConsoleCommand command in commands)
             {
-                Console.WriteLine($"/{command.Name} - {command.Description}");
+                if(!command.IsForDebug || (command.IsForDebug && GameStateManager.IsDevMode) || command is DevModeCommand)
+                {
+                    Console.WriteLine($"/{command.Name} - {command.Description}");
+                }
+            }
+
+            if(GameStateManager.IsDevMode)
+            {
+                Console.WriteLine("DEBUG MODE: F3");
             }
         }
     }

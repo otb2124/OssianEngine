@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 
 namespace Entities
 {
@@ -12,8 +13,13 @@ namespace Entities
 
         public static void HandleHit(StatsEntity toEnt, float damage)
         {
-            Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);
+            //Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);
 
+            if(GameStateManager.IsGod)
+            {
+                return;
+            }
+            
             if (toEnt.Stats.HP > 0)
             {
                 toEnt.Stats.ReceiveDamage(damage);
@@ -26,7 +32,7 @@ namespace Entities
 
         public static void HandleDeath(Entity ent)
         {
-            Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(ent);
+            Entities.entityManager.RemoveEntity(ent);
         }
     }
 }

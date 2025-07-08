@@ -11,6 +11,7 @@ namespace Utils
     {
         public string Name => "refill";
         public string Description => "Refill player stats";
+        public bool IsForDebug => true;
 
         public void Execute(string[] args)
         {

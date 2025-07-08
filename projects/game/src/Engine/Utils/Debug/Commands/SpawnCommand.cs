@@ -11,7 +11,7 @@ namespace Utils
     {
         public string Name => "spawn";
         public string Description => "Spawn an entity [entity_type]";
-
+        public bool IsForDebug => true;
 
         public void Execute(string[] args)
         {

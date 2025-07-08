@@ -11,5 +11,6 @@ namespace Utils
         string Name { get; } 
         string Description { get; } 
         void Execute(string[] args); 
+        bool IsForDebug { get; }
      }
 }

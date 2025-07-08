@@ -40,7 +40,7 @@ namespace Entities
             }
             else
             {
-                Entities.entityMapManager.maps[CurrentMapId].Entities.Remove(Entities.player);
+                Entities.entityManager.RemoveEntity(Entities.player);
             }
 
             CurrentMapId = nextId;
