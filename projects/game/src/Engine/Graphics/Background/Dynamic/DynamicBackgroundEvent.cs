@@ -18,7 +18,7 @@ namespace Graphics
 
         public float SpawnTimer = 0f;
         public float SpawnInterval = 0.25f;
-        public int CountLimit = 60;
+        public int CountLimit = 30;
 
         public BackgroundEntityDynamicy Dynamicy;
         public DynamicBackgroundEvents Type;
