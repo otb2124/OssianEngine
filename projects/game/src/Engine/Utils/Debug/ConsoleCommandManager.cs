@@ -30,6 +30,7 @@ namespace Utils
             RegisterCommands();
 
             Console.WriteLine("Starting console input thread...");
+            Console.WriteLine("DEV MODE: F3\nHUD OFF: F1");
             inputThread.Start();
         }
 
