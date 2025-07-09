@@ -383,7 +383,7 @@ namespace Physics
         {
             if (!IsStatic)
             {
-                LinearVelocity += force * InvMass;
+                LinearVelocity += force * 100;
             }
         }
 

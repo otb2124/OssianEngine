@@ -21,31 +21,31 @@ namespace Entities
         {
             if (entA == entB) return;
 
-            (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float damageB) = (entA, entB) switch
+            (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA) = (entA, entB) switch
             {
                 (EquipmentEntity eqA, EquipmentEntity eqB) => (
                     eqA.EquipmentManager.GetCurrentWeapon().hitbox.outerHalf,
                     eqB.EquipmentManager.GetCurrentArmor().hitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
-                    eqB.EquipmentManager.GetCurrentWeapon().PhysDmg
+                    eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                 ),
                 (NonHumanoidEntity nhA, NonHumanoidEntity nhB) => (
                     nhA.DamageHitbox.extends,
                     nhB.BodyHitbox.extends,
                     nhA.Stats.bodyDamage,
-                    nhB.Stats.bodyDamage
+                    nhA.Stats.bodyKnockbackPower
                 ),
                 (NonHumanoidEntity nhA, EquipmentEntity eqB) => (
                     nhA.DamageHitbox.extends,
                     eqB.EquipmentManager.GetCurrentArmor().hitbox.extends,
                     nhA.Stats.bodyDamage,
-                    eqB.EquipmentManager.GetCurrentWeapon().PhysDmg
+                    nhA.Stats.bodyKnockbackPower
                 ),
                 (EquipmentEntity eqA, NonHumanoidEntity nhB) => (
                     eqA.EquipmentManager.GetCurrentWeapon().hitbox.outerHalf,
                     nhB.BodyHitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
-                    nhB.Stats.bodyDamage
+                    eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                 ),
                 _ => (null, null, 0f, 0f)
             };
@@ -53,7 +53,7 @@ namespace Entities
 
             if (CheckIntersection(hitboxA, hitboxB) && CanDealDamage(entA.EntityFraction, entB.EntityFraction))
             {
-                BattleHandler.HandleHit(entB, damageA);
+                BattleHandler.HandleHit(entB, damageA, knockBackPowerA, entA.Model.body.Position);
             }
 
         }

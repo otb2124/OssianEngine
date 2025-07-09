@@ -51,6 +51,7 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     PhysDmg = 20;
+                    KnockbackPower = 1f;
                     swingSpeed = 0.4f;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;

@@ -32,8 +32,6 @@ namespace Physics
         private FlatVector[] frictionImpulseList;
         private float[] jList;
 
-        public Object owner;
-
         public int BodyCount
         {
             get { return bodyList.Count; }

@@ -32,6 +32,7 @@ namespace Entities
         public float sprintMultiplier;
 
         public float bodyDamage;
+        public float bodyKnockbackPower;
 
         public bool OnStaminaRegen = false;
         public bool OnUsingStamina = false;
@@ -39,7 +40,6 @@ namespace Entities
         public float invincibleFramesSec = 1f;
         public int invincibleCounter = 0;
         public bool IsInvincible = true;
-        
 
         public void Refill()
         {
