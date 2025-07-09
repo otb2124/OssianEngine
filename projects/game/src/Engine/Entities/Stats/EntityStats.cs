@@ -108,18 +108,17 @@ namespace Entities
             {
                 if (!model.body.IsColliding)
                 {
-                    IsFallen = false;
-                    IsFalling = true;
-                    model.modelState = Utils.ModelStates.FALLING;
+                    if (!IsFallen)
+                    {
+                        IsFalling = true;
+                        model.modelState = Utils.ModelStates.FALLING;
+                    }
                 }
                 else
                 {
-                    if (IsFalling)
-                    {
-                        IsFallen = true;
-                        IsFalling = false;
-                        model.modelState = Utils.ModelStates.FALLEN;
-                    }
+                    IsFallen = true;
+                    IsFalling = false;
+                    model.modelState = Utils.ModelStates.FALLEN;   
                 }
             }
 

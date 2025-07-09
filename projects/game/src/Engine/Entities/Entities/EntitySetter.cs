@@ -46,6 +46,8 @@ namespace Entities
 
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(-60, 100), 0f));
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(-150, 100), 0f));
+                    entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(50, 1000), 2f));
+
 
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 300)));
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(20, 335)));
