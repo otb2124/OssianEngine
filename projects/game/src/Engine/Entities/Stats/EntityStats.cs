@@ -46,6 +46,8 @@ namespace Entities
         public int invincibleCounter = 0;
         public bool IsInvincible = true;
 
+        public bool IsFalling = false;
+
         public bool IsFallen = false;
         public float FallenTimer = 0f;
         public float FallenDurationAllowedSec = 3f;
@@ -101,16 +103,29 @@ namespace Entities
 
         public void UpdateFallen(Resources.Model model)
         {
-            Console.WriteLine(model.body.Angle);
 
-            if (!IsFallen && (model.body.Angle > 1f || model.body.Angle < -1f) && model.body.IsColliding)
+            if (model.body.Angle > 0.75f || model.body.Angle < -0.75f)
             {
-                IsFallen = true;
+                if (!model.body.IsColliding)
+                {
+                    IsFallen = false;
+                    IsFalling = true;
+                    model.modelState = Utils.ModelStates.FALLING;
+                }
+                else
+                {
+                    if (IsFalling)
+                    {
+                        IsFallen = true;
+                        IsFalling = false;
+                        model.modelState = Utils.ModelStates.FALLEN;
+                    }
+                }
             }
 
             if (IsFallen)
             {
-                model.modelState = Utils.ModelStates.FALLEN;
+                
                 FallenTimer++;
                 if (FallenTimer >= FallenDurationAllowedSec*60)
                 {

@@ -153,6 +153,8 @@ namespace Physics
 
                 if (Collisions.Collide(bodyA, bodyB, out FlatVector normal, out float depth))
                 {
+                    bodyA.IsColliding = true;
+                    bodyB.IsColliding = true;
 
                     {
                         SeparateBodies(bodyA, bodyB, normal * depth);
@@ -168,6 +170,11 @@ namespace Physics
                         }
                     }
 
+                }
+                else
+                {
+                    bodyA.IsColliding = false;
+                    bodyB.IsColliding = false;
                 }
             }
         }

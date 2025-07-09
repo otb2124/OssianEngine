@@ -140,7 +140,8 @@ namespace Utils
         BATTLE_IDLE,
         BATTLE_MOVING,
         BATTLE_ROLL,
-        FALLEN
+        FALLEN,
+        FALLING
     }
 
     public enum AnimationStates

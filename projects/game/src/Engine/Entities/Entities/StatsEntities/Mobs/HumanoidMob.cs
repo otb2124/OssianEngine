@@ -42,6 +42,10 @@ namespace Entities
             //fallen
             frameSpeed = 0.04f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FALLEN, 1, new Vector2(0, 128 * 7), new Vector2(64, 128), frameSpeed);
+
+            //battleRoll
+            frameSpeed = 0.15f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
         }
 
         public override void SetStats()
@@ -67,7 +71,7 @@ namespace Entities
 
         public override void Update()
         {
-            if(!Stats.IsFallen)
+            if(!Stats.IsFallen && !Stats.IsFalling)
             {
                 aiManager.Update(this, CurrentBehaviourCase);
             }

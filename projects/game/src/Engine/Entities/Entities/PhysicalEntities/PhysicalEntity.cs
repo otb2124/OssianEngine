@@ -106,6 +106,9 @@ namespace Entities
                 case ModelStates.FALLEN:
                     Model.animationState = AnimationStates.FALLEN;
                     break;
+                case ModelStates.FALLING:
+                    Model.animationState = AnimationStates.BATTLE_ROLL;
+                    break;
             }
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));
