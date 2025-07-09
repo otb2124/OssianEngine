@@ -43,6 +43,7 @@ namespace Entities
         public override void Update()
         {
             Stats.RegenStamina();
+            Stats.UpdateInvincibleFrames();
             Stats.OnUsingStamina = false;
             base.Update();
         }

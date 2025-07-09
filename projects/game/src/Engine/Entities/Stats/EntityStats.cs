@@ -35,6 +35,10 @@ namespace Entities
 
         public bool OnStaminaRegen = false;
         public bool OnUsingStamina = false;
+
+        public float invincibleFramesSec = 1f;
+        public int invincibleCounter = 0;
+        public bool IsInvincible = true;
         
 
         public void Refill()
@@ -45,6 +49,19 @@ namespace Entities
             stamina = maxStamina;
         }
 
+
+        public void UpdateInvincibleFrames()
+        {
+            if(IsInvincible)
+            {
+                invincibleCounter++;
+                if(invincibleCounter > invincibleFramesSec*60)
+                {
+                    IsInvincible = false;
+                    invincibleCounter = 0;
+                }
+            }
+        }
 
         public void RegenStamina()
         {

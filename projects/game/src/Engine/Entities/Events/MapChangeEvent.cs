@@ -19,14 +19,22 @@ namespace Entities
         public int MapTo;
         public Vector2 PosTo;
 
+        public MapChangeEvents Type;
 
-        public MapChangeEvent(int id, Vector2 pos, Vector2 size, Directions direction, int mapTo, Vector2 posTo) : base(id)
+        public enum MapChangeEvents
+        {
+            AUTO,
+            INTERACT_PRESSED,
+        }
+
+        public MapChangeEvent(int id, Vector2 pos, Vector2 size, Directions direction, int mapTo, Vector2 posTo, MapChangeEvents type = MapChangeEvents.AUTO) : base(id)
         {
             Position = pos;
             Size = size;
             MapTo = mapTo;
             Direction = direction;
             PosTo = posTo;
+            Type = type;
         }
 
         public override void Init()
@@ -49,8 +57,17 @@ namespace Entities
         {
             if(HitboxChecker.CheckForHit(Entities.player.EquipmentManager.GetCurrentArmor().hitbox.extends, LocationChangeHitbox.extends))
             {
-                Console.WriteLine("HIT");
-                Entities.entityMapManager.ChangeMap(MapTo, PosTo);
+                if(Type == MapChangeEvents.AUTO)
+                {
+                    Entities.entityMapManager.ChangeMap(MapTo, PosTo);
+                }
+                else if(Type == MapChangeEvents.INTERACT_PRESSED)
+                {
+                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
+                    {
+                        Entities.entityMapManager.ChangeMap(MapTo, PosTo);
+                    }
+                }
             }
         }
 

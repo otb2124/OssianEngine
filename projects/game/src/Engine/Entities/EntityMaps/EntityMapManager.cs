@@ -29,6 +29,7 @@ namespace Entities
             {
                 maps[i] = new EntityMap(i);
                 maps[i].Entities = EntitySetter.FillEntityMap(i);
+                maps[i].Events = EventSetter.FillEventMap(i);
             }
         }
 
@@ -51,8 +52,6 @@ namespace Entities
 
             Graphics.Graphics.backgroundManager.RemoveAll();
             Graphics.Graphics.backgroundManager.Init();
-
-            Entities.eventManager.Init();
         }
 
     }

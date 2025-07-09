@@ -16,7 +16,7 @@ namespace Inputs
             ATTACKPRESSED,
             TOGGLEWEAPONPRESSED,
             SPRINTPRESSED,
-            INTERRACTIONPRESSED,
+            INTERACTRESSED,
 
             //camera
             CAMERALEFTPRESSED,
@@ -45,7 +45,7 @@ namespace Inputs
             { KeyStates.ATTACKPRESSED, false },
             { KeyStates.TOGGLEWEAPONPRESSED, false },
             { KeyStates.SPRINTPRESSED, false },
-            { KeyStates.INTERRACTIONPRESSED, false },
+            { KeyStates.INTERACTRESSED, false },
 
             //camera
             { KeyStates.CAMERALEFTPRESSED, false },
@@ -75,7 +75,7 @@ namespace Inputs
             { (KeyStates.ATTACKPRESSED, true), Keys.LeftControl },
             { (KeyStates.TOGGLEWEAPONPRESSED, true), Keys.R },
             { (KeyStates.SPRINTPRESSED, false), Keys.LeftShift },
-            { (KeyStates.INTERRACTIONPRESSED, true), Keys.Enter },
+            { (KeyStates.INTERACTRESSED, true), Keys.Enter },
 
             //camera
             { (KeyStates.CAMERALEFTPRESSED, false), Keys.Left },

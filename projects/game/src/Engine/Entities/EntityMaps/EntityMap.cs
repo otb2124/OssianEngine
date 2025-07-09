@@ -13,6 +13,7 @@ namespace Entities
         public Point Size;
         public int Id;
         public List<Entity> Entities;
+        public List<Event> Events;
 
         public EntityMap(int id)
         {

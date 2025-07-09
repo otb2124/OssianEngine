@@ -6,24 +6,12 @@ namespace Entities
     public class EventManager
     {
 
-        public List<Event> events;
-
         public EventManager()
         {}
 
-        public void Init()
-        {
-            events = EventSetter.GetEvents(Entities.entityMapManager.CurrentMapId);
-
-            foreach (var Event in events)
-            {
-                Event.Init();
-            }
-        }
-
         public void Update()
         {
-            foreach (var Event in events)
+            foreach (Event Event in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Events)
             {
                 Event.Update();
             }
@@ -31,7 +19,7 @@ namespace Entities
 
         public void DrawColliders()
         {
-            foreach (Event Event in events)
+            foreach (Event Event in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Events)
             {
                 if(Event is MapChangeEvent lce)
                 {

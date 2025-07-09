@@ -63,7 +63,7 @@ namespace Entities
 
         public void Move(Directions direction)
         {
-            Entity.Model.modelState = ModelStates.IDLE;
+            Entity.Model.modelState = ModelStates.MOVING;
             Entity.Model.direction = direction;
 
             float speed = Entity.Stats.speed;

@@ -50,7 +50,7 @@ namespace Entities
                     Description = "A terrablade";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    PhysDmg = 1;
+                    PhysDmg = 20;
                     swingSpeed = 0.4f;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;

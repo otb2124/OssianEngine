@@ -13,9 +13,14 @@ namespace Entities
 
         public static void HandleHit(StatsEntity toEnt, float damage)
         {
-            //Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);
+            Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);
 
-            if(GameStateManager.IsGod)
+            if(!GameStateManager.IsGod && toEnt.Stats.HP <= 0)
+            {
+                HandleDeath(toEnt);
+            }
+
+            if (GameStateManager.IsGod || toEnt.Stats.IsInvincible)
             {
                 return;
             }
@@ -24,9 +29,10 @@ namespace Entities
             {
                 toEnt.Stats.ReceiveDamage(damage);
             }
-            else
+
+            if(toEnt.Stats.IsInvincible != true)
             {
-                HandleDeath(toEnt);
+                toEnt.Stats.IsInvincible = true;
             }
         }
 

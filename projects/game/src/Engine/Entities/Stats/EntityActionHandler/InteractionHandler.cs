@@ -23,7 +23,7 @@ namespace Entities
         {
             if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP)
             {
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERRACTIONPRESSED])
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
                     Entities.player.Inventory.AddInventory(itemEnt.Containment);
                     Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.body);

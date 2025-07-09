@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
+using System;
 using Utils;
 
 namespace Entities
@@ -110,6 +111,7 @@ namespace Entities
 
         public override void Update()
         {
+            //Console.WriteLine(Stats.IsInvincible);
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
             {

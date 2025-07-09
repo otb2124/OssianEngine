@@ -14,6 +14,7 @@ namespace Entities
 
         public Event(int Id)
         {
+            Init();
         }
 
         public virtual void Init() { }
