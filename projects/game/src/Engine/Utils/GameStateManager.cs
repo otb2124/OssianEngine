@@ -36,7 +36,7 @@ namespace Utils
         {
             gameState = GameStates.playState;
             gameMode = GameModes.playMode;
-            IsDevMode = false;
+            IsDevMode = true;
             IsGod = false;
         }
 
