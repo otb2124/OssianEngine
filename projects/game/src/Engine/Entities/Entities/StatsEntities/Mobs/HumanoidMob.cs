@@ -38,6 +38,10 @@ namespace Entities
             //jump
             frameSpeed = 0.04f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING, 1, new Vector2(0, 128 * 2), new Vector2(64, 128), frameSpeed);
+
+            //fallen
+            frameSpeed = 0.04f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FALLEN, 1, new Vector2(0, 128 * 7), new Vector2(64, 128), frameSpeed);
         }
 
         public override void SetStats()
@@ -63,7 +67,10 @@ namespace Entities
 
         public override void Update()
         {
-            aiManager.Update(this, CurrentBehaviourCase);
+            if(!Stats.IsFallen)
+            {
+                aiManager.Update(this, CurrentBehaviourCase);
+            }
 
             EquipmentManager.GetCurrentWeapon().hitbox.Update(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width * 2, this.Model.body.Height), 0f);
             EquipmentManager.GetCurrentArmor().hitbox.Update(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), 0f);

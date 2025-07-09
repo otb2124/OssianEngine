@@ -1,4 +1,6 @@
-﻿using Physics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using Physics;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -97,24 +99,25 @@ namespace Entities
         }
 
 
-        public void UpdateFallen(FlatBody body)
+        public void UpdateFallen(Resources.Model model)
         {
-            Console.WriteLine(body.Angle);
+            Console.WriteLine(model.body.Angle);
 
-            if (!IsFallen && (body.Angle > 1f || body.Angle < -1f) && body.IsColliding)
+            if (!IsFallen && (model.body.Angle > 1f || model.body.Angle < -1f) && model.body.IsColliding)
             {
                 IsFallen = true;
             }
 
             if (IsFallen)
             {
+                model.modelState = Utils.ModelStates.FALLEN;
                 FallenTimer++;
                 if (FallenTimer >= FallenDurationAllowedSec*60)
                 {
                     IsFallen = false;
                     FallenTimer = 0f;
-                    body.Move(new FlatVector(0, 10f));
-                    body.RotateTo(0f);
+                    model.body.Move(new FlatVector(0, 10f));
+                    model.body.RotateTo(0f);
                 }
             }
         }

@@ -139,7 +139,8 @@ namespace Utils
         SPRINTING,
         BATTLE_IDLE,
         BATTLE_MOVING,
-        BATTLE_ROLL
+        BATTLE_ROLL,
+        FALLEN
     }
 
     public enum AnimationStates
@@ -151,7 +152,8 @@ namespace Utils
         SPRINTING,
         BATTLE_IDLE,
         BATTLE_MOVING,
-        BATTLE_ROLL
+        BATTLE_ROLL,
+        FALLEN
     }
 
 

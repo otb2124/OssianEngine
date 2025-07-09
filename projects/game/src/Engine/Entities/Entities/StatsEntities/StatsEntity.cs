@@ -44,7 +44,7 @@ namespace Entities
         {
             Stats.RegenStamina();
             Stats.UpdateInvincibleFrames();
-            Stats.UpdateFallen(this.Model.body);
+            Stats.UpdateFallen(this.Model);
             Stats.OnUsingStamina = false;
             base.Update();
         }
