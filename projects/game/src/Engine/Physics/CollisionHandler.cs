@@ -54,6 +54,11 @@ namespace Physics
             {
                 return true;
             }
+            else
+            {
+                bodyA.IsColliding = true;
+                bodyB.IsColliding = true;
+            }
 
             return false;
         }

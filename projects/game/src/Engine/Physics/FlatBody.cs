@@ -56,6 +56,8 @@ namespace Physics
 
         public Object owner = null;
 
+        public bool IsColliding = false;
+
 
         public FlatVector Position
         {
