@@ -34,7 +34,8 @@ namespace Entities
 
             Stats.Refill();
 
-            Stats.bodyDamage = 1;
+            Stats.bodyKnockbackPower = 2;
+            Stats.bodyDamage = 10;
         }
 
 
