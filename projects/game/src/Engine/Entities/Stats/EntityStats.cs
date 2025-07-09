@@ -101,7 +101,7 @@ namespace Entities
         {
             Console.WriteLine(body.Angle);
 
-            if (!IsFallen && (body.Angle > 3f || body.Angle < -3f) && body.IsColliding)
+            if (!IsFallen && (body.Angle > 1f || body.Angle < -1f) && body.IsColliding)
             {
                 IsFallen = true;
             }
