@@ -33,16 +33,17 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
                     entities.Add(new TileEntity(new Vector2(500,  -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
 
-                    entities.Add(new PlatformEntity(new Vector2(0, 90), 5));
-                    entities.Add(new PlatformEntity(new Vector2(140, 150), 5));
+                    entities.Add(new PlatformEntity(new Vector2(0, 0), 5));
+                    entities.Add(new PlatformEntity(new Vector2(140, -60), 5));
 
-                    entities.Add(new PhysicalEntity(Models.CRATE_0, new Vector2(-200, 0)));
-                    entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-101, 200)));
-                    entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-103, 230)));
-                    entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-102, 250)));
-                    entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-50, 50)));
-                    entities.Add(new PhysicalEntity(Models.CRATE_1, new Vector2(-65, 50)));
-                    entities.Add(new PhysicalEntity(Models.BALL, new Vector2(-70, 50)));
+                    entities.Add(new DestroyableEntity(Models.CRATE_0, new Vector2(-200, -500)));
+
+                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-101, 200)));
+                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-103, 230)));
+                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-102, 250)));
+                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-50, 50)));
+                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
+                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(-60, 100), 0f));
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(-150, 100), 0f));
@@ -61,6 +62,8 @@ namespace Entities
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-250, 100), 0f));
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-200, 100), 0f));
                     entities.Add(new HumanoidMob(Models.BANDIT, new Vector2(250, 100), 0f));
+
+                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-500, -300)));
 
                     entities.Add(new PlatformEntity(new Vector2(-500, -550), 5));
                     entities.Add(new PlatformEntity(new Vector2(500, -550), 5));

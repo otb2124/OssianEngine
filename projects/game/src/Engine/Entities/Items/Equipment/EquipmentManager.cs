@@ -75,12 +75,6 @@ namespace Entities
         }
 
 
-        public void Update(Vector2 hitboxpos, Vector2 hitboxsize, float angle)
-        {
-            GetCurrentWeapon().hitbox.Update(hitboxpos, hitboxsize, angle);
-        }
-
-
         public void DrawHitbox()
         {
             GetCurrentWeapon().DrawHitbox();

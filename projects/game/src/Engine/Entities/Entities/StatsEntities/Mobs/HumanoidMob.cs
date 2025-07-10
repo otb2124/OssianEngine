@@ -52,6 +52,10 @@ namespace Entities
         {
             base.SetStats();
 
+            CanRegensStamina = true;
+            CanUpdateIFrames = true;
+            CanFall = true;
+
             Stats.maxHP = 100;
             Stats.HP = 100;
             Stats.maxSpeed = 0.5f;
@@ -75,9 +79,6 @@ namespace Entities
             {
                 aiManager.Update(this, CurrentBehaviourCase);
             }
-
-            EquipmentManager.GetCurrentWeapon().hitbox.Update(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width * 2, this.Model.body.Height), 0f);
-            EquipmentManager.GetCurrentArmor().hitbox.Update(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), 0f);
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));
 

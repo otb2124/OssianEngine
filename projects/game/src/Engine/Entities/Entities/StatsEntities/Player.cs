@@ -19,6 +19,10 @@ namespace Entities
         {
             base.SetStats();
 
+            CanRegensStamina = true;
+            CanUpdateIFrames = true;
+            CanFall = true;
+
             Stats.sprintMultiplier = 1.5f;
             Stats.staminaSprintCostSec = 15 ;
 

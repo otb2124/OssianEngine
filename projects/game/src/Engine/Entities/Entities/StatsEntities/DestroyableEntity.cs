@@ -23,6 +23,10 @@ namespace Entities
         {
             base.SetStats();
 
+            CanRegensStamina = false;
+            CanUpdateIFrames = true;
+            CanFall = false;
+
             Stats.maxHP = 100;
             Stats.Refill();
         }
@@ -30,8 +34,16 @@ namespace Entities
 
         public override void Update()
         {
-            UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), 0f);
-            UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), 0f);
+            if(Model.body.BodyShapeType == BodyShapeType.Box)
+            {
+                UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), Model.body.Angle);
+            }
+            else
+            {
+                UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Radius*2f, this.Model.body.Radius*2f), Model.body.Angle);
+            }
+            
+            //UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), 0f);
 
             base.Update();
         }

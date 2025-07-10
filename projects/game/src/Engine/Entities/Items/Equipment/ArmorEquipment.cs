@@ -77,7 +77,7 @@ namespace Entities
             hitbox.Update(
                 FlatConverter.ToVector2(model.body.Position),
                 new Vector2(model.body.Width, model.body.Height),
-                0f
+                model.body.Angle
             );
         }
     }

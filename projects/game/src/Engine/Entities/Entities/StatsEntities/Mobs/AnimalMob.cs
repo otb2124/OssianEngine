@@ -28,6 +28,10 @@ namespace Entities
         {
             base.SetStats();
 
+            CanRegensStamina = true;
+            CanUpdateIFrames = true;
+            CanFall = true;
+
             Stats.maxHP = 50;
             Stats.maxSpeed = 0.25f;
             Stats.jumpSpeed = 2.5f;
@@ -60,11 +64,9 @@ namespace Entities
 
         public override void Update()
         {
-
-
             aiManager.Update(this, CurrentBehaviourCase);
 
-            UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), 0f);
+            UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), Model.body.Angle);
             UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), 0f);
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));

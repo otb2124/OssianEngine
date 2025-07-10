@@ -11,6 +11,10 @@ namespace Entities
         public EntityStats Stats;
         public Inventory Inventory;
 
+        public bool CanRegensStamina;
+        public bool CanUpdateIFrames;
+        public bool CanFall;
+
         public enum EntityFractions
         {
             NEUTRAL,
@@ -42,10 +46,20 @@ namespace Entities
 
         public override void Update()
         {
-            Stats.RegenStamina();
-            Stats.UpdateInvincibleFrames();
-            Stats.UpdateFallen(this.Model);
-            Stats.OnUsingStamina = false;
+            if (CanRegensStamina)
+            {
+                Stats.RegenStamina();
+                Stats.OnUsingStamina = false;
+            }
+            if (CanUpdateIFrames)
+            {
+                Stats.UpdateInvincibleFrames();
+            }
+            if(CanFall)
+            {
+                Stats.UpdateFallen(this.Model);
+            }
+            
             base.Update();
         }
 
@@ -53,9 +67,13 @@ namespace Entities
         {
             Stats = new EntityStats();
             EntityFraction = EntityFractions.NEUTRAL;
+
+            CanRegensStamina = false;
+            CanUpdateIFrames = false;
+            CanFall = false;
         }
 
-        public virtual void SetInventory()
+    public virtual void SetInventory()
         {
             Inventory = new Inventory();
         }
