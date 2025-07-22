@@ -34,7 +34,7 @@ namespace Entities
             Stats.rollMultiplier = 2f;
             Stats.staminaRollCostSec = 200;
 
-            Stats.jumpSpeed = 2.5f;
+            Stats.jumpSpeed = 2.8f;
             Stats.staminaJumpCostSec = 60;
 
             Stats.maxHP = 100;
@@ -45,6 +45,7 @@ namespace Entities
             Stats.Refill();
 
             EntityFraction = EntityFractions.PLAYER;
+            BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
         }
 
 

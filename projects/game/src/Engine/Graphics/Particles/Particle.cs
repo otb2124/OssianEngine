@@ -22,13 +22,14 @@ namespace Graphics
         }
 
         public Vector2 Postion;
+        public Vector2 VelocityMultiplier;
+
         public StaticSpriteFactory.SpriteData sprite;
         public AnimationManager aManager;
         public Particles Type;
 
         public float DurationSec;
         public int DurationCounter;
-
 
         public Vector2 AdjustedScale;
 
@@ -51,12 +52,14 @@ namespace Graphics
             {
                 case Particles.HUMAN_BLOOD_DROP:
                     sprite = StaticSpriteFactory.GetEntityParticle(new Vector2(0, 0));
-                    DurationSec = 0.2f;
+                    DurationSec = 0.5f;
+                    VelocityMultiplier = new Vector2(0.25f, 1);
                     AdjustedScale = new Vector2(0.25f, 0.25f);
                     break;
                 case Particles.SLIME_BLOOD_DROP:
                     sprite = StaticSpriteFactory.GetEntityParticle(new Vector2(1, 0));
-                    DurationSec = 0.2f;
+                    DurationSec = 0.5f;
+                    VelocityMultiplier = new Vector2(0.25f, 1);
                     AdjustedScale = new Vector2(0.25f, 0.25f);
                     break;
             }
