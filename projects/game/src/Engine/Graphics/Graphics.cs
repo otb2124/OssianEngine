@@ -20,18 +20,23 @@ namespace Graphics
 
 
         public static BackgroundManager backgroundManager;
+        public static ParticleManager particleManager;
 
         public static void Init()
         {
             cameraOperator = new CameraOperator(camera);
             backgroundManager = new BackgroundManager();
             backgroundManager.Init();
+
+            particleManager = new ParticleManager();
         }
 
         public static void Update()
         {
             cameraOperator.Update();
             camera.Update();
+
+            particleManager.Update();
             backgroundManager.Update();
         }
 
@@ -52,6 +57,7 @@ namespace Graphics
             //entity sprites
             sprites.Begin(camera);
             Entities.Entities.entityManager.Draw();
+            particleManager.Draw();
             backgroundManager.DrawParallaxFrontLayers();
             sprites.End();
 

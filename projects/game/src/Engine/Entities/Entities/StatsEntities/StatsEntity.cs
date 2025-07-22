@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
 using Utils;
@@ -14,6 +15,8 @@ namespace Entities
         public bool CanRegensStamina;
         public bool CanUpdateIFrames;
         public bool CanFall;
+
+        public ParticleSet.ParticleSets BloodDropParticle;
 
         public enum EntityFractions
         {
@@ -67,6 +70,7 @@ namespace Entities
         {
             Stats = new EntityStats();
             EntityFraction = EntityFractions.NEUTRAL;
+            BloodDropParticle = ParticleSet.ParticleSets.NONE;
 
             CanRegensStamina = false;
             CanUpdateIFrames = false;

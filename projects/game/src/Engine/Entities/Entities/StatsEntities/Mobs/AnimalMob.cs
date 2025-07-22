@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using System;
@@ -22,6 +23,7 @@ namespace Entities
             EntityFraction = EntityFractions.ANIMAL;
             aiManager = new EntityAIManager(BehaviourPatterns.ANIMAL_DEFAULT);
             CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
+            BloodDropParticle = ParticleSet.ParticleSets.SLIME_BLOOD_SPLASH;
         }
 
         public override void SetStats()

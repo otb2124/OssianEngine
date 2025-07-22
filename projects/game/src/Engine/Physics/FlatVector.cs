@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace Physics
 {
@@ -65,6 +66,12 @@ namespace Physics
             }
 
             return false;
+        }
+
+
+        public Vector2 ToVector2()
+        {
+            return FlatConverter.ToVector2(this);
         }
 
         public override int GetHashCode()

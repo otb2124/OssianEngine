@@ -29,17 +29,26 @@ namespace Entities
             
             if (toEnt.Stats.HP > 0)
             {
-                Console.WriteLine(knockBackPower);
-                toEnt.Stats.ReceiveDamage(damage);
-
-                FlatVector direction = FlatMath.Normalize(toEnt.Model.body.Position - fromEntPos);
-                FlatVector knockbackForce = direction * knockBackPower;
-                toEnt.Model.body.ApplyForce(knockbackForce);
+                HandleTakingDamage(toEnt, damage, knockBackPower, fromEntPos);
             }
 
             if(toEnt.Stats.IsInvincible != true)
             {
                 toEnt.Stats.IsInvincible = true;
+            }
+        }
+
+
+        public static void HandleTakingDamage(StatsEntity toEnt, float damage, float knockBackPower, FlatVector fromEntPos)
+        {
+            toEnt.Stats.ReceiveDamage(damage);
+            FlatVector direction = FlatMath.Normalize(toEnt.Model.body.Position - fromEntPos);
+            FlatVector knockbackForce = direction * knockBackPower;
+            toEnt.Model.body.ApplyForce(knockbackForce);
+
+            if(toEnt.BloodDropParticle != Graphics.ParticleSet.ParticleSets.NONE)
+            {
+                Graphics.Graphics.particleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.body.Position.ToVector2(), knockbackForce.ToVector2() / 2));
             }
         }
 

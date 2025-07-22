@@ -53,6 +53,9 @@ namespace Utils
         //equipment
         ENTITIES_WEAPONS,
 
+        //particles
+        ENTITIES_PARTICLES,
+
         //--
         //UI
         UI_CURSOR,

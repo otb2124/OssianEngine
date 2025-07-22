@@ -68,6 +68,9 @@ namespace Resources
                 //equipment
                 SpriteSheets.ENTITIES_WEAPONS,
 
+                //particles
+                SpriteSheets.ENTITIES_PARTICLES,
+
                 //--
                 //UI
                 SpriteSheets.UI_CURSOR,

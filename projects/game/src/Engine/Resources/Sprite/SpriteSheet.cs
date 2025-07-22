@@ -84,9 +84,11 @@ namespace Resources
                     return "entities/static/tiles";
                 case SpriteSheets.ENTITIES_PLATFORMS:
                     return "entities/static/platforms";
-                     
+                case SpriteSheets.ENTITIES_PARTICLES:
+                    return "entities/static/particles";
                 case SpriteSheets.ENTITIES_WEAPONS:
                     return "entities/equipment/weapons";
+                
 
                 //UI
                 case SpriteSheets.UI_CURSOR:

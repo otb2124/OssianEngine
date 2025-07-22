@@ -172,6 +172,11 @@ namespace Resources
             return data;
         }
 
+        public static SpriteData GetEntityParticle(Vector2 pos)
+        {
+            return new SpriteData(SpriteSheets.ENTITIES_PARTICLES, new Rectangle((int)pos.X*16, (int)pos.Y*16, 16, 16), 0);
+        }
+
 
         public static Dictionary<ItemKey, Point> itemUISpriteMappings = new()
         {
