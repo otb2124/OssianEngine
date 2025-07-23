@@ -12,10 +12,10 @@ namespace Entities
         public static void Init()
         {
             entityMapManager = new EntityMapManager();
-            entityMapManager.Init();
-
             entityManager = new EntityManager();
             eventManager = new EventManager();
+
+            entityMapManager.Init();
         }
 
         public static Player player;

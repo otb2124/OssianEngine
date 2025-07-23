@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Physics;
+using System;
 using Utils;
 
 namespace Graphics
@@ -21,6 +24,7 @@ namespace Graphics
 
         public static BackgroundManager backgroundManager;
         public static ParticleManager particleManager;
+        public static LightManager lightManager;
 
         public static void Init()
         {
@@ -29,6 +33,8 @@ namespace Graphics
             backgroundManager.Init();
 
             particleManager = new ParticleManager();
+
+            lightManager = new LightManager();
         }
 
         public static void Update()
@@ -38,6 +44,8 @@ namespace Graphics
 
             particleManager.Update();
             backgroundManager.Update();
+
+            lightManager.Update();
         }
 
         public static void Draw()
@@ -59,6 +67,15 @@ namespace Graphics
             Entities.Entities.entityManager.Draw();
             particleManager.Draw();
             backgroundManager.DrawParallaxFrontLayers();
+            sprites.End();
+
+            //lighting effect
+            sprites.Begin(camera, BlendState.Additive);
+            lightManager.Draw();
+            sprites.End();
+
+            sprites.Begin(camera, BlendState.AlphaBlend);
+            //lightManager.ApplyLighting();
             sprites.End();
 
             //hitboxes over models (fix to over entity sprites, but under weapon sprites)

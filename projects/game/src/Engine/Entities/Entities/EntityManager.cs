@@ -12,6 +12,7 @@ namespace Entities
     public class EntityManager
     {
 
+        private int nextId = 1;
         public EntityManager()
         {
             
@@ -102,6 +103,31 @@ namespace Entities
                 }
                 
             }
+        }
+
+
+        public int GenerateId()
+        {
+            if (Entities.entityMapManager == null || Entities.entityMapManager.maps == null || Entities.entityMapManager.CurrentMapId < 0 || Entities.entityMapManager.CurrentMapId >= Entities.entityMapManager.maps.Length)
+            {
+                return nextId++;
+            }
+
+            var entities = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities ?? (Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities = new List<Entity>());
+            while (entities.Any(e => e.Id == nextId))
+            {
+                nextId++;
+                if (nextId < 0)
+                {
+                    nextId = 1;
+                }
+            }
+            return nextId++;
+        }
+
+        public Entity GetEntityById(int id)
+        {
+            return Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.FirstOrDefault(e => e.Id == id);
         }
 
 

@@ -8,7 +8,15 @@ namespace Entities
 {
     public class Entity
     {
-        public Entity() {}
+        public int Id { get; set; }
+        public Entity() 
+        {
+            Id = Entities.entityManager.GenerateId();
+        }
+        public Entity(int id)
+        {
+            Id = id;
+        }
         public virtual void Update() {}
         public virtual void Draw() {}
     }

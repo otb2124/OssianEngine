@@ -69,6 +69,7 @@ namespace App
         protected override void LoadContent()
         {
             Entities.Entities.entityMapManager.ChangeMap(0, new Vector2(0, 1000));
+            Graphics.Graphics.lightManager.Init();
         }
 
         protected override void Update(GameTime gameTime)

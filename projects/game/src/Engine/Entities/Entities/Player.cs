@@ -12,7 +12,6 @@ namespace Entities
 
         public Player() : base(Models.PLAYER, Vector2.Zero, 0f)
         {
-            
         }
 
         public override void SetStats()
