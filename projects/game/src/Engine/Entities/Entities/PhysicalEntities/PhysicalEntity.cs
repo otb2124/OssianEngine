@@ -16,6 +16,8 @@ namespace Entities
         public float baseSpriteZ;
         public float spriteZ;
 
+        public LightSource.LightSourceData Emission;
+
         public PhysicalEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base() 
         {
             Init(modelPreset, pos, rotation);
@@ -48,6 +50,7 @@ namespace Entities
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
+            SetEmission();
         }
 
         public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
@@ -62,6 +65,7 @@ namespace Entities
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
+            SetEmission();
         }
 
         public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
@@ -76,6 +80,13 @@ namespace Entities
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
+            SetEmission();
+        }
+
+
+        public virtual void SetEmission()
+        {
+
         }
 
         public virtual void UpdateAnimationState()

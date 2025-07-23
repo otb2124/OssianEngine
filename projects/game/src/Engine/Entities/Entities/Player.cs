@@ -12,6 +12,7 @@ namespace Entities
 
         public Player() : base(Models.PLAYER, Vector2.Zero, 0f)
         {
+            
         }
 
         public override void SetStats()
@@ -112,6 +113,11 @@ namespace Entities
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
         }
 
+        public override void SetEmission()
+        {
+            //Emission = new LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(50f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.7f), 50f, 0f);
+            base.SetEmission();
+        }
 
         public override void Update()
         {

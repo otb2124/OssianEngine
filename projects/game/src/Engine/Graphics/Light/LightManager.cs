@@ -13,12 +13,11 @@ namespace Graphics
     public class LightManager : IDisposable
     {
 
-        private RenderTarget2D lightMask;
-        private Sprites sprites; 
-        private GraphicsDevice graphicsDevice; 
-        private List<LightSource> lightSources; 
-        private Color darkOverlayColor; 
-        private bool isDisposed;
+        public RenderTarget2D lightMask;
+        public List<LightSource> lightSources;
+        public List<LightSource> lightSourcesToRemove;
+        public Color darkOverlayColor;
+        public bool isDisposed;
 
 
         public LightManager()
@@ -27,18 +26,27 @@ namespace Graphics
             {
                 throw new InvalidOperationException("Graphics must be initialized before LightManager");
             }
-            graphicsDevice = Graphics.graphicsDeviceManager.GraphicsDevice;
-            sprites = Graphics.sprites;
-            lightMask = new RenderTarget2D(graphicsDevice, Graphics.ResolutionX, Graphics.ResolutionY);
+            lightMask = new RenderTarget2D(Graphics.graphicsDeviceManager.GraphicsDevice, Graphics.ResolutionX, Graphics.ResolutionY);
             lightSources = new List<LightSource>();
+            lightSourcesToRemove = new List<LightSource>();
             darkOverlayColor = new Color(0, 0, 0, 0.8f);
         }
 
         public void Init()
         {
             ClearLightSources();
-            AddLightSource(new EntityEmissionLightSource(Entities.Entities.player.Id, new LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(50f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.7f), 50f, 0f)));
-            //AddLightSource(new EntityEmissionLightSource(20, new LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(10f, 10f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.7f), 50f, 0f)));
+
+
+            foreach (Entity ent in Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Entities)
+            {
+                if(ent is PhysicalEntity phent)
+                {
+                    if(phent.Emission != null)
+                    {
+                        AddLightSource(new EntityEmissionLightSource(ent.Id, phent.Emission));
+                    }
+                }
+            }
         }
 
         public void AddLightSource(LightSource light)
@@ -57,9 +65,24 @@ namespace Graphics
             {
                 if (light != null)
                 {
+
+                    if(light is EntityEmissionLightSource eesource)
+                    {
+                        if(Entities.Entities.entityManager.GetEntityById(eesource.EntityId) == null)
+                        {
+                            lightSourcesToRemove.Add(light);
+                            continue;
+                        }
+                    }
                     light.Update();
                 }
             }
+
+            foreach(var light in lightSourcesToRemove)
+            {
+                lightSources.Remove(light);
+            }
+            lightSourcesToRemove.Clear();
         }
 
         public void Draw()
@@ -75,7 +98,7 @@ namespace Graphics
 
         public void ApplyLighting()
         {
-            sprites.Draw(
+            Graphics.sprites.Draw(
                 lightMask,
                 new Rectangle(0, 0, Graphics.ResolutionX, Graphics.ResolutionY),
                 darkOverlayColor // Use darkOverlayColor directly
