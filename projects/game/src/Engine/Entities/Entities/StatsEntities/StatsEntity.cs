@@ -17,6 +17,7 @@ namespace Entities
         public bool CanFall;
 
         public ParticleSet.ParticleSets BloodDropParticle;
+        public Resources.Sounds HurtSound;
 
         public enum EntityFractions
         {
@@ -71,6 +72,7 @@ namespace Entities
             Stats = new EntityStats();
             EntityFraction = EntityFractions.NEUTRAL;
             BloodDropParticle = ParticleSet.ParticleSets.NONE;
+            HurtSound = Resources.Sounds.NONE;
 
             CanRegensStamina = false;
             CanUpdateIFrames = false;

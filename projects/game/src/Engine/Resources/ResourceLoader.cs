@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
 using Utils;
 
 namespace Resources
@@ -10,12 +11,14 @@ namespace Resources
 
         public static Font[] fonts;
         public static Dictionary<SpriteSheets, SpriteSheet> spriteSheets;
+        public static Dictionary<Sounds, SoundResource> soundResources;
 
 
         public static void LoadResources()
         {
             LoadSprites();
             LoadFonts();
+            LoadSounds();
         }
 
         public static void LoadSprites()
@@ -112,6 +115,21 @@ namespace Resources
             for (int i = 0; i < fonts.Length; i++)
             {
                 fonts[i] = new Font(fontAttributesToUse[i]);
+            }
+        }
+
+
+        public static void LoadSounds()
+        {
+            Sounds[] soundsToUse =
+            {
+                Sounds.HUMANOID_HURT,
+            };
+
+            soundResources = new Dictionary<Sounds, SoundResource>();
+            foreach (var soundsEnum in soundsToUse)
+            {
+                soundResources[soundsEnum] = new SoundResource(soundsEnum);
             }
         }
     }

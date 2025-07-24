@@ -24,6 +24,7 @@ namespace Entities
             aiManager = new EntityAIManager(BehaviourPatterns.ANIMAL_DEFAULT);
             CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
+            HurtSound = Resources.Sounds.HUMANOID_HURT;
         }
 
         public override void SetAnimations()

@@ -56,6 +56,8 @@ namespace App
 
             UI.UI.Init();
 
+            Sounds.Sounds.Init();
+
             Physics.Physics.watch = new Stopwatch();
             Physics.Physics.sampleTimer.Start();
 
