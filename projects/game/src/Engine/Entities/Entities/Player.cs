@@ -146,7 +146,7 @@ namespace Entities
                 }
 
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED] && (Stats.stamina - Stats.staminaAttackCost) > 0)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKLIGHTPRESSED] && (Stats.stamina - Stats.staminaAttackCost) > 0)
                 {
                     Stats.stamina -= Stats.staminaAttackCost;
                     Model.modelState = ModelStates.ATTACKING;
