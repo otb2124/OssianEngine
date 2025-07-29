@@ -146,7 +146,7 @@ namespace Entities
                 }
 
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED] && (Stats.stamina - Stats.staminaAttackCost) > 0 && EquipmentManager.IsWeaponOut)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKPRESSED] && (Stats.stamina - Stats.staminaAttackCost) > 0)
                 {
                     Stats.stamina -= Stats.staminaAttackCost;
                     Model.modelState = ModelStates.ATTACKING;
@@ -163,7 +163,7 @@ namespace Entities
             {
                 Model.direction = Directions.RIGHT;
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (Stats.stamina - Stats.staminaSprintCostSec / 60) > 0 && !Stats.OnStaminaRegen && !EquipmentManager.IsWeaponOut)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (Stats.stamina - Stats.staminaSprintCostSec / 60) > 0 && !Stats.OnStaminaRegen)
                 {
                     Model.body.Move(new FlatVector(Stats.speed * Stats.sprintMultiplier, 0));
                     Model.modelState = ModelStates.SPRINTING;
@@ -186,7 +186,7 @@ namespace Entities
             {
                 Model.direction = Directions.LEFT;
 
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (Stats.stamina - Stats.staminaSprintCostSec / 60) > 0 && !Stats.OnStaminaRegen && !EquipmentManager.IsWeaponOut)
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (Stats.stamina - Stats.staminaSprintCostSec / 60) > 0 && !Stats.OnStaminaRegen)
                 {
                     Model.body.Move(new FlatVector(-Stats.speed * Stats.sprintMultiplier, 0));
                     Model.modelState = ModelStates.SPRINTING;
@@ -205,14 +205,14 @@ namespace Entities
                 }
             }
 
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (Stats.stamina - (Stats.staminaJumpCostSec / 60)) > 0 && !EquipmentManager.IsWeaponOut)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (Stats.stamina - (Stats.staminaJumpCostSec / 60)) > 0)
             {
                 Model.body.Jump(Stats.jumpSpeed);
                 Model.modelState = ModelStates.JUMPING;
                 Stats.stamina -= Stats.staminaJumpCostSec / 60;
             }
 
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (Stats.stamina - (Stats.staminaRollCostSec / 60)) > 0 && EquipmentManager.IsWeaponOut)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED] && (Stats.stamina - (Stats.staminaRollCostSec / 60)) > 0)
             {
 
                 if (Model.direction == Directions.RIGHT)

@@ -17,6 +17,8 @@ namespace Inputs
             TOGGLEWEAPONPRESSED,
             SPRINTPRESSED,
             INTERACTRESSED,
+            PARRYPRESSED,
+            BLOCKPRESSED,
 
             //camera
             CAMERALEFTPRESSED,
@@ -46,6 +48,8 @@ namespace Inputs
             { KeyStates.TOGGLEWEAPONPRESSED, false },
             { KeyStates.SPRINTPRESSED, false },
             { KeyStates.INTERACTRESSED, false },
+            { KeyStates.BLOCKPRESSED, false },
+            { KeyStates.PARRYPRESSED, false },
 
             //camera
             { KeyStates.CAMERALEFTPRESSED, false },
@@ -68,14 +72,26 @@ namespace Inputs
         public Dictionary<(KeyStates state, bool clickOnly), Keys> keyBindings = new Dictionary<(KeyStates, bool), Keys>
         {
             //player keys
-            { (KeyStates.JUMPPRESSED, false), Keys.Space },
             { (KeyStates.MOVERIGHTPRESSED, false), Keys.D },
             { (KeyStates.MOVELEFTPRESSED, false), Keys.A },
             { (KeyStates.MOVEDOWNPRESSED, false), Keys.S },
-            { (KeyStates.ATTACKPRESSED, true), Keys.LeftControl },
-            { (KeyStates.TOGGLEWEAPONPRESSED, true), Keys.R },
+
             { (KeyStates.SPRINTPRESSED, false), Keys.LeftShift },
-            { (KeyStates.INTERACTRESSED, true), Keys.Enter },
+
+            { (KeyStates.JUMPPRESSED, false), Keys.Space },
+
+            { (KeyStates.INTERACTRESSED, true), Keys.E },
+
+            { (KeyStates.BLOCKPRESSED, false), Keys.LeftAlt },
+
+            { (KeyStates.TOGGLEWEAPONPRESSED, true), Keys.Q },
+
+            { (KeyStates.PARRYPRESSED, false), Keys.LeftControl },
+
+            { (KeyStates.ATTACKPRESSED, true), Keys.Enter },
+            
+            
+            
 
             //camera
             { (KeyStates.CAMERALEFTPRESSED, false), Keys.Left },

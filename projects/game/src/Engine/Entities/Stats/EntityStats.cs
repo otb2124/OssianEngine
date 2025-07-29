@@ -1,19 +1,13 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Physics;
-using Resources;
-using System;
+﻿using Physics;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Entities
 {
     public class EntityStats
     {
 
+
+        //indicators
         public float maxHP;
         public float HP;
 
@@ -30,6 +24,11 @@ namespace Entities
         public int staminaUnlockCounter = 0;
         public float staminaUnlockSec;
 
+        //lvl
+        public int currentLvl = 0;
+        public int currentXP = 0;
+
+        //speed jump roll
         public float maxSpeed;
         public float speed;
         public float jumpSpeed;
@@ -52,12 +51,24 @@ namespace Entities
         public float FallenTimer = 0f;
         public float FallenDurationAllowedSec = 3f;
 
+
+
+        public Dictionary<int, int> levelExpCost = new()
+        {
+            {1, 100 },
+            {2, 250 },
+            {3, 500 }
+        };
+
+
+
         public void Refill()
         {
             HP = maxHP;
-            speed = maxSpeed;
             mana = maxMana;
             stamina = maxStamina;
+
+            speed = maxSpeed;
         }
 
 
