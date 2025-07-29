@@ -6,6 +6,27 @@ namespace Inputs
     public class KeyHandler
     {
 
+        public struct InputKey
+        {
+            public bool IsMouseButton;
+            public Keys? KeyboardKey;
+            public FlatMouse.MouseButtons? MouseButton;
+
+            public InputKey(Keys key)
+            {
+                IsMouseButton = false;
+                KeyboardKey = key;
+                MouseButton = null;
+            }
+
+            public InputKey(FlatMouse.MouseButtons button)
+            {
+                IsMouseButton = true;
+                KeyboardKey = null;
+                MouseButton = button;
+            }
+        }
+
         public enum KeyStates
         {
             //player keys
@@ -69,48 +90,44 @@ namespace Inputs
         };
 
 
-        public Dictionary<(KeyStates state, bool clickOnly), Keys> keyBindings = new Dictionary<(KeyStates, bool), Keys>
+        public Dictionary<(KeyStates state, bool clickOnly), InputKey> keyBindings = new Dictionary<(KeyStates, bool), InputKey>
         {
             //player keys
-            { (KeyStates.MOVERIGHTPRESSED, false), Keys.D },
-            { (KeyStates.MOVELEFTPRESSED, false), Keys.A },
-            { (KeyStates.MOVEDOWNPRESSED, false), Keys.S },
+            { (KeyStates.MOVERIGHTPRESSED, false), new InputKey(Keys.D) },
+            { (KeyStates.MOVELEFTPRESSED, false), new InputKey(Keys.A) },
+            { (KeyStates.MOVEDOWNPRESSED, false), new InputKey(Keys.S) },
 
-            { (KeyStates.SPRINTPRESSED, false), Keys.LeftShift },
+            { (KeyStates.SPRINTPRESSED, false), new InputKey(Keys.LeftShift) },
 
-            { (KeyStates.JUMPPRESSED, false), Keys.Space },
+            { (KeyStates.JUMPPRESSED, false), new InputKey(Keys.Space) },
 
-            { (KeyStates.INTERACTRESSED, true), Keys.E },
+            { (KeyStates.INTERACTRESSED, true), new InputKey(Keys.E) },
 
-            { (KeyStates.BLOCKPRESSED, false), Keys.LeftAlt },
+            { (KeyStates.BLOCKPRESSED, false), new InputKey(Keys.LeftAlt) },
 
-            { (KeyStates.TOGGLEWEAPONPRESSED, true), Keys.Q },
+            { (KeyStates.TOGGLEWEAPONPRESSED, true), new InputKey(Keys.Q) },
 
-            { (KeyStates.PARRYPRESSED, false), Keys.LeftControl },
+            { (KeyStates.PARRYPRESSED, false), new InputKey(Keys.LeftControl) },
 
-            { (KeyStates.ATTACKPRESSED, true), Keys.Enter },
-            
-            
-            
+            { (KeyStates.ATTACKPRESSED, true), new InputKey(FlatMouse.MouseButtons.Left) },     
 
             //camera
-            { (KeyStates.CAMERALEFTPRESSED, false), Keys.Left },
-            { (KeyStates.CAMERARIGHTPRESSED, false), Keys.Right },
-            { (KeyStates.CAMERAUPPRESSED, false), Keys.Up },
-            { (KeyStates.CAMERADOWNPRESSED, false), Keys.Down },
+            { (KeyStates.CAMERALEFTPRESSED, false), new InputKey(Keys.Left) },
+            { (KeyStates.CAMERARIGHTPRESSED, false), new InputKey(Keys.Right) },
+            { (KeyStates.CAMERAUPPRESSED, false), new InputKey(Keys.Up) },
+            { (KeyStates.CAMERADOWNPRESSED, false), new InputKey(Keys.Down) },
 
-            { (KeyStates.CAMERAZOOMUPPRESSED, false), Keys.OemPlus },
-            { (KeyStates.CAMERAZOOMDOWNPRESSED, false), Keys.OemMinus },
+            { (KeyStates.CAMERAZOOMUPPRESSED, false), new InputKey(Keys.OemPlus) },
+            { (KeyStates.CAMERAZOOMDOWNPRESSED, false), new InputKey(Keys.OemMinus) },
 
             //ui
-            { (KeyStates.TOGGLEMENUPRESSED, true), Keys.Escape },
-            { (KeyStates.TOGGLEHUDPRESSED, true), Keys.F1 },
+            { (KeyStates.TOGGLEMENUPRESSED, true), new InputKey(Keys.Escape) },
+            { (KeyStates.TOGGLEHUDPRESSED, true), new InputKey(Keys.F1) },
 
             //debug
-            { (KeyStates.TOGGLEDEBUGPRESSED, true), Keys.F3 },
+            { (KeyStates.TOGGLEDEBUGPRESSED, true), new InputKey(Keys.F3) },
         };
 
-        
 
         public KeyHandler() {
 
@@ -132,35 +149,61 @@ namespace Inputs
 
         private void HandleKeyClicks()
         {
-            foreach (var (state, clickOnly) in keyBindings.Keys)
+            foreach (var ((state, clickOnly), binding) in keyBindings)
             {
-                if (clickOnly && Inputs.keyboard.IsKeyClicked(keyBindings[(state, clickOnly)]))
+                if (!clickOnly) continue;
+
+                bool isPressed = false;
+                if (binding.IsMouseButton)
                 {
-                    keyStates[state] = true;
+                    isPressed = Inputs.mouse.IsMouseButtonPressed(binding.MouseButton!.Value);
                 }
-                else if(clickOnly && !Inputs.keyboard.IsKeyClicked(keyBindings[(state, clickOnly)]))
+                else
                 {
-                    keyStates[state] = false; 
+                    isPressed = Inputs.keyboard.IsKeyClicked(binding.KeyboardKey!.Value);
                 }
+
+                keyStates[state] = isPressed;
             }
         }
 
         private void HandleKeyPresses()
         {
-            foreach (var (state, clickOnly) in keyBindings.Keys)
+            foreach (var ((state, clickOnly), binding) in keyBindings)
             {
-                if (!clickOnly && Inputs.keyboard.IsKeyDown(keyBindings[(state, clickOnly)]))
+                if (clickOnly) continue;
+
+                bool isPressed = false;
+                if (binding.IsMouseButton)
                 {
-                    keyStates[state] = true;
+                    isPressed = Inputs.mouse.IsMouseButtonDown(binding.MouseButton!.Value);
                 }
+                else
+                {
+                    isPressed = Inputs.keyboard.IsKeyDown(binding.KeyboardKey!.Value);
+                }
+
+                keyStates[state] = isPressed;
             }
         }
 
         private void HandleKeyReleases()
         {
-            foreach (var (state, clickOnly) in keyBindings.Keys)
+            foreach (var ((state, clickOnly), binding) in keyBindings)
             {
-                if (!clickOnly && Inputs.keyboard.IsKeyReleased(keyBindings[(state, clickOnly)]))
+                if (clickOnly) continue;
+
+                bool isReleased = false;
+                if (binding.IsMouseButton)
+                {
+                    isReleased = Inputs.mouse.IsMouseButtonReleased(binding.MouseButton!.Value);
+                }
+                else
+                {
+                    isReleased = Inputs.keyboard.IsKeyReleased(binding.KeyboardKey!.Value);
+                }
+
+                if (isReleased)
                 {
                     keyStates[state] = false;
                 }

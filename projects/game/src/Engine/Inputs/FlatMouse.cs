@@ -10,6 +10,12 @@ namespace Inputs
 
     public sealed class FlatMouse
     {
+        public enum MouseButtons
+        {
+            Left,
+            Right,
+            Middle,
+        }
 
         private static Lazy<FlatMouse> LazyInstance = new Lazy<FlatMouse>(() => new FlatMouse());
 
@@ -92,6 +98,39 @@ namespace Inputs
         public bool IsMiddleMouseButtonReleased()
         {
             return this.currMouseState.MiddleButton == ButtonState.Released && this.prevMouseState.MiddleButton == ButtonState.Pressed;
+        }
+
+        public bool IsMouseButtonPressed(MouseButtons button)
+        {
+            return button switch
+            {
+                MouseButtons.Left => IsLeftMouseButtonPressed(),
+                MouseButtons.Right => IsRightMouseButtonPressed(),
+                MouseButtons.Middle => IsMiddleMouseButtonPressed(),
+                _ => false
+            };
+        }
+
+        public bool IsMouseButtonDown(MouseButtons button)
+        {
+            return button switch
+            {
+                MouseButtons.Left => IsLeftMouseButtonDown(),
+                MouseButtons.Right => IsRightMouseButtonDown(),
+                MouseButtons.Middle => IsMiddleMouseButtonDown(),
+                _ => false
+            };
+        }
+
+        public bool IsMouseButtonReleased(MouseButtons button)
+        {
+            return button switch
+            {
+                MouseButtons.Left => IsLeftMouseButtonReleased(),
+                MouseButtons.Right => IsRightMouseButtonReleased(),
+                MouseButtons.Middle => IsMiddleMouseButtonReleased(),
+                _ => false
+            };
         }
 
         public Vector2 GetMouseScreenPosition()
@@ -178,14 +217,5 @@ namespace Inputs
             return hasMoved;
         }
     }
-
-    public enum MouseButtons
-    {
-        Left,
-        Right,
-        Middle,
-        // Add other mouse buttons if needed
-    }
-
 
 }
