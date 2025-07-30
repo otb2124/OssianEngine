@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
+using Resources;
 using System;
 using Utils;
 
@@ -113,6 +114,16 @@ namespace Entities
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
         }
 
+        public override void SetSounds()
+        {
+            base.SetSounds();
+             
+            soundSet[EntitySounds.STEP] = new Resources.Sounds[] { Resources.Sounds.FOOT_STONE_W1, Resources.Sounds.FOOT_STONE_W2, Resources.Sounds.FOOT_STONE_W3 };
+            soundSet[EntitySounds.RECEIVEDAMAGE] = new Resources.Sounds[] { Resources.Sounds.HUMANOID_HURT };
+            soundSet[EntitySounds.JUMP] = new Resources.Sounds[] { Resources.Sounds.FOOT_SOIL_R1, Resources.Sounds.FOOT_SOIL_R2, Resources.Sounds.FOOT_SOIL_R3, Resources.Sounds.FOOT_SOIL_R4 };
+            soundSet[EntitySounds.WEAPON_SWING] = new Resources.Sounds[] { Resources.Sounds.SWING_SWORD, Resources.Sounds.SWING_SWORD2 };
+        }
+
         public override void SetEmission()
         {
             //Emission = new LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(50f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.7f), 50f, 0f);
@@ -202,6 +213,7 @@ namespace Entities
                     {
                         Model.modelState = ModelStates.BATTLE_MOVING;
                     }
+
                 }
             }
 

@@ -54,8 +54,8 @@ namespace Entities
         {
             base.SetSounds();
 
-            soundSet[EntitySounds.STEP] = Resources.Sounds.HUMANOID_FOOTSTEP;
-            soundSet[EntitySounds.RECEIVEDAMAGE] = Resources.Sounds.HUMANOID_HURT;
+            soundSet[EntitySounds.STEP] = new Resources.Sounds[] { Resources.Sounds.FOOT_STONE_W1, Resources.Sounds.FOOT_STONE_W2, Resources.Sounds.FOOT_STONE_W3 };
+            soundSet[EntitySounds.RECEIVEDAMAGE] = new Resources.Sounds[] { Resources.Sounds.HUMANOID_HURT };
         }
 
         public override void SetStats()

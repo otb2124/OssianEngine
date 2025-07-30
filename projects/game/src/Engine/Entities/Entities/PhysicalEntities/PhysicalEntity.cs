@@ -19,7 +19,7 @@ namespace Entities
 
         public LightSource.LightSourceData Emission;
 
-        public Dictionary<Resources.EntitySounds, Resources.Sounds> soundSet;
+        public Dictionary<Resources.EntitySounds, Resources.Sounds[]> soundSet;
 
         public PhysicalEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base() 
         {
@@ -95,10 +95,53 @@ namespace Entities
         {
             soundSet = new()
             {
-                { EntitySounds.RECEIVEDAMAGE, Resources.Sounds.NONE },
-                { EntitySounds.STEP, Resources.Sounds.NONE },
-                { EntitySounds.JUMP, Resources.Sounds.NONE }
+                { EntitySounds.RECEIVEDAMAGE, new Resources.Sounds[] { Resources.Sounds.NONE } },
+                { EntitySounds.STEP, new Resources.Sounds[] { Resources.Sounds.NONE } },
+                { EntitySounds.JUMP, new Resources.Sounds[] { Resources.Sounds.NONE } }
             };
+        }
+
+        public void PlayEntitySound(EntitySounds sound, float timeSec)
+        {
+            Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(Id, soundSet[sound][RandomHelper.RandomInteger(0, soundSet[sound].Length)], Model.body.Position.ToVector2(), timeSec));
+        }
+
+        public virtual void UpdateSoundState()
+        {
+            switch (Model.modelState)
+            {
+                case ModelStates.MOVING:
+                    PlayEntitySound(EntitySounds.STEP, 0.25f);
+                    break;
+                case ModelStates.IDLE:
+                    //
+                    break;
+                case ModelStates.JUMPING:
+                    PlayEntitySound(EntitySounds.JUMP, 1f);
+                    break;
+                case ModelStates.SPRINTING:
+                    PlayEntitySound(EntitySounds.STEP, 0.2f);
+                    break;
+                case ModelStates.BATTLE_IDLE:
+                    //
+                    break;
+                case ModelStates.BATTLE_MOVING:
+                    PlayEntitySound(EntitySounds.STEP, 0.25f);
+                    break;
+                case ModelStates.BATTLE_ROLL:
+                    //
+                    break;
+                case ModelStates.FALLEN:
+                    //
+                    break;
+                case ModelStates.FALLING:
+                    //
+                    break;
+                case ModelStates.ATTACKING:
+                    PlayEntitySound(EntitySounds.WEAPON_SWING, 1f);
+                    break;
+            }
+
         }
 
         public virtual void UpdateAnimationState()
@@ -141,6 +184,7 @@ namespace Entities
         public override void Update()
         {
             UpdateAnimationState();
+            UpdateSoundState();
             base.Update();
         }
 

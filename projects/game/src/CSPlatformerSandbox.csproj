@@ -20,9 +20,52 @@
     <None Remove="Content\res\fonts\Roboto_12_Regular.xnb" />
     <None Remove="Content\res\fonts\Roboto_18_Regular.xnb" />
     <None Remove="Content\res\fonts\Roboto_26_Regular.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-armor-1.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-armor-2.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-armor-3.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-armor-4.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-hauberk-1.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-hauberk-2.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-hauberk-3.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-hauberk-4.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-lobe-1.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-lobe-2.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-lobe-3.xnb" />
+    <None Remove="Content\res\sounds\sfx\body-lobe-4.xnb" />
+    <None Remove="Content\res\sounds\sfx\bow-shot1.xnb" />
+    <None Remove="Content\res\sounds\sfx\bow-shot2.xnb" />
+    <None Remove="Content\res\sounds\sfx\bow-shot3.xnb" />
+    <None Remove="Content\res\sounds\sfx\bow-stance1.xnb" />
+    <None Remove="Content\res\sounds\sfx\breath.xnb" />
+    <None Remove="Content\res\sounds\sfx\damage1.xnb" />
+    <None Remove="Content\res\sounds\sfx\damage2.xnb" />
+    <None Remove="Content\res\sounds\sfx\damage3.xnb" />
+    <None Remove="Content\res\sounds\sfx\downs-knee.xnb" />
+    <None Remove="Content\res\sounds\sfx\foot-soil-r1.xnb" />
+    <None Remove="Content\res\sounds\sfx\foot-soil-r2.xnb" />
+    <None Remove="Content\res\sounds\sfx\foot-soil-r3.xnb" />
+    <None Remove="Content\res\sounds\sfx\foot-soil-r4.xnb" />
+    <None Remove="Content\res\sounds\sfx\foot-stone-w1.xnb" />
+    <None Remove="Content\res\sounds\sfx\foot-stone-w2.xnb" />
+    <None Remove="Content\res\sounds\sfx\foot-stone-w3.xnb" />
     <None Remove="Content\res\sounds\sfx\humanoid_footstep.xnb" />
+    <None Remove="Content\res\sounds\sfx\humanoid_footstep0.xnb" />
+    <None Remove="Content\res\sounds\sfx\humanoid_footstep1.xnb" />
+    <None Remove="Content\res\sounds\sfx\humanoid_footstep2.xnb" />
     <None Remove="Content\res\sounds\sfx\humanoid_hurt.mp3" />
     <None Remove="Content\res\sounds\sfx\humanoid_hurt.xnb" />
+    <None Remove="Content\res\sounds\sfx\iron-cut-iron.xnb" />
+    <None Remove="Content\res\sounds\sfx\iron-cut-iron2.xnb" />
+    <None Remove="Content\res\sounds\sfx\iron-cut-iron3.xnb" />
+    <None Remove="Content\res\sounds\sfx\iron-cut-meat.xnb" />
+    <None Remove="Content\res\sounds\sfx\iron-cut-meat2.xnb" />
+    <None Remove="Content\res\sounds\sfx\magic-fire.xnb" />
+    <None Remove="Content\res\sounds\sfx\magic-force23.xnb" />
+    <None Remove="Content\res\sounds\sfx\swing-katana.xnb" />
+    <None Remove="Content\res\sounds\sfx\swing-sword-charge.xnb" />
+    <None Remove="Content\res\sounds\sfx\swing-sword.xnb" />
+    <None Remove="Content\res\sounds\sfx\swing-sword2.xnb" />
+    <None Remove="Content\res\sounds\sfx\torch.xnb" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\res\fonts\Roboto_12_Regular.xnb">
@@ -34,10 +77,136 @@
     <Content Include="Content\res\fonts\Roboto_26_Regular.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\res\sounds\sfx\humanoid_footstep.xnb">
+    <Content Include="Content\res\sounds\sfx\body-armor-1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-armor-2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-armor-3.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-armor-4.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-hauberk-1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-hauberk-2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-hauberk-3.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-hauberk-4.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-lobe-1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-lobe-2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-lobe-3.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\body-lobe-4.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\bow-shot1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\bow-shot2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\bow-shot3.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\bow-stance1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\breath.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\damage1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\damage2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\damage3.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\downs-knee.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\foot-soil-r1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\foot-soil-r2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\foot-soil-r3.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\foot-soil-r4.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\foot-stone-w1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\foot-stone-w2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\foot-stone-w3.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\humanoid_footstep0.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\humanoid_footstep1.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\humanoid_footstep2.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\sounds\sfx\humanoid_hurt.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\iron-cut-iron.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\iron-cut-iron2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\iron-cut-iron3.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\iron-cut-meat.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\iron-cut-meat2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\magic-fire.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\magic-force23.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\swing-katana.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\swing-sword-charge.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\swing-sword.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\swing-sword2.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\sounds\sfx\torch.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
