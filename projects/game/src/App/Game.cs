@@ -88,6 +88,7 @@ namespace App
             commandManager.ProcessCommands();
 
             Graphics.Graphics.Update();
+            Sounds.Sounds.Update();
 
             base.Update(gameTime);
         }

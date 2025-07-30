@@ -15,5 +15,10 @@ namespace Sounds
         {
             SoundManager = new SoundManager();
         }
+
+        public static void Update()
+        {
+            SoundManager.Update();
+        }
     }
 }

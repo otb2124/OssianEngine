@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using Resources;
 using System;
+using System.Collections.Generic;
 using Utils;
 
 namespace Entities
@@ -17,6 +18,8 @@ namespace Entities
         public float spriteZ;
 
         public LightSource.LightSourceData Emission;
+
+        public Dictionary<Resources.EntitySounds, Resources.Sounds> soundSet;
 
         public PhysicalEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base() 
         {
@@ -51,6 +54,7 @@ namespace Entities
 
             SetAnimations();
             SetEmission();
+            SetSounds();
         }
 
         public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
@@ -66,6 +70,7 @@ namespace Entities
 
             SetAnimations();
             SetEmission();
+            SetSounds();
         }
 
         public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
@@ -84,9 +89,16 @@ namespace Entities
         }
 
 
-        public virtual void SetEmission()
-        {
+        public virtual void SetEmission(){ }
 
+        public virtual void SetSounds() 
+        {
+            soundSet = new()
+            {
+                { EntitySounds.RECEIVEDAMAGE, Resources.Sounds.NONE },
+                { EntitySounds.STEP, Resources.Sounds.NONE },
+                { EntitySounds.JUMP, Resources.Sounds.NONE }
+            };
         }
 
         public virtual void UpdateAnimationState()

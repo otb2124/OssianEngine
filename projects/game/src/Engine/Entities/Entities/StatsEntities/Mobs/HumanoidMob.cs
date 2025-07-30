@@ -24,7 +24,6 @@ namespace Entities
             aiManager = new EntityAIManager(BehaviourPatterns.ANIMAL_DEFAULT);
             CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
-            HurtSound = Resources.Sounds.HUMANOID_HURT;
         }
 
         public override void SetAnimations()
@@ -49,6 +48,14 @@ namespace Entities
             //battleRoll
             frameSpeed = 0.15f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
+        }
+
+        public override void SetSounds()
+        {
+            base.SetSounds();
+
+            soundSet[EntitySounds.STEP] = Resources.Sounds.HUMANOID_FOOTSTEP;
+            soundSet[EntitySounds.RECEIVEDAMAGE] = Resources.Sounds.HUMANOID_HURT;
         }
 
         public override void SetStats()

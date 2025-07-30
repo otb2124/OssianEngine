@@ -51,9 +51,9 @@ namespace Entities
                 Graphics.Graphics.particleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.body.Position.ToVector2(), knockbackForce.ToVector2() / 2));
             }
 
-            if(toEnt.HurtSound != Resources.Sounds.NONE)
+            if(toEnt.soundSet[Resources.EntitySounds.RECEIVEDAMAGE] != Resources.Sounds.NONE)
             {
-                Sounds.Sounds.SoundManager.PlaySound(toEnt.HurtSound);
+                Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(toEnt.soundSet[Resources.EntitySounds.RECEIVEDAMAGE], toEnt.Model.body.Position.ToVector2(), 1f));
             }
         }
 

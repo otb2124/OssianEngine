@@ -11,7 +11,15 @@ namespace Resources
     public enum Sounds
     {
         NONE,
-        HUMANOID_HURT
+        HUMANOID_HURT,
+        HUMANOID_FOOTSTEP,
+    }
+
+    public enum EntitySounds
+    {
+        STEP,
+        RECEIVEDAMAGE,
+        JUMP,
     }
 
     public class SoundResource
@@ -32,6 +40,8 @@ namespace Resources
             {
                 case Sounds.HUMANOID_HURT:
                     return "sfx/humanoid_hurt";
+                case Sounds.HUMANOID_FOOTSTEP:
+                    return "sfx/humanoid_footstep";
                 default:
                     return "sfx/humanoid_hurt";
             }

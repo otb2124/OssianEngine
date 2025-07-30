@@ -75,6 +75,8 @@ namespace Entities
             };
 
             Entity.Model.body.Move(FlatConverter.ToFlatVector(velocity));
+
+            Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(Entity.Id, Entity.soundSet[Resources.EntitySounds.STEP], Entity.Model.body.Position.ToVector2(), 0.25f));
         }
 
         public void Jump()

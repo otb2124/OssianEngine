@@ -42,7 +42,7 @@ namespace UI
         public void HandleHover(int id)
         {
 
-            Debug.WriteLine("Button with id " + id + " on hover");
+            Debug.WriteLine("Button with Id " + id + " on hover");
 
 
             switch (id)
@@ -55,7 +55,7 @@ namespace UI
                 case 5:
                     break;
                 default:
-                    Debug.WriteLine("Button with id " + "empty" + " on hover");
+                    Debug.WriteLine("Button with Id " + "empty" + " on hover");
                     break;
             }
         }
@@ -63,7 +63,7 @@ namespace UI
 
         public void HandleClick(int id)
         {
-            Debug.WriteLine("Button with id " + id + " was hit");
+            Debug.WriteLine("Button with Id " + id + " was hit");
 
             switch (id)
             {
@@ -76,7 +76,7 @@ namespace UI
                     UI.UINavigator.HandleDynamicButtonNavigation(id);
                     break;
                 default:
-                    Debug.WriteLine("Button with id " + "empty" + " was hit");
+                    Debug.WriteLine("Button with Id " + "empty" + " was hit");
                     break;
             }
         }

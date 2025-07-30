@@ -52,6 +52,8 @@ namespace Entities
 
             Graphics.Graphics.backgroundManager.RemoveAll();
             Graphics.Graphics.backgroundManager.Init();
+
+            Graphics.Graphics.lightManager.Init();
         }
 
     }

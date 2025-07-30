@@ -124,6 +124,7 @@ namespace Resources
             Sounds[] soundsToUse =
             {
                 Sounds.HUMANOID_HURT,
+                Sounds.HUMANOID_FOOTSTEP
             };
 
             soundResources = new Dictionary<Sounds, SoundResource>();
