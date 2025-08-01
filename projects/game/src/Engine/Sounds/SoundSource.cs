@@ -78,7 +78,7 @@ namespace Sounds
                 return;
             }
 
-            Vector2 cameraWorldPosition = Entities.Entities.player.Model.body.Position.ToVector2();
+            Vector2 cameraWorldPosition = Entities.Entities.Player.Model.body.Position.ToVector2();
 
             float distance = Vector2.Distance(cameraWorldPosition, Position);
             float volume = MathHelper.Clamp(1f - (distance / MaxDistance), 0f, 1f) * Volume;

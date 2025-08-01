@@ -16,7 +16,7 @@ namespace Utils
 
         public void Execute(string[] args)
         {
-            Entities.Entities.entityManager.RemoveEntity(Entities.Entities.player);
+            Entities.Entities.entityManager.RemoveEntity(Entities.Entities.Player);
             Console.WriteLine("Killed");
         }
     }

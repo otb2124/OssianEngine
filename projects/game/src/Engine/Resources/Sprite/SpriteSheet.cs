@@ -72,7 +72,7 @@ namespace Resources
 
                 //entities
                 case SpriteSheets.ENTITIES_PLAYER:
-                    return "entities/dynamic/player";
+                    return "entities/dynamic/Player";
                 case SpriteSheets.ENTITIES_BANDIT:
                     return "entities/dynamic/mob0";
                 case SpriteSheets.ENTITIES_SLIME:

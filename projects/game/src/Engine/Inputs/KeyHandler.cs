@@ -29,7 +29,7 @@ namespace Inputs
 
         public enum KeyStates
         {
-            //player keys
+            //Player keys
             JUMPPRESSED,
             MOVERIGHTPRESSED,
             MOVELEFTPRESSED,
@@ -61,7 +61,7 @@ namespace Inputs
 
         public Dictionary<KeyStates, bool> keyStates = new Dictionary<KeyStates, bool>
         {
-            //player keys
+            //Player keys
             { KeyStates.JUMPPRESSED, false },
             { KeyStates.MOVERIGHTPRESSED, false },
             { KeyStates.MOVELEFTPRESSED, false },
@@ -94,7 +94,7 @@ namespace Inputs
 
         public Dictionary<(KeyStates state, bool clickOnly), List<InputKey>> keyBindings = new Dictionary<(KeyStates, bool), List<InputKey>>
         {
-            //player keys
+            //Player keys
             { (KeyStates.MOVERIGHTPRESSED, false), new List<InputKey> { new InputKey(Keys.D) } },
             { (KeyStates.MOVELEFTPRESSED, false), new List<InputKey> { new InputKey(Keys.A) } },
             { (KeyStates.MOVEDOWNPRESSED, false), new List<InputKey> { new InputKey(Keys.S) } },

@@ -122,13 +122,13 @@ namespace Entities
                 case ModelStates.SPRINTING:
                     PlayEntitySound(EntitySounds.STEP, 0.2f);
                     break;
-                case ModelStates.BATTLE_IDLE:
+                case ModelStates.WEAPON_OUT_IDLE:
                     //
                     break;
-                case ModelStates.BATTLE_MOVING:
+                case ModelStates.WEAPON_OUT_MOVING:
                     PlayEntitySound(EntitySounds.STEP, 0.25f);
                     break;
-                case ModelStates.BATTLE_ROLL:
+                case ModelStates.ROLLING:
                     //
                     break;
                 case ModelStates.FALLEN:
@@ -137,8 +137,8 @@ namespace Entities
                 case ModelStates.FALLING:
                     //
                     break;
-                case ModelStates.ATTACKING:
-                    PlayEntitySound(EntitySounds.WEAPON_SWING, 1f);
+                case ModelStates.ATTACKING_LIGHT:
+                    PlayEntitySound(EntitySounds.WEAPON_SWING, 0.5f);
                     break;
             }
 
@@ -157,16 +157,19 @@ namespace Entities
                 case ModelStates.JUMPING:
                     Model.animationState = AnimationStates.JUMPING;
                     break;
+                case ModelStates.JUMPING_AND_MOVING:
+                    Model.animationState = AnimationStates.JUMPING;
+                    break;
                 case ModelStates.SPRINTING:
                     Model.animationState = AnimationStates.SPRINTING;
                     break;
-                case ModelStates.BATTLE_IDLE:
+                case ModelStates.WEAPON_OUT_IDLE:
                     Model.animationState = AnimationStates.BATTLE_IDLE;
                     break;
-                case ModelStates.BATTLE_MOVING:
+                case ModelStates.WEAPON_OUT_MOVING:
                     Model.animationState = AnimationStates.BATTLE_MOVING;
                     break;
-                case ModelStates.BATTLE_ROLL:
+                case ModelStates.ROLLING:
                     Model.animationState = AnimationStates.BATTLE_ROLL;
                     break;
                 case ModelStates.FALLEN:
@@ -175,11 +178,13 @@ namespace Entities
                 case ModelStates.FALLING:
                     Model.animationState = AnimationStates.BATTLE_ROLL;
                     break;
+                case ModelStates.ATTACKING_LIGHT:
+                    Model.animationState = AnimationStates.ATTACKING_LIGHT;
+                    break;
             }
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));
         }
-
 
         public override void Update()
         {

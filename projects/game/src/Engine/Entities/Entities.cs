@@ -18,6 +18,6 @@ namespace Entities
             entityMapManager.Init();
         }
 
-        public static Player player;
+        public static Player Player;
     }
 }

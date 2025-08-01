@@ -30,7 +30,7 @@ namespace Entities
             Stats.staminaRegenSec = 20;
             Stats.staminaUnlockSec = 1.5f;
 
-            Stats.staminaAttackCost = 40;
+            Stats.staminaAttackHitCost = 25;
 
             Stats.rollMultiplier = 2f;
             Stats.staminaRollCostSec = 200;
@@ -112,12 +112,15 @@ namespace Entities
             //battleRoll
             frameSpeed = 0.15f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
+
+            frameSpeed = 0.15f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_LIGHT, 1, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
         }
 
         public override void SetSounds()
         {
             base.SetSounds();
-             
+            
             soundSet[EntitySounds.STEP] = new Resources.Sounds[] { Resources.Sounds.FOOT_STONE_W1, Resources.Sounds.FOOT_STONE_W2, Resources.Sounds.FOOT_STONE_W3 };
             soundSet[EntitySounds.RECEIVEDAMAGE] = new Resources.Sounds[] { Resources.Sounds.HUMANOID_HURT };
             soundSet[EntitySounds.JUMP] = new Resources.Sounds[] { Resources.Sounds.FOOT_SOIL_R1, Resources.Sounds.FOOT_SOIL_R2, Resources.Sounds.FOOT_SOIL_R3, Resources.Sounds.FOOT_SOIL_R4 };
@@ -132,113 +135,8 @@ namespace Entities
 
         public override void Update()
         {
-            //Console.WriteLine(Stats.IsInvincible);
-
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
-            {
-                EquipmentManager.IsWeaponOut = !EquipmentManager.IsWeaponOut;
-            }
-
-
-            if (KeyHandlerUtil.isPlayerMoving())
-            {
-                UpdateMovement();
-            }
-            else
-            {
-                if(!(Model.modelState == ModelStates.ATTACKING))
-                {
-                    Model.modelState = ModelStates.IDLE;
-
-                    if(EquipmentManager.IsWeaponOut)
-                    {
-                        Model.modelState = ModelStates.BATTLE_IDLE;
-                    }
-                }
-
-
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKLIGHTPRESSED] && (Stats.stamina - Stats.staminaAttackCost) > 0)
-                {
-                    Stats.stamina -= Stats.staminaAttackCost;
-                    Model.modelState = ModelStates.ATTACKING;
-                }
-            }
-
+            EntityModelStateHandler.UpdatePlayerModelState(this);
             base.Update();
-        }
-
-
-        public void UpdateMovement()
-        {
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
-            {
-                Model.direction = Directions.RIGHT;
-
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (Stats.stamina - Stats.staminaSprintCostSec / 60) > 0 && !Stats.OnStaminaRegen)
-                {
-                    Model.body.Move(new FlatVector(Stats.speed * Stats.sprintMultiplier, 0));
-                    Model.modelState = ModelStates.SPRINTING;
-                    Stats.OnUsingStamina = true;
-                    Stats.stamina -= Stats.staminaSprintCostSec / 60;
-                }
-                else
-                {
-                    Model.body.Move(new FlatVector(Stats.speed, 0));
-                    Model.modelState = ModelStates.MOVING;
-
-                    if (EquipmentManager.IsWeaponOut)
-                    {
-                        Model.modelState = ModelStates.BATTLE_MOVING;
-                    }
-                }
-            }
-
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
-            {
-                Model.direction = Directions.LEFT;
-
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] && (Stats.stamina - Stats.staminaSprintCostSec / 60) > 0 && !Stats.OnStaminaRegen)
-                {
-                    Model.body.Move(new FlatVector(-Stats.speed * Stats.sprintMultiplier, 0));
-                    Model.modelState = ModelStates.SPRINTING;
-                    Stats.OnUsingStamina = true;
-                    Stats.stamina -= Stats.staminaSprintCostSec / 60;
-                }
-                else
-                {
-                    Model.body.Move(new FlatVector(-Stats.speed, 0));
-                    Model.modelState = ModelStates.MOVING;
-
-                    if (EquipmentManager.IsWeaponOut)
-                    {
-                        Model.modelState = ModelStates.BATTLE_MOVING;
-                    }
-
-                }
-            }
-
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (Stats.stamina - (Stats.staminaJumpCostSec / 60)) > 0)
-            {
-                Model.body.Jump(Stats.jumpSpeed);
-                Model.modelState = ModelStates.JUMPING;
-                Stats.stamina -= Stats.staminaJumpCostSec / 60;
-            }
-
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED] && (Stats.stamina - (Stats.staminaRollCostSec / 60)) > 0)
-            {
-
-                if (Model.direction == Directions.RIGHT)
-                {
-                    Model.body.Move(new FlatVector(Stats.speed * Stats.rollMultiplier, 0));
-                }
-                else
-                {
-                    Model.body.Move(new FlatVector(-Stats.speed * Stats.rollMultiplier, 0));
-                }
-
-                Model.modelState = ModelStates.BATTLE_ROLL;
-                Stats.stamina -= Stats.staminaRollCostSec / 60;
-            }
         }
 
         public override void Draw()
@@ -249,10 +147,7 @@ namespace Entities
 
         public override void DrawWeapon()
         {
-            if (this.Model.modelState == ModelStates.ATTACKING)
-            {
-                EquipmentManager.Draw(this.Model.direction);
-            }
+            EquipmentManager.Draw(this.Model.direction);
         }
 
     }

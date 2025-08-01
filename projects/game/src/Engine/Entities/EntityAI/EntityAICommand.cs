@@ -57,7 +57,6 @@ namespace Entities
 
         public void Move()
         {
-            float speed = Entity.Stats.speed;
             Move(Entity.Model.direction);
         }
 
@@ -65,35 +64,35 @@ namespace Entities
         {
             Entity.Model.modelState = ModelStates.MOVING;
             Entity.Model.direction = direction;
-
-            float speed = Entity.Stats.speed;
-            Vector2 velocity = direction switch
-            {
-                Directions.LEFT => new Vector2(-speed, 0),
-                Directions.RIGHT => new Vector2(speed, 0),
-                _ => Vector2.Zero
-            };
-
-            Entity.Model.body.Move(FlatConverter.ToFlatVector(velocity));
         }
 
         public void Jump()
         {
             Entity.Model.modelState = ModelStates.JUMPING;
-            Entity.Model.body.Jump(Entity.Stats.jumpSpeed);
         }
 
         public void JumpAndMove(Directions direction, StatsEntity Entity)
         {
-            Move(direction);
-            Jump();
+            Entity.Model.direction = direction;
+            Entity.Model.modelState = ModelStates.JUMPING_AND_MOVING;
+        }
+
+        public void Sprint()
+        {
+            Sprint(Entity.Model.direction);
+        }
+
+        public void Sprint(Directions direction)
+        {
+            Entity.Model.modelState = ModelStates.SPRINTING;
+            Entity.Model.direction = direction;
         }
 
         public void FollowPlayer(float? stopDistance = null)
         {
-            if (Entities.player == null || Entities.player.Model?.body == null) return;
+            if (Entities.Player == null || Entities.Player.Model?.body == null) return;
 
-            Vector2 EntityPos = FlatConverter.ToVector2(Entities.player.Model.body.Position);
+            Vector2 EntityPos = FlatConverter.ToVector2(Entities.Player.Model.body.Position);
             Vector2 currentPos = FlatConverter.ToVector2(Entity.Model.body.Position);
             Vector2 directionToPlayer = EntityPos - currentPos;
             float distance = directionToPlayer.Length();

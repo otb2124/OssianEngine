@@ -20,9 +20,13 @@ namespace Entities
         public float staminaSprintCostSec;
         public float staminaJumpCostSec;
         public float staminaRollCostSec;
-        public float staminaAttackCost;
+ 
         public int staminaUnlockCounter = 0;
         public float staminaUnlockSec;
+
+        //attack
+        public float staminaAttackHitCost;
+        public bool staminaPerAttackHitSpent = false;
 
         //lvl
         public int currentLvl = 0;

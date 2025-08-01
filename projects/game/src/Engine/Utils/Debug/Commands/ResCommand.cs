@@ -20,14 +20,14 @@ namespace Utils
         {
             if(!Entities.Entities.entityManager.HasPlayer())
             {
-                Entities.Entities.player.Stats.Refill();
-                Entities.Entities.player.Model.body.MoveTo(new FlatVector(Graphics.Graphics.camera.position.X, Graphics.Graphics.camera.position.Y));
-                Entities.Entities.entityManager.AddEntity(Entities.Entities.player);
+                Entities.Entities.Player.Stats.Refill();
+                Entities.Entities.Player.Model.body.MoveTo(new FlatVector(Graphics.Graphics.camera.position.X, Graphics.Graphics.camera.position.Y));
+                Entities.Entities.entityManager.AddEntity(Entities.Entities.Player);
                 Console.WriteLine("Ressurected.");
             }
             else
             {
-                Console.WriteLine("Error ressurect. Detected player alive");
+                Console.WriteLine("Error ressurect. Detected Player alive");
             }
             
         }

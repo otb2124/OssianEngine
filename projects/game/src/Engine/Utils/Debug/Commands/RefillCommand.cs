@@ -10,12 +10,12 @@ namespace Utils
     public class RefillCommand : IConsoleCommand
     {
         public string Name => "refill";
-        public string Description => "Refill player stats";
+        public string Description => "Refill Player stats";
         public bool IsForDebug => true;
 
         public void Execute(string[] args)
         {
-            Entities.Entities.player.Stats.Refill();
+            Entities.Entities.Player.Stats.Refill();
             Console.WriteLine($"Player Stats Refilled");
         }
     }

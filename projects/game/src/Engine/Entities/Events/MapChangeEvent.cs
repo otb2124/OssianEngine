@@ -55,7 +55,7 @@ namespace Entities
 
         public void CheckForHit()
         {
-            if(HitboxChecker.CheckForHit(Entities.player.EquipmentManager.GetCurrentArmor().hitbox.extends, LocationChangeHitbox.extends))
+            if(HitboxChecker.CheckForHit(Entities.Player.EquipmentManager.GetCurrentArmor().hitbox.extends, LocationChangeHitbox.extends))
             {
                 if(Type == MapChangeEvents.AUTO)
                 {

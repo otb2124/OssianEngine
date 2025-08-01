@@ -35,18 +35,18 @@ namespace Entities
 
         public void ChangeMap(int nextId, Vector2 playerPos)
         {
-            if(Entities.player == null)
+            if(Entities.Player == null)
             {
-                Entities.player = new Player();
+                Entities.Player = new Player();
             }
             else
             {
-                Entities.entityManager.RemoveEntity(Entities.player);
+                Entities.entityManager.RemoveEntity(Entities.Player);
             }
 
             CurrentMapId = nextId;
-            Entities.player.Model.body.MoveTo(FlatConverter.ToFlatVector(playerPos));
-            Entities.entityMapManager.maps[nextId].Entities.Add(Entities.player);
+            Entities.Player.Model.body.MoveTo(FlatConverter.ToFlatVector(playerPos));
+            Entities.entityMapManager.maps[nextId].Entities.Add(Entities.Player);
 
             Physics.Physics.flatWorld.RefreshList(Entities.entityMapManager.maps[nextId].Entities);
 

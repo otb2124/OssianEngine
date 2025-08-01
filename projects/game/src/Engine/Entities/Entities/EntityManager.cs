@@ -69,7 +69,7 @@ namespace Entities
 
         public bool HasPlayer()
         {
-            return Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Contains(Entities.player);
+            return Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Contains(Entities.Player);
         }
 
         public void AddEntity(Entity ent)

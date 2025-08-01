@@ -77,7 +77,7 @@ namespace Entities
 
         public void DrawHitbox()
         {
-            GetCurrentWeapon().DrawHitbox();
+            GetCurrentWeapon().WeaponEntity.DrawHitbox();
             GetCurrentArmor().DrawHitbox();
         }
 

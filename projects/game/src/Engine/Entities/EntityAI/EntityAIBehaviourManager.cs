@@ -82,6 +82,7 @@ namespace Entities
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
                                 new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f, true),
                                 new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
+                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
                                 new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f, true),
                                 new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             3f, true),

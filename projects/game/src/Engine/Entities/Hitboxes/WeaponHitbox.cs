@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Graphics;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Entities
 
         public override void Update(Vector2 pos, Vector2 size, float rot)
         {
-            base.Update(pos, size);
+            base.Update(pos, size, rot);
 
             this.extends.Height = size.Y * 2;
 
