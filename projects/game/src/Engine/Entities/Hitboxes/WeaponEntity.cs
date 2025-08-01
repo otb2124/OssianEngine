@@ -24,9 +24,9 @@ namespace Entities
         public bool isSwinging = false;
 
         public Vector2 Size;
+        public WeaponComboHitSet Combo;
 
-        public Vector2 PositionOffset;
-        public float RotationOffset;
+        public bool MovedPlayer = false;
 
         public WeaponEntity()
         {
@@ -37,55 +37,61 @@ namespace Entities
             sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
             aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
 
-            PositionOffset = new Vector2(10, 40);
-            RotationOffset = 1.8f;
+            Combo = new WeaponComboHitSet();
         }
 
 
         public void Update(Model model)
         {
+            float deltaTime = (float)Graphics.Graphics.gameTime.ElapsedGameTime.TotalSeconds;
             int horizontalXFactor = model.direction == Directions.RIGHT ? 1 : -1;
-            Vector2 weaponPosition = FlatConverter.ToVector2(model.body.Position) + PositionOffset * new Vector2(horizontalXFactor, 0);
+            Vector2 weaponPosition = model.body.Position.ToVector2() + Combo.GetCurrentHit().HitboxPositionOffset * new Vector2(horizontalXFactor, 1f);
 
             if (model.modelState == ModelStates.ATTACKING_LIGHT)
             {
                 hitbox.Update(
-                weaponPosition,
-                Size,
-                RotationOffset * horizontalXFactor
+                    weaponPosition,
+                    Size,
+                    Combo.GetCurrentHit().HitboxRotationOffset * horizontalXFactor
                 );
 
+                if(!MovedPlayer)
+                {
+                    model.body.Move(new FlatVector(Combo.GetCurrentHit().EntityPositionOffset.X * horizontalXFactor, Combo.GetCurrentHit().EntityPositionOffset.Y));
+                    MovedPlayer = true;
+                }
 
                 if (!isSwinging)
                 {
                     isSwinging = true;
                     currentSwingTime = 0f;
+                    if (Combo.AllowContinuation && Combo.ContinuationAllowCounter < Combo.ContinuationAllowTimeSec)
+                    {
+                        Combo.UpdateSet();
+                        MovedPlayer = false;
+                    }
+                    else
+                    {
+                        Combo.ResetCombo();
+                    }
+                    Combo.StartContinuationWindow();
                 }
 
-                UpdateSwing(model.direction);
+                currentSwingTime += deltaTime;
 
-                if (!isSwinging)
+                if (currentSwingTime >= swingSpeed)
                 {
+                    isSwinging = false;
                     model.modelState = ModelStates.WEAPON_OUT_IDLE;
                 }
             }
             else
             {
+                Combo.UpdateCounter(deltaTime);
                 hitbox.Update(
-                new Vector2(0, 0),
-                new Vector2(0, 0)
+                    new Vector2(0, 0),
+                    new Vector2(0, 0)
                 );
-                isSwinging = false;
-            }
-        }
-
-
-        public void UpdateSwing(Directions direction)
-        {
-            currentSwingTime += (float)Graphics.Graphics.gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (currentSwingTime >= swingSpeed)
-            {
                 isSwinging = false;
             }
         }
