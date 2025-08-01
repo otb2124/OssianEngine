@@ -147,7 +147,7 @@ namespace Entities
 
         public override void DrawWeapon()
         {
-            EquipmentManager.Draw(this.Model.direction);
+            EquipmentManager.Draw(Model);
         }
 
     }

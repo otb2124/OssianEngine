@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UI;
 using Utils;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using Model = Resources.Model;
 
 namespace Entities
@@ -35,7 +36,7 @@ namespace Entities
             aManager = new AnimationManager();
 
             sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
-            aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager.AddAnimationForBothDirections(StaticSpriteFactory.spriteMappings[sprite], AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(128, 128), 0.5f/4);
 
             Combo = new WeaponComboHitSet();
         }
@@ -84,6 +85,8 @@ namespace Entities
                     isSwinging = false;
                     model.modelState = ModelStates.WEAPON_OUT_IDLE;
                 }
+
+                aManager.Update(new Tuple<Directions, AnimationStates>(model.direction, AnimationStates.IDLE));
             }
             else
             {
@@ -96,36 +99,39 @@ namespace Entities
             }
         }
 
-        public void Draw(Directions direction)
+        public void Draw(Model model)
         {
-            //Model
-            Rectangle spriteSize = aManager.GetCurrent().GetCurrentFrame();
+            if (model.modelState != ModelStates.ATTACKING_LIGHT)
+                return;
+
+
+            //enitity model draw
+            Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
-            Vector2 newPos = new Vector2(hitbox.outerHalf.Center.X, hitbox.outerHalf.Center.Y);
-            Vector2 textureCenter = new Vector2(spriteSize.Width / 2f, spriteSize.Height / 2f);
-
-            //for offsets
-            //float bodyWidth = hitboxData.extends.Width + bodyOffset.X;
-            //float bodyHeight = hitboxData.extends.Height + bodyOffset.Y;
-
-            float bodyWidth = hitbox.outerHalf.Width;
-            float bodyHeight = hitbox.outerHalf.Height;
-
+            float bodyWidth = model.body.Width + model.bodyOffset.X;
+            float bodyHeight = model.body.Height + model.bodyOffset.Y;
             scaleX = bodyWidth / spriteSize.Width;
             scaleY = bodyHeight / spriteSize.Height;
-            newPos = hitbox.outerHalf.Center - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
-            newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
 
-            SpriteEffects spriteEffect = direction == Directions.RIGHT ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            Vector2 entityBodyPos = model.body.Position.ToVector2();
 
-            this.aManager.GetCurrent().Draw(newPos, Color.White, hitbox.extends.Rotation, textureCenter, new Vector2(scaleX, scaleY), spriteEffect, 0f);
+            float directionXOffset = 0;
+            if (model.direction == Directions.LEFT)
+            {
+                directionXOffset = model.body.Width*3f;
+            }
+            
+            Vector2 entityBodyPosOffset = new Vector2(entityBodyPos.X - model.body.Width/2f - directionXOffset, entityBodyPos.Y - model.body.Height/2f);
+
+            aManager.GetCurrent().Draw(entityBodyPosOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
+            
         }
 
 
         public void DrawHitbox()
         {
-            this.hitbox.Draw(Color.Red);
+            hitbox.Draw(Color.Red);
         }
     }
 }

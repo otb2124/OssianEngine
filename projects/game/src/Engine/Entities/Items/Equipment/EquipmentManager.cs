@@ -1,6 +1,7 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
 using Physics;
+using Resources;
 using UI;
 using Utils;
 using static Entities.PhysicalEntity;
@@ -82,9 +83,9 @@ namespace Entities
         }
 
 
-        public void Draw(Directions direction)
+        public void Draw(Model model)
         {
-            this.GetCurrentWeapon().Draw(direction);
+            this.GetCurrentWeapon().Draw(model);
         }
     }
 }

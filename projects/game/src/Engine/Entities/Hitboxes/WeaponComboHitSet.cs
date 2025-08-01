@@ -10,7 +10,6 @@ namespace Entities
     public class WeaponComboHitSet
     {
 
-        public int ComboHitMaxCount;
         public WeaponComboHit[] Combohits;
         public int CurrentComboHitId;
 
@@ -28,7 +27,6 @@ namespace Entities
             new WeaponComboHit(1, new Vector2(0, 10), 1f, new Vector2(20, 0)),
             new WeaponComboHit(2, new Vector2(0, 10), 2f, new Vector2(30, 0)),
             };
-            ComboHitMaxCount = Combohits.Length;
         }
 
         public WeaponComboHit GetCurrentHit()

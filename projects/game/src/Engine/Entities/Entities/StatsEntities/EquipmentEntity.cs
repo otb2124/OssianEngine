@@ -50,7 +50,7 @@ namespace Entities
 
         public virtual void DrawWeapon()
         {
-            EquipmentManager.Draw(Model.direction);
+            EquipmentManager.Draw(Model);
         }
 
         public override void DrawHitboxes()

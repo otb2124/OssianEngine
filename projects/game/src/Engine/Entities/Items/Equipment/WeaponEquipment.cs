@@ -1,4 +1,5 @@
 ﻿
+using Resources;
 using Utils;
 
 namespace Entities
@@ -43,11 +44,11 @@ namespace Entities
             }
         }
 
-        public override void Draw(Directions direction)
+        public override void Draw(Model model)
         {
-            WeaponEntity?.Draw(direction);
+            WeaponEntity?.Draw(model);
 
-            base.Draw(direction);
+            base.Draw(model);
         }
 
     }

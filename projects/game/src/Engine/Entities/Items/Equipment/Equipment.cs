@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resources;
+using System;
 using Utils;
 using static Entities.PhysicalEntity;
 
@@ -40,6 +41,6 @@ namespace Entities
 
         }
 
-        public virtual void Draw(Directions direction){}
+        public virtual void Draw(Model model){}
     }
 }
