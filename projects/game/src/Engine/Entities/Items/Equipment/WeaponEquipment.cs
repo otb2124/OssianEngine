@@ -42,6 +42,8 @@ namespace Entities
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;
             }
+
+            WeaponEntity.Init();
         }
 
         public override void Draw(Model model)

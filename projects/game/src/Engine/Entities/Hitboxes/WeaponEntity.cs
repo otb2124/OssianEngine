@@ -32,11 +32,14 @@ namespace Entities
         public WeaponEntity()
         {
             hitbox = new WeaponHitbox();
+        }
 
+        public void Init()
+        {
             aManager = new AnimationManager();
 
             sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
-            aManager.AddAnimationForBothDirections(StaticSpriteFactory.spriteMappings[sprite], AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(128, 128), 0.5f/4);
+            aManager.AddAnimationForBothDirections(StaticSpriteFactory.spriteMappings[sprite], AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(128, 128), swingSpeed / 4);
 
             Combo = new WeaponComboHitSet();
         }
@@ -104,7 +107,6 @@ namespace Entities
             if (model.modelState != ModelStates.ATTACKING_LIGHT)
                 return;
 
-
             //enitity model draw
             Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
@@ -116,15 +118,15 @@ namespace Entities
 
             Vector2 entityBodyPos = model.body.Position.ToVector2();
 
-            float directionXOffset = 0;
+            float directionXOffset = - 10;
             if (model.direction == Directions.LEFT)
             {
-                directionXOffset = model.body.Width*3f;
+                directionXOffset = model.body.Width*3f + 10;
             }
             
-            Vector2 entityBodyPosOffset = new Vector2(entityBodyPos.X - model.body.Width/2f - directionXOffset, entityBodyPos.Y - model.body.Height/2f);
+            Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.body.Width/2f - directionXOffset, entityBodyPos.Y - model.body.Height/2f);
 
-            aManager.GetCurrent().Draw(entityBodyPosOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
+            aManager.GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
             
         }
 
