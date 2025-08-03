@@ -26,7 +26,7 @@ namespace Entities
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
                     PhysDmg = 1;
-                    WeaponEntity.swingSpeed = 0.4f;
+                    WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
                     WeaponEntity.Size = new Microsoft.Xna.Framework.Vector2(10, 40);
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;
@@ -37,7 +37,7 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     PhysDmg = 5;
                     KnockbackPower = 1f;
-                    WeaponEntity.swingSpeed = 0.5f;
+                    WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
                     WeaponEntity.Size = new Microsoft.Xna.Framework.Vector2(10, 40);
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;

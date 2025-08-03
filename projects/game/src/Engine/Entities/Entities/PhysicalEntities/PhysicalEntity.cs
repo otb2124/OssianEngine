@@ -137,8 +137,14 @@ namespace Entities
                 case ModelStates.FALLING:
                     //
                     break;
+
+
+                //play smth like aaaah power scream
                 case ModelStates.ATTACKING_LIGHT:
-                    PlayEntitySound(EntitySounds.WEAPON_SWING, 0.5f);
+                    //PlayEntitySound(EntitySounds.WEAPON_SWING, 0.5f);
+                    break;
+                case ModelStates.ATTACKING_HEAVY:
+                    //PlayEntitySound(EntitySounds.WEAPON_SWING, 0.5f);
                     break;
             }
 
@@ -179,6 +185,9 @@ namespace Entities
                     Model.animationState = AnimationStates.BATTLE_ROLL;
                     break;
                 case ModelStates.ATTACKING_LIGHT:
+                    Model.animationState = AnimationStates.ATTACKING_LIGHT;
+                    break;
+                case ModelStates.ATTACKING_HEAVY:
                     Model.animationState = AnimationStates.ATTACKING_LIGHT;
                     break;
             }

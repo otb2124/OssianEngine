@@ -17,13 +17,15 @@ namespace Entities
         public Vector2 EntityPositionOffset;
         public Vector2 HitboxPositionOffset;
         public float HitboxRotationOffset;
+        public float SwingTimeSec;
 
-        public WeaponComboHit(int setId, Vector2 hitboxPositionOffset, float hitboxRotationOffset, Vector2 entityPositionOffset)
+        public WeaponComboHit(int setId, Vector2 hitboxPositionOffset, float hitboxRotationOffset, Vector2 entityPositionOffset, float swingTimeSec)
         {
             SetId = setId;
             HitboxPositionOffset = hitboxPositionOffset;
             HitboxRotationOffset = hitboxRotationOffset;
             EntityPositionOffset = entityPositionOffset;
+            SwingTimeSec = swingTimeSec;
         }
     }
 }

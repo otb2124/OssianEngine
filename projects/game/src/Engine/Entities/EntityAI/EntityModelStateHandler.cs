@@ -73,6 +73,16 @@ namespace Entities {
                     }
 
                 }
+
+                if (state == ModelStates.ATTACKING_HEAVY)
+                {
+                    if (!eqEnt.Stats.staminaPerAttackHitSpent)
+                    {
+                        eqEnt.Stats.stamina -= eqEnt.Stats.staminaAttackHitCost;
+                        eqEnt.Stats.staminaPerAttackHitSpent = true;
+                    }
+
+                }
             }
             
         }
@@ -94,8 +104,16 @@ namespace Entities {
                 }
             }
 
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKHEAVYPRESSED])
+            {
+                if ((player.Stats.stamina - player.Stats.staminaAttackHitCost) > 0)
+                {
+                    player.Model.modelState = ModelStates.ATTACKING_HEAVY;
+                }
+            }
+
             //ANY OF BELOWMENTIONED KEYS PRESSED
-            if (KeyHandlerUtil.isPlayerMoving() && player.Model.modelState != ModelStates.ATTACKING_LIGHT)
+            if (KeyHandlerUtil.isPlayerMoving() && player.Model.modelState != ModelStates.ATTACKING_LIGHT && player.Model.modelState != ModelStates.ATTACKING_HEAVY)
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                 {
@@ -161,7 +179,7 @@ namespace Entities {
             //ANY OF BELOWMENTIONED KEYS NOT PRESSED
             else
             {
-                if (player.Model.modelState != ModelStates.ATTACKING_LIGHT)
+                if (player.Model.modelState != ModelStates.ATTACKING_LIGHT && player.Model.modelState != ModelStates.ATTACKING_HEAVY)
                 {
                     //FORCE IDLE OR WEAPON OUT IDLE IF NOT ATTACKING
                     player.Model.modelState = ModelStates.IDLE;
