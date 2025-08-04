@@ -9,7 +9,8 @@ namespace Entities
     {
         public enum WeaponComboHitSets
         {
-            SWORD
+            SWORD,
+            KNIFE
         }
 
         public enum AttackTypes
@@ -27,34 +28,94 @@ namespace Entities
                     // X
                     new WeaponComboHit(new Vector2(0, 10), 1.7f, Vector2.Zero, 0.5f,
                         new AttackTypes[] { AttackTypes.LIGHT }),
-                    // XX
-                    new WeaponComboHit(new Vector2(0, 10), 1f, new Vector2(20, 0), 0.5f,
-                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT }),
-                    // XXX
-                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.7f,
-                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
                     // Y
                     new WeaponComboHit(new Vector2(0, 10), 1.7f, Vector2.Zero, 1f,
                         new AttackTypes[] { AttackTypes.HEAVY }),
+                    
+
+
+                    // XX
+                    new WeaponComboHit(new Vector2(0, 10), 1f, new Vector2(20, 0), 0.5f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT }),
                     // YY
                     new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 1f,
                         new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY }),
+
+
+
+                    // XXX
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.7f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
                     // XXY
                     new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 1f,
                         new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.HEAVY }),
+                     
+
+                    
+                    
+                    
 
 
                     //QUICKFIX BUGGED
                     new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.7f,
-                        //new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
                     new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.7f,
                         new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY, AttackTypes.HEAVY }),
                     new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 1f,
                         new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY }),
                     //
                 }
+            },
+            {
+                WeaponComboHitSets.KNIFE,
+                new[]
+                {
+                    // X
+                    new WeaponComboHit(new Vector2(0, 10), 1.7f, Vector2.Zero, 0.25f,
+                        new AttackTypes[] { AttackTypes.LIGHT }),
+                    // Y
+                    new WeaponComboHit(new Vector2(0, 10), 1.7f, Vector2.Zero, 0.5f,
+                        new AttackTypes[] { AttackTypes.HEAVY }),
+                    
+
+
+                    // XX
+                    new WeaponComboHit(new Vector2(0, 10), 1f, new Vector2(20, 0), 0.25f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                    // XY
+                    new WeaponComboHit(new Vector2(0, 10), 1f, new Vector2(20, 0), 0.5f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY }),
+                    // YY
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.5f,
+                        new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY }),
+
+
+
+                    // XXX
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.3f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                    // XYY
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.25f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY }),
+
+                    
+                    
+                    
+
+
+                    //QUICKFIX BUGGED
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.3f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.3f,
+                        new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY, AttackTypes.HEAVY }),
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.5f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY, AttackTypes.HEAVY }),
+                    //
+                }
             }
         };
+
+
 
         public static WeaponComboHit[] GetWeaponComboHits(WeaponComboHitSets weaponType)
         {

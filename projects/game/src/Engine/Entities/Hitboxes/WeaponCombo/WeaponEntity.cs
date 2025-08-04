@@ -17,6 +17,7 @@ namespace Entities
         public StaticSprites sprite;
         public AnimationManager[] aManagers;
         private List<AttackTypes> attackHistory;
+        public WeaponComboHitSets MoveSet;
         private bool ComboHistoryUpdated = false;
 
         public float WeaponSwingSpeedMultiplier = 1f;
@@ -39,9 +40,9 @@ namespace Entities
 
         public void Init()
         {
-            var hits = WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
+            var hits = GetWeaponComboHits(MoveSet);
             sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
-            int totalHits = WeaponComboHitSetFactory.GetTotalComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
+            int totalHits = GetTotalComboHits(MoveSet);
             aManagers = new AnimationManager[totalHits];
             int animationIndex = 0;
 
@@ -60,7 +61,7 @@ namespace Entities
                 animationIndexMap[i] = animationIndex++;
             }
 
-            Combo.UpdateHits(attackHistory);
+            Combo.UpdateHits(attackHistory, MoveSet);
         }
 
         public void Update(Model model)
@@ -91,12 +92,12 @@ namespace Entities
 
             ComboHistoryUpdated = true;
             attackHistory.Add(currentAttack);
-            int maxComboLength = WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD).Max(h => h.AttackSequence.Length);
+            int maxComboLength = GetWeaponComboHits(MoveSet).Max(h => h.AttackSequence.Length);
             if (attackHistory.Count > maxComboLength)
                 attackHistory.RemoveAt(0);
 
             Console.WriteLine($"Attack History: [{string.Join(", ", attackHistory)}]");
-            Combo.UpdateHits(attackHistory);
+            Combo.UpdateHits(attackHistory, MoveSet);
         }
 
         private void UpdateHitbox(Model model)
@@ -124,14 +125,14 @@ namespace Entities
                 isSwinging = true;
                 currentSwingTime = 0f;
 
-                if (Combo.CanContinueWith(currentAttack, attackHistory))
+                if (Combo.CanContinueWith(currentAttack, attackHistory, MoveSet))
                 {
-                    Combo.UpdateSet(attackHistory);
+                    Combo.UpdateSet(attackHistory, MoveSet);
                 }
                 else
                 {
                     Combo.ResetCombo(attackHistory);
-                    Combo.UpdateHits(attackHistory);
+                    Combo.UpdateHits(attackHistory, MoveSet);
                 }
                 Combo.StartContinuationWindow();
 
@@ -141,12 +142,12 @@ namespace Entities
                     return;
                 }
 
-                int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD), currentHit);
+                int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(MoveSet), currentHit);
                 if (!animationIndexMap.ContainsKey(hitIndex))
                 {
                     Console.WriteLine($"UpdateSwingAndCombo: Invalid hit index {hitIndex}, resetting");
                     Combo.ResetCombo(attackHistory);
-                    Combo.UpdateHits(attackHistory);
+                    Combo.UpdateHits(attackHistory, MoveSet);
                     return;
                 }
                 int animationIndex = animationIndexMap[hitIndex];
@@ -174,14 +175,14 @@ namespace Entities
                 isSwinging = false;
                 model.modelState = ModelStates.WEAPON_OUT_IDLE;
                 Console.WriteLine($"Finished Combo Hit Sequence [{string.Join(", ", hit.AttackSequence)}]");
-                var hitTemplates = WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
+                var hitTemplates = GetWeaponComboHits(MoveSet);
                 var nextHits = hitTemplates.Where(h => h.AttackSequence.Length == hit.AttackSequence.Length + 1 &&
                                                       h.AttackSequence.Take(hit.AttackSequence.Length).SequenceEqual(hit.AttackSequence)).ToList();
                 if (!nextHits.Any())
                 {
                     attackHistory.Clear();
                     Console.WriteLine("Attack History Cleared: Combo Finished");
-                    Combo.UpdateHits(attackHistory);
+                    Combo.UpdateHits(attackHistory, MoveSet);
                 }
             }
         }
@@ -194,7 +195,7 @@ namespace Entities
                 return;
             }
 
-            int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD), currentHit);
+            int hitIndex = Array.IndexOf(GetWeaponComboHits(MoveSet), currentHit);
             if (!animationIndexMap.ContainsKey(hitIndex))
             {
                 Console.WriteLine($"UpdateAnimation: Invalid hit index {hitIndex}, skipping");
@@ -227,7 +228,7 @@ namespace Entities
             float directionXOffset = model.direction == Directions.RIGHT ? -10 : model.body.Width * 3f + 10;
             Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.body.Width / 2f - directionXOffset, entityBodyPos.Y - model.body.Height / 2f);
 
-            int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD), currentHit);
+            int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(MoveSet), currentHit);
             if (!animationIndexMap.ContainsKey(hitIndex))
             {
                 Console.WriteLine($"Draw: Invalid hit index {hitIndex}, skipping");

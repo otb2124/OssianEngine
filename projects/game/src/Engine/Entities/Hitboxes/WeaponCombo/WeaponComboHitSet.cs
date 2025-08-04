@@ -18,7 +18,7 @@ namespace Entities
         {
             Combohits = new List<WeaponComboHit>();
             CurrentComboHitId = 0;
-            ContinuationAllowTimeSec = 0.7f;
+            ContinuationAllowTimeSec = 0.75f;
             ContinuationAllowCounter = 0f;
             AllowContinuation = false;
         }
@@ -32,12 +32,12 @@ namespace Entities
             return Combohits[CurrentComboHitId];
         }
 
-        public bool CanContinueWith(AttackTypes attackType, List<AttackTypes> attackHistory)
+        public bool CanContinueWith(AttackTypes attackType, List<AttackTypes> attackHistory, WeaponComboHitSets set)
         {
             var currentHit = GetCurrentHit();
             if (currentHit == null) return false;
 
-            var hitTemplates = WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
+            var hitTemplates = GetWeaponComboHits(set);
             var nextHits = hitTemplates.Where(h => h.AttackSequence.Length == currentHit.AttackSequence.Length + 1 &&
                                                   h.AttackSequence.Take(currentHit.AttackSequence.Length).SequenceEqual(currentHit.AttackSequence) &&
                                                   h.AttackSequence.Last() == attackType).ToList();
@@ -60,9 +60,9 @@ namespace Entities
             }
         }
 
-        public void UpdateSet(List<AttackTypes> attackHistory)
+        public void UpdateSet(List<AttackTypes> attackHistory, WeaponComboHitSets set)
         {
-            UpdateHits(attackHistory);
+            UpdateHits(attackHistory, set);
             CurrentComboHitId = 0;
             ContinuationAllowCounter = 0f;
             AllowContinuation = Combohits.Any(h => h.AttackSequence.Length < 3);
@@ -90,7 +90,7 @@ namespace Entities
             Console.WriteLine($"Start Continuation Window: Sequence [{string.Join(", ", Combohits.FirstOrDefault()?.AttackSequence ?? Array.Empty<AttackTypes>())}]");
         }
 
-        public void UpdateHits(List<AttackTypes> attackHistory)
+        public void UpdateHits(List<AttackTypes> attackHistory, WeaponComboHitSets set)
         {
             if (!attackHistory.Any())
             {
@@ -99,7 +99,7 @@ namespace Entities
                 return;
             }
 
-            var hitTemplates = WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
+            var hitTemplates = GetWeaponComboHits(set);
             Combohits.Clear();
             WeaponComboHit bestMatchHit = null;
             int bestMatchLength = 0;
@@ -117,11 +117,10 @@ namespace Entities
             if (bestMatchHit != null)
             {
                 Combohits.Add(bestMatchHit);
-                Console.WriteLine($"Updated Combohits: Sequence [{string.Join(", ", bestMatchHit.AttackSequence)}]");
             }
             else
             {
-                var lastAttack = attackHistory.Last();
+                var lastAttack = attackHistory.Last(); 
                 var defaultHit = hitTemplates.FirstOrDefault(h => h.AttackSequence.Length == 1 && h.AttackSequence[0] == lastAttack);
                 Combohits.Add(defaultHit ?? hitTemplates[0]); // Fallback to X
                 Console.WriteLine($"Updated Combohits: Default to [{Combohits[0].AttackSequence[0]}]");

@@ -1,6 +1,7 @@
 ﻿
 using Resources;
 using Utils;
+using static Entities.WeaponComboHitSetFactory;
 
 namespace Entities
 {
@@ -28,6 +29,7 @@ namespace Entities
                     PhysDmg = 1;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
                     WeaponEntity.Size = new Microsoft.Xna.Framework.Vector2(10, 40);
+                    WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;
                 case ItemLib.Weapons.TERRABLADE:
@@ -39,6 +41,7 @@ namespace Entities
                     KnockbackPower = 1f;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
                     WeaponEntity.Size = new Microsoft.Xna.Framework.Vector2(10, 40);
+                    WeaponEntity.MoveSet = WeaponComboHitSets.KNIFE;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;
             }
