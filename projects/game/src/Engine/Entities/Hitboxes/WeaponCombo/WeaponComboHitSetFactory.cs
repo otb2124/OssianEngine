@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Entities
 {
@@ -14,45 +12,54 @@ namespace Entities
             SWORD
         }
 
+        public enum AttackTypes
+        {
+            LIGHT,
+            HEAVY
+        }
 
-        private static readonly Dictionary<WeaponComboHitSets, WeaponComboHit[][]> comboHitTemplates = new()
+        private static readonly Dictionary<WeaponComboHitSets, WeaponComboHit[]> hitTemplates = new()
         {
             {
                 WeaponComboHitSets.SWORD,
-                new WeaponComboHit[][]
+                new[]
                 {
-                    new WeaponComboHit[] // Combo 0 (Light Attack)
-                    {
-                        new WeaponComboHit(0, new Vector2(0, 10), 1.7f, Vector2.Zero, 0.5f),
-                        new WeaponComboHit(1, new Vector2(0, 10), 1f, new Vector2(20, 0), 0.5f),
-                        new WeaponComboHit(2, new Vector2(0, 10), 2f, new Vector2(30, 0), 0.7f),
-                    },
-                    new WeaponComboHit[] // Combo 1 (Heavy Attack)
-                    {
-                        new WeaponComboHit(0, new Vector2(0, 10), 1.7f, Vector2.Zero, 1f),
-                        new WeaponComboHit(1, new Vector2(0, 10), 2f, new Vector2(30, 0), 1f),
-                    }
+                    // X: [LIGHT]
+                    new WeaponComboHit(new Vector2(0, 10), 1.7f, Vector2.Zero, 0.5f,
+                        new AttackTypes[] { AttackTypes.LIGHT }),
+                    // XX: [LIGHT, LIGHT]
+                    new WeaponComboHit(new Vector2(0, 10), 1f, new Vector2(20, 0), 0.5f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                    // XXX: [LIGHT, LIGHT, LIGHT]
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.7f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                    // Y: [HEAVY]
+                    new WeaponComboHit(new Vector2(0, 10), 1.7f, Vector2.Zero, 1f,
+                        new AttackTypes[] { AttackTypes.HEAVY }),
+                    // YY: [HEAVY, HEAVY]
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 1f,
+                        new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY }),
+
+
+                    //QUICKFIX BUGGED
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.7f,
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                    new WeaponComboHit(new Vector2(0, 10), 2f, new Vector2(30, 0), 0.7f,
+                        new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY, AttackTypes.HEAVY }),
+                    //
                 }
             }
         };
 
-            public static WeaponComboHitSet[] GetWeaponComboHitSets(WeaponComboHitSets weaponType)
-            {
-                var templates = comboHitTemplates[weaponType];
-                var sets = new WeaponComboHitSet[templates.Length];
-                for (int i = 0; i < templates.Length; i++)
-                {
-                    sets[i] = new WeaponComboHitSet(templates[i]);
-                }
-                return sets;
-            }
+        public static WeaponComboHit[] GetWeaponComboHits(WeaponComboHitSets weaponType)
+        {
+            var templates = hitTemplates[weaponType];
+            return templates;
+        }
 
         public static int GetTotalComboHits(WeaponComboHitSets weaponType)
         {
-            var templates = comboHitTemplates[weaponType];
-            return templates.Sum(template => template.Length);
+            return hitTemplates[weaponType].Length;
         }
     }
-
-
 }

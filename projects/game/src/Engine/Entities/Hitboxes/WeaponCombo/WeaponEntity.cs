@@ -4,64 +4,64 @@ using Physics;
 using Resources;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Utils;
+using static Entities.WeaponComboHitSetFactory;
 using Model = Resources.Model;
 
 namespace Entities
 {
     public class WeaponEntity
     {
-
         public WeaponHitbox hitbox;
         public StaticSprites sprite;
         public AnimationManager[] aManagers;
+        private List<AttackTypes> attackHistory;
+        private bool ComboHistoryUpdated = false;
 
-        public float WeaponSwingSpeedMultiplier;
+        public float WeaponSwingSpeedMultiplier = 1f;
         public float currentSwingTime = 0f;
         public bool isSwinging = false;
 
         public Vector2 Size;
 
-        public WeaponComboHitSet[] Combos;
-        public int CurrentComboId = 0;
-        public bool MovedPlayer = false;
+        public WeaponComboHitSet Combo;
 
-        private Dictionary<(int comboId, int hitId), int> animationIndexMap;
+        private Dictionary<int, int> animationIndexMap;
 
         public WeaponEntity()
         {
             hitbox = new WeaponHitbox();
-            animationIndexMap = new Dictionary<(int comboId, int hitId), int>();
+            animationIndexMap = new Dictionary<int, int>();
+            attackHistory = new List<AttackTypes>();
+            Combo = new WeaponComboHitSet();
         }
 
         public void Init()
         {
-            Combos = WeaponComboHitSetFactory.GetWeaponComboHitSets(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
+            var hits = WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
             sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
             int totalHits = WeaponComboHitSetFactory.GetTotalComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
             aManagers = new AnimationManager[totalHits];
             int animationIndex = 0;
 
-            for (int i = 0; i < Combos.Length; i++)
+            for (int i = 0; i < hits.Length; i++)
             {
-                for (int j = 0; j < Combos[i].Combohits.Length; j++)
-                {
-                    aManagers[animationIndex] = new AnimationManager();
-                    float eachFrameDuration = Combos[i].Combohits[j].SwingTimeSec * WeaponSwingSpeedMultiplier / 4;
-                    aManagers[animationIndex].AddAnimationForBothDirections(
-                        StaticSpriteFactory.spriteMappings[sprite],
-                        AnimationStates.IDLE,
-                        4,
-                        new Vector2(0, 0),
-                        new Vector2(128, 128),
-                        eachFrameDuration
-                    );
-                    animationIndexMap[(i, j)] = animationIndex;
-                    animationIndex++;
-                }
+                aManagers[animationIndex] = new AnimationManager();
+                float eachFrameDuration = hits[i].SwingTimeSec * WeaponSwingSpeedMultiplier / 4;
+                aManagers[animationIndex].AddAnimationForBothDirections(
+                    StaticSpriteFactory.spriteMappings[sprite],
+                    AnimationStates.IDLE,
+                    4,
+                    new Vector2(0, 0),
+                    new Vector2(128, 128),
+                    eachFrameDuration
+                );
+                animationIndexMap[i] = animationIndex++;
             }
-        }
 
+            Combo.UpdateHits(attackHistory);
+        }
 
         public void Update(Model model)
         {
@@ -69,67 +69,151 @@ namespace Entities
 
             if (model.modelState == ModelStates.ATTACKING_LIGHT || model.modelState == ModelStates.ATTACKING_HEAVY)
             {
-                CurrentComboId = model.modelState == ModelStates.ATTACKING_LIGHT ? 0 : 1;
-                int horizontalXFactor = model.direction == Directions.RIGHT ? 1 : -1;
-                Vector2 weaponPosition = model.body.Position.ToVector2() + Combos[CurrentComboId].GetCurrentHit().HitboxPositionOffset * new Vector2(horizontalXFactor, 1f);
-
-                hitbox.Update(
-                    weaponPosition,
-                    Size,
-                    Combos[CurrentComboId].GetCurrentHit().HitboxRotationOffset * horizontalXFactor
-                );
-
-
-                if (!isSwinging)
-                {
-                    isSwinging = true;
-                    currentSwingTime = 0f;
-
-                    if (Combos[CurrentComboId].AllowContinuation && Combos[CurrentComboId].ContinuationAllowCounter < Combos[CurrentComboId].ContinuationAllowTimeSec)
-                    {
-                        Combos[CurrentComboId].UpdateSet();
-                    }
-                    else
-                    {
-                        Combos[CurrentComboId].ResetCombo();
-                    }
-                    Combos[CurrentComboId].StartContinuationWindow();
-
-                    int animationIndex = animationIndexMap[(CurrentComboId, Combos[CurrentComboId].CurrentComboHitId)];
-                    aManagers[animationIndex].GetCurrent().Reset();
-                    aManagers[animationIndex].GetCurrent().Start();
-
-                    model.body.Move(new FlatVector(Combos[CurrentComboId].GetCurrentHit().EntityPositionOffset.X * horizontalXFactor, Combos[CurrentComboId].GetCurrentHit().EntityPositionOffset.Y));
-                    Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(Resources.Sounds.SWING_SWORD, model.body.Position.ToVector2(), Combos[CurrentComboId].GetCurrentHit().SwingTimeSec * WeaponSwingSpeedMultiplier));
-                }
-
-                currentSwingTime += deltaTime;
-
-                if (currentSwingTime >= WeaponSwingSpeedMultiplier * Combos[CurrentComboId].GetCurrentHit().SwingTimeSec)
-                {
-                    isSwinging = false;
-                    model.modelState = ModelStates.WEAPON_OUT_IDLE;
-                }
-
-                int currentAnimationIndex = animationIndexMap[(CurrentComboId, Combos[CurrentComboId].CurrentComboHitId)];
-                aManagers[currentAnimationIndex].Update(new Tuple<Directions, AnimationStates>(model.direction, AnimationStates.IDLE));
+                AttackTypes currentAttack = model.modelState == ModelStates.ATTACKING_LIGHT ? AttackTypes.LIGHT : AttackTypes.HEAVY;
+                UpdateComboSelection(currentAttack);
+                UpdateHitbox(model);
+                UpdateSwingAndCombo(model, currentAttack, deltaTime);
+                UpdateAnimation(model.direction);
             }
             else
             {
-                Combos[CurrentComboId].UpdateCounter(deltaTime);
-                hitbox.Update(
-                    new Vector2(0, 0),
-                    new Vector2(0, 0)
-                );
+                Combo.UpdateCounter(deltaTime, attackHistory);
+                hitbox.Update(Vector2.Zero, Vector2.Zero);
                 isSwinging = false;
-                MovedPlayer = false;
+                ComboHistoryUpdated = false;
             }
+        }
+
+        private void UpdateComboSelection(AttackTypes currentAttack)
+        {
+            if (ComboHistoryUpdated)
+                return;
+
+            ComboHistoryUpdated = true;
+            attackHistory.Add(currentAttack);
+            int maxComboLength = WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD).Max(h => h.AttackSequence.Length);
+            if (attackHistory.Count > maxComboLength)
+                attackHistory.RemoveAt(0);
+
+            Console.WriteLine($"Attack History: [{string.Join(", ", attackHistory)}]");
+            Combo.UpdateHits(attackHistory);
+        }
+
+        private void UpdateHitbox(Model model)
+        {
+            var currentHit = Combo.GetCurrentHit();
+            if (currentHit == null)
+            {
+                model.modelState = ModelStates.WEAPON_OUT_IDLE;
+                return;
+            }
+
+            int horizontalXFactor = model.direction == Directions.RIGHT ? 1 : -1;
+            Vector2 weaponPosition = model.body.Position.ToVector2() + currentHit.HitboxPositionOffset * new Vector2(horizontalXFactor, 1f);
+            hitbox.Update(
+                weaponPosition,
+                Size,
+                currentHit.HitboxRotationOffset * horizontalXFactor
+            );
+        }
+
+        private void UpdateSwingAndCombo(Model model, AttackTypes currentAttack, float deltaTime)
+        {
+            if (!isSwinging)
+            {
+                isSwinging = true;
+                currentSwingTime = 0f;
+
+                if (Combo.CanContinueWith(currentAttack, attackHistory))
+                {
+                    Combo.UpdateSet(attackHistory);
+                }
+                else
+                {
+                    Combo.ResetCombo(attackHistory);
+                    Combo.UpdateHits(attackHistory);
+                }
+                Combo.StartContinuationWindow();
+
+                var currentHit = Combo.GetCurrentHit();
+                if (currentHit == null)
+                {
+                    return;
+                }
+
+                int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD), currentHit);
+                if (!animationIndexMap.ContainsKey(hitIndex))
+                {
+                    Console.WriteLine($"UpdateSwingAndCombo: Invalid hit index {hitIndex}, resetting");
+                    Combo.ResetCombo(attackHistory);
+                    Combo.UpdateHits(attackHistory);
+                    return;
+                }
+                int animationIndex = animationIndexMap[hitIndex];
+                aManagers[animationIndex].GetCurrent().Reset();
+                aManagers[animationIndex].GetCurrent().Start();
+
+                int horizontalXFactor = model.direction == Directions.RIGHT ? 1 : -1;
+                model.body.Move(new FlatVector(
+                    currentHit.EntityPositionOffset.X * horizontalXFactor,
+                    currentHit.EntityPositionOffset.Y
+                ));
+                Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(
+                    Resources.Sounds.SWING_SWORD,
+                    model.body.Position.ToVector2(),
+                    currentHit.SwingTimeSec * WeaponSwingSpeedMultiplier
+                ));
+                Console.WriteLine($"Playing Combo Hit Sequence [{string.Join(", ", currentHit.AttackSequence)}]");
+            }
+
+            currentSwingTime += deltaTime;
+
+            var hit = Combo.GetCurrentHit();
+            if (hit != null && currentSwingTime >= WeaponSwingSpeedMultiplier * hit.SwingTimeSec)
+            {
+                isSwinging = false;
+                model.modelState = ModelStates.WEAPON_OUT_IDLE;
+                Console.WriteLine($"Finished Combo Hit Sequence [{string.Join(", ", hit.AttackSequence)}]");
+                var hitTemplates = WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD);
+                var nextHits = hitTemplates.Where(h => h.AttackSequence.Length == hit.AttackSequence.Length + 1 &&
+                                                      h.AttackSequence.Take(hit.AttackSequence.Length).SequenceEqual(hit.AttackSequence)).ToList();
+                if (!nextHits.Any())
+                {
+                    attackHistory.Clear();
+                    Console.WriteLine("Attack History Cleared: Combo Finished");
+                    Combo.UpdateHits(attackHistory);
+                }
+            }
+        }
+
+        private void UpdateAnimation(Directions direction)
+        {
+            var currentHit = Combo.GetCurrentHit();
+            if (currentHit == null)
+            {
+                return;
+            }
+
+            int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD), currentHit);
+            if (!animationIndexMap.ContainsKey(hitIndex))
+            {
+                Console.WriteLine($"UpdateAnimation: Invalid hit index {hitIndex}, skipping");
+                return;
+            }
+            int animationIndex = animationIndexMap[hitIndex];
+            aManagers[animationIndex].Update(new Tuple<Directions, AnimationStates>(direction, AnimationStates.IDLE));
         }
 
         public void Draw(Model model)
         {
             if (model.modelState != ModelStates.ATTACKING_LIGHT && model.modelState != ModelStates.ATTACKING_HEAVY)
                 return;
+
+            var currentHit = Combo.GetCurrentHit();
+            if (currentHit == null)
+            {
+                return;
+            }
 
             Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
@@ -140,21 +224,26 @@ namespace Entities
             scaleY = bodyHeight / spriteSize.Height;
 
             Vector2 entityBodyPos = model.body.Position.ToVector2();
-
-            float directionXOffset = -10;
-            if (model.direction == Directions.LEFT)
-            {
-                directionXOffset = model.body.Width * 3f + 10;
-            }
-
+            float directionXOffset = model.direction == Directions.RIGHT ? -10 : model.body.Width * 3f + 10;
             Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.body.Width / 2f - directionXOffset, entityBodyPos.Y - model.body.Height / 2f);
 
-            int animationIndex = animationIndexMap[(CurrentComboId, Combos[CurrentComboId].CurrentComboHitId)];
+            int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(WeaponComboHitSetFactory.WeaponComboHitSets.SWORD), currentHit);
+            if (!animationIndexMap.ContainsKey(hitIndex))
+            {
+                Console.WriteLine($"Draw: Invalid hit index {hitIndex}, skipping");
+                return;
+            }
+            int animationIndex = animationIndexMap[hitIndex];
             aManagers[animationIndex].GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
         }
 
         public void DrawHitbox()
         {
+            var currentHit = Combo.GetCurrentHit();
+            if (currentHit == null)
+            {
+                return;
+            }
             hitbox.Draw(Color.Red);
         }
     }
