@@ -41,7 +41,7 @@ namespace Entities
                     KnockbackPower = 1f;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
                     WeaponEntity.Size = new Microsoft.Xna.Framework.Vector2(10, 40);
-                    WeaponEntity.MoveSet = WeaponComboHitSets.KNIFE;
+                    WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;
             }

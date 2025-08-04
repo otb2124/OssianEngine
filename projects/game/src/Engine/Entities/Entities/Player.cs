@@ -103,7 +103,7 @@ namespace Entities
 
             //battleIdle
             frameSpeed = 0.1f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_IDLE, 9, new Vector2(0, 128 * 4), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.WEAPON_OUT_IDLE, 9, new Vector2(0, 128 * 4), new Vector2(64, 128), frameSpeed);
 
             //battleMoving
             frameSpeed = 0.1f;

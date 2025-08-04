@@ -158,7 +158,7 @@ namespace Utils
         ATTACKING_LIGHT,
         ATTACKING_HEAVY,
         SPRINTING,
-        BATTLE_IDLE,
+        WEAPON_OUT_IDLE,
         BATTLE_MOVING,
         BATTLE_ROLL,
         FALLEN

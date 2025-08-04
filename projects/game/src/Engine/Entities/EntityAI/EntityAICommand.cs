@@ -88,6 +88,22 @@ namespace Entities
             Entity.Model.direction = direction;
         }
 
+        public void WeaponLightAttack()
+        {
+            if(Entity is EquipmentEntity eqEnt)
+            {
+                eqEnt.Model.modelState = ModelStates.ATTACKING_LIGHT;
+            }
+        }
+
+        public void WeaponHeavyAttack()
+        {
+            if (Entity is EquipmentEntity eqEnt)
+            {
+                eqEnt.Model.modelState = ModelStates.ATTACKING_HEAVY;
+            }
+        }
+
         public void FollowPlayer(float? stopDistance = null)
         {
             if (Entities.Player == null || Entities.Player.Model?.body == null) return;

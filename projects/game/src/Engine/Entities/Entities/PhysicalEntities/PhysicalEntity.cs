@@ -170,7 +170,7 @@ namespace Entities
                     Model.animationState = AnimationStates.SPRINTING;
                     break;
                 case ModelStates.WEAPON_OUT_IDLE:
-                    Model.animationState = AnimationStates.BATTLE_IDLE;
+                    Model.animationState = AnimationStates.WEAPON_OUT_IDLE;
                     break;
                 case ModelStates.WEAPON_OUT_MOVING:
                     Model.animationState = AnimationStates.BATTLE_MOVING;

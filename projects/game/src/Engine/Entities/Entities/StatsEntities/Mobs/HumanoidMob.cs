@@ -21,7 +21,7 @@ namespace Entities
         public HumanoidMob(Models modelPreset, Vector2 pos, float rotation) : base(modelPreset, pos, rotation)
         {
             EntityFraction = EntityFractions.BANDIT;
-            aiManager = new EntityAIManager(BehaviourPatterns.ANIMAL_DEFAULT);
+            aiManager = new EntityAIManager(BehaviourPatterns.BANDIT_DEFAULT);
             CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
         }
@@ -48,6 +48,14 @@ namespace Entities
             //battleRoll
             frameSpeed = 0.15f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
+
+            //attack
+            frameSpeed = 0.15f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_LIGHT, 1, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+
+            //weapon out
+            frameSpeed = 0.15f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.WEAPON_OUT_IDLE, 1, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
         }
 
         public override void SetSounds()
