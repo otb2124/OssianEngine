@@ -79,18 +79,11 @@ namespace Entities
                     Combos[CurrentComboId].GetCurrentHit().HitboxRotationOffset * horizontalXFactor
                 );
 
-                if (!MovedPlayer)
-                {
-                    model.body.Move(new FlatVector(Combos[CurrentComboId].GetCurrentHit().EntityPositionOffset.X * horizontalXFactor, Combos[CurrentComboId].GetCurrentHit().EntityPositionOffset.Y));
-                    MovedPlayer = true;
-                }
 
                 if (!isSwinging)
                 {
                     isSwinging = true;
                     currentSwingTime = 0f;
-                    MovedPlayer = false;
-                    Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(Resources.Sounds.SWING_SWORD, model.body.Position.ToVector2(), Combos[CurrentComboId].GetCurrentHit().SwingTimeSec * WeaponSwingSpeedMultiplier));
 
                     if (Combos[CurrentComboId].AllowContinuation && Combos[CurrentComboId].ContinuationAllowCounter < Combos[CurrentComboId].ContinuationAllowTimeSec)
                     {
@@ -105,6 +98,9 @@ namespace Entities
                     int animationIndex = animationIndexMap[(CurrentComboId, Combos[CurrentComboId].CurrentComboHitId)];
                     aManagers[animationIndex].GetCurrent().Reset();
                     aManagers[animationIndex].GetCurrent().Start();
+
+                    model.body.Move(new FlatVector(Combos[CurrentComboId].GetCurrentHit().EntityPositionOffset.X * horizontalXFactor, Combos[CurrentComboId].GetCurrentHit().EntityPositionOffset.Y));
+                    Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(Resources.Sounds.SWING_SWORD, model.body.Position.ToVector2(), Combos[CurrentComboId].GetCurrentHit().SwingTimeSec * WeaponSwingSpeedMultiplier));
                 }
 
                 currentSwingTime += deltaTime;
@@ -112,7 +108,6 @@ namespace Entities
                 if (currentSwingTime >= WeaponSwingSpeedMultiplier * Combos[CurrentComboId].GetCurrentHit().SwingTimeSec)
                 {
                     isSwinging = false;
-                    MovedPlayer = false;
                     model.modelState = ModelStates.WEAPON_OUT_IDLE;
                 }
 
