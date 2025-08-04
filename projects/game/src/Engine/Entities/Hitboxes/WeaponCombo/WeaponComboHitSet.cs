@@ -18,7 +18,7 @@ namespace Entities
         {
             Combohits = new List<WeaponComboHit>();
             CurrentComboHitId = 0;
-            ContinuationAllowTimeSec = 5f;
+            ContinuationAllowTimeSec = 0.7f;
             ContinuationAllowCounter = 0f;
             AllowContinuation = false;
         }
