@@ -119,23 +119,6 @@ namespace Entities
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    6f),
                                 //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   7f),
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
-                                new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f, true),
-                                new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
-                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
-                                new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f, true),
-                                new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
-                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
-                            };
-
-                            break;
-                        case BehaviourCases.IDLE_RANDOM:
-
-                            CommandPool = new EntityAICommand[]
-                            {
-                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f, true),
-                                // EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
-                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f, true),
-                                //new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
                                 new EntityAICommand(entity => { entity.WeaponLightAttack(); },      0.5f * 0.6f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             0.5f, true),
                                 new EntityAICommand(entity => { entity.WeaponLightAttack(); },      0.5f * 0.6f, true),
@@ -144,7 +127,18 @@ namespace Entities
                                 new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
                             };
 
-                            //CommandPool = Shuffle();
+                            break;
+                        case BehaviourCases.IDLE_RANDOM:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f, true),
+                                new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
+                                new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f, true),
+                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
+                            };
+
+                            CommandPool = Shuffle();
 
                             break;
                     }

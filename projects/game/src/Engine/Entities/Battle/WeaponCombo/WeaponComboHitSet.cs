@@ -42,7 +42,7 @@ namespace Entities
                                                   h.AttackSequence.Take(currentHit.AttackSequence.Length).SequenceEqual(currentHit.AttackSequence) &&
                                                   h.AttackSequence.Last() == attackType).ToList();
 
-            bool canContinue = ContinuationAllowCounter < ContinuationAllowTimeSec && nextHits.Any();
+            bool canContinue = ContinuationAllowCounter < ContinuationAllowTimeSec && nextHits.Count + 1 > 0;
             Console.WriteLine($"CanContinueWith: Attack {attackType}, Next {(nextHits.Any() ? nextHits.First().AttackSequence.Last() : "None")}, Allow {AllowContinuation}, Timer {ContinuationAllowCounter:F2}/{ContinuationAllowTimeSec:F2}, CanContinue {canContinue}");
             return canContinue;
         }
