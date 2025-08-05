@@ -1,14 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Resources;
-using SharpDX.Direct2D1.Effects;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-using UI;
 using Utils;
 
 namespace Graphics
@@ -61,8 +54,7 @@ namespace Graphics
         {
             if (!active) return;
 
-            //possible issue
-            frameTimeLeft -= (float)Graphics.gameTime.ElapsedGameTime.TotalSeconds;
+            frameTimeLeft -= (float)Graphics.CurrentLogicTime/(float)Graphics.TimeScale;
 
             if (frameTimeLeft <= 0)
             {

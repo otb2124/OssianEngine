@@ -33,7 +33,7 @@ namespace Entities
             }
         }
 
-        public void ChangeMap(int nextId, Vector2 playerPos)
+        public void LoadMap(int nextId, Vector2 playerPos)
         {
             if(Entities.Player == null)
             {
@@ -54,6 +54,11 @@ namespace Entities
             Graphics.Graphics.backgroundManager.Init();
 
             Graphics.Graphics.lightManager.Init();
+        }
+
+        public void LoadInitialMap()
+        {
+            LoadMap(0, new Vector2(0, 1000));
         }
 
     }

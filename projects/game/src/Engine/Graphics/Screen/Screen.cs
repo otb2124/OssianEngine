@@ -68,7 +68,7 @@ namespace Graphics
         {
             if (!isSet)
             {
-                throw new Exception("Function \"Set\" must be called before \"UnSet\" as pairs.");
+                throw new Exception("Function \"SetGameProps\" must be called before \"UnSet\" as pairs.");
             }
 
             game.GraphicsDevice.SetRenderTarget(null);

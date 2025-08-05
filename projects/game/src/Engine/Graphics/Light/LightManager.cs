@@ -26,7 +26,7 @@ namespace Graphics
             {
                 throw new InvalidOperationException("Graphics must be initialized before LightManager");
             }
-            lightMask = new RenderTarget2D(Graphics.graphicsDeviceManager.GraphicsDevice, Graphics.ResolutionX, Graphics.ResolutionY);
+            lightMask = new RenderTarget2D(Graphics.graphicsDeviceManager.GraphicsDevice, Graphics.ScreenResolution.X, Graphics.ScreenResolution.Y);
             lightSources = new List<LightSource>();
             lightSourcesToRemove = new List<LightSource>();
             darkOverlayColor = new Color(0, 0, 0, 0.8f);
@@ -100,7 +100,7 @@ namespace Graphics
         {
             Graphics.sprites.Draw(
                 lightMask,
-                new Rectangle(0, 0, Graphics.ResolutionX, Graphics.ResolutionY),
+                new Rectangle(0, 0, Graphics.ScreenResolution.X, Graphics.ScreenResolution.Y),
                 darkOverlayColor // Use darkOverlayColor directly
             );
         }

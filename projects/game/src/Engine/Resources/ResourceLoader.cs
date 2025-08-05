@@ -8,6 +8,7 @@ namespace Resources
     {
 
         public static readonly string GLOBAL_RES_PATH = "../../../../res/";
+        public static readonly string ContentFolderPath = "Content";
 
         public static Font[] fonts;
         public static Dictionary<SpriteSheets, SpriteSheet> spriteSheets;

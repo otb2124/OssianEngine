@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
+using Resources;
 using System;
 using Utils;
 
@@ -10,8 +11,6 @@ namespace Graphics
 {
     public static class Graphics
     {
-        public static int ResolutionX = 1280, ResolutionY = 720;
-
         public static Sprites sprites;
         public static Shapes shapes;
         public static GraphicsDeviceManager graphicsDeviceManager;
@@ -19,12 +18,43 @@ namespace Graphics
         public static Camera camera;
         public static CameraOperator cameraOperator;
         public static Screen screen;
-        public static GameTime gameTime;
-
 
         public static BackgroundManager backgroundManager;
         public static ParticleManager particleManager;
         public static LightManager lightManager;
+
+        public const double UpdatesPerSecond = 120d;
+        public const double TargetLogicFrameRate = 60d;
+        public const double TimeScale = UpdatesPerSecond / TargetLogicFrameRate;
+
+        public static double CurrentLogicTime;
+
+        public static readonly Point WindowPositon = new Point(400, 40);
+        public static readonly Point ScreenResolution = new Point(1280, 720);
+        public static readonly float BufferRatio = 0.85f;
+
+
+        public static void OnGameObjectConstruction(Game game)
+        {
+            graphicsDeviceManager = new GraphicsDeviceManager(game);
+            graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
+            game.IsMouseVisible = false;
+            game.IsFixedTimeStep = true;
+            game.TargetElapsedTime = TimeSpan.FromTicks((long)Math.Round((double)TimeSpan.TicksPerSecond / UpdatesPerSecond));
+        }
+
+        public static void SetGameProps(Game game)
+        {
+            game.Window.Position = WindowPositon;
+            FlatUtil.SetRelativeBackBufferSize(graphicsDeviceManager, BufferRatio);
+            screen = new Screen(game, ScreenResolution.X, ScreenResolution.Y);
+            sprites = new Sprites(game);
+            shapes = new Shapes(game);
+            contentManager = game.Content;
+            contentManager.RootDirectory = ResourceLoader.ContentFolderPath;
+            camera = new Camera(screen, game);
+        }
+
 
         public static void Init()
         {
@@ -48,8 +78,15 @@ namespace Graphics
             lightManager.Update();
         }
 
+        public static void UpdateGameTime(GameTime newGameTime)
+        {
+            CurrentLogicTime = (double)newGameTime.ElapsedGameTime.TotalSeconds * TimeScale;
+        }
+
         public static void Draw()
         {
+            graphicsDeviceManager.GraphicsDevice.Clear(Color.CornflowerBlue);
+
             screen.Set();
 
             //bg

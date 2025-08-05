@@ -23,13 +23,21 @@ namespace Physics
 
         public static CollisionHandler collisionHandler;
 
+        public static void Init()
+        {
+            flatWorld = new FlatWorld();
+            collisionHandler = new CollisionHandler();
+            watch = new Stopwatch();
+            sampleTimer.Start();
+        }
+
         public static void Update()
         {
             FlatWorld.TransformCount = 0;
             FlatWorld.NoTransformCount = 0;
 
             watch.Restart();
-            flatWorld.Step(FlatUtil.GetElapsedTimeInSeconds(Graphics.Graphics.gameTime), 20);
+            flatWorld.Step((float)Graphics.Graphics.CurrentLogicTime/(float)Graphics.Graphics.TimeScale , 20);
             watch.Stop();
 
             totalWorldStepTIme += watch.Elapsed.TotalMilliseconds;

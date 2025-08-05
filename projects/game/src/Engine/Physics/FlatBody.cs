@@ -411,7 +411,7 @@ namespace Physics
             IsStatic = existingBody.IsStatic;
             Radius = existingBody.Radius;
             Width = newWidth;
-            Height = newHeight; // Set new height
+            Height = newHeight; // SetGameProps new height
             StaticFriction = existingBody.StaticFriction;
             DynamicFriction = existingBody.DynamicFriction;
 

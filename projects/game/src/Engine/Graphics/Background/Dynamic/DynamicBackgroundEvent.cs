@@ -38,7 +38,7 @@ namespace Graphics
                 }
             }
 
-            SpawnTimer += (float)Graphics.gameTime.ElapsedGameTime.TotalSeconds;
+            SpawnTimer += (float)Graphics.CurrentLogicTime;
 
             if (SpawnTimer >= SpawnInterval)
             {

@@ -20,6 +20,7 @@ namespace Entities
         public WeaponComboHitSets MoveSet;
         private bool ComboHistoryUpdated = false;
 
+        public readonly float GlobalWeaponSwingSpeedMultiplier = 0.6f;
         public float WeaponSwingSpeedMultiplier = 1f;
         public float currentSwingTime = 0f;
         public bool isSwinging = false;
@@ -49,7 +50,7 @@ namespace Entities
             for (int i = 0; i < hits.Length; i++)
             {
                 aManagers[animationIndex] = new AnimationManager();
-                float eachFrameDuration = hits[i].SwingTimeSec * WeaponSwingSpeedMultiplier / 4;
+                float eachFrameDuration = hits[i].SwingTimeSec * WeaponSwingSpeedMultiplier / 4 * GlobalWeaponSwingSpeedMultiplier;
                 aManagers[animationIndex].AddAnimationForBothDirections(
                     StaticSpriteFactory.spriteMappings[sprite],
                     AnimationStates.IDLE,
@@ -66,7 +67,7 @@ namespace Entities
 
         public void Update(Model model)
         {
-            float deltaTime = (float)Graphics.Graphics.gameTime.ElapsedGameTime.TotalSeconds;
+            float deltaTime = (float)Graphics.Graphics.CurrentLogicTime/(float)Graphics.Graphics.TimeScale;
 
             if (model.modelState == ModelStates.ATTACKING_LIGHT || model.modelState == ModelStates.ATTACKING_HEAVY)
             {
@@ -142,7 +143,7 @@ namespace Entities
                     return;
                 }
 
-                int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(MoveSet), currentHit);
+                int hitIndex = Array.IndexOf(GetWeaponComboHits(MoveSet), currentHit);
                 if (!animationIndexMap.ContainsKey(hitIndex))
                 {
                     Console.WriteLine($"UpdateSwingAndCombo: Invalid hit index {hitIndex}, resetting");
@@ -170,7 +171,7 @@ namespace Entities
             currentSwingTime += deltaTime;
 
             var hit = Combo.GetCurrentHit();
-            if (hit != null && currentSwingTime >= WeaponSwingSpeedMultiplier * hit.SwingTimeSec)
+            if (hit != null && currentSwingTime >= WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * hit.SwingTimeSec)
             {
                 isSwinging = false;
                 model.modelState = ModelStates.WEAPON_OUT_IDLE;

@@ -205,18 +205,18 @@ namespace Entities
 
         public virtual void SetAnimations()
         {
-            this.Model.aManager.AddStaticAnimation(this.Model.spriteData);
+            Model.aManager.AddStaticAnimation(this.Model.spriteData);
         }
 
         public override void Draw()
         {
             Model.DrawAngle = Model.body.Angle;
-            this.Model.Draw();
+            Model.Draw();
         }
 
         public virtual void DrawCollider()
         {
-            this.Model.DrawCollider();
+            Model.DrawCollider();
         }
     }
 }

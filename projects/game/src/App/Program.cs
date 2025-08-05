@@ -1,3 +1,2 @@
-﻿
-using var game = new App.Game();
+﻿using var game = new App.Game();
 game.Run();
