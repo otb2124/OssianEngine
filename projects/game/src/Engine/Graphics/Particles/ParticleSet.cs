@@ -109,7 +109,7 @@ namespace Graphics
 
         public void HandleParticleDuration(Particle particle)
         {
-            if (particle.DurationCounter < particle.DurationSec * 60f)
+            if (particle.DurationCounter < particle.DurationSec * Graphics.UpdatesPerSecond)
             {
                 particle.DurationCounter++;
             }

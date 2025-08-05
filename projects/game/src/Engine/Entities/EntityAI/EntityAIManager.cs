@@ -43,7 +43,7 @@ namespace Entities
             {
                 CurrentCommand.CommandTime++;
 
-                if (CurrentCommand.CommandTime >= CurrentCommand.Duration * 60f && !CurrentCommand.IsDurationInfinite)
+                if (CurrentCommand.CommandTime >= CurrentCommand.Duration * Graphics.Graphics.UpdatesPerSecond && !CurrentCommand.IsDurationInfinite)
                 {
                     BehaviourManager.UpdateCommands(CurrentQueue, CurrentCommand);
                     IsExecutingCommand = false;

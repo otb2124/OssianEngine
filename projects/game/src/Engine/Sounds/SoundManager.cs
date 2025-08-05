@@ -37,7 +37,7 @@ namespace Sounds
                 }
                 else
                 {
-                    if (sound.DurationCounter < sound.DurationSec * 60f)
+                    if (sound.DurationCounter < sound.DurationSec * Graphics.Graphics.UpdatesPerSecond)
                     {
                         sound.DurationCounter++;
                         sound.Update();

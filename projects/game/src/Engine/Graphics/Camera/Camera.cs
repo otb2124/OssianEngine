@@ -5,7 +5,6 @@ namespace Graphics
 {
     public sealed class Camera
     {
-
         public Vector2 position;
         private Matrix view;
         private Matrix proj;

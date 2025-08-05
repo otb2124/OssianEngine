@@ -15,12 +15,13 @@ namespace Physics
 
         public static readonly float MinDensity = 0.5f;     // g/cm^3
         public static readonly float MaxDensity = 21.4f;
-
+         
         public static readonly int MinIterations = 1;
         public static readonly int MaxIterations = 128;
 
         private FlatVector gravity;
-        public static readonly int gravityMultiplier = 50;
+        public static readonly int ConstantGravityMultiplier = 50;
+        public static readonly float GlobalGravityMultiplier = 1f;
 
         public List<FlatBody> bodyList;
         private List<(int, int)> contactPairs;
@@ -39,7 +40,7 @@ namespace Physics
 
         public FlatWorld()
         {
-            gravity = new FlatVector(0f, -9.81f * gravityMultiplier);
+            gravity = new FlatVector(0f, -9.81f * GlobalGravityMultiplier * ConstantGravityMultiplier);
             bodyList = new List<FlatBody>();
             contactPairs = new List<(int, int)>();
 

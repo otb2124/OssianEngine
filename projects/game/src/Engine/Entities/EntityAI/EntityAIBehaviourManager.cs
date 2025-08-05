@@ -136,11 +136,11 @@ namespace Entities
                                 // EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f, true),
                                 //new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
-                                new EntityAICommand(entity => { entity.WeaponLightAttack(); },      0.5f, true),
+                                new EntityAICommand(entity => { entity.WeaponLightAttack(); },      0.5f * 0.6f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             0.5f, true),
-                                new EntityAICommand(entity => { entity.WeaponLightAttack(); },      0.5f, true),
+                                new EntityAICommand(entity => { entity.WeaponLightAttack(); },      0.5f * 0.6f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             0.5f, true),
-                                new EntityAICommand(entity => { entity.WeaponHeavyAttack(); },      0.5f, true),
+                                new EntityAICommand(entity => { entity.WeaponHeavyAttack(); },      0.5f * 0.6f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
                             };
 
