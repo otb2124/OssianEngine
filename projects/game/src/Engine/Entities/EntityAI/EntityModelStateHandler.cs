@@ -33,13 +33,13 @@ namespace Entities {
             if (state == ModelStates.JUMPING)
             {
                 Entity.Model.body.Jump(Entity.Stats.jumpSpeed);
-                Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / 60;
+                Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
             }
 
             if (state == ModelStates.JUMPING_AND_MOVING)
             {
                 Entity.Model.body.Jump(Entity.Stats.jumpSpeed);
-                Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / 60;
+                Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
                 Entity.Model.body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
             }
 
@@ -47,7 +47,7 @@ namespace Entities {
             {
                 Entity.Model.body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.sprintMultiplier * directionXFactor, 0));
                 Entity.Stats.OnUsingStamina = true;
-                Entity.Stats.stamina -= Entity.Stats.staminaSprintCostSec / 60;
+                Entity.Stats.stamina -= Entity.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
             }
 
             if (state == ModelStates.BLOCKING)
@@ -57,7 +57,7 @@ namespace Entities {
 
             if (state == ModelStates.ROLLING)
             {
-                Entity.Stats.stamina -= Entity.Stats.staminaRollCostSec / 60;
+                Entity.Stats.stamina -= Entity.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
                 Entity.Model.body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.rollMultiplier * directionXFactor, 0));
             }
 
@@ -138,7 +138,7 @@ namespace Entities {
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED])
                 {
-                    if ((player.Stats.stamina - player.Stats.staminaSprintCostSec / 60) > 0 && !player.Stats.OnStaminaRegen)
+                    if ((player.Stats.stamina - player.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond) > 0 && !player.Stats.OnStaminaRegen)
                     {
                         player.Model.modelState = ModelStates.SPRINTING;
                     }
@@ -146,7 +146,7 @@ namespace Entities {
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                 {
-                    if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec / 60)) > 0)
+                    if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond)) > 0)
                     {
                         player.Model.modelState = ModelStates.JUMPING;
                     }
@@ -154,7 +154,7 @@ namespace Entities {
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]))
                 {
-                    if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec / 60)) > 0)
+                    if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond)) > 0)
                     {
                         player.Model.modelState = ModelStates.JUMPING_AND_MOVING;
                     }
@@ -170,7 +170,7 @@ namespace Entities {
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED] && (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]))
                 {
-                    if ((player.Stats.stamina - (player.Stats.staminaRollCostSec / 60)) > 0)
+                    if ((player.Stats.stamina - (player.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond)) > 0)
                     {
                         player.Model.modelState = ModelStates.ROLLING;
                     }

@@ -81,7 +81,7 @@ namespace Entities
             if(IsInvincible)
             {
                 invincibleCounter++;
-                if(invincibleCounter > invincibleFramesSec*60)
+                if(invincibleCounter > invincibleFramesSec* Graphics.Graphics.UpdatesPerSecond)
                 {
                     IsInvincible = false;
                     invincibleCounter = 0;
@@ -97,12 +97,12 @@ namespace Entities
             {
                 staminaUnlockCounter++;
 
-                if(staminaUnlockCounter < staminaUnlockSec*60)
+                if(staminaUnlockCounter < staminaUnlockSec*Graphics.Graphics.UpdatesPerSecond)
                 {
                     OnStaminaRegen = true;
                 }
 
-                stamina+=staminaRegenSec/60;
+                stamina+=staminaRegenSec/ (float)Graphics.Graphics.UpdatesPerSecond;
             }
             else
             {
@@ -141,7 +141,7 @@ namespace Entities
             {
                 
                 FallenTimer++;
-                if (FallenTimer >= FallenDurationAllowedSec*60)
+                if (FallenTimer >= FallenDurationAllowedSec* Graphics.Graphics.UpdatesPerSecond)
                 {
                     IsFallen = false;
                     FallenTimer = 0f;
