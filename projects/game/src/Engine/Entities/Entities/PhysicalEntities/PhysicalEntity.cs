@@ -184,12 +184,6 @@ namespace Entities
                 case ModelStates.FALLING:
                     Model.animationState = AnimationStates.BATTLE_ROLL;
                     break;
-                case ModelStates.ATTACKING_LIGHT:
-                    Model.animationState = AnimationStates.ATTACKING_LIGHT;
-                    break;
-                case ModelStates.ATTACKING_HEAVY:
-                    Model.animationState = AnimationStates.ATTACKING_LIGHT;
-                    break;
             }
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));

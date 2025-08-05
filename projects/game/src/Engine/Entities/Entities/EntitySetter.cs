@@ -34,7 +34,7 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(500,  -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
 
                     entities.Add(new PlatformEntity(new Vector2(0, 0), 5));
-                    entities.Add(new PlatformEntity(new Vector2(140, -60         ), 5));
+                    entities.Add(new PlatformEntity(new Vector2(140, -60), 5));
 
                     entities.Add(new DestroyableEntity(Models.CRATE_0, new Vector2(-200, -500)));
 

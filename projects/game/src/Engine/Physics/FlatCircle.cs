@@ -216,7 +216,7 @@ namespace Physics
 
         public override string ToString()
         {
-            string result = string.Format("Center: {0}, Radius: {1}", Center, Radius);
+            string result = string.Format("Position: {0}, Radius: {1}", Center, Radius);
             return result;
         }
     }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Utils;
 using Microsoft.Xna.Framework;
+using System.Reflection;
 
 namespace Graphics
 {
@@ -27,6 +28,12 @@ namespace Graphics
         {
             AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.sheet, framesCount, startPos, frameSize, eachFrameDuration, SpriteEffects.FlipHorizontally));
             AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.sheet, framesCount, startPos, frameSize, eachFrameDuration, SpriteEffects.None));
+        }
+
+        public void AddAnimationForBothDirections(StaticSpriteFactory.SpriteData spriteData, AnimationStates animationState, AnimationData data)
+        {
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.sheet, data, SpriteEffects.FlipHorizontally));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.sheet, data, SpriteEffects.None));
         }
 
 
@@ -54,6 +61,11 @@ namespace Graphics
         public Animation GetCurrent()
         {
             return anims[lastKey];
+        }
+
+        public Animation GetAnimation(Directions direction, AnimationStates animationState)
+        {
+            return anims[new Tuple<Directions, AnimationStates>(direction, animationState)];
         }
     }
 }

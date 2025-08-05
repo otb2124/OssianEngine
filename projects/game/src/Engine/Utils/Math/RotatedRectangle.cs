@@ -6,7 +6,7 @@ namespace Utils
 {
     public class RotatedRectangle
     {
-        public Vector2 Center;
+        public Vector2 Position;
         public float Width;
         public float Height;
         public float Rotation;
@@ -14,7 +14,7 @@ namespace Utils
 
         public RotatedRectangle()
         {
-            Center = Vector2.Zero;
+            Position = Vector2.Zero;
             Width = 0f;
             Height = 0f;
             Rotation = 0f;
@@ -22,7 +22,7 @@ namespace Utils
 
         public RotatedRectangle(Vector2 pos, Vector2 size, float rot = 0f)
         {
-            Center = pos;
+            Position = pos;
             Width = size.X;
             Height = size.Y;
             Rotation = rot;
@@ -30,7 +30,7 @@ namespace Utils
 
         public RotatedRectangle(Vector2 center, float width, float height, float rotation = 0f)
         {
-            Center = center;
+            Position = center;
             Width = width;
             Height = height;
             Rotation = rotation;
@@ -47,7 +47,7 @@ namespace Utils
 
             for (int i = 0; i < 4; i++)
             {
-                corners[i] = Vector2.Transform(corners[i], Matrix.CreateRotationZ(Rotation)) + Center;
+                corners[i] = Vector2.Transform(corners[i], Matrix.CreateRotationZ(Rotation)) + Position;
             }
 
             return corners;

@@ -677,7 +677,7 @@ namespace Graphics
             // Angle of this edge.
             float angle = MathF.Atan2(ey, ex);
 
-            // Center of the line segment.
+            // Position of the line segment.
             float cx = (ax + bx) * 0.5f;
             float cy = (ay + by) * 0.5f;
 
@@ -1027,7 +1027,7 @@ namespace Graphics
         /*
         public void DrawEllipse(FlatEllipse ellipse, int points, Color color)
         {
-            this.DrawEllipse(ellipse.Center, ellipse.Radius, points, color);
+            this.DrawEllipse(ellipse.Position, ellipse.Radius, points, color);
         }
 
         public void DrawEllipse(float x, float y, float xRadius, float yRadius, int points, Color color)

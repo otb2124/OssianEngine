@@ -13,56 +13,48 @@ namespace Entities
 {
     public class WeaponEntity
     {
-        public WeaponHitbox hitbox;
-        public StaticSprites sprite;
-        public AnimationManager[] aManagers;
-        private List<AttackTypes> attackHistory;
+        public WeaponHitbox Hitbox;
+        public StaticSprites Sprite;
+        public AnimationManager aManager;
+        private List<AttackTypes> AttackHistory;
         public WeaponComboHitSets MoveSet;
         private bool ComboHistoryUpdated = false;
+        private bool ModelAnimationTimeUpdated = false;
 
         public readonly float GlobalWeaponSwingSpeedMultiplier = 0.6f;
-        public float WeaponSwingSpeedMultiplier = 1f;
+
+        public float WeaponSwingSpeedMultiplier;
         public float currentSwingTime = 0f;
         public bool isSwinging = false;
 
-        public Vector2 Size;
-
-        public WeaponComboHitSet Combo;
-
-        private Dictionary<int, int> animationIndexMap;
+        public WeaponComboHitSet Combo; 
 
         public WeaponEntity()
         {
-            hitbox = new WeaponHitbox();
-            animationIndexMap = new Dictionary<int, int>();
-            attackHistory = new List<AttackTypes>();
+            Hitbox = new WeaponHitbox();
+            AttackHistory = new List<AttackTypes>();
             Combo = new WeaponComboHitSet();
         }
 
         public void Init()
         {
             var hits = GetWeaponComboHits(MoveSet);
-            sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
             int totalHits = GetTotalComboHits(MoveSet);
-            aManagers = new AnimationManager[totalHits];
-            int animationIndex = 0;
+
+            aManager = new AnimationManager();
 
             for (int i = 0; i < hits.Length; i++)
             {
-                aManagers[animationIndex] = new AnimationManager();
-                float eachFrameDuration = hits[i].SwingTimeSec * WeaponSwingSpeedMultiplier / 4 * GlobalWeaponSwingSpeedMultiplier;
-                aManagers[animationIndex].AddAnimationForBothDirections(
-                    StaticSpriteFactory.spriteMappings[sprite],
-                    AnimationStates.IDLE,
-                    4,
-                    new Vector2(0, 0),
-                    new Vector2(128, 128),
-                    eachFrameDuration
+                hits[i].SetAnimation(MoveSet, GlobalWeaponSwingSpeedMultiplier * WeaponSwingSpeedMultiplier);
+
+                aManager.AddAnimationForBothDirections(
+                    StaticSpriteFactory.spriteMappings[Sprite],
+                    hits[i].AnimationState,
+                    hits[i].AnimationData
                 );
-                animationIndexMap[i] = animationIndex++;
             }
 
-            Combo.UpdateHits(attackHistory, MoveSet);
+            Combo.UpdateHits(AttackHistory, MoveSet);
         }
 
         public void Update(Model model)
@@ -75,14 +67,15 @@ namespace Entities
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
                 UpdateSwingAndCombo(model, currentAttack, deltaTime);
-                UpdateAnimation(model.direction);
+                UpdateAnimation(model);
             }
             else
             {
-                Combo.UpdateCounter(deltaTime, attackHistory);
-                hitbox.Update(Vector2.Zero, Vector2.Zero);
+                Combo.UpdateCounter(deltaTime, AttackHistory);
+                Hitbox.Update(Vector2.Zero, Vector2.Zero);
                 isSwinging = false;
                 ComboHistoryUpdated = false;
+                ModelAnimationTimeUpdated = false;
             }
         }
 
@@ -92,13 +85,13 @@ namespace Entities
                 return;
 
             ComboHistoryUpdated = true;
-            attackHistory.Add(currentAttack);
+            AttackHistory.Add(currentAttack);
             int maxComboLength = GetWeaponComboHits(MoveSet).Max(h => h.AttackSequence.Length);
-            if (attackHistory.Count > maxComboLength)
-                attackHistory.RemoveAt(0);
+            if (AttackHistory.Count > maxComboLength)
+                AttackHistory.RemoveAt(0);
 
-            Console.WriteLine($"Attack History: [{string.Join(", ", attackHistory)}]");
-            Combo.UpdateHits(attackHistory, MoveSet);
+            Console.WriteLine($"Attack History: [{string.Join(", ", AttackHistory)}]");
+            Combo.UpdateHits(AttackHistory, MoveSet);
         }
 
         private void UpdateHitbox(Model model)
@@ -111,12 +104,25 @@ namespace Entities
             }
 
             int horizontalXFactor = model.direction == Directions.RIGHT ? 1 : -1;
-            Vector2 weaponPosition = model.body.Position.ToVector2() + currentHit.HitboxPositionOffset * new Vector2(horizontalXFactor, 1f);
-            hitbox.Update(
-                weaponPosition,
-                Size,
-                currentHit.HitboxRotationOffset * horizontalXFactor
-            );
+            Vector2 weaponPosition = model.body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
+
+            if(currentSwingTime > WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X && currentSwingTime < WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y)
+            {
+                Hitbox.Update(
+                    weaponPosition,
+                    currentHit.HitboxOffset.Size(),
+                    currentHit.HitboxOffset.Rotation * horizontalXFactor
+                );
+            }
+            else
+            {
+                Hitbox.Update(
+                    Vector2.Zero,
+                    Vector2.Zero,
+                    0f
+                );
+            }
+            
         }
 
         private void UpdateSwingAndCombo(Model model, AttackTypes currentAttack, float deltaTime)
@@ -126,14 +132,14 @@ namespace Entities
                 isSwinging = true;
                 currentSwingTime = 0f;
 
-                if (Combo.CanContinueWith(currentAttack, attackHistory, MoveSet))
+                if (Combo.CanContinueWith(currentAttack, AttackHistory, MoveSet))
                 {
-                    Combo.UpdateSet(attackHistory, MoveSet);
+                    Combo.UpdateSet(AttackHistory, MoveSet);
                 }
                 else
                 {
-                    Combo.ResetCombo(attackHistory);
-                    Combo.UpdateHits(attackHistory, MoveSet);
+                    Combo.ResetCombo(AttackHistory);
+                    Combo.UpdateHits(AttackHistory, MoveSet);
                 }
                 Combo.StartContinuationWindow();
 
@@ -144,16 +150,9 @@ namespace Entities
                 }
 
                 int hitIndex = Array.IndexOf(GetWeaponComboHits(MoveSet), currentHit);
-                if (!animationIndexMap.ContainsKey(hitIndex))
-                {
-                    Console.WriteLine($"UpdateSwingAndCombo: Invalid hit index {hitIndex}, resetting");
-                    Combo.ResetCombo(attackHistory);
-                    Combo.UpdateHits(attackHistory, MoveSet);
-                    return;
-                }
-                int animationIndex = animationIndexMap[hitIndex];
-                aManagers[animationIndex].GetCurrent().Reset();
-                aManagers[animationIndex].GetCurrent().Start();
+
+                aManager.GetCurrent().Reset();
+                aManager.GetCurrent().Start();
 
                 int horizontalXFactor = model.direction == Directions.RIGHT ? 1 : -1;
                 model.body.Move(new FlatVector(
@@ -181,29 +180,30 @@ namespace Entities
                                                       h.AttackSequence.Take(hit.AttackSequence.Length).SequenceEqual(hit.AttackSequence)).ToList();
                 if (!nextHits.Any())
                 {
-                    attackHistory.Clear();
+                    AttackHistory.Clear();
                     Console.WriteLine("Attack History Cleared: Combo Finished");
-                    Combo.UpdateHits(attackHistory, MoveSet);
+                    Combo.UpdateHits(AttackHistory, MoveSet);
                 }
             }
         }
 
-        private void UpdateAnimation(Directions direction)
+        private void UpdateAnimation(Model model)
         {
             var currentHit = Combo.GetCurrentHit();
             if (currentHit == null)
             {
                 return;
             }
+            aManager.Update(new Tuple<Directions, AnimationStates>(model.direction, Combo.GetCurrentHit().AnimationState));
 
-            int hitIndex = Array.IndexOf(GetWeaponComboHits(MoveSet), currentHit);
-            if (!animationIndexMap.ContainsKey(hitIndex))
+            model.animationState = Combo.GetCurrentHit().AnimationState;
+
+            if(!ModelAnimationTimeUpdated)
             {
-                Console.WriteLine($"UpdateAnimation: Invalid hit index {hitIndex}, skipping");
-                return;
+                model.aManager.GetAnimation(model.direction, model.animationState).frameTime = currentHit.AnimationData.FrameTime;
+                model.aManager.GetAnimation(model.direction, model.animationState).frameTimeLeft = currentHit.AnimationData.FrameTime;
+                ModelAnimationTimeUpdated = true;
             }
-            int animationIndex = animationIndexMap[hitIndex];
-            aManagers[animationIndex].Update(new Tuple<Directions, AnimationStates>(direction, AnimationStates.IDLE));
         }
 
         public void Draw(Model model)
@@ -229,14 +229,7 @@ namespace Entities
             float directionXOffset = model.direction == Directions.RIGHT ? -10 : model.body.Width * 3f + 10;
             Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.body.Width / 2f - directionXOffset, entityBodyPos.Y - model.body.Height / 2f);
 
-            int hitIndex = Array.IndexOf(WeaponComboHitSetFactory.GetWeaponComboHits(MoveSet), currentHit);
-            if (!animationIndexMap.ContainsKey(hitIndex))
-            {
-                Console.WriteLine($"Draw: Invalid hit index {hitIndex}, skipping");
-                return;
-            }
-            int animationIndex = animationIndexMap[hitIndex];
-            aManagers[animationIndex].GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
+            aManager.GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
         }
 
         public void DrawHitbox()
@@ -246,7 +239,7 @@ namespace Entities
             {
                 return;
             }
-            hitbox.Draw(Color.Red);
+            Hitbox.Draw(Color.Red);
         }
     }
 }

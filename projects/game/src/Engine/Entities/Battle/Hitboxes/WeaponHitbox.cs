@@ -31,8 +31,7 @@ namespace Entities
             this.outerHalf.Rotation = this.extends.Rotation;
             Vector2 offset = new Vector2(0, size.Y / 2);
             offset = Vector2.Transform(offset, Matrix.CreateRotationZ(this.extends.Rotation));
-            this.outerHalf.Center = this.extends.Center - offset;
-
+            this.outerHalf.Position = this.extends.Position - offset;
         }
 
         public override void Update(Vector2 pos, Vector2 size, float rot)
@@ -46,14 +45,13 @@ namespace Entities
             this.outerHalf.Rotation = this.extends.Rotation;
             Vector2 offset = new Vector2(0, size.Y / 2);
             offset = Vector2.Transform(offset, Matrix.CreateRotationZ(this.extends.Rotation));
-            this.outerHalf.Center = this.extends.Center - offset;
-
+            this.outerHalf.Position = this.extends.Position - offset;
         }
 
         public override void Draw(Color color)
         {
             Color drawColor = new Color((byte)color.R, (byte)color.G, (byte)color.B, (byte)64);
-            Graphics.Graphics.shapes.DrawBoxFill(this.outerHalf.Center, outerHalf.Width, outerHalf.Height, outerHalf.Rotation, drawColor);
+            Graphics.Graphics.shapes.DrawBoxFill(this.outerHalf.Position, outerHalf.Width, outerHalf.Height, outerHalf.Rotation, drawColor);
         }
     }
 }

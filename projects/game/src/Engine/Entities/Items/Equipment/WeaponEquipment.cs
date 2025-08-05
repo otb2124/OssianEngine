@@ -28,8 +28,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     PhysDmg = 1;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
-                    WeaponEntity.Size = new Microsoft.Xna.Framework.Vector2(10, 40);
                     WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;
+                    WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;
                 case ItemLib.Weapons.TERRABLADE:
@@ -40,7 +40,7 @@ namespace Entities
                     PhysDmg = 5;
                     KnockbackPower = 1f;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
-                    WeaponEntity.Size = new Microsoft.Xna.Framework.Vector2(10, 40);
+                    WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
                     WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     break;

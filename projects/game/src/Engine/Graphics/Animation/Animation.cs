@@ -6,9 +6,25 @@ using Utils;
 
 namespace Graphics
 {
+    public class AnimationData
+    {
+        public int FramesCountX;
+        public Vector2 StartPos;
+        public Vector2 FrameSize;
+        public float FrameTime;
+
+        public AnimationData(int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime)
+        {
+            FramesCountX = framesCountX;
+            StartPos = startPos;
+            FrameSize = frameSize;
+            FrameTime = frameTime;
+        }
+    }
+
+
     public class Animation
     {
-
         public SpriteSheets spriteSheet;
         public List<Rectangle> sourceRectangles = new List<Rectangle>();
         public int frames;
@@ -31,6 +47,22 @@ namespace Graphics
             for (int i = 0; i < frames; i++)
             {
                 sourceRectangles.Add(new Rectangle(i * (int)frameSize.X + (int)startPos.X, (int)startPos.Y, (int)frameSize.X, (int)frameSize.Y));
+            }
+        }
+
+        public Animation(SpriteSheets spriteSheet, AnimationData data, SpriteEffects neweffect)
+        {
+            this.spriteSheet = spriteSheet;
+            this.frames = data.FramesCountX;
+            this.frameTime = data.FrameTime;
+            this.frameTimeLeft = data.FrameTime;
+            currentFrame = 0;
+            active = true;
+            this.effect = neweffect;
+
+            for (int i = 0; i < frames; i++)
+            {
+                sourceRectangles.Add(new Rectangle(i * (int)data.FrameSize.X + (int)data.StartPos.X, (int)data.StartPos.Y, (int)data.FrameSize.X, (int)data.FrameSize.Y));
             }
         }
 
