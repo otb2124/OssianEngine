@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
+using static Entities.WeaponComboHitSetFactory;
 
 namespace Entities
 {
@@ -119,11 +120,9 @@ namespace Entities
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    6f),
                                 //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   7f),
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
-                                new EntityAICommand(entity => { entity.WeaponLightAttack(); },      0.5f * 0.6f, true),
-                                new EntityAICommand(entity => { entity.StandStill(); },             0.5f, true),
-                                new EntityAICommand(entity => { entity.WeaponLightAttack(); },      0.5f * 0.6f, true),
-                                new EntityAICommand(entity => { entity.StandStill(); },             0.5f, true),
-                                new EntityAICommand(entity => { entity.WeaponHeavyAttack(); },      0.5f * 0.6f, true),
+                                new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f, true),
+                                new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
+                                new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
                             };
 
@@ -139,6 +138,17 @@ namespace Entities
                             };
 
                             CommandPool = Shuffle();
+
+                            break;
+                        case BehaviourCases.AGGRO:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                new EntityAICommand(entity => { entity.PerformWeaponAttack(AttackTypes.LIGHT); }),
+                                new EntityAICommand(entity => { entity.PerformWeaponAttack(AttackTypes.LIGHT); }),
+                                new EntityAICommand(entity => { entity.PerformWeaponAttack(AttackTypes.LIGHT); }),
+                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
+                            };
 
                             break;
                     }

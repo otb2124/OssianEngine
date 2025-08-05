@@ -19,7 +19,7 @@ namespace Entities
             HEAVY
         }
 
-        private static readonly Dictionary<WeaponComboHitSets, WeaponComboHit[]> hitTemplates = new()
+        public static readonly Dictionary<WeaponComboHitSets, WeaponComboHit[]> hitTemplates = new()
         {
             {
                 WeaponComboHitSets.SWORD,
@@ -49,8 +49,9 @@ namespace Entities
 
                     // XXX
                     new WeaponComboHit(
-                        new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.2f), new Vector2(30, 0), 0.7f, new Vector2(0.5f, 0.7f),
+                        new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.2f), new Vector2(30, 0), 0.7f, new Vector2(0f, 0.7f),
                         new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
+
                     // XXY
                     new WeaponComboHit(
                         new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(20, 50), 1.2f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
@@ -104,6 +105,30 @@ namespace Entities
         public static int GetTotalComboHits(WeaponComboHitSets weaponType)
         {
             return hitTemplates[weaponType].Length;
+        }
+
+        public static WeaponComboHit GetComboHit(WeaponComboHitSets weaponType, AttackTypes[] sequence)
+        {
+            if (!hitTemplates.ContainsKey(weaponType) || sequence == null || sequence.Length == 0 || sequence.Length > GetLongestComboHit(weaponType).AttackSequence.Length)
+            {
+                return null;
+            }
+
+            return hitTemplates[weaponType].FirstOrDefault(h => h.AttackSequence.SequenceEqual(sequence));
+        }
+
+        public static WeaponComboHit GetLongestComboHit(WeaponComboHitSets weaponType)
+        {
+            if (!hitTemplates.ContainsKey(weaponType))
+            {
+                return null;
+            }
+
+            var longestHit = hitTemplates[weaponType]
+                .OrderByDescending(h => h.AttackSequence.Length)
+                .FirstOrDefault();
+
+            return longestHit;
         }
     }
 }

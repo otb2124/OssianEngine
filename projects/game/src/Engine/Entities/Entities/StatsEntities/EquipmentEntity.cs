@@ -20,6 +20,11 @@ namespace Entities
             SetEquipment();
         }
 
+        public EquipmentEntity() : base()
+        {
+            SetEquipment();
+        }
+
         public virtual void SetEquipment()
         {
             EquipmentManager = new EquipmentManager();

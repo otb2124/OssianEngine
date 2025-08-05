@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
+using static Entities.WeaponComboHitSetFactory;
 
 namespace Entities
 {
@@ -21,6 +22,8 @@ namespace Entities
         public int RepeatAfterCommandsCount = 0;
 
         public float CommandTime = 0;
+
+        public bool ComplexCommandSet = false;
 
         public EntityAICommand(Action<EntityAICommand> commandAction, float duration)
         {
@@ -52,7 +55,7 @@ namespace Entities
 
         public void StandStill()
         {
-            Entity.Model.modelState = ModelStates.IDLE;
+            Entity.Model.ModelState = ModelStates.IDLE;
         }
 
         public void Move()
@@ -62,19 +65,19 @@ namespace Entities
 
         public void Move(Directions direction)
         {
-            Entity.Model.modelState = ModelStates.MOVING;
+            Entity.Model.ModelState = ModelStates.MOVING;
             Entity.Model.direction = direction;
         }
 
         public void Jump()
         {
-            Entity.Model.modelState = ModelStates.JUMPING;
+            Entity.Model.ModelState = ModelStates.JUMPING;
         }
 
         public void JumpAndMove(Directions direction, StatsEntity Entity)
         {
             Entity.Model.direction = direction;
-            Entity.Model.modelState = ModelStates.JUMPING_AND_MOVING;
+            Entity.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
         }
 
         public void Sprint()
@@ -84,25 +87,87 @@ namespace Entities
 
         public void Sprint(Directions direction)
         {
-            Entity.Model.modelState = ModelStates.SPRINTING;
+            Entity.Model.ModelState = ModelStates.SPRINTING;
             Entity.Model.direction = direction;
         }
 
-        public void WeaponLightAttack()
-        {
-            if(Entity is EquipmentEntity eqEnt)
-            {
-                eqEnt.Model.modelState = ModelStates.ATTACKING_LIGHT;
-            }
-        }
-
-        public void WeaponHeavyAttack()
+        public void PerformWeaponAttack(AttackTypes type)
         {
             if (Entity is EquipmentEntity eqEnt)
             {
-                eqEnt.Model.modelState = ModelStates.ATTACKING_HEAVY;
+                IsDurationInfinite = false;
+                RepeatAfterRestart = true;
+
+                ModelStates state = ModelStates.ATTACKING_LIGHT;
+
+                AttackTypes[] history = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.AttackHistory.ToArray();
+                AttackTypes[] currentAttack = new AttackTypes[history.Length + 1];
+                for (global::System.Int32 i = 0; i < history.Length; i++)
+                {
+                    currentAttack[i] = history[i];
+                }
+                currentAttack[currentAttack.Length-1] = type;
+
+                Duration = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.MoveSet, currentAttack) * 1.5f;
+
+                if (type == AttackTypes.LIGHT)
+                {
+                    state = ModelStates.ATTACKING_LIGHT;
+                }
+                else
+                {
+                    state = ModelStates.ATTACKING_HEAVY;
+                }
+
+                if (CommandTime < Duration * Graphics.Graphics.UpdatesPerSecond / 2f)
+                {
+                    eqEnt.Model.ModelState = state;
+                }
+                else
+                {
+                   eqEnt.Model.ModelState = ModelStates.IDLE;
+                }
             }
         }
+
+
+        /*
+        public void PerformWeaponAttackCombo(AttackTypes[] sequence)
+        {
+            if (Entity is EquipmentEntity eqEnt)
+            {
+                EntityAICommand[] commands = new EntityAICommand[sequence.Length];
+                if (!ComplexCommandSet)
+                {
+                    for (int i = 0; i < sequence.Length; i++)
+                    {
+                        Console.WriteLine($"Creating action for AttackTypes[{i}]: {sequence[i]}");
+                        int index = i;
+                        commands[i] = new EntityAICommand(entity => entity.PerformWeaponAttack(sequence[index]));
+                    }
+                    ComplexCommandSet = true;
+                }
+
+                PerformComplexCommand(commands);
+            }
+        }
+
+        public void PerformComplexCommand(EntityAICommand[] commands)
+        {
+            IsDurationInfinite = false;
+            RepeatAfterRestart = true;
+
+            EntityAIComplexCommand command = new EntityAIComplexCommand();
+
+            if(command.UnInitialized)
+            {
+                command = new EntityAIComplexCommand(commands);
+                Duration = command.TotalDurationSec;
+            }
+
+            command.Execute();
+        }
+        */
 
         public void FollowPlayer(float? stopDistance = null)
         {

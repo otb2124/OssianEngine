@@ -16,7 +16,7 @@ namespace Entities
         public WeaponHitbox Hitbox;
         public StaticSprites Sprite;
         public AnimationManager aManager;
-        private List<AttackTypes> AttackHistory;
+        public List<AttackTypes> AttackHistory;
         public WeaponComboHitSets MoveSet;
         private bool ComboHistoryUpdated = false;
         private bool ModelAnimationTimeUpdated = false;
@@ -61,9 +61,9 @@ namespace Entities
         {
             float deltaTime = (float)Graphics.Graphics.CurrentLogicTime/(float)Graphics.Graphics.TimeScale;
 
-            if (model.modelState == ModelStates.ATTACKING_LIGHT || model.modelState == ModelStates.ATTACKING_HEAVY)
+            if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY)
             {
-                AttackTypes currentAttack = model.modelState == ModelStates.ATTACKING_LIGHT ? AttackTypes.LIGHT : AttackTypes.HEAVY;
+                AttackTypes currentAttack = model.ModelState == ModelStates.ATTACKING_LIGHT ? AttackTypes.LIGHT : AttackTypes.HEAVY;
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
                 UpdateSwingAndCombo(model, currentAttack, deltaTime);
@@ -90,7 +90,6 @@ namespace Entities
             if (AttackHistory.Count > maxComboLength)
                 AttackHistory.RemoveAt(0);
 
-            Console.WriteLine($"Attack History: [{string.Join(", ", AttackHistory)}]");
             Combo.UpdateHits(AttackHistory, MoveSet);
         }
 
@@ -99,7 +98,7 @@ namespace Entities
             var currentHit = Combo.GetCurrentHit();
             if (currentHit == null)
             {
-                model.modelState = ModelStates.WEAPON_OUT_IDLE;
+                model.ModelState = ModelStates.WEAPON_OUT_IDLE;
                 return;
             }
 
@@ -164,24 +163,21 @@ namespace Entities
                     model.body.Position.ToVector2(),
                     currentHit.SwingTimeSec * WeaponSwingSpeedMultiplier
                 ));
-                Console.WriteLine($"Playing Combo Hit Sequence [{string.Join(", ", currentHit.AttackSequence)}]");
             }
 
             currentSwingTime += deltaTime;
 
             var hit = Combo.GetCurrentHit();
-            if (hit != null && currentSwingTime >= WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * hit.SwingTimeSec)
+            if (hit != null && currentSwingTime >= CalculateFinalSwingTime())
             {
                 isSwinging = false;
-                model.modelState = ModelStates.WEAPON_OUT_IDLE;
-                Console.WriteLine($"Finished Combo Hit Sequence [{string.Join(", ", hit.AttackSequence)}]");
+                model.ModelState = ModelStates.WEAPON_OUT_IDLE;
                 var hitTemplates = GetWeaponComboHits(MoveSet);
                 var nextHits = hitTemplates.Where(h => h.AttackSequence.Length == hit.AttackSequence.Length + 1 &&
                                                       h.AttackSequence.Take(hit.AttackSequence.Length).SequenceEqual(hit.AttackSequence)).ToList();
                 if (!nextHits.Any())
                 {
                     AttackHistory.Clear();
-                    Console.WriteLine("Attack History Cleared: Combo Finished");
                     Combo.UpdateHits(AttackHistory, MoveSet);
                 }
             }
@@ -208,7 +204,7 @@ namespace Entities
 
         public void Draw(Model model)
         {
-            if (model.modelState != ModelStates.ATTACKING_LIGHT && model.modelState != ModelStates.ATTACKING_HEAVY)
+            if (model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY)
                 return;
 
             var currentHit = Combo.GetCurrentHit();
@@ -240,6 +236,25 @@ namespace Entities
                 return;
             }
             Hitbox.Draw(Color.Red);
+        }
+
+
+        public float CalculateFinalSwingTime()
+        {
+            if(Combo.GetCurrentHit() != null)
+                return WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * Combo.GetCurrentHit().SwingTimeSec;
+
+            return 0f;
+        }
+
+        public float CalculatePredictedFinalSwingTime(WeaponComboHitSets set, AttackTypes[] sequence)
+        {
+            float multipliers = WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier;
+            if(WeaponComboHitSetFactory.GetComboHit(set, sequence) != null)
+            {
+                return multipliers * WeaponComboHitSetFactory.GetComboHit(set, sequence).SwingTimeSec;
+            }
+            return multipliers;
         }
     }
 }

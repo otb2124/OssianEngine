@@ -43,7 +43,6 @@ namespace Entities
                                                   h.AttackSequence.Last() == attackType).ToList();
 
             bool canContinue = ContinuationAllowCounter < ContinuationAllowTimeSec && nextHits.Count + 1 > 0;
-            Console.WriteLine($"CanContinueWith: Attack {attackType}, Next {(nextHits.Any() ? nextHits.First().AttackSequence.Last() : "None")}, Allow {AllowContinuation}, Timer {ContinuationAllowCounter:F2}/{ContinuationAllowTimeSec:F2}, CanContinue {canContinue}");
             return canContinue;
         }
 
@@ -54,7 +53,6 @@ namespace Entities
                 ContinuationAllowCounter += deltaTime;
                 if (ContinuationAllowCounter >= ContinuationAllowTimeSec)
                 {
-                    Console.WriteLine("Combo Timeout: Reset");
                     ResetCombo(attackHistory);
                 }
             }
@@ -66,7 +64,6 @@ namespace Entities
             CurrentComboHitId = 0;
             ContinuationAllowCounter = 0f;
             AllowContinuation = Combohits.Any(h => h.AttackSequence.Length < 3);
-            Console.WriteLine($"Combo Continue: Sequence [{string.Join(", ", Combohits.FirstOrDefault()?.AttackSequence ?? Array.Empty<AttackTypes>())}]");
         }
 
         public void ResetCombo(List<AttackTypes> attackHistory)
@@ -78,16 +75,13 @@ namespace Entities
             if (attackHistory != null)
             {
                 attackHistory.Clear();
-                Console.WriteLine("Attack History Cleared");
             }
-            Console.WriteLine("Combo Reset");
         }
 
         public void StartContinuationWindow()
         {
             ContinuationAllowCounter = 0f;
             AllowContinuation = Combohits.Any(h => h.AttackSequence.Length < 3);
-            Console.WriteLine($"Start Continuation Window: Sequence [{string.Join(", ", Combohits.FirstOrDefault()?.AttackSequence ?? Array.Empty<AttackTypes>())}]");
         }
 
         public void UpdateHits(List<AttackTypes> attackHistory, WeaponComboHitSets set)
@@ -95,7 +89,6 @@ namespace Entities
             if (!attackHistory.Any())
             {
                 Combohits.Clear();
-                Console.WriteLine("Updated Combohits: Cleared due to empty attack history");
                 return;
             }
 
@@ -123,7 +116,6 @@ namespace Entities
                 var lastAttack = attackHistory.Last(); 
                 var defaultHit = hitTemplates.FirstOrDefault(h => h.AttackSequence.Length == 1 && h.AttackSequence[0] == lastAttack);
                 Combohits.Add(defaultHit ?? hitTemplates[0]); // Fallback to X
-                Console.WriteLine($"Updated Combohits: Default to [{Combohits[0].AttackSequence[0]}]");
             }
             CurrentComboHitId = 0;
         }

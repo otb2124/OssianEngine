@@ -108,7 +108,7 @@ namespace Entities
 
         public virtual void UpdateSoundState()
         {
-            switch (Model.modelState)
+            switch (Model.ModelState)
             {
                 case ModelStates.MOVING:
                     PlayEntitySound(EntitySounds.STEP, 0.25f);
@@ -152,7 +152,7 @@ namespace Entities
 
         public virtual void UpdateAnimationState()
         {
-            switch (Model.modelState)
+            switch (Model.ModelState)
             {
                 case ModelStates.MOVING:
                     Model.animationState = AnimationStates.MOVING;
@@ -176,13 +176,13 @@ namespace Entities
                     Model.animationState = AnimationStates.BATTLE_MOVING;
                     break;
                 case ModelStates.ROLLING:
-                    Model.animationState = AnimationStates.BATTLE_ROLL;
+                    Model.animationState = AnimationStates.ROLL;
                     break;
                 case ModelStates.FALLEN:
                     Model.animationState = AnimationStates.FALLEN;
                     break;
                 case ModelStates.FALLING:
-                    Model.animationState = AnimationStates.BATTLE_ROLL;
+                    Model.animationState = AnimationStates.ROLL;
                     break;
             }
 

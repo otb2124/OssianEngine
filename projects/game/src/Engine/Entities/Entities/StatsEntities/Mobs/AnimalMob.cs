@@ -59,10 +59,15 @@ namespace Entities
             Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.JUMPING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.FlipHorizontally);
             Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.JUMPING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.None);
 
-            //JUMPING
+            //ROLL
             frameSpeed = 0.5f;
-            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.BATTLE_ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.FlipHorizontally);
-            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.BATTLE_ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.None);
+            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.FlipHorizontally);
+            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.None);
+
+            //FALLEN
+            frameSpeed = 0.5f;
+            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.FlipHorizontally);
+            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.None);
         }
 
         public override void Update()

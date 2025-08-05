@@ -14,16 +14,50 @@ namespace Entities
     public class HumanoidMob : EquipmentEntity
     {
 
+        public enum HumanoidMobs
+        {
+            CITIZEN,
+            BANDIT,
+        }
+
+
+        public HumanoidMobs Type;
 
         public EntityAIManager aiManager;
         public BehaviourCases CurrentBehaviourCase;
 
-        public HumanoidMob(Models modelPreset, Vector2 pos, float rotation) : base(modelPreset, pos, rotation)
+
+        public HumanoidMob(HumanoidMobs type, Vector2 pos, float rotation) : base()
         {
-            EntityFraction = EntityFractions.BANDIT;
-            aiManager = new EntityAIManager(BehaviourPatterns.BANDIT_DEFAULT);
-            CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
-            BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
+            Type = type;
+            SetHumanoidMobData(out Models modelType);
+            Init(modelType, pos, rotation);
+        }
+
+        public void SetHumanoidMobData(out Models modelType)
+        {
+            
+
+            switch(Type)
+            {
+                case HumanoidMobs.CITIZEN:
+                    EntityFraction = EntityFractions.BANDIT;
+                    aiManager = new EntityAIManager(BehaviourPatterns.BANDIT_DEFAULT);
+                    CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
+                    BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
+                    modelType = Models.BANDIT;
+                    break;
+                case HumanoidMobs.BANDIT:
+                    EntityFraction = EntityFractions.BANDIT;
+                    aiManager = new EntityAIManager(BehaviourPatterns.BANDIT_DEFAULT);
+                    CurrentBehaviourCase = BehaviourCases.AGGRO;
+                    BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
+                    modelType = Models.BANDIT;
+                    break;
+                default:
+                    modelType = Models.BANDIT; 
+                    break;
+            }
         }
 
         public override void SetAnimations()
@@ -47,7 +81,7 @@ namespace Entities
 
             //battleRoll
             frameSpeed = 0.15f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
 
             //attack
             frameSpeed = 0.15f;

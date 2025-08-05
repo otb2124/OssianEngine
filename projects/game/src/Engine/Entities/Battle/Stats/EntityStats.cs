@@ -1,5 +1,6 @@
 ﻿using Physics;
 using System.Collections.Generic;
+using Utils;
 
 namespace Entities
 {
@@ -103,6 +104,11 @@ namespace Entities
                 }
 
                 stamina+=staminaRegenSec/ (float)Graphics.Graphics.UpdatesPerSecond;
+
+                if(GameStateManager.IsGod)
+                {
+                    stamina += maxStamina;
+                }
             }
             else
             {
@@ -126,14 +132,14 @@ namespace Entities
                     if (!IsFallen)
                     {
                         IsFalling = true;
-                        model.modelState = Utils.ModelStates.FALLING;
+                        model.ModelState = Utils.ModelStates.FALLING;
                     }
                 }
                 else
                 {
                     IsFallen = true;
                     IsFalling = false;
-                    model.modelState = Utils.ModelStates.FALLEN;   
+                    model.ModelState = Utils.ModelStates.FALLEN;   
                 }
             }
 

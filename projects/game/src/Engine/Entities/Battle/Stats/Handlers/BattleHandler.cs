@@ -22,7 +22,7 @@ namespace Entities
                 HandleDeath(toEnt);
             }
 
-            if (GameStateManager.IsGod || toEnt.Stats.IsInvincible)
+            if (toEnt.Stats.IsInvincible)
             {
                 return;
             }
@@ -41,7 +41,11 @@ namespace Entities
 
         public static void HandleTakingDamage(StatsEntity toEnt, float damage, float knockBackPower, FlatVector fromEntPos)
         {
-            toEnt.Stats.ReceiveDamage(damage);
+            if (!(toEnt is Player && GameStateManager.IsGod))
+            {
+                toEnt.Stats.ReceiveDamage(damage);
+            }
+
             FlatVector direction = FlatMath.Normalize(toEnt.Model.body.Position - fromEntPos);
             FlatVector knockbackForce = direction * knockBackPower;
             toEnt.Model.body.ApplyForce(knockbackForce);

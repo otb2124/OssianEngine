@@ -160,7 +160,7 @@ namespace Utils
         SPRINTING,
         WEAPON_OUT_IDLE,
         BATTLE_MOVING,
-        BATTLE_ROLL,
+        ROLL,
         FALLEN,
 
         ATTACKING_SWORD_LIGHT,

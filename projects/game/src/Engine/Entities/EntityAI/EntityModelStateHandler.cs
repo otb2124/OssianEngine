@@ -12,7 +12,7 @@ namespace Entities {
 
         public static void Update(StatsEntity Entity)
         {
-            ModelStates state = Entity.Model.modelState;
+            ModelStates state = Entity.Model.ModelState;
             int directionXFactor = Entity.Model.direction == Directions.RIGHT ? 1 : -1;
 
             if (state == ModelStates.IDLE || state == ModelStates.WEAPON_OUT_IDLE)
@@ -100,7 +100,7 @@ namespace Entities {
             {
                 if ((player.Stats.stamina - player.Stats.staminaAttackHitCost) > 0)
                 {
-                    player.Model.modelState = ModelStates.ATTACKING_LIGHT;
+                    player.Model.ModelState = ModelStates.ATTACKING_LIGHT;
                 }
             }
 
@@ -108,31 +108,31 @@ namespace Entities {
             {
                 if ((player.Stats.stamina - player.Stats.staminaAttackHitCost) > 0)
                 {
-                    player.Model.modelState = ModelStates.ATTACKING_HEAVY;
+                    player.Model.ModelState = ModelStates.ATTACKING_HEAVY;
                 }
             }
 
             //ANY OF BELOWMENTIONED KEYS PRESSED
-            if (KeyHandlerUtil.isPlayerMoving() && player.Model.modelState != ModelStates.ATTACKING_LIGHT && player.Model.modelState != ModelStates.ATTACKING_HEAVY)
+            if (KeyHandlerUtil.isPlayerMoving() && player.Model.ModelState != ModelStates.ATTACKING_LIGHT && player.Model.ModelState != ModelStates.ATTACKING_HEAVY)
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                 {
                     player.Model.direction = Directions.RIGHT;
-                    player.Model.modelState = ModelStates.MOVING;
+                    player.Model.ModelState = ModelStates.MOVING;
 
                     if (player.EquipmentManager.IsWeaponOut)
                     {
-                        player.Model.modelState = ModelStates.WEAPON_OUT_MOVING;
+                        player.Model.ModelState = ModelStates.WEAPON_OUT_MOVING;
                     }
                 }
                 else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
                 {
                     player.Model.direction = Directions.LEFT;
-                    player.Model.modelState = ModelStates.MOVING;
+                    player.Model.ModelState = ModelStates.MOVING;
 
                     if (player.EquipmentManager.IsWeaponOut)
                     {
-                        player.Model.modelState = ModelStates.WEAPON_OUT_MOVING;
+                        player.Model.ModelState = ModelStates.WEAPON_OUT_MOVING;
                     }
                 }
 
@@ -140,7 +140,7 @@ namespace Entities {
                 {
                     if ((player.Stats.stamina - player.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond) > 0 && !player.Stats.OnStaminaRegen)
                     {
-                        player.Model.modelState = ModelStates.SPRINTING;
+                        player.Model.ModelState = ModelStates.SPRINTING;
                     }
                 }
 
@@ -148,7 +148,7 @@ namespace Entities {
                 {
                     if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond)) > 0)
                     {
-                        player.Model.modelState = ModelStates.JUMPING;
+                        player.Model.ModelState = ModelStates.JUMPING;
                     }
                 }
 
@@ -156,7 +156,7 @@ namespace Entities {
                 {
                     if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond)) > 0)
                     {
-                        player.Model.modelState = ModelStates.JUMPING_AND_MOVING;
+                        player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
                     }
                 }
 
@@ -164,7 +164,7 @@ namespace Entities {
                 {
                     if (player.Stats.stamina > 0)
                     {
-                        player.Model.modelState = ModelStates.BLOCKING;
+                        player.Model.ModelState = ModelStates.BLOCKING;
                     }
                 }
 
@@ -172,21 +172,21 @@ namespace Entities {
                 {
                     if ((player.Stats.stamina - (player.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond)) > 0)
                     {
-                        player.Model.modelState = ModelStates.ROLLING;
+                        player.Model.ModelState = ModelStates.ROLLING;
                     }
                 }
             }
             //ANY OF BELOWMENTIONED KEYS NOT PRESSED
             else
             {
-                if (player.Model.modelState != ModelStates.ATTACKING_LIGHT && player.Model.modelState != ModelStates.ATTACKING_HEAVY)
+                if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT && player.Model.ModelState != ModelStates.ATTACKING_HEAVY)
                 {
                     //FORCE IDLE OR WEAPON OUT IDLE IF NOT ATTACKING
-                    player.Model.modelState = ModelStates.IDLE;
+                    player.Model.ModelState = ModelStates.IDLE;
 
                     if (player.EquipmentManager.IsWeaponOut)
                     {
-                        player.Model.modelState = ModelStates.WEAPON_OUT_IDLE;
+                        player.Model.ModelState = ModelStates.WEAPON_OUT_IDLE;
                     }
                 }
             }

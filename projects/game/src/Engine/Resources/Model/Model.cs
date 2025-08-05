@@ -22,7 +22,7 @@ namespace Resources
         public Vector2 bodyOffset;
         public Directions direction;
         public AnimationStates animationState;
-        public ModelStates modelState;
+        public ModelStates ModelState;
 
         public float DrawAngle = 0;
 
