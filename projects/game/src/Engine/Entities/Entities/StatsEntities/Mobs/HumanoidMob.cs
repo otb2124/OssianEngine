@@ -37,7 +37,6 @@ namespace Entities
         public void SetHumanoidMobData(out Models modelType)
         {
             
-
             switch(Type)
             {
                 case HumanoidMobs.CITIZEN:
@@ -109,6 +108,7 @@ namespace Entities
             soundSet[EntitySounds.RECEIVEDAMAGE] = new Resources.Sounds[] { Resources.Sounds.HUMANOID_HURT };
         }
 
+
         public override void SetStats()
         {
             base.SetStats();
@@ -117,13 +117,28 @@ namespace Entities
             CanUpdateIFrames = true;
             CanFall = true;
 
+            Stats.sprintMultiplier = 1.5f;
+            Stats.staminaSprintCostSec = 15;
+
+            Stats.staminaRegenSec = 20;
+            Stats.staminaUnlockSec = 1.5f;
+
+            Stats.staminaAttackHitCost = 25;
+
+            Stats.rollMultiplier = 2f;
+            Stats.staminaRollCostSec = 200;
+
+            Stats.jumpSpeed = 2.8f;
+            Stats.staminaJumpCostSec = 60;
+
             Stats.maxHP = 100;
-            Stats.HP = 100;
-            Stats.maxSpeed = 0.5f;
-            Stats.jumpSpeed = 2.5f;
+            Stats.maxSpeed = 1;
+            Stats.maxMana = 100;
+            Stats.maxStamina = 100;
 
             Stats.Refill();
         }
+    
 
         public override void SetEquipment()
         {

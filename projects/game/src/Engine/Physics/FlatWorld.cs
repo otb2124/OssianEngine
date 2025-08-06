@@ -106,7 +106,7 @@ namespace Physics
                 contactPairs.Clear();
                 StepBodies(time, totalIterations);
                 BroadPhase();
-                NarrowPhase();
+                NarrowPhase(time);
             }
         }
 
@@ -144,7 +144,7 @@ namespace Physics
             }
         }
 
-        private void NarrowPhase()
+        private void NarrowPhase(float deltaTime)
         {
             for (int i = 0; i < contactPairs.Count; i++)
             {
@@ -163,11 +163,18 @@ namespace Physics
                         FlatManifold contact = new FlatManifold(bodyA, bodyB, normal, depth, contact1, contact2, contactCount);
                         ResolveCollisionWithRotationAndFriction(in contact);
 
-                        //disable velocity processes
-                        if(bodyA.owner is Player || bodyB.owner is Player)
+                        // Damp X-velocity for Player-related collisions
+                        const float dampingFactor = 5.0f; // Adjust for desired decay rate
+                        if (bodyA.owner is Player || bodyB.owner is Player)
                         {
-                            bodyA.LinearVelocity = new FlatVector(0, bodyA.LinearVelocity.Y);
-                            bodyB.LinearVelocity = new FlatVector(0, bodyB.LinearVelocity.Y);
+                            bodyA.LinearVelocity = new FlatVector(
+                                bodyA.LinearVelocity.X * (1f - dampingFactor * deltaTime),
+                                bodyA.LinearVelocity.Y
+                            );
+                            bodyB.LinearVelocity = new FlatVector(
+                                bodyB.LinearVelocity.X * (1f - dampingFactor * deltaTime),
+                                bodyB.LinearVelocity.Y
+                            );
                         }
                     }
 

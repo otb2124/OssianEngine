@@ -14,7 +14,7 @@ namespace Entities
 
         private static readonly Dictionary<EntityFractions, HashSet<EntityFractions>> ignoreHit = new()
         {
-            { EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL } },
+            { EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL, EntityFractions.BANDIT } },
         };
 
         public static void CheckForCollision(StatsEntity entA, StatsEntity entB)
@@ -53,7 +53,7 @@ namespace Entities
 
             if (CheckIntersection(hitboxA, hitboxB) && CanDealDamage(entA.EntityFraction, entB.EntityFraction))
             {
-                BattleHandler.HandleHit(entB, damageA, knockBackPowerA, entA.Model.Body.Position);
+                BattleHandler.HandleHit(entB, damageA, knockBackPowerA, hitboxA.Position);
             }
 
         }

@@ -38,7 +38,7 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     PhysDmg = 5;
-                    KnockbackPower = 1f;
+                    KnockbackPower = 2f;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
                     WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
                     WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;

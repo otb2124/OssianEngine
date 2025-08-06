@@ -13,7 +13,7 @@ namespace Entities
     {
 
 
-        public static void HandleHit(StatsEntity toEnt, float damage, float knockBackPower, FlatVector fromEntPos)
+        public static void HandleHit(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)
         {
             if(!GameStateManager.IsGod && toEnt.Stats.HP <= 0)
             {
@@ -37,7 +37,7 @@ namespace Entities
         }
 
 
-        public static void HandleTakingDamage(StatsEntity toEnt, float damage, float knockBackPower, FlatVector fromEntPos)
+        public static void HandleTakingDamage(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)
         {
             if (!(toEnt is Player && GameStateManager.IsGod))
             {
@@ -46,12 +46,10 @@ namespace Entities
 
             Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);
             
-
-            FlatVector direction = FlatMath.Normalize(toEnt.Model.Body.Position - fromEntPos);
+            FlatVector direction = FlatMath.Normalize(toEnt.Model.Body.Position - FlatConverter.ToFlatVector(fromEntPos));
             FlatVector knockbackForce = direction * knockBackPower;
-            toEnt.Model.Body.ApplyForce(knockbackForce);
-
-            Console.WriteLine(knockbackForce);
+            FlatVector fixedKnockbackForce = new FlatVector(knockbackForce.X, knockbackForce.Y + knockBackPower);
+            toEnt.Model.Body.ApplyForce(fixedKnockbackForce);
 
             if (toEnt.BloodDropParticle != Graphics.ParticleSet.ParticleSets.NONE)
             {
@@ -63,10 +61,6 @@ namespace Entities
                 Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(toEnt.soundSet[Resources.EntitySounds.RECEIVEDAMAGE][0], toEnt.Model.Body.Position.ToVector2(), 1f));
             }
         }
-
-
-        public static void HandleTakingKnockback()
-        { }
 
         public static void HandleDeath(Entity ent)
         {
