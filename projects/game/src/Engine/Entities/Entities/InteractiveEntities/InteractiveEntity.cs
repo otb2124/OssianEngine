@@ -58,7 +58,7 @@ namespace Entities
 
         public override void Update()
         {
-            InteractionField.Update(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width + InteractionFieldSize.X, this.Model.body.Height + InteractionFieldSize.Y), 0);
+            InteractionField.Update(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width + InteractionFieldSize.X, this.Model.Body.Height + InteractionFieldSize.Y), 0);
             base.Update();
         }
 

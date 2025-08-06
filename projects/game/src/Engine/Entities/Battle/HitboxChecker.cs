@@ -53,7 +53,7 @@ namespace Entities
 
             if (CheckIntersection(hitboxA, hitboxB) && CanDealDamage(entA.EntityFraction, entB.EntityFraction))
             {
-                BattleHandler.HandleHit(entB, damageA, knockBackPowerA, entA.Model.body.Position);
+                BattleHandler.HandleHit(entB, damageA, knockBackPowerA, entA.Model.Body.Position);
             }
 
         }

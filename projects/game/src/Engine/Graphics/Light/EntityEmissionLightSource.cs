@@ -24,7 +24,7 @@ namespace Graphics
 
             if(ent is PhysicalEntity phent)
             {
-                Position = phent.Model.body.Position.ToVector2();
+                Position = phent.Model.Body.Position.ToVector2();
             }
             
             base.Update();

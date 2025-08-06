@@ -79,7 +79,7 @@ namespace Physics
             {
                 if (newList[i] is PhysicalEntity phent)
                 {
-                    AddBody(phent.Model.body);
+                    AddBody(phent.Model.Body);
                 }
             }
         }

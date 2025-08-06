@@ -13,7 +13,7 @@ namespace Entities {
         public static void Update(StatsEntity Entity)
         {
             ModelStates state = Entity.Model.ModelState;
-            int directionXFactor = Entity.Model.direction == Directions.RIGHT ? 1 : -1;
+            int directionXFactor = Entity.Model.Direction == Directions.RIGHT ? 1 : -1;
 
             if (state == ModelStates.IDLE || state == ModelStates.WEAPON_OUT_IDLE)
             {
@@ -22,30 +22,30 @@ namespace Entities {
 
             if (state == ModelStates.MOVING)
             {
-                Entity.Model.body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
+                Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
             }
 
             if (state == ModelStates.WEAPON_OUT_MOVING)
             {
-                Entity.Model.body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
+                Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
             }
 
             if (state == ModelStates.JUMPING)
             {
-                Entity.Model.body.Jump(Entity.Stats.jumpSpeed);
+                Entity.Model.Body.Jump(Entity.Stats.jumpSpeed);
                 Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
             }
 
             if (state == ModelStates.JUMPING_AND_MOVING)
             {
-                Entity.Model.body.Jump(Entity.Stats.jumpSpeed);
+                Entity.Model.Body.Jump(Entity.Stats.jumpSpeed);
                 Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
-                Entity.Model.body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
+                Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
             }
 
             if (state == ModelStates.SPRINTING)
             {
-                Entity.Model.body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.sprintMultiplier * directionXFactor, 0));
+                Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.sprintMultiplier * directionXFactor, 0));
                 Entity.Stats.OnUsingStamina = true;
                 Entity.Stats.stamina -= Entity.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
             }
@@ -58,7 +58,7 @@ namespace Entities {
             if (state == ModelStates.ROLLING)
             {
                 Entity.Stats.stamina -= Entity.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
-                Entity.Model.body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.rollMultiplier * directionXFactor, 0));
+                Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.rollMultiplier * directionXFactor, 0));
             }
 
 
@@ -117,7 +117,7 @@ namespace Entities {
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                 {
-                    player.Model.direction = Directions.RIGHT;
+                    player.Model.Direction = Directions.RIGHT;
                     player.Model.ModelState = ModelStates.MOVING;
 
                     if (player.EquipmentManager.IsWeaponOut)
@@ -127,7 +127,7 @@ namespace Entities {
                 }
                 else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
                 {
-                    player.Model.direction = Directions.LEFT;
+                    player.Model.Direction = Directions.LEFT;
                     player.Model.ModelState = ModelStates.MOVING;
 
                     if (player.EquipmentManager.IsWeaponOut)

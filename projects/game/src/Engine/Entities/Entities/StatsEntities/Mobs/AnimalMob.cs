@@ -74,10 +74,10 @@ namespace Entities
         {
             aiManager.Update(this, CurrentBehaviourCase);
 
-            UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), Model.body.Angle);
-            UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.body.Position), new Vector2(this.Model.body.Width, this.Model.body.Height), 0f);
+            UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), Model.Body.Angle);
+            UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), 0f);
 
-            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));
+            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
 
             base.Update();
         }

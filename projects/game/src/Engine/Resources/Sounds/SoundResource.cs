@@ -80,29 +80,29 @@ namespace Resources
                 case Sounds.NONE:
                     return "sfx/none";
                 case Sounds.BODY_ARMOR_1:
-                    return "sfx/body-armor-1";
+                    return "sfx/Body-armor-1";
                 case Sounds.BODY_ARMOR_2:
-                    return "sfx/body-armor-2";
+                    return "sfx/Body-armor-2";
                 case Sounds.BODY_ARMOR_3:
-                    return "sfx/body-armor-3";
+                    return "sfx/Body-armor-3";
                 case Sounds.BODY_ARMOR_4:
-                    return "sfx/body-armor-4";
+                    return "sfx/Body-armor-4";
                 case Sounds.BODY_HAUBERK_1:
-                    return "sfx/body-hauberk-1";
+                    return "sfx/Body-hauberk-1";
                 case Sounds.BODY_HAUBERK_2:
-                    return "sfx/body-hauberk-2";
+                    return "sfx/Body-hauberk-2";
                 case Sounds.BODY_HAUBERK_3:
-                    return "sfx/body-hauberk-3";
+                    return "sfx/Body-hauberk-3";
                 case Sounds.BODY_HAUBERK_4:
-                    return "sfx/body-hauberk-4";
+                    return "sfx/Body-hauberk-4";
                 case Sounds.BODY_LOBE_1:
-                    return "sfx/body-lobe-1";
+                    return "sfx/Body-lobe-1";
                 case Sounds.BODY_LOBE_2:
-                    return "sfx/body-lobe-2";
+                    return "sfx/Body-lobe-2";
                 case Sounds.BODY_LOBE_3:
-                    return "sfx/body-lobe-3";
+                    return "sfx/Body-lobe-3";
                 case Sounds.BODY_LOBE_4:
-                    return "sfx/body-lobe-4";
+                    return "sfx/Body-lobe-4";
                 case Sounds.BOW_SHOT1:
                     return "sfx/bow-shot1";
                 case Sounds.BOW_SHOT2:

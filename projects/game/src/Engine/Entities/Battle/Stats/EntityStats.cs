@@ -125,9 +125,9 @@ namespace Entities
         public void UpdateFallen(Resources.Model model)
         {
 
-            if (model.body.Angle > 0.75f || model.body.Angle < -0.75f)
+            if (model.Body.Angle > 0.75f || model.Body.Angle < -0.75f)
             {
-                if (!model.body.IsColliding)
+                if (!model.Body.IsColliding)
                 {
                     if (!IsFallen)
                     {
@@ -151,8 +151,8 @@ namespace Entities
                 {
                     IsFallen = false;
                     FallenTimer = 0f;
-                    model.body.Move(new FlatVector(0, 10f));
-                    model.body.RotateTo(0f);
+                    model.Body.Move(new FlatVector(0, 10f));
+                    model.Body.RotateTo(0f);
                 }
             }
         }

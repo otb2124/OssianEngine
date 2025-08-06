@@ -21,7 +21,7 @@ namespace Entities
 
             foreach (EntityAICommand command in commands)
             {
-                TotalDurationSec += command.Duration;
+                TotalDurationSec += command.CurrentDuration;
             }
 
             UnInitialized = false;
@@ -36,7 +36,7 @@ namespace Entities
         {
             Commands[CurrentCommandId].CommandAction(Commands[CurrentCommandId]);
 
-            if (Commands[CurrentCommandId].CommandTime > Commands[CurrentCommandId].Duration)
+            if (Commands[CurrentCommandId].CommandTime > Commands[CurrentCommandId].CurrentDuration)
             {
                 CurrentCommandId++;
             }

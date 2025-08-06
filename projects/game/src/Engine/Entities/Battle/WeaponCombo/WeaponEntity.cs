@@ -102,8 +102,8 @@ namespace Entities
                 return;
             }
 
-            int horizontalXFactor = model.direction == Directions.RIGHT ? 1 : -1;
-            Vector2 weaponPosition = model.body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
+            int horizontalXFactor = model.Direction == Directions.RIGHT ? 1 : -1;
+            Vector2 weaponPosition = model.Body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
 
             if(currentSwingTime > WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X && currentSwingTime < WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y)
             {
@@ -153,14 +153,14 @@ namespace Entities
                 aManager.GetCurrent().Reset();
                 aManager.GetCurrent().Start();
 
-                int horizontalXFactor = model.direction == Directions.RIGHT ? 1 : -1;
-                model.body.Move(new FlatVector(
+                int horizontalXFactor = model.Direction == Directions.RIGHT ? 1 : -1;
+                model.Body.Move(new FlatVector(
                     currentHit.EntityPositionOffset.X * horizontalXFactor,
                     currentHit.EntityPositionOffset.Y
                 ));
                 Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(
                     Resources.Sounds.SWING_SWORD,
-                    model.body.Position.ToVector2(),
+                    model.Body.Position.ToVector2(),
                     currentHit.SwingTimeSec * WeaponSwingSpeedMultiplier
                 ));
             }
@@ -190,14 +190,14 @@ namespace Entities
             {
                 return;
             }
-            aManager.Update(new Tuple<Directions, AnimationStates>(model.direction, Combo.GetCurrentHit().AnimationState));
+            aManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Combo.GetCurrentHit().AnimationState));
 
             model.animationState = Combo.GetCurrentHit().AnimationState;
 
             if(!ModelAnimationTimeUpdated)
             {
-                model.aManager.GetAnimation(model.direction, model.animationState).frameTime = currentHit.AnimationData.FrameTime;
-                model.aManager.GetAnimation(model.direction, model.animationState).frameTimeLeft = currentHit.AnimationData.FrameTime;
+                model.aManager.GetAnimation(model.Direction, model.animationState).frameTime = currentHit.AnimationData.FrameTime;
+                model.aManager.GetAnimation(model.Direction, model.animationState).frameTimeLeft = currentHit.AnimationData.FrameTime;
                 ModelAnimationTimeUpdated = true;
             }
         }
@@ -216,14 +216,14 @@ namespace Entities
             Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
-            float bodyWidth = model.body.Width + model.bodyOffset.X;
-            float bodyHeight = model.body.Height + model.bodyOffset.Y;
+            float bodyWidth = model.Body.Width + model.bodyOffset.X;
+            float bodyHeight = model.Body.Height + model.bodyOffset.Y;
             scaleX = bodyWidth / spriteSize.Width;
             scaleY = bodyHeight / spriteSize.Height;
 
-            Vector2 entityBodyPos = model.body.Position.ToVector2();
-            float directionXOffset = model.direction == Directions.RIGHT ? -10 : model.body.Width * 3f + 10;
-            Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.body.Width / 2f - directionXOffset, entityBodyPos.Y - model.body.Height / 2f);
+            Vector2 entityBodyPos = model.Body.Position.ToVector2();
+            float directionXOffset = model.Direction == Directions.RIGHT ? -10 : model.Body.Width * 3f + 10;
+            Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.Body.Width / 2f - directionXOffset, entityBodyPos.Y - model.Body.Height / 2f);
 
             aManager.GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
         }
@@ -245,6 +245,19 @@ namespace Entities
                 return WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * Combo.GetCurrentHit().SwingTimeSec;
 
             return 0f;
+        }
+
+        public AttackTypes[] GetCurrentAttack(AttackTypes attackToAdd)
+        {
+            AttackTypes[] history = AttackHistory.ToArray();
+            AttackTypes[] currentAttack = new AttackTypes[history.Length + 1];
+            for (global::System.Int32 i = 0; i < history.Length; i++)
+            {
+                currentAttack[i] = history[i];
+            }
+            currentAttack[currentAttack.Length - 1] = attackToAdd;
+
+            return currentAttack;
         }
 
         public float CalculatePredictedFinalSwingTime(WeaponComboHitSets set, AttackTypes[] sequence)

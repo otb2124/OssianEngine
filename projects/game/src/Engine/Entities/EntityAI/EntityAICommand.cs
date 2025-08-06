@@ -14,7 +14,8 @@ namespace Entities
     {
         public StatsEntity Entity;
 
-        public float Duration;
+        public float InitialDuration;
+        public float CurrentDuration;
         public Action<EntityAICommand> CommandAction;
 
         public bool IsDurationInfinite = false;
@@ -27,20 +28,23 @@ namespace Entities
 
         public EntityAICommand(Action<EntityAICommand> commandAction, float duration)
         {
-            Duration = duration;
+            InitialDuration = duration;
+            CurrentDuration = duration;
             CommandAction = commandAction;
         }
 
         public EntityAICommand(Action<EntityAICommand> commandAction, float duration, bool repeatAfterRestart)
         {
-            Duration = duration;
+            InitialDuration = duration;
+            CurrentDuration = duration;
             CommandAction = commandAction;
             RepeatAfterRestart = repeatAfterRestart;
         }
 
         public EntityAICommand(Action<EntityAICommand> commandAction, float duration, int repeatAfterCommandsCount)
         {
-            Duration = duration;
+            InitialDuration = duration;
+            CurrentDuration = duration;
             CommandAction = commandAction;
             RepeatAfterCommandsCount = repeatAfterCommandsCount;
         }
@@ -50,7 +54,13 @@ namespace Entities
             IsDurationInfinite = true;
             CommandAction = commandAction;
 
-            Duration = 0f;
+            CurrentDuration = 0f;
+        }
+
+        public void ReInit()
+        {
+            CurrentDuration = InitialDuration;
+            CommandTime = 0f;
         }
 
         public void StandStill()
@@ -60,13 +70,13 @@ namespace Entities
 
         public void Move()
         {
-            Move(Entity.Model.direction);
+            Move(Entity.Model.Direction);
         }
 
         public void Move(Directions direction)
         {
             Entity.Model.ModelState = ModelStates.MOVING;
-            Entity.Model.direction = direction;
+            Entity.Model.Direction = direction;
         }
 
         public void Jump()
@@ -76,19 +86,19 @@ namespace Entities
 
         public void JumpAndMove(Directions direction, StatsEntity Entity)
         {
-            Entity.Model.direction = direction;
+            Entity.Model.Direction = direction;
             Entity.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
         }
 
         public void Sprint()
         {
-            Sprint(Entity.Model.direction);
+            Sprint(Entity.Model.Direction);
         }
 
         public void Sprint(Directions direction)
         {
             Entity.Model.ModelState = ModelStates.SPRINTING;
-            Entity.Model.direction = direction;
+            Entity.Model.Direction = direction;
         }
 
         public void PerformWeaponAttack(AttackTypes type)
@@ -98,28 +108,12 @@ namespace Entities
                 IsDurationInfinite = false;
                 RepeatAfterRestart = true;
 
-                ModelStates state = ModelStates.ATTACKING_LIGHT;
+                ModelStates state = SwitchAttackTypeToModelState(type);
+                AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.GetCurrentAttack(type);
 
-                AttackTypes[] history = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.AttackHistory.ToArray();
-                AttackTypes[] currentAttack = new AttackTypes[history.Length + 1];
-                for (global::System.Int32 i = 0; i < history.Length; i++)
-                {
-                    currentAttack[i] = history[i];
-                }
-                currentAttack[currentAttack.Length-1] = type;
+                CurrentDuration = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.MoveSet, currentAttack) * 1.5f;
 
-                Duration = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.MoveSet, currentAttack) * 1.5f;
-
-                if (type == AttackTypes.LIGHT)
-                {
-                    state = ModelStates.ATTACKING_LIGHT;
-                }
-                else
-                {
-                    state = ModelStates.ATTACKING_HEAVY;
-                }
-
-                if (CommandTime < Duration * Graphics.Graphics.UpdatesPerSecond / 2f)
+                if (CommandTime < CurrentDuration * Graphics.Graphics.UpdatesPerSecond / 2f)
                 {
                     eqEnt.Model.ModelState = state;
                 }
@@ -128,6 +122,71 @@ namespace Entities
                    eqEnt.Model.ModelState = ModelStates.IDLE;
                 }
             }
+        }
+
+        public void FollowPlayerAndWeaponAttack(AttackTypes type)
+        {
+            if (Entities.Player == null || Entities.Player.Model?.Body == null || !(Entity is EquipmentEntity eqEnt)) return;
+
+            Vector2 directionToPlayer = EntityDirection(Entities.Player, eqEnt);
+            float distance = directionToPlayer.Length();
+            AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.GetCurrentAttack(type);
+            WeaponComboHit currentHit = GetComboHit(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.MoveSet, currentAttack);
+
+            if(currentHit != null) 
+            {
+                float attackRange = currentHit.EntityPositionOffset.X + currentHit.HitboxOffset.Height;
+
+                if (distance > attackRange)
+                {
+                    directionToPlayer.Normalize();
+                    float speed = eqEnt.Stats?.speed ?? 1f;
+                    Vector2 velocity = directionToPlayer * speed;
+                    eqEnt.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
+
+                    eqEnt.Model.ModelState = ModelStates.MOVING;
+                }
+                else
+                {
+                    PerformWeaponAttack(type);
+                }
+            }
+            
+        }
+
+
+
+        public void FollowPlayer(float? stopDistance = null)
+        {
+            if (Entities.Player == null || Entities.Player.Model?.Body == null) return;
+
+            Vector2 directionToPlayer = EntityDirection(Entities.Player, Entity);
+            float distance = directionToPlayer.Length();
+
+            if (distance > (stopDistance ?? 0.1f))
+            {
+                directionToPlayer.Normalize();
+                float speed = Entity.Stats?.speed ?? 1f;
+                Vector2 velocity = directionToPlayer * speed;
+                Entity.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
+                Entity.Model.ModelState = ModelStates.MOVING;
+            }
+            else
+            {
+                Entity.Model.ModelState = ModelStates.IDLE;
+            }
+        }
+
+        public static float EntityDistance(PhysicalEntity entityFrom, PhysicalEntity entityTo)
+        {
+            return EntityDirection(entityFrom, entityTo).Length();
+        }
+
+        public static Vector2 EntityDirection(PhysicalEntity entityFrom, PhysicalEntity entityTo)
+        {
+            Vector2 EntityPos1 = FlatConverter.ToVector2(entityFrom.Model.Body.Position);
+            Vector2 EntityPos2 = FlatConverter.ToVector2(entityTo.Model.Body.Position);
+            return EntityPos1 - EntityPos2;
         }
 
 
@@ -162,30 +221,11 @@ namespace Entities
             if(command.UnInitialized)
             {
                 command = new EntityAIComplexCommand(commands);
-                Duration = command.TotalDurationSec;
+                CurrentDuration = command.TotalDurationSec;
             }
 
             command.Execute();
         }
         */
-
-        public void FollowPlayer(float? stopDistance = null)
-        {
-            if (Entities.Player == null || Entities.Player.Model?.body == null) return;
-
-            Vector2 EntityPos = FlatConverter.ToVector2(Entities.Player.Model.body.Position);
-            Vector2 currentPos = FlatConverter.ToVector2(Entity.Model.body.Position);
-            Vector2 directionToPlayer = EntityPos - currentPos;
-            float distance = directionToPlayer.Length();
-
-            if (distance > (stopDistance ?? 0.1f))
-            {
-                directionToPlayer.Normalize();
-                float speed = Entity.Stats?.speed ?? 100f;
-                Vector2 velocity = directionToPlayer * speed;
-                Entity.Model.direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
-                Entity.Model.body.Move(FlatConverter.ToFlatVector(velocity));
-            }
-        }
     }
 }

@@ -141,7 +141,7 @@ namespace Entities
                 aiManager.Update(this, CurrentBehaviourCase);
             }
 
-            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));
+            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
 
             base.Update();
         }

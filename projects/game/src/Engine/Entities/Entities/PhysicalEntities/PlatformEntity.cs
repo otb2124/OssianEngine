@@ -16,16 +16,16 @@ namespace Entities
         {
             Indicies = GenerateIndicies(width);
             Model = new Model();
-            Model.body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * width, 5), 1f, 0.5f);
+            Model.Body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * width, 5), 1f, 0.5f);
             Init(pos, rot);
         }
 
         public void Init(Vector2 pos, float rot)
         {
-            Model.body.MoveTo(FlatConverter.ToFlatVector(pos));
-            Model.body.RotateTo(rot);
-            Physics.Physics.flatWorld.AddBody(Model.body);
-            Model.body.owner = this;
+            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.RotateTo(rot);
+            Physics.Physics.flatWorld.AddBody(Model.Body);
+            Model.Body.owner = this;
 
             SpriteData[] data = PlatformSetCut(Vector2.Zero);
             aManagers = new AnimationManager[data.Length];
@@ -64,24 +64,24 @@ namespace Entities
         public override void DrawCollider()
         {
             Color drawColor = new Color((byte)Color.Green.R, (byte)Color.Green.G, (byte)Color.Green.B, (byte)64);
-            Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(Model.body.Position), Model.body.Width, Model.body.Height, Model.body.Angle, drawColor);
+            Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(Model.Body.Position), Model.Body.Width, Model.Body.Height, Model.Body.Angle, drawColor);
         }
 
         public override void Draw()
         {
-            Matrix rotationMatrix = Matrix.CreateRotationZ(Model.body.Angle);
+            Matrix rotationMatrix = Matrix.CreateRotationZ(Model.Body.Angle);
 
             for (int y = 0; y < Indicies.Length; y++)
             {
                 Vector2 localPos = new Vector2(y * 32, 0);
                 Vector2 rotatedPos = Vector2.Transform(localPos, rotationMatrix);
-                Vector2 worldPos = new Vector2(FlatConverter.ToVector2(Model.body.Position).X + rotatedPos.X, FlatConverter.ToVector2(Model.body.Position).Y - rotatedPos.Y);
+                Vector2 worldPos = new Vector2(FlatConverter.ToVector2(Model.Body.Position).X + rotatedPos.X, FlatConverter.ToVector2(Model.Body.Position).Y - rotatedPos.Y);
 
                 aManagers[Indicies[y]].GetCurrent().Draw(
                     worldPos,
                     Color.White,
-                    this.Model.body.Angle,
-                    new Vector2(Model.body.Width / 2f, (32-5) / 2f),
+                    this.Model.Body.Angle,
+                    new Vector2(Model.Body.Width / 2f, (32-5) / 2f),
                     Vector2.One,
                     0f
                 );

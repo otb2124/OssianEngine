@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Utils;
 
 namespace Entities
 {
@@ -129,6 +130,16 @@ namespace Entities
                 .FirstOrDefault();
 
             return longestHit;
+        }
+
+        public static ModelStates SwitchAttackTypeToModelState(AttackTypes type)
+        {
+            if (type == AttackTypes.LIGHT)
+            {
+                return ModelStates.ATTACKING_LIGHT;
+            }
+
+            return ModelStates.ATTACKING_HEAVY;
         }
     }
 }

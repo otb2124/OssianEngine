@@ -14,13 +14,13 @@ namespace Resources
     public class Model
     {
 
-        public FlatBody body;
+        public FlatBody Body;
         public StaticSpriteFactory.SpriteData spriteData;
 
         public AnimationManager aManager;
 
         public Vector2 bodyOffset;
-        public Directions direction;
+        public Directions Direction;
         public AnimationStates animationState;
         public ModelStates ModelState;
 
@@ -33,7 +33,7 @@ namespace Resources
         public Model(ModelPreset preset)
         {
             this.bodyOffset = preset.offset;
-            this.body = FlatBodyFactory.createFlatBody(preset.bodyPreset, this.bodyOffset);
+            this.Body = FlatBodyFactory.createFlatBody(preset.bodyPreset, this.bodyOffset);
             this.spriteData = preset.spriteData;
             aManager = new AnimationManager();
         }
@@ -43,13 +43,13 @@ namespace Resources
 
             Color drawColor = new Color((byte)Color.Green.R, (byte)Color.Green.G, (byte)Color.Green.B, (byte)64);
 
-            if (this.body.BodyShapeType == BodyShapeType.Box)
+            if (this.Body.BodyShapeType == BodyShapeType.Box)
             {
-                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(body.Position), body.Width, body.Height, body.Angle, drawColor);
+                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(Body.Position), Body.Width, Body.Height, Body.Angle, drawColor);
             }
             else
             {
-                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(body.Position), body.Radius, 26, drawColor);
+                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(Body.Position), Body.Radius, 26, drawColor);
             }
         }
         public void Draw()
@@ -58,24 +58,24 @@ namespace Resources
             Rectangle spriteSize = aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
-            Vector2 newPos = new Vector2(body.Position.X, body.Position.Y);
+            Vector2 newPos = new Vector2(Body.Position.X, Body.Position.Y);
             Vector2 textureCenter = new Vector2(spriteSize.Width / 2f, spriteSize.Height / 2f);
 
-            float bodyWidth = body.Width + bodyOffset.X;
-            float bodyHeight = body.Height + bodyOffset.Y;
+            float bodyWidth = Body.Width + bodyOffset.X;
+            float bodyHeight = Body.Height + bodyOffset.Y;
 
-            if (body.BodyShapeType == BodyShapeType.Box)
+            if (Body.BodyShapeType == BodyShapeType.Box)
             {
                 scaleX = bodyWidth / spriteSize.Width;
                 scaleY = bodyHeight / spriteSize.Height;
-                newPos = FlatConverter.ToVector2(body.Position) - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
+                newPos = FlatConverter.ToVector2(Body.Position) - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
                 newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
             }
             else
             {
-                scaleX = body.Radius / spriteSize.Width * 2;
-                scaleY = body.Radius / spriteSize.Height * 2;
-                newPos = FlatConverter.ToVector2(body.Position) - new Vector2(body.Radius, body.Radius);
+                scaleX = Body.Radius / spriteSize.Width * 2;
+                scaleY = Body.Radius / spriteSize.Height * 2;
+                newPos = FlatConverter.ToVector2(Body.Position) - new Vector2(Body.Radius, Body.Radius);
                 newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
             }
 

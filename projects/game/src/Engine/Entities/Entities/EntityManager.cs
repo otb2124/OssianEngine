@@ -76,7 +76,7 @@ namespace Entities
         {
             if (ent is PhysicalEntity physicalEntity)
             {
-                Physics.Physics.flatWorld.AddBody(physicalEntity.Model.body);
+                Physics.Physics.flatWorld.AddBody(physicalEntity.Model.Body);
             }
             Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Add(ent);
 
@@ -85,7 +85,7 @@ namespace Entities
         {
             if (ent is PhysicalEntity physicalEntity)
             {
-                Physics.Physics.flatWorld.RemoveBody(physicalEntity.Model.body);
+                Physics.Physics.flatWorld.RemoveBody(physicalEntity.Model.Body);
             }
             Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(ent);
             

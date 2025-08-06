@@ -26,7 +26,7 @@ namespace Entities
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
                     Entities.Player.Inventory.AddInventory(itemEnt.Containment);
-                    Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.body);
+                    Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                     Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
 
                 }
@@ -34,7 +34,7 @@ namespace Entities
             else if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP_AUTO)
             {
                 Entities.Player.Inventory.AddInventory(itemEnt.Containment);
-                Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.body);
+                Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                 Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
             }
         }

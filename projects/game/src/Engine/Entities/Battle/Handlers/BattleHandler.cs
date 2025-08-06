@@ -15,8 +15,6 @@ namespace Entities
 
         public static void HandleHit(StatsEntity toEnt, float damage, float knockBackPower, FlatVector fromEntPos)
         {
-            Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);
-
             if(!GameStateManager.IsGod && toEnt.Stats.HP <= 0)
             {
                 HandleDeath(toEnt);
@@ -46,20 +44,29 @@ namespace Entities
                 toEnt.Stats.ReceiveDamage(damage);
             }
 
-            FlatVector direction = FlatMath.Normalize(toEnt.Model.body.Position - fromEntPos);
-            FlatVector knockbackForce = direction * knockBackPower;
-            toEnt.Model.body.ApplyForce(knockbackForce);
+            Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);
+            
 
-            if(toEnt.BloodDropParticle != Graphics.ParticleSet.ParticleSets.NONE)
+            FlatVector direction = FlatMath.Normalize(toEnt.Model.Body.Position - fromEntPos);
+            FlatVector knockbackForce = direction * knockBackPower;
+            toEnt.Model.Body.ApplyForce(knockbackForce);
+
+            Console.WriteLine(knockbackForce);
+
+            if (toEnt.BloodDropParticle != Graphics.ParticleSet.ParticleSets.NONE)
             {
-                Graphics.Graphics.particleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.body.Position.ToVector2(), knockbackForce.ToVector2() / 2));
+                Graphics.Graphics.particleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.Body.Position.ToVector2(), knockbackForce.ToVector2() / 2));
             }
 
             if(toEnt.soundSet[Resources.EntitySounds.RECEIVEDAMAGE][0] != Resources.Sounds.NONE)
             {
-                Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(toEnt.soundSet[Resources.EntitySounds.RECEIVEDAMAGE][0], toEnt.Model.body.Position.ToVector2(), 1f));
+                Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(toEnt.soundSet[Resources.EntitySounds.RECEIVEDAMAGE][0], toEnt.Model.Body.Position.ToVector2(), 1f));
             }
         }
+
+
+        public static void HandleTakingKnockback()
+        { }
 
         public static void HandleDeath(Entity ent)
         {

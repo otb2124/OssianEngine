@@ -56,6 +56,7 @@ namespace Entities
                 {
                     if (command.RepeatAfterRestart)
                     {
+                        command.ReInit();
                         currentQueue.Enqueue(command);
                     }
                 }
@@ -144,10 +145,10 @@ namespace Entities
 
                             CommandPool = new EntityAICommand[]
                             {
-                                new EntityAICommand(entity => { entity.PerformWeaponAttack(AttackTypes.LIGHT); }),
-                                new EntityAICommand(entity => { entity.PerformWeaponAttack(AttackTypes.LIGHT); }),
-                                new EntityAICommand(entity => { entity.PerformWeaponAttack(AttackTypes.LIGHT); }),
-                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
+                                new EntityAICommand(entity => { entity.FollowPlayerAndWeaponAttack(AttackTypes.LIGHT); }, 10f, true),
+                                new EntityAICommand(entity => { entity.FollowPlayerAndWeaponAttack(AttackTypes.LIGHT); }, 10f, true),
+                                new EntityAICommand(entity => { entity.FollowPlayerAndWeaponAttack(AttackTypes.LIGHT); }, 10f, true),
+                                new EntityAICommand(entity => { entity.StandStill(); },                                    1f, true),
                             };
 
                             break;

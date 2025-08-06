@@ -142,7 +142,7 @@ namespace Inputs
             nearPoint = viewport.Unproject(nearPoint, camera.Projection, camera.View, Matrix.Identity);
             farPoint = viewport.Unproject(farPoint, camera.Projection, camera.View, Matrix.Identity);
 
-            // Determine the direction.
+            // Determine the Direction.
             Vector3 direction = farPoint - nearPoint;
             direction.Normalize();
 

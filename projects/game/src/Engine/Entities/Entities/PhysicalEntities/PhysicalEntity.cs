@@ -44,10 +44,10 @@ namespace Entities
         public virtual void Init(Models modelPreset, Vector2 pos, float rotation = 0f)
         {
             Model = ModelFactory.CreateModel(modelPreset);
-            Model.body.MoveTo(FlatConverter.ToFlatVector(pos));
-            Model.body.RotateTo(rotation);
-            Physics.Physics.flatWorld.AddBody(Model.body);
-            Model.body.owner = this;
+            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.RotateTo(rotation);
+            Physics.Physics.flatWorld.AddBody(Model.Body);
+            Model.Body.owner = this;
 
             this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
@@ -60,10 +60,10 @@ namespace Entities
         public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
         {
             Model = ModelFactory.CreateModel(sprite, body);
-            Model.body.MoveTo(FlatConverter.ToFlatVector(pos));
-            Model.body.RotateTo(rotation);
-            Physics.Physics.flatWorld.AddBody(Model.body);
-            Model.body.owner = this;
+            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.RotateTo(rotation);
+            Physics.Physics.flatWorld.AddBody(Model.Body);
+            Model.Body.owner = this;
 
             this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
@@ -76,10 +76,10 @@ namespace Entities
         public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
         {
             Model = ModelFactory.CreateModel(spriteData, body);
-            Model.body.MoveTo(FlatConverter.ToFlatVector(pos));
-            Model.body.RotateTo(rotation);
-            Physics.Physics.flatWorld.AddBody(Model.body);
-            Model.body.owner = this;
+            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.RotateTo(rotation);
+            Physics.Physics.flatWorld.AddBody(Model.Body);
+            Model.Body.owner = this;
 
             this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
@@ -103,7 +103,7 @@ namespace Entities
 
         public void PlayEntitySound(EntitySounds sound, float timeSec)
         {
-            Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(Id, soundSet[sound][RandomHelper.RandomInteger(0, soundSet[sound].Length)], Model.body.Position.ToVector2(), timeSec));
+            Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(Id, soundSet[sound][RandomHelper.RandomInteger(0, soundSet[sound].Length)], Model.Body.Position.ToVector2(), timeSec));
         }
 
         public virtual void UpdateSoundState()
@@ -186,7 +186,7 @@ namespace Entities
                     break;
             }
 
-            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.direction, Model.animationState));
+            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
         }
 
         public override void Update()
@@ -204,7 +204,7 @@ namespace Entities
 
         public override void Draw()
         {
-            Model.DrawAngle = Model.body.Angle;
+            Model.DrawAngle = Model.Body.Angle;
             Model.Draw();
         }
 
