@@ -36,7 +36,6 @@ namespace Entities
 
         public void SetHumanoidMobData(out Models modelType)
         {
-            
             switch(Type)
             {
                 case HumanoidMobs.CITIZEN:
@@ -49,9 +48,12 @@ namespace Entities
                 case HumanoidMobs.BANDIT:
                     EntityFraction = EntityFractions.BANDIT;
                     aiManager = new EntityAIManager(BehaviourPatterns.BANDIT_DEFAULT);
-                    CurrentBehaviourCase = BehaviourCases.AGGRO;
+                    CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
                     BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
                     modelType = Models.BANDIT;
+
+                    Stats.DistanceToAggro = 200f;
+                    Stats.DistanceToUnaggro = 500f;
                     break;
                 default:
                     modelType = Models.BANDIT; 
@@ -153,7 +155,7 @@ namespace Entities
         {
             if(!Stats.IsFallen && !Stats.IsFalling)
             {
-                aiManager.Update(this, CurrentBehaviourCase);
+                aiManager.Update(this);
             }
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));

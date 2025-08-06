@@ -72,7 +72,7 @@ namespace Entities
 
         public override void Update()
         {
-            aiManager.Update(this, CurrentBehaviourCase);
+            aiManager.Update(this);
 
             UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), Model.Body.Angle);
             UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), 0f);

@@ -56,6 +56,8 @@ namespace Entities
         public float FallenTimer = 0f;
         public float FallenDurationAllowedSec = 3f;
 
+        public float DistanceToAggro = -1f;
+        public float DistanceToUnaggro = -1f;
 
 
         public Dictionary<int, int> levelExpCost = new()

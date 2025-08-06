@@ -46,9 +46,9 @@ namespace Entities
 
             CurrentMapId = nextId;
             Entities.Player.Model.Body.MoveTo(FlatConverter.ToFlatVector(playerPos));
-            Entities.entityMapManager.maps[nextId].Entities.Add(Entities.Player);
+            maps[nextId].Entities.Add(Entities.Player);
 
-            Physics.Physics.flatWorld.RefreshList(Entities.entityMapManager.maps[nextId].Entities);
+            Physics.Physics.flatWorld.RefreshList(maps[nextId].Entities);
 
             Graphics.Graphics.backgroundManager.RemoveAll();
             Graphics.Graphics.backgroundManager.Init();
@@ -59,6 +59,12 @@ namespace Entities
         public void LoadInitialMap()
         {
             LoadMap(0, new Vector2(0, 1000));
+        }
+
+
+        public EntityMap GetCurrentMap()
+        {
+            return maps[CurrentMapId];
         }
 
     }

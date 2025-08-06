@@ -124,71 +124,69 @@ namespace Entities
             }
         }
 
-        public void FollowPlayerAndWeaponAttack(AttackTypes type)
+        public void FollowEntity(PhysicalEntity ent, float? stopDistance = null)
         {
-            if (Entities.Player == null || Entities.Player.Model?.Body == null || !(Entity is EquipmentEntity eqEnt)) return;
+            if (ent == null || ent.Model?.Body == null) return;
 
-            Vector2 directionToPlayer = EntityDirection(Entities.Player, eqEnt);
-            float distance = directionToPlayer.Length();
+            Vector2 directionToEntity = EntityAIHelper.GetEntityDirection(ent, Entity);
+            float distance = directionToEntity.Length();
+
+            if (distance > (stopDistance ?? 0.1f))
+            {
+                directionToEntity.Normalize();
+                float speed = Entity.Stats?.speed ?? 1f;
+                Vector2 velocity = directionToEntity * speed;
+                Entity.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
+                Entity.Model.ModelState = ModelStates.MOVING;
+            }
+        }
+
+        public void FollowEntityAndWeaponAttack(PhysicalEntity ent, AttackTypes type)
+        {
+            if (!(Entity is EquipmentEntity eqEnt)) return;
+
             AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.GetCurrentAttack(type);
             WeaponComboHit currentHit = GetComboHit(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.MoveSet, currentAttack);
 
-            if(currentHit != null) 
+            if (currentHit != null)
             {
                 float attackRange = currentHit.EntityPositionOffset.X + currentHit.HitboxOffset.Height;
 
-                if (distance > attackRange)
-                {
-                    directionToPlayer.Normalize();
-                    float speed = eqEnt.Stats?.speed ?? 1f;
-                    Vector2 velocity = directionToPlayer * speed;
-                    eqEnt.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
+                FollowEntity(ent, attackRange);
 
-                    eqEnt.Model.ModelState = ModelStates.MOVING;
-                }
-                else
+                Vector2 directionToEntity = EntityAIHelper.GetEntityDirection(ent, Entity);
+                float distance = directionToEntity.Length();
+
+                if(distance < attackRange)
                 {
                     PerformWeaponAttack(type);
                 }
             }
-            
+
         }
 
-
-
-        public void FollowPlayer(float? stopDistance = null)
+        public void FollowEntityAndWeaponAttackNearestOfFraction(StatsEntity.EntityFractions fraction, AttackTypes attackType)
         {
-            if (Entities.Player == null || Entities.Player.Model?.Body == null) return;
+            StatsEntity entity = EntityAIHelper.GetNearestStatsEntityOfFraction(Entity, fraction);
 
-            Vector2 directionToPlayer = EntityDirection(Entities.Player, Entity);
-            float distance = directionToPlayer.Length();
-
-            if (distance > (stopDistance ?? 0.1f))
+            if (entity != null)
             {
-                directionToPlayer.Normalize();
-                float speed = Entity.Stats?.speed ?? 1f;
-                Vector2 velocity = directionToPlayer * speed;
-                Entity.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
-                Entity.Model.ModelState = ModelStates.MOVING;
-            }
-            else
-            {
-                Entity.Model.ModelState = ModelStates.IDLE;
+                FollowEntityAndWeaponAttack(entity, attackType);
             }
         }
 
-        public static float EntityDistance(PhysicalEntity entityFrom, PhysicalEntity entityTo)
+        public void FollowEntityAndWeaponAttackNearestOfAggroFraction(AttackTypes attackType)
         {
-            return EntityDirection(entityFrom, entityTo).Length();
-        }
+            StatsEntity entity = EntityAIHelper.GetNearestStatsEntity(Entity);
 
-        public static Vector2 EntityDirection(PhysicalEntity entityFrom, PhysicalEntity entityTo)
-        {
-            Vector2 EntityPos1 = FlatConverter.ToVector2(entityFrom.Model.Body.Position);
-            Vector2 EntityPos2 = FlatConverter.ToVector2(entityTo.Model.Body.Position);
-            return EntityPos1 - EntityPos2;
+            if (entity != null)
+            {
+                if(EntityAIHelper.IsStatsEntityOfAggroFraction(Entity, entity))
+                {
+                    FollowEntityAndWeaponAttack(entity, attackType);
+                }
+            }
         }
-
 
         /*
         public void PerformWeaponAttackCombo(AttackTypes[] sequence)

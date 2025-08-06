@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,14 @@ namespace Entities
         public BehaviourCases CurrentCase;
 
         private int commandsExecutedSinceLastRepeat = 0;
+
+        public static readonly Dictionary<StatsEntity.EntityFractions, StatsEntity.EntityFractions[]> automaticAggroFractionsMap = new()
+        {
+            {
+                StatsEntity.EntityFractions.BANDIT, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.ANIMAL}
+            }
+        };
+
 
         public EntityAIBehaviourManager(BehaviourPatterns pattern)
         {
@@ -145,10 +154,10 @@ namespace Entities
 
                             CommandPool = new EntityAICommand[]
                             {
-                                new EntityAICommand(entity => { entity.FollowPlayerAndWeaponAttack(AttackTypes.LIGHT); }, 10f, true),
-                                new EntityAICommand(entity => { entity.FollowPlayerAndWeaponAttack(AttackTypes.LIGHT); }, 10f, true),
-                                new EntityAICommand(entity => { entity.FollowPlayerAndWeaponAttack(AttackTypes.LIGHT); }, 10f, true),
-                                new EntityAICommand(entity => { entity.StandStill(); },                                    1f, true),
+                                new EntityAICommand(entity => { entity.FollowEntityAndWeaponAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
+                                new EntityAICommand(entity => { entity.FollowEntityAndWeaponAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
+                                new EntityAICommand(entity => { entity.FollowEntityAndWeaponAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
+                                new EntityAICommand(entity => { entity.StandStill(); },                                                          1f, true),
                             };
 
                             break;

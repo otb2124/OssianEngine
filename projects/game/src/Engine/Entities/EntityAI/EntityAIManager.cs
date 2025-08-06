@@ -24,9 +24,9 @@ namespace Entities
             BehaviourManager = new EntityAIBehaviourManager(Pattern);
         }
 
-        public void Update(StatsEntity entity, EntityAIBehaviourManager.BehaviourCases currentCase)
+        public void Update(StatsEntity entity)
         {
-            BehaviourManager.UpdateCurrentCase(CurrentQueue, entity, currentCase);
+            BehaviourManager.UpdateCurrentCase(CurrentQueue, entity, EntityAIHelper.GetBehaviourCase(entity));
             UpdateCommandExecution();
         }
 
