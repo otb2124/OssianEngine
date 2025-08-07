@@ -213,7 +213,7 @@ namespace Physics
             }
         }
 
-        public void ResolveCollisionBasic(in FlatManifold contact)
+        public void ResolveCollisionBasic(in FlatManifold contact, bool restrictFriction)
         {
             FlatBody bodyA = contact.BodyA;
             FlatBody bodyB = contact.BodyB;
@@ -229,8 +229,10 @@ namespace Physics
 
             float e = MathF.Min(bodyA.Restitution, bodyB.Restitution);
 
+            
             float j = -(1f + e) * FlatMath.Dot(relativeVelocity, normal);
             j /= bodyA.InvMass + bodyB.InvMass;
+            
 
             FlatVector impulse = j * normal;
 
@@ -323,31 +325,31 @@ namespace Physics
             PhysicalEntity bodyBOwner = bodyB.Owner;
 
             //disable rotation
-            bool disableRotation = false;
+            bool restrictRotationAndFriction = false;
 
             //TEMPORARY DISABLED
             //lost poise = fall
-            if(bodyBOwner is StatsEntity || bodyAOwner is StatsEntity)
+            if(bodyBOwner is EquipmentEntity || bodyBOwner is AnimalMob || bodyAOwner is EquipmentEntity || bodyAOwner is AnimalMob)
             {
-                disableRotation = true;
+                restrictRotationAndFriction = true;
                 /*
                 if (sEnt is EquipmentEntity || sEnt is AnimalMob)
                 {
                     if(sEnt.Stats.LostPoise())
                     {
                         //if lost poise then dont restrict rotation
-                        disableRotation = false;
+                        restrictRotationAndFriction = false;
                     }
                 }
                 */
             }
 
 
-            if (disableRotation)
-            {
-                ResolveCollisionBasic(contact);
-                return;
-            }
+            //if (restrictRotationAndFriction)
+            //{
+            //    ResolveCollisionBasic(contact, restrictRotationAndFriction);
+            //    return;
+            //}
 
 
             FlatVector normal = contact.Normal;
@@ -422,8 +424,17 @@ namespace Physics
 
                 bodyA.LinearVelocity += -impulse * bodyA.InvMass;
                 bodyA.AngularVelocity += -FlatMath.Cross(ra, impulse) * bodyA.InvInertia;
+                if (restrictRotationAndFriction)
+                {
+                    bodyA.AngularVelocity = 0f;
+                }
+
                 bodyB.LinearVelocity += impulse * bodyB.InvMass;
                 bodyB.AngularVelocity += FlatMath.Cross(rb, impulse) * bodyB.InvInertia;
+                if (restrictRotationAndFriction)
+                {
+                    bodyB.AngularVelocity = 0f;
+                }
             }
 
             for (int i = 0; i < contactCount; i++)
@@ -439,6 +450,12 @@ namespace Physics
 
                 FlatVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
                 FlatVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
+
+                if (restrictRotationAndFriction)
+                {
+                    angularLinearVelocityA = FlatVector.Zero;
+                    angularLinearVelocityB = FlatVector.Zero;
+                }
 
                 FlatVector relativeVelocity =
                     bodyB.LinearVelocity + angularLinearVelocityB -

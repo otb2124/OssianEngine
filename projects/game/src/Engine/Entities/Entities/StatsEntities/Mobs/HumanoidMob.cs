@@ -126,7 +126,7 @@ namespace Entities
             Stats.staminaJumpCostSec = 60;
 
             Stats.maxHP = 100;
-            Stats.maxSpeed = 1;
+            Stats.maxSpeed = 0.5f;
             Stats.maxMana = 100;
             Stats.maxStamina = 100;
             Stats.MaxPoise = 100;

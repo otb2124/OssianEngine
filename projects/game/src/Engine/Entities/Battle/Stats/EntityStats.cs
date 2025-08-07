@@ -167,7 +167,6 @@ namespace Entities
 
                     //regen Poise
                     Poise = MaxPoise;
-                    Console.WriteLine("regained poise: " + Poise);
                 }
             }
         }
