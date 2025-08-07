@@ -17,6 +17,8 @@ namespace Entities
         public float baseSpriteZ;
         public float spriteZ;
 
+        public float heighestJumpY;
+
         public LightSource.LightSourceData Emission;
 
         public Dictionary<Resources.EntitySounds, Resources.Sounds[]> soundSet;

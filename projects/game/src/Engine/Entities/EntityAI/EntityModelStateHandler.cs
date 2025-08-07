@@ -32,8 +32,15 @@ namespace Entities {
 
             if (state == ModelStates.JUMPING)
             {
-                Entity.Model.Body.Jump(Entity.Stats.jumpSpeed);
-                Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                if (!CollisionHandler.IsDescending(Entity))
+                {
+                   Entity.Model.Body.Jump(Entity.Stats.jumpSpeed);
+                   Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                }
+                else
+                {
+                    Entity.Model.ModelState = ModelStates.IDLE;
+                }
             }
 
             if (state == ModelStates.JUMPING_AND_MOVING)
@@ -146,9 +153,9 @@ namespace Entities {
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                 {
-                    if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond)) > 0)
+                    if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec) > 0))
                     {
-                        player.Model.ModelState = ModelStates.JUMPING;
+                       player.Model.ModelState = ModelStates.JUMPING;
                     }
                 }
 

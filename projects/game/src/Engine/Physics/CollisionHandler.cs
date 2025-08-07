@@ -1,7 +1,9 @@
 ﻿using Entities;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Physics
 {
@@ -28,6 +30,50 @@ namespace Physics
             */
         };
 
+        public static bool IsBodyOverBody(FlatBody body, FlatBody ground)
+        {
+            return body.GetAABB().Min.Y <= ground.GetAABB().Min.Y;
+        }
+
+        public static FlatBody GetGround(FlatBody flatBody)
+        {
+            Rectangle groundBoxA = new Rectangle(new Point((int)flatBody.Position.X, (int)flatBody.Position.Y - 3), new Point((int)flatBody.Width, 5));
+
+            foreach (var item in Physics.flatWorld.bodyList)
+            {
+                if(flatBody != item)
+                {
+                    Rectangle bodyBBox = new Rectangle(new Point((int)item.Position.X - (int)item.Width/2, (int)item.Position.Y), new Point((int)item.Width, (int)item.Height));
+                    if(bodyBBox.Intersects(groundBoxA))
+                    {
+                        return item;
+                    }
+                }
+            }
+            return null;
+        }
+
+        public static bool IsDescending(PhysicalEntity ent)
+        {
+            if (GetGround(ent.Model.Body) == null)
+            {
+                FlatBody body = ent.Model.Body;
+
+                if (body.Position.Y > ent.heighestJumpY)
+                {
+                    ent.heighestJumpY = body.Position.Y;
+                    return false;
+                }
+                else if (body.Position.Y < ent.heighestJumpY)
+                {
+                    ent.heighestJumpY = float.MinValue;
+                    return true;
+                }
+            }
+
+            ent.heighestJumpY = float.MinValue;
+            return false;
+        }
 
         public bool IgnoreCollision(FlatBody bodyA, FlatBody bodyB)
         {
@@ -40,15 +86,13 @@ namespace Physics
             {
                 if (typeB == typeof(PlatformEntity))
                 {
-                    return bodyA.GetAABB().Min.Y <= bodyB.GetAABB().Min.Y;
+                    return IsBodyOverBody(bodyA, bodyB);
                 }
                 if (typeA == typeof(PlatformEntity))
                 {
-                    return bodyB.GetAABB().Min.Y <= bodyA.GetAABB().Min.Y;
+                    return IsBodyOverBody(bodyB, bodyA);
                 }
             }
-            
-
 
             if ((ignoreCollisionTransformation.TryGetValue(typeA, out var setA) && setA.Contains(typeB)) ||
                 (ignoreCollisionTransformation.TryGetValue(typeB, out var setB) && setB.Contains(typeA)))

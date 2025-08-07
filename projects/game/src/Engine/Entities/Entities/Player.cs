@@ -35,7 +35,8 @@ namespace Entities
             Stats.rollMultiplier = 2f;
             Stats.staminaRollCostSec = 200;
 
-            Stats.jumpSpeed = 2.8f;
+            Stats.jumpSpeed = 3.8f;
+            Stats.descendingMultiplier = 0.99f;
             Stats.staminaJumpCostSec = 60;
 
             Stats.maxHP = 100;
@@ -148,6 +149,13 @@ namespace Entities
         public override void Update()
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);
+
+            if(CollisionHandler.IsDescending(this))
+            {
+                Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+                Model.Body.linearVelocity -= new FlatVector(0, Stats.descendingMultiplier * 500);
+            }               
+            
             base.Update();
         }
 

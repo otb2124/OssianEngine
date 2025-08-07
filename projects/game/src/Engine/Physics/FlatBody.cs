@@ -26,7 +26,7 @@ namespace Physics
     public sealed class FlatBody
     {
         private FlatVector position;
-        private FlatVector linearVelocity;
+        public FlatVector linearVelocity;
         private float angle;
         private float angularVelocity;
         public FlatVector force;
@@ -67,7 +67,7 @@ namespace Physics
         public FlatVector LinearVelocity
         {
             get { return linearVelocity; }
-            internal set { linearVelocity = value; }
+            set { linearVelocity = value; }
         }
 
         public float Angle

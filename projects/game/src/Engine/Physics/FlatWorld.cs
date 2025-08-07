@@ -19,7 +19,7 @@ namespace Physics
         public static readonly int MinIterations = 1;
         public static readonly int MaxIterations = 128;
 
-        private FlatVector gravity;
+        public FlatVector gravity;
         public static readonly int ConstantGravityMultiplier = 50;
         public static readonly float GlobalGravityMultiplier = 1f;
 
@@ -327,6 +327,7 @@ namespace Physics
             //disable rotation
             bool restrictRotation = false;
 
+            //TODO
             //lost poise = fall
             if(bodyBOwner is StatsEntity sEnt)
             {

@@ -38,6 +38,7 @@ namespace Entities
         public float maxSpeed;
         public float speed;
         public float jumpSpeed;
+        public float descendingMultiplier;
         public float rollMultiplier;
         public float sprintMultiplier;
 
@@ -65,15 +66,12 @@ namespace Entities
         public float DistanceToAggro = -1f;
         public float DistanceToUnaggro = -1f;
 
-
         public Dictionary<int, int> levelExpCost = new()
         {
             {1, 100 },
             {2, 250 },
             {3, 500 }
         };
-
-
 
         public void Refill()
         {

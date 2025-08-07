@@ -74,6 +74,11 @@ namespace Physics
             return FlatConverter.ToVector2(this);
         }
 
+        public Point ToPoint()
+        {
+            return FlatConverter.ToVector2(this).ToPoint();
+        }
+
         public override int GetHashCode()
         {
             return new { X, Y }.GetHashCode();
