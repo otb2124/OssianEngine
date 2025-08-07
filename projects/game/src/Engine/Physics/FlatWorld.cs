@@ -325,32 +325,23 @@ namespace Physics
             PhysicalEntity bodyBOwner = bodyB.Owner;
 
             //disable rotation
-            bool restrictRotationAndFriction = false;
+            bool restrictRotation = false;
 
-            //TEMPORARY DISABLED
             //lost poise = fall
-            if(bodyBOwner is EquipmentEntity || bodyBOwner is AnimalMob || bodyAOwner is EquipmentEntity || bodyAOwner is AnimalMob)
+            if(bodyBOwner is StatsEntity sEnt)
             {
-                restrictRotationAndFriction = true;
-                /*
                 if (sEnt is EquipmentEntity || sEnt is AnimalMob)
                 {
-                    if(sEnt.Stats.LostPoise())
+                    restrictRotation = true;
+
+                    if (sEnt.Stats.LostPoise())
                     {
                         //if lost poise then dont restrict rotation
-                        restrictRotationAndFriction = false;
+                        restrictRotation = false;
                     }
                 }
-                */
+                
             }
-
-
-            //if (restrictRotationAndFriction)
-            //{
-            //    ResolveCollisionBasic(contact, restrictRotationAndFriction);
-            //    return;
-            //}
-
 
             FlatVector normal = contact.Normal;
             FlatVector contact1 = contact.Contact1;
@@ -424,14 +415,14 @@ namespace Physics
 
                 bodyA.LinearVelocity += -impulse * bodyA.InvMass;
                 bodyA.AngularVelocity += -FlatMath.Cross(ra, impulse) * bodyA.InvInertia;
-                if (restrictRotationAndFriction)
+                if (restrictRotation)
                 {
                     bodyA.AngularVelocity = 0f;
                 }
 
                 bodyB.LinearVelocity += impulse * bodyB.InvMass;
                 bodyB.AngularVelocity += FlatMath.Cross(rb, impulse) * bodyB.InvInertia;
-                if (restrictRotationAndFriction)
+                if (restrictRotation)
                 {
                     bodyB.AngularVelocity = 0f;
                 }
@@ -451,7 +442,7 @@ namespace Physics
                 FlatVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
                 FlatVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
 
-                if (restrictRotationAndFriction)
+                if (restrictRotation)
                 {
                     angularLinearVelocityA = FlatVector.Zero;
                     angularLinearVelocityB = FlatVector.Zero;
