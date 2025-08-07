@@ -31,8 +31,8 @@ namespace Physics
 
         public bool IgnoreCollision(FlatBody bodyA, FlatBody bodyB)
         {
-            Type typeA = bodyA.owner.GetType();
-            Type typeB = bodyB.owner.GetType();
+            Type typeA = bodyA.Owner.GetType();
+            Type typeB = bodyB.Owner.GetType();
 
 
             //platforms

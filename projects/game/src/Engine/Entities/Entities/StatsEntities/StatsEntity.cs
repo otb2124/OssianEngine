@@ -79,15 +79,12 @@ namespace Entities
             CanFall = false;
         }
 
-    public virtual void SetInventory()
+        public virtual void SetInventory()
         {
             Inventory = new Inventory();
         }
 
 
-        public virtual void DrawHitboxes()
-        {
-
-        }
+        public virtual void DrawHitboxes(){}
     }
 }

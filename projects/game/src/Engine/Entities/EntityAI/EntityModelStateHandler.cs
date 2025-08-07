@@ -113,7 +113,7 @@ namespace Entities {
             }
 
             //ANY OF BELOWMENTIONED KEYS PRESSED
-            if (KeyHandlerUtil.isPlayerMoving() && player.Model.ModelState != ModelStates.ATTACKING_LIGHT && player.Model.ModelState != ModelStates.ATTACKING_HEAVY)
+            if (KeyHandlerUtil.isPlayerMoving() && player.Model.ModelState != ModelStates.ATTACKING_LIGHT && player.Model.ModelState != ModelStates.ATTACKING_HEAVY && player.Model.ModelState != ModelStates.FALLEN)
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                 {

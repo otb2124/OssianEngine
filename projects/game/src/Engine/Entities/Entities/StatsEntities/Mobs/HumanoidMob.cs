@@ -129,10 +129,14 @@ namespace Entities
             Stats.maxSpeed = 1;
             Stats.maxMana = 100;
             Stats.maxStamina = 100;
+            Stats.MaxPoise = 100;
+            Stats.PoiseRegenSec = 10;
 
             Stats.Refill();
+
+            BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
         }
-    
+
 
         public override void SetEquipment()
         {

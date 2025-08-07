@@ -79,8 +79,6 @@ namespace Entities
                 
             CurrentCase = bCase;
 
-            Console.WriteLine(Pattern + " " + CurrentCase);
-
             switch (Pattern)
             {
                 case BehaviourPatterns.ANIMAL_DEFAULT:

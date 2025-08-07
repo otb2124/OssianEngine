@@ -57,7 +57,7 @@ namespace Physics
             bodyList.Add(body);
 
             /*
-            if (Body.owner is GroupMember)
+            if (Body.Owner is GroupMember)
             {
                 // Disable inertia and friction
                 Body.InvInertia = 0f;
@@ -163,9 +163,9 @@ namespace Physics
                         FlatManifold contact = new FlatManifold(bodyA, bodyB, normal, depth, contact1, contact2, contactCount);
                         ResolveCollisionWithRotationAndFriction(in contact);
 
-                        // Damp X-velocity for Player-related collisions
-                        const float dampingFactor = 5.0f; // Adjust for desired decay rate
-                        if (bodyA.owner is Player || bodyB.owner is Player)
+                        //Damp X-velocity for Player-related collisions
+                        const float dampingFactor = 5.0f; //Adjust for desired decay rate
+                        if (bodyA.Owner is Player || bodyB.Owner is Player)
                         {
                             bodyA.LinearVelocity = new FlatVector(
                                 bodyA.LinearVelocity.X * (1f - dampingFactor * deltaTime),
@@ -319,11 +319,31 @@ namespace Physics
             FlatBody bodyA = contact.BodyA;
             FlatBody bodyB = contact.BodyB;
 
-            //disable rotation
-            bool isBodyAGroupMember = bodyA.owner is Player || bodyB.owner is Player;
-            bool disableInertia = isBodyAGroupMember;
+            PhysicalEntity bodyAOwner = bodyA.Owner;
+            PhysicalEntity bodyBOwner = bodyB.Owner;
 
-            if (disableInertia)
+            //disable rotation
+            bool disableRotation = false;
+
+            //TEMPORARY DISABLED
+            //lost poise = fall
+            if(bodyBOwner is StatsEntity || bodyAOwner is StatsEntity)
+            {
+                disableRotation = true;
+                /*
+                if (sEnt is EquipmentEntity || sEnt is AnimalMob)
+                {
+                    if(sEnt.Stats.LostPoise())
+                    {
+                        //if lost poise then dont restrict rotation
+                        disableRotation = false;
+                    }
+                }
+                */
+            }
+
+
+            if (disableRotation)
             {
                 ResolveCollisionBasic(contact);
                 return;

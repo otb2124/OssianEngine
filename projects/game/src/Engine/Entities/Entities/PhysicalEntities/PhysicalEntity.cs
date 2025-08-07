@@ -47,7 +47,7 @@ namespace Entities
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
             Physics.Physics.flatWorld.AddBody(Model.Body);
-            Model.Body.owner = this;
+            Model.Body.Owner = this;
 
             this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
@@ -63,7 +63,7 @@ namespace Entities
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
             Physics.Physics.flatWorld.AddBody(Model.Body);
-            Model.Body.owner = this;
+            Model.Body.Owner = this;
 
             this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
@@ -79,7 +79,7 @@ namespace Entities
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
             Physics.Physics.flatWorld.AddBody(Model.Body);
-            Model.Body.owner = this;
+            Model.Body.Owner = this;
 
             this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;

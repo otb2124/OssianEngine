@@ -31,6 +31,8 @@ namespace Entities
             Stats.maxHP = 50;
             Stats.maxSpeed = 0.25f;
             Stats.jumpSpeed = 2.5f;
+            Stats.MaxPoise = 100f;
+            Stats.PoiseRegenSec = 3;
 
             Stats.Refill();
 

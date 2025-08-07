@@ -42,6 +42,8 @@ namespace Entities
             Stats.maxSpeed = 1;
             Stats.maxMana = 100;
             Stats.maxStamina = 100;
+            Stats.MaxPoise = 100;
+            Stats.PoiseRegenSec = 10;
 
             Stats.Refill();
 
@@ -112,6 +114,10 @@ namespace Entities
             //battleRoll
             frameSpeed = 0.15f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
+
+            //fallen
+            frameSpeed = 0.04f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FALLEN, 1, new Vector2(0, 128 * 7), new Vector2(64, 128), frameSpeed);
 
             //attacking
             frameSpeed = 0.15f;

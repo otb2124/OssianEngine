@@ -1,4 +1,5 @@
 ﻿using Physics;
+using System;
 using System.Collections.Generic;
 using Utils;
 
@@ -45,7 +46,8 @@ namespace Entities
 
         public float PoiseBodyDamage = 0f;
         public float Poise;
-        public float MaxPoise = 0f;
+        public float MaxPoise;
+        public float PoiseRegenSec;
 
         public bool OnStaminaRegen = false;
         public bool OnUsingStamina = false;
@@ -78,9 +80,7 @@ namespace Entities
             HP = maxHP;
             mana = maxMana;
             stamina = maxStamina;
-
             speed = maxSpeed;
-
             Poise = MaxPoise;
         }
 
@@ -129,11 +129,15 @@ namespace Entities
             HP -= amount;
         }
 
+        public void ReceivePoiseDamage(float amount)
+        {
+            Poise -= 50;
+        }
 
         public void UpdateFallen(Resources.Model model)
         {
 
-            if (model.Body.Angle > 0.75f || model.Body.Angle < -0.75f)
+            if (model.Body.Angle > 0.5f || model.Body.Angle < -0.5f || LostPoise())
             {
                 if (!model.Body.IsColliding)
                 {
@@ -147,13 +151,12 @@ namespace Entities
                 {
                     IsFallen = true;
                     IsFalling = false;
-                    model.ModelState = Utils.ModelStates.FALLEN;   
+                    model.ModelState = Utils.ModelStates.FALLEN;
                 }
             }
 
             if (IsFallen)
             {
-                
                 FallenTimer++;
                 if (FallenTimer >= FallenDurationAllowedSec* Graphics.Graphics.UpdatesPerSecond)
                 {
@@ -161,8 +164,17 @@ namespace Entities
                     FallenTimer = 0f;
                     model.Body.Move(new FlatVector(0, 10f));
                     model.Body.RotateTo(0f);
+
+                    //regen Poise
+                    Poise = MaxPoise;
+                    Console.WriteLine("regained poise: " + Poise);
                 }
             }
+        }
+
+        public bool LostPoise()
+        {
+            return Poise <= 0;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Entities
                     WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
                     WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
-                    PoiseDmg = 1;
+                    PoiseDmg = 25;
                     break;
             }
 

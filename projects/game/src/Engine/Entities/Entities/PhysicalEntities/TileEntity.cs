@@ -85,7 +85,7 @@ namespace Entities
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rot);
             Physics.Physics.flatWorld.AddBody(Model.Body);
-            Model.Body.owner = this;
+            Model.Body.Owner = this;
 
             SpriteData[] data = TileSetCut(TileSet);
             aManagers = new AnimationManager[data.Length];

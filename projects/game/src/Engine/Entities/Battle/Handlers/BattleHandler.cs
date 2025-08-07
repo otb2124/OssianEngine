@@ -42,6 +42,7 @@ namespace Entities
             if (!(toEnt is Player && GameStateManager.IsGod))
             {
                 toEnt.Stats.ReceiveDamage(damage);
+                toEnt.Stats.ReceivePoiseDamage(damage);
             }
 
             Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);
