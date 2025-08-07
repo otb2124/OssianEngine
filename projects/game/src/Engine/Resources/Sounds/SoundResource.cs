@@ -176,9 +176,6 @@ namespace Resources
         {
             string soundsDirectory = Path.Combine("Content", "res", "sounds");
             string path = Path.Combine("res", "sounds", SoundPath);
-
-            Console.WriteLine(path);
-
             Effect = Graphics.Graphics.contentManager.Load<SoundEffect>(path);
         }
     }

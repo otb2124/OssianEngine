@@ -61,7 +61,7 @@ namespace Entities
 
             if (currentQueue.Count == 0)
             {
-                foreach (var command in CommandPool)
+                foreach (EntityAICommand command in CommandPool)
                 {
                     if (command.RepeatAfterRestart)
                     {
@@ -78,6 +78,8 @@ namespace Entities
             if(CurrentCase == bCase) { return; }
                 
             CurrentCase = bCase;
+
+            Console.WriteLine(Pattern + " " + CurrentCase);
 
             switch (Pattern)
             {
@@ -180,6 +182,8 @@ namespace Entities
                 currentQueue.Enqueue(command);
             }
 
+
+            
         }
 
 

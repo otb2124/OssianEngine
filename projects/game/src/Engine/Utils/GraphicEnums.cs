@@ -147,7 +147,8 @@ namespace Utils
         WEAPON_OUT_MOVING,
         ROLLING,
         FALLEN,
-        FALLING
+        FALLING,
+        RECEIVING_DAMAGE, 
     }
 
     public enum AnimationStates
@@ -155,13 +156,12 @@ namespace Utils
         IDLE,
         MOVING,
         JUMPING,
-        ATTACKING_LIGHT,
-        ATTACKING_HEAVY,
         SPRINTING,
         WEAPON_OUT_IDLE,
         BATTLE_MOVING,
         ROLL,
         FALLEN,
+        RECEIVING_DAMAGE,
 
         ATTACKING_SWORD_LIGHT,
         ATTACKING_SWORD_LIGHT_LIGHT,

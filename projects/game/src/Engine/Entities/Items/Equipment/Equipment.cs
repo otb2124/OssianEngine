@@ -35,6 +35,8 @@ namespace Entities
         public float PhysDmg;
         public float PhysDef;
         public float KnockbackPower;
+        public float PoiseDmg;
+
 
         public Equipment(ItemKey itemKey) : base(itemKey)
         {

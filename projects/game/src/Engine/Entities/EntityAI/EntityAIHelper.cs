@@ -156,11 +156,11 @@ namespace Entities
         {
             if (ent is HumanoidMob hMob)
             {
-                return hMob.CurrentBehaviourCase;
+                return hMob.AISet.BehaviourManager.CurrentCase;
             }
             else if (ent is AnimalMob aMob)
             {
-                return aMob.CurrentBehaviourCase;
+                return aMob.AISet.BehaviourManager.CurrentCase;
             }
             return BehaviourCases.IDLE_RANDOM;
         }

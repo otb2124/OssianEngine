@@ -9,28 +9,19 @@ using Utils;
 
 namespace Entities
 {
-    public class EntityAIManager
+    public class EntityAICommandManager
     {
-        private Queue<EntityAICommand> CurrentQueue;
-        
-        private EntityAICommand CurrentCommand;
+        public Queue<EntityAICommand> CurrentQueue;
+
+        public EntityAICommand CurrentCommand;
         public bool IsExecutingCommand;
 
-        public EntityAIBehaviourManager BehaviourManager;
-
-        public EntityAIManager(EntityAIBehaviourManager.BehaviourPatterns Pattern)
+        public EntityAICommandManager()
         {
             CurrentQueue = new Queue<EntityAICommand>();
-            BehaviourManager = new EntityAIBehaviourManager(Pattern);
         }
 
-        public void Update(StatsEntity entity)
-        {
-            BehaviourManager.UpdateCurrentCase(CurrentQueue, entity, EntityAIHelper.GetBehaviourCase(entity));
-            UpdateCommandExecution();
-        }
-
-        public void UpdateCommandExecution()
+        public void Update(EntityAIBehaviourManager behaviourManager)
         {
             if (!IsExecutingCommand && CurrentQueue.Count > 0)
             {
@@ -45,7 +36,7 @@ namespace Entities
 
                 if (CurrentCommand.CommandTime >= CurrentCommand.CurrentDuration * Graphics.Graphics.UpdatesPerSecond && !CurrentCommand.IsDurationInfinite)
                 {
-                    BehaviourManager.UpdateCommands(CurrentQueue, CurrentCommand);
+                    behaviourManager.UpdateCommands(CurrentQueue, CurrentCommand);
                     IsExecutingCommand = false;
                     return;
                 }
@@ -54,7 +45,7 @@ namespace Entities
             }
             else
             {
-                BehaviourManager.UpdateCommands(CurrentQueue, null);
+                behaviourManager.UpdateCommands(CurrentQueue, null);
             }
         }
     }

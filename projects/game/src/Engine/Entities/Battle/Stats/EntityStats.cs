@@ -43,6 +43,10 @@ namespace Entities
         public float bodyDamage;
         public float bodyKnockbackPower;
 
+        public float PoiseBodyDamage = 0f;
+        public float Poise;
+        public float MaxPoise = 0f;
+
         public bool OnStaminaRegen = false;
         public bool OnUsingStamina = false;
 
@@ -76,6 +80,8 @@ namespace Entities
             stamina = maxStamina;
 
             speed = maxSpeed;
+
+            Poise = MaxPoise;
         }
 
 

@@ -22,9 +22,7 @@ namespace Entities
 
 
         public HumanoidMobs Type;
-
-        public EntityAIManager aiManager;
-        public BehaviourCases CurrentBehaviourCase;
+        public EntityAISet AISet;
 
 
         public HumanoidMob(HumanoidMobs type, Vector2 pos, float rotation) : base()
@@ -40,15 +38,13 @@ namespace Entities
             {
                 case HumanoidMobs.CITIZEN:
                     EntityFraction = EntityFractions.BANDIT;
-                    aiManager = new EntityAIManager(BehaviourPatterns.BANDIT_DEFAULT);
-                    CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
+                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
                     BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
                     modelType = Models.BANDIT;
                     break;
                 case HumanoidMobs.BANDIT:
                     EntityFraction = EntityFractions.BANDIT;
-                    aiManager = new EntityAIManager(BehaviourPatterns.BANDIT_DEFAULT);
-                    CurrentBehaviourCase = BehaviourCases.IDLE_RANDOM;
+                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
                     BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
                     modelType = Models.BANDIT;
 
@@ -83,10 +79,6 @@ namespace Entities
             //battleRoll
             frameSpeed = 0.15f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
-
-            //attack
-            frameSpeed = 0.15f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_LIGHT, 1, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
 
             //weapon out
             frameSpeed = 0.15f;
@@ -155,7 +147,7 @@ namespace Entities
         {
             if(!Stats.IsFallen && !Stats.IsFalling)
             {
-                aiManager.Update(this);
+                AISet.Update(this);
             }
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
