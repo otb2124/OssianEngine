@@ -56,13 +56,13 @@ namespace Entities {
                 Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.rollMultiplier * directionXFactor, 0));
             }
 
-            if (state == ModelStates.DESCENDING)
+            if (state == ModelStates.JUMPING_DESCENDING)
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
                 Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.Stats.descendingMultiplier * 250);
             }
 
-            if (state == ModelStates.DESCENDING_AND_MOVING)
+            if (state == ModelStates.JUMPING_DESCENDING_AND_MOVING)
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
                 Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.Stats.descendingMultiplier * 250);
@@ -104,14 +104,24 @@ namespace Entities {
             }
 
             // ATTACK
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKLIGHTPRESSED])
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKLIGHTPRESSED] 
+                && !KeyHandlerUtil.isPlayerMoving() 
+                && player.Model.ModelState != ModelStates.JUMPING_DESCENDING 
+                && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
+                && player.Model.ModelState != ModelStates.JUMPING
+                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING)
             {
                 if (player.Stats.stamina - player.Stats.staminaAttackHitCost > 0)
                 {
                     player.Model.ModelState = ModelStates.ATTACKING_LIGHT;
                 }
             }
-            else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKHEAVYPRESSED])
+            else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKHEAVYPRESSED]
+                && !KeyHandlerUtil.isPlayerMoving()
+                && player.Model.ModelState != ModelStates.JUMPING_DESCENDING
+                && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
+                && player.Model.ModelState != ModelStates.JUMPING
+                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING)
             {
                 if (player.Stats.stamina - player.Stats.staminaAttackHitCost > 0)
                 {
@@ -140,29 +150,29 @@ namespace Entities {
                 {
                     if (player.Stats.stamina - player.Stats.staminaJumpCostSec > 0 && player.Stats.IsGrounded)
                     {
-                        player.Model.ModelState = KeyHandlerUtil.isPlayerMoving() ? ModelStates.JUMPING_AND_MOVING : ModelStates.JUMPING;
+                        player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
                     }
                 }
 
-                // DESCENDING
+                // JUMPING_DESCENDING
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
-                     player.Model.ModelState == ModelStates.DESCENDING) &&
+                     player.Model.ModelState == ModelStates.JUMPING_DESCENDING) &&
                     !player.Stats.IsGrounded &&
                     CollisionHandler.IsDescending(player))
                 {
                     player.Model.ModelState = (player.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
                                               Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] ||
                                               Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
-                                              ? ModelStates.DESCENDING_AND_MOVING
-                                              : ModelStates.DESCENDING;
+                                              ? ModelStates.JUMPING_DESCENDING_AND_MOVING
+                                              : ModelStates.JUMPING_DESCENDING;
                 }
 
                 // SPRINT BLOCK ROLL
                 if (player.Model.ModelState != ModelStates.JUMPING &&
                     player.Model.ModelState != ModelStates.JUMPING_AND_MOVING &&
-                    player.Model.ModelState != ModelStates.DESCENDING &&
-                    player.Model.ModelState != ModelStates.DESCENDING_AND_MOVING)
+                    player.Model.ModelState != ModelStates.JUMPING_DESCENDING &&
+                    player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING)
                 {
 
                     // SPRINT
@@ -198,15 +208,20 @@ namespace Entities {
                     //MOVE
                     else
                     {
-                        if(player.Stats.IsGrounded)
+                        if(player.Stats.IsGrounded && !CollisionHandler.IsDescending(player))
                         {
                             player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_MOVING : ModelStates.MOVING;
                         }
-                        else
+                        else if(!player.Stats.IsGrounded && !CollisionHandler.IsDescending(player))
                         {
-                            player.Model.ModelState = ModelStates.IDLE;
+                            player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
                         }
                     }
+                }
+
+                if (player.Stats.IsGrounded && !CollisionHandler.IsDescending(player) && (player.Model.ModelState == ModelStates.JUMPING_DESCENDING || player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
+                {
+                    player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
                 }
             }
             // NO MOVEMENT
@@ -219,13 +234,28 @@ namespace Entities {
                     !player.Stats.IsGrounded &&
                     CollisionHandler.IsDescending(player))
                 {
-                    player.Model.ModelState = ModelStates.DESCENDING;
+                    player.Model.ModelState = ModelStates.JUMPING_DESCENDING;
                 }
                 // Set idle state when grounded and not attacking
-                else if (player.Stats.IsGrounded)
+                if (player.Stats.IsGrounded && !CollisionHandler.IsDescending(player))
                 {
                     player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
                 }
+                else if(!player.Stats.IsGrounded && !CollisionHandler.IsDescending(player) && player.Model.ModelState != ModelStates.JUMPING_DESCENDING && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING && player.Model.ModelState != ModelStates.JUMPING)
+                {
+                    player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
+                }
+
+                // JUMP
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
+                {
+                    if (player.Stats.stamina - player.Stats.staminaJumpCostSec > 0)    
+                    {
+                        player.Model.ModelState = ModelStates.JUMPING;
+                    }
+                }
+
+                //Console.WriteLine(player.Model.ModelState);
             }
         }
     }

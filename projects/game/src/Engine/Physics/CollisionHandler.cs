@@ -61,8 +61,8 @@ namespace Physics
             if (GetGround(ent.Model.Body) == null &&
                 (ent.Model.ModelState == ModelStates.JUMPING ||
                  ent.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
-                 ent.Model.ModelState == ModelStates.DESCENDING ||
-                 ent.Model.ModelState == ModelStates.DESCENDING_AND_MOVING))
+                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING ||
+                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
             {
                 FlatBody body = ent.Model.Body;
 

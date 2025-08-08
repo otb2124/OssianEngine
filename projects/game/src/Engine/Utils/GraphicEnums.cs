@@ -149,8 +149,9 @@ namespace Utils
         FALLEN,
         FALLING,
         RECEIVING_DAMAGE, 
-        DESCENDING,
-        DESCENDING_AND_MOVING
+        JUMPING_DESCENDING,
+        JUMPING_DESCENDING_AND_MOVING,
+        OVERALL_DESCENDING,
     }
 
     public enum AnimationStates
@@ -164,6 +165,7 @@ namespace Utils
         ROLL,
         FALLEN,
         RECEIVING_DAMAGE,
+        OVERALL_DESCENDING,
 
         ATTACKING_SWORD_LIGHT,
         ATTACKING_SWORD_LIGHT_LIGHT,
