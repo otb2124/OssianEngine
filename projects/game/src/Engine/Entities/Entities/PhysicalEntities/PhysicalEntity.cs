@@ -192,10 +192,10 @@ namespace Entities
                     Model.animationState = AnimationStates.ROLL;
                     break;
                 case ModelStates.JUMPING_DESCENDING:
-                    Model.animationState = AnimationStates.OVERALL_DESCENDING;
+                    Model.animationState = AnimationStates.JUMPING_DESCENDING;
                     break;
                 case ModelStates.JUMPING_DESCENDING_AND_MOVING:
-                    Model.animationState = AnimationStates.OVERALL_DESCENDING;
+                    Model.animationState = AnimationStates.JUMPING_DESCENDING;
                     break;
                 case ModelStates.OVERALL_DESCENDING:
                     Model.animationState = AnimationStates.OVERALL_DESCENDING;

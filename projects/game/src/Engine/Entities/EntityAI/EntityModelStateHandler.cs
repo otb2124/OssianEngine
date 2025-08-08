@@ -59,13 +59,13 @@ namespace Entities {
             if (state == ModelStates.JUMPING_DESCENDING)
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
-                Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.Stats.descendingMultiplier * 250);
+                Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.Stats.descendingMultiplier * 200);
             }
 
             if (state == ModelStates.JUMPING_DESCENDING_AND_MOVING)
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
-                Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.Stats.descendingMultiplier * 250);
+                Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.Stats.descendingMultiplier * 200);
                 Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
             }
 

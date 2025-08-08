@@ -165,6 +165,7 @@ namespace Utils
         ROLL,
         FALLEN,
         RECEIVING_DAMAGE,
+        JUMPING_DESCENDING,
         OVERALL_DESCENDING,
 
         ATTACKING_SWORD_LIGHT,
