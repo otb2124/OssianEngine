@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Utils;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Physics
@@ -37,13 +38,15 @@ namespace Physics
 
         public static FlatBody GetGround(FlatBody flatBody)
         {
-            Rectangle groundBoxA = new Rectangle(new Point((int)flatBody.Position.X, (int)flatBody.Position.Y - 3), new Point((int)flatBody.Width, 5));
+            Point modifiedSize = new Point((int)flatBody.Width + 10, (int)flatBody.Height + 10);
+
+            Rectangle groundBoxA = new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y - modifiedSize.Y / 2), modifiedSize);
 
             foreach (var item in Physics.flatWorld.bodyList)
             {
                 if(flatBody != item)
                 {
-                    Rectangle bodyBBox = new Rectangle(new Point((int)item.Position.X - (int)item.Width/2, (int)item.Position.Y), new Point((int)item.Width, (int)item.Height));
+                    Rectangle bodyBBox = new Rectangle(new Point((int)item.Position.X - (int)item.Width/2, (int)item.Position.Y - (int)item.Height/2), new Point((int)item.Width, (int)item.Height));
                     if(bodyBBox.Intersects(groundBoxA))
                     {
                         return item;
@@ -55,27 +58,28 @@ namespace Physics
 
         public static bool IsDescending(PhysicalEntity ent)
         {
-            if (GetGround(ent.Model.Body) == null)
+            if (GetGround(ent.Model.Body) == null &&
+                (ent.Model.ModelState == ModelStates.JUMPING ||
+                 ent.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
+                 ent.Model.ModelState == ModelStates.DESCENDING ||
+                 ent.Model.ModelState == ModelStates.DESCENDING_AND_MOVING))
             {
                 FlatBody body = ent.Model.Body;
 
-                //body position is higher
-                if (body.Position.Y > ent.heighestJumpY)
+                // Update highest Y if current position is higher
+                if (body.Position.Y > ent.HighestJumpY)
                 {
-                    //body position is getting higher
-                    ent.heighestJumpY = body.Position.Y;
-                    return false;
+                    ent.HighestJumpY = body.Position.Y;
+                    return false; // Still ascending or at peak
                 }
-                //body position is lower
-                else if (body.Position.Y < ent.heighestJumpY)
+                else if (body.Position.Y < ent.HighestJumpY)
                 {
-                    //body position is getting lower
-                    ent.heighestJumpY = body.Position.Y;
-                    return true;
+                    return true; // Descending
                 }
             }
 
-            ent.heighestJumpY = 0f;
+            // Reset highestJumpY only when grounded
+            // This is handled in Player.Update to avoid redundancy
             return false;
         }
 

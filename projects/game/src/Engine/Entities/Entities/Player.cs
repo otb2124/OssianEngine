@@ -36,7 +36,7 @@ namespace Entities
             Stats.staminaRollCostSec = 200;
 
             Stats.jumpSpeed = 3.8f;
-            Stats.descendingMultiplier = 0.25f;
+            Stats.descendingMultiplier = 1f;
             Stats.staminaJumpCostSec = 60;
 
             Stats.maxHP = 100;
@@ -148,27 +148,19 @@ namespace Entities
 
         public override void Update()
         {
+            // Update grounded state
             Stats.IsGrounded = CollisionHandler.GetGround(Model.Body) != null;
-            Stats.IsOverallDescending = CollisionHandler.IsDescending(this);
 
-            if (Model.ModelState == ModelStates.JUMPING || Model.ModelState == ModelStates.JUMPING_AND_MOVING || Model.ModelState == ModelStates.DESCENDING || Model.ModelState == ModelStates.DESCENDING_AND_MOVING)
-            {
-                if (Stats.IsOverallDescending && !Stats.IsGrounded)
-                {
-                    Stats.IsJumpDescending = true;
-                }
-                else
-                {
-                    Stats.IsJumpDescending = false;
-                    Model.ModelState = ModelStates.IDLE;
-                }
-            }
-            else
-            {
-                Stats.IsJumpDescending = false;
-            }
-
+            // Update model state
             EntityModelStateHandler.UpdatePlayerModelState(this);
+
+            // Reset highestJumpY when grounded
+            if (Stats.IsGrounded)
+            {
+                highestJumpY = float.MinValue;
+            }
+
+            Console.WriteLine(Model.ModelState);
 
             base.Update();
         }

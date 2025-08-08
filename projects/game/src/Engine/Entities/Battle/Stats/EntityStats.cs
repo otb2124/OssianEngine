@@ -42,7 +42,9 @@ namespace Entities
         public float descendingMultiplier;
         public bool AllowDescending;
         public bool IsJumpDescending;
+        public bool IsJumpAscending;
         public bool IsOverallDescending;
+        public bool IsOverallAscending;
         public bool IsGrounded;
 
         public float rollMultiplier;

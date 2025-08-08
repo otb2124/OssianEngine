@@ -17,7 +17,12 @@ namespace Entities
         public float baseSpriteZ;
         public float spriteZ;
 
-        public float heighestJumpY;
+        public float highestJumpY = float.MinValue;
+        public float HighestJumpY
+        {
+            get => highestJumpY;
+            set => highestJumpY = value;
+        }
 
         public LightSource.LightSourceData Emission;
 
