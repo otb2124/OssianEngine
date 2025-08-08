@@ -380,6 +380,12 @@ namespace Physics
                 FlatVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
                 FlatVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
 
+                if (restrictRotation)
+                {
+                    bodyA.AngularVelocity = 0f;
+                    bodyB.AngularVelocity = 0f;
+                }
+
                 FlatVector relativeVelocity =
                     bodyB.LinearVelocity + angularLinearVelocityB -
                     (bodyA.LinearVelocity + angularLinearVelocityA);
@@ -499,8 +505,15 @@ namespace Physics
 
                 bodyA.LinearVelocity += -frictionImpulse * bodyA.InvMass;
                 bodyA.AngularVelocity += -FlatMath.Cross(ra, frictionImpulse) * bodyA.InvInertia;
+
                 bodyB.LinearVelocity += frictionImpulse * bodyB.InvMass;
                 bodyB.AngularVelocity += FlatMath.Cross(rb, frictionImpulse) * bodyB.InvInertia;
+
+                if (restrictRotation)
+                {
+                    bodyA.AngularVelocity = 0f;
+                    bodyB.AngularVelocity = 0f;
+                }
             }
 
         }
