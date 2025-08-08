@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
+using SharpDX.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using Model = Resources.Model;
 
 namespace Entities
 {
-    public class WeaponEntity
+    public class WeaponBody
     {
         public WeaponHitbox Hitbox;
         public StaticSprites Sprite;
@@ -29,7 +30,7 @@ namespace Entities
 
         public WeaponComboHitSet Combo; 
 
-        public WeaponEntity()
+        public WeaponBody()
         {
             Hitbox = new WeaponHitbox();
             AttackHistory = new List<AttackTypes>();
@@ -67,6 +68,11 @@ namespace Entities
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
                 UpdateSwingAndCombo(model, currentAttack, deltaTime);
+                UpdateAnimation(model);
+            }
+            else if (model.ModelState == ModelStates.BLOCKING)
+            {
+                Console.WriteLine("blocking");
                 UpdateAnimation(model);
             }
             else
@@ -204,7 +210,7 @@ namespace Entities
 
         public void Draw(Model model)
         {
-            if (model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY)
+            if (model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY && model.ModelState != ModelStates.BLOCKING)
                 return;
 
             var currentHit = Combo.GetCurrentHit();

@@ -128,6 +128,10 @@ namespace Entities
             frameSpeed = 0.04f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING_DESCENDING, 1, new Vector2(0, 128 * 10), new Vector2(64, 128), frameSpeed);
 
+            //fallen
+            frameSpeed = 0.04f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SWORD, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
+
             //attacking
             frameSpeed = 0.15f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);

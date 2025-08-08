@@ -200,6 +200,9 @@ namespace Entities
                 case ModelStates.OVERALL_DESCENDING:
                     Model.animationState = AnimationStates.OVERALL_DESCENDING;
                     break;
+                case ModelStates.BLOCKING:
+                    Model.animationState = AnimationStates.BLOCKING_SWORD;
+                    break;
             }
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));

@@ -8,7 +8,7 @@ namespace Entities
     public class WeaponEquipment : Equipment
     {
 
-        public WeaponEntity WeaponEntity;
+        public WeaponBody WeaponEntity;
 
         public WeaponEquipment(ItemKey itemKey) : base(itemKey)
         {
@@ -17,7 +17,7 @@ namespace Entities
 
         public override void SetItem()
         {
-            WeaponEntity = new WeaponEntity();
+            WeaponEntity = new WeaponBody();
 
             switch (ItemKey.EnumValue)
             {
