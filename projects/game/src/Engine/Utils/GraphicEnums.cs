@@ -149,6 +149,8 @@ namespace Utils
         FALLEN,
         FALLING,
         RECEIVING_DAMAGE, 
+        DESCENDING,
+        DESCENDING_AND_MOVING
     }
 
     public enum AnimationStates

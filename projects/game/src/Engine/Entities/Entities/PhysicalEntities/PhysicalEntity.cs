@@ -186,6 +186,12 @@ namespace Entities
                 case ModelStates.FALLING:
                     Model.animationState = AnimationStates.ROLL;
                     break;
+                case ModelStates.DESCENDING:
+                    Model.animationState = AnimationStates.ROLL;
+                    break;
+                case ModelStates.DESCENDING_AND_MOVING:
+                    Model.animationState = AnimationStates.ROLL;
+                    break;
             }
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
