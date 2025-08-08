@@ -34,6 +34,7 @@ namespace Entities {
             {
                 Entity.Model.Body.Jump(Entity.Stats.jumpSpeed);
                 Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.Stats.IsJumpDescending = CollisionHandler.IsDescending(Entity);
             }
 
             if (state == ModelStates.JUMPING_AND_MOVING)
@@ -47,7 +48,6 @@ namespace Entities {
             {
                 Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.sprintMultiplier * directionXFactor, 0));
                 Entity.Stats.OnUsingStamina = true;
-                Entity.Stats.stamina -= Entity.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
             }
 
             if (state == ModelStates.BLOCKING)
@@ -130,35 +130,41 @@ namespace Entities {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                 {
                     player.Model.Direction = Directions.RIGHT;
-
-                    if (player.Model.ModelState == ModelStates.DESCENDING)
-                    {
-                        player.Model.ModelState = ModelStates.DESCENDING_AND_MOVING;
-                        return;
-                    }
-
-                    player.Model.ModelState = ModelStates.MOVING;
-
+                    
                     if (player.EquipmentManager.IsWeaponOut)
                     {
                         player.Model.ModelState = ModelStates.WEAPON_OUT_MOVING;
+                    }
+                    else if (player.Stats.IsJumpDescending)
+                    {
+                        player.Model.ModelState = ModelStates.DESCENDING_AND_MOVING;
+                    }
+                    else
+                    {
+                        if (player.Model.ModelState != ModelStates.JUMPING && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING)
+                        {
+                            player.Model.ModelState = ModelStates.MOVING;
+                        }
                     }
                 }
                 else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
                 {
                     player.Model.Direction = Directions.LEFT;
 
-                    if (player.Model.ModelState == ModelStates.DESCENDING)
-                    {
-                        player.Model.ModelState = ModelStates.DESCENDING_AND_MOVING;
-                        return;
-                    }
-
-                    player.Model.ModelState = ModelStates.MOVING;
-
                     if (player.EquipmentManager.IsWeaponOut)
                     {
                         player.Model.ModelState = ModelStates.WEAPON_OUT_MOVING;
+                    }
+                    else if (player.Stats.IsJumpDescending)
+                    {
+                        player.Model.ModelState = ModelStates.DESCENDING_AND_MOVING;
+                    }
+                    else
+                    {
+                       if(player.Model.ModelState != ModelStates.JUMPING && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING)
+                       {
+                            player.Model.ModelState = ModelStates.MOVING;
+                       }
                     }
                 }
 
@@ -174,7 +180,7 @@ namespace Entities {
                 {
                     if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec) > 0))
                     {
-                        if (CollisionHandler.GetGround(player.Model.Body) != null)
+                        if (player.Stats.IsGrounded && !player.Stats.IsJumpDescending)
                         {
                             player.Model.ModelState = ModelStates.JUMPING;
                         }
@@ -185,7 +191,7 @@ namespace Entities {
                 {
                     if ((player.Stats.stamina - (player.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond)) > 0)
                     {
-                        if (CollisionHandler.GetGround(player.Model.Body) != null)
+                        if (!player.Stats.IsJumpDescending)
                         {
                             player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
                         }
@@ -211,7 +217,7 @@ namespace Entities {
             //ANY OF BELOWMENTIONED KEYS NOT PRESSED
             else
             {
-                if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT && player.Model.ModelState != ModelStates.ATTACKING_HEAVY && player.Model.ModelState != ModelStates.DESCENDING && player.Model.ModelState != ModelStates.DESCENDING_AND_MOVING)
+                if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT && player.Model.ModelState != ModelStates.ATTACKING_HEAVY && player.Model.ModelState != ModelStates.DESCENDING)
                 {
                     //FORCE IDLE OR WEAPON OUT IDLE IF NOT ATTACKING
                     player.Model.ModelState = ModelStates.IDLE;
@@ -220,11 +226,11 @@ namespace Entities {
                     {
                         player.Model.ModelState = ModelStates.WEAPON_OUT_IDLE;
                     }
-                }
 
-                if (player.Model.ModelState == ModelStates.DESCENDING_AND_MOVING)
-                {
-                    player.Model.ModelState = ModelStates.DESCENDING;
+                    if (player.Stats.IsJumpDescending)
+                    {
+                        player.Model.ModelState = ModelStates.DESCENDING;
+                    }
                 }
             }
         }

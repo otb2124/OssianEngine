@@ -21,7 +21,7 @@ namespace Entities
 
         public LightSource.LightSourceData Emission;
 
-        public Dictionary<Resources.EntitySounds, Resources.Sounds[]> soundSet;
+        public Dictionary<EntitySounds, Resources.Sounds[]> soundSet;
 
         public PhysicalEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base() 
         {
@@ -187,10 +187,10 @@ namespace Entities
                     Model.animationState = AnimationStates.ROLL;
                     break;
                 case ModelStates.DESCENDING:
-                    Model.animationState = AnimationStates.ROLL;
+                    Model.animationState = AnimationStates.JUMPING;
                     break;
                 case ModelStates.DESCENDING_AND_MOVING:
-                    Model.animationState = AnimationStates.ROLL;
+                    Model.animationState = AnimationStates.JUMPING;
                     break;
             }
 

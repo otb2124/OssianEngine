@@ -38,7 +38,13 @@ namespace Entities
         public float maxSpeed;
         public float speed;
         public float jumpSpeed;
+
         public float descendingMultiplier;
+        public bool AllowDescending;
+        public bool IsJumpDescending;
+        public bool IsOverallDescending;
+        public bool IsGrounded;
+
         public float rollMultiplier;
         public float sprintMultiplier;
 

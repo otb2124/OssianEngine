@@ -148,10 +148,24 @@ namespace Entities
 
         public override void Update()
         {
+            Stats.IsGrounded = CollisionHandler.GetGround(Model.Body) != null;
+            Stats.IsOverallDescending = CollisionHandler.IsDescending(this);
 
-            if (CollisionHandler.IsDescending(this))
+            if (Model.ModelState == ModelStates.JUMPING || Model.ModelState == ModelStates.JUMPING_AND_MOVING || Model.ModelState == ModelStates.DESCENDING || Model.ModelState == ModelStates.DESCENDING_AND_MOVING)
             {
-                Model.ModelState = ModelStates.DESCENDING;
+                if (Stats.IsOverallDescending && !Stats.IsGrounded)
+                {
+                    Stats.IsJumpDescending = true;
+                }
+                else
+                {
+                    Stats.IsJumpDescending = false;
+                    Model.ModelState = ModelStates.IDLE;
+                }
+            }
+            else
+            {
+                Stats.IsJumpDescending = false;
             }
 
             EntityModelStateHandler.UpdatePlayerModelState(this);

@@ -59,19 +59,23 @@ namespace Physics
             {
                 FlatBody body = ent.Model.Body;
 
+                //body position is higher
                 if (body.Position.Y > ent.heighestJumpY)
                 {
+                    //body position is getting higher
                     ent.heighestJumpY = body.Position.Y;
                     return false;
                 }
+                //body position is lower
                 else if (body.Position.Y < ent.heighestJumpY)
                 {
-                    ent.heighestJumpY = float.MinValue;
+                    //body position is getting lower
+                    ent.heighestJumpY = body.Position.Y;
                     return true;
                 }
             }
 
-            ent.heighestJumpY = float.MinValue;
+            ent.heighestJumpY = 0f;
             return false;
         }
 
