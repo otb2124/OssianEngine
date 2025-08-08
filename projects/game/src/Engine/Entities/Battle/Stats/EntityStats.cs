@@ -39,13 +39,13 @@ namespace Entities
         public float speed;
         public float jumpSpeed;
 
-        public float descendingMultiplier;
-        public bool AllowDescending;
+        public float DescendingMultiplier;
         public bool IsJumpDescending;
-        public bool IsJumpAscending;
-        public bool IsOverallDescending;
-        public bool IsOverallAscending;
+        public bool AllowJumpDescending;
+        public bool AllowJumpDescendingLock = true;
         public bool IsGrounded;
+        public float MaxDescendingSec;
+        public int DescendingCounter = 0;
 
         public float rollMultiplier;
         public float sprintMultiplier;
@@ -164,7 +164,7 @@ namespace Entities
             if (IsFallen)
             {
                 FallenTimer++;
-                if (FallenTimer >= FallenDurationAllowedSec* Graphics.Graphics.UpdatesPerSecond)
+                if (FallenTimer >= FallenDurationAllowedSec * Graphics.Graphics.UpdatesPerSecond)
                 {
                     IsFallen = false;
                     FallenTimer = 0f;
@@ -174,6 +174,38 @@ namespace Entities
                     //regen Poise
                     Poise = MaxPoise;
                 }
+            }
+        }
+
+        public void UpdateDescending(PhysicalEntity ent)
+        {
+            IsGrounded = CollisionHandler.GetGround(ent.Model.Body) != null;
+            IsJumpDescending = CollisionHandler.IsDescending(ent);
+
+            if (AllowJumpDescendingLock && IsJumpDescending)
+            {
+                DescendingCounter++;
+                AllowJumpDescending = true;
+                if (DescendingCounter > MaxDescendingSec * Graphics.Graphics.UpdatesPerSecond)
+                {
+                    IsJumpDescending = false;
+                    AllowJumpDescendingLock = false;
+                    AllowJumpDescending = false;
+                    DescendingCounter = 0;
+                }
+            }
+            else
+            {
+                DescendingCounter = 0;
+            }
+
+
+            if(IsGrounded)
+            {
+                IsJumpDescending = false;
+                AllowJumpDescendingLock = false;
+                AllowJumpDescending = false;
+                DescendingCounter = 0;
             }
         }
 

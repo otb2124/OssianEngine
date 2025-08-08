@@ -36,7 +36,7 @@ namespace Entities
             Stats.staminaRollCostSec = 200;
 
             Stats.jumpSpeed = 2.8f;
-            Stats.descendingMultiplier = 1f;
+            Stats.DescendingMultiplier = 1f;
             Stats.staminaJumpCostSec = 60;
 
             Stats.maxHP = 100;
@@ -45,6 +45,7 @@ namespace Entities
             Stats.maxStamina = 100;
             Stats.MaxPoise = 100;
             Stats.PoiseRegenSec = 10;
+            Stats.MaxDescendingSec = 0.5f;
 
             Stats.Refill();
 
@@ -160,10 +161,6 @@ namespace Entities
 
         public override void Update()
         {
-            // Update grounded state
-            Stats.IsGrounded = CollisionHandler.GetGround(Model.Body) != null;
-
-            // Update model state
             EntityModelStateHandler.UpdatePlayerModelState(this);
 
             // Reset highestJumpY when grounded

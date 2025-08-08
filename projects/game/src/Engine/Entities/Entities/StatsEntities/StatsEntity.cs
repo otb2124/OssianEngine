@@ -64,6 +64,8 @@ namespace Entities
             {
                 Stats.UpdateFallen(this.Model);
             }
+
+            Stats.UpdateDescending(this);
             
             base.Update();
         }
