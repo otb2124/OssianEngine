@@ -13,6 +13,8 @@ namespace Entities
     {
 
         private int nextId = 1;
+        private readonly float EntityOutOfBoudsDeletionMapSizeMultiplier = 1.5f;
+
         public EntityManager()
         {
             
@@ -108,12 +110,12 @@ namespace Entities
         public void RemovePhysicalEntityWhenOutOfBounds(PhysicalEntity ent)
         {
             Vector2 entPos = ent.Model.Body.Position.ToVector2();
-            Point mapSize = Entities.entityMapManager.GetCurrentMap().Size;
-            Rectangle worldBounds = new Rectangle(-mapSize.X/2, -mapSize.Y/2, mapSize.X, mapSize.Y);
+            Vector2 mapSize = Entities.entityMapManager.GetCurrentMap().Size.ToVector2() * EntityOutOfBoudsDeletionMapSizeMultiplier;
+            Rectangle worldBounds = new Rectangle((int)-mapSize.X/2, (int)-mapSize.Y/2, (int)mapSize.X, (int)mapSize.Y);
 
             if (!worldBounds.Contains(entPos))
             {
-                //Console.WriteLine("Deleted at: " + entPos + " , MapSize: " + worldBounds);
+                Console.WriteLine("Deleted at: " + entPos + " , MapSize: " + worldBounds);
                 RemoveEntity(ent);
             }
         }

@@ -126,8 +126,6 @@ namespace Graphics
             {
                 particle.Draw();
             }
-
-            Console.WriteLine(Particles.Count);
         }
     }
 }

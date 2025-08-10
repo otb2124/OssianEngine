@@ -72,7 +72,6 @@ namespace Entities
             }
             else if (model.ModelState == ModelStates.BLOCKING)
             {
-                //Console.WriteLine("blocking");
                 UpdateAnimation(model);
             }
             else
