@@ -390,6 +390,12 @@ namespace Physics
         }
 
 
+        public Rectangle ToRectangle()
+        {
+            return new Rectangle(new Point((int)Position.X - (int)Width / 2, (int)Position.Y - (int)Height / 2), new Point((int)Width, (int)Height));
+        }
+
+
 
         public FlatBody(FlatBody existingBody, float newHeight, float newWidth)
         {

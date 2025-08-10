@@ -181,9 +181,9 @@ namespace Entities
 
         public void UpdateDescending(PhysicalEntity ent)
         {
-            IsGrounded = CollisionsHelper.GetAnyGround(ent.Model.Body) != null;
-            IsTouchingCeiling = CollisionsHelper.GetAnyCeiling(ent.Model.Body) != null;
-            IsTouchingWalls = CollisionsHelper.GetAnyWalls(ent.Model.Body) != null;
+            IsGrounded = CollisionHelper.GetAnyGround(ent.Model.Body) != null;
+            IsTouchingCeiling = CollisionHelper.GetAnyCeiling(ent.Model.Body) != null;
+            IsTouchingWalls = CollisionHelper.GetAnyWalls(ent.Model.Body) != null;
 
             if(IsTouchingWalls)
             {
@@ -196,7 +196,7 @@ namespace Entities
                  ent.Model.ModelState == ModelStates.JUMPING_DESCENDING ||
                  ent.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING)
             {
-                IsJumpDescending = CollisionsHelper.IsDescending(ent);
+                IsJumpDescending = CollisionHelper.IsDescending(ent);
             }
             
 

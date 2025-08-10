@@ -165,7 +165,11 @@ namespace Entities
 
             base.Update();
 
-            Console.WriteLine(Stats.IsTouchingWalls);
+            if(Stats.IsTouchingWalls)
+            {
+                Console.WriteLine(CollisionHelper.GetAnyLedges(Model.Body));
+            }
+            
         }
 
         public override void Draw()

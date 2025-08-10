@@ -38,7 +38,9 @@ namespace Resources
             { Models.CRATE_1, new ModelPreset(FlatBodyPreset.CRATE_1, StaticSprites.ENTITIES_STATIC_CRATE_1, Vector2.Zero) },
             { Models.BALL, new ModelPreset(FlatBodyPreset.CIRCLE, StaticSprites.ENTITIES_STATIC_BALL, Vector2.Zero) },
             { Models.BANDIT, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_BANDIT, new Vector2(10, 5)) },
-            { Models.SLIME, new ModelPreset(FlatBodyPreset.ANIMAL, StaticSprites.ENTITIES_SLIME,  new Vector2(0, 0)) }
+            { Models.SLIME, new ModelPreset(FlatBodyPreset.ANIMAL, StaticSprites.ENTITIES_SLIME,  new Vector2(0, 0)) },
+
+            { Models.LEDGE, new ModelPreset(FlatBodyPreset.LEDGE, StaticSprites.ENTITIES_LEDGE,  new Vector2(0, 0)) }
         };
 
         public static Model CreateModel(Models model)

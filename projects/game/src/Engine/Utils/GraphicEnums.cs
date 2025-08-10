@@ -49,6 +49,7 @@ namespace Utils
         //platforms
         ENTITIES_PLATFORMS,
         ENTITIES_TILES,
+        ENTITIES_LEDGES,
 
         //equipment
         ENTITIES_WEAPONS,
@@ -97,6 +98,9 @@ namespace Utils
         //physicalentities
         ENTITIES_STATIC_BALL,
 
+        //ledges
+        ENTITIES_LEDGE,
+
         //crates
         ENTITIES_STATIC_CRATE_0,
         ENTITIES_STATIC_CRATE_1,
@@ -122,6 +126,7 @@ namespace Utils
         ITEM_DROP,
         HUMANOID,
         ANIMAL,
+        LEDGE,
     }
 
     public enum Models
@@ -131,6 +136,7 @@ namespace Utils
         ITEM_DROP,
         BANDIT,
         SLIME,
+        LEDGE,
     }
 
     public enum ModelStates

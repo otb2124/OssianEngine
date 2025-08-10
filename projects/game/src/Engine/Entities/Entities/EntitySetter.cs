@@ -20,6 +20,12 @@ namespace Entities
             switch (id)
             {
                 case 0:
+
+
+                    //parkour way
+                    entities.Add(new TileEntity(new Vector2(550, -400), new Point(5, 5), TileEntity.TileSets.SET0, 0, true, true));
+                    entities.Add(new LedgeEntity(new Vector2(472, -450), Directions.LEFT));
+
                     entities.Add(new TileEntity(new Vector2(-75,  -250), new Point(3, 3), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(50,   -250), new Point(3, 1), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(200,  -250), new Point(2, 1), TileEntity.TileSets.SET0));
@@ -31,9 +37,7 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(-150,   90), new Point(15, 1), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(0,    -625), new Point(20, 1), TileEntity.TileSets.SET0, 0, true));
                     entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
-                    entities.Add(new TileEntity(new Vector2(550, -400), new Point(5, 5), TileEntity.TileSets.SET0, 0, true, true));
                     entities.Add(new TileEntity(new Vector2(500,  -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
-                    
 
                     entities.Add(new PlatformEntity(new Vector2(0, 0), 5));
                     entities.Add(new PlatformEntity(new Vector2(140, -60), 5));

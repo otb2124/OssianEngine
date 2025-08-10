@@ -17,6 +17,7 @@ namespace Physics
             { typeof(HumanoidMob), new() { typeof(AnimalMob), typeof(HumanoidMob) } },
             { typeof(AnimalMob), new() { typeof(AnimalMob) } },
             { typeof(InteractiveItemEntity), new() { typeof(AnimalMob), typeof(HumanoidMob), typeof(Player), typeof(InteractiveItemEntity) } },
+            { typeof(LedgeEntity), new() { typeof(AnimalMob), typeof(HumanoidMob), typeof(Player), typeof(InteractiveItemEntity) } },
 
             /*
             { typeof(GroupMember), new() { typeof(GroupMember) } },
@@ -38,11 +39,11 @@ namespace Physics
             {
                 if (typeB == typeof(PlatformEntity))
                 {
-                    return CollisionsHelper.IsBodyOverBody(bodyA, bodyB);
+                    return CollisionHelper.IsBodyOverBody(bodyA, bodyB);
                 }
                 if (typeA == typeof(PlatformEntity))
                 {
-                    return CollisionsHelper.IsBodyOverBody(bodyB, bodyA);
+                    return CollisionHelper.IsBodyOverBody(bodyB, bodyA);
                 }
             }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Physics
 {
-    public static class CollisionsHelper
+    public static class CollisionHelper
     {
         public static int GroundingBodySizeOffset = 10;
 
@@ -35,10 +35,6 @@ namespace Physics
             return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y - modifiedSize.Y/2), modifiedSize);
         }
 
-        public static FlatBody GetAnySiding(FlatBody flatBody)
-        {
-            return GetAnyBodyAtRectangleForOtherBody(flatBody, CreateSidingRectangle(flatBody));
-        }
 
         public static FlatBody GetAnyWalls(FlatBody flatBody)
         {
@@ -119,6 +115,26 @@ namespace Physics
             }
 
             return false;
+        }
+
+        public static FlatBody GetAnyLedges(FlatBody body)
+        {
+            foreach (FlatBody item in Physics.flatWorld.bodyList)
+            {
+                if(item.Owner is LedgeEntity)
+                {
+                    Rectangle bodyBBox = body.ToRectangle();
+                    Rectangle itemBox = item.ToRectangle();
+
+                    if (bodyBBox.Intersects(itemBox))
+                    {
+                        return item;
+                    }
+                }
+                
+            }
+
+            return null;
         }
     }
 }

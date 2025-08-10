@@ -47,6 +47,8 @@ namespace Resources
             { StaticSprites.ENTITIES_STATIC_CRATE_0, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 64, 64, 64), 98)},
             { StaticSprites.ENTITIES_STATIC_CRATE_1, new SpriteData(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 98)},
 
+            { StaticSprites.ENTITIES_LEDGE, new SpriteData(SpriteSheets.ENTITIES_LEDGES, new Rectangle(0, 0, 32, 32), 98)},
+
             { StaticSprites.ENTITIES_PLAYER, new SpriteData(SpriteSheets.ENTITIES_PLAYER, new Rectangle(0,0,64,128), 100)},
             { StaticSprites.ENTITIES_BANDIT, new SpriteData(SpriteSheets.ENTITIES_BANDIT, new Rectangle(0,0,48,96), 99)},
             { StaticSprites.ENTITIES_SLIME, new SpriteData(SpriteSheets.ENTITIES_SLIME, new Rectangle(0,0,64,64), 99)},
@@ -137,7 +139,6 @@ namespace Resources
             data[2] = new SpriteData(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
 
             return data;
-
         }
 
         public static SpriteData[] UIFrameCut(Vector2 pos, int tileSize)
