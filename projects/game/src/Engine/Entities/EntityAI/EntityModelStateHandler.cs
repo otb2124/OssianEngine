@@ -181,7 +181,7 @@ namespace Entities {
                 // JUMP
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                 {
-                    if (player.Stats.stamina - player.Stats.staminaJumpCostSec > 0 && player.Stats.IsGrounded)
+                    if (player.Stats.stamina - player.Stats.staminaJumpCostSec > 0 && player.Stats.IsGrounded && !player.Stats.IsTouchingTheCeiling)
                     {
                         player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
                     }
@@ -191,7 +191,7 @@ namespace Entities {
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
                      player.Model.ModelState == ModelStates.JUMPING_DESCENDING) &&
-                    !player.Stats.IsGrounded &&
+                    !player.Stats.IsGrounded && !player.Stats.IsTouchingTheCeiling &&
                     player.Stats.AllowJumpDescending)
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING_AND_MOVING;
@@ -262,6 +262,7 @@ namespace Entities {
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING) &&
                     !player.Stats.IsGrounded &&
+                    !player.Stats.IsTouchingTheCeiling &&
                     player.Stats.AllowJumpDescending)
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING;
@@ -277,15 +278,13 @@ namespace Entities {
                     }
 
                     // JUMP
-                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
+                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && !player.Stats.IsTouchingTheCeiling)
                     {
                         if (player.Stats.stamina - player.Stats.staminaJumpCostSec > 0)
                         {
                             player.Model.ModelState = ModelStates.JUMPING;
                         }
                     }
-                
-                
 
                 //Console.WriteLine(player.Model.ModelState);
             }

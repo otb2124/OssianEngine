@@ -181,7 +181,7 @@ namespace Entities
                 rectToCheck.X -= distanceToStopBeforeEdge;
             }
 
-            return CollisionsHelper.GetGroundAtRectangleForBody(ent.Model.Body, rectToCheck) != null;
+            return CollisionsHelper.GetAnyBodyAtRectangleForOtherBody(ent.Model.Body, rectToCheck) != null;
         }
     }
 }

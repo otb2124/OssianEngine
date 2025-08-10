@@ -10,6 +10,7 @@ namespace Physics
 {
     public static class CollisionsHelper
     {
+        public static int GroundingBodySizeOffset = 10;
 
         public static bool IsBodyOverBody(FlatBody body, FlatBody ground)
         {
@@ -18,22 +19,32 @@ namespace Physics
 
         public static Rectangle CreateGroundingRectangle(FlatBody flatBody)
         {
-            Point modifiedSize = new Point((int)flatBody.Width + 10, (int)flatBody.Height + 10);
-            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y - modifiedSize.Y / 2), modifiedSize);
+            Point modifiedSize = new Point((int)flatBody.Width + GroundingBodySizeOffset, (int)GroundingBodySizeOffset);
+            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y - (int)flatBody.Height/2 - GroundingBodySizeOffset), modifiedSize);
+        }
+
+        public static Rectangle CreateCeilingRectangle(FlatBody flatBody)
+        {
+            Point modifiedSize = new Point((int)flatBody.Width + GroundingBodySizeOffset, (int)GroundingBodySizeOffset);
+            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y + (int)flatBody.Height / 2 + GroundingBodySizeOffset), modifiedSize);
         }
 
         public static FlatBody GetAnyGround(FlatBody flatBody)
         {
-            return GetGroundAtRectangleForBody(flatBody, CreateGroundingRectangle(flatBody));
+            return GetAnyBodyAtRectangleForOtherBody(flatBody, CreateGroundingRectangle(flatBody));
         }
 
-        public static FlatBody GetGroundAtRectangleForBody(FlatBody flatBody, Rectangle rect)
+        public static FlatBody GetAnyCeiling(FlatBody flatBody)
+        {
+            return GetAnyBodyAtRectangleForOtherBody(flatBody, CreateCeilingRectangle(flatBody));
+        }
+
+        public static FlatBody GetAnyBodyAtRectangleForOtherBody(FlatBody flatBody, Rectangle rect)
         {
             foreach (FlatBody item in Physics.flatWorld.bodyList)
             {
                 //TODO FIX FOR IGNORECOLLISION
-                //|| IgnoreCollision(flatBody, item)
-                if (flatBody == item)
+                if (item == flatBody)
                 {
                     return null;
                 }
@@ -42,6 +53,11 @@ namespace Physics
 
                 if (bodyBBox.Intersects(rect))
                 {
+                    if (CollisionHandler.IgnoreCollision(flatBody, item))
+                    {
+                        return null;
+                    }
+
                     return item;
                 }
             }
@@ -49,7 +65,7 @@ namespace Physics
             return null;
         }
 
-        public static FlatBody GetGroundAtRectangle(Rectangle rect)
+        public static FlatBody GetAnyBodyAtRectangle(Rectangle rect)
         {
             foreach (var item in Physics.flatWorld.bodyList)
             {

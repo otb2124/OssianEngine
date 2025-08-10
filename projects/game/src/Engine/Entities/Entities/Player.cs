@@ -162,12 +162,7 @@ namespace Entities
         public override void Update()
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);
-
-            // Reset highestJumpY when grounded
-            if (Stats.IsGrounded)
-            {
-                highestJumpY = float.MinValue;
-            }
+            Console.WriteLine(CollisionsHelper.GetAnyCeiling(Model.Body) != null);
 
             base.Update();
         }

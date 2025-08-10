@@ -66,7 +66,13 @@ namespace Entities
             }
 
             Stats.UpdateDescending(this);
-            
+
+            // Reset highestJumpY when grounded
+            if (Stats.IsGrounded)
+            {
+                highestJumpY = float.MinValue;
+            }
+
             base.Update();
         }
 

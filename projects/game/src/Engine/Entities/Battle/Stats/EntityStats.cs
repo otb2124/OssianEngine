@@ -44,6 +44,7 @@ namespace Entities
         public bool AllowJumpDescending;
         public bool AllowJumpDescendingLock = true;
         public bool IsGrounded;
+        public bool IsTouchingTheCeiling;
         public float MaxDescendingSec;
         public int DescendingCounter = 0;
 
