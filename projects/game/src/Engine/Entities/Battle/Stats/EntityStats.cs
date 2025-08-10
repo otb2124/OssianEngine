@@ -183,9 +183,13 @@ namespace Entities
         {
             IsGrounded = CollisionsHelper.GetAnyGround(ent.Model.Body) != null;
             IsTouchingCeiling = CollisionsHelper.GetAnyCeiling(ent.Model.Body) != null;
-            IsTouchingWalls = CollisionsHelper.GetAnySiding(ent.Model.Body) != null;
+            IsTouchingWalls = CollisionsHelper.GetAnyWalls(ent.Model.Body) != null;
 
-            
+            if(IsTouchingWalls)
+            {
+                IsTouchingCeiling = false;
+                IsGrounded = false;
+            }
 
             if (ent.Model.ModelState == ModelStates.JUMPING ||
                  ent.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
@@ -221,8 +225,6 @@ namespace Entities
                 AllowJumpDescending = false;
                 DescendingCounter = 0;
             }
-
-            Console.WriteLine(IsJumpDescending);
         }
 
         public bool LostPoise()

@@ -212,7 +212,7 @@ namespace Entities {
 
                     // SPRINT
                     if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] &&
-                    player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
+                    player.Model.ModelState != ModelStates.OVERALL_DESCENDING && player.Stats.IsGrounded)
                     {
                         if (player.Stats.stamina - player.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
                             !player.Stats.OnStaminaRegen)

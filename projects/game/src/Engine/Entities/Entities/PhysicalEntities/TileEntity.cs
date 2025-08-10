@@ -60,9 +60,10 @@ namespace Entities
         public AnimationManager[] aManagers;
         public int[][] Indicies;
         public bool IsGround;
+        public bool DisableEntityBodyGroundingStatusOnWalls;
         public TileSets TileSet;
 
-        public TileEntity(Vector2 pos, Point layout, TileSets tileSet, float rot = 0f, bool isGrounding = false) : base()
+        public TileEntity(Vector2 pos, Point layout, TileSets tileSet, float rot = 0f, bool isGrounding = false, bool disableEntityGrounding = false) : base()
         {
             TileSet = tileSet;
             this.Indicies = GenerateIndicies(layout.X, layout.Y, isGrounding);
@@ -70,6 +71,7 @@ namespace Entities
             Model.Body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32 * layout.Y), 1f, 0.5f);
             IsGround = isGrounding;
             Init(pos, rot);
+            DisableEntityBodyGroundingStatusOnWalls = disableEntityGrounding;
         }
 
         public TileEntity(Vector2 pos, int[][] indiciesMap, TileSets tileSet, float rot = 0f) : base()

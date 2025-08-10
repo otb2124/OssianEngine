@@ -164,6 +164,8 @@ namespace Entities
             EntityModelStateHandler.UpdatePlayerModelState(this);
 
             base.Update();
+
+            Console.WriteLine(Stats.IsTouchingWalls);
         }
 
         public override void Draw()
