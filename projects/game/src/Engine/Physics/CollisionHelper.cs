@@ -117,7 +117,7 @@ namespace Physics
             return false;
         }
 
-        public static FlatBody GetAnyLedges(FlatBody body)
+        public static LedgeEntity GetAnyLedges(FlatBody body)
         {
             foreach (FlatBody item in Physics.flatWorld.bodyList)
             {
@@ -128,7 +128,7 @@ namespace Physics
 
                     if (bodyBBox.Intersects(itemBox))
                     {
-                        return item;
+                        return (LedgeEntity)item.Owner;
                     }
                 }
                 

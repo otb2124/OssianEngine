@@ -67,6 +67,15 @@ namespace Entities {
                 Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
             }
 
+            if (state == ModelStates.HANGING_ON_LEDGE)
+            {
+                Entity.Model.Body.IsFrozen = true;
+            }
+            else
+            {
+                Entity.Model.Body.IsFrozen = false;
+            }
+
             if (Entity is EquipmentEntity eqEnt)
             {
                 if (state == ModelStates.ATTACKING_LIGHT)
@@ -166,7 +175,8 @@ namespace Entities {
             if (KeyHandlerUtil.isPlayerMoving() &&
                 player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                 player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
-                player.Model.ModelState != ModelStates.FALLEN)
+                player.Model.ModelState != ModelStates.FALLEN && 
+                player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 // MOVE
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
@@ -191,8 +201,8 @@ namespace Entities {
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
                      player.Model.ModelState == ModelStates.JUMPING_DESCENDING) &&
-                    !player.Stats.IsGrounded &&
-                    player.Stats.AllowJumpDescending)
+                     !player.Stats.IsGrounded &&
+                     player.Stats.AllowJumpDescending)
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING_AND_MOVING;
                 }
@@ -256,7 +266,8 @@ namespace Entities {
             // NO MOVEMENT
             else if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                      player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
-                     player.Model.ModelState != ModelStates.BLOCKING)
+                     player.Model.ModelState != ModelStates.BLOCKING &&
+                     player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 // Handle descending when not moving
                 if ((player.Model.ModelState == ModelStates.JUMPING ||

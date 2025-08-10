@@ -23,6 +23,7 @@ namespace Entities
             CanRegensStamina = true;
             CanUpdateIFrames = true;
             CanFall = true;
+            CanHangLedges = true;
 
             Stats.sprintMultiplier = 1.5f;
             Stats.staminaSprintCostSec = 15 ;
@@ -163,13 +164,8 @@ namespace Entities
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);
 
+            Console.WriteLine(Model.Body.linearVelocity);
             base.Update();
-
-            if(Stats.IsTouchingWalls)
-            {
-                Console.WriteLine(CollisionHelper.GetAnyLedges(Model.Body));
-            }
-            
         }
 
         public override void Draw()

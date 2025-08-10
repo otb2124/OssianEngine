@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
+using System;
 using Utils;
 
 namespace Entities
@@ -15,6 +16,7 @@ namespace Entities
         public bool CanRegensStamina;
         public bool CanUpdateIFrames;
         public bool CanFall;
+        public bool CanHangLedges;
 
         public ParticleSet.ParticleSets BloodDropParticle;
 
@@ -64,16 +66,27 @@ namespace Entities
             {
                 Stats.UpdateFallen(this.Model);
             }
+            if(CanHangLedges)
+            {
+                UpdateLedgeHanging();
+            }
 
             Stats.UpdateDescending(this);
 
-            // Reset highestJumpY when grounded
-            if (Stats.IsGrounded)
-            {
-                highestJumpY = float.MinValue;
-            }
-
             base.Update();
+        }
+
+
+        public void UpdateLedgeHanging()
+        {
+            if (Stats.IsTouchingWalls)
+            {
+                LedgeEntity ent = CollisionHelper.GetAnyLedges(Model.Body);
+                if(ent != null)
+                {
+                    Model.ModelState = ModelStates.HANGING_ON_LEDGE;
+                }
+            }
         }
 
         public virtual void SetStats()
@@ -85,6 +98,7 @@ namespace Entities
             CanRegensStamina = false;
             CanUpdateIFrames = false;
             CanFall = false;
+            CanHangLedges = false;
         }
 
         public virtual void SetInventory()

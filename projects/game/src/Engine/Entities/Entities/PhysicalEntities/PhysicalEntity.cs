@@ -215,7 +215,6 @@ namespace Entities
             base.Update();
         }
 
-
         public virtual void SetAnimations()
         {
             Model.aManager.AddStaticAnimation(this.Model.spriteData);

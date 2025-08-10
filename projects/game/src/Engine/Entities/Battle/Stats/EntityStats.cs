@@ -179,7 +179,7 @@ namespace Entities
             }
         }
 
-        public void UpdateDescending(PhysicalEntity ent)
+        public void UpdateDescending(StatsEntity ent)
         {
             IsGrounded = CollisionHelper.GetAnyGround(ent.Model.Body) != null;
             IsTouchingCeiling = CollisionHelper.GetAnyCeiling(ent.Model.Body) != null;
@@ -224,6 +224,12 @@ namespace Entities
                 AllowJumpDescendingLock = false;
                 AllowJumpDescending = false;
                 DescendingCounter = 0;
+            }
+
+            // Reset highestJumpY when grounded
+            if (ent.Stats.IsGrounded)
+            {
+                ent.highestJumpY = float.MinValue;
             }
         }
 

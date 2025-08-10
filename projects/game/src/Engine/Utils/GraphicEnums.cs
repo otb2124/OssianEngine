@@ -158,6 +158,7 @@ namespace Utils
         JUMPING_DESCENDING,
         JUMPING_DESCENDING_AND_MOVING,
         OVERALL_DESCENDING,
+        HANGING_ON_LEDGE,
     }
 
     public enum AnimationStates

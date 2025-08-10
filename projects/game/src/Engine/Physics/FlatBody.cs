@@ -57,6 +57,7 @@ namespace Physics
         public Entities.PhysicalEntity Owner = null;
 
         public bool IsColliding = false;
+        public bool IsFrozen = false;
 
 
         public FlatVector Position
@@ -215,7 +216,7 @@ namespace Physics
 
         internal void Step(float time, FlatVector gravity, int iterations)
         {
-            if (IsStatic)
+            if (IsStatic || IsFrozen)
             {
                 return;
             }

@@ -40,7 +40,6 @@ namespace Resources
 
         public void DrawCollider()
         {
-
             Color drawColor = new Color((byte)Color.Green.R, (byte)Color.Green.G, (byte)Color.Green.B, (byte)64);
 
             if (this.Body.BodyShapeType == BodyShapeType.Box)
