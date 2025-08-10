@@ -134,6 +134,11 @@ namespace Entities
             frameSpeed = 0.04f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SWORD, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
 
+            //fallen
+            frameSpeed = 0.04f;
+            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+
             //attacking
             frameSpeed = 0.15f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
@@ -163,8 +168,6 @@ namespace Entities
         public override void Update()
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);
-
-            Console.WriteLine(Model.Body.linearVelocity);
             base.Update();
         }
 

@@ -96,5 +96,15 @@ namespace Resources
             return Directions.RIGHT;
         }
 
+        public static int GetDirectionCoefficient(Directions direction)
+        {
+            if (direction == Directions.RIGHT)
+            {
+                return 1;
+            }
+
+            return -1;
+        }
+
     }
 }

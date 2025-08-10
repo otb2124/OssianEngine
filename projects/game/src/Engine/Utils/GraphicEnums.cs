@@ -174,6 +174,7 @@ namespace Utils
         RECEIVING_DAMAGE,
         JUMPING_DESCENDING,
         OVERALL_DESCENDING,
+        HANGING_ON_LEDGE,
 
         BLOCKING_SWORD,
 

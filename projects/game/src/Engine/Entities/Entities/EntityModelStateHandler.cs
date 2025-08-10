@@ -126,7 +126,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
                 && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
+                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
+                && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 if (player.Stats.stamina - player.Stats.staminaAttackHitCost > 0)
                 {
@@ -139,7 +140,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
                 && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
+                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
+                && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 if (player.Stats.stamina - player.Stats.staminaAttackHitCost > 0)
                 {
@@ -153,7 +155,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
                 && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
+                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
+                && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 if (player.Stats.stamina > 0)
                 {
@@ -175,10 +178,9 @@ namespace Entities {
             if (KeyHandlerUtil.isPlayerMoving() &&
                 player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                 player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
-                player.Model.ModelState != ModelStates.FALLEN && 
-                player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
+                player.Model.ModelState != ModelStates.FALLEN)
             {
-                // MOVE
+                // DIRECTION
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                 {
                     player.Model.Direction = Directions.RIGHT;

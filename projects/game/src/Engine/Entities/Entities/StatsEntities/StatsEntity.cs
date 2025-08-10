@@ -81,10 +81,17 @@ namespace Entities
         {
             if (Stats.IsTouchingWalls)
             {
-                LedgeEntity ent = CollisionHelper.GetAnyLedges(Model.Body);
-                if(ent != null)
+                LedgeEntity ledge = CollisionHelper.GetAnyLedges(Model.Body);
+                if(ledge != null)
                 {
                     Model.ModelState = ModelStates.HANGING_ON_LEDGE;
+                    Model.Body.MoveTo(FlatConverter.ToFlatVector(ledge.HangingPosition));
+
+                    //TODO FIX THE LEDGES DIRECTION SWAP
+                    //if(ledge.Model.Direction == Directions.LEFT)
+                    //{
+                    //    Model.SwapDirection();
+                    //}
                 }
             }
         }

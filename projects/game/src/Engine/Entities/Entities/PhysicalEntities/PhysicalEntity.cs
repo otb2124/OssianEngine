@@ -203,6 +203,9 @@ namespace Entities
                 case ModelStates.BLOCKING:
                     Model.animationState = AnimationStates.BLOCKING_SWORD;
                     break;
+                case ModelStates.HANGING_ON_LEDGE:
+                    Model.animationState = AnimationStates.HANGING_ON_LEDGE;
+                    break;
             }
 
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
