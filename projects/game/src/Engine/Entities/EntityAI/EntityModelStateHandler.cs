@@ -106,7 +106,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING 
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
-                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING)
+                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
+                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
             {
                 if (player.Stats.stamina - player.Stats.staminaAttackHitCost > 0)
                 {
@@ -118,7 +119,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
-                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING)
+                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
+                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
             {
                 if (player.Stats.stamina - player.Stats.staminaAttackHitCost > 0)
                 {
@@ -131,7 +133,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
-                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING)
+                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
+                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
             {
                 if (player.Stats.stamina > 0)
                 {
@@ -173,11 +176,12 @@ namespace Entities {
                     !player.Stats.IsGrounded &&
                     player.Stats.AllowJumpDescending)
                 {
-                    player.Model.ModelState = (player.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
-                                              Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] ||
-                                              Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
-                                              ? ModelStates.JUMPING_DESCENDING_AND_MOVING
-                                              : ModelStates.JUMPING_DESCENDING;
+                    player.Model.ModelState = ModelStates.JUMPING_DESCENDING_AND_MOVING;
+                }
+
+                if (!player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING)
+                {
+                    player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
                 }
 
 
