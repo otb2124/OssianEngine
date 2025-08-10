@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 using static Entities.EntityAIBehaviourManager;
 using static Entities.WeaponComboHitSetFactory;
 
@@ -163,6 +164,24 @@ namespace Entities
                 return aMob.AISet.BehaviourManager.CurrentCase;
             }
             return BehaviourCases.IDLE_RANDOM;
+        }
+
+        public static bool HasGroundForward(StatsEntity ent)
+        {
+            Rectangle rectToCheck = CollisionHandler.CreateGroundingRectangle(ent.Model.Body);
+            int distanceToStopBeforeEdge = (int)ent.Model.Body.Width * 2;
+
+
+            if (ent.Model.Direction == Directions.RIGHT)
+            {
+                rectToCheck.X += distanceToStopBeforeEdge;
+            }
+            else
+            {
+                rectToCheck.X -= distanceToStopBeforeEdge;
+            }
+
+            return CollisionHandler.GetGroundAtRectangleForBody(ent.Model.Body, rectToCheck) != null;
         }
     }
 }

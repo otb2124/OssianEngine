@@ -133,7 +133,7 @@ namespace Physics
                     }
                     else
                     {
-                        if (Physics.collisionHandler.IgnoreCollision(bodyA, bodyB))
+                        if (CollisionHandler.IgnoreCollision(bodyA, bodyB))
                         {
                             continue;
                         }

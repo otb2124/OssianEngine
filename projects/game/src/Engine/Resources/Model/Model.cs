@@ -82,5 +82,20 @@ namespace Resources
             aManager.GetCurrent().Draw(newPos, Color.White, DrawAngle, textureCenter, new Vector2(scaleX, scaleY), 0f);
         }
 
+        public void SwapDirection()
+        {
+            Direction = GetOppositeDirection(Direction);
+        }
+
+        public static Directions GetOppositeDirection(Directions direction)
+        {
+            if(direction == Directions.RIGHT)
+            {
+                return Directions.LEFT;
+            }
+
+            return Directions.RIGHT;
+        }
+
     }
 }

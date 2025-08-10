@@ -75,8 +75,48 @@ namespace Entities
 
         public void Move(Directions direction)
         {
-            Entity.Model.ModelState = ModelStates.MOVING;
             Entity.Model.Direction = direction;
+            Entity.Model.ModelState = ModelStates.MOVING;
+        }
+
+        public void MoveUntillUngrounded(Directions direction)
+        {
+            Entity.Model.Direction = direction;
+
+            if (EntityAIHelper.HasGroundForward(Entity))
+            {
+                Move(direction);
+            }
+            else
+            {
+                Entity.Model.SwapDirection();
+            }
+        }
+
+        public void MoveUntillUngrounded()
+        {
+            if (EntityAIHelper.HasGroundForward(Entity))
+            {
+                Move();
+            }
+            else
+            {
+                Entity.Model.SwapDirection();
+            }
+        }
+
+        public void MoveUntillUngroundedAndStandStill(Directions direction)
+        {
+            Entity.Model.Direction = direction;
+
+            if (EntityAIHelper.HasGroundForward(Entity))
+            {
+                Move(direction);
+            }
+            else
+            {
+                StandStill();
+            }
         }
 
         public void Jump()

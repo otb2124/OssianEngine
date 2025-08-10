@@ -21,12 +21,9 @@ namespace Physics
 
         public static FlatWorld flatWorld;
 
-        public static CollisionHandler collisionHandler;
-
         public static void Init()
         {
             flatWorld = new FlatWorld();
-            collisionHandler = new CollisionHandler();
             watch = new Stopwatch();
             sampleTimer.Start();
         }

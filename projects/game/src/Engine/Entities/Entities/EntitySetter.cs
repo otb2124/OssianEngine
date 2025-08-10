@@ -38,16 +38,16 @@ namespace Entities
 
                     entities.Add(new DestroyableEntity(Models.CRATE_0, new Vector2(-200, -500)));
 
-                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-101, 200)));
-                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-103, 230)));
-                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-102, 250)));
-                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-50, 50)));
-                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
-                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
+                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-101, 200)));
+                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-103, 230)));
+                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-102, 250)));
+                    //entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-50, 50)));
+                    //entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
+                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
                     entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, 100), 0f));
-                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-150, 100), 0f));
-                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(50, 1000), 2f));
+                    //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-150, 100), 0f));
+                    //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(50, 1000), 2f));
 
 
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 300)));

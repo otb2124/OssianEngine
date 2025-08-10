@@ -8,11 +8,8 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Physics
 {
-    public class CollisionHandler
+    public static class CollisionHandler
     {
-
-
-        public CollisionHandler() { }
 
         private static readonly Dictionary<Type, HashSet<Type>> ignoreCollisionTransformation = new()
         {
@@ -36,58 +33,10 @@ namespace Physics
             return body.GetAABB().Min.Y <= ground.GetAABB().Min.Y;
         }
 
-        public static FlatBody GetGround(FlatBody flatBody)
-        {
-            Point modifiedSize = new Point((int)flatBody.Width + 10, (int)flatBody.Height + 10);
-
-            Rectangle groundBoxA = new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y - modifiedSize.Y / 2), modifiedSize);
-
-            foreach (var item in Physics.flatWorld.bodyList)
-            {
-                if(flatBody != item)
-                {
-                    Rectangle bodyBBox = new Rectangle(new Point((int)item.Position.X - (int)item.Width/2, (int)item.Position.Y - (int)item.Height/2), new Point((int)item.Width, (int)item.Height));
-                    if(bodyBBox.Intersects(groundBoxA))
-                    {
-                        return item;
-                    }
-                }
-            }
-            return null;
-        }
-
-        public static bool IsDescending(PhysicalEntity ent)
-        {
-            if (GetGround(ent.Model.Body) == null &&
-                (ent.Model.ModelState == ModelStates.JUMPING ||
-                 ent.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
-                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING ||
-                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
-            {
-                FlatBody body = ent.Model.Body;
-
-                // Update highest Y if current position is higher
-                if (body.Position.Y > ent.HighestJumpY)
-                {
-                    ent.HighestJumpY = body.Position.Y;
-                    return false; // Still ascending or at peak
-                }
-                else if (body.Position.Y < ent.HighestJumpY)
-                {
-                    return true; // Descending
-                }
-            }
-
-            // Reset highestJumpY only when grounded
-            // This is handled in Player.Update to avoid redundancy
-            return false;
-        }
-
-        public bool IgnoreCollision(FlatBody bodyA, FlatBody bodyB)
+        public static bool IgnoreCollision(FlatBody bodyA, FlatBody bodyB)
         {
             Type typeA = bodyA.Owner.GetType();
             Type typeB = bodyB.Owner.GetType();
-
 
             //platforms
             if (!Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVEDOWNPRESSED])
@@ -106,6 +55,82 @@ namespace Physics
                 (ignoreCollisionTransformation.TryGetValue(typeB, out var setB) && setB.Contains(typeA)))
             {
                 return true;
+            }
+
+            return false;
+        }
+
+
+        public static Rectangle CreateGroundingRectangle(FlatBody flatBody)
+        {
+            Point modifiedSize = new Point((int)flatBody.Width + 10, (int)flatBody.Height + 10);
+            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y - modifiedSize.Y / 2), modifiedSize);
+        }
+
+        //TODO MOVE SOMEWHERE ELSE
+        public static FlatBody GetAnyGround(FlatBody flatBody)
+        {
+            return GetGroundAtRectangleForBody(flatBody, CreateGroundingRectangle(flatBody));
+        }
+
+        //TODO MOVE SOMEWHERE ELSE
+        public static FlatBody GetGroundAtRectangleForBody(FlatBody flatBody, Rectangle rect)
+        {
+            foreach (FlatBody item in Physics.flatWorld.bodyList)
+            {
+                //TODO FIX FOR IGNORECOLLISION
+                //|| IgnoreCollision(flatBody, item)
+                if (flatBody == item)
+                {
+                    return null;
+                }
+
+                Rectangle bodyBBox = new Rectangle(new Point((int)item.Position.X - (int)item.Width / 2, (int)item.Position.Y - (int)item.Height / 2), new Point((int)item.Width, (int)item.Height));
+
+                if (bodyBBox.Intersects(rect))
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
+        //TODO MOVE SOMEWHERE ELSE
+        public static FlatBody GetGroundAtRectangle(Rectangle rect)
+        {
+            foreach (var item in Physics.flatWorld.bodyList)
+            {
+                Rectangle bodyBBox = new Rectangle(new Point((int)item.Position.X - (int)item.Width / 2, (int)item.Position.Y - (int)item.Height / 2), new Point((int)item.Width, (int)item.Height));
+                if (bodyBBox.Intersects(rect))
+                {
+                    return item;
+                }
+            }
+
+            return null;
+        }
+
+        //TODO MOVE SOMEWHERE ELSE
+        public static bool IsDescending(PhysicalEntity ent)
+        {
+            if (GetAnyGround(ent.Model.Body) == null &&
+                (ent.Model.ModelState == ModelStates.JUMPING ||
+                 ent.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
+                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING ||
+                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
+            {
+                FlatBody body = ent.Model.Body;
+
+                if (body.Position.Y > ent.HighestJumpY)
+                {
+                    ent.HighestJumpY = body.Position.Y;
+                    return false;
+                }
+                else if (body.Position.Y < ent.HighestJumpY)
+                {
+                    return true;
+                }
             }
 
             return false;
