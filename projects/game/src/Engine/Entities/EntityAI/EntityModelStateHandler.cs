@@ -181,7 +181,7 @@ namespace Entities {
                 // JUMP
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                 {
-                    if (player.Stats.stamina - player.Stats.staminaJumpCostSec > 0 && player.Stats.IsGrounded && !player.Stats.IsTouchingTheCeiling)
+                    if (player.Stats.stamina - player.Stats.staminaJumpCostSec > 0 && player.Stats.IsGrounded)
                     {
                         player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
                     }
@@ -191,13 +191,13 @@ namespace Entities {
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
                      player.Model.ModelState == ModelStates.JUMPING_DESCENDING) &&
-                    !player.Stats.IsGrounded && !player.Stats.IsTouchingTheCeiling &&
+                    !player.Stats.IsGrounded &&
                     player.Stats.AllowJumpDescending)
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING_AND_MOVING;
                 }
 
-                if (!player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING)
+                if (player.Stats.IsTouchingCeiling || (!player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
                 {
                     player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
                 }
@@ -262,7 +262,6 @@ namespace Entities {
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING) &&
                     !player.Stats.IsGrounded &&
-                    !player.Stats.IsTouchingTheCeiling &&
                     player.Stats.AllowJumpDescending)
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING;
@@ -272,13 +271,13 @@ namespace Entities {
                     {
                         player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
                     }
-                    else if (!player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING && player.Model.ModelState != ModelStates.JUMPING)
+                    else if (player.Stats.IsTouchingCeiling || (!player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING && player.Model.ModelState != ModelStates.JUMPING))
                     {
                         player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
                     }
 
                     // JUMP
-                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED] && !player.Stats.IsTouchingTheCeiling)
+                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                     {
                         if (player.Stats.stamina - player.Stats.staminaJumpCostSec > 0)
                         {

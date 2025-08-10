@@ -26,7 +26,18 @@ namespace Physics
         public static Rectangle CreateCeilingRectangle(FlatBody flatBody)
         {
             Point modifiedSize = new Point((int)flatBody.Width + GroundingBodySizeOffset, (int)GroundingBodySizeOffset);
-            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y + (int)flatBody.Height / 2 + GroundingBodySizeOffset), modifiedSize);
+            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y + (int)GroundingBodySizeOffset), modifiedSize);
+        }
+
+        public static Rectangle CreateSidingRectangle(FlatBody flatBody)
+        {
+            Point modifiedSize = new Point((int)flatBody.Width + GroundingBodySizeOffset, (int)GroundingBodySizeOffset);
+            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y), modifiedSize);
+        }
+
+        public static FlatBody GetAnySiding(FlatBody flatBody)
+        {
+            return GetAnyBodyAtRectangleForOtherBody(flatBody, CreateGroundingRectangle(flatBody));
         }
 
         public static FlatBody GetAnyGround(FlatBody flatBody)

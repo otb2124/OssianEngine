@@ -162,7 +162,6 @@ namespace Entities
         public override void Update()
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);
-            Console.WriteLine(CollisionsHelper.GetAnyCeiling(Model.Body) != null);
 
             base.Update();
         }

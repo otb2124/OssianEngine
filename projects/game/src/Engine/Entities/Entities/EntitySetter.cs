@@ -27,11 +27,13 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(600,  -250), new Point(3, 2), TileEntity.TileSets.SET0, 0.2f));
                     entities.Add(new TileEntity(new Vector2(800,  -250), new Point(3, 2), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(1000, -250), new Point(2, 2), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(1200, -250), new Point(3, 2), TileEntity.TileSets.SET0));
+                    entities.Add(new TileEntity(new Vector2(1000, -250), new Point(3, 2), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(-150,   90), new Point(15, 1), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(0,    -625), new Point(20, 1), TileEntity.TileSets.SET0, 0, true));
                     entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
+                    entities.Add(new TileEntity(new Vector2(550, -400), new Point(5, 5), TileEntity.TileSets.SET0, 0, true));
                     entities.Add(new TileEntity(new Vector2(500,  -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
+                    
 
                     entities.Add(new PlatformEntity(new Vector2(0, 0), 5));
                     entities.Add(new PlatformEntity(new Vector2(140, -60), 5));

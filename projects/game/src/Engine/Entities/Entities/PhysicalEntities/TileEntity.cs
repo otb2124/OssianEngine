@@ -59,7 +59,7 @@ namespace Entities
 
         public AnimationManager[] aManagers;
         public int[][] Indicies;
-        public bool IsGrounding;
+        public bool IsGround;
         public TileSets TileSet;
 
         public TileEntity(Vector2 pos, Point layout, TileSets tileSet, float rot = 0f, bool isGrounding = false) : base()
@@ -68,7 +68,7 @@ namespace Entities
             this.Indicies = GenerateIndicies(layout.X, layout.Y, isGrounding);
             Model = new Resources.Model();
             Model.Body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32 * layout.Y), 1f, 0.5f);
-            IsGrounding = isGrounding;
+            IsGround = isGrounding;
             Init(pos, rot);
         }
 
@@ -205,8 +205,8 @@ namespace Entities
                 }
             }
 
-            // Draw grounding rows if IsGrounding is true
-            if (IsGrounding)
+            // Draw grounding rows if IsGround is true
+            if (IsGround)
             {
                 for (int x = Indicies.Length; x < Indicies.Length + 25; x++)
                 {

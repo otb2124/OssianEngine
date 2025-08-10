@@ -44,7 +44,8 @@ namespace Entities
         public bool AllowJumpDescending;
         public bool AllowJumpDescendingLock = true;
         public bool IsGrounded;
-        public bool IsTouchingTheCeiling;
+        public bool IsTouchingCeiling;
+        public bool IsTouchingWalls;
         public float MaxDescendingSec;
         public int DescendingCounter = 0;
 
@@ -181,8 +182,12 @@ namespace Entities
         public void UpdateDescending(PhysicalEntity ent)
         {
             IsGrounded = CollisionsHelper.GetAnyGround(ent.Model.Body) != null;
+            IsTouchingCeiling = CollisionsHelper.GetAnyCeiling(ent.Model.Body) != null;
+            IsTouchingWalls = CollisionsHelper.GetAnySiding(ent.Model.Body) != null;
 
-            if(ent.Model.ModelState == ModelStates.JUMPING ||
+            
+
+            if (ent.Model.ModelState == ModelStates.JUMPING ||
                  ent.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
                  ent.Model.ModelState == ModelStates.JUMPING_DESCENDING ||
                  ent.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING)
@@ -209,13 +214,15 @@ namespace Entities
             }
 
 
-            if(IsGrounded)
+            if(IsGrounded || IsTouchingCeiling)
             {
                 IsJumpDescending = false;
                 AllowJumpDescendingLock = false;
                 AllowJumpDescending = false;
                 DescendingCounter = 0;
             }
+
+            Console.WriteLine(IsJumpDescending);
         }
 
         public bool LostPoise()
