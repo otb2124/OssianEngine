@@ -179,8 +179,16 @@ namespace Entities
 
         public void UpdateDescending(PhysicalEntity ent)
         {
-            IsGrounded = CollisionHandler.GetAnyGround(ent.Model.Body) != null;
-            IsJumpDescending = CollisionHandler.IsDescending(ent);
+            IsGrounded = CollisionsHelper.GetAnyGround(ent.Model.Body) != null;
+
+            if(ent.Model.ModelState == ModelStates.JUMPING ||
+                 ent.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
+                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING ||
+                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING)
+            {
+                IsJumpDescending = CollisionsHelper.IsDescending(ent);
+            }
+            
 
             if (AllowJumpDescendingLock && IsJumpDescending)
             {

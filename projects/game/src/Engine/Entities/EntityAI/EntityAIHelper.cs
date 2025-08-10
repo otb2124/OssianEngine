@@ -168,7 +168,7 @@ namespace Entities
 
         public static bool HasGroundForward(StatsEntity ent)
         {
-            Rectangle rectToCheck = CollisionHandler.CreateGroundingRectangle(ent.Model.Body);
+            Rectangle rectToCheck = CollisionsHelper.CreateGroundingRectangle(ent.Model.Body);
             int distanceToStopBeforeEdge = (int)ent.Model.Body.Width * 2;
 
 
@@ -181,7 +181,7 @@ namespace Entities
                 rectToCheck.X -= distanceToStopBeforeEdge;
             }
 
-            return CollisionHandler.GetGroundAtRectangleForBody(ent.Model.Body, rectToCheck) != null;
+            return CollisionsHelper.GetGroundAtRectangleForBody(ent.Model.Body, rectToCheck) != null;
         }
     }
 }

@@ -79,6 +79,11 @@ namespace Entities
             Entity.Model.ModelState = ModelStates.MOVING;
         }
 
+        public void MoveUntillUngrounded()
+        {
+            MoveUntillUngrounded(Entity.Model.Direction);
+        }
+
         public void MoveUntillUngrounded(Directions direction)
         {
             Entity.Model.Direction = direction;
@@ -86,18 +91,6 @@ namespace Entities
             if (EntityAIHelper.HasGroundForward(Entity))
             {
                 Move(direction);
-            }
-            else
-            {
-                Entity.Model.SwapDirection();
-            }
-        }
-
-        public void MoveUntillUngrounded()
-        {
-            if (EntityAIHelper.HasGroundForward(Entity))
-            {
-                Move();
             }
             else
             {
@@ -202,7 +195,6 @@ namespace Entities
                     PerformWeaponAttack(type);
                 }
             }
-
         }
 
         public void FollowEntityAndWeaponAttackNearestOfFraction(StatsEntity.EntityFractions fraction, AttackTypes attackType)
