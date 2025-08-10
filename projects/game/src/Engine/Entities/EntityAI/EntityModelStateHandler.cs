@@ -87,6 +87,16 @@ namespace Entities {
                         eqEnt.Stats.staminaPerAttackHitSpent = true;
                     }
                 }
+
+                if (state == ModelStates.BLOCKING)
+                {
+                    if (!eqEnt.Stats.staminaPerAttackHitSpent)
+                    {
+
+                    }
+                    
+                    //Stats.stamina -= Stats.staminaRollCostSec / 60;
+                }
             }
             
         }
@@ -127,7 +137,7 @@ namespace Entities {
                     player.Model.ModelState = ModelStates.ATTACKING_HEAVY;
                 }
             }
-            //ROLL
+            //BLOCK
             else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED]
                 && !KeyHandlerUtil.isPlayerMoving()
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING
@@ -144,6 +154,14 @@ namespace Entities {
                     }
                 }
             }
+            //BLOCK RESET
+            else if (player.Model.ModelState == ModelStates.BLOCKING
+                && !Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED])
+            {
+                player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
+            }
+
+
             // Handle movement and other states
             if (KeyHandlerUtil.isPlayerMoving() &&
                 player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
@@ -193,7 +211,8 @@ namespace Entities {
                 {
 
                     // SPRINT
-                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED])
+                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] &&
+                    player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
                     {
                         if (player.Stats.stamina - player.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
                             !player.Stats.OnStaminaRegen)
@@ -203,7 +222,8 @@ namespace Entities {
                     }
 
                     //ROLL
-                    else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED])
+                    else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED] &&
+                    player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
                     {
                         if (player.Stats.stamina > 0)
                         {
@@ -235,7 +255,8 @@ namespace Entities {
             }
             // NO MOVEMENT
             else if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
-                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY)
+                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
+                     player.Model.ModelState != ModelStates.BLOCKING)
             {
                 // Handle descending when not moving
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
@@ -245,9 +266,7 @@ namespace Entities {
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING;
                 }
-                // Set idle state when grounded and not attacking
-                if(player.Model.ModelState != ModelStates.BLOCKING)
-                {
+
                     if (player.Stats.IsGrounded && !player.Stats.AllowJumpDescending)
                     {
                         player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
@@ -265,7 +284,7 @@ namespace Entities {
                             player.Model.ModelState = ModelStates.JUMPING;
                         }
                     }
-                }
+                
                 
 
                 //Console.WriteLine(player.Model.ModelState);
