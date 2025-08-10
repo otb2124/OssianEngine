@@ -62,6 +62,8 @@ namespace Entities
                             
                         }
                     }
+
+                    RemovePhysicalEntityWhenOutOfBounds((PhysicalEntity)entFrom);
                 }
             }
         }
@@ -87,10 +89,8 @@ namespace Entities
             {
                 Physics.Physics.flatWorld.RemoveBody(physicalEntity.Model.Body);
             }
-            Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(ent);
-            
+            Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(ent);   
         }
-
 
         public void RemoveAll()
         {
@@ -102,6 +102,19 @@ namespace Entities
                     RemoveEntity(entity);
                 }
                 
+            }
+        }
+
+        public void RemovePhysicalEntityWhenOutOfBounds(PhysicalEntity ent)
+        {
+            Vector2 entPos = ent.Model.Body.Position.ToVector2();
+            Point mapSize = Entities.entityMapManager.GetCurrentMap().Size;
+            Rectangle worldBounds = new Rectangle(-mapSize.X/2, -mapSize.Y/2, mapSize.X, mapSize.Y);
+
+            if (!worldBounds.Contains(entPos))
+            {
+                //Console.WriteLine("Deleted at: " + entPos + " , MapSize: " + worldBounds);
+                RemoveEntity(ent);
             }
         }
 

@@ -44,7 +44,7 @@ namespace Entities {
 
             if (state == ModelStates.BLOCKING)
             {
-                Console.WriteLine("block");
+                //Console.WriteLine("block");
                 //Stats.stamina -= Stats.staminaRollCostSec / 60;
             }
 

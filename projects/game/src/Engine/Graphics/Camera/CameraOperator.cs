@@ -19,9 +19,9 @@ namespace Graphics
 
         public void Update()
         {
-            this.targetPosition = FlatConverter.ToVector2(Entities.Entities.Player.Model.Body.Position);
+            targetPosition = FlatConverter.ToVector2(Entities.Entities.Player.Model.Body.Position);
 
-            Vector2 mapSize = Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Size.ToVector2() / 2f;
+            Vector2 mapSize = Entities.Entities.entityMapManager.GetCurrentMap().Size.ToVector2() / 2f;
             Vector2 screenSize = new Vector2(Graphics.screen.Width, Graphics.screen.Height);
 
             // Zoom

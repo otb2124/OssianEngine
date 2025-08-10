@@ -45,11 +45,12 @@ namespace Graphics
                 }
             }
 
-
             foreach (ParticleSet particleSet in ParticleSetsToRemove)
             {
                 ParticleSets.Remove(particleSet);
             }
+
+            
         }
 
         public void Draw()

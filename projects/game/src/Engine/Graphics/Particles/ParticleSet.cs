@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using static Graphics.Particle;
 
@@ -125,6 +126,8 @@ namespace Graphics
             {
                 particle.Draw();
             }
+
+            Console.WriteLine(Particles.Count);
         }
     }
 }
