@@ -7,8 +7,6 @@ namespace Entities
 {
     public class EntityStats
     {
-
-
         //indicators
         public float maxHP;
         public float HP;
@@ -222,9 +220,9 @@ namespace Entities
 
         public void UpdateDescending(StatsEntity ent)
         {
-            IsGrounded = CollisionHelper.GetAnyGround(ent.Model.Body) != null;
-            IsTouchingCeiling = CollisionHelper.GetAnyCeiling(ent.Model.Body) != null;
-            IsTouchingWalls = CollisionHelper.GetAnyWalls(ent.Model.Body) != null;
+            IsGrounded = CollisionHelper.GetAnyGround(ent) != null;
+            IsTouchingCeiling = CollisionHelper.GetAnyCeiling(ent) != null;
+            IsTouchingWalls = CollisionHelper.GetAnyWalls(ent) != null;
 
             if(IsTouchingWalls)
             {

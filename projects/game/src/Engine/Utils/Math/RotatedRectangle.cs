@@ -121,5 +121,11 @@ namespace Utils
 
             return true;
         }
+
+
+        public override string ToString()
+        {
+            return "PosX: " + Position.X + ", PosY: " + Position.Y + ", Width: " + Width + ", Height: " + Height + ", Rot: " + Rotation;
+        }
     }
 }

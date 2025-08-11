@@ -28,6 +28,7 @@ namespace Entities
 
         public Dictionary<EntitySounds, Resources.Sounds[]> soundSet;
 
+
         public PhysicalEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base() 
         {
             Init(modelPreset, pos, rotation);

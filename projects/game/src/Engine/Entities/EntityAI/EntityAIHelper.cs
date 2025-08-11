@@ -168,17 +168,16 @@ namespace Entities
 
         public static bool HasGroundForward(StatsEntity ent)
         {
-            Rectangle rectToCheck = CollisionHelper.CreateGroundingRectangle(ent.Model.Body);
+            RotatedRectangle rectToCheck = CollisionHelper.CreateGroundingRectangle(ent.Model.Body);
             int distanceToStopBeforeEdge = (int)ent.Model.Body.Width * 2;
-
 
             if (ent.Model.Direction == Directions.RIGHT)
             {
-                rectToCheck.X += distanceToStopBeforeEdge;
+                rectToCheck.Position.X += distanceToStopBeforeEdge;
             }
             else
             {
-                rectToCheck.X -= distanceToStopBeforeEdge;
+                rectToCheck.Position.X -= distanceToStopBeforeEdge;
             }
 
             return CollisionHelper.GetAnyBodyAtRectangleForOtherBody(ent.Model.Body, rectToCheck) != null;

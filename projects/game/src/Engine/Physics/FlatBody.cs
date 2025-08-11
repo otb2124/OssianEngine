@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using Utils;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Physics
@@ -391,9 +392,9 @@ namespace Physics
         }
 
 
-        public Rectangle ToRectangle()
+        public RotatedRectangle ToRectangle()
         {
-            return new Rectangle(new Point((int)Position.X - (int)Width / 2, (int)Position.Y - (int)Height / 2), new Point((int)Width, (int)Height));
+            return new RotatedRectangle(new Vector2(Position.X, Position.Y), new Vector2(Width, Height), Angle);
         }
 
 

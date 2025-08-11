@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 
 namespace Physics
 {
@@ -17,28 +18,28 @@ namespace Physics
             return body.GetAABB().Min.Y <= ground.GetAABB().Min.Y;
         }
 
-        public static Rectangle CreateGroundingRectangle(FlatBody flatBody)
+        public static RotatedRectangle CreateGroundingRectangle(FlatBody flatBody)
         {
-            Point modifiedSize = new Point((int)flatBody.Width + GroundingBodySizeOffset, GroundingBodySizeOffset);
-            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y - (int)flatBody.Height/2 - GroundingBodySizeOffset), modifiedSize);
+            Vector2 modifiedSize = new Vector2(flatBody.Width + GroundingBodySizeOffset, GroundingBodySizeOffset);
+            return new RotatedRectangle(new Vector2(flatBody.Position.X, flatBody.Position.Y - flatBody.Height/ 2 - GroundingBodySizeOffset / 2), modifiedSize, flatBody.Angle);
         }
 
-        public static Rectangle CreateCeilingRectangle(FlatBody flatBody)
+        public static RotatedRectangle CreateCeilingRectangle(FlatBody flatBody)
         {
-            Point modifiedSize = new Point((int)flatBody.Width + GroundingBodySizeOffset, GroundingBodySizeOffset);
-            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y + GroundingBodySizeOffset), modifiedSize);
+            Vector2 modifiedSize = new Vector2(flatBody.Width + GroundingBodySizeOffset, GroundingBodySizeOffset);
+            return new RotatedRectangle(new Vector2(flatBody.Position.X, flatBody.Position.Y + flatBody.Height/2 + GroundingBodySizeOffset/2), modifiedSize, flatBody.Angle);
         }
 
-        public static Rectangle CreateSidingRectangle(FlatBody flatBody)
+        public static RotatedRectangle CreateSidingRectangle(FlatBody flatBody)
         {
-            Point modifiedSize = new Point((int)flatBody.Width + GroundingBodySizeOffset, (int)flatBody.Height);
-            return new Rectangle(new Point((int)flatBody.Position.X - modifiedSize.X / 2, (int)flatBody.Position.Y - modifiedSize.Y/2), modifiedSize);
+            Vector2 modifiedSize = new Vector2(flatBody.Width + GroundingBodySizeOffset, flatBody.Height/2);
+            return new RotatedRectangle(new Vector2(flatBody.Position.X, flatBody.Position.Y), modifiedSize, flatBody.Angle);
         }
 
 
-        public static FlatBody GetAnyWalls(FlatBody flatBody)
+        public static FlatBody GetAnyWalls(StatsEntity ent)
         {
-            FlatBody candidate = GetSpecificEntityTypeBodyAtRectangleForOtherBody(flatBody, CreateSidingRectangle(flatBody), typeof(TileEntity));
+            FlatBody candidate = GetSpecificEntityTypeBodyAtRectangleForOtherBody(ent.Model.Body, ent.Model.SidingRectangle, typeof(TileEntity));
 
             if (candidate != null && ((TileEntity)candidate.Owner).DisableEntityBodyGroundingStatusOnWalls)
             {
@@ -48,17 +49,17 @@ namespace Physics
             return null;
         }
 
-        public static FlatBody GetAnyGround(FlatBody flatBody)
+        public static FlatBody GetAnyGround(StatsEntity ent)
         {
-            return GetAnyBodyAtRectangleForOtherBody(flatBody, CreateGroundingRectangle(flatBody));
+            return GetAnyBodyAtRectangleForOtherBody(ent.Model.Body, ent.Model.GroundingRectangle);
         }
 
-        public static FlatBody GetAnyCeiling(FlatBody flatBody)
+        public static FlatBody GetAnyCeiling(StatsEntity ent)
         {
-            return GetAnyBodyAtRectangleForOtherBody(flatBody, CreateCeilingRectangle(flatBody));
+            return GetAnyBodyAtRectangleForOtherBody(ent.Model.Body, ent.Model.CeilingRectangle);
         }
 
-        public static FlatBody GetSpecificEntityTypeBodyAtRectangleForOtherBody(FlatBody flatBody, Rectangle rect, Type type)
+        public static FlatBody GetSpecificEntityTypeBodyAtRectangleForOtherBody(FlatBody flatBody, RotatedRectangle rect, Type type)
         {
             FlatBody candidate = GetAnyBodyAtRectangleForOtherBody(flatBody, rect);
             if (candidate != null && type.IsInstanceOfType(candidate.Owner))
@@ -69,7 +70,7 @@ namespace Physics
             return null;
         }
 
-        public static FlatBody GetAnyBodyAtRectangleForOtherBody(FlatBody flatBody, Rectangle rect)
+        public static FlatBody GetAnyBodyAtRectangleForOtherBody(FlatBody flatBody, RotatedRectangle rect)
         {
             FlatBody candidate = GetAnyBodyAtRectangle(rect);
 
@@ -84,11 +85,11 @@ namespace Physics
             return null;
         }
 
-        public static FlatBody GetAnyBodyAtRectangle(Rectangle rect)
+        public static FlatBody GetAnyBodyAtRectangle(RotatedRectangle rect)
         {
             foreach (var item in Physics.flatWorld.bodyList)
             {
-                Rectangle bodyBBox = new Rectangle(new Point((int)item.Position.X - (int)item.Width / 2, (int)item.Position.Y - (int)item.Height / 2), new Point((int)item.Width, (int)item.Height));
+                RotatedRectangle bodyBBox = item.ToRectangle();
                 if (bodyBBox.Intersects(rect))
                 {
                     return item;
@@ -97,9 +98,9 @@ namespace Physics
 
             return null;
         }
-        public static bool IsDescending(PhysicalEntity ent)
+        public static bool IsDescending(StatsEntity ent)
         {
-            if (GetAnyGround(ent.Model.Body) == null)
+            if (GetAnyGround(ent) == null)
             {
                 FlatBody body = ent.Model.Body;
 
@@ -123,8 +124,8 @@ namespace Physics
             {
                 if(item.Owner is LedgeEntity)
                 {
-                    Rectangle bodyBBox = body.ToRectangle();
-                    Rectangle itemBox = item.ToRectangle();
+                    RotatedRectangle bodyBBox = body.ToRectangle();
+                    RotatedRectangle itemBox = item.ToRectangle();
 
                     if (bodyBBox.Intersects(itemBox))
                     {

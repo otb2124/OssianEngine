@@ -26,6 +26,9 @@ namespace Resources
 
         public float DrawAngle = 0;
 
+        public RotatedRectangle GroundingRectangle;
+        public RotatedRectangle CeilingRectangle;
+        public RotatedRectangle SidingRectangle;
 
         public Model()
         {
@@ -36,6 +39,24 @@ namespace Resources
             this.Body = FlatBodyFactory.createFlatBody(preset.bodyPreset, this.bodyOffset);
             this.spriteData = preset.spriteData;
             aManager = new AnimationManager();
+
+            SetSurroundingRectangles();
+        }
+
+        public virtual void SetSurroundingRectangles()
+        {
+            GroundingRectangle = CollisionHelper.CreateGroundingRectangle(Body);
+            CeilingRectangle = CollisionHelper.CreateCeilingRectangle(Body);
+            SidingRectangle = CollisionHelper.CreateSidingRectangle(Body);
+        }
+
+
+        //TODO: OPTIMIZE USING RECTANGLE.UPDATE()
+        public virtual void UpdateSurroundingRectangles()
+        {
+            GroundingRectangle = CollisionHelper.CreateGroundingRectangle(Body);
+            CeilingRectangle = CollisionHelper.CreateCeilingRectangle(Body);
+            SidingRectangle = CollisionHelper.CreateSidingRectangle(Body);
         }
 
         public void DrawCollider()
@@ -51,6 +72,20 @@ namespace Resources
                 Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(Body.Position), Body.Radius, 26, drawColor);
             }
         }
+
+        public void DrawSurroundigRectangles()
+        {
+            Color surroundingRectDrawColor = Color.Orange;
+            Color drawColor = new Color((byte)surroundingRectDrawColor.R, (byte)surroundingRectDrawColor.G, (byte)surroundingRectDrawColor.B, (byte)64);
+
+            if (Body.BodyShapeType == BodyShapeType.Box)
+            {
+                Graphics.Graphics.shapes.DrawBoxFill(GroundingRectangle.Position, GroundingRectangle.Width, GroundingRectangle.Height, GroundingRectangle.Rotation, drawColor);
+                Graphics.Graphics.shapes.DrawBoxFill(CeilingRectangle.Position, CeilingRectangle.Width, CeilingRectangle.Height, CeilingRectangle.Rotation, drawColor);
+                Graphics.Graphics.shapes.DrawBoxFill(SidingRectangle.Position, SidingRectangle.Width, SidingRectangle.Height, SidingRectangle.Rotation, drawColor);
+            }
+        }
+
         public void Draw()
         {
             //Model

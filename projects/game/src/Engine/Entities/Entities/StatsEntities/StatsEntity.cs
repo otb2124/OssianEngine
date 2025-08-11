@@ -4,6 +4,7 @@ using Physics;
 using Resources;
 using System;
 using Utils;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Entities
 {
@@ -71,10 +72,12 @@ namespace Entities
                 Stats.UpdateLedgeHanging(this);
             }
 
+            Model.UpdateSurroundingRectangles();
             Stats.UpdateDescending(this);
 
             base.Update();
         }
+
 
         public virtual void SetStats()
         {
@@ -95,5 +98,11 @@ namespace Entities
 
 
         public virtual void DrawHitboxes(){}
+
+        public override void DrawCollider()
+        {
+            Model.DrawSurroundigRectangles();
+            base.DrawCollider();
+        }
     }
 }
