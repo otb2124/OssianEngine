@@ -9,7 +9,7 @@ using Utils;
 
 namespace Entities
 {
-    public static class EntitySetter
+    public static class EntityMapSetter
     {
 
 
@@ -24,7 +24,8 @@ namespace Entities
 
                     //parkour way
                     entities.Add(new TileEntity(new Vector2(550, -400), new Point(5, 5), TileEntity.TileSets.SET0, 0, true, true));
-                    entities.Add(new LedgeEntity(new Vector2(472, -450), Directions.LEFT));
+                    entities.Add(new LedgeEntity(new Vector2(472, -460), Directions.LEFT));
+                    entities.Add(new LedgeEntity(new Vector2(472, -350), Directions.LEFT));
 
                     entities.Add(new TileEntity(new Vector2(-75,  -250), new Point(3, 3), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(50,   -250), new Point(3, 1), TileEntity.TileSets.SET0));

@@ -28,7 +28,7 @@ namespace Entities
             for (int i = 0; i < MapsCount; i++)
             {
                 maps[i] = new EntityMap(i);
-                maps[i].Entities = EntitySetter.FillEntityMap(i);
+                maps[i].Entities = EntityMapSetter.FillEntityMap(i);
                 maps[i].Events = EventSetter.FillEventMap(i);
             }
         }

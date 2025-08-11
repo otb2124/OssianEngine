@@ -48,6 +48,9 @@ namespace Entities
         public bool IsTouchingWalls;
         public float MaxDescendingSec;
         public int DescendingCounter = 0;
+        public bool AllowHangingOnLedge = true;
+        public int HangingCounter = 0;
+        public int UnHangingCounter = 0;
 
         public float rollMultiplier;
         public float sprintMultiplier;
@@ -178,6 +181,44 @@ namespace Entities
                 }
             }
         }
+
+        public void UpdateLedgeHanging(StatsEntity ent)
+        {
+            if(!AllowHangingOnLedge && ent.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
+            {
+                UnHangingCounter++;
+
+                if (UnHangingCounter > 0.5f * Graphics.Graphics.UpdatesPerSecond)
+                {
+                    AllowHangingOnLedge = true;
+                    UnHangingCounter = 0;
+                }
+            }
+
+            if (IsTouchingWalls)
+            {
+                LedgeEntity ledge = CollisionHelper.GetAnyLedges(ent.Model.Body);
+                if (ledge != null && AllowHangingOnLedge)
+                {
+                    ent.Model.ModelState = ModelStates.HANGING_ON_LEDGE;
+                    ent.Model.Body.MoveTo(FlatConverter.ToFlatVector(ledge.HangingPosition));
+
+                    HangingCounter++;
+                    if(HangingCounter > 0.5f * Graphics.Graphics.UpdatesPerSecond)
+                    {
+                        AllowHangingOnLedge = false;
+                        HangingCounter = 0;
+                    }
+
+                    //TODO FIX THE LEDGES DIRECTION SWAP
+                    //if(ledge.Model.Direction == Directions.LEFT)
+                    //{
+                    //    Model.SwapDirection();
+                    //}
+                }
+            }
+        }
+
 
         public void UpdateDescending(StatsEntity ent)
         {

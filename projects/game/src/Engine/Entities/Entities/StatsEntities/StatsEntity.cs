@@ -68,32 +68,12 @@ namespace Entities
             }
             if(CanHangLedges)
             {
-                UpdateLedgeHanging();
+                Stats.UpdateLedgeHanging(this);
             }
 
             Stats.UpdateDescending(this);
 
             base.Update();
-        }
-
-
-        public void UpdateLedgeHanging()
-        {
-            if (Stats.IsTouchingWalls)
-            {
-                LedgeEntity ledge = CollisionHelper.GetAnyLedges(Model.Body);
-                if(ledge != null)
-                {
-                    Model.ModelState = ModelStates.HANGING_ON_LEDGE;
-                    Model.Body.MoveTo(FlatConverter.ToFlatVector(ledge.HangingPosition));
-
-                    //TODO FIX THE LEDGES DIRECTION SWAP
-                    //if(ledge.Model.Direction == Directions.LEFT)
-                    //{
-                    //    Model.SwapDirection();
-                    //}
-                }
-            }
         }
 
         public virtual void SetStats()

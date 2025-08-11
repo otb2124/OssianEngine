@@ -22,7 +22,7 @@ namespace Entities
 
         public void Init()
         {
-            //Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities = EntitySetter.FillEntityMap(Entities.entityMapManager.CurrentMapId);
+            //Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities = EntityMapSetter.FillEntityMap(Entities.entityMapManager.CurrentMapId);
         }
 
         public void Update()
