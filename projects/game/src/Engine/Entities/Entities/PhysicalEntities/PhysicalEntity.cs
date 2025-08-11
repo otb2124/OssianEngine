@@ -48,13 +48,14 @@ namespace Entities
 
         }
 
-        public virtual void Init(Models modelPreset, Vector2 pos, float rotation = 0f)
+        public virtual void Init(Models modelPreset, Vector2 pos, float rotation = 0f, Directions initDirection = Directions.LEFT)
         {
             Model = ModelFactory.CreateModel(modelPreset);
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
+            Model.Direction = initDirection;
 
             this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
@@ -220,7 +221,7 @@ namespace Entities
 
         public virtual void SetAnimations()
         {
-            Model.aManager.AddStaticAnimation(this.Model.spriteData);
+            Model.aManager.AddStaticAnimation(Model.spriteData);
         }
 
         public override void Draw()

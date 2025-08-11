@@ -204,7 +204,7 @@ namespace Entities
                     ent.Model.Body.MoveTo(FlatConverter.ToFlatVector(ledge.HangingPosition));
 
                     HangingCounter++;
-                    if(HangingCounter > 0.5f * Graphics.Graphics.UpdatesPerSecond)
+                    if(HangingCounter > 0.25f * Graphics.Graphics.UpdatesPerSecond)
                     {
                         AllowHangingOnLedge = false;
                         HangingCounter = 0;

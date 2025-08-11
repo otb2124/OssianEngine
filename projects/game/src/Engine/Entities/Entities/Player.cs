@@ -169,8 +169,6 @@ namespace Entities
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);
             base.Update();
-
-            Console.WriteLine(Model.Body.linearVelocity);
         }
 
         public override void Draw()
