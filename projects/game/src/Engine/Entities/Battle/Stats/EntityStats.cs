@@ -196,7 +196,7 @@ namespace Entities
 
 
             //removed istouchingwalls condition
-            if (true)
+            if (IsTouchingWalls)
             {
                 LedgeEntity ledge = CollisionHelper.GetAnyLedges(ent.Model.Body);
                 if (ledge != null && AllowHangingOnLedge)
@@ -205,20 +205,31 @@ namespace Entities
                     ent.Model.Body.MoveTo(FlatConverter.ToFlatVector(ledge.HangingPosition));
 
                     HangingCounter++;
-                    if(HangingCounter > 0.25f * Graphics.Graphics.UpdatesPerSecond)
+                    if (HangingCounter > 0.25f * Graphics.Graphics.UpdatesPerSecond)
                     {
                         AllowHangingOnLedge = false;
                         HangingCounter = 0;
                     }
 
                     //TODO FIX THE LEDGES DIRECTION SWAP
-                    if(ledge.Model.Direction == Directions.RIGHT)
+                    if (ledge.Model.Direction == Directions.RIGHT)
                     {
                         ent.Model.animationState = AnimationStates.HANGING_ON_LEDGE_RIGHT;
                     }
                     else
                     {
                         ent.Model.animationState = AnimationStates.HANGING_ON_LEDGE_LEFT;
+                    }
+                }
+
+
+                //autoclimb case
+                if (ledge != null && !AllowHangingOnLedge)
+                {
+                    if(ledge.AutoClimbing)
+                    {
+                        ent.Model.Body.MoveTo(FlatConverter.ToFlatVector(ledge.AutoClimbingDestination));
+                        ent.Model.ModelState = ModelStates.IDLE;
                     }
                 }
             }

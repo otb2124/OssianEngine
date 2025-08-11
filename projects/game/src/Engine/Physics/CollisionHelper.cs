@@ -39,9 +39,9 @@ namespace Physics
 
         public static FlatBody GetAnyWalls(StatsEntity ent)
         {
-            FlatBody candidate = GetSpecificEntityTypeBodyAtRectangleForOtherBody(ent.Model.Body, ent.Model.SidingRectangle, typeof(TileEntity));
+            FlatBody candidate = GetAnyBodyAtRectangleForOtherBody(ent.Model.Body, ent.Model.SidingRectangle);
 
-            if (candidate != null && ((TileEntity)candidate.Owner).DisableEntityBodyGroundingStatusOnWalls)
+            if (candidate != null && candidate.Owner.IsWall)
             {
                 return candidate;
             }

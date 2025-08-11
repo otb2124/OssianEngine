@@ -19,10 +19,18 @@ namespace Entities
         public Vector2 HangingPosition;
         public Ledges Type;
 
-        public LedgeEntity(Vector2 pos, Directions direction, Ledges type = Ledges.INVISIBLE) : base()
+        public bool AutoClimbing;
+        public Vector2 AutoClimbingDestination;
+
+        public LedgeEntity(Vector2 pos, Directions direction, Ledges type = Ledges.INVISIBLE, bool autoClimbing = false) : base()
         {
             HangingPosition = new Vector2(pos.X + 10 * Resources.Model.GetDirectionCoefficient(direction), pos.Y - 10);
             Type = type;
+            AutoClimbing = autoClimbing;
+            if(autoClimbing)
+            {
+                AutoClimbingDestination = new Vector2(pos.X - 20 * Resources.Model.GetDirectionCoefficient(direction), pos.Y + 30);
+            }
             Init(Models.LEDGE, pos, 0f, direction);
         }
 

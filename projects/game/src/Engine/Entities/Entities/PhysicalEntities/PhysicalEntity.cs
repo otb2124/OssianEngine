@@ -25,6 +25,7 @@ namespace Entities
         }
 
         public LightSource.LightSourceData Emission;
+        public bool IsWall = false;
 
         public Dictionary<EntitySounds, Resources.Sounds[]> soundSet;
 
