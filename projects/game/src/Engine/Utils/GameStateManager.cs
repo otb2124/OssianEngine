@@ -13,15 +13,15 @@ namespace Utils
 
         public enum GameStates
         {
-            playState,
-            pauseState,
-            ingameMenuState
+            PLAY_STATE,
+            PAUSE_STATE,
         }
 
         public enum GameModes
         {
-            playMode,
-            debugMode
+            PLAY_MODE,
+            COLLISION_DEBUG_MODE,
+            HITBOX_DEBUG_MODE
         }
 
         public static GameStates gameState;
@@ -34,8 +34,8 @@ namespace Utils
 
         public static void SetDefault()
         {
-            gameState = GameStates.playState;
-            gameMode = GameModes.playMode;
+            gameState = GameStates.PLAY_STATE;
+            gameMode = GameModes.PLAY_MODE;
             IsDevMode = true;
             IsGod = false;
         }
@@ -43,11 +43,15 @@ namespace Utils
 
         public static void CheckGameStatusChange()
         {
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEDEBUGPRESSED] && IsDevMode)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLECOLLISIONDEBUGPRESSED] && IsDevMode)
             {
-                gameMode = gameMode == GameModes.playMode ? GameModes.debugMode : GameModes.playMode;
+                gameMode = gameMode == GameModes.PLAY_MODE ? GameModes.COLLISION_DEBUG_MODE : GameModes.PLAY_MODE;
             }
-            if(exitRequested)
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEHITBOXDEBUGPRESSED] && IsDevMode)
+            {
+                gameMode = gameMode == GameModes.PLAY_MODE ? GameModes.HITBOX_DEBUG_MODE : GameModes.PLAY_MODE;
+            }
+            if (exitRequested)
             {
                 //system exit
             }

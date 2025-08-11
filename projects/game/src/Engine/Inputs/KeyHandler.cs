@@ -56,7 +56,8 @@ namespace Inputs
             TOGGLEHUDPRESSED,
 
             //debug
-            TOGGLEDEBUGPRESSED
+            TOGGLECOLLISIONDEBUGPRESSED,
+            TOGGLEHITBOXDEBUGPRESSED
         }
 
         public Dictionary<KeyStates, bool> keyStates = new Dictionary<KeyStates, bool>
@@ -88,7 +89,8 @@ namespace Inputs
             { KeyStates.TOGGLEHUDPRESSED, false },
 
             //debug
-            { KeyStates.TOGGLEDEBUGPRESSED, false }
+            { KeyStates.TOGGLECOLLISIONDEBUGPRESSED, false },
+            { KeyStates.TOGGLEHITBOXDEBUGPRESSED, false }
         };
 
 
@@ -120,7 +122,8 @@ namespace Inputs
             { (KeyStates.TOGGLEHUDPRESSED, true), new List<InputKey> { new InputKey(Keys.F1) } },
 
             //debug
-            { (KeyStates.TOGGLEDEBUGPRESSED, true), new List<InputKey> { new InputKey(Keys.F3) } },
+            { (KeyStates.TOGGLECOLLISIONDEBUGPRESSED, true), new List<InputKey> { new InputKey(Keys.F3) } },
+            { (KeyStates.TOGGLEHITBOXDEBUGPRESSED, true), new List<InputKey> { new InputKey(Keys.F4) } },
         };
 
 

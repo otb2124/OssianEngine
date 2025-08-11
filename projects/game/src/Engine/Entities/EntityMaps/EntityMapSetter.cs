@@ -40,19 +40,20 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
                     entities.Add(new TileEntity(new Vector2(500,  -600), new Point(12, 2), TileEntity.TileSets.SET0, 0, true));
 
-                    entities.Add(new PlatformEntity(new Vector2(0, 0), 5));
-                    entities.Add(new PlatformEntity(new Vector2(140, -60), 5));
+                    entities.Add(new PlatformEntity(new Vector2(140, 0), 5));
+                    entities.Add(new PlatformEntity(new Vector2(0, -60), 5));
+                    entities.Add(new PlatformEntity(new Vector2(140, -120), 1));
 
                     entities.Add(new DestroyableEntity(Models.CRATE_0, new Vector2(-200, -500)) { IsWall = true});
                     entities.Add(new LedgeEntity(new Vector2(-220, -480), Directions.LEFT, LedgeEntity.Ledges.INVISIBLE, true));
                     entities.Add(new LedgeEntity(new Vector2(-180, -480), Directions.RIGHT, LedgeEntity.Ledges.INVISIBLE, true));
 
-                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-101, 200)));
-                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-103, 230)));
-                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-102, 250)));
-                    //entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-50, 50)));
-                    //entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
-                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
+                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-101, 0)));
+                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-103, 0)));
+                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-102, 0)));
+                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-50, 50)));
+                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
+                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
                     entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, 100), 0f));
                     //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-150, 100), 0f));

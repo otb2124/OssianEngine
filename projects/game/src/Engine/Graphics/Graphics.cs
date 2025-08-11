@@ -116,12 +116,17 @@ namespace Graphics
             sprites.End();
 
             //hitboxes over models (fix to over entity sprites, but under weapon sprites)
-            if (GameStateManager.gameMode == GameStateManager.GameModes.debugMode)
+            if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE)
             {
                 shapes.Begin(camera);
                 Entities.Entities.entityManager.DrawColliders();
+                shapes.End();
+            }
+
+            if (GameStateManager.gameMode == GameStateManager.GameModes.HITBOX_DEBUG_MODE)
+            {
+                shapes.Begin(camera);
                 Entities.Entities.entityManager.DrawHitboxes();
-                Entities.Entities.eventManager.DrawColliders();
                 shapes.End();
             }
 

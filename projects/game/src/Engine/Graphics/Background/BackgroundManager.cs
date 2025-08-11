@@ -25,8 +25,8 @@ namespace Graphics
 
         public void Update()
         {
-            
-            if(GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
+
+            if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 parallax.Update();
                 for (global::System.Int32 i = 0; i < events.Count; i++)
@@ -63,7 +63,7 @@ namespace Graphics
 
         public void Draw()
         {
-            if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
+            if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 // Draw entities before the first parallax layer (LayerToDrawOn < 0)
                 foreach (var background in entities
@@ -108,7 +108,7 @@ namespace Graphics
 
         public void DrawCanvas()
         {
-            if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
+            if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 parallax.DrawCanvas();
             }
@@ -116,7 +116,7 @@ namespace Graphics
 
         public void DrawParallaxFrontLayers()
         {
-            if (GameStateManager.gameMode != GameStateManager.GameModes.debugMode)
+            if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 parallax.DrawParallaxFrontLayers();
             }

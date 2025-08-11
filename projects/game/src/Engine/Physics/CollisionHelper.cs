@@ -27,7 +27,7 @@ namespace Physics
         public static RotatedRectangle CreateCeilingRectangle(FlatBody flatBody)
         {
             Vector2 modifiedSize = new Vector2(flatBody.Width + GroundingBodySizeOffset, GroundingBodySizeOffset);
-            return new RotatedRectangle(new Vector2(flatBody.Position.X, flatBody.Position.Y + flatBody.Height/2 + GroundingBodySizeOffset/2), modifiedSize, flatBody.Angle);
+            return new RotatedRectangle(new Vector2(flatBody.Position.X, flatBody.Position.Y + flatBody.Height/2 - GroundingBodySizeOffset/2), modifiedSize, flatBody.Angle);
         }
 
         public static RotatedRectangle CreateSidingRectangle(FlatBody flatBody)
