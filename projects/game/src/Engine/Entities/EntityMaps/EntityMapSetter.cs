@@ -20,20 +20,18 @@ namespace Entities
             switch (id)
             {
                 case 0:
-
-
                     //parkour way
                     entities.Add(new TileEntity(new Vector2(550, -400), new Point(5, 5), TileEntity.TileSets.SET0, 0, true, true));
-                    entities.Add(new LedgeEntity(new Vector2(474, -460), Directions.LEFT));
-                    entities.Add(new LedgeEntity(new Vector2(474, -350), Directions.LEFT));
-                    entities.Add(new LedgeEntity(new Vector2(626, -460), Directions.RIGHT));
-                    entities.Add(new LedgeEntity(new Vector2(626, -350), Directions.RIGHT));
+                    entities.Add(new LedgeEntity(new Vector2(474, -460), Directions.LEFT, LedgeEntity.Ledges.LEDGE0));
+                    entities.Add(new LedgeEntity(new Vector2(474, -350), Directions.LEFT, LedgeEntity.Ledges.LEDGE0));
+                    entities.Add(new LedgeEntity(new Vector2(626, -460), Directions.RIGHT, LedgeEntity.Ledges.LEDGE0));
+                    entities.Add(new LedgeEntity(new Vector2(626, -350), Directions.RIGHT, LedgeEntity.Ledges.LEDGE0));
 
                     entities.Add(new TileEntity(new Vector2(-75,  -250), new Point(3, 3), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(50,   -250), new Point(3, 1), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(200,  -250), new Point(2, 1), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(400,  -250), new Point(3, 2), TileEntity.TileSets.SET0));
-                    entities.Add(new TileEntity(new Vector2(600,  -250), new Point(3, 2), TileEntity.TileSets.SET0, 0.2f));
+                    entities.Add(new TileEntity(new Vector2(600,  -240), new Point(3, 2), TileEntity.TileSets.SET0, 0.2f));
                     entities.Add(new TileEntity(new Vector2(800,  -250), new Point(3, 2), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(1000, -250), new Point(2, 2), TileEntity.TileSets.SET0));
                     entities.Add(new TileEntity(new Vector2(1000, -250), new Point(3, 2), TileEntity.TileSets.SET0));
@@ -46,6 +44,8 @@ namespace Entities
                     entities.Add(new PlatformEntity(new Vector2(140, -60), 5));
 
                     entities.Add(new DestroyableEntity(Models.CRATE_0, new Vector2(-200, -500)));
+                    entities.Add(new LedgeEntity(new Vector2(-220, -480), Directions.LEFT));
+                    entities.Add(new LedgeEntity(new Vector2(-180, -480), Directions.RIGHT));
 
                     //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-101, 200)));
                     //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-103, 230)));

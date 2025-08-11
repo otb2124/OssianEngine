@@ -206,7 +206,7 @@ namespace Entities
                     Model.animationState = AnimationStates.BLOCKING_SWORD;
                     break;
                 case ModelStates.HANGING_ON_LEDGE:
-                    Model.animationState = AnimationStates.HANGING_ON_LEDGE;
+                    //Model.animationState = AnimationStates.HANGING_ON_LEDGE_LEFT;
                     break;
             }
 

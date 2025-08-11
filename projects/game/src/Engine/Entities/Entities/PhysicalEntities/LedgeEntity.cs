@@ -10,12 +10,19 @@ namespace Entities
 {
     public class LedgeEntity : PhysicalEntity
     {
+        public enum Ledges
+        {
+            INVISIBLE,
+            LEDGE0,
+        }
 
         public Vector2 HangingPosition;
+        public Ledges Type;
 
-        public LedgeEntity(Vector2 pos, Directions direction) : base()
+        public LedgeEntity(Vector2 pos, Directions direction, Ledges type = Ledges.INVISIBLE) : base()
         {
             HangingPosition = new Vector2(pos.X + 10 * Resources.Model.GetDirectionCoefficient(direction), pos.Y - 10);
+            Type = type;
             Init(Models.LEDGE, pos, 0f, direction);
         }
 
@@ -24,6 +31,12 @@ namespace Entities
             Model.animationState = AnimationStates.IDLE;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.IDLE, new Graphics.AnimationData(1, Vector2.Zero, new Vector2(32, 32), 1));
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
+        }
+
+        public override void Draw()
+        {
+            if(Type != Ledges.INVISIBLE)
+                base.Draw();
         }
     }
 }

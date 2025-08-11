@@ -1,6 +1,7 @@
 ﻿using Physics;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using Utils;
 
 namespace Entities
@@ -193,7 +194,9 @@ namespace Entities
                 }
             }
 
-            if (IsTouchingWalls)
+
+            //removed istouchingwalls condition
+            if (true)
             {
                 LedgeEntity ledge = CollisionHelper.GetAnyLedges(ent.Model.Body);
                 if (ledge != null && AllowHangingOnLedge)
@@ -209,10 +212,14 @@ namespace Entities
                     }
 
                     //TODO FIX THE LEDGES DIRECTION SWAP
-                    //if(ledge.Model.Direction == Directions.LEFT)
-                    //{
-                    //    Model.SwapDirection();
-                    //}
+                    if(ledge.Model.Direction == Directions.RIGHT)
+                    {
+                        ent.Model.animationState = AnimationStates.HANGING_ON_LEDGE_RIGHT;
+                    }
+                    else
+                    {
+                        ent.Model.animationState = AnimationStates.HANGING_ON_LEDGE_LEFT;
+                    }
                 }
             }
         }

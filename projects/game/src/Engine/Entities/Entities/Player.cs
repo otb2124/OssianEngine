@@ -136,8 +136,13 @@ namespace Entities
 
             //fallen
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
-            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE_LEFT, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE_LEFT, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+
+            //fallen
+            frameSpeed = 0.04f;
+            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE_RIGHT, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE_RIGHT, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
 
             //attacking
             frameSpeed = 0.15f;
