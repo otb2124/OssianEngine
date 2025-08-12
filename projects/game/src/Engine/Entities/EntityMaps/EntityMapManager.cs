@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using Physics;
 using SharpDX.Direct3D9;
 using System;
@@ -29,7 +30,8 @@ namespace Entities
             {
                 maps[i] = new EntityMap(i);
                 maps[i].Entities = EntityMapSetter.FillEntityMap(i);
-                maps[i].Events = EventSetter.FillEventMap(i);
+                maps[i].Events = EventMapSetter.FillEventMap(i);
+                maps[i].FilterLayers = FilterLayerMapSetter.FillFilterLayerMap(i);
             }
         }
 
@@ -54,6 +56,7 @@ namespace Entities
             Graphics.Graphics.backgroundManager.Init();
 
             Graphics.Graphics.lightManager.Init();
+            Graphics.Graphics.filterManager.Init();
         }
 
         public void LoadInitialMap()

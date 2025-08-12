@@ -22,6 +22,7 @@ namespace Graphics
         public static BackgroundManager backgroundManager;
         public static ParticleManager particleManager;
         public static LightManager lightManager;
+        public static FilterManager filterManager;
 
         public const double UpdatesPerSecond = 120d;
         public const double TargetLogicFrameRate = 60d;
@@ -65,6 +66,7 @@ namespace Graphics
             particleManager = new ParticleManager();
 
             lightManager = new LightManager();
+            filterManager = new FilterManager();
         }
 
         public static void Update()
@@ -76,6 +78,7 @@ namespace Graphics
             backgroundManager.Update();
 
             lightManager.Update();
+            filterManager.Update();
         }
 
         public static void UpdateGameTime(GameTime newGameTime)
@@ -107,12 +110,12 @@ namespace Graphics
             sprites.End();
 
             //lighting effect
-            sprites.Begin(camera, BlendState.Additive);
-            lightManager.Draw();
+            sprites.Begin(camera, BlendState.AlphaBlend);
+            filterManager.Draw();
             sprites.End();
 
-            sprites.Begin(camera, BlendState.AlphaBlend);
-            //lightManager.ApplyLighting();
+            sprites.Begin(camera, BlendState.Additive);
+            lightManager.Draw();
             sprites.End();
 
             //hitboxes over models (fix to over entity sprites, but under weapon sprites)

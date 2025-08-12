@@ -57,6 +57,10 @@ namespace Utils
         //particles
         ENTITIES_PARTICLES,
 
+        //light
+        LIGHT_DARKNESS_FULL,
+        LIGHT_DARKNESS_MIN,
+
         //--
         //UI
         UI_CURSOR,
@@ -108,6 +112,10 @@ namespace Utils
         //equipment
         ENTITIES_WEAPONS_TERRABLADE,
         ENTITIES_WEAPONS_IRON_SWORD,
+
+        //light
+        LIGHT_DARKNESS_FULL,
+        LIGHT_DARKNESS_VIGNETTE,
 
         //--
         //UI

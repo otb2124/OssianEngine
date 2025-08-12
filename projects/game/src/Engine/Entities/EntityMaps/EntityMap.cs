@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Entities
         public int Id;
         public List<Entity> Entities;
         public List<Event> Events;
+        public List<FilterLayer> FilterLayers;
 
         public EntityMap(int id)
         {

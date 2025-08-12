@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Entities
 {
-    public static class EventSetter
+    public static class EventMapSetter
     {
 
         public static List<Event> FillEventMap(int mapId)

@@ -91,7 +91,13 @@ namespace Resources
                     return "entities/static/particles";
                 case SpriteSheets.ENTITIES_WEAPONS:
                     return "entities/equipment/weapons";
-                
+
+
+                //light
+                case SpriteSheets.LIGHT_DARKNESS_FULL:
+                    return "graphics/light/light_darkness_full";
+                case SpriteSheets.LIGHT_DARKNESS_MIN:
+                    return "graphics/light/light_darkness_min";
 
                 //UI
                 case SpriteSheets.UI_CURSOR:

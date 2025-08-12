@@ -76,6 +76,10 @@ namespace Resources
                 //particles
                 SpriteSheets.ENTITIES_PARTICLES,
 
+                //light
+                SpriteSheets.LIGHT_DARKNESS_FULL,
+                SpriteSheets.LIGHT_DARKNESS_MIN,
+
                 //--
                 //UI
                 SpriteSheets.UI_CURSOR,
