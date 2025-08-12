@@ -11,11 +11,10 @@ namespace Entities
     {
         public float TotalGameHours;
         private const float HoursPerSecond = 0.01f;
-        public const float GlobalStartTime = 12f;
 
         public GlobalMapTime()
         {
-            TotalGameHours = GlobalStartTime; // Start at 0:00
+            TotalGameHours = Entities.GlobalStartTime; // Start at 0:00
         }
 
         public void Update()
@@ -26,8 +25,8 @@ namespace Entities
 
         public static Dictionary<Point, float> MapTravelTimeMap = new()
         {
-            { new Point(0, 1), 5.5f },
-            { new Point(1, 0), 1f }
+            { new Point(0, 1), 0f },
+            { new Point(1, 0), 0f }
         };
 
         public void AdjustForTravel(float travelTimeHours)

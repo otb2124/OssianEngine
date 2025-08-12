@@ -9,6 +9,8 @@ namespace Entities
         public static EntityMapManager entityMapManager;
         public static EventManager eventManager;
 
+        public static readonly float GlobalStartTime = 17f;
+
         public static void Init()
         {
             entityMapManager = new EntityMapManager();

@@ -54,7 +54,7 @@ namespace Resources
             { StaticSprites.ENTITIES_SLIME, new SpriteData(SpriteSheets.ENTITIES_SLIME, new Rectangle(0,0,64,64), 99)},
 
             { StaticSprites.LIGHT_DARKNESS_FULL, new SpriteData(SpriteSheets.LIGHT_DARKNESS_FULL, new Rectangle(0,0,80,64), 200) },
-            { StaticSprites.LIGHT_DARKNESS_VIGNETTE, new SpriteData(SpriteSheets.LIGHT_DARKNESS_MIN, new Rectangle(0,0,80,64), 200) },
+            { StaticSprites.LIGHT_DARKNESS_VIGNETTE, new SpriteData(SpriteSheets.LIGHT_DARKNESS_MIN, new Rectangle(0,0,320,180), 200) },
 
             { StaticSprites.UI_GAME_ICON, new SpriteData(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.UI_CURSOR, new SpriteData(SpriteSheets.UI_CURSOR, new Rectangle(0,0,32,32), 0) },

@@ -26,7 +26,7 @@ namespace Graphics
                 case 1:
                     layers = new List<FilterLayer>()
                     {
-                        
+                        { new FilterLayer(Color.Orange, 0.95f, 0f, 0.3f, Utils.StaticSprites.LIGHT_DARKNESS_VIGNETTE) }
                     };
                     break;
             }

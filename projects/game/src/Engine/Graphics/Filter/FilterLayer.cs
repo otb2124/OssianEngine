@@ -14,7 +14,7 @@ namespace Graphics
     public class FilterLayer
     {
 
-        public Color DarknessCurrentColor = Color.Black;
+        public Color DarknessCurrentColor;
 
         public float DarknessCurrentAlpha;
 
@@ -29,6 +29,7 @@ namespace Graphics
 
         public FilterLayer(Color color, float MaxAlpha = 1f, float MinAlpha = 0f, float CurrentAlpha = 0f, StaticSprites sprites = StaticSprites.LIGHT_DARKNESS_FULL)
         {
+            DarknessCurrentColor = color;
             DarknessMaxAlpha = MaxAlpha;
             DarknessMinAlpha = MinAlpha;
             DarknessCurrentAlpha = CurrentAlpha;
@@ -40,7 +41,7 @@ namespace Graphics
         public void Update()
         {
             GlobalMapTime globalMapTime = Entities.Entities.entityMapManager.GlobalMapTime;
-            float hours = globalMapTime.TotalGameHours - GlobalMapTime.GlobalStartTime;
+            float hours = globalMapTime.TotalGameHours - 12f;
 
             if (Math.Abs(hours - lastUpdateHours) >= 0.01667f)
             {
