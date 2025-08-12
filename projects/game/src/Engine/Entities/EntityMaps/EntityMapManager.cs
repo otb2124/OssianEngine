@@ -17,9 +17,12 @@ namespace Entities
         public int CurrentMapId;
         public int MapsCount;
 
+        public GlobalMapTime GlobalMapTime;
+
         public EntityMapManager()
         {
             MapsCount = 2;
+            GlobalMapTime = new GlobalMapTime();
         }
 
         public void Init()
@@ -33,6 +36,11 @@ namespace Entities
                 maps[i].Events = EventMapSetter.FillEventMap(i);
                 maps[i].FilterLayers = FilterLayerMapSetter.FillFilterLayerMap(i);
             }
+        }
+
+        public void Update()
+        {
+            GlobalMapTime.Update();
         }
 
         public void LoadMap(int nextId, Vector2 playerPos)
@@ -56,7 +64,7 @@ namespace Entities
             Graphics.Graphics.backgroundManager.Init();
 
             Graphics.Graphics.lightManager.Init();
-            Graphics.Graphics.filterManager.Init();
+            Graphics.Graphics.filterManager.UpdateLayers();
         }
 
         public void LoadInitialMap()

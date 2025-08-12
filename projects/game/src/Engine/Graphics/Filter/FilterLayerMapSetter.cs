@@ -19,8 +19,8 @@ namespace Graphics
                 case 0:
                     layers = new List<FilterLayer>()
                     {
-                        { new FilterLayer(Color.Black, 0.95f, 0f, 0.95f, Utils.StaticSprites.LIGHT_DARKNESS_FULL) },
-                        { new FilterLayer(Color.Black, 0.95f, 0f, 1f, Utils.StaticSprites.LIGHT_DARKNESS_VIGNETTE) }
+                        //{ new FilterLayer(Color.Black, 0.95f, 0f, 0.95f, Utils.StaticSprites.LIGHT_DARKNESS_FULL) },
+                        //{ new FilterLayer(Color.Black, 0.95f, 0f, 1f, Utils.StaticSprites.LIGHT_DARKNESS_VIGNETTE) }
                     };
                     break;
                 case 1:

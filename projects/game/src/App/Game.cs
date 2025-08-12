@@ -45,8 +45,7 @@ namespace App
             Inputs.Inputs.Update();
             Physics.Physics.Update();
             UI.UI.UIManager.Update();
-            Entities.Entities.entityManager.Update();
-            Entities.Entities.eventManager.Update();
+            Entities.Entities.Update();
 
             commandManager.ProcessCommands();
 

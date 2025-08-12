@@ -67,6 +67,7 @@ namespace Graphics
 
             lightManager = new LightManager();
             filterManager = new FilterManager();
+            filterManager.Init();
         }
 
         public static void Update()
@@ -97,7 +98,7 @@ namespace Graphics
             backgroundManager.DrawCanvas();
             sprites.End();
 
-            //bg layers
+            //bg mapLayers
             sprites.Begin(camera, BlendState.NonPremultiplied);
             backgroundManager.Draw();
             sprites.End();

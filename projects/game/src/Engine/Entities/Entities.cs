@@ -18,6 +18,13 @@ namespace Entities
             entityMapManager.Init();
         }
 
+        public static void Update()
+        {
+            entityManager.Update();
+            eventManager.Update();
+            entityMapManager.Update();
+        }
+
         public static Player Player;
     }
 }
