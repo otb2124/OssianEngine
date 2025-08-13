@@ -102,7 +102,7 @@ namespace Graphics
             sprites.Begin(camera, BlendState.NonPremultiplied);
             backgroundManager.Draw();
             sprites.End();
-            
+
             //entity sprites
             sprites.Begin(camera);
             Entities.Entities.entityManager.Draw();
@@ -110,20 +110,25 @@ namespace Graphics
             backgroundManager.DrawParallaxFrontLayers();
             sprites.End();
 
-            //lighting effect
-            sprites.Begin(camera, BlendState.AlphaBlend);
-            filterManager.Draw();
-            sprites.End();
+            if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
+            {
+                //filters
+                sprites.Begin(camera, BlendState.AlphaBlend);
+                filterManager.Draw();
+                sprites.End();
 
-            sprites.Begin(camera, BlendState.Additive);
-            lightManager.Draw();
-            sprites.End();
+                //light
+                sprites.Begin(camera, BlendState.Additive);
+                lightManager.Draw();
+                sprites.End();
+            }
 
             //hitboxes over models (fix to over entity sprites, but under weapon sprites)
             if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE)
             {
                 shapes.Begin(camera);
                 Entities.Entities.entityManager.DrawColliders();
+                Entities.Entities.eventManager.DrawColliders();
                 shapes.End();
             }
 
@@ -138,7 +143,6 @@ namespace Graphics
             //ui
             UI.UI.UIManager.Draw();
             sprites.End();
-
 
             screen.Unset();
             screen.Present(sprites, Color.Black, true);
