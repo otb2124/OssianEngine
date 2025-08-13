@@ -30,7 +30,7 @@ namespace Entities
                     KnockbackPower = 0.1f;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 2f;
                     WeaponEntity.Sprite = StaticSprites.NONE;
-                    WeaponEntity.MoveSet = WeaponComboHitSets.BARE_HANDS;
+                    WeaponEntity.MoveSet = WeaponMovesets.BARE_HANDS;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 10;
                     break;
@@ -43,7 +43,7 @@ namespace Entities
                     KnockbackPower = 2f;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
                     WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
-                    WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;
+                    WeaponEntity.MoveSet = WeaponMovesets.SWORD;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 25;
                     break;
@@ -56,7 +56,7 @@ namespace Entities
                     KnockbackPower = 1f;
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1.5f;
                     WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
-                    WeaponEntity.MoveSet = WeaponComboHitSets.KNIFE;
+                    WeaponEntity.MoveSet = WeaponMovesets.KNIFE;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 15;
                     break;

@@ -18,7 +18,7 @@ namespace Entities
         public StaticSprites Sprite;
         public AnimationManager aManager;
         public List<AttackTypes> AttackHistory;
-        public WeaponComboHitSets MoveSet;
+        public WeaponMovesets MoveSet;
         private bool ComboHistoryUpdated = false;
         private bool ModelAnimationTimeUpdated = false;
 
@@ -54,8 +54,6 @@ namespace Entities
                     hits[i].AnimationData
                 );
             }
-
-
 
             Combo.UpdateHits(AttackHistory, MoveSet);
         }
@@ -268,12 +266,12 @@ namespace Entities
             return currentAttack;
         }
 
-        public float CalculatePredictedFinalSwingTime(WeaponComboHitSets set, AttackTypes[] sequence)
+        public float CalculatePredictedFinalSwingTime(WeaponMovesets set, AttackTypes[] sequence)
         {
             float multipliers = WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier;
-            if(WeaponComboHitSetFactory.GetComboHit(set, sequence) != null)
+            if(GetComboHit(set, sequence) != null)
             {
-                return multipliers * WeaponComboHitSetFactory.GetComboHit(set, sequence).SwingTimeSec;
+                return multipliers * GetComboHit(set, sequence).SwingTimeSec;
             }
             return multipliers;
         }

@@ -40,9 +40,16 @@ namespace Entities {
 
             if (state == ModelStates.SPRINTING)
             {
-                Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.sprintMultiplier * directionXFactor, 0));
-                Entity.Stats.stamina -= Entity.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
-                Entity.Stats.OnUsingStamina = true;
+                if (Entity.Stats.stamina - Entity.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
+                {
+                    Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.sprintMultiplier * directionXFactor, 0));
+                    Entity.Stats.stamina -= Entity.Stats.staminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                    Entity.Stats.OnUsingStamina = true;
+                }
+                else
+                {
+                    Entity.Model.ModelState = ModelStates.IDLE;
+                }
             }
 
             if (state == ModelStates.BLOCKING)
@@ -52,8 +59,15 @@ namespace Entities {
 
             if (state == ModelStates.ROLLING)
             {
-                Entity.Stats.stamina -= Entity.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
-                Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.rollMultiplier * directionXFactor, 0));
+                if (Entity.Stats.stamina - Entity.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
+                {
+                    Entity.Stats.stamina -= Entity.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                    Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * Entity.Stats.rollMultiplier * directionXFactor, 0));
+                }
+                else
+                {
+                    Entity.Model.ModelState = ModelStates.IDLE;
+                }
             }
 
             if (state == ModelStates.JUMPING_DESCENDING)
@@ -241,12 +255,10 @@ namespace Entities {
                     else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED] &&
                     player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
                     {
-                        if (player.Stats.stamina > 0)
+                        if (player.Stats.stamina - player.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
+                            !player.Stats.OnStaminaRegen)
                         {
-                            if (player.Stats.stamina - player.Stats.staminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
-                            {
-                                player.Model.ModelState = ModelStates.ROLLING;
-                            }
+                            player.Model.ModelState = ModelStates.ROLLING;
                         }
                     }
 

@@ -32,7 +32,7 @@ namespace Entities
             return Combohits[CurrentComboHitId];
         }
 
-        public bool CanContinueWith(AttackTypes attackType, List<AttackTypes> attackHistory, WeaponComboHitSets set)
+        public bool CanContinueWith(AttackTypes attackType, List<AttackTypes> attackHistory, WeaponMovesets set)
         {
             var currentHit = GetCurrentHit();
             if (currentHit == null) return false;
@@ -58,7 +58,7 @@ namespace Entities
             }
         }
 
-        public void UpdateSet(List<AttackTypes> attackHistory, WeaponComboHitSets set)
+        public void UpdateSet(List<AttackTypes> attackHistory, WeaponMovesets set)
         {
             UpdateHits(attackHistory, set);
             CurrentComboHitId = 0;
@@ -84,7 +84,7 @@ namespace Entities
             AllowContinuation = Combohits.Any(h => h.AttackSequence.Length < 3);
         }
 
-        public void UpdateHits(List<AttackTypes> attackHistory, WeaponComboHitSets set)
+        public void UpdateHits(List<AttackTypes> attackHistory, WeaponMovesets set)
         {
             if (!attackHistory.Any())
             {
