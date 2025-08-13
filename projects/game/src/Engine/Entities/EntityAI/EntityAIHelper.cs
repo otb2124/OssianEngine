@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Utils;
 using static Entities.EntityAIBehaviourManager;
-using static Entities.WeaponComboHitSetFactory;
+using static Entities.WeaponComboMovesetFactory;
 
 namespace Entities
 {

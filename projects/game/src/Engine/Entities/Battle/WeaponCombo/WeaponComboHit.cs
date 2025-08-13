@@ -4,7 +4,7 @@ using Resources;
 using System;
 using System.Linq;
 using Utils;
-using static Entities.WeaponComboHitSetFactory;
+using static Entities.WeaponComboMovesetFactory;
 
 namespace Entities
 {
@@ -66,6 +66,11 @@ namespace Entities
                         AnimationState = AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_HEAVY;
                         AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.BLOCK }))
+                    {
+                        AnimationState = AnimationStates.BLOCKING_SWORD;
+                        AnimationData = new AnimationData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
                     break;
 
 
@@ -101,6 +106,11 @@ namespace Entities
                         AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY_HEAVY;
                         AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.BLOCK }))
+                    {
+                        AnimationState = AnimationStates.BLOCKING_KNIFE;
+                        AnimationData = new AnimationData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
                     break;
 
                 case WeaponMovesets.BARE_HANDS:
@@ -134,6 +144,11 @@ namespace Entities
                     {
                         AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY;
                         AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.BLOCK }))
+                    {
+                        AnimationState = AnimationStates.BLOCKING_KNIFE;
+                        AnimationData = new AnimationData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     break;
             }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
-using static Entities.WeaponComboHitSetFactory;
+using static Entities.WeaponComboMovesetFactory;
 
 namespace Entities
 {

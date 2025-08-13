@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Entities.WeaponComboHitSetFactory;
+using static Entities.WeaponComboMovesetFactory;
 
 namespace Entities
 {

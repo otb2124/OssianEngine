@@ -8,7 +8,7 @@ using static Entities.EntityAIBehaviourManager;
 
 namespace Entities
 {
-    public class AnimalMob : NonHumanoidEntity
+    public class AnimalMob : NonWeaponEntity
     {
 
         public EntityAISet AISet;

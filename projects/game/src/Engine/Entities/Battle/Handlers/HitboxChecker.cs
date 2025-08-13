@@ -17,7 +17,7 @@ namespace Entities
             { EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL, EntityFractions.BANDIT } },
         };
 
-        public static void CheckForCollision(StatsEntity entA, StatsEntity entB)
+        public static void CheckWeaponToBodyCollision(StatsEntity entA, StatsEntity entB)
         {
             if (entA == entB) return;
 
@@ -29,19 +29,19 @@ namespace Entities
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                     eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                 ),
-                (NonHumanoidEntity nhA, NonHumanoidEntity nhB) => (
+                (NonWeaponEntity nhA, NonWeaponEntity nhB) => (
                     nhA.DamageHitbox.extends,
                     nhB.BodyHitbox.extends,
                     nhA.Stats.bodyDamage,
                     nhA.Stats.bodyKnockbackPower
                 ),
-                (NonHumanoidEntity nhA, EquipmentEntity eqB) => (
+                (NonWeaponEntity nhA, EquipmentEntity eqB) => (
                     nhA.DamageHitbox.extends,
                     eqB.EquipmentManager.GetCurrentArmor().hitbox.extends,
                     nhA.Stats.bodyDamage,
                     nhA.Stats.bodyKnockbackPower
                 ),
-                (EquipmentEntity eqA, NonHumanoidEntity nhB) => (
+                (EquipmentEntity eqA, NonWeaponEntity nhB) => (
                     eqA.EquipmentManager.GetCurrentWeapon().WeaponEntity.Hitbox.outerHalf,
                     nhB.BodyHitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
@@ -53,7 +53,59 @@ namespace Entities
 
             if (CheckIntersection(hitboxA, hitboxB) && CanDealDamage(entA.EntityFraction, entB.EntityFraction))
             {
-                BattleHandler.HandleHit(entB, damageA, knockBackPowerA, hitboxA.Position);
+                if(entB.Model.ModelState != ModelStates.BLOCKING && entA.Model.ModelState != ModelStates.BLOCKING)
+                {
+                    BattleHandler.HandleHit(entB, damageA, knockBackPowerA, hitboxA.Position);
+                }
+            }
+
+        }
+
+        public static void CheckWeaponToWeaponCollision(StatsEntity entA, StatsEntity entB)
+        {
+            if (entA == entB) return;
+
+            if (entB.Model.ModelState == ModelStates.BLOCKING && (entA.Model.ModelState == ModelStates.ATTACKING_LIGHT || entA.Model.ModelState == ModelStates.ATTACKING_HEAVY)
+                || entA.Model.ModelState == ModelStates.BLOCKING && (entB.Model.ModelState == ModelStates.ATTACKING_LIGHT || entB.Model.ModelState == ModelStates.ATTACKING_HEAVY))
+            {
+
+                (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA) = (entA, entB) switch
+                {
+                    (EquipmentEntity eqA, EquipmentEntity eqB) => (
+                        eqA.EquipmentManager.GetCurrentWeapon().WeaponEntity.Hitbox.outerHalf,
+                        eqB.EquipmentManager.GetCurrentWeapon().WeaponEntity.Hitbox.outerHalf,
+                        eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
+                        eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
+                    ),
+                    (NonWeaponEntity nhA, NonWeaponEntity nhB) => (
+                        nhA.DamageHitbox.extends,
+                        nhB.DamageHitbox.extends,
+                        nhA.Stats.bodyDamage,
+                        nhA.Stats.bodyKnockbackPower
+                    ),
+                    (NonWeaponEntity nhA, EquipmentEntity eqB) => (
+                        nhA.DamageHitbox.extends,
+                        eqB.EquipmentManager.GetCurrentWeapon().WeaponEntity.Hitbox.outerHalf,
+                        nhA.Stats.bodyDamage,
+                        nhA.Stats.bodyKnockbackPower
+                    ),
+                    (EquipmentEntity eqA, NonWeaponEntity nhB) => (
+                        eqA.EquipmentManager.GetCurrentWeapon().WeaponEntity.Hitbox.outerHalf,
+                        nhB.DamageHitbox.extends,
+                        eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
+                        eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
+                    ),
+                    _ => (null, null, 0f, 0f)
+                };
+
+
+                if (CheckIntersection(hitboxA, hitboxB) && CanDealDamage(entA.EntityFraction, entB.EntityFraction))
+                {
+                    if (entB.Model.ModelState == ModelStates.BLOCKING)
+                    {
+                        BattleHandler.HandleBlockHit(entB, damageA, knockBackPowerA, hitboxA.Position);
+                    }
+                }
             }
 
         }

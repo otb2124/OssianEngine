@@ -52,7 +52,8 @@ namespace Entities
                                 {
                                     if(entFrom is StatsEntity)
                                     {
-                                        HitboxChecker.CheckForCollision((StatsEntity)entFrom, (StatsEntity)entTo);
+                                        HitboxChecker.CheckWeaponToBodyCollision((StatsEntity)entFrom, (StatsEntity)entTo);
+                                        HitboxChecker.CheckWeaponToWeaponCollision((StatsEntity)entFrom, (StatsEntity)entTo);
                                     }
                                     else if (entFrom is InteractiveEntity && entTo is Player)
                                     {

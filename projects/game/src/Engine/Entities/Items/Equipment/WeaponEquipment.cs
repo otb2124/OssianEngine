@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Resources;
 using Utils;
-using static Entities.WeaponComboHitSetFactory;
+using static Entities.WeaponComboMovesetFactory;
 
 namespace Entities
 {

@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Utils;
-using static Entities.WeaponComboHitSetFactory;
+using static Entities.WeaponComboMovesetFactory;
 using Model = Resources.Model;
 
 namespace Entities
@@ -80,6 +80,10 @@ namespace Entities
             }
             else if (model.ModelState == ModelStates.BLOCKING)
             {
+                AttackTypes currentAttack = AttackTypes.BLOCK;
+                UpdateComboSelection(currentAttack);
+                UpdateHitbox(model);
+                UpdateSwingAndCombo(model, currentAttack, deltaTime);
                 UpdateAnimation(model);
             }
             else
@@ -144,16 +148,20 @@ namespace Entities
                 isSwinging = true;
                 currentSwingTime = 0f;
 
-                if (Combo.CanContinueWith(currentAttack, AttackHistory, MoveSet))
+                if(currentAttack != AttackTypes.BLOCK)
                 {
-                    Combo.UpdateSet(AttackHistory, MoveSet);
+                    if (Combo.CanContinueWith(currentAttack, AttackHistory, MoveSet))
+                    {
+                        Combo.UpdateSet(AttackHistory, MoveSet);
+                    }
+                    else
+                    {
+                        Combo.ResetCombo(AttackHistory);
+                        Combo.UpdateHits(AttackHistory, MoveSet);
+                    }
+                    Combo.StartContinuationWindow();
                 }
-                else
-                {
-                    Combo.ResetCombo(AttackHistory);
-                    Combo.UpdateHits(AttackHistory, MoveSet);
-                }
-                Combo.StartContinuationWindow();
+                
 
                 var currentHit = Combo.GetCurrentHit();
                 if (currentHit == null)
@@ -217,7 +225,10 @@ namespace Entities
 
         public void Draw(Model model)
         {
-            if (Sprite == StaticSprites.NONE || (model.ModelState != ModelStates.WEAPON_OUT_IDLE && model.ModelState != ModelStates.WEAPON_OUT_MOVING && model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY))
+            if (Sprite == StaticSprites.NONE 
+                || (model.ModelState != ModelStates.WEAPON_OUT_IDLE && model.ModelState != ModelStates.WEAPON_OUT_MOVING 
+                && model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY
+                && model.ModelState != ModelStates.BLOCKING))
                 return;
 
             var currentHit = Combo.GetCurrentHit();

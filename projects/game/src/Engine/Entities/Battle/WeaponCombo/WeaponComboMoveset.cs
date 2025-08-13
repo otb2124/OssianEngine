@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Entities.WeaponComboHitSetFactory;
+using static Entities.WeaponComboMovesetFactory;
 using Utils;
 using Graphics;
 
 namespace CSPlatformerSandbox.Engine.Entities.Battle.WeaponCombo
 {
-    public class WeaponMoveset
+    public class WeaponComboMoveset
     {
 
         public WeaponComboHit[] Combos;
 
-        public WeaponMoveset(WeaponComboHit[] comboHits)
+        public WeaponComboMoveset(WeaponComboHit[] comboHits)
         {
             Combos = comboHits;
         }
