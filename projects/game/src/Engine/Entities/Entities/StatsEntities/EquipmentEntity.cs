@@ -45,7 +45,7 @@ namespace Entities
 
         public virtual void UpdateWeapon()
         {
-            EquipmentManager.GetCurrentWeapon().WeaponEntity.Update(Model);
+            EquipmentManager.GetCurrentWeapon().WeaponBody.Update(Model);
         }
 
         public virtual void UpdateArmor()

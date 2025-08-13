@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Resources;
 using SharpDX.Direct3D9;
+using SharpDX.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace Graphics
     {
         public List<LightSource> lightSources;
         public List<LightSource> lightSourcesToRemove;
+        public int nextId;
 
         public LightManager()
         {
@@ -68,6 +70,31 @@ namespace Graphics
                 lightSources.Remove(light);
             }
             lightSourcesToRemove.Clear();
+        }
+
+        public int GenerateId()
+        {
+            if (Entities.Entities.entityMapManager == null || Entities.Entities.entityMapManager.maps == null || Entities.Entities.entityMapManager.CurrentMapId < 0 || Entities.Entities.entityMapManager.CurrentMapId >= Entities.Entities.entityMapManager.maps.Length)
+            {
+                return nextId++;
+            }
+            var entities = lightSources;
+            while (entities.Any(e => e.Id == nextId))
+            {
+                nextId++;
+                if (nextId < 0)
+                {
+                    nextId = 1;
+                }
+            }
+
+            Console.WriteLine(nextId);
+            return nextId++;
+        }
+
+        public LightSource GetEntityById(int id)
+        {
+            return lightSources.FirstOrDefault(e => e.Id == id);
         }
 
 

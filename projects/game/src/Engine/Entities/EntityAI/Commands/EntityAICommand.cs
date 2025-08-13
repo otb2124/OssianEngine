@@ -142,9 +142,9 @@ namespace Entities
                 RepeatAfterRestart = true;
 
                 ModelStates state = SwitchAttackTypeToModelState(type);
-                AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.GetCurrentAttack(type);
+                AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponBody.GetCurrentAttack(type);
 
-                CurrentDuration = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.MoveSet, currentAttack) * 1.5f;
+                CurrentDuration = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponBody.CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponBody.MoveSet, currentAttack) * 1.5f;
 
                 if (CommandTime < CurrentDuration * Graphics.Graphics.UpdatesPerSecond / 2f)
                 {
@@ -178,8 +178,8 @@ namespace Entities
         {
             if (!(Entity is EquipmentEntity eqEnt)) return;
 
-            AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.GetCurrentAttack(type);
-            WeaponComboHit currentHit = GetComboHit(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponEntity.MoveSet, currentAttack);
+            AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeapon().WeaponBody.GetCurrentAttack(type);
+            WeaponComboHit currentHit = GetComboHit(eqEnt.EquipmentManager.GetCurrentWeapon().WeaponBody.MoveSet, currentAttack);
 
             if (currentHit != null)
             {

@@ -5,10 +5,13 @@ using Resources;
 using SharpDX.Win32;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Utils;
 using static Entities.WeaponComboMovesetFactory;
+using Color = Microsoft.Xna.Framework.Color;
 using Model = Resources.Model;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Entities
 {
@@ -31,6 +34,9 @@ namespace Entities
         public WeaponComboHitSet Combo; 
 
         public AnimationData WeaponOutAnimationData;
+
+        public LightSource.LightSourceData LightSourceData;
+        public LightSource LightSource;
 
         public WeaponBody()
         {
@@ -64,6 +70,12 @@ namespace Entities
                 );
 
             Combo.UpdateHits(AttackHistory, MoveSet);
+
+
+            if (LightSourceData != null)
+            {
+                LightSource = new LightSource();
+            }
         }
 
         public void Update(Model model)
@@ -72,6 +84,15 @@ namespace Entities
 
             if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY)
             {
+                if (LightSource != null)
+                {
+                    Console.WriteLine(LightSource.Id);
+                    if(Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
+                    {
+                        Graphics.Graphics.lightManager.AddLightSource(LightSource);
+                    }
+                }
+
                 AttackTypes currentAttack = model.ModelState == ModelStates.ATTACKING_LIGHT ? AttackTypes.LIGHT : AttackTypes.HEAVY;
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
@@ -129,6 +150,15 @@ namespace Entities
                     currentHit.HitboxOffset.Size(),
                     currentHit.HitboxOffset.Rotation * horizontalXFactor
                 );
+
+                if (LightSource != null)
+                {
+                    Vector2 weaponRotOffset = new Vector2(0, currentHit.HitboxOffset.Height);
+                    weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(currentHit.HitboxOffset.Rotation));
+                    Vector2 lightPos = weaponPosition - (weaponRotOffset * horizontalXFactor);
+
+                    Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(lightPos, LightSourceData);
+                }
             }
             else
             {
@@ -137,6 +167,9 @@ namespace Entities
                     Vector2.Zero,
                     0f
                 );
+
+                if (LightSource != null)
+                    Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(Vector2.Zero, null);
             }
             
         }

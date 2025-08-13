@@ -12,15 +12,24 @@ namespace Graphics
 {
     public class LightSource
     {
+        public int Id;
+
         public Vector2 Position;
         public LightSourceData Data;
         public Texture2D texture;
+
+        public LightSource()
+        {
+            texture = CreateCircleTexture(64);
+        }
 
         public LightSource(Vector2 position, float radius, Color color)
         {
             Position = position;
             Data = new LightSourceData(LightSourceData.LightSourceForms.CIRCULAR, new Vector2(radius, radius), Vector2.Zero, color, 50f, 0f);
             texture = CreateCircleTexture(64);
+
+            Id = Graphics.lightManager.GenerateId();
         }
 
         public LightSource(Vector2 position, LightSourceData data)
@@ -28,6 +37,8 @@ namespace Graphics
             Position = position;
             Data = data;
             texture = CreateCircleTexture(64);
+
+            Id = Graphics.lightManager.GenerateId();
         }
 
         public LightSource(Vector2 position, Vector2 size, Color color)
@@ -36,6 +47,8 @@ namespace Graphics
             Data = new LightSourceData(LightSourceData.LightSourceForms.RECTANGULAR, size, Vector2.Zero, color, 50f, 0f);
             texture = new Texture2D(Graphics.graphicsDeviceManager.GraphicsDevice, 1, 1);
             texture.SetData(new[] { Color.White });
+
+            Id = Graphics.lightManager.GenerateId();
         }
 
         private Texture2D CreateCircleTexture(int diameter)
@@ -82,6 +95,10 @@ namespace Graphics
 
         public virtual void Draw()
         {
+            if (Data == null)
+                return;
+
+
             if (Data.Form == LightSourceData.LightSourceForms.CIRCULAR)
             {
                 Graphics.sprites.Draw(

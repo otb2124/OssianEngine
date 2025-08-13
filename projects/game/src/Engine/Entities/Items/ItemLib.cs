@@ -13,6 +13,7 @@ namespace Entities
             BARE_HAND,
             TERRABLADE,
             KNIFE,
+            TORCH
         }
 
         public enum Armors
