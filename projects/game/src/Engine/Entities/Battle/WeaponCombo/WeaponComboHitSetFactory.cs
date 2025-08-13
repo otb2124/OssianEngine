@@ -40,7 +40,6 @@ namespace Entities
                                 new AttackTypes[] { AttackTypes.HEAVY }),
                     
 
-
                             // XX
                             new WeaponComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(20, 0), 0.5f, new Vector2(0.2f, 0.4f),
@@ -49,7 +48,6 @@ namespace Entities
                             new WeaponComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(15, 50), 1.7f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
                                 new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY }),
-
 
 
                             // XXX

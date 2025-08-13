@@ -30,6 +30,8 @@ namespace Entities
 
         public WeaponComboHitSet Combo; 
 
+        public AnimationData WeaponOutAnimationData;
+
         public WeaponBody()
         {
             Hitbox = new WeaponHitbox();
@@ -54,6 +56,12 @@ namespace Entities
                     hits[i].AnimationData
                 );
             }
+
+            aManager.AddAnimationForBothDirections(
+                    StaticSpriteFactory.spriteMappings[Sprite],
+                    AnimationStates.WEAPON_OUT_IDLE,
+                    WeaponOutAnimationData
+                );
 
             Combo.UpdateHits(AttackHistory, MoveSet);
         }
@@ -209,14 +217,13 @@ namespace Entities
 
         public void Draw(Model model)
         {
-            if (model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY && model.ModelState != ModelStates.BLOCKING
-                && Sprite != StaticSprites.NONE)
+            if (Sprite == StaticSprites.NONE || (model.ModelState != ModelStates.WEAPON_OUT_IDLE && model.ModelState != ModelStates.WEAPON_OUT_MOVING && model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY))
                 return;
 
             var currentHit = Combo.GetCurrentHit();
             if (currentHit == null)
             {
-                return;
+                aManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, AnimationStates.WEAPON_OUT_IDLE));
             }
 
             Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();

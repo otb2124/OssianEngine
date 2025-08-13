@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.Xna.Framework;
 using Resources;
 using Utils;
 using static Entities.WeaponComboHitSetFactory;
@@ -31,6 +32,7 @@ namespace Entities
                     WeaponEntity.WeaponSwingSpeedMultiplier = 2f;
                     WeaponEntity.Sprite = StaticSprites.NONE;
                     WeaponEntity.MoveSet = WeaponMovesets.BARE_HANDS;
+                    WeaponEntity.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 10;
                     break;
@@ -44,6 +46,7 @@ namespace Entities
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
                     WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
                     WeaponEntity.MoveSet = WeaponMovesets.SWORD;
+                    WeaponEntity.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 25;
                     break;
@@ -57,6 +60,7 @@ namespace Entities
                     WeaponEntity.WeaponSwingSpeedMultiplier = 1.5f;
                     WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
                     WeaponEntity.MoveSet = WeaponMovesets.KNIFE;
+                    WeaponEntity.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 15;
                     break;
