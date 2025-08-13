@@ -1,5 +1,6 @@
 ﻿using Resources;
 using System;
+using static Entities.ItemLib;
 
 namespace Entities
 {
@@ -17,7 +18,7 @@ namespace Entities
         public EquipmentSlot[] Slots;
         public WeaponEquipment LeftWeaponIn;
         public WeaponEquipment RightWeaponIn;
-        public bool IsWeaponOut;
+        public bool IsWeaponOut = false;
 
         public EquipmentManager()
         {
@@ -60,18 +61,8 @@ namespace Entities
 
         public WeaponEquipment GetCurrentWeaponSwapPlaceHolder() =>
             HandToWeaponIn(CurrentHand);
-
-        public WeaponEquipment GetCurrentWeapon()
-        {
-            var slot = GetCurrentWeaponSlot();
-            var weapon = (WeaponEquipment)GetEquipmentSlot(slot).Equipment;
-            if (weapon == null)
-            {
-                weapon = CreateBareHands();
-                SetEquipmentSlot(slot, weapon);
-            }
-            return weapon;
-        }
+        public WeaponEquipment GetCurrentWeapon() =>
+            (WeaponEquipment)GetEquipmentSlot(GetCurrentWeaponSlot()).Equipment;
 
 
         public void SetCurrentWeaponSwapPlaceHolder(WeaponEquipment toChange) =>
