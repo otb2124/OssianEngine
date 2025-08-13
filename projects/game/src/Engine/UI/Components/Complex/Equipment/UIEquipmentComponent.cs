@@ -19,7 +19,7 @@ namespace UI
 
             type = UIComponentTypes.EQUIPMENT;
 
-            EquipmentSlot[] slots = ent.EquipmentManager.slots;
+            EquipmentSlot[] slots = ent.EquipmentManager.Slots;
 
             Vector2 inGameMenuSize = new Vector2(80, (64 + 12) * 6);
             Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.screen.Height - inGameMenuSize.Y - 10);
@@ -29,7 +29,7 @@ namespace UI
 
             if (slots.Length > 0)
             {
-                // Initialize children array with size slots.Length + 1 to accommodate the frame
+                // Initialize children array with size Slots.Length + 1 to accommodate the frame
                 children = new UIComponent[slots.Length + 1];
 
                 // Add UIFrameComponent as child 0

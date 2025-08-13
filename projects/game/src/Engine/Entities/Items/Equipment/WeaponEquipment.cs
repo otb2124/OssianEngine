@@ -22,15 +22,17 @@ namespace Entities
             switch (ItemKey.EnumValue)
             {
                 case ItemLib.Weapons.BARE_HAND:
-                    Name = "Bare hands";
-                    Description = "A terrablade";
+                    Name = "Bare Hands";
+                    Description = "Bare hands";
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
                     PhysDmg = 1;
-                    WeaponEntity.WeaponSwingSpeedMultiplier = 1f;
-                    WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;
-                    WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
+                    KnockbackPower = 0.1f;
+                    WeaponEntity.WeaponSwingSpeedMultiplier = 2f;
+                    WeaponEntity.Sprite = StaticSprites.NONE;
+                    WeaponEntity.MoveSet = WeaponComboHitSets.BARE_HANDS;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    PoiseDmg = 10;
                     break;
                 case ItemLib.Weapons.TERRABLADE:
                     Name = "Terrablade";
@@ -44,6 +46,19 @@ namespace Entities
                     WeaponEntity.MoveSet = WeaponComboHitSets.SWORD;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 25;
+                    break;
+                case ItemLib.Weapons.KNIFE:
+                    Name = "Knife";
+                    Description = "Iron knife";
+                    Value = 10;
+                    Rarity = ItemRarity.COMMON;
+                    PhysDmg = 2.5f;
+                    KnockbackPower = 1f;
+                    WeaponEntity.WeaponSwingSpeedMultiplier = 1.5f;
+                    WeaponEntity.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
+                    WeaponEntity.MoveSet = WeaponComboHitSets.KNIFE;
+                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    PoiseDmg = 15;
                     break;
             }
 

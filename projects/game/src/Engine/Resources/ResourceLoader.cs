@@ -26,6 +26,7 @@ namespace Resources
         {
             SpriteSheets[] spritesToUse = new SpriteSheets[]
             {
+                SpriteSheets.NONE,
                 //--------
                 //GRAPHICS
                 //parallax

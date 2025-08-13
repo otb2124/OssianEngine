@@ -28,6 +28,8 @@ namespace Resources
 
             switch (id)
             {
+                case SpriteSheets.NONE:
+                    return "utils/none";
                 //graphics
                 case SpriteSheets.GRAPHICS_BG0_CANVAS:
                     return "graphics/parallax/bg0/canvas";

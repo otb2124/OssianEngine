@@ -38,6 +38,8 @@ namespace Resources
 
         public static readonly Dictionary<StaticSprites, SpriteData> spriteMappings = new()
         {
+            { StaticSprites.NONE, new SpriteData(SpriteSheets.NONE, new Rectangle(0,0,0,0), 0) },
+
             { StaticSprites.GRAPHICS_CLOUD_0, new SpriteData(SpriteSheets.GRAPHICS_CLOUDS, new Rectangle(0,0,360,128), 2) },
             { StaticSprites.GRAPHICS_SUN, new SpriteData(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
 

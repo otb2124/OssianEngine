@@ -8,6 +8,7 @@ namespace Utils
 {
     public enum SpriteSheets
     {
+        NONE,
         //--------
         //GRAPHICS
         //parallax
@@ -73,6 +74,7 @@ namespace Utils
 
     public enum StaticSprites
     {
+        NONE,
         //--------
         //GRAPHICS
         //parallax
@@ -200,9 +202,17 @@ namespace Utils
         ATTACKING_KNIFE_LIGHT_LIGHT,
         ATTACKING_KNIFE_LIGHT_LIGHT_LIGHT,
         ATTACKING_KNIFE_HEAVY,
-        ATTACKING_KNIFE_HEAVY_HEAVY,
         ATTACKING_KNIFE_LIGHT_HEAVY,
         ATTACKING_KNIFE_LIGHT_HEAVY_HEAVY,
+
+        BLOCKING_BARE_HANDS,
+
+        ATTACKING_BARE_HANDS_LIGHT,
+        ATTACKING_BARE_HANDS_LIGHT_LIGHT,
+        ATTACKING_BARE_HANDS_LIGHT_LIGHT_LIGHT,
+        ATTACKING_BARE_HANDS_HEAVY,
+        ATTACKING_BARE_HANDS_LIGHT_HEAVY,
+        ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY,
     }
 
 

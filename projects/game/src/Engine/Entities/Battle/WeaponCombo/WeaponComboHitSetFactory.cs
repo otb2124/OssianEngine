@@ -11,7 +11,8 @@ namespace Entities
         public enum WeaponComboHitSets
         {
             SWORD,
-            KNIFE
+            KNIFE,
+            BARE_HANDS,
         }
 
         public enum AttackTypes
@@ -75,22 +76,56 @@ namespace Entities
                     // XX
                     new WeaponComboHit(
                         new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
-                        new AttackTypes[] { AttackTypes.LIGHT }),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT }),
                     // XY
                     new WeaponComboHit(
                         new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
-                        new AttackTypes[] { AttackTypes.HEAVY }),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY }),
 
 
 
                     // XXX
                     new WeaponComboHit(
                         new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
-                        new AttackTypes[] { AttackTypes.LIGHT }),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
                     // XYY
                     new WeaponComboHit(
                         new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY }),
+                }
+            },
+            {
+                WeaponComboHitSets.BARE_HANDS,
+                new[]
+                {
+                    // X
+                    new WeaponComboHit(
+                        new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
+                        new AttackTypes[] { AttackTypes.LIGHT }),
+                    // Y
+                    new WeaponComboHit(
+                        new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
                         new AttackTypes[] { AttackTypes.HEAVY }),
+
+                    // XX
+                    new WeaponComboHit(
+                        new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                    // XY
+                    new WeaponComboHit(
+                        new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY }),
+
+
+
+                    // XXX
+                    new WeaponComboHit(
+                        new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(10, 0), 0.25f, new Vector2(0.2f, 0.25f),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }),
+                    // XYY
+                    new WeaponComboHit(
+                        new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(10, 0), 0.5f, new Vector2(0.4f, 0.5f),
+                        new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY }),
                 }
             }
         };

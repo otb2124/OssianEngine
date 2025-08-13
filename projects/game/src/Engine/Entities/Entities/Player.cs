@@ -59,19 +59,20 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment = (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.HELMET).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_HELMET));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.GLOVES).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_GLOVES));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.BOOTS).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_BOOTS));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CAPE).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.LEATHER_CAPE));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.NECKLACE).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_NECKLACE));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.BELT).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_BELT));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_RING));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_RING));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CONTAINMENT).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.BACKPACK));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.PET).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.CALL_DOG));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.PET_LIGHT).Equipment = (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.CALL_FIREFLY));
+            EquipmentManager.SetWeapon(EquipmentManager.WeaponHand.LEFT, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
+
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.HELMET, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_HELMET)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.GLOVES, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_GLOVES)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.BOOTS, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_BOOTS)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.CAPE, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.LEATHER_CAPE)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.NECKLACE, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_NECKLACE)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.BELT, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_BELT)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_RING)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_RING)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.CONTAINMENT, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.BACKPACK)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.PET, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.CALL_DOG)));
+            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.PET_LIGHT, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.CALL_FIREFLY)));
         }
 
         public override void SetInventory()
@@ -132,10 +133,6 @@ namespace Entities
 
             //fallen
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SWORD, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
-
-            //fallen
-            frameSpeed = 0.04f;
             Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE_LEFT, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
             Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE_LEFT, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
 
@@ -146,12 +143,33 @@ namespace Entities
 
             //attacking
             frameSpeed = 0.15f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SWORD, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed); 
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+
+            //attacking
+            frameSpeed = 0.15f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_KNIFE, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+
+            //attacking
+            frameSpeed = 0.15f;
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_BARE_HANDS, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
         }
 
         public override void SetSounds()

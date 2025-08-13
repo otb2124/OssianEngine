@@ -55,6 +55,8 @@ namespace Entities
                 );
             }
 
+
+
             Combo.UpdateHits(AttackHistory, MoveSet);
         }
 
@@ -209,7 +211,8 @@ namespace Entities
 
         public void Draw(Model model)
         {
-            if (model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY && model.ModelState != ModelStates.BLOCKING)
+            if (model.ModelState != ModelStates.ATTACKING_LIGHT && model.ModelState != ModelStates.ATTACKING_HEAVY && model.ModelState != ModelStates.BLOCKING
+                && Sprite != StaticSprites.NONE)
                 return;
 
             var currentHit = Combo.GetCurrentHit();

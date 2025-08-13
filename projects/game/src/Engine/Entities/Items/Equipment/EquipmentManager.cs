@@ -1,14 +1,9 @@
-﻿using Entities;
-using Microsoft.Xna.Framework;
-using Physics;
-using Resources;
-using UI;
-using Utils;
-using static Entities.PhysicalEntity;
-using static Resources.Model;
+﻿using Resources;
+using System;
 
 namespace Entities
 {
+
     public class EquipmentManager
     {
         public enum WeaponHand
@@ -18,74 +13,101 @@ namespace Entities
             BOTH
         }
 
-        public WeaponHand currentHand = WeaponHand.LEFT;
-
-        public EquipmentSlot[] slots;
-
-        public bool IsWeaponOut = false;
-
+        public WeaponHand CurrentHand = WeaponHand.LEFT;
+        public EquipmentSlot[] Slots;
+        public WeaponEquipment LeftWeaponIn;
+        public WeaponEquipment RightWeaponIn;
+        public bool IsWeaponOut;
 
         public EquipmentManager()
         {
-            slots = new EquipmentSlot[14];
-            slots[0] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L);
-            slots[1] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_R);
-            slots[2] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE);
-            slots[3] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.HELMET);
-            slots[4] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.BOOTS);
-            slots[5] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.GLOVES);
-            slots[6] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.NECKLACE);
-            slots[7] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.CAPE);
-            slots[8] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.BELT);
-            slots[9] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L);
-            slots[10] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R);
-            slots[11] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.PET);
-            slots[12] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.PET_LIGHT);
-            slots[13] = new EquipmentSlot(EquipmentSlot.EquipmentSlots.CONTAINMENT);
-        }
-
-
-        public EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type)
-        {
-            for (int i = 0; i < slots.Length; i++)
+            Slots = new EquipmentSlot[]
             {
-                if (slots[i].Type == type)
-                {
-                    return slots[i];
-                }
-            }
-
-            return null;
+                new(EquipmentSlot.EquipmentSlots.WEAPON_L),
+                new(EquipmentSlot.EquipmentSlots.WEAPON_R),
+                new(EquipmentSlot.EquipmentSlots.CHESTPLATE),
+                new(EquipmentSlot.EquipmentSlots.HELMET),
+                new(EquipmentSlot.EquipmentSlots.BOOTS),
+                new(EquipmentSlot.EquipmentSlots.GLOVES),
+                new(EquipmentSlot.EquipmentSlots.NECKLACE),
+                new(EquipmentSlot.EquipmentSlots.CAPE),
+                new(EquipmentSlot.EquipmentSlots.BELT),
+                new(EquipmentSlot.EquipmentSlots.RING_L),
+                new(EquipmentSlot.EquipmentSlots.RING_R),
+                new(EquipmentSlot.EquipmentSlots.PET),
+                new(EquipmentSlot.EquipmentSlots.PET_LIGHT),
+                new(EquipmentSlot.EquipmentSlots.CONTAINMENT)
+            };
         }
+
+        public void SetWeapon(WeaponHand hand, WeaponEquipment weapon)
+        {
+            SetWeaponSwapPlaceHolder(hand, weapon);
+            SetEquipmentSlot(HandToSlot(hand), CreateBareHands());
+        }
+
+        public EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type) =>
+            Array.Find(Slots, slot => slot.Type == type);
+
+        public void SetEquipmentSlot(EquipmentSlot.EquipmentSlots slotType, Equipment item) =>
+            GetEquipmentSlot(slotType).Equipment = item;
+
+        public EquipmentSlot.EquipmentSlots GetCurrentWeaponSlot() =>
+            HandToSlot(CurrentHand);
+
+        public ArmorEquipment GetCurrentArmor() =>
+            (ArmorEquipment)GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment;
+
+        public WeaponEquipment GetCurrentWeaponSwapPlaceHolder() =>
+            HandToWeaponIn(CurrentHand);
 
         public WeaponEquipment GetCurrentWeapon()
         {
-            if(currentHand == WeaponHand.LEFT)
+            var slot = GetCurrentWeaponSlot();
+            var weapon = (WeaponEquipment)GetEquipmentSlot(slot).Equipment;
+            if (weapon == null)
             {
-                return (WeaponEquipment)GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L).Equipment;
+                weapon = CreateBareHands();
+                SetEquipmentSlot(slot, weapon);
             }
-            else
-            {
-                return (WeaponEquipment)GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_R).Equipment;
-            }
+            return weapon;
         }
 
-        public ArmorEquipment GetCurrentArmor()
+
+        public void SetCurrentWeaponSwapPlaceHolder(WeaponEquipment toChange) =>
+            SetWeaponSwapPlaceHolder(CurrentHand, toChange);
+        public void SetWeaponSwapPlaceHolder(WeaponHand hand, WeaponEquipment toChange)
         {
-            return ((ArmorEquipment)GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment);
+            if (hand == WeaponHand.LEFT)
+                LeftWeaponIn = toChange;
+            else
+                RightWeaponIn = toChange;
+        }
+        public void WeaponOutSwap()
+        {
+            var slot = GetCurrentWeaponSlot();
+            var currentWeapon = (WeaponEquipment)GetEquipmentSlot(slot).Equipment;
+            var placeholder = GetCurrentWeaponSwapPlaceHolder();
+            SetCurrentWeaponSwapPlaceHolder(currentWeapon);
+            SetEquipmentSlot(slot, placeholder);
         }
 
+
+        public WeaponEquipment HandToWeaponIn(WeaponHand hand) =>
+           hand == WeaponHand.LEFT ? LeftWeaponIn : RightWeaponIn;
+        public EquipmentSlot.EquipmentSlots HandToSlot(WeaponHand hand) =>
+            hand == WeaponHand.LEFT ? EquipmentSlot.EquipmentSlots.WEAPON_L : EquipmentSlot.EquipmentSlots.WEAPON_R;
+        public static WeaponEquipment CreateBareHands() =>
+            (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.BARE_HAND));
+
+
+        public void Draw(Model model) =>
+            GetCurrentWeapon()?.Draw(model);
 
         public void DrawHitbox()
         {
-            GetCurrentWeapon().WeaponEntity.DrawHitbox();
-            GetCurrentArmor().DrawHitbox();
-        }
-
-
-        public void Draw(Model model)
-        {
-            this.GetCurrentWeapon().Draw(model);
+            GetCurrentWeapon()?.WeaponEntity.DrawHitbox();
+            GetCurrentArmor()?.DrawHitbox();
         }
     }
 }

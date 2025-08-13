@@ -67,6 +67,75 @@ namespace Entities
                         AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     break;
+
+
+                case WeaponComboHitSets.KNIFE:
+
+                    if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_KNIFE_HEAVY;
+                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY;
+                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY_HEAVY;
+                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
+                    break;
+
+                case WeaponComboHitSets.BARE_HANDS:
+
+                    if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_HEAVY;
+                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY;
+                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY;
+                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                    }
+                    break;
             }
         }
 

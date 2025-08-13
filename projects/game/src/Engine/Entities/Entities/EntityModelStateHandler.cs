@@ -120,6 +120,7 @@ namespace Entities {
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
             {
                 player.EquipmentManager.IsWeaponOut = !player.EquipmentManager.IsWeaponOut;
+                player.EquipmentManager.WeaponOutSwap();
             }
 
             // ATTACK
