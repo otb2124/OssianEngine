@@ -13,6 +13,7 @@ namespace Graphics
             NONE,
             HUMAN_BLOOD_SPLASH,
             SLIME_BLOOD_SPLASH,
+            FIRE
         }
 
 
@@ -64,6 +65,13 @@ namespace Graphics
                     Particles.Add(new Particle(new Vector2(Position.X, Position.Y), Particle.Particles.SLIME_BLOOD_DROP));
                     Particles.Add(new Particle(new Vector2(Position.X, Position.Y), Particle.Particles.SLIME_BLOOD_DROP));
                     break;
+                case ParticleSets.FIRE:
+                    Particles.Add(new Particle(new Vector2(Position.X, Position.Y), Particle.Particles.FIRE_PART));
+                    Particles.Add(new Particle(new Vector2(Position.X, Position.Y), Particle.Particles.FIRE_PART));
+                    Particles.Add(new Particle(new Vector2(Position.X, Position.Y), Particle.Particles.FIRE_PART));
+                    Particles.Add(new Particle(new Vector2(Position.X, Position.Y), Particle.Particles.FIRE_PART));
+                    Particles.Add(new Particle(new Vector2(Position.X, Position.Y), Particle.Particles.FIRE_PART));
+                    break;
             }
         }
 
@@ -85,6 +93,13 @@ namespace Graphics
                     Particles[2].Postion += new Vector2(Velocity.X, Velocity.Y)         * Particles[2].VelocityMultiplier;
                     Particles[3].Postion += new Vector2(Velocity.X, Velocity.Y - 0.05f) * Particles[3].VelocityMultiplier;
                     Particles[4].Postion += new Vector2(Velocity.X, Velocity.Y - 0.1f)  * Particles[4].VelocityMultiplier;
+                    break;
+                case ParticleSets.FIRE:
+                    Particles[0].Postion += new Vector2(Velocity.X, Velocity.Y + 0.1f) * Particles[0].VelocityMultiplier;
+                    Particles[1].Postion += new Vector2(Velocity.X, Velocity.Y + 0.05f) * Particles[1].VelocityMultiplier;
+                    Particles[2].Postion += new Vector2(Velocity.X, Velocity.Y) * Particles[2].VelocityMultiplier;
+                    Particles[3].Postion += new Vector2(Velocity.X, Velocity.Y - 0.05f) * Particles[3].VelocityMultiplier;
+                    Particles[4].Postion += new Vector2(Velocity.X, Velocity.Y - 0.1f) * Particles[4].VelocityMultiplier;
                     break;
             }
         }

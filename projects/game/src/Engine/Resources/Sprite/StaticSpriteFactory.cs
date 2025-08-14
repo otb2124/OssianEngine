@@ -62,8 +62,8 @@ namespace Resources
             { StaticSprites.UI_GAME_ICON, new SpriteData(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
             { StaticSprites.UI_CURSOR, new SpriteData(SpriteSheets.UI_CURSOR, new Rectangle(0,0,32,32), 0) },
 
-            { StaticSprites.ENTITIES_WEAPONS_TERRABLADE, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(0,0,32,64), 200) },
-            { StaticSprites.ENTITIES_WEAPONS_IRON_SWORD, new SpriteData(SpriteSheets.ENTITIES_WEAPONS, new Rectangle(32,0,32,64), 200) }
+            { StaticSprites.ENTITIES_WEAPONS_TERRABLADE, new SpriteData(SpriteSheets.ENTITIES_WEAPONS_TERRABLADE, new Rectangle(0,0,32,64), 200) },
+            { StaticSprites.ENTITIES_WEAPONS_TORCH, new SpriteData(SpriteSheets.ENTITIES_WEAPONS_TORCH, new Rectangle(0,0,32,64), 200) }
         };
 
 
@@ -188,6 +188,9 @@ namespace Resources
         public static Dictionary<ItemKey, Point> itemUISpriteMappings = new()
         {
             { new ItemKey(ItemLib.Weapons.TERRABLADE), new Point(0,0) },
+            { new ItemKey(ItemLib.Weapons.TORCH), new Point(1,0) },
+
+
             { new ItemKey(ItemLib.Armors.IRON_CHESTPLATE), new Point(0,1) },
             { new ItemKey(ItemLib.Armors.IRON_HELMET), new Point(0,2) },
             { new ItemKey(ItemLib.Armors.IRON_BOOTS), new Point(0,3) },

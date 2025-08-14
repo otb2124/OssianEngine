@@ -72,7 +72,8 @@ namespace Resources
                 SpriteSheets.ENTITIES_LEDGES,
 
                 //equipment
-                SpriteSheets.ENTITIES_WEAPONS,
+                SpriteSheets.ENTITIES_WEAPONS_TERRABLADE,
+                SpriteSheets.ENTITIES_WEAPONS_TORCH,
 
                 //particles
                 SpriteSheets.ENTITIES_PARTICLES,

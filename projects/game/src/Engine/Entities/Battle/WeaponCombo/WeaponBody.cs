@@ -273,24 +273,23 @@ namespace Entities
                 {
                     var currentHit = Combo.GetCurrentHit();
                     int horizontalXFactor = model.Direction == Directions.RIGHT ? 1 : -1;
-                
+
+                    Vector2 oldWeaponPosition = model.Body.Position.ToVector2() + NoAttackHitbox.Position * new Vector2(horizontalXFactor, 1f);
+                    Vector2 weaponRotOffset = new Vector2(0, NoAttackHitbox.Height);
+                    weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(NoAttackHitbox.Rotation));
+                    Vector2 lightPos = oldWeaponPosition - (weaponRotOffset * horizontalXFactor);
+
                     if (currentHit != null)
                     {
-                        Vector2 oldWeaponPosition = model.Body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
-                        Vector2 weaponRotOffset = new Vector2(0, currentHit.HitboxOffset.Height);
+                        oldWeaponPosition = model.Body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
+                        weaponRotOffset = new Vector2(0, currentHit.HitboxOffset.Height);
                         weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(currentHit.HitboxOffset.Rotation));
-                        Vector2 lightPos = oldWeaponPosition - (weaponRotOffset * horizontalXFactor);
-                        Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(lightPos, LightSourceData);
-                    }
-                    else
-                    {
-                        Vector2 oldWeaponPosition = model.Body.Position.ToVector2() + NoAttackHitbox.Position * new Vector2(horizontalXFactor, 1f);
-                        Vector2 weaponRotOffset = new Vector2(0, NoAttackHitbox.Height);
-                        weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(NoAttackHitbox.Rotation));
-                        Vector2 lightPos = oldWeaponPosition - (weaponRotOffset * horizontalXFactor);
-                        Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(lightPos, LightSourceData);
+                        lightPos = oldWeaponPosition - (weaponRotOffset * horizontalXFactor);
                     }
 
+                    Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(lightPos, LightSourceData);
+
+                    //Graphics.Graphics.particleManager.ParticleSets.Add(new Graphics.ParticleSet(ParticleSet.ParticleSets.FIRE, lightPos, Vector2.Zero));
                 }
                 else
                 {

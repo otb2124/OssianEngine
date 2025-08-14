@@ -53,7 +53,8 @@ namespace Utils
         ENTITIES_LEDGES,
 
         //equipment
-        ENTITIES_WEAPONS,
+        ENTITIES_WEAPONS_TERRABLADE,
+        ENTITIES_WEAPONS_TORCH,
 
         //particles
         ENTITIES_PARTICLES,
@@ -113,7 +114,7 @@ namespace Utils
 
         //equipment
         ENTITIES_WEAPONS_TERRABLADE,
-        ENTITIES_WEAPONS_IRON_SWORD,
+        ENTITIES_WEAPONS_TORCH,
 
         //light
         LIGHT_DARKNESS_FULL,

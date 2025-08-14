@@ -19,6 +19,7 @@ namespace Graphics
             NONE,
             HUMAN_BLOOD_DROP,
             SLIME_BLOOD_DROP,
+            FIRE_PART,
         }
 
         public Vector2 Postion;
@@ -58,6 +59,12 @@ namespace Graphics
                     break;
                 case Particles.SLIME_BLOOD_DROP:
                     sprite = StaticSpriteFactory.GetEntityParticle(new Vector2(1, 0));
+                    DurationSec = 0.5f;
+                    VelocityMultiplier = new Vector2(0.25f, 1);
+                    AdjustedScale = new Vector2(0.25f, 0.25f);
+                    break;
+                case Particles.FIRE_PART:
+                    sprite = StaticSpriteFactory.GetEntityParticle(new Vector2(0, 1));
                     DurationSec = 0.5f;
                     VelocityMultiplier = new Vector2(0.25f, 1);
                     AdjustedScale = new Vector2(0.25f, 0.25f);

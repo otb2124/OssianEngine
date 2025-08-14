@@ -91,9 +91,10 @@ namespace Resources
 
                 case SpriteSheets.ENTITIES_PARTICLES:
                     return "entities/static/particles";
-                case SpriteSheets.ENTITIES_WEAPONS:
-                    return "entities/equipment/weapons";
-
+                case SpriteSheets.ENTITIES_WEAPONS_TERRABLADE:
+                    return "entities/equipment/terrablade";
+                case SpriteSheets.ENTITIES_WEAPONS_TORCH:
+                    return "entities/equipment/torch";
 
                 //light
                 case SpriteSheets.LIGHT_DARKNESS_FULL:
