@@ -101,6 +101,16 @@ namespace Entities
             }
             else if (model.ModelState == ModelStates.BLOCKING)
             {
+                if (LightSource != null)
+                {
+                    Console.WriteLine(LightSource.Id);
+                    if (Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
+                    {
+                        Graphics.Graphics.lightManager.AddLightSource(LightSource);
+                    }
+                }
+
+
                 AttackTypes currentAttack = AttackTypes.BLOCK;
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
@@ -114,6 +124,15 @@ namespace Entities
                 isSwinging = false;
                 ComboHistoryUpdated = false;
                 ModelAnimationTimeUpdated = false;
+
+                if (LightSource != null)
+                {
+                    if(Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) != null)
+                    {
+                        Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(Vector2.Zero, null);
+                    }
+                }
+                    
             }
         }
 
