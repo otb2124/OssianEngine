@@ -1,5 +1,6 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using Resources;
 using SharpDX.Win32;
@@ -37,6 +38,8 @@ namespace Entities
 
         public LightSource.LightSourceData LightSourceData;
         public LightSource LightSource;
+
+        public RotatedRectangle NoAttackHitbox;
 
         public WeaponBody()
         {
@@ -76,23 +79,24 @@ namespace Entities
             {
                 LightSource = new LightSource();
             }
+
+            NoAttackHitbox = new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f);
         }
 
         public void Update(Model model)
         {
             float deltaTime = (float)Graphics.Graphics.CurrentLogicTime/(float)Graphics.Graphics.TimeScale;
 
+            if (LightSource != null)
+            {
+                if (Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
+                {
+                    Graphics.Graphics.lightManager.AddLightSource(LightSource);
+                }
+            }
+
             if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY)
             {
-                if (LightSource != null)
-                {
-                    Console.WriteLine(LightSource.Id);
-                    if(Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
-                    {
-                        Graphics.Graphics.lightManager.AddLightSource(LightSource);
-                    }
-                }
-
                 AttackTypes currentAttack = model.ModelState == ModelStates.ATTACKING_LIGHT ? AttackTypes.LIGHT : AttackTypes.HEAVY;
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
@@ -101,16 +105,6 @@ namespace Entities
             }
             else if (model.ModelState == ModelStates.BLOCKING)
             {
-                if (LightSource != null)
-                {
-                    Console.WriteLine(LightSource.Id);
-                    if (Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
-                    {
-                        Graphics.Graphics.lightManager.AddLightSource(LightSource);
-                    }
-                }
-
-
                 AttackTypes currentAttack = AttackTypes.BLOCK;
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
@@ -129,11 +123,13 @@ namespace Entities
                 {
                     if(Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) != null)
                     {
-                        Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(Vector2.Zero, null);
+                        //Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(Vector2.Zero, null);
                     }
                 }
-                    
             }
+
+
+            UpdateLight(model);
         }
 
         private void UpdateComboSelection(AttackTypes currentAttack)
@@ -153,31 +149,24 @@ namespace Entities
         private void UpdateHitbox(Model model)
         {
             var currentHit = Combo.GetCurrentHit();
+            int horizontalXFactor = model.Direction == Directions.RIGHT ? 1 : -1;
+
             if (currentHit == null)
             {
                 model.ModelState = ModelStates.WEAPON_OUT_IDLE;
                 return;
             }
 
-            int horizontalXFactor = model.Direction == Directions.RIGHT ? 1 : -1;
+            
             Vector2 weaponPosition = model.Body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
 
-            if(currentSwingTime > WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X && currentSwingTime < WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y)
+            if (currentSwingTime > WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X && currentSwingTime < WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y)
             {
                 Hitbox.Update(
                     weaponPosition,
                     currentHit.HitboxOffset.Size(),
                     currentHit.HitboxOffset.Rotation * horizontalXFactor
                 );
-
-                if (LightSource != null)
-                {
-                    Vector2 weaponRotOffset = new Vector2(0, currentHit.HitboxOffset.Height);
-                    weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(currentHit.HitboxOffset.Rotation));
-                    Vector2 lightPos = weaponPosition - (weaponRotOffset * horizontalXFactor);
-
-                    Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(lightPos, LightSourceData);
-                }
             }
             else
             {
@@ -273,6 +262,43 @@ namespace Entities
                 model.aManager.GetAnimation(model.Direction, model.animationState).frameTimeLeft = currentHit.AnimationData.FrameTime;
                 ModelAnimationTimeUpdated = true;
             }
+        }
+
+        public void UpdateLight(Model model)
+        {
+            if (LightSource != null && Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) != null)
+            {
+                if (model.ModelState == ModelStates.WEAPON_OUT_IDLE || model.ModelState == ModelStates.WEAPON_OUT_MOVING 
+                    || model.ModelState == ModelStates.ATTACKING_HEAVY || model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.BLOCKING)
+                {
+                    var currentHit = Combo.GetCurrentHit();
+                    int horizontalXFactor = model.Direction == Directions.RIGHT ? 1 : -1;
+                
+                    if (currentHit != null)
+                    {
+                        Vector2 oldWeaponPosition = model.Body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
+                        Vector2 weaponRotOffset = new Vector2(0, currentHit.HitboxOffset.Height);
+                        weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(currentHit.HitboxOffset.Rotation));
+                        Vector2 lightPos = oldWeaponPosition - (weaponRotOffset * horizontalXFactor);
+                        Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(lightPos, LightSourceData);
+                    }
+                    else
+                    {
+                        Vector2 oldWeaponPosition = model.Body.Position.ToVector2() + NoAttackHitbox.Position * new Vector2(horizontalXFactor, 1f);
+                        Vector2 weaponRotOffset = new Vector2(0, NoAttackHitbox.Height);
+                        weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(NoAttackHitbox.Rotation));
+                        Vector2 lightPos = oldWeaponPosition - (weaponRotOffset * horizontalXFactor);
+                        Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(lightPos, LightSourceData);
+                    }
+
+                }
+                else
+                {
+                    Graphics.Graphics.lightManager.GetEntityById(LightSource.Id).Update(Vector2.Zero, null);
+                }
+            }
+            
+            
         }
 
         public void Draw(Model model)

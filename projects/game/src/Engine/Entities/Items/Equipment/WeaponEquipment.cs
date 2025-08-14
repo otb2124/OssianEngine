@@ -81,7 +81,7 @@ namespace Entities
                     WeaponBody.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
                     WeaponBody.MoveSet = WeaponMovesets.SWORD;
                     WeaponBody.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
-                    WeaponBody.LightSourceData = new Graphics.LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(10f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.7f), 50f, 0f);
+                    WeaponBody.LightSourceData = new Graphics.LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(100f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.5f), 10f, 0f);
                     break;
             }
 
