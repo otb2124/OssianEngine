@@ -94,18 +94,19 @@ namespace Entities
 
             if (LightSource != null)
             {
-                if (Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
-                {
-                    if(model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY || model.ModelState == ModelStates.BLOCKING
+                if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY || model.ModelState == ModelStates.BLOCKING
                     || model.ModelState == ModelStates.WEAPON_OUT_IDLE || model.ModelState == ModelStates.WEAPON_OUT_MOVING)
+                {
+                    if (Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
                     {
+                    
                         LightSource.Init(this, model, WeaponBodyData.LightSourceData);
                         Graphics.Graphics.lightManager.AddLightSource(LightSource);
                     }
-                    else
-                    {
-                        Graphics.Graphics.lightManager.lightSourcesToRemove.Add(LightSource);
-                    }
+                }
+                else
+                {
+                    Graphics.Graphics.lightManager.lightSourcesToRemove.Add(LightSource);
                 }
             }
 

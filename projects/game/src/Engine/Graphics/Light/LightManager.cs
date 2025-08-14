@@ -87,8 +87,6 @@ namespace Graphics
                     nextId = 1;
                 }
             }
-
-            Console.WriteLine(nextId);
             return nextId++;
         }
 
