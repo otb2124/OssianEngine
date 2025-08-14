@@ -54,7 +54,7 @@ namespace Entities
             SetWeaponSwapPlaceHolder(hand, weapon);
             SetEquipmentSlot(HandToSlot(hand), CreateBareHands());
 
-            HandToWeaponBody(hand).Init(weapon.WeaponBodyData);
+            HandToWeaponBody(CurrentHand).Init(CreateBareHands().WeaponBodyData);
         }
 
         public EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type) =>
