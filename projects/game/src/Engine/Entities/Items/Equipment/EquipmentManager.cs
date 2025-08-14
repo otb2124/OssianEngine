@@ -17,6 +17,7 @@ namespace Entities
 
         public WeaponHand CurrentHand = WeaponHand.LEFT;
         public EquipmentSlot[] Slots;
+
         public WeaponEquipment LeftWeaponIn;
         public WeaponEquipment RightWeaponIn;
         public bool IsWeaponOut = false;
@@ -53,7 +54,6 @@ namespace Entities
         {
             SetWeaponSwapPlaceHolder(hand, weapon);
             SetEquipmentSlot(HandToSlot(hand), CreateBareHands());
-
             HandToWeaponBody(CurrentHand).Init(CreateBareHands().WeaponBodyData);
         }
 

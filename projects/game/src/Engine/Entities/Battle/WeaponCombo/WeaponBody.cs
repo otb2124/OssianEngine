@@ -99,8 +99,7 @@ namespace Entities
                 {
                     if (Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
                     {
-                    
-                        LightSource.Init(this, model, WeaponBodyData.LightSourceData);
+                        LightSource.Init(Combo, NoAttackHitbox, model, WeaponBodyData.LightSourceData);
                         Graphics.Graphics.lightManager.AddLightSource(LightSource);
                     }
                 }
