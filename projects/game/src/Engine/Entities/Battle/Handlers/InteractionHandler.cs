@@ -23,12 +23,15 @@ namespace Entities
         {
             if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP)
             {
-                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
+                if(livingEnt.Stats.AllowPickup)
                 {
-                    Entities.Player.Inventory.AddInventory(itemEnt.Containment);
-                    Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
-                    Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
-
+                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
+                    {
+                        Entities.Player.Inventory.AddInventory(itemEnt.Containment);
+                        Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
+                        Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
+                        livingEnt.Stats.AllowPickup = false;
+                    }
                 }
             }
             else if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP_AUTO)

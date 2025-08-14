@@ -65,6 +65,10 @@ namespace Entities
         public bool OnStaminaRegen = false;
         public bool OnUsingStamina = false;
 
+        public bool AllowPickup = true;
+        public int PickupCounter = 0;
+        public float PickupLockSec = 1f;
+
         public float invincibleFramesSec = 1f;
         public int invincibleCounter = 0;
         public bool IsInvincible = true;
@@ -287,6 +291,20 @@ namespace Entities
             if (ent.Stats.IsGrounded)
             {
                 ent.highestJumpY = float.MinValue;
+            }
+        }
+
+
+        public void UpdatePickup()
+        {
+            if(!AllowPickup)
+            {
+                PickupCounter++;
+                if(PickupCounter > PickupLockSec * Graphics.Graphics.UpdatesPerSecond)
+                {
+                    AllowPickup = true;
+                    PickupCounter = 0;
+                }
             }
         }
 

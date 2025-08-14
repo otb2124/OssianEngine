@@ -43,7 +43,7 @@ namespace Entities
                     Description = "A terrablade";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    PhysDmg = 5;
+                    PhysDmg = 40;
                     KnockbackPower = 2f;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 25;

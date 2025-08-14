@@ -1,12 +1,9 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using Resources;
-using SharpDX.Win32;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Utils;
 using static Entities.WeaponComboMovesetFactory;
@@ -25,7 +22,7 @@ namespace Entities
         public LightSource.LightSourceData LightSourceData;
         public WeaponBodyData() { }
     }
-    public class WeaponBody
+    public class EquipmetWeaponBody
     {
         public WeaponHitbox Hitbox;
         public AnimationManager aManager;
@@ -44,7 +41,7 @@ namespace Entities
 
         public WeaponBodyData WeaponBodyData;
 
-        public WeaponBody()
+        public EquipmetWeaponBody()
         {
             Hitbox = new WeaponHitbox();
             AttackHistory = new List<AttackTypes>();

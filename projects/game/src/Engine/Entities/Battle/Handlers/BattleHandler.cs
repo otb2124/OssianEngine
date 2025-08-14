@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,8 +89,21 @@ namespace Entities
             return direction * knockbackPower;
         }
 
-        public static void HandleDeath(Entity ent)
+        public static void HandleDeath(StatsEntity ent)
         {
+            if(!ent.DropInventory.IsEmpty())
+            {
+                List<Item> droppedItems = ent.DropInventory.TryDrop();
+
+                foreach(Item item in droppedItems)
+                {
+                    Entities.entityMapManager.GetCurrentMap().Entities.Add(EntityHelper.CreateItemDrop(item, ent.Model.Body.Position.ToVector2()));
+
+                    //TODO: change to reinit for the interractive item emission
+                    Graphics.Graphics.lightManager.Init();
+                }
+            }
+
             Entities.entityManager.RemoveEntity(ent);
         }
     }

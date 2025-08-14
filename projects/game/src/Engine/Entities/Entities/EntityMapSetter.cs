@@ -55,17 +55,16 @@ namespace Entities
                     entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
                     entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
-                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, 100), 0f));
-                    //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-150, 100), 0f));
-                    //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(50, 1000), 2f));
-
+                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, -400), 0f));
+                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, -400), 0f));
+                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, -400), 0f));
+                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, -400), 0f));
 
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 300)));
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(20, 335)));
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(30, 310)));
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(40, 305)));
-
-                    entities.Add(new InteractiveItemEntity(StaticSpriteFactory.GetItemUISpriteByItemKey(new ItemKey(ItemLib.Weapons.TERRABLADE)), FlatBodyPreset.ITEM_DROP, new Vector2(0, 300), new Vector2(30, 30), InteractiveItemEntity.InteractiveItemType.PICKUP, new Inventory(new ItemKey[] {new ItemKey(ItemLib.Weapons.TERRABLADE)})));
+                    entities.Add(EntityHelper.CreateItemDrop(new ItemKey(ItemLib.Weapons.TERRABLADE), new Vector2(0, 300)));
 
                     break;
                 case 1:

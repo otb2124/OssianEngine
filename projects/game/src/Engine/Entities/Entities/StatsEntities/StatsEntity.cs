@@ -13,6 +13,7 @@ namespace Entities
 
         public EntityStats Stats;
         public Inventory Inventory;
+        public DropInventory DropInventory;
 
         public bool CanRegensStamina;
         public bool CanUpdateIFrames;
@@ -35,18 +36,21 @@ namespace Entities
         {
             SetStats();
             SetInventory();
+            SetDropInventory();
         }
 
         public StatsEntity(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f) : base(sprite, body, pos, rotation)
         {
             SetStats();
             SetInventory();
+            SetDropInventory();
         }
 
         public StatsEntity() : base()
         {
             SetStats();
             SetInventory();
+            SetDropInventory();
         }
 
 
@@ -74,6 +78,7 @@ namespace Entities
 
             Model.UpdateSurroundingRectangles();
             Stats.UpdateDescending(this);
+            Stats.UpdatePickup();
 
             base.Update();
         }
@@ -94,6 +99,11 @@ namespace Entities
         public virtual void SetInventory()
         {
             Inventory = new Inventory();
+        }
+
+        public virtual void SetDropInventory()
+        {
+            DropInventory = new DropInventory();
         }
 
 

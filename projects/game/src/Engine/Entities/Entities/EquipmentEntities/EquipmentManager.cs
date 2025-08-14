@@ -22,8 +22,8 @@ namespace Entities
         public WeaponEquipment RightWeaponIn;
         public bool IsWeaponOut = false;
 
-        public WeaponBody LeftWeaponBody;
-        public WeaponBody RightWeaponBody;
+        public EquipmetWeaponBody LeftWeaponBody;
+        public EquipmetWeaponBody RightWeaponBody;
 
         public EquipmentManager()
         {
@@ -45,8 +45,8 @@ namespace Entities
                 new(EquipmentSlot.EquipmentSlots.CONTAINMENT)
             };
 
-            LeftWeaponBody = new WeaponBody();
-            RightWeaponBody = new WeaponBody();
+            LeftWeaponBody = new EquipmetWeaponBody();
+            RightWeaponBody = new EquipmetWeaponBody();
         }
 
 
@@ -74,7 +74,7 @@ namespace Entities
         public WeaponEquipment GetCurrentWeapon() =>
             (WeaponEquipment)GetEquipmentSlot(GetCurrentWeaponSlot()).Equipment;
 
-        public WeaponBody GetCurrentWeaponBody() =>
+        public EquipmetWeaponBody GetCurrentWeaponBody() =>
             HandToWeaponBody(CurrentHand);
 
 
@@ -101,7 +101,7 @@ namespace Entities
         public WeaponEquipment HandToWeaponIn(WeaponHand hand) =>
            hand == WeaponHand.LEFT ? LeftWeaponIn : RightWeaponIn;
 
-        public WeaponBody HandToWeaponBody(WeaponHand hand) =>
+        public EquipmetWeaponBody HandToWeaponBody(WeaponHand hand) =>
            hand == WeaponHand.LEFT ? LeftWeaponBody : RightWeaponBody;
 
         public EquipmentSlot.EquipmentSlots HandToSlot(WeaponHand hand) =>

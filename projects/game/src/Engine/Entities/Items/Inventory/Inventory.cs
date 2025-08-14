@@ -26,6 +26,15 @@ namespace Entities
             }
         }
 
+        public Inventory(Item[] items)
+        {
+            Items = new List<Item>();
+            foreach (var item in items)
+            {
+                AddItem(item);
+            }
+        }
+
         public void AddItem(Item item)
         {
             Item existing = GetItemWithItemKey(item.ItemKey);
