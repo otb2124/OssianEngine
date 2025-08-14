@@ -37,6 +37,12 @@ namespace Graphics
             }
         }
 
+
+        public void AddEntityEmissionLightSource(PhysicalEntity ent)
+        {
+            AddLightSource(new EntityEmissionLightSource(ent.Id, ent.Emission));
+        }
+
         public void AddLightSource(LightSource light)
         {
             lightSources.Add(light);

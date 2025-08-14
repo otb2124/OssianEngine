@@ -97,10 +97,9 @@ namespace Entities
 
                 foreach(Item item in droppedItems)
                 {
-                    Entities.entityMapManager.GetCurrentMap().Entities.Add(EntityHelper.CreateItemDrop(item, ent.Model.Body.Position.ToVector2()));
-
-                    //TODO: change to reinit for the interractive item emission
-                    Graphics.Graphics.lightManager.Init();
+                    InteractiveItemEntity itemEnt = EntityHelper.CreateItemDrop(item, ent.Model.Body.Position.ToVector2());
+                    Entities.entityMapManager.GetCurrentMap().Entities.Add(itemEnt);
+                    Graphics.Graphics.lightManager.AddEntityEmissionLightSource(itemEnt);
                 }
             }
 

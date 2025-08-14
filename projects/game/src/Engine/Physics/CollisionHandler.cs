@@ -16,7 +16,7 @@ namespace Physics
             { typeof(Player), new() { typeof(PlatformEntity), typeof(HumanoidMob), typeof(AnimalMob), typeof(LedgeEntity)} },
             { typeof(HumanoidMob), new() { typeof(AnimalMob), typeof(HumanoidMob) } },
             { typeof(AnimalMob), new() { typeof(AnimalMob) } },
-            { typeof(InteractiveItemEntity), new() { typeof(AnimalMob), typeof(HumanoidMob), typeof(Player) } },
+            { typeof(InteractiveItemEntity), new() { typeof(AnimalMob), typeof(HumanoidMob), typeof(Player), typeof(InteractiveItemEntity) } },
 
             /*
             { typeof(GroupMember), new() { typeof(GroupMember) } },
