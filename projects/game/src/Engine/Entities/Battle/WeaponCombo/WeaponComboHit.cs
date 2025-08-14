@@ -11,20 +11,28 @@ namespace Entities
     public class WeaponComboHit
     {
         public RotatedRectangle HitboxOffset;
-        public Vector2 EntityPositionOffset { get; }
-        public float SwingTimeSec { get; }
-        public Vector2 HitboxAppearanceTimePeriod { get; }
-         public AttackTypes[] AttackSequence { get; }
-        public AnimationStates AnimationState { get; set; }
-        public AnimationData AnimationData { get; set; }
+        public Vector2 EntityPositionOffset;
+        public float SwingTimeSec;
+        public Vector2 HitboxAppearanceTimePeriod;
+        public AttackTypes[] AttackSequence;
+        public AnimationStates AnimationState;
+        public AnimationData AnimationData;
+        public float PhysDamage;
+        public float PoiseDamage;
+        public float KnockbackPower;
+        public float StaminaCost;
 
-        public WeaponComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence)
+        public WeaponComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence, float physDamage, float poiseDamage, float knockbackPower, float staminaCost)
         {
             HitboxOffset = hitboxOffset;
             EntityPositionOffset = entityPositionOffset;
             SwingTimeSec = swingTimeSec;
             HitboxAppearanceTimePeriod = hitboxAppearanceTimePeriod;
             AttackSequence = attackSequence;
+            PhysDamage = physDamage;
+            PoiseDamage = poiseDamage;
+            KnockbackPower = knockbackPower;
+            StaminaCost = staminaCost;
         }
 
 
