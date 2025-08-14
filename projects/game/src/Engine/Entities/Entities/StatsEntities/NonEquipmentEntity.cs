@@ -9,14 +9,14 @@ using Utils;
 
 namespace Entities
 {
-    public class NonWeaponEntity : StatsEntity
+    public class NonEquipmentEntity : StatsEntity
     {
 
         public Hitbox BodyHitbox;
         public Hitbox DamageHitbox;
 
 
-        public NonWeaponEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
+        public NonEquipmentEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
             SetHitboxes();
         }

@@ -1,6 +1,7 @@
 ﻿using Resources;
 using System;
 using static Entities.ItemLib;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace Entities
 {
@@ -19,6 +20,9 @@ namespace Entities
         public WeaponEquipment LeftWeaponIn;
         public WeaponEquipment RightWeaponIn;
         public bool IsWeaponOut = false;
+
+        public WeaponBody LeftWeaponBody;
+        public WeaponBody RightWeaponBody;
 
         public EquipmentManager()
         {
@@ -39,12 +43,18 @@ namespace Entities
                 new(EquipmentSlot.EquipmentSlots.PET_LIGHT),
                 new(EquipmentSlot.EquipmentSlots.CONTAINMENT)
             };
+
+            LeftWeaponBody = new WeaponBody();
+            RightWeaponBody = new WeaponBody();
         }
+
 
         public void SetWeapon(WeaponHand hand, WeaponEquipment weapon)
         {
             SetWeaponSwapPlaceHolder(hand, weapon);
             SetEquipmentSlot(HandToSlot(hand), CreateBareHands());
+
+            HandToWeaponBody(hand).Init(weapon.WeaponBodyData);
         }
 
         public EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type) =>
@@ -64,6 +74,9 @@ namespace Entities
         public WeaponEquipment GetCurrentWeapon() =>
             (WeaponEquipment)GetEquipmentSlot(GetCurrentWeaponSlot()).Equipment;
 
+        public WeaponBody GetCurrentWeaponBody() =>
+            HandToWeaponBody(CurrentHand);
+
 
         public void SetCurrentWeaponSwapPlaceHolder(WeaponEquipment toChange) =>
             SetWeaponSwapPlaceHolder(CurrentHand, toChange);
@@ -81,11 +94,16 @@ namespace Entities
             var placeholder = GetCurrentWeaponSwapPlaceHolder();
             SetCurrentWeaponSwapPlaceHolder(currentWeapon);
             SetEquipmentSlot(slot, placeholder);
+            HandToWeaponBody(CurrentHand).Init(placeholder.WeaponBodyData);
         }
 
 
         public WeaponEquipment HandToWeaponIn(WeaponHand hand) =>
            hand == WeaponHand.LEFT ? LeftWeaponIn : RightWeaponIn;
+
+        public WeaponBody HandToWeaponBody(WeaponHand hand) =>
+           hand == WeaponHand.LEFT ? LeftWeaponBody : RightWeaponBody;
+
         public EquipmentSlot.EquipmentSlots HandToSlot(WeaponHand hand) =>
             hand == WeaponHand.LEFT ? EquipmentSlot.EquipmentSlots.WEAPON_L : EquipmentSlot.EquipmentSlots.WEAPON_R;
         public static WeaponEquipment CreateBareHands() =>
@@ -93,11 +111,11 @@ namespace Entities
 
 
         public void Draw(Model model) =>
-            GetCurrentWeapon()?.Draw(model);
+            GetCurrentWeaponBody()?.Draw(model);
 
         public void DrawHitbox()
         {
-            GetCurrentWeapon()?.WeaponBody.DrawHitbox();
+            GetCurrentWeaponBody().DrawHitbox();
             GetCurrentArmor()?.DrawHitbox();
         }
     }

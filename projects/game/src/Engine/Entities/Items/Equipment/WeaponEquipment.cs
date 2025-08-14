@@ -10,7 +10,7 @@ namespace Entities
     public class WeaponEquipment : Equipment
     {
 
-        public WeaponBody WeaponBody;
+        public WeaponBodyData WeaponBodyData;
 
         public WeaponEquipment(ItemKey itemKey) : base(itemKey)
         {
@@ -19,7 +19,7 @@ namespace Entities
 
         public override void SetItem()
         {
-            WeaponBody = new WeaponBody();
+            WeaponBodyData = new WeaponBodyData();
 
             switch (ItemKey.EnumValue)
             {
@@ -29,13 +29,14 @@ namespace Entities
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
                     PhysDmg = 1;
-                    KnockbackPower = 0.1f;
-                    WeaponBody.WeaponSwingSpeedMultiplier = 2f;
-                    WeaponBody.Sprite = StaticSprites.NONE;
-                    WeaponBody.MoveSet = WeaponMovesets.BARE_HANDS;
-                    WeaponBody.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 10;
+                    KnockbackPower = 0.1f;
+
+                    WeaponBodyData.WeaponSwingSpeedMultiplier = 2f;
+                    WeaponBodyData.Sprite = StaticSprites.NONE;
+                    WeaponBodyData.MoveSet = WeaponMovesets.BARE_HANDS;
+                    WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     break;
                 case ItemLib.Weapons.TERRABLADE:
                     Name = "Terrablade";
@@ -47,10 +48,10 @@ namespace Entities
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 25;
 
-                    WeaponBody.WeaponSwingSpeedMultiplier = 1f;
-                    WeaponBody.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
-                    WeaponBody.MoveSet = WeaponMovesets.SWORD;
-                    WeaponBody.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
+                    WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
+                    WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
+                    WeaponBodyData.MoveSet = WeaponMovesets.SWORD;
+                    WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     break;
                 case ItemLib.Weapons.KNIFE:
                     Name = "Knife";
@@ -62,10 +63,10 @@ namespace Entities
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 15;
 
-                    WeaponBody.WeaponSwingSpeedMultiplier = 1.5f;
-                    WeaponBody.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
-                    WeaponBody.MoveSet = WeaponMovesets.KNIFE;
-                    WeaponBody.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
+                    WeaponBodyData.WeaponSwingSpeedMultiplier = 1.5f;
+                    WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
+                    WeaponBodyData.MoveSet = WeaponMovesets.KNIFE;
+                    WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     break;
                 case ItemLib.Weapons.TORCH:
                     Name = "Torch";
@@ -77,22 +78,13 @@ namespace Entities
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 25;
 
-                    WeaponBody.WeaponSwingSpeedMultiplier = 1f;
-                    WeaponBody.Sprite = StaticSprites.ENTITIES_WEAPONS_TORCH;
-                    WeaponBody.MoveSet = WeaponMovesets.SWORD;
-                    WeaponBody.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
-                    WeaponBody.LightSourceData = new Graphics.LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(100f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.5f), 10f, 0f);
+                    WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
+                    WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TORCH;
+                    WeaponBodyData.MoveSet = WeaponMovesets.SWORD;
+                    WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
+                    WeaponBodyData.LightSourceData = new Graphics.LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(100f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.5f), 10f, 0f);
                     break;
             }
-
-            WeaponBody.Init();
-        }
-
-        public override void Draw(Model model)
-        {
-            WeaponBody?.Draw(model);
-
-            base.Draw(model);
         }
 
     }
