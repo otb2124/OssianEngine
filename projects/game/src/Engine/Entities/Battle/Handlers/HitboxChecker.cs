@@ -25,7 +25,7 @@ namespace Entities
             {
                 (EquipmentEntity eqA, EquipmentEntity eqB) => (
                     eqA.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqA.WeaponBodyManager).Hitbox.outerHalf,
-                    eqB.EquipmentManager.GetCurrentArmor().hitbox.extends,
+                    eqB.EquipmentManager.Equipments.GetCurrentArmor().hitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                     eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                 ),
@@ -37,7 +37,7 @@ namespace Entities
                 ),
                 (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                     nhA.DamageHitbox.extends,
-                    eqB.EquipmentManager.GetCurrentArmor().hitbox.extends,
+                    eqB.EquipmentManager.Equipments.GetCurrentArmor().hitbox.extends,
                     nhA.Stats.bodyDamage,
                     nhA.Stats.bodyKnockbackPower
                 ),
@@ -119,7 +119,7 @@ namespace Entities
 
         public static void CheckForInterraction(InteractiveEntity interactiveEnt, EquipmentEntity livingEnt)
         {
-            if (CheckIntersection(livingEnt.EquipmentManager.GetCurrentArmor().hitbox.extends, interactiveEnt.InteractionField.extends))
+            if (CheckIntersection(livingEnt.EquipmentManager.Equipments.GetCurrentArmor().hitbox.extends, interactiveEnt.InteractionField.extends))
             {
                 InteractionHandler.HandleInterraction(interactiveEnt, livingEnt);
             }

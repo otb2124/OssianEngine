@@ -24,7 +24,7 @@ namespace Entities
         {
             switch (ItemKey.EnumValue)
             {
-                case ItemLib.Armors.IRON_CHESTPLATE:
+                case ItemLib.Chestplates.IRON_CHESTPLATE:
                     Name = "Iron Chestplate";
                     Description = "An iron chestplate";
                     Value = 500;
@@ -32,7 +32,7 @@ namespace Entities
                     PhysDef = 10;
                     EquipmentSlot = EquipmentSlotsTake.TORSO;
                     break;
-                case ItemLib.Armors.IRON_HELMET:
+                case ItemLib.Helmets.IRON_HELMET:
                     Name = "Iron Helmet";
                     Description = "An iron helmet";
                     Value = 500;
@@ -40,7 +40,7 @@ namespace Entities
                     PhysDef = 10;
                     EquipmentSlot = EquipmentSlotsTake.HEAD;
                     break;
-                case ItemLib.Armors.IRON_BOOTS:
+                case ItemLib.Boots.IRON_BOOTS:
                     Name = "Iron Boots";
                     Description = "An iron chestplate";
                     Value = 500;
@@ -48,7 +48,7 @@ namespace Entities
                     PhysDef = 10;
                     EquipmentSlot = EquipmentSlotsTake.LEGS;
                     break;
-                case ItemLib.Armors.IRON_GLOVES:
+                case ItemLib.Gloves.IRON_GLOVES:
                     Name = "Iron Gloves";
                     Description = "An iron chestplate";
                     Value = 500;

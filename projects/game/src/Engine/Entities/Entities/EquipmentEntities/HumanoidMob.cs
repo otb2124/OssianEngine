@@ -163,8 +163,8 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon((EquipmentWeaponBodyManager)WeaponBodyManager, WeaponHand.LEFT, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
-            EquipmentManager.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE));
+            EquipmentManager.SetWeapon((EquipmentWeaponBodyManager)WeaponBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
+            EquipmentManager.Equipments.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Chestplates.IRON_CHESTPLATE));
         }
 
 
@@ -173,7 +173,7 @@ namespace Entities
             base.SetDropInventory();
 
             DropInventory.AddDrop(new Drop(new ItemKey(ItemLib.Materials.SWORD_HILT), 0.99f));
-            DropInventory.AddDrop(new Drop(new ItemKey(ItemLib.Accessories.LEATHER_CAPE), 0.25f));
+            DropInventory.AddDrop(new Drop(new ItemKey(ItemLib.Capes.LEATHER_CAPE), 0.25f));
         }
 
         public override void Update()

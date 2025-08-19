@@ -16,23 +16,59 @@ namespace Entities
             TORCH
         }
 
-        public enum Armors
+        public enum Chestplates
         {
             NAKED_TORSO,
             IRON_CHESTPLATE,
+        }
+
+        public enum Helmets
+        {
             IRON_HELMET,
+        }
+
+        public enum Boots
+        {
             IRON_BOOTS,
+        }
+
+        public enum Gloves
+        {
             IRON_GLOVES,
         }
 
-        public enum Accessories
+        public enum Necklaces
         {
             IRON_NECKLACE,
+        }
+
+        public enum Capes
+        {
             LEATHER_CAPE,
+        }
+
+        public enum Belts
+        {
             IRON_BELT,
+        }
+
+        public enum Rings
+        {
             IRON_RING,
+        }
+
+        public enum Pets
+        {
             CALL_DOG,
+        }
+
+        public enum LightPets
+        {
             CALL_FIREFLY,
+        }
+
+        public enum Containments
+        {
             BACKPACK,
         }
 
@@ -69,10 +105,19 @@ namespace Entities
             WEAPON,
 
             //ARMOR
-            ARMOR,
+            CHESTPLATE,
+            HELMET,
+            GLOVES,
+            BOOTS,
 
             //ACCESSORIES
-            ACCESSORY,
+            NECKLACE,
+            CAPE,
+            BELT,
+            RING,
+            PET,
+            PET_LIGHT,
+            CONTAINMENT,
 
             //UNUEQIPABLE
             //CONSUMABLE

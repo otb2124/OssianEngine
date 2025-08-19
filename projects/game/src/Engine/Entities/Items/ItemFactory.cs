@@ -23,10 +23,19 @@ namespace Entities
                 case ItemTypes.WEAPON:
                     item = new WeaponEquipment(itemKey);
                     break;
-                case ItemTypes.ARMOR:
+                case ItemTypes.CHESTPLATE:
+                case ItemTypes.HELMET:
+                case ItemTypes.BOOTS:
+                case ItemTypes.GLOVES:
                     item = new ArmorEquipment(itemKey);
                     break;
-                case ItemTypes.ACCESSORY:
+                case ItemTypes.NECKLACE:
+                case ItemTypes.CAPE:
+                case ItemTypes.BELT:
+                case ItemTypes.RING:
+                case ItemTypes.PET:
+                case ItemTypes.PET_LIGHT:
+                case ItemTypes.CONTAINMENT:
                     item = new AccessoryEquipment(itemKey);
                     break;
                 case ItemTypes.CONSUMABLE:
@@ -54,8 +63,17 @@ namespace Entities
             return key.EnumType.Name switch
             {
                 nameof(Weapons) => ItemTypes.WEAPON,
-                nameof(Armors) => ItemTypes.ARMOR,
-                nameof(Accessories) => ItemTypes.ACCESSORY,
+                nameof(Chestplates) => ItemTypes.CHESTPLATE,
+                nameof(Helmets) => ItemTypes.HELMET,
+                nameof(Gloves) => ItemTypes.GLOVES,
+                nameof(Boots) => ItemTypes.BOOTS,
+                nameof(Necklaces) => ItemTypes.NECKLACE,
+                nameof(Capes) => ItemTypes.CAPE,
+                nameof(Belts) => ItemTypes.BELT,
+                nameof(Rings) => ItemTypes.RING,
+                nameof(Pets) => ItemTypes.PET,
+                nameof(LightPets) => ItemTypes.PET_LIGHT,
+                nameof(Containments) => ItemTypes.CONTAINMENT,
                 nameof(Consumables) => ItemTypes.CONSUMABLE,
                 nameof(Materials) => ItemTypes.MATERIAL,
                 nameof(Keys) => ItemTypes.KEY,

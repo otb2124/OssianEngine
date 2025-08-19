@@ -133,8 +133,8 @@ namespace Entities {
             // WEAPON TOGGLE
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
             {
-                player.EquipmentManager.IsWeaponOut = !player.EquipmentManager.IsWeaponOut;
-                player.EquipmentManager.WeaponOutSwap((EquipmentWeaponBodyManager)player.WeaponBodyManager);
+                player.EquipmentManager.WeaponInOutToggler.IsWeaponOut = !player.EquipmentManager.WeaponInOutToggler.IsWeaponOut;
+                player.EquipmentManager.ToggleWeaponInOut((EquipmentWeaponBodyManager)player.WeaponBodyManager);
             }
 
             // ATTACK
@@ -188,7 +188,7 @@ namespace Entities {
             else if (player.Model.ModelState == ModelStates.BLOCKING
                 && !Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED])
             {
-                player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
+                player.Model.ModelState = player.EquipmentManager.WeaponInOutToggler.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
             }
 
 
@@ -267,7 +267,7 @@ namespace Entities {
                     {
                         if(player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
                         {
-                            player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_MOVING : ModelStates.MOVING;
+                            player.Model.ModelState = player.EquipmentManager.WeaponInOutToggler.IsWeaponOut ? ModelStates.WEAPON_OUT_MOVING : ModelStates.MOVING;
                         }
                         else if(!player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
                         {
@@ -278,7 +278,7 @@ namespace Entities {
 
                 if (player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && (player.Model.ModelState == ModelStates.JUMPING_DESCENDING || player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
                 {
-                    player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
+                    player.Model.ModelState = player.EquipmentManager.WeaponInOutToggler.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
                 }
             }
             // NO MOVEMENT
@@ -297,7 +297,7 @@ namespace Entities {
 
                     if (player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
                     {
-                        player.Model.ModelState = player.EquipmentManager.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
+                        player.Model.ModelState = player.EquipmentManager.WeaponInOutToggler.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
                     }
                     else if (player.Stats.IsTouchingCeiling || (!player.Stats.IsGrounded && !player.Stats.AllowJumpDescending && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING && player.Model.ModelState != ModelStates.JUMPING && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE))
                     {

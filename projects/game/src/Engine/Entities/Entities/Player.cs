@@ -59,20 +59,19 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon((EquipmentWeaponBodyManager)WeaponBodyManager, WeaponHand.LEFT, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
+            EquipmentManager.SetWeapon((EquipmentWeaponBodyManager)WeaponBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
 
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.HELMET, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_HELMET)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.GLOVES, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_GLOVES)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.BOOTS, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_BOOTS)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.CAPE, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.LEATHER_CAPE)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.NECKLACE, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_NECKLACE)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.BELT, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_BELT)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_RING)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.IRON_RING)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.CONTAINMENT, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.BACKPACK)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.PET, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.CALL_DOG)));
-            EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.PET_LIGHT, (AccessoryEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Accessories.CALL_FIREFLY)));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Chestplates.IRON_CHESTPLATE));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Helmets.IRON_HELMET));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Gloves.IRON_GLOVES));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Boots.IRON_BOOTS));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Capes.LEATHER_CAPE));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Necklaces.IRON_NECKLACE));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Belts.IRON_BELT));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Rings.IRON_RING));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Containments.BACKPACK));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Pets.CALL_DOG));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.LightPets.CALL_FIREFLY));
         }
 
         public override void SetInventory()

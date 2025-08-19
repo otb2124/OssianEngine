@@ -13,7 +13,7 @@ namespace Entities
     public class EquipmentEntity : BattleEntity
     {
 
-        public Equipments EquipmentManager;
+        public EquipmentManager EquipmentManager;
 
         public EquipmentEntity(Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
         {
@@ -27,7 +27,7 @@ namespace Entities
 
         public virtual void SetEquipment()
         {
-            EquipmentManager = new Equipments();
+            EquipmentManager = new EquipmentManager();
         }
 
         public override void SetWeaponBodies()
@@ -55,7 +55,7 @@ namespace Entities
 
         public virtual void UpdateArmor()
         {
-            EquipmentManager.GetCurrentArmor().Update(Model);
+            EquipmentManager.Equipments.GetCurrentArmor().Update(Model);
         }
 
         public override void DrawWeapon()

@@ -38,12 +38,12 @@ namespace Entities
 
         public virtual void DrawWeapon()
         {
-            //EquipmentManager.Draw(Model);
+            //Equipments.Draw(Model);
         }
 
         public override void DrawHitboxes()
         {
-            //EquipmentManager.DrawHitbox();
+            //Equipments.DrawHitbox();
         }
     }
 }
