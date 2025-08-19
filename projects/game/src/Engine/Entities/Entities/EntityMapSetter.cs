@@ -20,7 +20,7 @@ namespace Entities
             switch (id)
             {
                 case 0:
-                    //parkour way
+                    //ledge parkour way
                     entities.Add(new TileEntity(new Vector2(550, -400), new Point(5, 5), TileEntity.TileSets.SET0, 0, true) { IsWall = true});
                     entities.Add(new LedgeEntity(new Vector2(474, -460), Directions.LEFT, LedgeEntity.Ledges.LEDGE0));
                     entities.Add(new LedgeEntity(new Vector2(474, -330), Directions.LEFT, LedgeEntity.Ledges.LEDGE0, true));
@@ -55,6 +55,7 @@ namespace Entities
                     entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
                     entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
+                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60,  100), 0f));
                     entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, -400), 0f));
                     entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, -400), 0f));
                     entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, -400), 0f));

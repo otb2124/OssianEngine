@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace Entities
 {
@@ -9,7 +10,7 @@ namespace Entities
         public static EntityMapManager entityMapManager;
         public static EventManager eventManager;
 
-        public static readonly float GlobalStartTime = 17f;
+        public static readonly float GlobalStartTime = 9f;
 
         public static void Init()
         {

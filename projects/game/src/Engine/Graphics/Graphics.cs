@@ -118,7 +118,7 @@ namespace Graphics
                 sprites.End();
 
                 //light
-                sprites.Begin(camera, BlendState.Additive);
+                sprites.Begin(camera, BlendState.Additive, false, true);
                 lightManager.Draw();
                 sprites.End();
             }

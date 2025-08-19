@@ -77,7 +77,7 @@ namespace Entities
 
         public void DrawCollider()
         {
-            LocationChangeHitbox.Draw(Color.Yellow);
+            LocationChangeHitbox.Draw(Color.Purple);
         }
 
     }
