@@ -59,7 +59,7 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon(EquipmentManager.WeaponHand.LEFT, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
+            EquipmentManager.SetWeapon((EquipmentWeaponBodyManager)WeaponBodyManager, WeaponHand.LEFT, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
 
             EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_CHESTPLATE)));
             EquipmentManager.SetEquipmentSlot(EquipmentSlot.EquipmentSlots.HELMET, (ArmorEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Armors.IRON_HELMET)));
@@ -201,7 +201,7 @@ namespace Entities
 
         public override void DrawWeapon()
         {
-            EquipmentManager.Draw(Model);
+            EquipmentManager.Draw(Model, (EquipmentWeaponBodyManager)WeaponBodyManager);
         }
 
     }

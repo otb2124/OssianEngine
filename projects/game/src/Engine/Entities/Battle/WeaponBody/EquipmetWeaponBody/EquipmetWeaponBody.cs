@@ -13,16 +13,8 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Entities
 {
-    public class WeaponBodyData
-    {
-        public float WeaponSwingSpeedMultiplier;
-        public StaticSprites Sprite;
-        public WeaponMovesets MoveSet;
-        public AnimationData WeaponOutAnimationData;
-        public LightSource.LightSourceData LightSourceData;
-        public WeaponBodyData() { }
-    }
-    public class EquipmetWeaponBody
+    
+    public class EquipmetWeaponBody : WeaponBody
     {
         public WeaponHitbox Hitbox;
         public AnimationManager aManager;
@@ -39,8 +31,6 @@ namespace Entities
 
         public RotatedRectangle NoAttackHitbox;
 
-        public WeaponBodyData WeaponBodyData;
-
         public EquipmetWeaponBody()
         {
             Hitbox = new WeaponHitbox();
@@ -48,7 +38,7 @@ namespace Entities
             Combo = new WeaponComboHitSet();
         }
 
-        public void Init(WeaponBodyData data)
+        public override void Init(WeaponBodyData data)
         {
             WeaponBodyData = data;
 
@@ -85,7 +75,7 @@ namespace Entities
             NoAttackHitbox = new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f);
         }
 
-        public void Update(Model model)
+        public override void Update(Model model)
         {
             float deltaTime = (float)Graphics.Graphics.CurrentLogicTime/(float)Graphics.Graphics.TimeScale;
 
@@ -261,7 +251,7 @@ namespace Entities
             }
         }
 
-        public void Draw(Model model)
+        public override void Draw(Model model)
         {
             if (WeaponBodyData.Sprite == StaticSprites.NONE 
                 || (model.ModelState != ModelStates.WEAPON_OUT_IDLE && model.ModelState != ModelStates.WEAPON_OUT_MOVING 
@@ -290,7 +280,7 @@ namespace Entities
             aManager.GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
         }
 
-        public void DrawHitbox()
+        public override void DrawHitbox()
         {
             var currentHit = Combo.GetCurrentHit();
             if (currentHit == null)

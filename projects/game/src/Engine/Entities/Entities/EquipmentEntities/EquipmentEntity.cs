@@ -10,10 +10,10 @@ using MathHelper = Utils.MathHelper;
 
 namespace Entities
 {
-    public class EquipmentEntity : StatsEntity
+    public class EquipmentEntity : BattleEntity
     {
 
-        public EquipmentManager EquipmentManager;
+        public Equipments EquipmentManager;
 
         public EquipmentEntity(Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
         {
@@ -27,7 +27,12 @@ namespace Entities
 
         public virtual void SetEquipment()
         {
-            EquipmentManager = new EquipmentManager();
+            EquipmentManager = new Equipments();
+        }
+
+        public override void SetWeaponBodies()
+        {
+            WeaponBodyManager = new EquipmentWeaponBodyManager();
         }
 
 
@@ -45,7 +50,7 @@ namespace Entities
 
         public virtual void UpdateWeapon()
         {
-            EquipmentManager.GetCurrentWeaponBody().Update(Model);
+            EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)WeaponBodyManager).Update(Model);
         }
 
         public virtual void UpdateArmor()
@@ -53,14 +58,14 @@ namespace Entities
             EquipmentManager.GetCurrentArmor().Update(Model);
         }
 
-        public virtual void DrawWeapon()
+        public override void DrawWeapon()
         {
-            EquipmentManager.Draw(Model);
+            EquipmentManager.Draw(Model, (EquipmentWeaponBodyManager)WeaponBodyManager);
         }
 
         public override void DrawHitboxes()
         {
-            EquipmentManager.DrawHitbox();
+            EquipmentManager.DrawHitbox((EquipmentWeaponBodyManager)WeaponBodyManager);
         }
     }
 }
