@@ -9,7 +9,7 @@ using Utils;
 
 namespace Entities
 {
-    public class NonEquipmentEntity : StatsEntity
+    public class NonEquipmentEntity : AIEntity
     {
 
         public Hitbox BodyHitbox;
@@ -26,8 +26,6 @@ namespace Entities
             BodyHitbox = new Hitbox();
             DamageHitbox = new Hitbox();
         }
-
-        
 
         public virtual void UpdateBodyHitbox(Vector2 pos, Vector2 size, float rot = 0f)
         {

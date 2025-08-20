@@ -11,12 +11,10 @@ namespace Entities
     public class AnimalMob : NonEquipmentEntity
     {
 
-        public EntityAISet AISet;
 
         public AnimalMob(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
             EntityFraction = EntityFractions.ANIMAL;
-            AISet = new EntityAISet(this, BehaviourPatterns.ANIMAL_DEFAULT, BehaviourCases.IDLE_RANDOM);
             BloodDropParticle = ParticleSet.ParticleSets.SLIME_BLOOD_SPLASH;
         }
 
@@ -38,6 +36,11 @@ namespace Entities
 
             Stats.bodyKnockbackPower = 1;
             Stats.bodyDamage = 10;
+        }
+
+        public override void SetAI()
+        {
+            AISet = new EntityAISet(this, BehaviourPatterns.ANIMAL_DEFAULT, BehaviourCases.IDLE_RANDOM);
         }
 
 
@@ -72,13 +75,8 @@ namespace Entities
 
         public override void Update()
         {
-            AISet.Update(this);
-
             UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), Model.Body.Angle);
             UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), 0f);
-
-            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
-
             base.Update();
         }
     }

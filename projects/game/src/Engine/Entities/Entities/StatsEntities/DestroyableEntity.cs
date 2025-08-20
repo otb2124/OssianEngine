@@ -18,6 +18,10 @@ namespace Entities
 
         }
 
+        public override void SetAnimations()
+        {
+            base.SetAnimations();
+        }
 
         public override void SetStats()
         {

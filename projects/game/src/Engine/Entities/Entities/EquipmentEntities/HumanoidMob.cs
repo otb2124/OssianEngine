@@ -22,8 +22,6 @@ namespace Entities
 
 
         public HumanoidMobs Type;
-        public EntityAISet AISet;
-
 
         public HumanoidMob(HumanoidMobs type, Vector2 pos, float rotation) : base()
         {
@@ -38,13 +36,11 @@ namespace Entities
             {
                 case HumanoidMobs.CITIZEN:
                     EntityFraction = EntityFractions.BANDIT;
-                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
                     BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
                     modelType = Models.BANDIT;
                     break;
                 case HumanoidMobs.BANDIT:
                     EntityFraction = EntityFractions.BANDIT;
-                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
                     BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
                     modelType = Models.BANDIT;
 
@@ -53,6 +49,22 @@ namespace Entities
                     break;
                 default:
                     modelType = Models.BANDIT; 
+                    break;
+            }
+        }
+
+        public override void SetAI()
+        {
+            switch (Type)
+            {
+                case HumanoidMobs.CITIZEN:
+                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
+                    break;
+                case HumanoidMobs.BANDIT:
+                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
+                    break;
+                default:
+                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
                     break;
             }
         }
