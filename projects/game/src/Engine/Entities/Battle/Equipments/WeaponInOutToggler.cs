@@ -17,21 +17,21 @@ namespace Entities
         {
         }
 
-        public void SetWeaponSwapPlaceHolder(WeaponHand hand, WeaponEquipment toChange)
+        public void SetWeaponSwapPlaceHolder(WeaponHands hand, WeaponEquipment toChange)
         {
-            if (hand == WeaponHand.LEFT)
+            if (hand == WeaponHands.LEFT)
                 LeftWeaponIn = toChange;
             else
                 RightWeaponIn = toChange;
         }
 
-        public void SetCurrentWeaponSwapPlaceHolder(WeaponHand currentHand, WeaponEquipment toChange) =>
+        public void SetCurrentWeaponSwapPlaceHolder(WeaponHands currentHand, WeaponEquipment toChange) =>
             SetWeaponSwapPlaceHolder(currentHand, toChange);
 
-        public WeaponEquipment HandToWeaponIn(WeaponHand hand) =>
-            hand == WeaponHand.LEFT ? LeftWeaponIn : RightWeaponIn;
+        public WeaponEquipment HandToWeaponIn(WeaponHands hand) =>
+            hand == WeaponHands.LEFT ? LeftWeaponIn : RightWeaponIn;
 
-        public void ToggleWeaponInOut(Equipments equipments, WeaponHand currentHand, EquipmenBattleBodyManager manager)
+        public void ToggleWeaponInOut(Equipments equipments, WeaponHands currentHand, BattleBodyManager manager)
         {
             var placeholder = HandToWeaponIn(currentHand);
             var slot = EquipmentHelper.HandToSlot(currentHand);
@@ -41,7 +41,7 @@ namespace Entities
             manager.HandToEquipmentWeaponBody(currentHand).Init(placeholder.WeaponBodyData);
         }
 
-        public void WeaponInSwap(Equipments equipments, WeaponHand currentHand, EquipmenBattleBodyManager manager)
+        public void WeaponInSwap(Equipments equipments, WeaponHands currentHand, BattleBodyManager manager)
         {
             var placeholder = HandToWeaponIn(currentHand);
             var slot = EquipmentHelper.HandToSlot(currentHand);

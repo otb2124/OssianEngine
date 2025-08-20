@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class DestroyableEntity : NonEquipmentEntity
+    public class DestroyableEntity : StatsEntity
     {
 
 
@@ -38,15 +38,6 @@ namespace Entities
 
         public override void Update()
         {
-            if(Model.Body.BodyShapeType == BodyShapeType.Box)
-            {
-                UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), Model.Body.Angle);
-            }
-            else
-            {
-                UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Radius*2f, this.Model.Body.Radius*2f), Model.Body.Angle);
-            }
-            
             //UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), 0f);
 
             base.Update();

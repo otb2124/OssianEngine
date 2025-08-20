@@ -32,7 +32,7 @@ namespace Entities
 
         public override void SetBattleBodies()
         {
-            BattleBodyManager = new EquipmenBattleBodyManager();
+            BattleBodyManager = new BattleBodyManager(BattleBodyTypes.WEAPON);
         }
     }
 }

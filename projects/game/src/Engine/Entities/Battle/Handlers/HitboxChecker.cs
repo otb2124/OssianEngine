@@ -24,26 +24,26 @@ namespace Entities
             (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA) = (entA, entB) switch
             {
                 (EquipmentEntity eqA, EquipmentEntity eqB) => (
-                    eqA.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqA.BattleBodyManager).Hitbox.outerHalf,
+                    eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
                     eqB.BattleBodyManager.BodyHitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                     eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                 ),
                 (NonEquipmentEntity nhA, NonEquipmentEntity nhB) => (
-                    nhA.DamageHitbox.extends,
-                    nhB.BodyHitbox.extends,
+                    nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
+                    nhB.BattleBodyManager.BodyHitbox.extends,
                     nhA.Stats.bodyDamage,
                     nhA.Stats.bodyKnockbackPower
                 ),
                 (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
-                    nhA.DamageHitbox.extends,
+                    nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                     eqB.BattleBodyManager.BodyHitbox.extends,
                     nhA.Stats.bodyDamage,
                     nhA.Stats.bodyKnockbackPower
                 ),
                 (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
-                    eqA.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqA.BattleBodyManager).Hitbox.outerHalf,
-                    nhB.BodyHitbox.extends,
+                    eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
+                    nhB.BattleBodyManager.BodyHitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                     eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                 ),
@@ -72,26 +72,26 @@ namespace Entities
                 (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA) = (entA, entB) switch
                 {
                     (EquipmentEntity eqA, EquipmentEntity eqB) => (
-                        eqA.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqA.BattleBodyManager).Hitbox.outerHalf,
-                        eqB.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqB.BattleBodyManager).Hitbox.outerHalf,
+                        eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
+                        eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf,
                         eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                         eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                     ),
                     (NonEquipmentEntity nhA, NonEquipmentEntity nhB) => (
-                        nhA.DamageHitbox.extends,
-                        nhB.DamageHitbox.extends,
+                        nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
+                        nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                         nhA.Stats.bodyDamage,
                         nhA.Stats.bodyKnockbackPower
                     ),
                     (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
-                        nhA.DamageHitbox.extends,
-                        eqB.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqB.BattleBodyManager).Hitbox.outerHalf,
+                        nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
+                        eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf,
                         nhA.Stats.bodyDamage,
                         nhA.Stats.bodyKnockbackPower
                     ),
                     (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
-                        eqA.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqA.BattleBodyManager).Hitbox.outerHalf,
-                        nhB.DamageHitbox.extends,
+                        eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
+                        nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                         eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                         eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                     ),

@@ -12,34 +12,14 @@ namespace Entities
     public class NonEquipmentEntity : AIEntity
     {
 
-        public Hitbox BodyHitbox;
-        public Hitbox DamageHitbox;
-
-
         public NonEquipmentEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
-            SetHitboxes();
-        }
-
-        public virtual void SetHitboxes()
-        {
-            BodyHitbox = new Hitbox();
-            DamageHitbox = new Hitbox();
-        }
-
-        public virtual void UpdateBodyHitbox(Vector2 pos, Vector2 size, float rot = 0f)
-        {
-            BodyHitbox.Update(pos, size, rot);
-        }
-
-        public virtual void UpdateDamageHitbox(Vector2 pos, Vector2 size, float rot = 0f)
-        {
-            DamageHitbox.Update(pos, size, rot);
+            
         }
 
         public override void SetBattleBodies()
         {
-            BattleBodyManager = new BodyBattleBodyManager();
+            //BattleBodyManager = new BattleBodyManager();
         }
     }
 }

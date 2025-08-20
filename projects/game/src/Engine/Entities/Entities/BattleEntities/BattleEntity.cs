@@ -27,7 +27,7 @@ namespace Entities
 
         public virtual void SetBattleBodies()
         {
-            BattleBodyManager = new BattleBodyManager();
+            //BattleBodyManager = new BattleBodyManager(BattleBodyTypes.BODY);
         }
 
 

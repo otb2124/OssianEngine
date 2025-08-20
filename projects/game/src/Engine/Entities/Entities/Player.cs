@@ -11,10 +11,7 @@ namespace Entities
     public class Player : EquipmentEntity
     {
 
-        public Player() : base(Models.PLAYER, Vector2.Zero, 0f)
-        {
-            
-        }
+        public Player() : base(Models.PLAYER, Vector2.Zero, 0f){}
 
         public override void SetStats()
         {
@@ -26,7 +23,7 @@ namespace Entities
             CanHangLedges = true;
 
             Stats.sprintMultiplier = 1.5f;
-            Stats.staminaSprintCostSec = 15 ;
+            Stats.staminaSprintCostSec = 15;
 
             Stats.staminaRegenSec = 20;
             Stats.staminaUnlockSec = 1.5f;
@@ -59,7 +56,7 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon((EquipmenBattleBodyManager)BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
+            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
 
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Chestplates.IRON_CHESTPLATE));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Helmets.IRON_HELMET));

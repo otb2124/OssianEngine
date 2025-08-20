@@ -11,8 +11,8 @@ namespace Entities
     {
 
 
-        public static EquipmentSlot.EquipmentSlots HandToSlot(WeaponHand hand) =>
-            hand == WeaponHand.LEFT ? EquipmentSlot.EquipmentSlots.WEAPON_L : EquipmentSlot.EquipmentSlots.WEAPON_R;
+        public static EquipmentSlot.EquipmentSlots HandToSlot(WeaponHands hand) =>
+            hand == WeaponHands.LEFT ? EquipmentSlot.EquipmentSlots.WEAPON_L : EquipmentSlot.EquipmentSlots.WEAPON_R;
 
         public static WeaponEquipment CreateBareHands() =>
             (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.BARE_HAND));

@@ -5,6 +5,7 @@ using Physics;
 using System;
 using Utils;
 using static Entities.EntityAIBehaviourManager;
+using static Entities.WeaponComboMovesetFactory;
 
 namespace Entities
 {
@@ -73,10 +74,19 @@ namespace Entities
             Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed, SpriteEffects.None);
         }
 
+        public override void SetBattleBodies()
+        {
+            BattleBodyData battleBodyData = new BattleBodyData();
+            battleBodyData.Sprite = StaticSprites.ENTITIES_SLIME;
+            battleBodyData.WeaponSwingSpeedMultiplier = 1f;
+            battleBodyData.MoveSet = BattleMovesets.BODY_SLIME;
+            battleBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
+
+            BattleBodyManager = new BattleBodyManager(BattleBodyTypes.BODY);
+        }
+
         public override void Update()
         {
-            UpdateBodyHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), Model.Body.Angle);
-            UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), 0f);
             base.Update();
         }
     }

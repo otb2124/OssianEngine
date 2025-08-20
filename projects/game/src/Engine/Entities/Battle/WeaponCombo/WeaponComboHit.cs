@@ -36,13 +36,13 @@ namespace Entities
         }
 
 
-        public void SetAnimation(WeaponMovesets set, float SpeedMultiplier)
+        public void SetAnimation(BattleMovesets set, float SpeedMultiplier)
         {
             float newSpeed = SwingTimeSec * SpeedMultiplier / (float)Graphics.Graphics.TimeScale / (float)Graphics.Graphics.TimeScale;
 
             switch (set)
             {
-                case WeaponMovesets.SWORD:
+                case BattleMovesets.WEAPON_SWORD:
 
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
@@ -82,7 +82,7 @@ namespace Entities
                     break;
 
 
-                case WeaponMovesets.KNIFE:
+                case BattleMovesets.WEAPON_KNIFE:
 
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
@@ -121,7 +121,7 @@ namespace Entities
                     }
                     break;
 
-                case WeaponMovesets.BARE_HANDS:
+                case BattleMovesets.WEAPON_BARE_HANDS:
 
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {

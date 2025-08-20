@@ -9,11 +9,13 @@ namespace Entities
 {
     public static class WeaponComboMovesetFactory
     {
-        public enum WeaponMovesets
+        public enum BattleMovesets
         {
-            SWORD,
-            KNIFE,
-            BARE_HANDS,
+            WEAPON_SWORD,
+            WEAPON_KNIFE,
+            WEAPON_BARE_HANDS,
+
+            BODY_SLIME,
         }
 
         public enum AttackTypes
@@ -23,10 +25,10 @@ namespace Entities
             BLOCK,
         }
 
-        public static readonly Dictionary<WeaponMovesets, WeaponComboMoveset> Movesets = new()
+        public static readonly Dictionary<BattleMovesets, WeaponComboMoveset> Movesets = new()
         {
             {
-                WeaponMovesets.SWORD,
+                BattleMovesets.WEAPON_SWORD,
                     new WeaponComboMoveset
                     (
                         new[]
@@ -83,7 +85,7 @@ namespace Entities
                     )
                     },
                     {
-                        WeaponMovesets.KNIFE,
+                        BattleMovesets.WEAPON_KNIFE,
                         new WeaponComboMoveset
                         (
                             new[]
@@ -140,7 +142,7 @@ namespace Entities
                         )
                     },
                     {
-                        WeaponMovesets.BARE_HANDS,
+                        BattleMovesets.WEAPON_BARE_HANDS,
                         new WeaponComboMoveset(
                             new[]
                             {
@@ -195,22 +197,79 @@ namespace Entities
                             }
                         )
 
-                    }
+                    },
+                    {
+                        BattleMovesets.BODY_SLIME,
+                        new WeaponComboMoveset
+                        (
+                            new[]
+                            {
+                                // X
+                                new WeaponComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.5f), Vector2.Zero, 0.5f, new Vector2(0.2f, 0.4f),
+                                    new AttackTypes[] { AttackTypes.LIGHT },
+                                    5, 5, 5, 20
+                                ),
+                                // Y
+                                new WeaponComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(15, 50), 1.5f), Vector2.Zero, 1f, new Vector2(0.7f, 1f),
+                                    new AttackTypes[] { AttackTypes.HEAVY },
+                                    5, 5, 5, 20
+                                ),
+                    
+
+                                // XX
+                                new WeaponComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(20, 0), 0.5f, new Vector2(0.2f, 0.4f),
+                                    new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT },
+                                    5, 5, 5, 20
+                                ),
+                                // YY
+                                new WeaponComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(15, 50), 1.7f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
+                                    new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY },
+                                    5, 5, 5, 20
+                                ),
+
+
+                                // XXX
+                                new WeaponComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.2f), new Vector2(30, 0), 0.7f, new Vector2(0f, 0.7f),
+                                    new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT },
+                                    5, 5, 5, 20
+                                ),
+
+                                // XXY
+                                new WeaponComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(20, 50), 1.2f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
+                                    new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.HEAVY },
+                                    5, 5, 5, 20
+                                ),
+
+                                //BLOCK
+                                new WeaponComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
+                                    new AttackTypes[] { AttackTypes.BLOCK },
+                                    5, 5, 5, 20
+                                ),
+                            }
+                        )
+                    },
         };
 
 
 
-        public static WeaponComboHit[] GetWeaponComboHits(WeaponMovesets weaponType)
+        public static WeaponComboHit[] GetWeaponComboHits(BattleMovesets weaponType)
         {
             return Movesets[weaponType].Combos;
         }
 
-        public static int GetTotalComboHits(WeaponMovesets weaponType)
+        public static int GetTotalComboHits(BattleMovesets weaponType)
         {
             return Movesets[weaponType].Combos.Length;
         }
 
-        public static WeaponComboHit GetComboHit(WeaponMovesets weaponType, AttackTypes[] sequence)
+        public static WeaponComboHit GetComboHit(BattleMovesets weaponType, AttackTypes[] sequence)
         {
             if (!Movesets.ContainsKey(weaponType) || sequence == null || sequence.Length == 0 || sequence.Length > GetLongestComboHit(weaponType).AttackSequence.Length)
             {
@@ -220,7 +279,7 @@ namespace Entities
             return Movesets[weaponType].Combos.FirstOrDefault(h => h.AttackSequence.SequenceEqual(sequence));
         }
 
-        public static WeaponComboHit GetLongestComboHit(WeaponMovesets weaponType)
+        public static WeaponComboHit GetLongestComboHit(BattleMovesets weaponType)
         {
             if (!Movesets.ContainsKey(weaponType))
             {

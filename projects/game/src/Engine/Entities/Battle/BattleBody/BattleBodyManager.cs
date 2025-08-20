@@ -10,16 +10,38 @@ using Model = Resources.Model;
 
 namespace Entities
 {
+    public enum WeaponHands
+    {
+        LEFT,
+        RIGHT,
+        BOTH
+    }
+
+    public enum BattleBodyTypes
+    {
+        WEAPON,
+        BODY
+    }
+
     public class BattleBodyManager
     {
 
         public List<BattleBody> BattleBodies;
         public Hitbox BodyHitbox;
 
-        public BattleBodyManager() 
+        public BattleBodyManager(BattleBodyTypes bodyType) 
         {
             BattleBodies = new List<BattleBody>();
             BodyHitbox = new Hitbox();
+
+            if (bodyType == BattleBodyTypes.WEAPON)
+            {
+                CreateBodies(2);
+            }
+            else
+            {
+                CreateBodies(1);
+            }
         }
 
         public virtual void CreateBodies(int count)
@@ -37,12 +59,12 @@ namespace Entities
             BattleBodies.Add(new BattleBody());
         }
 
-        public virtual void InitBody(int id, WeaponBodyData data)
+        public virtual void InitBody(int id, BattleBodyData data)
         {
             BattleBodies[id].Init(data);
         }
 
-        public virtual void Init(WeaponBodyData[] data)
+        public virtual void Init(BattleBodyData[] data)
         {
             for (int i = 0; i < data.Length; i++)
             {
@@ -84,5 +106,9 @@ namespace Entities
 
             BodyHitbox.Draw(Color.Blue);
         }
+
+
+        public BattleBody HandToEquipmentWeaponBody(WeaponHands hand) =>
+           hand == WeaponHands.LEFT ? BattleBodies[0] : BattleBodies[1];
     }
 }

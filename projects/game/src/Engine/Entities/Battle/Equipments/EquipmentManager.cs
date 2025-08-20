@@ -15,7 +15,7 @@ namespace Entities
         public WeaponInOutToggler WeaponInOutToggler;
 
         //TODO: ADD CURRENTHANDSWAPPER OR SMTH
-        public WeaponHand CurrentHand = WeaponHand.LEFT;
+        public WeaponHands CurrentHand = WeaponHands.LEFT;
 
         public EquipmentManager() 
         {
@@ -26,21 +26,21 @@ namespace Entities
         public WeaponEquipment GetCurrentWeapon() =>
            (WeaponEquipment)EquipmentHelper.GetEquipmentSlot(GetCurrentWeaponSlot(), Equipments.EquipmentSlots).Equipment;
 
-        public EquipmetWeaponBody GetCurrentWeaponBody(EquipmenBattleBodyManager manager) =>
+        public BattleBody GetCurrentWeaponBody(BattleBodyManager manager) =>
             manager.HandToEquipmentWeaponBody(CurrentHand);
 
         public EquipmentSlot.EquipmentSlots GetCurrentWeaponSlot() =>
            EquipmentHelper.HandToSlot(CurrentHand);
 
 
-        public void SetWeapon(EquipmenBattleBodyManager manager, WeaponEquipment weapon)
+        public void SetWeapon(BattleBodyManager manager, WeaponEquipment weapon)
         {
             WeaponInOutToggler.SetWeaponSwapPlaceHolder(CurrentHand, weapon);
             Equipments.SetEquipment(EquipmentHelper.HandToSlot(CurrentHand), EquipmentHelper.CreateBareHands());
             manager.HandToEquipmentWeaponBody(CurrentHand).Init(EquipmentHelper.CreateBareHands().WeaponBodyData);
         }
 
-        public void ToggleWeaponInOut(EquipmenBattleBodyManager manager)
+        public void ToggleWeaponInOut(BattleBodyManager manager)
         {
             WeaponInOutToggler.ToggleWeaponInOut(Equipments, CurrentHand, manager);
         }
