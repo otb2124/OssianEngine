@@ -187,14 +187,9 @@ namespace Entities
 
         public override void Update()
         {
+            Console.WriteLine(Stats.IsGrounded);
             EntityModelStateHandler.UpdatePlayerModelState(this);
             base.Update();
         }
-
-        public override void Draw()
-        {
-            base.Draw();
-        }
-
     }
 }

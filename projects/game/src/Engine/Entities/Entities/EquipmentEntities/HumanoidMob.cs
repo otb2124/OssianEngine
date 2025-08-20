@@ -187,23 +187,5 @@ namespace Entities
             DropInventory.AddDrop(new Drop(new ItemKey(ItemLib.Materials.SWORD_HILT), 0.99f));
             DropInventory.AddDrop(new Drop(new ItemKey(ItemLib.Capes.LEATHER_CAPE), 0.25f));
         }
-
-        public override void Update()
-        {
-            if(!Stats.IsFallen && !Stats.IsFalling)
-            {
-                AISet.Update(this);
-            }
-
-            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
-
-            base.Update();
-        }
-
-
-        public override void Draw()
-        {
-            base.Draw();
-        }
     }
 }

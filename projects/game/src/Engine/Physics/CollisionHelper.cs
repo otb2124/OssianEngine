@@ -72,13 +72,18 @@ namespace Physics
 
         public static FlatBody GetAnyBodyAtRectangleForOtherBody(FlatBody flatBody, RotatedRectangle rect)
         {
-            FlatBody candidate = GetAnyBodyAtRectangle(rect);
-
-            if (candidate != null)
+            foreach (var item in Physics.flatWorld.bodyList)
             {
-                if (candidate != flatBody && !CollisionHandler.IgnoreCollision(flatBody, candidate))
+                RotatedRectangle bodyBBox = item.ToRectangle();
+                if (bodyBBox.Intersects(rect))
                 {
-                    return candidate;
+                    if (item != null)
+                    {
+                        if (item != flatBody && !CollisionHandler.IgnoreCollision(flatBody, item))
+                        {
+                            return item;
+                        }
+                    }
                 }
             }
             
