@@ -23,7 +23,7 @@ namespace Entities
         }
 
         public WeaponEquipment GetCurrentWeapon() =>
-           (WeaponEquipment)Equipments.GetEquipmentSlot(GetCurrentWeaponSlot()).Equipment;
+           (WeaponEquipment)EquipmentHelper.GetEquipmentSlot(GetCurrentWeaponSlot(), Equipments.EquipmentSlots).Equipment;
 
 
         public EquipmentSlot.EquipmentSlots GetCurrentWeaponSlot() =>

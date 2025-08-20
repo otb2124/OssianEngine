@@ -6,11 +6,11 @@ namespace Entities
     public class Equipments
     {
 
-        public EquipmentSlot[] Slots;
+        public EquipmentSlot[] EquipmentSlots;
 
         public Equipments()
         {
-            Slots = new EquipmentSlot[]
+            EquipmentSlots = new EquipmentSlot[]
             {
                 new(EquipmentSlot.EquipmentSlots.WEAPON_L),
                 new(EquipmentSlot.EquipmentSlots.WEAPON_R),
@@ -30,11 +30,12 @@ namespace Entities
         }
 
 
+
         public EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type) =>
-            Array.Find(Slots, slot => slot.Type == type);
+            Array.Find(EquipmentSlots, slot => slot.Type == type);
 
         public void SetEquipment(EquipmentSlot.EquipmentSlots slotType, Equipment item) =>
-            GetEquipmentSlot(slotType).Equipment = item;
+            EquipmentHelper.GetEquipmentSlot(slotType, EquipmentSlots).Equipment = item;
 
         public void SetEquipment(EquipmentSlot.EquipmentSlots slotType, Item item)
         {
@@ -49,7 +50,7 @@ namespace Entities
 
         public void SetEquipment(Item item)
         {
-            SetEquipment(EquipmentHelper.ItemkeyToEquipmentSlot(item.ItemKey), item);
+            SetEquipment(EquipmentHelper.ItemkeyToEquipmentSlot(item.ItemKey, EquipmentSlots), item);
         }
 
         public void SetEquipment(ItemKey itemKey)
@@ -59,6 +60,6 @@ namespace Entities
         }
 
         public ArmorEquipment GetCurrentArmor() =>
-            (ArmorEquipment)GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE).Equipment;
+            (ArmorEquipment)EquipmentHelper.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE, EquipmentSlots).Equipment;
     }
 }

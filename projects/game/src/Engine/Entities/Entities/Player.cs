@@ -69,6 +69,7 @@ namespace Entities
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Necklaces.IRON_NECKLACE));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Belts.IRON_BELT));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Rings.IRON_RING));
+            EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Rings.IRON_RING));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Containments.BACKPACK));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Pets.CALL_DOG));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.LightPets.CALL_FIREFLY));

@@ -17,6 +17,9 @@ namespace Entities
         public static WeaponEquipment CreateBareHands() =>
             (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.BARE_HAND));
 
+        public static EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type, EquipmentSlot[] equipmentSlots) =>
+            Array.Find(equipmentSlots, slot => slot.Type == type);
+
         public static Type ItemToType(Item item)
         {
             return item.GetType();
@@ -25,16 +28,23 @@ namespace Entities
         public static Type ItemKeyToType(ItemKey itemKey)
         {
             Item item = ItemFactory.CreateItem(itemKey);
-
             return item.GetType();
         }
 
-        public static EquipmentSlot.EquipmentSlots ItemkeyToEquipmentSlot(ItemKey key)
+        public static EquipmentSlot GetEmptySlotOutOfPair(EquipmentSlot[] pair)
+        {
+            if (pair[0].Equipment == null)
+                return pair[0];
+            else
+                return pair[1];
+        }
+
+        public static EquipmentSlot.EquipmentSlots ItemkeyToEquipmentSlot(ItemKey key, EquipmentSlot[] slots)
         {
             switch (ItemFactory.GetItemType(key))
             {
                 case ItemTypes.WEAPON:
-                    return EquipmentSlot.EquipmentSlots.WEAPON_L; // Default to WEAPON_L
+                    return GetEmptySlotOutOfPair(new EquipmentSlot[] { GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L, slots), GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_R, slots) }).Type;
                 case ItemTypes.CHESTPLATE:
                     return EquipmentSlot.EquipmentSlots.CHESTPLATE;
                 case ItemTypes.HELMET:
@@ -50,7 +60,7 @@ namespace Entities
                 case ItemTypes.BELT:
                     return EquipmentSlot.EquipmentSlots.BELT;
                 case ItemTypes.RING:
-                    return EquipmentSlot.EquipmentSlots.RING_L; // Default to RING_L
+                    return GetEmptySlotOutOfPair(new EquipmentSlot[] { GetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L, slots), GetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R, slots) }).Type;
                 case ItemTypes.PET:
                     return EquipmentSlot.EquipmentSlots.PET;
                 case ItemTypes.PET_LIGHT:
