@@ -31,7 +31,7 @@ namespace Entities
         public WeaponEquipment HandToWeaponIn(WeaponHand hand) =>
             hand == WeaponHand.LEFT ? LeftWeaponIn : RightWeaponIn;
 
-        public void ToggleWeaponInOut(Equipments equipments, WeaponHand currentHand, EquipmentWeaponBodyManager manager)
+        public void ToggleWeaponInOut(Equipments equipments, WeaponHand currentHand, EquipmenBattleBodyManager manager)
         {
             var placeholder = HandToWeaponIn(currentHand);
             var slot = EquipmentHelper.HandToSlot(currentHand);
@@ -41,7 +41,7 @@ namespace Entities
             manager.HandToEquipmentWeaponBody(currentHand).Init(placeholder.WeaponBodyData);
         }
 
-        public void WeaponInSwap(Equipments equipments, WeaponHand currentHand, EquipmentWeaponBodyManager manager)
+        public void WeaponInSwap(Equipments equipments, WeaponHand currentHand, EquipmenBattleBodyManager manager)
         {
             var placeholder = HandToWeaponIn(currentHand);
             var slot = EquipmentHelper.HandToSlot(currentHand);

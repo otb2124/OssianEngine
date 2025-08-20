@@ -58,8 +58,5 @@ namespace Entities
             Item item = ItemFactory.CreateItem(itemKey);
             SetEquipment(item);
         }
-
-        public ArmorEquipment GetCurrentArmor() =>
-            (ArmorEquipment)EquipmentHelper.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.CHESTPLATE, EquipmentSlots).Equipment;
     }
 }

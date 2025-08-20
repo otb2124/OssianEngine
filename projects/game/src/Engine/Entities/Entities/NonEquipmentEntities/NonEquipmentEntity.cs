@@ -37,10 +37,9 @@ namespace Entities
             DamageHitbox.Update(pos, size, rot);
         }
 
-        public override void DrawHitboxes()
+        public override void SetBattleBodies()
         {
-            BodyHitbox.Draw(Color.Blue);
-            DamageHitbox.Draw(Color.Red);
+            BattleBodyManager = new BodyBattleBodyManager();
         }
     }
 }

@@ -13,8 +13,6 @@ namespace Entities
     public class ArmorEquipment : Equipment
     {
 
-        public Hitbox hitbox;
-
         public ArmorEquipment(ItemKey itemKey) : base(itemKey)
         {
             
@@ -57,28 +55,6 @@ namespace Entities
                     EquipmentSlot = EquipmentSlotsTake.HANDS;
                     break;
             }
-
-            if(EquipmentSlot == EquipmentSlotsTake.TORSO)
-            {
-                hitbox = new Hitbox();
-            }
-        }
-
-
-
-        public void DrawHitbox()
-        {
-            this.hitbox.Draw(Color.Blue);
-        }
-
-
-        public void Update(Model model)
-        {
-            hitbox.Update(
-                FlatConverter.ToVector2(model.Body.Position),
-                new Vector2(model.Body.Width, model.Body.Height),
-                model.Body.Angle
-            );
         }
     }
 }

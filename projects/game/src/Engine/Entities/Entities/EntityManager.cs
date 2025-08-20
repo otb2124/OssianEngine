@@ -160,11 +160,6 @@ namespace Entities
             foreach (var entity in sortedEntities)
             {
                 entity.Draw();
-
-                if (entity is EquipmentEntity eqEntity)
-                {
-                    eqEntity.DrawWeapon();
-                }
             }
         }
 
@@ -193,9 +188,9 @@ namespace Entities
         {
             foreach (var entity in Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities)
             {
-                if (entity is StatsEntity statsEntity)
+                if (entity is BattleEntity bEnt)
                 {
-                    statsEntity.DrawHitboxes();
+                    bEnt.DrawHitboxes();
                 }
             }
         }

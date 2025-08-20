@@ -142,9 +142,9 @@ namespace Entities
                 RepeatAfterRestart = true;
 
                 ModelStates state = SwitchAttackTypeToModelState(type);
-                AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqEnt.WeaponBodyManager).GetCurrentAttack(type);
+                AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqEnt.BattleBodyManager).GetCurrentAttack(type);
 
-                CurrentDuration = eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqEnt.WeaponBodyManager).CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqEnt.WeaponBodyManager).WeaponBodyData.MoveSet, currentAttack) * 1.5f;
+                CurrentDuration = eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqEnt.BattleBodyManager).CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqEnt.BattleBodyManager).BattleBodyData.MoveSet, currentAttack) * 1.5f;
 
                 if (CommandTime < CurrentDuration * Graphics.Graphics.UpdatesPerSecond / 2f)
                 {
@@ -178,8 +178,8 @@ namespace Entities
         {
             if (!(Entity is EquipmentEntity eqEnt)) return;
 
-            AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqEnt.WeaponBodyManager).GetCurrentAttack(type);
-            WeaponComboHit currentHit = GetComboHit(eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqEnt.WeaponBodyManager).WeaponBodyData.MoveSet, currentAttack);
+            AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqEnt.BattleBodyManager).GetCurrentAttack(type);
+            WeaponComboHit currentHit = GetComboHit(eqEnt.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqEnt.BattleBodyManager).BattleBodyData.MoveSet, currentAttack);
 
             if (currentHit != null)
             {

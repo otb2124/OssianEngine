@@ -59,7 +59,7 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon((EquipmentWeaponBodyManager)WeaponBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
+            EquipmentManager.SetWeapon((EquipmenBattleBodyManager)BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
 
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Chestplates.IRON_CHESTPLATE));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Helmets.IRON_HELMET));
@@ -197,11 +197,6 @@ namespace Entities
         public override void Draw()
         {
             base.Draw();
-        }
-
-        public override void DrawWeapon()
-        {
-            EquipmentManager.Draw(Model, (EquipmentWeaponBodyManager)WeaponBodyManager);
         }
 
     }

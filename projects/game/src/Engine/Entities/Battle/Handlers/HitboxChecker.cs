@@ -24,8 +24,8 @@ namespace Entities
             (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA) = (entA, entB) switch
             {
                 (EquipmentEntity eqA, EquipmentEntity eqB) => (
-                    eqA.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqA.WeaponBodyManager).Hitbox.outerHalf,
-                    eqB.EquipmentManager.Equipments.GetCurrentArmor().hitbox.extends,
+                    eqA.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqA.BattleBodyManager).Hitbox.outerHalf,
+                    eqB.BattleBodyManager.BodyHitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                     eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                 ),
@@ -37,12 +37,12 @@ namespace Entities
                 ),
                 (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                     nhA.DamageHitbox.extends,
-                    eqB.EquipmentManager.Equipments.GetCurrentArmor().hitbox.extends,
+                    eqB.BattleBodyManager.BodyHitbox.extends,
                     nhA.Stats.bodyDamage,
                     nhA.Stats.bodyKnockbackPower
                 ),
                 (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
-                    eqA.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqA.WeaponBodyManager).Hitbox.outerHalf,
+                    eqA.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqA.BattleBodyManager).Hitbox.outerHalf,
                     nhB.BodyHitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                     eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
@@ -72,8 +72,8 @@ namespace Entities
                 (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA) = (entA, entB) switch
                 {
                     (EquipmentEntity eqA, EquipmentEntity eqB) => (
-                        eqA.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqA.WeaponBodyManager).Hitbox.outerHalf,
-                        eqB.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqB.WeaponBodyManager).Hitbox.outerHalf,
+                        eqA.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqA.BattleBodyManager).Hitbox.outerHalf,
+                        eqB.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqB.BattleBodyManager).Hitbox.outerHalf,
                         eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                         eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                     ),
@@ -85,12 +85,12 @@ namespace Entities
                     ),
                     (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                         nhA.DamageHitbox.extends,
-                        eqB.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqB.WeaponBodyManager).Hitbox.outerHalf,
+                        eqB.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqB.BattleBodyManager).Hitbox.outerHalf,
                         nhA.Stats.bodyDamage,
                         nhA.Stats.bodyKnockbackPower
                     ),
                     (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
-                        eqA.EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)eqA.WeaponBodyManager).Hitbox.outerHalf,
+                        eqA.EquipmentManager.GetCurrentWeaponBody((EquipmenBattleBodyManager)eqA.BattleBodyManager).Hitbox.outerHalf,
                         nhB.DamageHitbox.extends,
                         eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
                         eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
@@ -119,7 +119,7 @@ namespace Entities
 
         public static void CheckForInterraction(InteractiveEntity interactiveEnt, EquipmentEntity livingEnt)
         {
-            if (CheckIntersection(livingEnt.EquipmentManager.Equipments.GetCurrentArmor().hitbox.extends, interactiveEnt.InteractionField.extends))
+            if (CheckIntersection(livingEnt.BattleBodyManager.BodyHitbox.extends, interactiveEnt.InteractionField.extends))
             {
                 InteractionHandler.HandleInterraction(interactiveEnt, livingEnt);
             }

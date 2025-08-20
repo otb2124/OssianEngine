@@ -13,37 +13,39 @@ namespace Entities
     public class BattleEntity : StatsEntity
     {
 
-        public WeaponBodyManager WeaponBodyManager;
+        public BattleBodyManager BattleBodyManager;
 
         public BattleEntity(Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
         {
-            SetWeaponBodies();
+            SetBattleBodies();
         }
 
         public BattleEntity() : base()
         {
-            SetWeaponBodies();
+            SetBattleBodies();
         }
 
-        public virtual void SetWeaponBodies()
+        public virtual void SetBattleBodies()
         {
-            WeaponBodyManager = new WeaponBodyManager();
+            BattleBodyManager = new BattleBodyManager();
         }
 
 
         public override void Update()
         {
+            BattleBodyManager.Update(Model);
             base.Update();
         }
 
-        public virtual void DrawWeapon()
+        public override void Draw()
         {
-            //Equipments.Draw(Model);
+            base.Draw();
+            BattleBodyManager.Draw(Model);
         }
 
-        public override void DrawHitboxes()
+        public virtual void DrawHitboxes()
         {
-            //Equipments.DrawHitbox();
+            BattleBodyManager.DrawHitboxes();
         }
     }
 }

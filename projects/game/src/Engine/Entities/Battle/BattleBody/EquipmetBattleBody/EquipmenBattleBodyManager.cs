@@ -15,10 +15,10 @@ namespace Entities
         BOTH
     }
 
-    public class EquipmentWeaponBodyManager : WeaponBodyManager
+    public class EquipmenBattleBodyManager : BattleBodyManager
     {
         
-        public EquipmentWeaponBodyManager() : base()
+        public EquipmenBattleBodyManager() : base()
         {
             CreateBodies(2);
         }
@@ -26,21 +26,21 @@ namespace Entities
 
         public override void CreateBodies(int count)
         {
-            WeaponBodies.Clear();
+            BattleBodies.Clear();
 
             for (int i = 0; i < count; i++)
             {
-                WeaponBodies.Add(new EquipmetWeaponBody());
+                BattleBodies.Add(new EquipmetWeaponBody());
             }
         }
 
         public override void CreateBody()
         {
-            WeaponBodies.Add(new EquipmetWeaponBody());
+            BattleBodies.Add(new EquipmetWeaponBody());
         }
 
 
         public EquipmetWeaponBody HandToEquipmentWeaponBody(WeaponHand hand) =>
-           hand == WeaponHand.LEFT ? (EquipmetWeaponBody)WeaponBodies[0] : (EquipmetWeaponBody)WeaponBodies[1];
+           hand == WeaponHand.LEFT ? (EquipmetWeaponBody)BattleBodies[0] : (EquipmetWeaponBody)BattleBodies[1];
     }
 }

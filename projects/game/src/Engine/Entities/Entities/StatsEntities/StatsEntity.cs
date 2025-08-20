@@ -106,9 +106,6 @@ namespace Entities
             DropInventory = new DropInventory();
         }
 
-
-        public virtual void DrawHitboxes(){}
-
         public override void DrawCollider()
         {
             Model.DrawSurroundigRectangles();

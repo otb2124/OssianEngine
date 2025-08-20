@@ -15,9 +15,9 @@ namespace Entities
         public WeaponBodyData() { }
     }
 
-    public class WeaponBody
+    public class BattleBody
     {
-        public WeaponBodyData WeaponBodyData;
+        public WeaponBodyData BattleBodyData;
 
         public virtual void Init(WeaponBodyData data)
         {

@@ -6,28 +6,27 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class BodyWeaponBodyManager : WeaponBodyManager
+    public class BodyBattleBodyManager : BattleBodyManager
     {
 
-        public BodyWeaponBodyManager() : base()
+        public BodyBattleBodyManager() : base()
         {
             CreateBodies(1);
         }
 
-
         public override void CreateBodies(int count)
         {
-            WeaponBodies.Clear();
+            BattleBodies.Clear();
 
             for (int i = 0; i < count; i++)
             {
-                WeaponBodies.Add(new BodyWeaponBody());
+                BattleBodies.Add(new BodyBattleBody());
             }
         }
 
         public override void CreateBody()
         {
-            WeaponBodies.Add(new BodyWeaponBody());
+            BattleBodies.Add(new BodyBattleBody());
         }
     }
 }

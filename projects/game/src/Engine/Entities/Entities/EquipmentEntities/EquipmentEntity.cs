@@ -30,42 +30,9 @@ namespace Entities
             EquipmentManager = new EquipmentManager();
         }
 
-        public override void SetWeaponBodies()
+        public override void SetBattleBodies()
         {
-            WeaponBodyManager = new EquipmentWeaponBodyManager();
-        }
-
-
-        public override void Update()
-        {
-            UpdateHitboxes();
-            base.Update();
-        }
-
-        public virtual void UpdateHitboxes()
-        {
-            UpdateWeapon();
-            UpdateArmor();
-        }
-
-        public virtual void UpdateWeapon()
-        {
-            EquipmentManager.GetCurrentWeaponBody((EquipmentWeaponBodyManager)WeaponBodyManager).Update(Model);
-        }
-
-        public virtual void UpdateArmor()
-        {
-            EquipmentManager.Equipments.GetCurrentArmor().Update(Model);
-        }
-
-        public override void DrawWeapon()
-        {
-            EquipmentManager.Draw(Model, (EquipmentWeaponBodyManager)WeaponBodyManager);
-        }
-
-        public override void DrawHitboxes()
-        {
-            EquipmentManager.DrawHitbox((EquipmentWeaponBodyManager)WeaponBodyManager);
+            BattleBodyManager = new EquipmenBattleBodyManager();
         }
     }
 }
