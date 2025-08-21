@@ -32,12 +32,10 @@ namespace Entities
 
         private int commandsExecutedSinceLastRepeat = 0;
 
-
-
         public static readonly Dictionary<StatsEntity.EntityFractions, StatsEntity.EntityFractions[]> AutomaticAggroFractionsMap = new()
         {
-            { StatsEntity.EntityFractions.BANDIT, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.ANIMAL}},
-            { StatsEntity.EntityFractions.ANIMAL, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.BANDIT}}
+            { StatsEntity.EntityFractions.BANDIT, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.ANIMAL, StatsEntity.EntityFractions.PLAYER}},
+            { StatsEntity.EntityFractions.ANIMAL, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.BANDIT, StatsEntity.EntityFractions.PLAYER}}
         };
 
 

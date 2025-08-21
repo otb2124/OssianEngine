@@ -47,9 +47,6 @@ namespace Entities
 
         public static BehaviourCases GetBehaviourCase(BattleEntity ent)
         {
-            if (ent == null) throw new ArgumentNullException(nameof(ent));
-            if (ent.Stats == null) throw new ArgumentException("Entity has null Stats.");
-
             if (ent.Stats.DistanceToAggro != -1f)
             {
                 BattleEntity entTo = NearestEntityFinder.GetNearestBattleEntityInAggroRange(ent);
