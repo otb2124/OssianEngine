@@ -159,6 +159,42 @@ namespace Entities
                         AnimationData = new AnimationData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     break;
+
+
+
+                case BattleMovesets.BODY_SLIME:
+
+                    if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_SLIME_BODY_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(64, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(64, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT;
+                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(64, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_SLIME_BODY_HEAVY;
+                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(64, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY, AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY;
+                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(64, 128), newSpeed);
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.BLOCK }))
+                    {
+                        AnimationState = AnimationStates.BLOCKING_SLIME_BODY;
+                        AnimationData = new AnimationData(1, new Vector2(0, 128), new Vector2(64, 128), newSpeed);
+                    }
+                    break;
             }
         }
 

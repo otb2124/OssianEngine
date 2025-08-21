@@ -14,7 +14,7 @@ namespace Entities
 
         private static readonly Dictionary<EntityFractions, HashSet<EntityFractions>> ignoreHit = new()
         {
-            { EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL, EntityFractions.BANDIT } },
+            //{ EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL, EntityFractions.BANDIT } },
         };
 
         public static void CheckWeaponToBodyCollision(StatsEntity entA, StatsEntity entB)

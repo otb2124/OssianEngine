@@ -43,8 +43,7 @@ namespace Entities
                 CreateBodies(1);
             }
         }
-
-        public virtual void CreateBodies(int count)
+        public void CreateBodies(int count)
         {
             BattleBodies.Clear();
 
@@ -54,17 +53,17 @@ namespace Entities
             }
         }
 
-        public virtual void CreateBody()
+        public void CreateBody()
         {
             BattleBodies.Add(new BattleBody());
         }
 
-        public virtual void InitBody(int id, BattleBodyData data)
+        public void InitBody(int id, BattleBodyData data)
         {
             BattleBodies[id].Init(data);
         }
 
-        public virtual void Init(BattleBodyData[] data)
+        public void Init(BattleBodyData[] data)
         {
             for (int i = 0; i < data.Length; i++)
             {
@@ -72,8 +71,7 @@ namespace Entities
             }
         }
 
-
-        public virtual void Update(Model model)
+        public void Update(Model model)
         {
             foreach (BattleBody item in BattleBodies)
             {
@@ -89,7 +87,7 @@ namespace Entities
             BodyHitbox.Update(model.Body.Position.ToVector2(), new Vector2(model.Body.Width, model.Body.Height), model.Body.Angle);
         }
 
-        public virtual void Draw(Model model)
+        public void Draw(Model model)
         {
             foreach (var item in BattleBodies)
             {
@@ -97,7 +95,7 @@ namespace Entities
             }
         }
 
-        public virtual void DrawHitboxes()
+        public void DrawHitboxes()
         {
             foreach (var item in BattleBodies)
             {

@@ -239,13 +239,6 @@ namespace Entities
                                     5, 5, 5, 20
                                 ),
 
-                                // XXY
-                                new WeaponComboHit(
-                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(20, 50), 1.2f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
-                                    new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.HEAVY },
-                                    5, 5, 5, 20
-                                ),
-
                                 //BLOCK
                                 new WeaponComboHit(
                                     new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),

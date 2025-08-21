@@ -13,14 +13,14 @@ namespace Entities
         public EntityAICommandManager AIManager;
         public EntityAIBehaviourManager BehaviourManager;
 
-        public EntityAISet(StatsEntity entity, BehaviourPatterns bPattern, BehaviourCases bCase)
+        public EntityAISet(AIEntity entity, BehaviourPatterns bPattern, BehaviourCases bCase)
         {
             AIManager = new EntityAICommandManager();
             BehaviourManager = new EntityAIBehaviourManager(bPattern);
             BehaviourManager.UpdateCurrentCase(AIManager.CurrentQueue, entity, bCase);
         }
 
-        public void Update(StatsEntity entity)
+        public void Update(AIEntity entity)
         {
             BehaviourManager.UpdateCurrentCase(AIManager.CurrentQueue, entity, EntityAIHelper.GetBehaviourCase(entity));
             AIManager.Update(BehaviourManager);

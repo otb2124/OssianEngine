@@ -12,7 +12,7 @@ namespace Entities
 {
     public class EntityAICommand
     {
-        public StatsEntity Entity;
+        public AIEntity Entity;
 
         public float InitialDuration;
         public float CurrentDuration;
@@ -134,27 +134,35 @@ namespace Entities
             Entity.Model.Direction = direction;
         }
 
-        public void PerformWeaponAttack(AttackTypes type)
+        public void PerformAttack(AttackTypes type)
         {
-            if (Entity is EquipmentEntity eqEnt)
+
+            IsDurationInfinite = false;
+            RepeatAfterRestart = true;
+
+            ModelStates state = SwitchAttackTypeToModelState(type);
+
+            if(Entity is EquipmentEntity eqEnt)
             {
-                IsDurationInfinite = false;
-                RepeatAfterRestart = true;
-
-                ModelStates state = SwitchAttackTypeToModelState(type);
                 AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).GetCurrentAttack(type);
-
                 CurrentDuration = eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).BattleBodyData.MoveSet, currentAttack) * 1.5f;
-
-                if (CommandTime < CurrentDuration * Graphics.Graphics.UpdatesPerSecond / 2f)
-                {
-                    eqEnt.Model.ModelState = state;
-                }
-                else
-                {
-                   eqEnt.Model.ModelState = ModelStates.IDLE;
-                }
             }
+            else if(Entity is NonEquipmentEntity noEqEnt)
+            {
+                AttackTypes[] currentAttack = noEqEnt.BattleBodyManager.BattleBodies[0].GetCurrentAttack(type);
+                CurrentDuration = noEqEnt.BattleBodyManager.BattleBodies[0].CalculatePredictedFinalSwingTime(noEqEnt.BattleBodyManager.BattleBodies[0].BattleBodyData.MoveSet, currentAttack) * 1.5f;
+            }
+            
+
+            if (CommandTime < CurrentDuration * Graphics.Graphics.UpdatesPerSecond / 2f)
+            {
+                Entity.Model.ModelState = state;
+            }
+            else
+            {
+                Entity.Model.ModelState = ModelStates.IDLE;
+            }
+
         }
 
         public void FollowEntity(PhysicalEntity ent, float? stopDistance = null)
@@ -174,12 +182,20 @@ namespace Entities
             }
         }
 
-        public void FollowEntityAndWeaponAttack(PhysicalEntity ent, AttackTypes type)
+        public void FollowEntityAndAttack(BattleEntity ent, AttackTypes type)
         {
-            if (!(Entity is EquipmentEntity eqEnt)) return;
+            WeaponComboHit currentHit = null;
 
-            AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).GetCurrentAttack(type);
-            WeaponComboHit currentHit = GetComboHit(eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).BattleBodyData.MoveSet, currentAttack);
+            if (Entity is EquipmentEntity eqEnt)
+            {
+                AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).GetCurrentAttack(type);
+                currentHit = GetComboHit(eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).BattleBodyData.MoveSet, currentAttack);
+            }
+            else if(Entity is NonEquipmentEntity nonEquipmentEnt)
+            {
+                AttackTypes[] currentAttack = nonEquipmentEnt.BattleBodyManager.BattleBodies[0].GetCurrentAttack(type);
+                currentHit = GetComboHit(nonEquipmentEnt.BattleBodyManager.BattleBodies[0].BattleBodyData.MoveSet, currentAttack);
+            }
 
             if (currentHit != null)
             {
@@ -192,30 +208,30 @@ namespace Entities
 
                 if(distance < attackRange)
                 {
-                    PerformWeaponAttack(type);
+                    PerformAttack(type);
                 }
             }
         }
 
-        public void FollowEntityAndWeaponAttackNearestOfFraction(StatsEntity.EntityFractions fraction, AttackTypes attackType)
+        public void FollowEntityAndAttackNearestOfFraction(StatsEntity.EntityFractions fraction, AttackTypes attackType)
         {
-            StatsEntity entity = EntityAIHelper.GetNearestStatsEntityOfFraction(Entity, fraction);
+            BattleEntity entity = NearestEntityFinder.GetNearestBattleEntityOfFraction(Entity, fraction);
 
             if (entity != null)
             {
-                FollowEntityAndWeaponAttack(entity, attackType);
+                FollowEntityAndAttack(entity, attackType);
             }
         }
 
-        public void FollowEntityAndWeaponAttackNearestOfAggroFraction(AttackTypes attackType)
+        public void FollowEntityAndAttackNearestOfAggroFraction(AttackTypes attackType)
         {
-            StatsEntity entity = EntityAIHelper.GetNearestStatsEntity(Entity);
+            BattleEntity entity = NearestEntityFinder.GetNearestBattleEntity(Entity);
 
             if (entity != null)
             {
-                if(EntityAIHelper.IsStatsEntityOfAggroFraction(Entity, entity))
+                if(EntityAIHelper.IsBattleEntityOfAggroFraction(Entity, entity))
                 {
-                    FollowEntityAndWeaponAttack(entity, attackType);
+                    FollowEntityAndAttack(entity, attackType);
                 }
             }
         }
@@ -232,7 +248,7 @@ namespace Entities
                     {
                         Console.WriteLine($"Creating action for AttackTypes[{i}]: {sequence[i]}");
                         int index = i;
-                        commands[i] = new EntityAICommand(entity => entity.PerformWeaponAttack(sequence[index]));
+                        commands[i] = new EntityAICommand(entity => entity.PerformAttack(sequence[index]));
                     }
                     ComplexCommandSet = true;
                 }

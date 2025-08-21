@@ -1,13 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utils;
 using static Entities.EntityAIBehaviourManager;
-using static Entities.WeaponComboMovesetFactory;
 
 namespace Entities
 {
@@ -22,7 +17,6 @@ namespace Entities
 
         public static Vector2 GetEntityDirection(PhysicalEntity entityFrom, PhysicalEntity entityTo)
         {
-
             if (entityFrom == null || entityTo == null)
                 return Vector2.Zero;
 
@@ -31,79 +25,10 @@ namespace Entities
             return EntityPos1 - EntityPos2;
         }
 
-        public static PhysicalEntity GetNearestPhysicalEntityOfClass(PhysicalEntity entFrom, Type type)
+
+        public static bool IsBattleEntityOfAggroFraction(BattleEntity entFrom, BattleEntity entTo)
         {
-            if (type == null || !type.IsAssignableTo(typeof(PhysicalEntity)))
-            {
-                return null;
-            }
-
-            return FindNearestEntity<PhysicalEntity>(
-                entFrom,
-                entity => type.IsAssignableFrom(entity.GetType()),
-                type.Name,
-                "GetNearestPhysicalEntityOfClass"
-            );
-        }
-
-        public static StatsEntity GetNearestStatsEntity(PhysicalEntity entFrom)
-        {
-            return (StatsEntity)GetNearestPhysicalEntityOfClass(entFrom, typeof(StatsEntity));
-        }
-
-        public static StatsEntity GetNearestStatsEntityOfFraction(PhysicalEntity entFrom, StatsEntity.EntityFractions fraction)
-        {
-            if (!Enum.IsDefined(typeof(StatsEntity.EntityFractions), fraction))
-            {
-                return null;
-            }
-
-            return FindNearestEntity<StatsEntity>(
-                entFrom,
-                entity => entity.EntityFraction == fraction,
-                fraction.ToString(),
-                "GetNearestStatsEntityOfFraction"
-            );
-        }
-
-        private static T FindNearestEntity<T>(
-            PhysicalEntity entFrom,
-            Func<T, bool> predicate,
-            string filterDescription,
-            string methodName) where T : PhysicalEntity
-        {
-            EntityMap map = Entities.entityMapManager.GetCurrentMap();
-            if (map == null || map.Entities == null)
-            {
-                return null;
-            }
-
-            T nearestEntity = null;
-            float minDistance = float.MaxValue;
-
-            foreach (var entity in map.Entities)
-            {
-                if (entity is T typedEntity && predicate(typedEntity))
-                {
-                    float distance = FlatConverter.ToVector2(typedEntity.Model.Body.Position - entFrom.Model.Body.Position).Length();
-                    if (distance < minDistance)
-                    {
-                        minDistance = distance;
-                        if(typedEntity != entFrom)
-                        {
-                            nearestEntity = typedEntity;
-                        }
-                    }
-                }
-            }
-
-            return nearestEntity;
-        }
-
-
-        public static bool IsStatsEntityOfAggroFraction(StatsEntity entFrom, StatsEntity entTo)
-        {
-            StatsEntity.EntityFractions[] aggroFractions = EntityAIBehaviourManager.automaticAggroFractionsMap[entFrom.EntityFraction];
+            StatsEntity.EntityFractions[] aggroFractions = EntityAIBehaviourManager.AutomaticAggroFractionsMap[entFrom.EntityFraction];
 
             if (entTo != null)
             {
@@ -120,11 +45,12 @@ namespace Entities
         }
 
 
-        public static BehaviourCases GetBehaviourCase(StatsEntity ent)
+        public static BehaviourCases GetBehaviourCase(BattleEntity ent)
         {
             if (ent.Stats.DistanceToAggro != -1f)
             {
-                StatsEntity entTo = GetNearestStatsEntity(ent);
+                BattleEntity entTo = NearestEntityFinder.GetNearestBattleEntity(ent);
+
                 if (entTo == null)
                 {
                     return GetCurrentBehaviourCase(ent);
@@ -136,7 +62,7 @@ namespace Entities
                     return GetCurrentBehaviourCase(ent);
                 }
 
-                if (IsStatsEntityOfAggroFraction(ent, entTo))
+                if (IsBattleEntityOfAggroFraction(ent, entTo))
                 {
                     if (distance < ent.Stats.DistanceToAggro)
                     {
