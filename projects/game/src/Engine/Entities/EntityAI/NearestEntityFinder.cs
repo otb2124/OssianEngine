@@ -1,15 +1,17 @@
-﻿using Physics;
+﻿using Microsoft.Xna.Framework;
+using Physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Entities.EntityAIBehaviourManager;
 
 namespace Entities
 {
     public static class NearestEntityFinder
     {
-        private static T FindNearestEntity<T>(
+        public static T FindNearestEntity<T>(
             PhysicalEntity entFrom,
             Func<T, bool> predicate,
             string filterDescription,
@@ -24,24 +26,21 @@ namespace Entities
             T nearestEntity = null;
             float minDistance = float.MaxValue;
 
-            foreach (var entity in map.Entities)
+            foreach (var entity in map.Entities.OfType<T>().Where(predicate))
             {
-                if (entity is T typedEntity && predicate(typedEntity))
+                if (entity == entFrom) continue;
+
+                float distance = EntityAIHelper.GetEntityDistance(entFrom, entity);
+                if (distance < minDistance)
                 {
-                    float distance = FlatConverter.ToVector2(typedEntity.Model.Body.Position - entFrom.Model.Body.Position).Length();
-                    if (distance < minDistance)
-                    {
-                        minDistance = distance;
-                        if (typedEntity != entFrom)
-                        {
-                            nearestEntity = typedEntity;
-                        }
-                    }
+                    minDistance = distance;
+                    nearestEntity = entity;
                 }
             }
 
             return nearestEntity;
         }
+
 
 
         public static PhysicalEntity GetNearestPhysicalEntityOfClass(PhysicalEntity entFrom, Type type)
@@ -61,12 +60,42 @@ namespace Entities
 
         public static BattleEntity GetNearestBattleEntity(PhysicalEntity entFrom)
         {
-            return (BattleEntity)GetNearestPhysicalEntityOfClass(entFrom, typeof(BattleEntity));
+            return FindNearestEntity<BattleEntity>(
+                entFrom,
+                entity => true,
+                "BattleEntity",
+                "GetNearestBattleEntity"
+            );
+        }
+
+        public static BattleEntity GetNearestBattleEntityInAggroRange(BattleEntity entFrom)
+        {
+            var candidate = FindNearestEntity<BattleEntity>(
+                entFrom,
+                entity => EntityAIHelper.IsBattleEntityOfAggroFraction(entFrom, entity),
+                "BattleEntity in aggro fraction",
+                "GetNearestBattleEntityInAggroRange"
+            );
+
+            if (candidate == null) return null;
+
+            float distance = EntityAIHelper.GetEntityDistance(entFrom, candidate);
+            if (distance < entFrom.Stats.DistanceToAggro)
+            {
+                return candidate;
+            }
+
+            if (EntityAIHelper.GetCurrentBehaviourCase(entFrom) == BehaviourCases.AGGRO && distance > entFrom.Stats.DistanceToUnaggro)
+            {
+                return null;
+            }
+
+            return candidate;
         }
 
         public static BattleEntity GetNearestBattleEntityOfFraction(PhysicalEntity entFrom, StatsEntity.EntityFractions fraction)
         {
-            if (!Enum.IsDefined(typeof(BattleEntity.EntityFractions), fraction))
+            if (!Enum.IsDefined(typeof(StatsEntity.EntityFractions), fraction))
             {
                 return null;
             }
@@ -79,6 +108,6 @@ namespace Entities
             );
         }
 
-        
+
     }
 }

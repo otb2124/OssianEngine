@@ -36,8 +36,8 @@ namespace Entities
 
         public static readonly Dictionary<StatsEntity.EntityFractions, StatsEntity.EntityFractions[]> AutomaticAggroFractionsMap = new()
         {
-            { StatsEntity.EntityFractions.BANDIT, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.ANIMAL, StatsEntity.EntityFractions.PLAYER}},
-            { StatsEntity.EntityFractions.ANIMAL, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.BANDIT, StatsEntity.EntityFractions.PLAYER}}
+            { StatsEntity.EntityFractions.BANDIT, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.ANIMAL}},
+            { StatsEntity.EntityFractions.ANIMAL, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.BANDIT}}
         };
 
 
@@ -78,8 +78,6 @@ namespace Entities
         {
             if(CurrentCase == bCase) { return; }
 
-            Console.WriteLine(CurrentCase + ", " + bCase);
-
             CurrentCase = bCase;
 
             switch (Pattern)
@@ -96,11 +94,9 @@ namespace Entities
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    6f),
                                 //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   7f),
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
-                                new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   3f, true),
-                                new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
-                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
-                                new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    3f, true),
-                                new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
+                                new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
+                                new EntityAICommand(entity => { entity.Jump(); },                    1.5f, true),
+                                new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
                             };
                             
@@ -109,9 +105,9 @@ namespace Entities
 
                             CommandPool = new EntityAICommand[]
                             {
-                                new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   3f, true),
-                                new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
-                                new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    3f, true),
+                                new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   10f, true),
+                                new EntityAICommand(entity => { entity.Jump(); },                    1.5f, true),
+                                new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   10f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
                             };
 
@@ -146,9 +142,9 @@ namespace Entities
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    6f),
                                 //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   7f),
                                 //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
-                                new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   3f, true),
+                                new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
                                 new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
-                                new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    3f, true),
+                                new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },    3f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
                             };
 
@@ -195,9 +191,6 @@ namespace Entities
             {
                 currentQueue.Enqueue(command);
             }
-
-
-            
         }
 
 
