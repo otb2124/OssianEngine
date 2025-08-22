@@ -54,6 +54,12 @@ namespace Entities
 
         public BattleBodyData BattleBodyData;
 
+        // Lerp state
+        private Vector2 initialHitboxSize;
+        private Vector2 targetHitboxSize;
+        private FlatVector initialBodyPosition;
+        private FlatVector targetBodyPosition;
+
         public BattleBody()
         {
             Hitbox = new WeaponHitbox();
@@ -170,24 +176,43 @@ namespace Entities
                 return;
             }
 
-            
+
             Vector2 weaponPosition = model.Body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
+            float swingDuration = CalculateFinalSwingTime();
+            float appearanceStart = BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X;
+            float appearanceEnd = BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y;
 
             if (currentSwingTime > BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X && currentSwingTime < BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y)
             {
+                if (currentSwingTime == 0f || initialHitboxSize == Vector2.Zero)
+                {
+                    initialHitboxSize = Hitbox.extends.Size();
+                    targetHitboxSize = currentHit.HitboxOffset.Size();
+                }
+
+                float t = Microsoft.Xna.Framework.MathHelper.Clamp((currentSwingTime - appearanceStart) / (appearanceEnd - appearanceStart), 0f, 1f);
+                Vector2 lerpedSize = Vector2.Lerp(initialHitboxSize, targetHitboxSize, t);
+
                 Hitbox.Update(
                     weaponPosition,
-                    currentHit.HitboxOffset.Size(),
+                    lerpedSize,
                     currentHit.HitboxOffset.Rotation * horizontalXFactor
                 );
+
+                targetBodyPosition = initialBodyPosition + new FlatVector(
+                    currentHit.EntityPositionOffset.X * horizontalXFactor,
+                    currentHit.EntityPositionOffset.Y
+                );
+                //t = Microsoft.Xna.Framework.MathHelper.Clamp(currentSwingTime / swingDuration, 0f, 1f);
+                FlatVector lerpedPosition = FlatVector.Lerp(initialBodyPosition, targetBodyPosition, t);
+                model.Body.MoveTo(lerpedPosition);
             }
             else
             {
-                Hitbox.Update(
-                    Vector2.Zero,
-                    Vector2.Zero,
-                    0f
-                );
+                Hitbox.Update(Vector2.Zero, Vector2.Zero);
+                initialHitboxSize = Vector2.Zero;
+                targetHitboxSize = Vector2.Zero;
+                initialBodyPosition = model.Body.Position;
             }
             
         }
@@ -225,11 +250,6 @@ namespace Entities
                 aManager.GetCurrent().Reset();
                 aManager.GetCurrent().Start();
 
-                int horizontalXFactor = model.Direction == Directions.RIGHT ? 1 : -1;
-                model.Body.Move(new FlatVector(
-                    currentHit.EntityPositionOffset.X * horizontalXFactor,
-                    currentHit.EntityPositionOffset.Y
-                ));
                 Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(
                     Resources.Sounds.SWING_SWORD,
                     model.Body.Position.ToVector2(),

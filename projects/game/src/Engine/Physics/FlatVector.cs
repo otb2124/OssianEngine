@@ -53,6 +53,15 @@ namespace Physics
                 transform.Sin * v.X + transform.Cos * v.Y + transform.PositionY);
         }
 
+        public static FlatVector Lerp(FlatVector a, FlatVector b, float t)
+        {
+            float clampedT = MathHelper.Clamp(t, 0f, 1f);
+            return new FlatVector(
+                MathHelper.Lerp(a.X, b.X, clampedT),
+                MathHelper.Lerp(a.Y, b.Y, clampedT)
+            );
+        }
+
         public bool Equals(FlatVector other)
         {
             return X == other.X && Y == other.Y;

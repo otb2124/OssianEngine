@@ -23,7 +23,7 @@ namespace Entities
             IDLE,
             IDLE_RANDOM,
             AGGRO,
-        };
+        }; 
 
 
         public EntityAICommand[] CommandPool;
