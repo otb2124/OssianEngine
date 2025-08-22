@@ -6,6 +6,7 @@ using Resources;
 using System;
 using System.Collections.Generic;
 using Utils;
+using Model = Resources.Model;
 
 namespace Entities
 {
@@ -162,56 +163,8 @@ namespace Entities
 
         public virtual void UpdateAnimationState()
         {
-            switch (Model.ModelState)
-            {
-                case ModelStates.MOVING:
-                    Model.animationState = AnimationStates.MOVING;
-                    break;
-                case ModelStates.IDLE:
-                    Model.animationState = AnimationStates.IDLE;
-                    break;
-                case ModelStates.JUMPING:
-                    Model.animationState = AnimationStates.JUMPING;
-                    break;
-                case ModelStates.JUMPING_AND_MOVING:
-                    Model.animationState = AnimationStates.JUMPING;
-                    break;
-                case ModelStates.SPRINTING:
-                    Model.animationState = AnimationStates.SPRINTING;
-                    break;
-                case ModelStates.WEAPON_OUT_IDLE:
-                    Model.animationState = AnimationStates.WEAPON_OUT_IDLE;
-                    break;
-                case ModelStates.WEAPON_OUT_MOVING:
-                    Model.animationState = AnimationStates.BATTLE_MOVING;
-                    break;
-                case ModelStates.ROLLING:
-                    Model.animationState = AnimationStates.ROLL;
-                    break;
-                case ModelStates.FALLEN:
-                    Model.animationState = AnimationStates.FALLEN;
-                    break;
-                case ModelStates.FALLING:
-                    Model.animationState = AnimationStates.ROLL;
-                    break;
-                case ModelStates.JUMPING_DESCENDING:
-                    Model.animationState = AnimationStates.JUMPING_DESCENDING;
-                    break;
-                case ModelStates.JUMPING_DESCENDING_AND_MOVING:
-                    Model.animationState = AnimationStates.JUMPING_DESCENDING;
-                    break;
-                case ModelStates.OVERALL_DESCENDING:
-                    Model.animationState = AnimationStates.OVERALL_DESCENDING;
-                    break;
-                case ModelStates.BLOCKING:
-                    Model.animationState = AnimationStates.BLOCKING_SWORD;
-                    break;
-                case ModelStates.HANGING_ON_LEDGE:
-                    //Model.animationState = AnimationStates.HANGING_ON_LEDGE_LEFT;
-                    break;
-            }
-
-            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
+            Model.AnimationState = Model.ModelStateToAnimationState(Model.ModelState, Model.AnimationState);
+            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.AnimationState));
         }
 
         public override void Update()

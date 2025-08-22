@@ -85,6 +85,8 @@ namespace Entities
                     WeaponBodyData.LightSourceData = new Graphics.LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(150f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.5f), 10f, 0f);
                     break;
             }
+
+            WeaponBodyData.ModelStateBetweenHits = ModelStates.WEAPON_OUT_IDLE;
         }
 
     }

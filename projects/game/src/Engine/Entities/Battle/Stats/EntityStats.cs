@@ -218,11 +218,11 @@ namespace Entities
                     //TODO FIX THE LEDGES DIRECTION SWAP
                     if (ledge.Model.Direction == Directions.RIGHT)
                     {
-                        ent.Model.animationState = AnimationStates.HANGING_ON_LEDGE_RIGHT;
+                        ent.Model.AnimationState = AnimationStates.HANGING_ON_LEDGE_RIGHT;
                     }
                     else
                     {
-                        ent.Model.animationState = AnimationStates.HANGING_ON_LEDGE_LEFT;
+                        ent.Model.AnimationState = AnimationStates.HANGING_ON_LEDGE_LEFT;
                     }
                 }
 

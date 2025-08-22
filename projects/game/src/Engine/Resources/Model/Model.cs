@@ -21,7 +21,7 @@ namespace Resources
 
         public Vector2 bodyOffset;
         public Directions Direction;
-        public AnimationStates animationState;
+        public AnimationStates AnimationState;
         public ModelStates ModelState;
 
         public float DrawAngle = 0;
@@ -139,6 +139,45 @@ namespace Resources
             }
 
             return -1;
+        }
+
+        public static AnimationStates ModelStateToAnimationState(ModelStates state, AnimationStates defaultCase)
+        {
+            switch (state)
+            {
+                case ModelStates.MOVING:
+                    return AnimationStates.MOVING;
+                case ModelStates.IDLE:
+                    return AnimationStates.IDLE;
+                case ModelStates.JUMPING:
+                    return AnimationStates.JUMPING;
+                case ModelStates.JUMPING_AND_MOVING:
+                    return AnimationStates.JUMPING;
+                case ModelStates.SPRINTING:
+                    return AnimationStates.SPRINTING;
+                case ModelStates.WEAPON_OUT_IDLE:
+                    return AnimationStates.WEAPON_OUT_IDLE;
+                case ModelStates.WEAPON_OUT_MOVING:
+                    return AnimationStates.WEAPON_OUT_MOVING;
+                case ModelStates.ROLLING:
+                    return AnimationStates.ROLL;
+                case ModelStates.FALLEN:
+                    return AnimationStates.FALLEN;
+                case ModelStates.FALLING:
+                    return AnimationStates.ROLL;
+                case ModelStates.JUMPING_DESCENDING:
+                    return AnimationStates.JUMPING_DESCENDING;
+                case ModelStates.JUMPING_DESCENDING_AND_MOVING:
+                    return AnimationStates.JUMPING_DESCENDING;
+                case ModelStates.OVERALL_DESCENDING:
+                    return AnimationStates.OVERALL_DESCENDING;
+                case ModelStates.BLOCKING:
+                    return AnimationStates.BLOCKING_SWORD;
+                //case ModelStates.HANGING_ON_LEDGE:
+                //return AnimationStates.HANGING_ON_LEDGE_LEFT;
+                default:
+                    return defaultCase;
+            }
         }
 
     }

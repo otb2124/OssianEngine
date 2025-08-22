@@ -21,17 +21,19 @@ namespace Entities
         public BattleMovesets MoveSet;
         public AnimationData WeaponOutAnimationData;
         public LightSource.LightSourceData LightSourceData;
+        public ModelStates ModelStateBetweenHits;
 
         public BattleBodyData()
         {
         }
 
-        public BattleBodyData(float weaponSwingSpeedMultiplier, StaticSprites sprite, BattleMovesets moveSet, AnimationData weaponOutAnimationData, LightSource.LightSourceData lightSourceData)
+        public BattleBodyData(float weaponSwingSpeedMultiplier, StaticSprites sprite, BattleMovesets moveSet, AnimationData weaponOutAnimationData, LightSource.LightSourceData lightSourceData, ModelStates stateBetweenHits = ModelStates.WEAPON_OUT_IDLE)
         {
             WeaponSwingSpeedMultiplier = weaponSwingSpeedMultiplier;
             Sprite = sprite;
             MoveSet = moveSet;
             LightSourceData = lightSourceData;
+            ModelStateBetweenHits = stateBetweenHits;
         }
     }
 
@@ -87,11 +89,15 @@ namespace Entities
                 );
             }
 
-            aManager.AddAnimationForBothDirections(
+            if(BattleBodyData.ModelStateBetweenHits == ModelStates.WEAPON_OUT_IDLE)
+            {
+                aManager.AddAnimationForBothDirections(
                     StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite],
                     AnimationStates.WEAPON_OUT_IDLE,
                     BattleBodyData.WeaponOutAnimationData
                 );
+            }
+            
 
             Combo.UpdateHits(AttackHistory, BattleBodyData.MoveSet);
 
@@ -172,7 +178,7 @@ namespace Entities
 
             if (currentHit == null)
             {
-                model.ModelState = ModelStates.WEAPON_OUT_IDLE;
+                model.ModelState = BattleBodyData.ModelStateBetweenHits;
                 return;
             }
 
@@ -264,7 +270,8 @@ namespace Entities
             if (hit != null && currentSwingTime >= CalculateFinalSwingTime())
             {
                 isSwinging = false;
-                model.ModelState = ModelStates.WEAPON_OUT_IDLE;
+                model.ModelState = BattleBodyData.ModelStateBetweenHits;
+                
                 var hitTemplates = GetWeaponComboHits(BattleBodyData.MoveSet);
                 var nextHits = hitTemplates.Where(h => h.AttackSequence.Length == hit.AttackSequence.Length + 1 &&
                                                       h.AttackSequence.Take(hit.AttackSequence.Length).SequenceEqual(hit.AttackSequence)).ToList();
@@ -285,12 +292,12 @@ namespace Entities
             }
             aManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Combo.GetCurrentHit().AnimationState));
 
-            model.animationState = Combo.GetCurrentHit().AnimationState;
+            model.AnimationState = Combo.GetCurrentHit().AnimationState;
 
-            if(!ModelAnimationTimeUpdated)
+            if (!ModelAnimationTimeUpdated)
             {
-                model.aManager.GetAnimation(model.Direction, model.animationState).frameTime = currentHit.AnimationData.FrameTime;
-                model.aManager.GetAnimation(model.Direction, model.animationState).frameTimeLeft = currentHit.AnimationData.FrameTime;
+                model.aManager.GetAnimation(model.Direction, model.AnimationState).frameTime = currentHit.AnimationData.FrameTime;
+                model.aManager.GetAnimation(model.Direction, model.AnimationState).frameTimeLeft = currentHit.AnimationData.FrameTime;
                 ModelAnimationTimeUpdated = true;
             }
         }
@@ -309,7 +316,7 @@ namespace Entities
             var currentHit = Combo.GetCurrentHit();
             if (currentHit == null)
             {
-                aManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, AnimationStates.WEAPON_OUT_IDLE));
+                aManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Model.ModelStateToAnimationState(BattleBodyData.ModelStateBetweenHits, model.AnimationState)));
             }
 
             Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();

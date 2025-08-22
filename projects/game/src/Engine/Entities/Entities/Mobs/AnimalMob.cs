@@ -71,10 +71,6 @@ namespace Entities
             frameSpeed = 0.5f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
 
-            //TODO: GET RID OF
-            //weapon out for battle mode
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.WEAPON_OUT_IDLE, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
-
             //attacking
             frameSpeed = 2.5f;
             Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SLIME_BODY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
@@ -92,6 +88,7 @@ namespace Entities
             battleBodyData.WeaponSwingSpeedMultiplier = 1f;
             battleBodyData.MoveSet = BattleMovesets.BODY_SLIME;
             battleBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
+            battleBodyData.ModelStateBetweenHits = ModelStates.IDLE;
 
             BattleBodyManager = new BattleBodyManager(BattleBodyTypes.BODY);
             BattleBodyManager.InitBody(0, battleBodyData);

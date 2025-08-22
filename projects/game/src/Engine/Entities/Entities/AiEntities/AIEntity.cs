@@ -36,7 +36,7 @@ namespace Entities
             if (AISet != null && !Stats.IsFallen && !Stats.IsFalling)
             {
                 AISet.Update(this);
-                Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.animationState));
+                Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.AnimationState));
             }
 
             base.Update();

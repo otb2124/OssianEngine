@@ -1,7 +1,6 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Physics;
 using Resources;
 using System;
 using Utils;
@@ -110,7 +109,7 @@ namespace Entities
 
             //battleMoving
             frameSpeed = 0.1f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BATTLE_MOVING, 9, new Vector2(0, 128 * 5), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.WEAPON_OUT_MOVING, 9, new Vector2(0, 128 * 5), new Vector2(64, 128), frameSpeed);
 
             //battleRoll
             frameSpeed = 0.15f;
@@ -189,6 +188,11 @@ namespace Entities
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);
             base.Update();
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
         }
     }
 }

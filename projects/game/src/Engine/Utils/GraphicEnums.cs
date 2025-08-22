@@ -179,7 +179,7 @@ namespace Utils
         JUMPING,
         SPRINTING,
         WEAPON_OUT_IDLE,
-        BATTLE_MOVING,
+        WEAPON_OUT_MOVING,
         ROLL,
         FALLEN,
         RECEIVING_DAMAGE,
