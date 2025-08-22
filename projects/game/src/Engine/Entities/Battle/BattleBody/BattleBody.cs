@@ -213,6 +213,7 @@ namespace Entities
                 initialHitboxSize = Vector2.Zero;
                 targetHitboxSize = Vector2.Zero;
                 initialBodyPosition = model.Body.Position;
+                targetBodyPosition = model.Body.Position;
             }
             
         }

@@ -22,7 +22,6 @@ namespace Entities
 
         public void Update(AIEntity entity)
         {
-            Console.WriteLine(EntityAIHelper.GetBehaviourCase(entity));
             BehaviourManager.UpdateCurrentCase(AIManager.CurrentQueue, entity, EntityAIHelper.GetBehaviourCase(entity));
             AIManager.Update(BehaviourManager);
         }

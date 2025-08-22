@@ -67,7 +67,7 @@ namespace Entities
 
         public bool AllowPickup = true;
         public int PickupCounter = 0;
-        public float PickupLockSec = 1f;
+        public float PickupLockSec = 0.25f;
 
         public float invincibleFramesSec = 1f;
         public int invincibleCounter = 0;
