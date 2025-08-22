@@ -34,8 +34,9 @@ namespace Entities
 
             Stats.Refill();
 
-            Stats.bodyKnockbackPower = 1;
-            Stats.bodyDamage = 10;
+            Stats.BodyKnockbackPower = 1;
+            Stats.BodyDamage = 10;
+            Stats.BodyPoiseDamage = 20;
 
             Stats.DistanceToAggro = 200f;
             Stats.DistanceToUnaggro = 500f;

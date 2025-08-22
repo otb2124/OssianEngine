@@ -54,10 +54,10 @@ namespace Entities
         public float rollMultiplier;
         public float sprintMultiplier;
 
-        public float bodyDamage;
-        public float bodyKnockbackPower;
+        public float BodyDamage;
+        public float BodyKnockbackPower;
+        public float BodyPoiseDamage;
 
-        public float PoiseBodyDamage = 0f;
         public float Poise;
         public float MaxPoise;
         public float PoiseRegenSec;
@@ -145,7 +145,7 @@ namespace Entities
 
         public void ReceivePoiseDamage(float amount)
         {
-            Poise -= 50;
+            Poise -= amount;
         }
 
         public void UpdateFallen(Resources.Model model)

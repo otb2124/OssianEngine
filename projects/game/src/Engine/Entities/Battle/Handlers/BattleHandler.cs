@@ -14,7 +14,7 @@ namespace Entities
     {
 
 
-        public static void HandleHit(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)
+        public static void HandleHit(StatsEntity toEnt, float damage, float knockBackPower, float poisePower, Vector2 fromEntPos)
         {
             if(!GameStateManager.IsGod && toEnt.Stats.HP <= 0)
             {
@@ -28,7 +28,7 @@ namespace Entities
             
             if (toEnt.Stats.HP > 0)
             {
-                HandleTakingDamage(toEnt, damage, knockBackPower, fromEntPos);
+                HandleTakingDamage(toEnt, damage, knockBackPower, poisePower, fromEntPos);
             }
 
             if(toEnt.Stats.IsInvincible != true)
@@ -53,12 +53,12 @@ namespace Entities
         }
 
 
-        public static void HandleTakingDamage(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)
+        public static void HandleTakingDamage(StatsEntity toEnt, float damage, float knockBackPower, float poisePower, Vector2 fromEntPos)
         {
             if (!(toEnt is Player && GameStateManager.IsGod))
             {
                 toEnt.Stats.ReceiveDamage(damage);
-                toEnt.Stats.ReceivePoiseDamage(damage);
+                toEnt.Stats.ReceivePoiseDamage(poisePower);
             }
 
             FlatVector knockbackForce = CalculateKnockBackForce(toEnt.Model.Body.Position, FlatConverter.ToFlatVector(fromEntPos), knockBackPower);

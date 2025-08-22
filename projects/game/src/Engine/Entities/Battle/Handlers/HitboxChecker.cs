@@ -21,33 +21,37 @@ namespace Entities
         {
             if (entA == entB) return;
 
-            (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA) = (entA, entB) switch
+            (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA, float poisePowerA) = (entA, entB) switch
             {
                 (EquipmentEntity eqA, EquipmentEntity eqB) => (
                     eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
                     eqB.BattleBodyManager.BodyHitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
-                    eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
+                    eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower,
+                    eqA.EquipmentManager.GetCurrentWeapon().PoiseDmg
                 ),
                 (NonEquipmentEntity nhA, NonEquipmentEntity nhB) => (
                     nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                     nhB.BattleBodyManager.BodyHitbox.extends,
-                    nhA.Stats.bodyDamage,
-                    nhA.Stats.bodyKnockbackPower
+                    nhA.Stats.BodyDamage,
+                    nhA.Stats.BodyKnockbackPower,
+                    nhA.Stats.BodyPoiseDamage
                 ),
                 (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                     nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                     eqB.BattleBodyManager.BodyHitbox.extends,
-                    nhA.Stats.bodyDamage,
-                    nhA.Stats.bodyKnockbackPower
+                    nhA.Stats.BodyDamage,
+                    nhA.Stats.BodyKnockbackPower,
+                    nhA.Stats.BodyPoiseDamage
                 ),
                 (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
                     eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
                     nhB.BattleBodyManager.BodyHitbox.extends,
                     eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
-                    eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
+                    eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower,
+                    eqA.EquipmentManager.GetCurrentWeapon().PoiseDmg
                 ),
-                _ => (null, null, 0f, 0f)
+                _ => (null, null, 0f, 0f, 0f)
             };
 
 
@@ -55,7 +59,7 @@ namespace Entities
             {
                 if(entB.Model.ModelState != ModelStates.BLOCKING && entA.Model.ModelState != ModelStates.BLOCKING)
                 {
-                    BattleHandler.HandleHit(entB, damageA, knockBackPowerA, hitboxA.Position);
+                    BattleHandler.HandleHit(entB, damageA, knockBackPowerA, poisePowerA, hitboxA.Position);
                 }
             }
 
@@ -80,14 +84,14 @@ namespace Entities
                     (NonEquipmentEntity nhA, NonEquipmentEntity nhB) => (
                         nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                         nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
-                        nhA.Stats.bodyDamage,
-                        nhA.Stats.bodyKnockbackPower
+                        nhA.Stats.BodyDamage,
+                        nhA.Stats.BodyKnockbackPower
                     ),
                     (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                         nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                         eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf,
-                        nhA.Stats.bodyDamage,
-                        nhA.Stats.bodyKnockbackPower
+                        nhA.Stats.BodyDamage,
+                        nhA.Stats.BodyKnockbackPower
                     ),
                     (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
                         eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
