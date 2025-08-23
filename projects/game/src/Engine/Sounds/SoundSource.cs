@@ -82,7 +82,7 @@ namespace Sounds
 
             float distance = Vector2.Distance(cameraWorldPosition, Position);
             float volume = MathHelper.Clamp(1f - (distance / MaxDistance), 0f, 1f) * Volume;
-            Instance.Volume = volume;
+            Instance.Volume = volume * Sounds.GlobalSoundVolume;
 
             float xDifference = Position.X - cameraWorldPosition.X;
             float pan = MathHelper.Clamp(xDifference / MaxDistance, -1f, 1f);

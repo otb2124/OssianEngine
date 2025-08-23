@@ -136,7 +136,6 @@ namespace Entities
 
         public void PerformAttack(AttackTypes type)
         {
-
             IsDurationInfinite = false;
             RepeatAfterRestart = true;
 
@@ -144,6 +143,11 @@ namespace Entities
 
             if(Entity is EquipmentEntity eqEnt)
             {
+                if(!eqEnt.EquipmentManager.WeaponInOutToggler.IsWeaponOut)
+                {
+                    eqEnt.EquipmentManager.ToggleWeaponInOut(eqEnt.BattleBodyManager);
+                }
+
                 AttackTypes[] currentAttack = eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).GetCurrentAttack(type);
                 CurrentDuration = eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).CalculatePredictedFinalSwingTime(eqEnt.EquipmentManager.GetCurrentWeaponBody(eqEnt.BattleBodyManager).BattleBodyData.MoveSet, currentAttack) * 1.5f;
             }

@@ -39,6 +39,7 @@ namespace Entities
             SetCurrentWeaponSwapPlaceHolder(currentHand, currentWeapon);
             equipments.SetEquipment(slot, placeholder);
             manager.HandToEquipmentWeaponBody(currentHand).Init(placeholder.WeaponBodyData);
+            IsWeaponOut = !IsWeaponOut;
         }
 
         public void WeaponInSwap(Equipments equipments, WeaponHands currentHand, BattleBodyManager manager)

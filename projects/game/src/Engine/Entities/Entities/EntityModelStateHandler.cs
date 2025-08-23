@@ -133,7 +133,6 @@ namespace Entities {
             // WEAPON TOGGLE
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
             {
-                player.EquipmentManager.WeaponInOutToggler.IsWeaponOut = !player.EquipmentManager.WeaponInOutToggler.IsWeaponOut;
                 player.EquipmentManager.ToggleWeaponInOut(player.BattleBodyManager);
             }
 

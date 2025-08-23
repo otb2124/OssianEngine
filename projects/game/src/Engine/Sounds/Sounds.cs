@@ -10,6 +10,7 @@ namespace Sounds
     {
 
         public static SoundManager SoundManager;
+        public static float GlobalSoundVolume = 0.1f;
 
         public static void Init()
         {
