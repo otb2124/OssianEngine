@@ -95,5 +95,11 @@ namespace Entities
             BattleBodyManager = new BattleBodyManager(BattleBodyTypes.BODY);
             BattleBodyManager.InitBody(0, battleBodyData);
         }
+
+        public override void Update()
+        {
+            //Console.WriteLine(AISet.BehaviourManager.CurrentCase);
+            base.Update();
+        }
     }
 }

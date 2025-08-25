@@ -32,6 +32,8 @@ namespace Entities
 
         private int commandsExecutedSinceLastRepeat = 0;
 
+        public bool CaseUpdated = false;
+
         public static readonly Dictionary<StatsEntity.EntityFractions, StatsEntity.EntityFractions[]> AutomaticAggroFractionsMap = new()
         {
             { StatsEntity.EntityFractions.BANDIT, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.ANIMAL, StatsEntity.EntityFractions.PLAYER}},
@@ -74,7 +76,11 @@ namespace Entities
 
         public void UpdateCurrentCase(Queue<EntityAICommand> currentQueue, AIEntity entity, BehaviourCases bCase)
         {
-            if(CurrentCase == bCase) { return; }
+            if(CurrentCase == bCase) 
+            {
+                CaseUpdated = false;
+                return; 
+            }
 
             CurrentCase = bCase;
 
@@ -189,6 +195,8 @@ namespace Entities
             {
                 currentQueue.Enqueue(command);
             }
+
+            CaseUpdated = true;
         }
 
 
