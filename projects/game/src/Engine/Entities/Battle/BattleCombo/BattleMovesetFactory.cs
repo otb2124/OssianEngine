@@ -7,7 +7,7 @@ using Utils;
 
 namespace Entities
 {
-    public static class WeaponComboMovesetFactory
+    public static class BattleMovesetFactory
     {
         public enum BattleMovesets
         {
@@ -25,174 +25,174 @@ namespace Entities
             BLOCK,
         }
 
-        public static readonly Dictionary<BattleMovesets, WeaponComboMoveset> Movesets = new()
+        public static readonly Dictionary<BattleMovesets, BattleMoveset> Movesets = new()
         {
             {
                 BattleMovesets.WEAPON_SWORD,
-                    new WeaponComboMoveset
+                    new BattleMoveset
                     (
                         new[]
                         {
                             // X
-                            new WeaponComboHit(
+                            new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.5f), Vector2.Zero, 0.5f, new Vector2(0.2f, 0.4f),
                                 new AttackTypes[] { AttackTypes.LIGHT },
-                                5, 5, 5, 20
+                                new BattleHitData(1, 1, 1, 1)
                             ),
                             // Y
-                            new WeaponComboHit(
+                            new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(15, 50), 1.5f), Vector2.Zero, 1f, new Vector2(0.7f, 1f),
                                 new AttackTypes[] { AttackTypes.HEAVY },
-                                5, 5, 5, 20
+                                new BattleHitData(1, 1, 1, 1)
                             ),
                     
 
                             // XX
-                            new WeaponComboHit(
+                            new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(20, 0), 0.5f, new Vector2(0.2f, 0.4f),
                                 new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                5, 5, 5, 20
+                                new BattleHitData(5, 5, 5, 20)
                             ),
                             // YY
-                            new WeaponComboHit(
+                            new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(15, 50), 1.7f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
                                 new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY },
-                                5, 5, 5, 20
+                                new BattleHitData(1, 1, 1, 1)
                             ),
 
 
                             // XXX
-                            new WeaponComboHit(
+                            new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.2f), new Vector2(30, 0), 0.7f, new Vector2(0f, 0.7f),
                                 new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                5, 5, 5, 20
+                                new BattleHitData(1, 1, 1, 1)
                             ),
 
                             // XXY
-                            new WeaponComboHit(
+                            new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(20, 50), 1.2f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
                                 new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.HEAVY },
-                                5, 5, 5, 20
+                                new BattleHitData(1, 1, 1, 1)
                             ),
 
                             //BLOCK
-                            new WeaponComboHit(
+                            new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
                                 new AttackTypes[] { AttackTypes.BLOCK },
-                                5, 5, 5, 20
+                                new BattleHitData(1, 1, 1, 1)
                             ),
                         }
                     )
                     },
                     {
                         BattleMovesets.WEAPON_KNIFE,
-                        new WeaponComboMoveset
+                        new BattleMoveset
                         (
                             new[]
                             {
                                 // X
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
                                     new AttackTypes[] { AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
                                 // Y
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
                                     new AttackTypes[] { AttackTypes.HEAVY },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
                                 // XX
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
                                 // XY
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
 
                                 // XXX
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                                 // XYY
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
                                 //BLOCK
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
                                     new AttackTypes[] { AttackTypes.BLOCK },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                             }
                         )
                     },
                     {
                         BattleMovesets.WEAPON_BARE_HANDS,
-                        new WeaponComboMoveset(
+                        new BattleMoveset(
                             new[]
                             {
                                 // X
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
                                     new AttackTypes[] { AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                                 // Y
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
                                     new AttackTypes[] { AttackTypes.HEAVY },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
                                 // XX
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                                 // XY
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.5f, new Vector2(0.4f, 0.5f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
 
 
                                 // XXX
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(10, 0), 0.25f, new Vector2(0.2f, 0.25f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                                 // XYY
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(10, 0), 0.5f, new Vector2(0.4f, 0.5f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
 
                                 //BLOCK
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
                                     new AttackTypes[] { AttackTypes.BLOCK },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                             }
                         )
@@ -200,50 +200,50 @@ namespace Entities
                     },
                     {
                         BattleMovesets.BODY_SLIME,
-                        new WeaponComboMoveset
+                        new BattleMoveset
                         (
                             new[]
                             {
                                 // X
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.5f), Vector2.Zero, 0.5f, new Vector2(0.2f, 0.4f),
                                     new AttackTypes[] { AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                                 // Y
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(15, 50), 1.5f), Vector2.Zero, 1f, new Vector2(0.7f, 1f),
                                     new AttackTypes[] { AttackTypes.HEAVY },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                     
 
                                 // XX
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(20, 0), 0.5f, new Vector2(0.2f, 0.4f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                                 // YY
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(15, 50), 1.7f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
                                     new AttackTypes[] { AttackTypes.HEAVY, AttackTypes.HEAVY },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
 
                                 // XXX
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.2f), new Vector2(30, 0), 0.7f, new Vector2(0f, 0.7f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
 
                                 //BLOCK
-                                new WeaponComboHit(
+                                new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
                                     new AttackTypes[] { AttackTypes.BLOCK },
-                                    5, 5, 5, 20
+                                    new BattleHitData(1, 1, 1, 1)
                                 ),
                             }
                         )
@@ -252,7 +252,7 @@ namespace Entities
 
 
 
-        public static WeaponComboHit[] GetWeaponComboHits(BattleMovesets weaponType)
+        public static BattleComboHit[] GetWeaponComboHits(BattleMovesets weaponType)
         {
             return Movesets[weaponType].Combos;
         }
@@ -262,7 +262,7 @@ namespace Entities
             return Movesets[weaponType].Combos.Length;
         }
 
-        public static WeaponComboHit GetComboHit(BattleMovesets weaponType, AttackTypes[] sequence)
+        public static BattleComboHit GetComboHit(BattleMovesets weaponType, AttackTypes[] sequence)
         {
             if (!Movesets.ContainsKey(weaponType) || sequence == null || sequence.Length == 0 || sequence.Length > GetLongestComboHit(weaponType).AttackSequence.Length)
             {
@@ -272,7 +272,7 @@ namespace Entities
             return Movesets[weaponType].Combos.FirstOrDefault(h => h.AttackSequence.SequenceEqual(sequence));
         }
 
-        public static WeaponComboHit GetLongestComboHit(BattleMovesets weaponType)
+        public static BattleComboHit GetLongestComboHit(BattleMovesets weaponType)
         {
             if (!Movesets.ContainsKey(weaponType))
             {
@@ -292,8 +292,31 @@ namespace Entities
             {
                 return ModelStates.ATTACKING_LIGHT;
             }
+            else if(type == AttackTypes.HEAVY)
+            {
+                return ModelStates.ATTACKING_HEAVY;
+            }
+            else
+            {
+                return ModelStates.BLOCKING;
+            }
+        }
 
-            return ModelStates.ATTACKING_HEAVY;
+        public static AttackTypes SwitchModelStateToAttackType(ModelStates state)
+        {
+            if (state == ModelStates.ATTACKING_LIGHT)
+            {
+                return AttackTypes.LIGHT;
+            }
+            else if (state == ModelStates.ATTACKING_HEAVY)
+            {
+                return AttackTypes.HEAVY;
+            }
+            else
+            {
+                return AttackTypes.BLOCK;
+            }
+
         }
     }
 }

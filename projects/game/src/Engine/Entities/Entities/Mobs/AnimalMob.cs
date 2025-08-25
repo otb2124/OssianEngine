@@ -5,7 +5,7 @@ using Physics;
 using System;
 using Utils;
 using static Entities.EntityAIBehaviourManager;
-using static Entities.WeaponComboMovesetFactory;
+using static Entities.BattleMovesetFactory;
 
 namespace Entities
 {
@@ -35,7 +35,7 @@ namespace Entities
             Stats.Refill();
 
             Stats.BodyKnockbackPower = 1;
-            Stats.BodyDamage = 10;
+            Stats.BodyDamage = 5;
             Stats.BodyPoiseDamage = 20;
 
             Stats.DistanceToAggro = 200f;

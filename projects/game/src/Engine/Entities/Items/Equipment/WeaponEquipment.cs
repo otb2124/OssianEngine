@@ -3,7 +3,7 @@ using Graphics;
 using Microsoft.Xna.Framework;
 using Resources;
 using Utils;
-using static Entities.WeaponComboMovesetFactory;
+using static Entities.BattleMovesetFactory;
 
 namespace Entities
 {

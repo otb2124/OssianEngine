@@ -28,21 +28,25 @@ namespace Entities
 
         public List<BattleBody> BattleBodies;
         public Hitbox BodyHitbox;
+        public BattleBodyTypes BattleBodyType;
 
         public BattleBodyManager(BattleBodyTypes bodyType) 
         {
             BattleBodies = new List<BattleBody>();
             BodyHitbox = new Hitbox();
+            BattleBodyType = bodyType;
 
-            if (bodyType == BattleBodyTypes.WEAPON)
-            {
-                CreateBodies(2);
-            }
-            else
-            {
-                CreateBodies(1);
-            }
+            Init();
         }
+
+        public void Init()
+        {
+            if (BattleBodyType == BattleBodyTypes.WEAPON)
+                CreateBodies(2);
+            else
+                CreateBodies(1);
+        }
+
         public void CreateBodies(int count)
         {
             BattleBodies.Clear();
@@ -63,7 +67,7 @@ namespace Entities
             BattleBodies[id].Init(data);
         }
 
-        public void Init(BattleBodyData[] data)
+        public void InitBodies(BattleBodyData[] data)
         {
             for (int i = 0; i < data.Length; i++)
             {
@@ -108,5 +112,16 @@ namespace Entities
 
         public BattleBody HandToEquipmentWeaponBody(WeaponHands hand) =>
            hand == WeaponHands.LEFT ? BattleBodies[0] : BattleBodies[1];
+
+
+        public BattleHitData GetCurrentBattleHitData()
+        {
+            return BattleBodies[0].Combo.GetCurrentHit().BattleHitData;
+        }
+
+        public BattleHitData GetCurrentBattleHitData(EquipmentManager equipmentManager)
+        {
+            return HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit().BattleHitData;
+        }
     }
 }

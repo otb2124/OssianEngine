@@ -50,10 +50,10 @@ namespace Entities
                                 //if entityTo is also stats 
                                 if (entTo is StatsEntity)
                                 {
-                                    if(entFrom is StatsEntity)
+                                    if(entFrom is BattleEntity && entTo is BattleEntity)
                                     {
-                                        HitboxChecker.CheckWeaponToBodyCollision((StatsEntity)entFrom, (StatsEntity)entTo);
-                                        HitboxChecker.CheckWeaponToWeaponCollision((StatsEntity)entFrom, (StatsEntity)entTo);
+                                        HitboxChecker.CheckWeaponToBodyCollision((BattleEntity)entFrom, (BattleEntity)entTo);
+                                        HitboxChecker.CheckWeaponToWeaponCollision((BattleEntity)entFrom, (BattleEntity)entTo);
                                     }
                                     else if (entFrom is InteractiveEntity && entTo is Player)
                                     {

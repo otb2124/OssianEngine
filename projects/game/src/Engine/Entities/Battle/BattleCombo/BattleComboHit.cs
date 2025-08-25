@@ -4,11 +4,28 @@ using Resources;
 using System;
 using System.Linq;
 using Utils;
-using static Entities.WeaponComboMovesetFactory;
+using static Entities.BattleMovesetFactory;
 
 namespace Entities
 {
-    public class WeaponComboHit
+
+    public class BattleHitData
+    {
+        public float PhysDamageMultiplier;
+        public float PoiseDamageMultiplier;
+        public float KnockbackPowerMultiplier;
+        public float StaminaCostMultiplier;
+
+        public BattleHitData(float physDamage, float poiseDamage, float knockbackPower, float staminaCost)
+        {
+            PhysDamageMultiplier = physDamage;
+            PoiseDamageMultiplier = poiseDamage;
+            KnockbackPowerMultiplier = knockbackPower;
+            StaminaCostMultiplier = staminaCost;
+        }
+    }
+
+    public class BattleComboHit
     {
         public RotatedRectangle HitboxOffset;
         public Vector2 EntityPositionOffset;
@@ -17,22 +34,16 @@ namespace Entities
         public AttackTypes[] AttackSequence;
         public AnimationStates AnimationState;
         public AnimationData AnimationData;
-        public float PhysDamage;
-        public float PoiseDamage;
-        public float KnockbackPower;
-        public float StaminaCost;
+        public BattleHitData BattleHitData;
 
-        public WeaponComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence, float physDamage, float poiseDamage, float knockbackPower, float staminaCost)
+        public BattleComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence, BattleHitData battleHitData)
         {
             HitboxOffset = hitboxOffset;
             EntityPositionOffset = entityPositionOffset;
             SwingTimeSec = swingTimeSec;
             HitboxAppearanceTimePeriod = hitboxAppearanceTimePeriod;
             AttackSequence = attackSequence;
-            PhysDamage = physDamage;
-            PoiseDamage = poiseDamage;
-            KnockbackPower = knockbackPower;
-            StaminaCost = staminaCost;
+            BattleHitData = battleHitData;
         }
 
 

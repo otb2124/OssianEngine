@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Utils;
-using static Entities.WeaponComboMovesetFactory;
+using static Entities.BattleMovesetFactory;
 using Color = Microsoft.Xna.Framework.Color;
 using Model = Resources.Model;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
@@ -40,58 +40,58 @@ namespace Entities
     public class BattleBody
     {
         public WeaponHitbox Hitbox;
-        public AnimationManager aManager;
+        public AnimationManager AManager;
         public List<AttackTypes> AttackHistory;
         private bool ComboHistoryUpdated = false;
         private bool ModelAnimationTimeUpdated = false;
 
         public readonly float GlobalWeaponSwingSpeedMultiplier = 0.6f;
 
-        public float currentSwingTime = 0f;
-        public bool isSwinging = false;
-        public WeaponComboHitSet Combo; 
+        public float CurrentSwingTime = 0f;
+        public bool IsSwinging = false;
+        public BattleCombo Combo; 
         public WeaponLightSource LightSource;
 
         public RotatedRectangle NoAttackHitbox;
 
         public BattleBodyData BattleBodyData;
 
-        // Lerp state
-        private Vector2 initialHitboxSize;
-        private Vector2 targetHitboxSize;
-        private FlatVector initialBodyPosition;
-        private FlatVector targetBodyPosition;
+        //Lerp state
+        private Vector2 InitialHitboxSize;
+        private Vector2 TargetHitboxSize;
+        private FlatVector InitialBodyPosition;
+        private FlatVector TargetBodyPosition;
+
+
+        public BattleComboHit[] MoveSetComboHits;
 
         public BattleBody()
         {
             Hitbox = new WeaponHitbox();
             AttackHistory = new List<AttackTypes>();
-            Combo = new WeaponComboHitSet();
+            Combo = new BattleCombo();
         }
 
         public void Init(BattleBodyData data)
         {
             BattleBodyData = data;
+            MoveSetComboHits = GetWeaponComboHits(BattleBodyData.MoveSet);
 
-            var hits = GetWeaponComboHits(BattleBodyData.MoveSet);
-            int totalHits = GetTotalComboHits(BattleBodyData.MoveSet);
+            AManager = new AnimationManager();
 
-            aManager = new AnimationManager();
-
-            for (int i = 0; i < hits.Length; i++)
+            for (int i = 0; i < MoveSetComboHits.Length; i++)
             {
-                hits[i].SetAnimation(BattleBodyData.MoveSet, GlobalWeaponSwingSpeedMultiplier * BattleBodyData.WeaponSwingSpeedMultiplier);
-
-                aManager.AddAnimationForBothDirections(
+                MoveSetComboHits[i].SetAnimation(BattleBodyData.MoveSet, GlobalWeaponSwingSpeedMultiplier * BattleBodyData.WeaponSwingSpeedMultiplier);
+                AManager.AddAnimationForBothDirections(
                     StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite],
-                    hits[i].AnimationState,
-                    hits[i].AnimationData
+                    MoveSetComboHits[i].AnimationState,
+                    MoveSetComboHits[i].AnimationData
                 );
             }
 
             if(BattleBodyData.ModelStateBetweenHits == ModelStates.WEAPON_OUT_IDLE)
             {
-                aManager.AddAnimationForBothDirections(
+                AManager.AddAnimationForBothDirections(
                     StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite],
                     AnimationStates.WEAPON_OUT_IDLE,
                     BattleBodyData.WeaponOutAnimationData
@@ -131,17 +131,10 @@ namespace Entities
                 }
             }
 
-            if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY)
+            if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY || model.ModelState == ModelStates.BLOCKING)
             {
-                AttackTypes currentAttack = model.ModelState == ModelStates.ATTACKING_LIGHT ? AttackTypes.LIGHT : AttackTypes.HEAVY;
-                UpdateComboSelection(currentAttack);
-                UpdateHitbox(model);
-                UpdateSwingAndCombo(model, currentAttack, deltaTime);
-                UpdateAnimation(model);
-            }
-            else if (model.ModelState == ModelStates.BLOCKING)
-            {
-                AttackTypes currentAttack = AttackTypes.BLOCK;
+                AttackTypes currentAttack = SwitchModelStateToAttackType(model.ModelState);
+
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
                 UpdateSwingAndCombo(model, currentAttack, deltaTime);
@@ -151,9 +144,11 @@ namespace Entities
             {
                 Combo.UpdateCounter(deltaTime, AttackHistory);
                 Hitbox.Update(Vector2.Zero, Vector2.Zero);
-                isSwinging = false;
+                IsSwinging = false;
                 ComboHistoryUpdated = false;
                 ModelAnimationTimeUpdated = false;
+                InitialBodyPosition = model.Body.Position;
+                TargetBodyPosition = model.Body.Position;
             }
         }
 
@@ -164,7 +159,7 @@ namespace Entities
 
             ComboHistoryUpdated = true;
             AttackHistory.Add(currentAttack);
-            int maxComboLength = GetWeaponComboHits(BattleBodyData.MoveSet).Max(h => h.AttackSequence.Length);
+            int maxComboLength = MoveSetComboHits.Max(h => h.AttackSequence.Length);
             if (AttackHistory.Count > maxComboLength)
                 AttackHistory.RemoveAt(0);
 
@@ -188,16 +183,16 @@ namespace Entities
             float appearanceStart = BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X;
             float appearanceEnd = BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y;
 
-            if (currentSwingTime > BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X && currentSwingTime < BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y)
+            if (CurrentSwingTime > BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.X && CurrentSwingTime < BattleBodyData.WeaponSwingSpeedMultiplier * GlobalWeaponSwingSpeedMultiplier * currentHit.HitboxAppearanceTimePeriod.Y)
             {
-                if (currentSwingTime == 0f || initialHitboxSize == Vector2.Zero)
+                if (CurrentSwingTime == 0f || InitialHitboxSize == Vector2.Zero)
                 {
-                    initialHitboxSize = Hitbox.extends.Size();
-                    targetHitboxSize = currentHit.HitboxOffset.Size();
+                    InitialHitboxSize = Hitbox.extends.Size();
+                    TargetHitboxSize = currentHit.HitboxOffset.Size();
                 }
 
-                float t = Microsoft.Xna.Framework.MathHelper.Clamp((currentSwingTime - appearanceStart) / (appearanceEnd - appearanceStart), 0f, 1f);
-                Vector2 lerpedSize = Vector2.Lerp(initialHitboxSize, targetHitboxSize, t);
+                float t = Microsoft.Xna.Framework.MathHelper.Clamp((CurrentSwingTime - appearanceStart) / (appearanceEnd - appearanceStart), 0f, 1f);
+                Vector2 lerpedSize = Vector2.Lerp(InitialHitboxSize, TargetHitboxSize, t);
 
                 Hitbox.Update(
                     weaponPosition,
@@ -205,31 +200,31 @@ namespace Entities
                     currentHit.HitboxOffset.Rotation * horizontalXFactor
                 );
 
-                targetBodyPosition = initialBodyPosition + new FlatVector(
+                TargetBodyPosition = InitialBodyPosition + new FlatVector(
                     currentHit.EntityPositionOffset.X * horizontalXFactor,
                     currentHit.EntityPositionOffset.Y
                 );
-                //t = Microsoft.Xna.Framework.MathHelper.Clamp(currentSwingTime / swingDuration, 0f, 1f);
-                FlatVector lerpedPosition = FlatVector.Lerp(initialBodyPosition, targetBodyPosition, t);
+                //t = Microsoft.Xna.Framework.MathHelper.Clamp(CurrentSwingTime / swingDuration, 0f, 1f);
+                FlatVector lerpedPosition = FlatVector.Lerp(InitialBodyPosition, TargetBodyPosition, t);
                 model.Body.MoveTo(lerpedPosition);
             }
             else
             {
                 Hitbox.Update(Vector2.Zero, Vector2.Zero);
-                initialHitboxSize = Vector2.Zero;
-                targetHitboxSize = Vector2.Zero;
-                initialBodyPosition = model.Body.Position;
-                targetBodyPosition = model.Body.Position;
+                InitialHitboxSize = Vector2.Zero;
+                TargetHitboxSize = Vector2.Zero;
+                InitialBodyPosition = model.Body.Position;
+                TargetBodyPosition = model.Body.Position;
             }
             
         }
 
         private void UpdateSwingAndCombo(Model model, AttackTypes currentAttack, float deltaTime)
         {
-            if (!isSwinging)
+            if (!IsSwinging)
             {
-                isSwinging = true;
-                currentSwingTime = 0f;
+                IsSwinging = true;
+                CurrentSwingTime = 0f;
 
                 if(currentAttack != AttackTypes.BLOCK)
                 {
@@ -252,10 +247,10 @@ namespace Entities
                     return;
                 }
 
-                int hitIndex = Array.IndexOf(GetWeaponComboHits(BattleBodyData.MoveSet), currentHit);
+                int hitIndex = Array.IndexOf(MoveSetComboHits, currentHit);
 
-                aManager.GetCurrent().Reset();
-                aManager.GetCurrent().Start();
+                AManager.GetCurrent().Reset();
+                AManager.GetCurrent().Start();
 
                 Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(
                     Resources.Sounds.SWING_SWORD,
@@ -264,15 +259,15 @@ namespace Entities
                 ));
             }
 
-            currentSwingTime += deltaTime;
+            CurrentSwingTime += deltaTime;
 
             var hit = Combo.GetCurrentHit();
-            if (hit != null && currentSwingTime >= CalculateFinalSwingTime())
+            if (hit != null && CurrentSwingTime >= CalculateFinalSwingTime())
             {
-                isSwinging = false;
+                IsSwinging = false;
                 model.ModelState = BattleBodyData.ModelStateBetweenHits;
                 
-                var hitTemplates = GetWeaponComboHits(BattleBodyData.MoveSet);
+                var hitTemplates = MoveSetComboHits;
                 var nextHits = hitTemplates.Where(h => h.AttackSequence.Length == hit.AttackSequence.Length + 1 &&
                                                       h.AttackSequence.Take(hit.AttackSequence.Length).SequenceEqual(hit.AttackSequence)).ToList();
                 if (!nextHits.Any())
@@ -290,7 +285,7 @@ namespace Entities
             {
                 return;
             }
-            aManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Combo.GetCurrentHit().AnimationState));
+            AManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Combo.GetCurrentHit().AnimationState));
 
             model.AnimationState = Combo.GetCurrentHit().AnimationState;
 
@@ -316,7 +311,7 @@ namespace Entities
             var currentHit = Combo.GetCurrentHit();
             if (currentHit == null)
             {
-                aManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Model.ModelStateToAnimationState(BattleBodyData.ModelStateBetweenHits, model.AnimationState)));
+                AManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Model.ModelStateToAnimationState(BattleBodyData.ModelStateBetweenHits, model.AnimationState)));
             }
 
             Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();
@@ -331,7 +326,7 @@ namespace Entities
             float directionXOffset = model.Direction == Directions.RIGHT ? -10 : model.Body.Width * 3f + 10;
             Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.Body.Width / 2f - directionXOffset, entityBodyPos.Y - model.Body.Height / 2f);
 
-            aManager.GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
+            AManager.GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
         }
 
         public void DrawHitbox()

@@ -2,28 +2,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static Entities.WeaponComboMovesetFactory;
+using static Entities.BattleMovesetFactory;
 
 namespace Entities
 {
-    public class WeaponComboHitSet
+    public class BattleCombo
     {
-        public List<WeaponComboHit> Combohits;
+        public List<BattleComboHit> Combohits;
         public int CurrentComboHitId;
         public float ContinuationAllowCounter;
         public float ContinuationAllowTimeSec;
         public bool AllowContinuation;
 
-        public WeaponComboHitSet()
+        public BattleCombo()
         {
-            Combohits = new List<WeaponComboHit>();
+            Combohits = new List<BattleComboHit>();
             CurrentComboHitId = 0;
             ContinuationAllowTimeSec = 0.5f;
             ContinuationAllowCounter = 0f;
             AllowContinuation = false;
         }
 
-        public WeaponComboHit GetCurrentHit()
+        public BattleComboHit GetCurrentHit()
         {
             if (Combohits.Count == 0 || CurrentComboHitId < 0 || CurrentComboHitId >= Combohits.Count)
             {
@@ -94,7 +94,7 @@ namespace Entities
 
             var hitTemplates = GetWeaponComboHits(set);
             Combohits.Clear();
-            WeaponComboHit bestMatchHit = null;
+            BattleComboHit bestMatchHit = null;
             int bestMatchLength = 0;
 
             foreach (var hit in hitTemplates)

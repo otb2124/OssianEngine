@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
-using static Entities.WeaponComboMovesetFactory;
+using static Entities.BattleMovesetFactory;
 
 namespace Entities
 {
@@ -188,7 +188,7 @@ namespace Entities
 
         public void FollowEntityAndAttack(BattleEntity ent, AttackTypes type)
         {
-            WeaponComboHit currentHit = null;
+            BattleComboHit currentHit = null;
 
             if (Entity is EquipmentEntity eqEnt)
             {

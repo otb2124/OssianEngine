@@ -55,7 +55,7 @@ namespace Entities
                     entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
                     entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
-                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.BANDIT, new Vector2(-60,  100), 0f));
+                    //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.BANDIT, new Vector2(-60,  100), 0f));
                     entities.Add(new AnimalMob(Models.SLIME, new Vector2(-200, 100), 0f));
 
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 300)));

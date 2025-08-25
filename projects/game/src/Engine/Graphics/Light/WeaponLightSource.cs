@@ -12,7 +12,7 @@ namespace Graphics
 {
     public class WeaponLightSource : LightSource
     {
-        private WeaponComboHitSet Combo;
+        private BattleCombo Combo;
         private RotatedRectangle NoAttackHitbox;
         private Model Model;
 
@@ -22,7 +22,7 @@ namespace Graphics
         {
         }
 
-        public void Init(WeaponComboHitSet combo, RotatedRectangle noAttackHitbox, Model model, LightSourceData newData)
+        public void Init(BattleCombo combo, RotatedRectangle noAttackHitbox, Model model, LightSourceData newData)
         {
             Combo = combo;
             NoAttackHitbox = noAttackHitbox;

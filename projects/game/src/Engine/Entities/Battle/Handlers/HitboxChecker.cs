@@ -17,41 +17,29 @@ namespace Entities
             //{ EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL, EntityFractions.BANDIT } },
         };
 
-        public static void CheckWeaponToBodyCollision(StatsEntity entA, StatsEntity entB)
+        public static void CheckWeaponToBodyCollision(BattleEntity entA, BattleEntity entB)
         {
             if (entA == entB) return;
 
-            (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA, float poisePowerA) = (entA, entB) switch
+            (RotatedRectangle hitboxA, RotatedRectangle hitboxB) = (entA, entB) switch
             {
                 (EquipmentEntity eqA, EquipmentEntity eqB) => (
                     eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
-                    eqB.BattleBodyManager.BodyHitbox.extends,
-                    eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
-                    eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower,
-                    eqA.EquipmentManager.GetCurrentWeapon().PoiseDmg
+                    eqB.BattleBodyManager.BodyHitbox.extends
                 ),
                 (NonEquipmentEntity nhA, NonEquipmentEntity nhB) => (
                     nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
-                    nhB.BattleBodyManager.BodyHitbox.extends,
-                    nhA.Stats.BodyDamage,
-                    nhA.Stats.BodyKnockbackPower,
-                    nhA.Stats.BodyPoiseDamage
+                    nhB.BattleBodyManager.BodyHitbox.extends
                 ),
                 (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                     nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
-                    eqB.BattleBodyManager.BodyHitbox.extends,
-                    nhA.Stats.BodyDamage,
-                    nhA.Stats.BodyKnockbackPower,
-                    nhA.Stats.BodyPoiseDamage
+                    eqB.BattleBodyManager.BodyHitbox.extends
                 ),
                 (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
                     eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
-                    nhB.BattleBodyManager.BodyHitbox.extends,
-                    eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
-                    eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower,
-                    eqA.EquipmentManager.GetCurrentWeapon().PoiseDmg
+                    nhB.BattleBodyManager.BodyHitbox.extends
                 ),
-                _ => (null, null, 0f, 0f, 0f)
+                _ => (null, null)
             };
 
 
@@ -59,10 +47,9 @@ namespace Entities
             {
                 if(entB.Model.ModelState != ModelStates.BLOCKING && entA.Model.ModelState != ModelStates.BLOCKING)
                 {
-                    BattleHandler.HandleHit(entB, damageA, knockBackPowerA, poisePowerA, hitboxA.Position);
+                    BattleHitHandler.HandleHit(entB, entA, hitboxB, hitboxA);
                 }
             }
-
         }
 
         public static void CheckWeaponToWeaponCollision(StatsEntity entA, StatsEntity entB)
@@ -107,7 +94,7 @@ namespace Entities
                 {
                     if (entB.Model.ModelState == ModelStates.BLOCKING)
                     {
-                        BattleHandler.HandleBlockHit(entB, damageA, knockBackPowerA, hitboxA.Position);
+                        BattleHitHandler.HandleBlockHit(entB, damageA, knockBackPowerA, hitboxA.Position);
                     }
                 }
             }
