@@ -121,7 +121,16 @@ namespace Entities
 
         public BattleHitData GetCurrentBattleHitData(EquipmentManager equipmentManager)
         {
-            return HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit().BattleHitData;
+            if(HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit() != null)
+            {
+                BattleHitData data = HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit().BattleHitData;
+                if (data != null)
+                {
+                    return data;
+                }
+            }
+            
+            return new BattleHitData(1, 1, 1, 1);
         }
     }
 }

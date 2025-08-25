@@ -150,7 +150,7 @@ namespace Entities
             Stats.staminaRegenSec = 20;
             Stats.staminaUnlockSec = 1.5f;
 
-            Stats.staminaAttackHitCost = 25;
+            Stats.staminaAttackHitCostMultiplier = 25;
 
             Stats.rollMultiplier = 2f;
             Stats.staminaRollCostSec = 200;

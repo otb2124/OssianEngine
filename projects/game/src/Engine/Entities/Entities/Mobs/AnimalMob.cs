@@ -36,6 +36,7 @@ namespace Entities
 
             Stats.BodyKnockbackPower = 1;
             Stats.BodyDamage = 5;
+            Stats.BodyStaminaHitCost = 25;
             Stats.BodyPoiseDamage = 20;
 
             Stats.DistanceToAggro = 200f;

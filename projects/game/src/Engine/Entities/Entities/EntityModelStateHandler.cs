@@ -95,23 +95,13 @@ namespace Entities {
 
             if (Entity is EquipmentEntity eqEnt)
             {
-                if (state == ModelStates.ATTACKING_LIGHT)
+                if (state == ModelStates.ATTACKING_LIGHT || state == ModelStates.ATTACKING_HEAVY)
                 {
                     if (!eqEnt.Stats.staminaPerAttackHitSpent)
                     {
-                        eqEnt.Stats.stamina -= eqEnt.Stats.staminaAttackHitCost;
-                        eqEnt.Stats.staminaPerAttackHitSpent = true;
+                        eqEnt.Stats.SpendStaminaForBattleHit(eqEnt);
                     }
 
-                }
-
-                if (state == ModelStates.ATTACKING_HEAVY)
-                {
-                    if (!eqEnt.Stats.staminaPerAttackHitSpent)
-                    {
-                        eqEnt.Stats.stamina -= eqEnt.Stats.staminaAttackHitCost;
-                        eqEnt.Stats.staminaPerAttackHitSpent = true;
-                    }
                 }
 
                 if (state == ModelStates.BLOCKING)
@@ -146,7 +136,7 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
-                if (player.Stats.stamina - player.Stats.staminaAttackHitCost > 0)
+                if (player.Stats.stamina - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0)
                 {
                     player.Model.ModelState = ModelStates.ATTACKING_LIGHT;
                 }
@@ -160,7 +150,7 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
-                if (player.Stats.stamina - player.Stats.staminaAttackHitCost > 0)
+                if (player.Stats.stamina - player.Stats.staminaAttackHitCostMultiplier > 0)
                 {
                     player.Model.ModelState = ModelStates.ATTACKING_HEAVY;
                 }

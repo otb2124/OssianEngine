@@ -51,7 +51,7 @@ namespace Entities
                             new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), new Vector2(20, 0), 0.5f, new Vector2(0.2f, 0.4f),
                                 new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                new BattleHitData(5, 5, 5, 20)
+                                new BattleHitData(1, 1, 1, 1)
                             ),
                             // YY
                             new BattleComboHit(
@@ -65,14 +65,14 @@ namespace Entities
                             new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.2f), new Vector2(30, 0), 0.7f, new Vector2(0f, 0.7f),
                                 new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT },
-                                new BattleHitData(1, 1, 1, 1)
+                                new BattleHitData(1, 1, 1, 1.5f)
                             ),
 
                             // XXY
                             new BattleComboHit(
                                 new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(20, 50), 1.2f), new Vector2(30, 0), 1f, new Vector2(0.7f, 1f),
                                 new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.HEAVY },
-                                new BattleHitData(1, 1, 1, 1)
+                                new BattleHitData(1, 1, 1, 1.5f)
                             ),
 
                             //BLOCK

@@ -14,11 +14,11 @@ namespace Entities
 
         public static void HandleTakingDamage(BattleEntity toEnt, BattleEntity fromEnt, RotatedRectangle toEntHitboxExtends, RotatedRectangle fromEntHitboxExtends)
         {
-            ReceivePhysDamage(toEnt, BattleCalculator.GetFinalPhysDamageForBattleEntity(fromEnt));
-            ReceivePoiseDamage(toEnt, BattleCalculator.GetFinalPoiseDamageForBattleEntity(fromEnt));
-            ReceiveKnockBack(toEnt, BattleCalculator.GetFinalKnockbackPowerForBattleEntity(fromEnt), fromEntHitboxExtends.Position);
+            ReceivePhysDamage(toEnt, BattleStatsCalculator.GetFinalPhysDamageForBattleEntity(fromEnt));
+            ReceivePoiseDamage(toEnt, BattleStatsCalculator.GetFinalPoiseDamageForBattleEntity(fromEnt));
+            ReceiveKnockBack(toEnt, BattleStatsCalculator.GetFinalKnockbackPowerForBattleEntity(fromEnt), fromEntHitboxExtends.Position);
 
-            GenerateParticle(toEnt, BattleCalculator.GetFinalKnockbackPowerForBattleEntity(fromEnt), fromEntHitboxExtends.Position);
+            GenerateParticle(toEnt, BattleStatsCalculator.GetFinalKnockbackPowerForBattleEntity(fromEnt), fromEntHitboxExtends.Position);
             PlayRecivingDamageSound(toEnt);
 
             Console.WriteLine(toEnt.Stats.HP + "/" + toEnt.Stats.maxHP);

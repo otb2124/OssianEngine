@@ -26,7 +26,7 @@ namespace Entities
         public float staminaUnlockSec;
 
         //attack
-        public float staminaAttackHitCost;
+        public float staminaAttackHitCostMultiplier;
         public bool staminaPerAttackHitSpent = false;
 
         //lvl
@@ -57,6 +57,7 @@ namespace Entities
         public float BodyDamage;
         public float BodyKnockbackPower;
         public float BodyPoiseDamage;
+        public float BodyStaminaHitCost;
 
         public float Poise;
         public float MaxPoise;
@@ -114,6 +115,9 @@ namespace Entities
 
         public void RegenStamina()
         {
+            if (staminaPerAttackHitSpent)
+                return;
+
             OnStaminaRegen = false;
 
             if(stamina < maxStamina && !OnUsingStamina)
@@ -292,6 +296,13 @@ namespace Entities
             {
                 ent.highestJumpY = float.MinValue;
             }
+        }
+
+
+        public void SpendStaminaForBattleHit(BattleEntity ent)
+        {
+            stamina -= BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(ent);
+            ent.Stats.staminaPerAttackHitSpent = true;
         }
 
 

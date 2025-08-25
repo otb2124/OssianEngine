@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public static class BattleCalculator
+    public static class BattleStatsCalculator
     {
 
 
@@ -47,6 +47,21 @@ namespace Entities
             else if (ent is EquipmentEntity eqA)
             {
                 return eqA.EquipmentManager.GetCurrentWeapon().PoiseDmg * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).PoiseDamageMultiplier;
+            }
+
+            return 0;
+        }
+
+
+        public static float GetFinalStaminaPerHitCostForBattleEntity(BattleEntity ent)
+        {
+            if (ent is NonEquipmentEntity nhA)
+            {
+                return nhA.Stats.BodyStaminaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StaminaCostMultiplier;
+            }
+            else if (ent is EquipmentEntity eqA)
+            {
+                return eqA.EquipmentManager.GetCurrentWeapon().StaminaCostPerHit * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).StaminaCostMultiplier;
             }
 
             return 0;

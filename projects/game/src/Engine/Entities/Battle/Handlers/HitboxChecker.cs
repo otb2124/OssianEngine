@@ -12,7 +12,7 @@ namespace Entities
     public static class HitboxChecker
     {
 
-        private static readonly Dictionary<EntityFractions, HashSet<EntityFractions>> ignoreHit = new()
+        private static readonly Dictionary<EntityFractions, HashSet<EntityFractions>> IgnoreHit = new()
         {
             //{ EntityFractions.ANIMAL, new() { EntityFractions.ANIMAL, EntityFractions.BANDIT } },
         };
@@ -103,7 +103,7 @@ namespace Entities
 
         private static bool CanDealDamage(EntityFractions attacker, EntityFractions target)
         {
-            return !ignoreHit.TryGetValue(attacker, out var targets) || !targets.Contains(target);
+            return !IgnoreHit.TryGetValue(attacker, out var targets) || !targets.Contains(target);
         }
 
 

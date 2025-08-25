@@ -12,6 +12,8 @@ namespace Entities
 
         public BattleBodyData WeaponBodyData;
 
+        public float StaminaCostPerHit;
+
         public WeaponEquipment(ItemKey itemKey) : base(itemKey)
         {
             
@@ -33,6 +35,8 @@ namespace Entities
                     PoiseDmg = 10;
                     KnockbackPower = 0.1f;
 
+                    StaminaCostPerHit = 5;
+
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 2f;
                     WeaponBodyData.Sprite = StaticSprites.NONE;
                     WeaponBodyData.MoveSet = BattleMovesets.WEAPON_BARE_HANDS;
@@ -47,6 +51,8 @@ namespace Entities
                     KnockbackPower = 2f;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 50;
+
+                    StaminaCostPerHit = 25;
 
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
                     WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
@@ -63,6 +69,8 @@ namespace Entities
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 15;
 
+                    StaminaCostPerHit = 10;
+
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 1.5f;
                     WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
                     WeaponBodyData.MoveSet = BattleMovesets.WEAPON_KNIFE;
@@ -77,6 +85,8 @@ namespace Entities
                     KnockbackPower = 2f;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
                     PoiseDmg = 25;
+
+                    StaminaCostPerHit = 10;
 
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
                     WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TORCH;

@@ -16,12 +16,12 @@ namespace Entities
         public float KnockbackPowerMultiplier;
         public float StaminaCostMultiplier;
 
-        public BattleHitData(float physDamage, float poiseDamage, float knockbackPower, float staminaCost)
+        public BattleHitData(float physDamageMult, float poiseDamageMult, float knockbackPowerMult, float staminaCostMult)
         {
-            PhysDamageMultiplier = physDamage;
-            PoiseDamageMultiplier = poiseDamage;
-            KnockbackPowerMultiplier = knockbackPower;
-            StaminaCostMultiplier = staminaCost;
+            PhysDamageMultiplier = physDamageMult;
+            PoiseDamageMultiplier = poiseDamageMult;
+            KnockbackPowerMultiplier = knockbackPowerMult;
+            StaminaCostMultiplier = staminaCostMult;
         }
     }
 
