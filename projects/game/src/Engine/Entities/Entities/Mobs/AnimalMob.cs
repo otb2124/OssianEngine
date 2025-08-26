@@ -26,6 +26,7 @@ namespace Entities
             Type = mobType;
             SetAnimalMobData(out Models modelType);
             Init(modelType, pos, rotation);
+            SetAI();
         }
 
         public virtual void SetAnimalMobData(out Models modelType)
@@ -45,6 +46,8 @@ namespace Entities
                     BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
                     modelType = Models.BAT;
 
+                    CanFly = true;
+                    Stats.flySpeed = 0.5f;
                     Stats.DistanceToAggro = 200f;
                     Stats.DistanceToUnaggro = 500f;
                     break;
@@ -78,8 +81,21 @@ namespace Entities
 
         public override void SetAI()
         {
+            BehaviourPatterns pattern = BehaviourPatterns.ANIMAL_WALKING;
+
+            switch (Type)
+            {
+                case AnimalMobs.SLIME:
+                    pattern = BehaviourPatterns.ANIMAL_WALKING;
+                    break;
+                case AnimalMobs.BAT:
+                    pattern = BehaviourPatterns.ANIMAL_FLYING;
+                    break;
+            }
+
+
             EntityFraction = EntityFractions.ANIMAL;
-            AISet = new EntityAISet(this, BehaviourPatterns.ANIMAL_DEFAULT, BehaviourCases.IDLE_RANDOM);
+            AISet = new EntityAISet(this, pattern, BehaviourCases.IDLE_RANDOM);
         }
 
 
@@ -128,11 +144,16 @@ namespace Entities
 
                     //MOVING
                     frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.MOVING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.MOVING, 3, new Vector2(0, 64), new Vector2(0, -16), new Vector2(64, 64), Vector2.Zero, frameSpeed);
 
                     //JUMPING
                     frameSpeed = 0.5f;
                     Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+
+                    //FLYING
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FLYING, 3, new Vector2(0, 64*3), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FLYING_AND_MOVING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
 
                     //ROLL
                     frameSpeed = 0.5f;

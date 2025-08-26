@@ -105,6 +105,7 @@ namespace Resources
                 scaleY = bodyHeight / (spriteSize.Height - animation.EachFrameSizeOffset.Y);
                 newPos = FlatConverter.ToVector2(Body.Position) - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
                 newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
+                newPos += new Vector2(animation.EachFramePositionOffset.X * scaleX, animation.EachFramePositionOffset.Y * scaleY);
             }
             else
             {
@@ -176,6 +177,11 @@ namespace Resources
                     return AnimationStates.BLOCKING_SWORD;
                 //case ModelStates.HANGING_ON_LEDGE:
                 //return AnimationStates.HANGING_ON_LEDGE_LEFT;
+                case ModelStates.FLYING:
+                    return AnimationStates.FLYING;
+                case ModelStates.FLYING_AND_MOVING:
+                    return AnimationStates.FLYING_AND_MOVING;
+
                 default:
                     return defaultCase;
             }

@@ -1,5 +1,6 @@
 ﻿using Physics;
 using System;
+using System.Net;
 using Utils;
 
 namespace Entities {
@@ -34,6 +35,35 @@ namespace Entities {
                 Entity.Model.Body.Jump(Entity.Stats.jumpSpeed);
                 Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
                 Entity.Model.Body.Move(new FlatVector(Entity.Stats.speed * directionXFactor, 0));
+                Entity.Stats.AllowJumpDescendingLock = true;
+                Entity.Model.Body.IsFrozen = false;
+            }
+
+            if (state == ModelStates.FLYING)
+            {
+                Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+
+                Console.WriteLine(Entity.Stats.AllowFlying);
+
+                if(Entity.Stats.AllowFlying)
+                {
+                    Entity.Model.Body.Jump(Entity.Stats.flySpeed);
+                }
+                else
+                {
+                    Entity.Model.Body.Jump(-Entity.Stats.flySpeed);
+                }
+                
+                Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.Stats.AllowJumpDescendingLock = true;
+                Entity.Model.Body.IsFrozen = false;
+            }
+
+            if (state == ModelStates.FLYING_AND_MOVING)
+            {
+                Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+                Entity.Model.Body.Jump(Entity.Stats.jumpSpeed);
+                Entity.Stats.stamina -= Entity.Stats.staminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
                 Entity.Stats.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
             }

@@ -117,11 +117,23 @@ namespace Entities
             Entity.Model.ModelState = ModelStates.JUMPING;
         }
 
-        public void JumpAndMove(Directions direction, StatsEntity Entity)
+        public void JumpAndMove(Directions direction)
         {
             Entity.Model.Direction = direction;
             Entity.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
         }
+
+        public void Fly()
+        {
+            Entity.Model.ModelState = ModelStates.FLYING;
+        }
+
+        public void FlyAndMove(Directions direction)
+        {
+            Entity.Model.Direction = direction;
+            Entity.Model.ModelState = ModelStates.FLYING_AND_MOVING;
+        }
+
 
         public void Sprint()
         {

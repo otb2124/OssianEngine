@@ -13,7 +13,8 @@ namespace Entities
     {
         public enum BehaviourPatterns
         {
-            ANIMAL_DEFAULT,
+            ANIMAL_WALKING,
+            ANIMAL_FLYING,
             BANDIT_DEFAULT
         };
 
@@ -86,7 +87,7 @@ namespace Entities
 
             switch (Pattern)
             {
-                case BehaviourPatterns.ANIMAL_DEFAULT:
+                case BehaviourPatterns.ANIMAL_WALKING:
 
                     switch (CurrentCase)
                     {
@@ -127,6 +128,55 @@ namespace Entities
                                 new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
                                 new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
                                 new EntityAICommand(entity => { entity.StandStill(); },                                                    1f, true),
+                            };
+
+                            break;
+                    }
+                    break;
+
+
+                case BehaviourPatterns.ANIMAL_FLYING:
+
+                    switch (CurrentCase)
+                    {
+                        case BehaviourCases.IDLE:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f),
+                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    6f),
+                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   7f),
+                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
+                                new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
+                                new EntityAICommand(entity => { entity.Jump(); },                    1.5f, true),
+                                new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
+                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
+                            };
+
+                            break;
+                        case BehaviourCases.IDLE_RANDOM:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                //new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   10f, true),
+                                //new EntityAICommand(entity => { entity.Jump(); },                    1.5f, true),
+                                //new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   10f, true),
+                                new EntityAICommand(entity => { entity.StandStill(); },             3f, true),
+                            };
+
+                            CommandPool = Shuffle();
+
+                            break;
+
+                        case BehaviourCases.AGGRO:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                //new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
+                                //new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
+                                //new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
+                                new EntityAICommand(entity => { entity.StandStill(); },                                                    1f, true),
+                                new EntityAICommand(entity => { entity.Fly(); },                                                           5f, true),
                             };
 
                             break;

@@ -19,6 +19,7 @@ namespace Entities
         public bool CanUpdateIFrames;
         public bool CanFall;
         public bool CanHangLedges;
+        public bool CanFly;
 
         public ParticleSet.ParticleSets BloodDropParticle;
 
@@ -75,6 +76,11 @@ namespace Entities
             {
                 Stats.UpdateLedgeHanging(this);
             }
+            if(CanFly)
+            {
+                Stats.UpdateFly(this);
+            }
+
 
             Model.UpdateSurroundingRectangles();
             Stats.UpdateDescending(this);

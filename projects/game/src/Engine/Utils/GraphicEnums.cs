@@ -170,6 +170,9 @@ namespace Utils
         JUMPING_DESCENDING_AND_MOVING,
         OVERALL_DESCENDING,
         HANGING_ON_LEDGE,
+
+        FLYING,
+        FLYING_AND_MOVING,
     }
 
     public enum AnimationStates
@@ -187,6 +190,8 @@ namespace Utils
         OVERALL_DESCENDING,
         HANGING_ON_LEDGE_LEFT,
         HANGING_ON_LEDGE_RIGHT,
+        FLYING,
+        FLYING_AND_MOVING,
 
         BLOCKING_SWORD,
 

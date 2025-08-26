@@ -28,6 +28,7 @@ namespace Entities
             Type = type;
             SetHumanoidMobData(out Models modelType);
             Init(modelType, pos, rotation);
+            SetAI();
         }
 
         public void SetHumanoidMobData(out Models modelType)
@@ -55,6 +56,7 @@ namespace Entities
 
         public override void SetAI()
         {
+
             switch (Type)
             {
                 case HumanoidMobs.CITIZEN:

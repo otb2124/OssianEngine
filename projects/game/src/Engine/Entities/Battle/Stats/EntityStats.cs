@@ -37,6 +37,7 @@ namespace Entities
         public float maxSpeed;
         public float speed;
         public float jumpSpeed;
+        public float flySpeed;
 
         public float DescendingMultiplier;
         public bool IsJumpDescending;
@@ -79,6 +80,12 @@ namespace Entities
         public bool IsFallen = false;
         public float FallenTimer = 0f;
         public float FallenDurationAllowedSec = 3f;
+
+        public bool AllowFlying = true;
+        public int FlyingCounter = 0;
+        public float MaxFlyTimeSec = 0.5f;
+        public float FlyHeightPointOverHead = 50f;
+        public float LandPoint;
 
         public float DistanceToAggro = -1f;
         public float DistanceToUnaggro = -1f;
@@ -295,6 +302,46 @@ namespace Entities
             if (ent.Stats.IsGrounded)
             {
                 ent.highestJumpY = float.MinValue;
+            }
+        }
+
+
+        public void UpdateFly(StatsEntity ent)
+        {
+            if(ent.Stats.IsGrounded)
+            {
+                LandPoint = ent.Model.Body.Position.Y;
+            }
+
+            if (ent.Model.ModelState != ModelStates.FLYING && ent.Model.ModelState != ModelStates.FLYING_AND_MOVING)
+            {
+                FlyingCounter = 0;
+                return;
+            }
+                
+
+            if(ent.Model.Body.Position.Y < LandPoint + FlyHeightPointOverHead)
+            {
+                AllowFlying = true;
+                return;
+            }
+
+            if(AllowFlying)
+            {
+                FlyingCounter++;
+
+                if (FlyingCounter >= MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond)
+                {
+                    AllowFlying = false;
+                }
+            }
+            else
+            {
+                FlyingCounter--;
+                if(FlyingCounter <= 0)
+                {
+                    AllowFlying = true;
+                }
             }
         }
 

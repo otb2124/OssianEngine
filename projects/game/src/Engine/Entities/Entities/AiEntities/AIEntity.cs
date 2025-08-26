@@ -17,12 +17,12 @@ namespace Entities
 
         public AIEntity(Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
         {
-            SetAI();
+            //SetAI();
         }
 
         public AIEntity() : base()
         {
-            SetAI();
+            //SetAI();
         }
 
         public virtual void SetAI()
