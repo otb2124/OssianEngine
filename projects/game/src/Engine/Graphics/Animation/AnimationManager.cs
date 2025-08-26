@@ -31,6 +31,12 @@ namespace Graphics
             AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.sheet, framesCount, startPos, frameSize, eachFrameDuration, SpriteEffects.None));
         }
 
+        public void AddAnimationForBothDirections(StaticSpriteFactory.SpriteData spriteData, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 eachframePosOffset, Vector2 frameSize, Vector2 eachframeSizeOffset, float eachFrameDuration)
+        {
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.sheet, new AnimationData(framesCount, startPos, eachframePosOffset, frameSize, eachframeSizeOffset, eachFrameDuration), SpriteEffects.FlipHorizontally));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.sheet, new AnimationData(framesCount, startPos, eachframePosOffset, frameSize, eachframeSizeOffset, eachFrameDuration), SpriteEffects.None));
+        }
+
         public void AddAnimationForBothDirections(StaticSpriteFactory.SpriteData spriteData, AnimationStates animationState, AnimationData data)
         {
             AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.sheet, data, SpriteEffects.FlipHorizontally));

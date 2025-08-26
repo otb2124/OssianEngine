@@ -97,7 +97,7 @@ namespace Entities
 
             //jump
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING, 1, new Vector2(0, 128*2), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING, 1, new Vector2(0, 128*2), Vector2.Zero, new Vector2(64, 128), new Vector2(32, 0), frameSpeed);
 
             //sprint
             frameSpeed = 0.1f;
@@ -125,7 +125,7 @@ namespace Entities
 
             //fallen
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING_DESCENDING, 1, new Vector2(0, 128 * 10), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING_DESCENDING, 1, new Vector2(0, 128 * 10), Vector2.Zero, new Vector2(64, 128), new Vector2(32, 0), frameSpeed);
 
             //fallen
             frameSpeed = 0.04f;

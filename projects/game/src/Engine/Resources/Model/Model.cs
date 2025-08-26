@@ -89,7 +89,8 @@ namespace Resources
         public void Draw()
         {
             //Model
-            Rectangle spriteSize = aManager.GetCurrent().GetCurrentFrame();
+            Animation animation = aManager.GetCurrent();
+            Rectangle spriteSize = animation.GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
             Vector2 newPos = new Vector2(Body.Position.X, Body.Position.Y);
@@ -100,8 +101,8 @@ namespace Resources
 
             if (Body.BodyShapeType == BodyShapeType.Box)
             {
-                scaleX = bodyWidth / spriteSize.Width;
-                scaleY = bodyHeight / spriteSize.Height;
+                scaleX = bodyWidth / (spriteSize.Width - animation.EachFrameSizeOffset.X);
+                scaleY = bodyHeight / (spriteSize.Height - animation.EachFrameSizeOffset.Y);
                 newPos = FlatConverter.ToVector2(Body.Position) - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
                 newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
             }

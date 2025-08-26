@@ -11,6 +11,8 @@ namespace Graphics
         public int FramesCountX;
         public Vector2 StartPos;
         public Vector2 FrameSize;
+        public Vector2 EachFramePositionOffset;
+        public Vector2 EachFrameSizeOffset;
         public float FrameTime;
 
         public AnimationData(int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime)
@@ -19,6 +21,18 @@ namespace Graphics
             StartPos = startPos;
             FrameSize = frameSize;
             FrameTime = frameTime;
+            EachFramePositionOffset = Vector2.Zero;
+            EachFrameSizeOffset = Vector2.Zero;
+        }
+
+        public AnimationData(int framesCountX, Vector2 startPos, Vector2 eachframePosOffset, Vector2 frameSize, Vector2 eachframeSizeOffset, float frameTime)
+        {
+            FramesCountX = framesCountX;
+            StartPos = startPos;
+            FrameSize = frameSize;
+            FrameTime = frameTime;
+            EachFramePositionOffset = eachframePosOffset;
+            EachFrameSizeOffset = eachframeSizeOffset;
         }
     }
 
@@ -34,6 +48,10 @@ namespace Graphics
         public bool active;
         public SpriteEffects effect;
 
+        //TODO: change to use AnimationData object
+        public Vector2 EachFramePositionOffset;
+        public Vector2 EachFrameSizeOffset;
+
         public Animation(SpriteSheets spriteSheet, int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime, SpriteEffects neweffect)
         {
             this.spriteSheet = spriteSheet;
@@ -48,6 +66,9 @@ namespace Graphics
             {
                 sourceRectangles.Add(new Rectangle(i * (int)frameSize.X + (int)startPos.X, (int)startPos.Y, (int)frameSize.X, (int)frameSize.Y));
             }
+
+            EachFrameSizeOffset = Vector2.Zero;
+            EachFramePositionOffset = Vector2.Zero;
         }
 
         public Animation(SpriteSheets spriteSheet, AnimationData data, SpriteEffects neweffect)
@@ -62,8 +83,11 @@ namespace Graphics
 
             for (int i = 0; i < frames; i++)
             {
-                sourceRectangles.Add(new Rectangle(i * (int)data.FrameSize.X + (int)data.StartPos.X, (int)data.StartPos.Y, (int)data.FrameSize.X, (int)data.FrameSize.Y));
+                sourceRectangles.Add(new Rectangle(i * (int)data.FrameSize.X + (int)data.StartPos.X, (int)data.StartPos.Y, (int)data.FrameSize.X + (int)data.EachFrameSizeOffset.X, (int)data.FrameSize.Y + (int)data.EachFrameSizeOffset.Y));
             }
+
+            EachFrameSizeOffset = data.EachFrameSizeOffset;
+            EachFramePositionOffset = data.EachFramePositionOffset;
         }
 
         public void Start()
