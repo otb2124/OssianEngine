@@ -12,6 +12,12 @@ namespace Entities
     public class NonEquipmentEntity : AIEntity
     {
 
+
+        public NonEquipmentEntity() : base()
+        {
+
+        }
+
         public NonEquipmentEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
             

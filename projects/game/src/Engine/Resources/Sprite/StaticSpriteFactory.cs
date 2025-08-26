@@ -55,6 +55,7 @@ namespace Resources
             { StaticSprites.ENTITIES_PLAYER, new SpriteData(SpriteSheets.ENTITIES_PLAYER, new Rectangle(0,0,64,128), 100)},
             { StaticSprites.ENTITIES_BANDIT, new SpriteData(SpriteSheets.ENTITIES_BANDIT, new Rectangle(0,0,48,96), 99)},
             { StaticSprites.ENTITIES_SLIME, new SpriteData(SpriteSheets.ENTITIES_SLIME, new Rectangle(0,0,64,64), 99)},
+            { StaticSprites.ENTITIES_BAT, new SpriteData(SpriteSheets.ENTITIES_BAT, new Rectangle(0,64,64,64), 99)},
 
             { StaticSprites.LIGHT_DARKNESS_FULL, new SpriteData(SpriteSheets.LIGHT_DARKNESS_FULL, new Rectangle(0,0,80,64), 200) },
             { StaticSprites.LIGHT_DARKNESS_VIGNETTE, new SpriteData(SpriteSheets.LIGHT_DARKNESS_MIN, new Rectangle(0,0,320,180), 200) },

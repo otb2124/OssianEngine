@@ -6,16 +6,52 @@ using System;
 using Utils;
 using static Entities.EntityAIBehaviourManager;
 using static Entities.BattleMovesetFactory;
+using static Entities.HumanoidMob;
 
 namespace Entities
 {
     public class AnimalMob : NonEquipmentEntity
     {
 
-
-        public AnimalMob(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
+        public enum AnimalMobs
         {
-            BloodDropParticle = ParticleSet.ParticleSets.SLIME_BLOOD_SPLASH;
+            SLIME,
+            BAT,
+        }
+
+        public AnimalMobs Type;
+
+        public AnimalMob(AnimalMobs mobType, Vector2 pos, float rotation = 0f) : base()
+        {
+            Type = mobType;
+            SetAnimalMobData(out Models modelType);
+            Init(modelType, pos, rotation);
+        }
+
+        public virtual void SetAnimalMobData(out Models modelType)
+        {
+            switch (Type)
+            {
+                case AnimalMobs.SLIME:
+                    EntityFraction = EntityFractions.ANIMAL;
+                    BloodDropParticle = ParticleSet.ParticleSets.SLIME_BLOOD_SPLASH;
+                    modelType = Models.SLIME;
+
+                    Stats.DistanceToAggro = 200f;
+                    Stats.DistanceToUnaggro = 500f;
+                    break;
+                case AnimalMobs.BAT:
+                    EntityFraction = EntityFractions.ANIMAL;
+                    BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
+                    modelType = Models.BAT;
+
+                    Stats.DistanceToAggro = 200f;
+                    Stats.DistanceToUnaggro = 500f;
+                    break;
+                default:
+                    modelType = Models.SLIME;
+                    break;
+            }
         }
 
         public override void SetStats()
@@ -38,9 +74,6 @@ namespace Entities
             Stats.BodyDamage = 5;
             Stats.BodyStaminaHitCost = 25;
             Stats.BodyPoiseDamage = 20;
-
-            Stats.DistanceToAggro = 200f;
-            Stats.DistanceToUnaggro = 500f;
         }
 
         public override void SetAI()
@@ -52,35 +85,74 @@ namespace Entities
 
         public override void SetAnimations()
         {
-            float frameSpeed = 0;
-            //IDLE
-            frameSpeed = 0.5f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.IDLE, 2, new Vector2(0, 0), new Vector2(64, 64), frameSpeed);
 
-            //MOVING
-            frameSpeed = 0.5f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.MOVING, 2, new Vector2(0, 0), new Vector2(64, 64), frameSpeed);
+            switch(Type)
+            {
+                case AnimalMobs.SLIME:
+                    float frameSpeed = 0;
+                    //IDLE
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.IDLE, 2, new Vector2(0, 0), new Vector2(64, 64), frameSpeed);
 
-            //JUMPING
-            frameSpeed = 0.5f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    //MOVING
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.MOVING, 2, new Vector2(0, 0), new Vector2(64, 64), frameSpeed);
 
-            //ROLL
-            frameSpeed = 0.5f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    //JUMPING
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
 
-            //FALLEN
-            frameSpeed = 0.5f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    //ROLL
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
 
-            //attacking
-            frameSpeed = 2.5f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SLIME_BODY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    //FALLEN
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+
+                    //attacking
+                    frameSpeed = 2.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SLIME_BODY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    break;
+
+                case AnimalMobs.BAT:
+                    frameSpeed = 0;
+                    //IDLE
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.IDLE, 1, new Vector2(0, 0), new Vector2(64, 64), frameSpeed);
+
+                    //MOVING
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.MOVING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+
+                    //JUMPING
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+
+                    //ROLL
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+
+                    //FALLEN
+                    frameSpeed = 0.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+
+                    //attacking
+                    frameSpeed = 2.5f;
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SLIME_BODY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    break;
+            }
+            
         }
 
         public override void SetBattleBodies()

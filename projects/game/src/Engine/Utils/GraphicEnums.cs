@@ -42,7 +42,7 @@ namespace Utils
         //livingentities
         ENTITIES_PLAYER,
         ENTITIES_BANDIT,
-        ENTITIES_SLIME,
+        ENTITIES_SLIME, ENTITIES_BAT,
 
         //physicalentities
         ENTITIES_STATIC,
@@ -100,7 +100,7 @@ namespace Utils
         //livingentities
         ENTITIES_PLAYER,
         ENTITIES_BANDIT,
-        ENTITIES_SLIME,
+        ENTITIES_SLIME, ENTITIES_BAT,
 
         //physicalentities
         ENTITIES_STATIC_BALL,
@@ -146,7 +146,7 @@ namespace Utils
         CRATE_0, CRATE_1, BALL,
         ITEM_DROP,
         BANDIT,
-        SLIME,
+        SLIME, BAT,
         LEDGE,
     }
 
@@ -222,6 +222,14 @@ namespace Utils
         ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT,
         ATTACKING_SLIME_BODY_HEAVY,
         ATTACKING_SLIME_BODY_HEAVY_HEAVY,
+
+        BLOCKING_BAT_BODY,
+
+        ATTACKING_BAT_BODY_LIGHT,
+        ATTACKING_BAT_BODY_LIGHT_LIGHT,
+        ATTACKING_BAT_BODY_LIGHT_LIGHT_LIGHT,
+        ATTACKING_BAT_BODY_HEAVY,
+        ATTACKING_BAT_BODY_HEAVY_HEAVY,
     }
 
 
