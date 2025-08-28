@@ -93,6 +93,8 @@ namespace Entities
                     normalizedDirection.Normalize();
                 }
 
+                Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+
                 Vector2 velocity = normalizedDirection * Stats.speed;
                 Model.Body.Move(FlatConverter.ToFlatVector(velocity));
 

@@ -43,7 +43,7 @@ namespace Resources
                     body = CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 20 - offSet.Y), 1, 0);
                     break;
                 case FlatBodyPreset.PROJECTILE:
-                    body = CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 20 - offSet.Y), 1, 0);
+                    body = CreateFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 20 - offSet.Y), 1, 0);
                     break;
                 default:
                     body = CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(10 - offSet.X, 10 - offSet.Y), 1, 0);
