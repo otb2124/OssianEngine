@@ -28,6 +28,9 @@ namespace Entities
             Type = type;
             SetHumanoidMobData(out Models modelType);
             Init(modelType, pos, rotation);
+            SetStats();
+            SetInventory();
+            SetDropInventory();
             SetAI();
         }
 
@@ -44,9 +47,6 @@ namespace Entities
                     EntityFraction = EntityFractions.BANDIT;
                     BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
                     modelType = Models.BANDIT;
-
-                    Stats.DistanceToAggro = 200f;
-                    Stats.DistanceToUnaggro = 500f;
                     break;
                 default:
                     modelType = Models.BANDIT; 
@@ -142,30 +142,68 @@ namespace Entities
         {
             base.SetStats();
 
-            CanRegensStamina = true;
-            CanUpdateIFrames = true;
-            CanFall = true;
+            switch(Type)
+            {
+                case HumanoidMobs.BANDIT:
+                    CanRegensStamina = true;
+                    CanUpdateIFrames = true;
+                    CanFall = true;
 
-            Stats.sprintMultiplier = 1.5f;
-            Stats.staminaSprintCostSec = 15;
+                    Stats.sprintMultiplier = 1.5f;
+                    Stats.staminaSprintCostSec = 15;
 
-            Stats.staminaRegenSec = 20;
-            Stats.staminaUnlockSec = 1.5f;
+                    Stats.staminaRegenSec = 20;
+                    Stats.staminaUnlockSec = 1.5f;
 
-            Stats.staminaAttackHitCostMultiplier = 25;
+                    Stats.staminaAttackHitCostMultiplier = 25;
 
-            Stats.rollMultiplier = 2f;
-            Stats.staminaRollCostSec = 200;
+                    Stats.rollMultiplier = 2f;
+                    Stats.staminaRollCostSec = 200;
 
-            Stats.jumpSpeed = 2.8f;
-            Stats.staminaJumpCostSec = 60;
+                    Stats.jumpSpeed = 2.8f;
+                    Stats.staminaJumpCostSec = 60;
 
-            Stats.maxHP = 100;
-            Stats.maxSpeed = 0.5f;
-            Stats.maxMana = 100;
-            Stats.maxStamina = 100;
-            Stats.MaxPoise = 100;
-            Stats.PoiseRegenSec = 10;
+                    Stats.maxHP = 100;
+                    Stats.maxSpeed = 0.5f;
+                    Stats.maxMana = 100;
+                    Stats.maxStamina = 100;
+                    Stats.MaxPoise = 100;
+                    Stats.PoiseRegenSec = 10;
+
+                    Stats.DistanceToAggro = 200f;
+                    Stats.DistanceToUnaggro = 500f;
+                    break;
+
+                case HumanoidMobs.CITIZEN:
+                    CanRegensStamina = true;
+                    CanUpdateIFrames = true;
+                    CanFall = true;
+
+                    Stats.sprintMultiplier = 1.5f;
+                    Stats.staminaSprintCostSec = 15;
+
+                    Stats.staminaRegenSec = 20;
+                    Stats.staminaUnlockSec = 1.5f;
+
+                    Stats.staminaAttackHitCostMultiplier = 25;
+
+                    Stats.rollMultiplier = 2f;
+                    Stats.staminaRollCostSec = 200;
+
+                    Stats.jumpSpeed = 2.8f;
+                    Stats.staminaJumpCostSec = 60;
+
+                    Stats.maxHP = 100;
+                    Stats.maxSpeed = 0.5f;
+                    Stats.maxMana = 100;
+                    Stats.maxStamina = 100;
+                    Stats.MaxPoise = 100;
+                    Stats.PoiseRegenSec = 10;
+
+                    break;
+            }
+
+            
 
             Stats.Refill();
 

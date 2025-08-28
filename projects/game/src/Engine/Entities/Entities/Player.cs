@@ -10,7 +10,12 @@ namespace Entities
     public class Player : EquipmentEntity
     {
 
-        public Player() : base(Models.PLAYER, Vector2.Zero, 0f){}
+        public Player() : base(Models.PLAYER, Vector2.Zero, 0f)
+        {
+            SetStats();
+            SetInventory();
+            //SetDropInventory();
+        }
 
         public override void SetStats()
         {

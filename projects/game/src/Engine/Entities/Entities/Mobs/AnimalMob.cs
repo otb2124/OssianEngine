@@ -26,6 +26,9 @@ namespace Entities
             Type = mobType;
             SetAnimalMobData(out Models modelType);
             Init(modelType, pos, rotation);
+            SetStats();
+            SetInventory();
+            SetDropInventory();
             SetAI();
         }
 
@@ -38,18 +41,13 @@ namespace Entities
                     BloodDropParticle = ParticleSet.ParticleSets.SLIME_BLOOD_SPLASH;
                     modelType = Models.SLIME;
 
-                    Stats.DistanceToAggro = 200f;
-                    Stats.DistanceToUnaggro = 500f;
                     break;
                 case AnimalMobs.BAT:
                     EntityFraction = EntityFractions.ANIMAL;
                     BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
                     modelType = Models.BAT;
 
-                    CanFly = true;
-                    Stats.flySpeed = 0.5f;
-                    Stats.DistanceToAggro = 200f;
-                    Stats.DistanceToUnaggro = 500f;
+                    
                     break;
                 default:
                     modelType = Models.SLIME;
@@ -61,22 +59,57 @@ namespace Entities
         {
             base.SetStats();
 
-            CanRegensStamina = true;
-            CanUpdateIFrames = true;
-            CanFall = true;
+            switch(Type)
+            {
+                case AnimalMobs.SLIME:
 
-            Stats.maxHP = 50;
-            Stats.maxSpeed = 0.25f;
-            Stats.jumpSpeed = 2.5f;
-            Stats.MaxPoise = 100f;
-            Stats.PoiseRegenSec = 3;
+                    CanRegensStamina = true;
+                    CanUpdateIFrames = true;
+                    CanFall = true;
+
+                    Stats.maxHP = 50;
+                    Stats.maxSpeed = 0.25f;
+                    Stats.jumpSpeed = 2.5f;
+                    Stats.MaxPoise = 100f;
+                    Stats.PoiseRegenSec = 3;
+
+                    Stats.BodyKnockbackPower = 1;
+                    Stats.BodyDamage = 5;
+                    Stats.BodyStaminaHitCost = 25;
+                    Stats.BodyPoiseDamage = 20;
+
+                    Stats.DistanceToAggro = 200f;
+                    Stats.DistanceToUnaggro = 500f;
+                    break;
+
+                case AnimalMobs.BAT:
+
+                    CanFly = true;
+                    CanRegensStamina = true;
+                    CanUpdateIFrames = true;
+                    CanFall = true;
+
+                    Stats.maxHP = 50;
+                    Stats.maxSpeed = 0.5f;
+                    Stats.DistanceToAggro = 200f;
+                    Stats.jumpSpeed = 2.5f;
+                    Stats.MaxPoise = 100f;
+                    Stats.PoiseRegenSec = 3;
+
+                    Stats.BodyKnockbackPower = 1;
+                    Stats.BodyDamage = 5;
+                    Stats.BodyStaminaHitCost = 25;
+                    Stats.BodyPoiseDamage = 20;
+
+
+                    Stats.flySpeed = 0.5f;
+                    Stats.DistanceToUnaggro = 500f;
+
+                    break;
+            }
 
             Stats.Refill();
 
-            Stats.BodyKnockbackPower = 1;
-            Stats.BodyDamage = 5;
-            Stats.BodyStaminaHitCost = 25;
-            Stats.BodyPoiseDamage = 20;
         }
 
         public override void SetAI()

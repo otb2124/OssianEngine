@@ -320,7 +320,7 @@ namespace Entities
             }
                 
 
-            if(ent.Model.Body.Position.Y < LandPoint + FlyHeightPointOverHead)
+            if(ent.Model.Body.Position.Y < LandPoint + FlyHeightPointOverHead && AllowFlying)
             {
                 AllowFlying = true;
                 return;
@@ -333,6 +333,7 @@ namespace Entities
                 if (FlyingCounter >= MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond)
                 {
                     AllowFlying = false;
+                    FlyingCounter = (int)(MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond);
                 }
             }
             else
@@ -341,8 +342,11 @@ namespace Entities
                 if(FlyingCounter <= 0)
                 {
                     AllowFlying = true;
+                    FlyingCounter = 0;
                 }
             }
+
+            
         }
 
 
