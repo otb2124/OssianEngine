@@ -59,7 +59,7 @@ namespace Entities
                     //entities.Add(new AnimalMob(AnimalMob.AnimalMobs.SLIME, new Vector2(-200, 100), 0f));
                     //entities.Add(new AnimalMob(AnimalMob.AnimalMobs.BAT, new Vector2(-300, 100), 0f));
 
-                    entities.Add(new ProjectileEntity(new Vector2(-100, 200)));
+                    //entities.Add(new ProjectileEntity(new Vector2(-100, 200)));
 
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(-20, 300)));
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(20, 335)));

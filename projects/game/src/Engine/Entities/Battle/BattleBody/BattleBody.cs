@@ -5,6 +5,7 @@ using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using Utils;
 using static Entities.BattleMovesetFactory;
 using Color = Microsoft.Xna.Framework.Color;
@@ -252,6 +253,17 @@ namespace Entities
 
                 AManager.GetCurrent().Reset();
                 AManager.GetCurrent().Start();
+
+                Vector2 projectileDirection = currentHit.HitboxOffset.Position;
+                if (projectileDirection != Vector2.Zero)
+                {
+                    float rotation = currentHit.HitboxOffset.Rotation;
+                    projectileDirection = Vector2.Transform(projectileDirection, Matrix.CreateRotationZ(rotation));
+                    projectileDirection.Normalize();
+                }
+
+                projectileDirection = new Vector2(projectileDirection.X * (model.Direction == Directions.RIGHT ? -1 : 1), -projectileDirection.Y);
+                Entities.entityManager.AddEntity(new ProjectileEntity(model.Body.Position.ToVector2(), projectileDirection));
 
                 Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(
                     Resources.Sounds.SWING_SWORD,

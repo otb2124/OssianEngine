@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,13 +23,15 @@ namespace Entities
 
 
         public ProjectileUpdateTypes UpdateType;
+        public Vector2 MoveDirection;
 
-        public ProjectileEntity(Vector2 pos) : base()
+        public ProjectileEntity(Vector2 pos, Vector2 direction) : base()
         {
             Init(StaticSprites.ENTITIES_FIREBALL, FlatBodyPreset.PROJECTILE, pos);
             SetStats();
 
             UpdateType = ProjectileUpdateTypes.MOVE_TIMER;
+            MoveDirection = direction;
         }
 
 
@@ -48,6 +51,7 @@ namespace Entities
             CanRegensStamina = false;
             CanUpdateIFrames = false;
             CanFall = false;
+            UpdatesModelStates = false;
 
             Stats.maxHP = 5;
             Stats.maxSpeed = 0.5f;
@@ -79,10 +83,25 @@ namespace Entities
 
         public virtual void UpdateProjectile()
         {
-            if(UpdateType == ProjectileUpdateTypes.MOVE || UpdateType == ProjectileUpdateTypes.MOVE_TIMER)
+            if (UpdateType == ProjectileUpdateTypes.MOVE || UpdateType == ProjectileUpdateTypes.MOVE_TIMER)
             {
                 Model.ModelState = ModelStates.MOVING;
+
+                Vector2 normalizedDirection = MoveDirection;
+                if (normalizedDirection != Vector2.Zero)
+                {
+                    normalizedDirection.Normalize();
+                }
+
+                Vector2 velocity = normalizedDirection * Stats.speed;
+                Model.Body.Move(FlatConverter.ToFlatVector(velocity));
+
+                if (MoveDirection != Vector2.Zero)
+                {
+                    Model.Direction = MoveDirection.X > 0 ? Directions.RIGHT : Directions.LEFT;
+                }
             }
+
             if (UpdateType == ProjectileUpdateTypes.TIMER || UpdateType == ProjectileUpdateTypes.MOVE_TIMER)
             {
                 Stats.HP -= 1f * (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
@@ -94,6 +113,11 @@ namespace Entities
             UpdateProjectile();
 
             base.Update();
+        }
+
+        public override void Draw()
+        {
+            base.Draw();
         }
     }
 }

@@ -68,13 +68,14 @@ namespace Entities
             SetSounds();
         }
 
-        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
+        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f, Directions initDirection = Directions.LEFT)
         {
             Model = ModelFactory.CreateModel(sprite, body);
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
+            Model.Direction = initDirection;
 
             this.baseSpriteZ = this.Model.spriteData.z;
             this.spriteZ = baseSpriteZ;
