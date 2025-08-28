@@ -186,7 +186,7 @@ namespace Entities
                     //FLYING
                     frameSpeed = 0.5f;
                     Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FLYING, 3, new Vector2(0, 64*3), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FLYING_AND_MOVING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FLYING_AND_MOVING, 3, new Vector2(0, 64*2), new Vector2(64, 64), frameSpeed);
 
                     //ROLL
                     frameSpeed = 0.5f;
@@ -224,7 +224,7 @@ namespace Entities
 
         public override void Update()
         {
-            //Console.WriteLine(AISet.BehaviourManager.CurrentCase);
+            //Console.WriteLine(Model.ModelState);
             base.Update();
         }
     }

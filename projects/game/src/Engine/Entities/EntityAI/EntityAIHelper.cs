@@ -25,6 +25,26 @@ namespace Entities
             return EntityPos1 - EntityPos2;
         }
 
+        public static float GetEntityXDistance(PhysicalEntity entityFrom, PhysicalEntity entityTo)
+        {
+            if (entityFrom == null || entityTo == null)
+                return 0f;
+
+            Vector2 pos1 = FlatConverter.ToVector2(entityFrom.Model.Body.Position);
+            Vector2 pos2 = FlatConverter.ToVector2(entityTo.Model.Body.Position);
+            return Math.Abs(pos1.X - pos2.X);
+        }
+
+        public static float GetEntityYDistance(PhysicalEntity entityFrom, PhysicalEntity entityTo)
+        {
+            if (entityFrom == null || entityTo == null)
+                return 0f;
+
+            Vector2 pos1 = FlatConverter.ToVector2(entityFrom.Model.Body.Position);
+            Vector2 pos2 = FlatConverter.ToVector2(entityTo.Model.Body.Position);
+            return Math.Abs(pos1.Y - pos2.Y);
+        }
+
 
         public static bool IsBattleEntityOfAggroFraction(BattleEntity entFrom, BattleEntity entTo)
         {

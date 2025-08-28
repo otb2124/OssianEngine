@@ -117,7 +117,8 @@ namespace Entities
             if (LightSource != null)
             {
                 if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY || model.ModelState == ModelStates.BLOCKING
-                    || model.ModelState == ModelStates.WEAPON_OUT_IDLE || model.ModelState == ModelStates.WEAPON_OUT_MOVING)
+                    || model.ModelState == ModelStates.WEAPON_OUT_IDLE || model.ModelState == ModelStates.WEAPON_OUT_MOVING 
+                    || model.ModelState == ModelStates.FLYING || model.ModelState == ModelStates.FLYING_AND_MOVING)
                 {
                     if (Graphics.Graphics.lightManager.GetEntityById(LightSource.Id) == null)
                     {

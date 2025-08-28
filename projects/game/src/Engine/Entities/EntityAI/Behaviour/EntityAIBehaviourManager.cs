@@ -175,8 +175,8 @@ namespace Entities
                                 //new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
                                 //new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
                                 //new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); }, 10f, true),
-                                new EntityAICommand(entity => { entity.StandStill(); },                                                    1f, true),
-                                new EntityAICommand(entity => { entity.FlyAndMove(Directions.RIGHT); },                                                           5f, true),
+                                new EntityAICommand(entity => { entity.FollowEntityNearestOfAggroFraction(); },                            1f, true),
+                                new EntityAICommand(entity => { entity.FollowEntityAndAttackNearestOfAggroFraction(AttackTypes.LIGHT); },  5f, true),
                             };
 
                             break;

@@ -134,7 +134,6 @@ namespace Entities
             Entity.Model.ModelState = ModelStates.FLYING_AND_MOVING;
         }
 
-
         public void Sprint()
         {
             Sprint(Entity.Model.Direction);
@@ -170,13 +169,18 @@ namespace Entities
             }
             
 
-            if (CommandTime < CurrentDuration * Graphics.Graphics.UpdatesPerSecond / 2f)
+            if (CommandTime < CurrentDuration * Graphics.Graphics.UpdatesPerSecond / 1.5f)
             {
                 Entity.Model.ModelState = state;
             }
             else
             {
                 Entity.Model.ModelState = ModelStates.IDLE;
+
+                if(Entity.CanFly)
+                {
+                    Entity.Model.ModelState = ModelStates.FLYING;
+                }
             }
 
         }
@@ -187,14 +191,35 @@ namespace Entities
 
             Vector2 directionToEntity = EntityAIHelper.GetEntityDirection(ent, Entity);
             float distance = directionToEntity.Length();
+            float defaultStopDistance = 0.1f;
 
-            if (distance > (stopDistance ?? 0.1f))
+            if (distance > (stopDistance ?? defaultStopDistance))
             {
                 directionToEntity.Normalize();
                 float speed = Entity.Stats?.speed ?? 1f;
                 Vector2 velocity = directionToEntity * speed;
                 Entity.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
                 Entity.Model.ModelState = ModelStates.MOVING;
+
+                if (Entity.CanFly)
+                {
+                    Entity.Model.ModelState = ModelStates.FLYING_AND_MOVING;
+
+                    float distanceX = EntityAIHelper.GetEntityXDistance(ent, Entity);
+
+                    if(distanceX < 50f)
+                    {
+                        Entity.Stats.FlyingUpwards = false;
+
+                        if (distanceX < 10f)
+                        {
+                            Entity.Model.ModelState = ModelStates.FLYING;
+                            Entity.Stats.FlyingUpwards = false;
+                        }
+                    }
+                }
+
+                
             }
         }
 
@@ -248,6 +273,19 @@ namespace Entities
                 if(EntityAIHelper.IsBattleEntityOfAggroFraction(Entity, entity))
                 {
                     FollowEntityAndAttack(entity, attackType);
+                }
+            }
+        }
+
+        public void FollowEntityNearestOfAggroFraction()
+        {
+            BattleEntity entity = NearestEntityFinder.GetNearestBattleEntity(Entity);
+
+            if (entity != null)
+            {
+                if (EntityAIHelper.IsBattleEntityOfAggroFraction(Entity, entity))
+                {
+                    FollowEntity(entity);
                 }
             }
         }

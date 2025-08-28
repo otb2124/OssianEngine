@@ -81,10 +81,11 @@ namespace Entities
         public float FallenTimer = 0f;
         public float FallenDurationAllowedSec = 3f;
 
-        public bool AllowFlying = true;
+        public bool FlyingUpwards = true;
         public int FlyingCounter = 0;
         public float MaxFlyTimeSec = 0.5f;
         public float FlyHeightPointOverHead = 50f;
+        public float CurrentFlyHeightPointOverHead = 50f;
         public float LandPoint;
 
         public float DistanceToAggro = -1f;
@@ -311,6 +312,7 @@ namespace Entities
             if(ent.Stats.IsGrounded)
             {
                 LandPoint = ent.Model.Body.Position.Y;
+                CurrentFlyHeightPointOverHead = FlyHeightPointOverHead;
             }
 
             if (ent.Model.ModelState != ModelStates.FLYING && ent.Model.ModelState != ModelStates.FLYING_AND_MOVING)
@@ -320,19 +322,19 @@ namespace Entities
             }
                 
 
-            if(ent.Model.Body.Position.Y < LandPoint + FlyHeightPointOverHead && AllowFlying)
+            if(ent.Model.Body.Position.Y < LandPoint + CurrentFlyHeightPointOverHead && FlyingUpwards)
             {
-                AllowFlying = true;
+                FlyingUpwards = true;
                 return;
             }
 
-            if(AllowFlying)
+            if(FlyingUpwards)
             {
                 FlyingCounter++;
 
                 if (FlyingCounter >= MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    AllowFlying = false;
+                    FlyingUpwards = false;
                     FlyingCounter = (int)(MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond);
                 }
             }
@@ -341,7 +343,7 @@ namespace Entities
                 FlyingCounter--;
                 if(FlyingCounter <= 0)
                 {
-                    AllowFlying = true;
+                    FlyingUpwards = true;
                     FlyingCounter = 0;
                 }
             }

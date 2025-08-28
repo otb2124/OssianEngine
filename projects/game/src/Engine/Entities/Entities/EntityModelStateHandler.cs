@@ -43,7 +43,7 @@ namespace Entities {
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
 
-                if(Entity.Stats.AllowFlying)
+                if(Entity.Stats.FlyingUpwards)
                 {
                     Entity.Model.Body.Jump(Entity.Stats.flySpeed);
                 }
@@ -61,7 +61,7 @@ namespace Entities {
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
 
-                if (Entity.Stats.AllowFlying)
+                if (Entity.Stats.FlyingUpwards)
                 {
                     Entity.Model.Body.Jump(Entity.Stats.flySpeed);
                 }
