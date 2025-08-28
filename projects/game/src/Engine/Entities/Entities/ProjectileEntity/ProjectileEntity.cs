@@ -94,13 +94,15 @@ namespace Entities
                 }
 
                 Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+                Model.Body.linearVelocity = FlatVector.Zero;
 
                 Vector2 velocity = normalizedDirection * Stats.speed;
                 Model.Body.Move(FlatConverter.ToFlatVector(velocity));
 
                 if (MoveDirection != Vector2.Zero)
                 {
-                    Model.Direction = MoveDirection.X > 0 ? Directions.RIGHT : Directions.LEFT;
+                    Model.Body.RotateTo((float)Math.Atan2(MoveDirection.Y, MoveDirection.X));
+                    Model.Direction = Directions.RIGHT;
                 }
             }
 
