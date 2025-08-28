@@ -79,7 +79,7 @@ namespace Physics
                 {
                     if (item != null)
                     {
-                        if (item != flatBody && !CollisionHandler.IgnoreCollision(flatBody, item))
+                        if (item != flatBody && !CollisionHandler.IgnoreCollision(flatBody, item, true))
                         {
                             return item;
                         }

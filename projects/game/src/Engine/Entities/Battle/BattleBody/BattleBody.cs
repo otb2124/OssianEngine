@@ -263,7 +263,7 @@ namespace Entities
                 }
 
                 projectileDirection = new Vector2(projectileDirection.X * (model.Direction == Directions.RIGHT ? -1 : 1), -projectileDirection.Y);
-                Entities.entityManager.AddEntity(new ProjectileEntity(model.Body.Position.ToVector2(), projectileDirection));
+                Entities.entityManager.AddEntity(new ProjectileEntity(model.Body.Position.ToVector2(), new Vector2(20, 5), projectileDirection));
 
                 Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(
                     Resources.Sounds.SWING_SWORD,
@@ -330,8 +330,8 @@ namespace Entities
             Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
-            float bodyWidth = model.Body.Width + model.bodyOffset.X;
-            float bodyHeight = model.Body.Height + model.bodyOffset.Y;
+            float bodyWidth = model.Body.Width + model.BodyOffset.X;
+            float bodyHeight = model.Body.Height + model.BodyOffset.Y;
             scaleX = bodyWidth / spriteSize.Width;
             scaleY = bodyHeight / spriteSize.Height;
 

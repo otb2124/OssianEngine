@@ -37,7 +37,7 @@ namespace Entities
         public override void SetAnimations()
         {
             Model.AnimationState = AnimationStates.IDLE;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.IDLE, new Graphics.AnimationData(1, Vector2.Zero, new Vector2(32, 32), 1));
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.IDLE, new Graphics.AnimationData(1, Vector2.Zero, new Vector2(32, 32), 1));
             Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.AnimationState));
         }
 

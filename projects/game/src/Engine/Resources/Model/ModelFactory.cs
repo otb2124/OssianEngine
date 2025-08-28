@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Physics;
 using System;
 using System.Collections.Generic;
 using Utils;
@@ -12,22 +13,29 @@ namespace Resources
 
         public class ModelPreset
         {
-            public FlatBodyPreset bodyPreset;
-            public StaticSpriteFactory.SpriteData spriteData;
-            public Vector2 offset;
+            public StaticSpriteFactory.SpriteData SpriteData;
+            public FlatBody Body;
+            public Vector2 Offset;
 
             public ModelPreset(FlatBodyPreset bodyPreset, StaticSprites spritePreset, Vector2 offset)
             {
-                this.bodyPreset = bodyPreset;
-                this.spriteData = StaticSpriteFactory.spriteMappings[spritePreset];
-                this.offset = offset;
+                Body = FlatBodyFactory.CreateFlatBody(bodyPreset, offset);
+                SpriteData = StaticSpriteFactory.spriteMappings[spritePreset];
+                Offset = offset;
+            }
+
+            public ModelPreset(FlatBody body, StaticSprites spritePreset, Vector2 offset)
+            {
+                Body = body;
+                SpriteData = StaticSpriteFactory.spriteMappings[spritePreset];
+                Offset = offset;
             }
 
             public ModelPreset(FlatBodyPreset bodyPreset, StaticSpriteFactory.SpriteData spriteData, Vector2 offset)
             {
-                this.bodyPreset = bodyPreset;
-                this.spriteData = spriteData;
-                this.offset = offset;
+                Body = FlatBodyFactory.CreateFlatBody(bodyPreset, offset);
+                SpriteData = spriteData;
+                Offset = offset;
             }
         }
 
@@ -54,14 +62,19 @@ namespace Resources
             return new Model(preset);
         }
 
-        public static Model CreateModel(StaticSprites sprite, FlatBodyPreset body)
+        public static Model CreateModel(StaticSprites sprite, FlatBodyPreset bodyPreset)
+        {
+            return new Model(new ModelPreset(bodyPreset, sprite, new Vector2(0, 0)));
+        }
+
+        public static Model CreateModel(StaticSprites sprite, FlatBody body)
         {
             return new Model(new ModelPreset(body, sprite, new Vector2(0, 0)));
         }
 
-        public static Model CreateModel(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body)
+        public static Model CreateModel(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset bodyPreset)
         {
-            return new Model(new ModelPreset(body, spriteData, new Vector2(0, 0)));
+            return new Model(new ModelPreset(bodyPreset, spriteData, new Vector2(0, 0)));
         }
     }
 }

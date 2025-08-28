@@ -1,11 +1,7 @@
-﻿using Entities;
-using Graphics;
+﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Physics;
-using System.Drawing.Drawing2D;
 using Utils;
-using static Entities.PhysicalEntity;
-using static Graphics.Animation;
 using static Resources.ModelFactory;
 
 
@@ -15,16 +11,17 @@ namespace Resources
     {
 
         public FlatBody Body;
-        public StaticSpriteFactory.SpriteData spriteData;
+        public StaticSpriteFactory.SpriteData SpriteData;
 
         public AnimationManager aManager;
 
-        public Vector2 bodyOffset;
+        public Vector2 BodyOffset;
         public Directions Direction;
         public AnimationStates AnimationState;
         public ModelStates ModelState;
 
         public float DrawAngle = 0;
+        public bool UpdatesSurroundingRectangles = false;
 
         public RotatedRectangle GroundingRectangle;
         public RotatedRectangle CeilingRectangle;
@@ -35,12 +32,14 @@ namespace Resources
         }
         public Model(ModelPreset preset)
         {
-            this.bodyOffset = preset.offset;
-            this.Body = FlatBodyFactory.createFlatBody(preset.bodyPreset, this.bodyOffset);
-            this.spriteData = preset.spriteData;
+            BodyOffset = preset.Offset;
+            Body = preset.Body;
+            SpriteData = preset.SpriteData;
             aManager = new AnimationManager();
 
+            //TODO: OPTIMIZE TO REMOVE
             SetSurroundingRectangles();
+            
         }
 
         public virtual void SetSurroundingRectangles()
@@ -96,8 +95,8 @@ namespace Resources
             Vector2 newPos = new Vector2(Body.Position.X, Body.Position.Y);
             Vector2 textureCenter = new Vector2(spriteSize.Width / 2f, spriteSize.Height / 2f);
 
-            float bodyWidth = Body.Width + bodyOffset.X;
-            float bodyHeight = Body.Height + bodyOffset.Y;
+            float bodyWidth = Body.Width + BodyOffset.X;
+            float bodyHeight = Body.Height + BodyOffset.Y;
 
             if (Body.BodyShapeType == BodyShapeType.Box)
             {

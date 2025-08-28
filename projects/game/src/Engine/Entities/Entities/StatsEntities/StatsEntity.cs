@@ -94,8 +94,11 @@ namespace Entities
                 Stats.UpdateFly(this);
             }
 
-
-            Model.UpdateSurroundingRectangles();
+            if(Model.UpdatesSurroundingRectangles)
+            {
+                Model.UpdateSurroundingRectangles();
+            }
+            
             Stats.UpdateDescending(this);
             Stats.UpdatePickup();
 
@@ -148,7 +151,11 @@ namespace Entities
 
         public override void DrawCollider()
         {
-            Model.DrawSurroundigRectangles();
+            if(Model.UpdatesSurroundingRectangles)
+            {
+                Model.DrawSurroundigRectangles();
+            }
+            
             base.DrawCollider();
         }
     }

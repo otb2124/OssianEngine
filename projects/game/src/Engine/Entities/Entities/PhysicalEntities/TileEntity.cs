@@ -63,22 +63,23 @@ namespace Entities
         public bool DisableEntityBodyGroundingStatusOnWalls;
         public TileSets TileSet;
 
-        public TileEntity(Vector2 pos, Point layout, TileSets tileSet, float rot = 0f, bool isGrounding = false, bool disableEntityGrounding = false) : base()
+        public TileEntity(Vector2 pos, Point layout, TileSets tileSet, float rot = 0f, bool isGround = false, bool disableEntityGrounding = false) : base()
         {
             TileSet = tileSet;
-            this.Indicies = GenerateIndicies(layout.X, layout.Y, isGrounding);
-            Model = new Resources.Model();
-            Model.Body = FlatBodyFactory.CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32 * layout.Y), 1f, 0.5f);
-            IsGround = isGrounding;
+            Indicies = GenerateIndicies(layout.X, layout.Y, isGround);
+            Model = ModelFactory.CreateModel(StaticSprites.NONE, FlatBodyFactory.CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32 * layout.Y), 1f, 0.5f));
             Init(pos, rot);
+
+
+            IsGround = isGround;
             DisableEntityBodyGroundingStatusOnWalls = disableEntityGrounding;
         }
 
         public TileEntity(Vector2 pos, int[][] indiciesMap, TileSets tileSet, float rot = 0f) : base()
         {
             TileSet = tileSet;
-            this.Indicies = indiciesMap;
-            Model.Body = FlatBodyFactory.CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * indiciesMap[0].Length, 32 * indiciesMap.Length), 1f, 0.5f);
+            Indicies = indiciesMap;
+            Model = ModelFactory.CreateModel(StaticSprites.NONE, FlatBodyFactory.CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * indiciesMap[0].Length, 32 * indiciesMap.Length), 1f, 0.5f));
             Init(pos, rot);
         }
 
@@ -86,7 +87,7 @@ namespace Entities
         {
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rot);
-            Physics.Physics.flatWorld.AddBody(Model.Body);
+            //Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
 
             SpriteData[] data = TileSetCut(TileSet);

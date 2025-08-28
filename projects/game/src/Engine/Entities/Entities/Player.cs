@@ -94,83 +94,83 @@ namespace Entities
             float frameSpeed = 0;
             //idle
             frameSpeed = 0.1f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.IDLE, 9, new Vector2(0, 0), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.IDLE, 9, new Vector2(0, 0), new Vector2(64, 128), frameSpeed);
 
             //move
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.MOVING, 9, new Vector2(0, 128), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.MOVING, 9, new Vector2(0, 128), new Vector2(64, 128), frameSpeed);
 
             //jump
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING, 1, new Vector2(0, 128*2), Vector2.Zero, new Vector2(64, 128), new Vector2(32, 0), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.JUMPING, 1, new Vector2(0, 128*2), Vector2.Zero, new Vector2(64, 128), new Vector2(32, 0), frameSpeed);
 
             //sprint
             frameSpeed = 0.1f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.SPRINTING, 9, new Vector2(0, 128 * 3), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.SPRINTING, 9, new Vector2(0, 128 * 3), new Vector2(64, 128), frameSpeed);
 
             //battleIdle
             frameSpeed = 0.1f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.WEAPON_OUT_IDLE, 9, new Vector2(0, 128 * 4), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.WEAPON_OUT_IDLE, 9, new Vector2(0, 128 * 4), new Vector2(64, 128), frameSpeed);
 
             //battleMoving
             frameSpeed = 0.1f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.WEAPON_OUT_MOVING, 9, new Vector2(0, 128 * 5), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.WEAPON_OUT_MOVING, 9, new Vector2(0, 128 * 5), new Vector2(64, 128), frameSpeed);
 
             //battleRoll
             frameSpeed = 0.15f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ROLL, 9, new Vector2(0, 128 * 6), new Vector2(64, 128), frameSpeed);
 
             //fallen
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.FALLEN, 1, new Vector2(0, 128 * 7), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.FALLEN, 1, new Vector2(0, 128 * 7), new Vector2(64, 128), frameSpeed);
 
             //fallen
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.OVERALL_DESCENDING, 1, new Vector2(0, 128 * 9), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.OVERALL_DESCENDING, 1, new Vector2(0, 128 * 9), new Vector2(64, 128), frameSpeed);
 
             //fallen
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.JUMPING_DESCENDING, 1, new Vector2(0, 128 * 10), Vector2.Zero, new Vector2(64, 128), new Vector2(32, 0), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.JUMPING_DESCENDING, 1, new Vector2(0, 128 * 10), Vector2.Zero, new Vector2(64, 128), new Vector2(32, 0), frameSpeed);
 
             //fallen
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE_LEFT, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
-            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE_LEFT, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+            Model.aManager.AddAnimation(Model.SpriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE_LEFT, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
+            Model.aManager.AddAnimation(Model.SpriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE_LEFT, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.None);
 
             //fallen
             frameSpeed = 0.04f;
-            Model.aManager.AddAnimation(Model.spriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE_RIGHT, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
-            Model.aManager.AddAnimation(Model.spriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE_RIGHT, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            Model.aManager.AddAnimation(Model.SpriteData, Directions.LEFT, AnimationStates.HANGING_ON_LEDGE_RIGHT, 1, new Vector2(0, 128 * 12), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
+            Model.aManager.AddAnimation(Model.SpriteData, Directions.RIGHT, AnimationStates.HANGING_ON_LEDGE_RIGHT, 1, new Vector2(0, 128 * 13), new Vector2(64, 128), frameSpeed, SpriteEffects.FlipHorizontally);
 
             //attacking
             frameSpeed = 0.15f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_SWORD, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.BLOCKING_SWORD, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SWORD_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SWORD_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SWORD_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
 
             //attacking
             frameSpeed = 0.15f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_KNIFE, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.BLOCKING_KNIFE, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_KNIFE_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_KNIFE_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
 
             //attacking
             frameSpeed = 0.15f;
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.BLOCKING_BARE_HANDS, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.BLOCKING_BARE_HANDS, 1, new Vector2(0, 128 * 11), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_BARE_HANDS_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY, 3, new Vector2(0, 128 * 8), new Vector2(64, 128), frameSpeed);
         }
 
         public override void SetSounds()

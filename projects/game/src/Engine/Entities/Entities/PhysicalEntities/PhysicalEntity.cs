@@ -19,6 +19,9 @@ namespace Entities
         public float spriteZ;
 
         public float highestJumpY = float.MinValue;
+
+        public bool UpdatesSurroundingRectangles = true;
+
         public float HighestJumpY
         {
             get => highestJumpY;
@@ -56,11 +59,12 @@ namespace Entities
             Model = ModelFactory.CreateModel(modelPreset);
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
+            Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
             Model.Direction = initDirection;
 
-            this.baseSpriteZ = this.Model.spriteData.z;
+            this.baseSpriteZ = this.Model.SpriteData.z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -73,11 +77,12 @@ namespace Entities
             Model = ModelFactory.CreateModel(sprite, body);
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
+            Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
             Model.Direction = initDirection;
 
-            this.baseSpriteZ = this.Model.spriteData.z;
+            this.baseSpriteZ = this.Model.SpriteData.z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -90,10 +95,11 @@ namespace Entities
             Model = ModelFactory.CreateModel(spriteData, body);
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
+            Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
 
-            this.baseSpriteZ = this.Model.spriteData.z;
+            this.baseSpriteZ = this.Model.SpriteData.z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -177,7 +183,7 @@ namespace Entities
 
         public virtual void SetAnimations()
         {
-            Model.aManager.AddStaticAnimation(Model.spriteData);
+            Model.aManager.AddStaticAnimation(Model.SpriteData);
         }
 
         public override void Draw()

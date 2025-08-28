@@ -1,16 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
+using Resources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utils;
-using static Entities.BattleMovesetFactory;
 
 namespace Entities
 {
-    public class ProjectileEntity : BattleEntity
+    public class ProjectileEntity : StatsEntity
     {
 
         public enum ProjectileUpdateTypes
@@ -21,16 +17,49 @@ namespace Entities
             TIMER,
         };
 
+        public enum ProjectileCollisionBehaviour
+        {
+            NONE,
+            SKIP,
+            STICK,
+            FALL,
+            RICOCHET_VERTICALLY,
+            RICOCHET_BOTH,
+        };
+
 
         public ProjectileUpdateTypes UpdateType;
+
+        public ProjectileCollisionBehaviour HardSurfaceBehaviour;
+        public ProjectileCollisionBehaviour SoftSurfaceBehaviour;
+        public ProjectileCollisionBehaviour OtherProjectileSurfaceBehaviour;
+
         public Vector2 MoveDirection;
 
-        public ProjectileEntity(Vector2 pos, Vector2 direction) : base()
+        public bool CanRichochet = true;
+        public float RicochetCooldownTimer = 0f;
+
+        public ProjectileEntity(Vector2 pos, Vector2 bodySize, Vector2 direction) : base()
         {
-            Init(StaticSprites.ENTITIES_FIREBALL, FlatBodyPreset.PROJECTILE, pos);
+            Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_FIREBALL, FlatBodyFactory.CreateFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
+            Model.BodyOffset = new Vector2(0, bodySize.Y/10f*32f);
+            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.RotateTo(0f);
+            Model.UpdatesSurroundingRectangles = false;
+
+            Physics.Physics.flatWorld.AddBody(Model.Body);
+            Model.Body.Owner = this;
+
+            SetAnimations();
+            SetSounds();
             SetStats();
 
             UpdateType = ProjectileUpdateTypes.MOVE_TIMER;
+
+            HardSurfaceBehaviour = ProjectileCollisionBehaviour.RICOCHET_VERTICALLY;
+            SoftSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
+            OtherProjectileSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
+
             MoveDirection = direction;
         }
 
@@ -39,9 +68,9 @@ namespace Entities
         {
             float frameSpeed = 0.05f;
 
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.MOVING, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.spriteData, AnimationStates.ROLL, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.MOVING, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
+            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ROLL, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
         }
 
         public override void SetStats()
@@ -54,7 +83,7 @@ namespace Entities
             UpdatesModelStates = false;
 
             Stats.maxHP = 5;
-            Stats.maxSpeed = 0.5f;
+            Stats.maxSpeed = 2f;
             Stats.jumpSpeed = 2.5f;
             Stats.MaxPoise = 100f;
             Stats.PoiseRegenSec = 3;
@@ -66,20 +95,6 @@ namespace Entities
 
             Stats.Refill();
         }
-
-        public override void SetBattleBodies()
-        {
-            BattleBodyData battleBodyData = new BattleBodyData();
-            battleBodyData.Sprite = StaticSprites.NONE;
-            battleBodyData.WeaponSwingSpeedMultiplier = 1f;
-            battleBodyData.MoveSet = BattleMovesets.BODY_SLIME;
-            battleBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
-            battleBodyData.ModelStateBetweenHits = ModelStates.IDLE;
-
-            BattleBodyManager = new BattleBodyManager(BattleBodyTypes.BODY);
-            BattleBodyManager.InitBody(0, battleBodyData);
-        }
-
 
         public virtual void UpdateProjectile()
         {
@@ -109,6 +124,16 @@ namespace Entities
             if (UpdateType == ProjectileUpdateTypes.TIMER || UpdateType == ProjectileUpdateTypes.MOVE_TIMER)
             {
                 Stats.HP -= 1f * (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+            }
+
+            if (!CanRichochet)
+            {
+                RicochetCooldownTimer += (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+                if (RicochetCooldownTimer >= 0.1f)
+                {
+                    CanRichochet = true;
+                    RicochetCooldownTimer = 0f;
+                }
             }
         }
 

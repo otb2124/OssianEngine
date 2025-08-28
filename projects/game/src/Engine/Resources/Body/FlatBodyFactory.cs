@@ -12,7 +12,7 @@ namespace Resources
         
 
 
-        public static FlatBody createFlatBody(FlatBodyPreset preset, Vector2 offSet)
+        public static FlatBody CreateFlatBody(FlatBodyPreset preset, Vector2 offSet)
         {
             FlatBody body;
 
@@ -54,9 +54,9 @@ namespace Resources
         }
 
 
-        public static FlatBody createFlatBody(FlatBodyPreset preset)
+        public static FlatBody CreateFlatBody(FlatBodyPreset preset)
         {
-            return createFlatBody(preset, Vector2.Zero);
+            return CreateFlatBody(preset, Vector2.Zero);
         }
 
 

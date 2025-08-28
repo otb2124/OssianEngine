@@ -48,12 +48,15 @@ namespace Entities
                     entities.Add(new LedgeEntity(new Vector2(-220, -480), Directions.LEFT, LedgeEntity.Ledges.INVISIBLE, true));
                     entities.Add(new LedgeEntity(new Vector2(-180, -480), Directions.RIGHT, LedgeEntity.Ledges.INVISIBLE, true));
 
-                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-101, 0)));
-                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-103, 0)));
-                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-102, 0)));
-                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-50, 50)));
-                    entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
-                    entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
+
+                    //TODO: fix collision
+
+                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-101, 0)));
+                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-103, 0)));
+                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-102, 0)));
+                    //entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-50, 50)));
+                    //entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
+                    //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
                     //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.BANDIT, new Vector2(-60,  100), 0f));
                     //entities.Add(new AnimalMob(AnimalMob.AnimalMobs.SLIME, new Vector2(-200, 100), 0f));
