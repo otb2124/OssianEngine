@@ -161,7 +161,7 @@ namespace Entities
 
                                 // XX
                                 new BattleComboHit(
-                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 1.7f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 40), 0.75f), Vector2.Zero, 0.25f, new Vector2(0.2f, 0.25f),
                                     new AttackTypes[] { AttackTypes.LIGHT, AttackTypes.LIGHT },
                                     new BattleHitData(1, 1, 1, 1)
                                 ),
