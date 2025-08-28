@@ -189,6 +189,14 @@ namespace Entities
             base.SetEmission();
         }
 
+        public override void Die()
+        {
+            if(!GameStateManager.IsGod)
+            {
+                base.Die();
+            }
+        }
+
         public override void Update()
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);

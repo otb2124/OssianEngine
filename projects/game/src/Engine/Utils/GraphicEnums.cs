@@ -44,6 +44,8 @@ namespace Utils
         ENTITIES_BANDIT,
         ENTITIES_SLIME, ENTITIES_BAT,
 
+        ENITIES_FIREBALL,
+
         //physicalentities
         ENTITIES_STATIC,
 
@@ -102,6 +104,8 @@ namespace Utils
         ENTITIES_BANDIT,
         ENTITIES_SLIME, ENTITIES_BAT,
 
+        ENTITIES_FIREBALL,
+
         //physicalentities
         ENTITIES_STATIC_BALL,
 
@@ -138,6 +142,7 @@ namespace Utils
         HUMANOID,
         ANIMAL,
         LEDGE,
+        PROJECTILE
     }
 
     public enum Models
@@ -147,6 +152,7 @@ namespace Utils
         ITEM_DROP,
         BANDIT,
         SLIME, BAT,
+        PROJECTILE,
         LEDGE,
     }
 

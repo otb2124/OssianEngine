@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
 using System;
+using System.Collections.Generic;
 using Utils;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
@@ -20,6 +21,8 @@ namespace Entities
         public bool CanFall;
         public bool CanHangLedges;
         public bool CanFly;
+
+        public bool UpdatesModelStates = true;
 
         public ParticleSet.ParticleSets BloodDropParticle;
 
@@ -57,7 +60,17 @@ namespace Entities
 
         public override void Update()
         {
-            EntityModelStateHandler.Update(this);
+            if(Stats.CheckDead())
+            {
+                Die();
+                return;
+            }
+
+
+            if(UpdatesModelStates)
+            {
+                EntityModelStateHandler.Update(this);
+            }
 
             if (CanRegensStamina)
             {
@@ -110,6 +123,27 @@ namespace Entities
         public virtual void SetDropInventory()
         {
             DropInventory = new DropInventory();
+        }
+
+
+        public virtual void Die()
+        {
+            if(DropInventory != null)
+            {
+                if (!DropInventory.IsEmpty())
+                {
+                    List<Item> droppedItems = DropInventory.TryDrop();
+
+                    foreach (Item item in droppedItems)
+                    {
+                        InteractiveItemEntity itemEnt = EntityHelper.CreateItemDrop(item, Model.Body.Position.ToVector2());
+                        Entities.entityMapManager.GetCurrentMap().Entities.Add(itemEnt);
+                        Graphics.Graphics.lightManager.AddEntityEmissionLightSource(itemEnt);
+                    }
+                }
+            }
+
+            Entities.entityManager.RemoveEntity(this);
         }
 
         public override void DrawCollider()

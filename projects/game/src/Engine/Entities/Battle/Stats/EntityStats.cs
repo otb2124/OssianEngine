@@ -376,5 +376,10 @@ namespace Entities
         {
             return Poise <= 0;
         }
+
+        public bool CheckDead()
+        {
+            return HP <= 0;
+        }
     }
 }

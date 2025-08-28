@@ -16,7 +16,7 @@ namespace Entities
         {
             Indicies = GenerateIndicies(width);
             Model = new Model();
-            Model.Body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * width, 5), 1f, 0.5f);
+            Model.Body = FlatBodyFactory.CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * width, 5), 1f, 0.5f);
             Init(pos, rot);
         }
 

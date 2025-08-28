@@ -25,11 +25,6 @@ namespace Entities
             }
 
             HandleInvincibility(toEnt);
-
-            if (!GameStateManager.IsGod && toEnt.Stats.HP <= 0)
-            {
-                HandleDeath(toEnt);
-            }
         }
 
         public static void HandleBlockHit(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)
@@ -40,23 +35,6 @@ namespace Entities
             }
 
             HandleInvincibility(toEnt);
-        }
-
-        public static void HandleDeath(StatsEntity ent)
-        {
-            if(!ent.DropInventory.IsEmpty())
-            {
-                List<Item> droppedItems = ent.DropInventory.TryDrop();
-
-                foreach(Item item in droppedItems)
-                {
-                    InteractiveItemEntity itemEnt = EntityHelper.CreateItemDrop(item, ent.Model.Body.Position.ToVector2());
-                    Entities.entityMapManager.GetCurrentMap().Entities.Add(itemEnt);
-                    Graphics.Graphics.lightManager.AddEntityEmissionLightSource(itemEnt);
-                }
-            }
-
-            Entities.entityManager.RemoveEntity(ent);
         }
 
         public static void HandleInvincibility(StatsEntity entity)

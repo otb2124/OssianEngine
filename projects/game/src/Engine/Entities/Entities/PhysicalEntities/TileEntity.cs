@@ -68,7 +68,7 @@ namespace Entities
             TileSet = tileSet;
             this.Indicies = GenerateIndicies(layout.X, layout.Y, isGrounding);
             Model = new Resources.Model();
-            Model.Body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32 * layout.Y), 1f, 0.5f);
+            Model.Body = FlatBodyFactory.CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32 * layout.Y), 1f, 0.5f);
             IsGround = isGrounding;
             Init(pos, rot);
             DisableEntityBodyGroundingStatusOnWalls = disableEntityGrounding;
@@ -78,7 +78,7 @@ namespace Entities
         {
             TileSet = tileSet;
             this.Indicies = indiciesMap;
-            Model.Body = FlatBodyFactory.createFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * indiciesMap[0].Length, 32 * indiciesMap.Length), 1f, 0.5f);
+            Model.Body = FlatBodyFactory.CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * indiciesMap[0].Length, 32 * indiciesMap.Length), 1f, 0.5f);
             Init(pos, rot);
         }
 
