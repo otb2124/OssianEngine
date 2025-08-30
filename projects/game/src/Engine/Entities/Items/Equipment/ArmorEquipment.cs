@@ -20,6 +20,8 @@ namespace Entities
 
         public override void SetItem()
         {
+            base.SetItem();
+
             switch (ItemKey.EnumValue)
             {
                 case ItemLib.Chestplates.IRON_CHESTPLATE:
@@ -27,32 +29,36 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    PhysDef = 10;
                     EquipmentSlot = EquipmentSlotsTake.TORSO;
+
+                    BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Helmets.IRON_HELMET:
                     Name = "Iron Helmet";
                     Description = "An iron helmet";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    PhysDef = 10;
                     EquipmentSlot = EquipmentSlotsTake.HEAD;
+
+                    BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Boots.IRON_BOOTS:
                     Name = "Iron Boots";
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    PhysDef = 10;
                     EquipmentSlot = EquipmentSlotsTake.LEGS;
+
+                    BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Gloves.IRON_GLOVES:
                     Name = "Iron Gloves";
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    PhysDef = 10;
                     EquipmentSlot = EquipmentSlotsTake.HANDS;
+
+                    BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
             }
         }

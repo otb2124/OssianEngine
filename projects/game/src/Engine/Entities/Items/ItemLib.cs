@@ -11,9 +11,12 @@ namespace Entities
         public enum Weapons
         {
             BARE_HAND,
+
             TERRABLADE,
             KNIFE,
-            TORCH
+            TORCH,
+
+            FIREBALL_SPELL,
         }
 
         public enum Chestplates
@@ -96,7 +99,6 @@ namespace Entities
         {
             GOLD_COIN
         }
-
 
         public enum ItemTypes
         {

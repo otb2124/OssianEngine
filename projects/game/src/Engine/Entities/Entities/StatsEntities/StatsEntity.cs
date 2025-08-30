@@ -110,7 +110,7 @@ namespace Entities
         {
             Stats = new EntityStats();
             EntityFraction = EntityFractions.NEUTRAL;
-            BloodDropParticle = ParticleSet.ParticleSets.NONE;
+            //BloodDropParticle = ParticleSet.ParticleSets.NONE;
 
             CanRegensStamina = false;
             CanUpdateIFrames = false;

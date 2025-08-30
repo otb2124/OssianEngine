@@ -25,7 +25,6 @@ namespace Entities
 
     public class BattleBodyManager
     {
-
         public List<BattleBody> BattleBodies;
         public Hitbox BodyHitbox;
         public BattleBodyTypes BattleBodyType;

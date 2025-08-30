@@ -6,9 +6,22 @@ using Utils;
 
 namespace Entities
 {
-    public class ProjectileEntity : StatsEntity
+
+    public enum Projectiles
+    {
+        NONE,
+        FIREBALL,
+    }
+
+    public class ProjectileData
     {
 
+        
+    }
+
+    public class ProjectileEntity : StatsEntity
+    {
+        
         public enum ProjectileUpdateTypes
         {
             NONE,
@@ -27,6 +40,7 @@ namespace Entities
             RICOCHET_BOTH,
         };
 
+        public Projectiles Type;
 
         public ProjectileUpdateTypes UpdateType;
 
@@ -41,6 +55,8 @@ namespace Entities
 
         public ProjectileEntity(Vector2 pos, Vector2 bodySize, Vector2 direction) : base()
         {
+            Type = Projectiles.FIREBALL;
+
             Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_FIREBALL, FlatBodyFactory.CreateFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
             Model.BodyOffset = new Vector2(0, bodySize.Y/10f*32f);
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));

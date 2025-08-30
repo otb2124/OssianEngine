@@ -32,15 +32,16 @@ namespace Entities
 
         public EquipmentSlotsTake EquipmentSlot;
 
-        public float PhysDmg;
-        public float PhysDef;
-        public float KnockbackPower;
-        public float PoiseDmg;
-
+        public BattleItemStatsData BattleItemStatsData;
 
         public Equipment(ItemKey itemKey) : base(itemKey)
         {
+            
+        }
 
+        public override void SetItem()
+        {
+            BattleItemStatsData = new BattleItemStatsData();
         }
 
         public virtual void Draw(Model model){}

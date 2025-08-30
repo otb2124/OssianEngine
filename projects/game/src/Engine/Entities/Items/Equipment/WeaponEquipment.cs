@@ -12,8 +12,6 @@ namespace Entities
 
         public BattleBodyData WeaponBodyData;
 
-        public float StaminaCostPerHit;
-
         public WeaponEquipment(ItemKey itemKey) : base(itemKey)
         {
             
@@ -21,6 +19,8 @@ namespace Entities
 
         public override void SetItem()
         {
+            base.SetItem();
+
             WeaponBodyData = new BattleBodyData();
 
             switch (ItemKey.EnumValue)
@@ -30,12 +30,12 @@ namespace Entities
                     Description = "Bare hands";
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
-                    PhysDmg = 1;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
-                    PoiseDmg = 10;
-                    KnockbackPower = 0.1f;
 
-                    StaminaCostPerHit = 5;
+                    BattleItemStatsData.DamageSet.PhysDamage = 1f;
+                    BattleItemStatsData.PoiseDamage = 10f;
+                    BattleItemStatsData.KnockbackPower = 0.1f;
+                    BattleItemStatsData.StatsCostSet.StaminaCost = 5f;
 
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 2f;
                     WeaponBodyData.Sprite = StaticSprites.NONE;
@@ -47,12 +47,12 @@ namespace Entities
                     Description = "A terrablade";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    PhysDmg = 20;
-                    KnockbackPower = 2f;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
-                    PoiseDmg = 50;
 
-                    StaminaCostPerHit = 25;
+                    BattleItemStatsData.DamageSet.PhysDamage = 20f;
+                    BattleItemStatsData.PoiseDamage = 50f;
+                    BattleItemStatsData.KnockbackPower = 2f;
+                    BattleItemStatsData.StatsCostSet.StaminaCost = 25f;
 
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
                     WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
@@ -64,12 +64,12 @@ namespace Entities
                     Description = "Iron knife";
                     Value = 10;
                     Rarity = ItemRarity.COMMON;
-                    PhysDmg = 2.5f;
-                    KnockbackPower = 1f;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
-                    PoiseDmg = 15;
 
-                    StaminaCostPerHit = 10;
+                    BattleItemStatsData.DamageSet.PhysDamage = 20f;
+                    BattleItemStatsData.PoiseDamage = 50f;
+                    BattleItemStatsData.KnockbackPower = 2f;
+                    BattleItemStatsData.StatsCostSet.StaminaCost = 25f;
 
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 1.5f;
                     WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TERRABLADE;
@@ -81,18 +81,36 @@ namespace Entities
                     Description = "A torch";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    PhysDmg = 5;
-                    KnockbackPower = 2f;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
-                    PoiseDmg = 25;
 
-                    StaminaCostPerHit = 10;
+                    BattleItemStatsData.DamageSet.PhysDamage = 20f;
+                    BattleItemStatsData.PoiseDamage = 50f;
+                    BattleItemStatsData.KnockbackPower = 2f;
+                    BattleItemStatsData.StatsCostSet.StaminaCost = 25f;
 
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
                     WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TORCH;
                     WeaponBodyData.MoveSet = BattleMovesets.WEAPON_SWORD;
                     WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     WeaponBodyData.LightSourceData = new Graphics.LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(150f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.5f), 10f, 0f);
+                    break;
+                case ItemLib.Weapons.FIREBALL_SPELL:
+                    Name = "Fireball Spell";
+                    Description = "A fireball spell";
+                    Value = 500;
+                    Rarity = ItemRarity.COMMON;
+                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+
+                    BattleItemStatsData.DamageSet.MagicDamage = 20f;
+                    BattleItemStatsData.PoiseDamage = 50f;
+                    BattleItemStatsData.KnockbackPower = 2f;
+                    BattleItemStatsData.StatsCostSet.ManaCost = 25f;
+
+                    WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
+                    WeaponBodyData.Sprite = StaticSprites.NONE;
+                    WeaponBodyData.MoveSet = BattleMovesets.WEAPON_MAGIC;
+                    WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
+                    WeaponBodyData.ProjectileToCast = Projectiles.FIREBALL;
                     break;
             }
 

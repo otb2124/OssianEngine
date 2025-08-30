@@ -202,6 +202,21 @@ namespace Entities
                         AnimationState = AnimationStates.BLOCKING_SLIME_BODY;
                     }
                     break;
+
+                case BattleMovesets.WEAPON_MAGIC:
+
+                    AnimationData = new AnimationData(1, Vector2.Zero, Vector2.Zero, newSpeed);
+
+                    if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT;
+                    }
+                    else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
+                    {
+                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_HEAVY;
+                    }
+
+                    break;
             }
         }
 

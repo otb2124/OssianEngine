@@ -60,33 +60,33 @@ namespace Entities
                 || entA.Model.ModelState == ModelStates.BLOCKING && (entB.Model.ModelState == ModelStates.ATTACKING_LIGHT || entB.Model.ModelState == ModelStates.ATTACKING_HEAVY))
             {
 
-                (RotatedRectangle hitboxA, RotatedRectangle hitboxB, float damageA, float knockBackPowerA) = (entA, entB) switch
+                (RotatedRectangle hitboxA, RotatedRectangle hitboxB) = (entA, entB) switch
                 {
                     (EquipmentEntity eqA, EquipmentEntity eqB) => (
                         eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
-                        eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf,
-                        eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
-                        eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
+                        eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf
+                        //eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
+                        //eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                     ),
                     (NonEquipmentEntity nhA, NonEquipmentEntity nhB) => (
                         nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
-                        nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
-                        nhA.Stats.BodyDamage,
-                        nhA.Stats.BodyKnockbackPower
+                        nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf
+                        //nhA.Stats.BodyDamage,
+                        //nhA.Stats.BodyKnockbackPower
                     ),
                     (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                         nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
-                        eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf,
-                        nhA.Stats.BodyDamage,
-                        nhA.Stats.BodyKnockbackPower
+                        eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf
+                        //nhA.Stats.BodyDamage,
+                        //nhA.Stats.BodyKnockbackPower
                     ),
                     (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
                         eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,
-                        nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
-                        eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
-                        eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
+                        nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf
+                        //eqA.EquipmentManager.GetCurrentWeapon().PhysDmg,
+                        //eqA.EquipmentManager.GetCurrentWeapon().KnockbackPower
                     ),
-                    _ => (null, null, 0f, 0f)
+                    _ => (null, null)
                 };
 
 
@@ -94,7 +94,7 @@ namespace Entities
                 {
                     if (entB.Model.ModelState == ModelStates.BLOCKING)
                     {
-                        BattleHitHandler.HandleBlockHit(entB, damageA, knockBackPowerA, hitboxA.Position);
+                        BattleHitHandler.HandleBlockHit(entB, 0f, 0f, hitboxA.Position);
                     }
                 }
             }

@@ -12,7 +12,21 @@ namespace Entities
 {
     public static class BattleHitHandler
     {
+        public class BattleHitData
+        {
+            public float PhysDamageMultiplier;
+            public float PoiseDamageMultiplier;
+            public float KnockbackPowerMultiplier;
+            public float StaminaCostMultiplier;
 
+            public BattleHitData(float physDamageMult, float poiseDamageMult, float knockbackPowerMult, float staminaCostMult)
+            {
+                PhysDamageMultiplier = physDamageMult;
+                PoiseDamageMultiplier = poiseDamageMult;
+                KnockbackPowerMultiplier = knockbackPowerMult;
+                StaminaCostMultiplier = staminaCostMult;
+            }
+        }
 
         public static void HandleHit(BattleEntity toEnt, BattleEntity fromEnt, RotatedRectangle toEntHitboxExtends, RotatedRectangle fromEntHitboxExtends)
         {
@@ -20,18 +34,20 @@ namespace Entities
             {
                 if (toEnt.Stats.HP > 0)
                 {
-                    BattleDamageHandler.HandleTakingDamage(toEnt, fromEnt, toEntHitboxExtends, fromEntHitboxExtends);
+                    BattleTakingDamageHandler.HandleTakingDamage(toEnt, fromEnt, toEntHitboxExtends, fromEntHitboxExtends);
                 }
             }
 
             HandleInvincibility(toEnt);
         }
 
+
+        //TODO: HANDLE DAMAGE DATA AS HANDLEHIT()
         public static void HandleBlockHit(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)
         {
             if (!toEnt.Stats.IsInvincible)
             {
-                BattleDamageHandler.ReceiveKnockBack(toEnt, knockBackPower, fromEntPos);
+                BattleTakingDamageHandler.ReceiveKnockBack(toEnt, knockBackPower, fromEntPos);
             }
 
             HandleInvincibility(toEnt);

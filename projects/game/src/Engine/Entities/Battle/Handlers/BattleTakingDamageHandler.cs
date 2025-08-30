@@ -1,15 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utils;
 
 namespace Entities
 {
-    public static class BattleDamageHandler
+
+    public static class BattleTakingDamageHandler
     {
 
         public static void HandleTakingDamage(BattleEntity toEnt, BattleEntity fromEnt, RotatedRectangle toEntHitboxExtends, RotatedRectangle fromEntHitboxExtends)
@@ -56,6 +53,8 @@ namespace Entities
 
         public static void GenerateParticle(BattleEntity toEnt, float knockbackPower, Vector2 fromEntHitboxExtendsPos)
         {
+            Console.WriteLine(toEnt.BloodDropParticle);
+
             if (toEnt.BloodDropParticle != Graphics.ParticleSet.ParticleSets.NONE)
             {
                 Graphics.Graphics.particleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.Body.Position.ToVector2(), CalculateKnockBackForce(toEnt.Model.Body.Position, FlatConverter.ToFlatVector(fromEntHitboxExtendsPos), knockbackPower).ToVector2() / 2));

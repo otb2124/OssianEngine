@@ -1,18 +1,13 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using Utils;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-using MathHelper = Microsoft.Xna.Framework.MathHelper;
+
 
 namespace Physics
 {
     public static class ProjectilePhysicsHandler
     {
-
 
         public static Type[] HardSurfaces = new Type[]
         {

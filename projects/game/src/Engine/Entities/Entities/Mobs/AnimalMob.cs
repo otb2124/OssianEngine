@@ -1,12 +1,9 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Physics;
-using System;
 using Utils;
 using static Entities.EntityAIBehaviourManager;
 using static Entities.BattleMovesetFactory;
-using static Entities.HumanoidMob;
 
 namespace Entities
 {
@@ -25,7 +22,7 @@ namespace Entities
         {
             Type = mobType;
             SetAnimalMobData(out Models modelType);
-            Init(modelType, pos, rotation);
+            Init(modelType, pos, rotation); 
             SetStats();
             SetInventory();
             SetDropInventory();

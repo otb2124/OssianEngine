@@ -23,18 +23,20 @@ namespace Entities
         public AnimationData WeaponOutAnimationData;
         public LightSource.LightSourceData LightSourceData;
         public ModelStates ModelStateBetweenHits;
+        public Projectiles ProjectileToCast;
 
         public BattleBodyData()
         {
         }
 
-        public BattleBodyData(float weaponSwingSpeedMultiplier, StaticSprites sprite, BattleMovesets moveSet, AnimationData weaponOutAnimationData, LightSource.LightSourceData lightSourceData, ModelStates stateBetweenHits = ModelStates.WEAPON_OUT_IDLE)
+        public BattleBodyData(float weaponSwingSpeedMultiplier, StaticSprites sprite, BattleMovesets moveSet, AnimationData weaponOutAnimationData, LightSource.LightSourceData lightSourceData, ModelStates stateBetweenHits = ModelStates.WEAPON_OUT_IDLE, Projectiles projectileToCast = Projectiles.NONE)
         {
             WeaponSwingSpeedMultiplier = weaponSwingSpeedMultiplier;
             Sprite = sprite;
             MoveSet = moveSet;
             LightSourceData = lightSourceData;
             ModelStateBetweenHits = stateBetweenHits;
+            ProjectileToCast = projectileToCast;
         }
     }
 
@@ -254,17 +256,6 @@ namespace Entities
                 AManager.GetCurrent().Reset();
                 AManager.GetCurrent().Start();
 
-                Vector2 projectileDirection = currentHit.HitboxOffset.Position;
-                if (projectileDirection != Vector2.Zero)
-                {
-                    float rotation = currentHit.HitboxOffset.Rotation;
-                    projectileDirection = Vector2.Transform(projectileDirection, Matrix.CreateRotationZ(rotation));
-                    projectileDirection.Normalize();
-                }
-
-                projectileDirection = new Vector2(projectileDirection.X * (model.Direction == Directions.RIGHT ? -1 : 1), -projectileDirection.Y);
-                Entities.entityManager.AddEntity(new ProjectileEntity(model.Body.Position.ToVector2(), new Vector2(20, 5), projectileDirection));
-
                 Sounds.Sounds.SoundManager.AddSoundSource(new Sounds.SoundSource(
                     Resources.Sounds.SWING_SWORD,
                     model.Body.Position.ToVector2(),
@@ -287,6 +278,20 @@ namespace Entities
                 {
                     AttackHistory.Clear();
                     Combo.UpdateHits(AttackHistory, BattleBodyData.MoveSet);
+                }
+
+                if (BattleBodyData.ProjectileToCast != Projectiles.NONE)
+                {
+                    Vector2 projectileDirection = hit.HitboxOffset.Position;
+                    if (projectileDirection != Vector2.Zero)
+                    {
+                        float rotation = hit.HitboxOffset.Rotation;
+                        projectileDirection = Vector2.Transform(projectileDirection, Matrix.CreateRotationZ(rotation));
+                        projectileDirection.Normalize();
+                    }
+
+                    projectileDirection = new Vector2(projectileDirection.X * (model.Direction == Directions.RIGHT ? -1 : 1), -projectileDirection.Y);
+                    Entities.entityManager.AddEntity(new ProjectileEntity(model.Body.Position.ToVector2(), new Vector2(20*2, 5*2), projectileDirection));
                 }
             }
         }
