@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-
     public class DamageSet
     {
         public float PhysDamage;
@@ -51,7 +50,7 @@ namespace Entities
         public StatsCostSet() { }
     }
 
-    public class BattleItemStatsData
+    public class BattleDamageStatsData
     {
         //TODO: add static stats effects like poison damage (if poison damage > poison def = add debuf poisoned)
         public DamageSet DamageSet;
@@ -60,7 +59,7 @@ namespace Entities
         public float PoiseDamage;
         public float KnockbackPower;
 
-        public BattleItemStatsData(DamageSet damageSet, DefenseSet defenseSet, StatsCostSet staminaCostSet, float poiseDamage, float knockBackPower)
+        public BattleDamageStatsData(DamageSet damageSet, DefenseSet defenseSet, StatsCostSet staminaCostSet, float poiseDamage, float knockBackPower)
         {
             DamageSet = damageSet;
             DefenseSet = defenseSet;
@@ -69,13 +68,30 @@ namespace Entities
             KnockbackPower = knockBackPower;
         }
 
-        public BattleItemStatsData()
+        public BattleDamageStatsData()
         {
             DamageSet = new DamageSet();
             DefenseSet = new DefenseSet();
             StatsCostSet = new StatsCostSet();
             PoiseDamage = 0f;
             KnockbackPower = 0f;
+        }
+    }
+
+
+    public class BattleDamageStatsMultiplierData
+    {
+        public float PhysDamageMultiplier;
+        public float PoiseDamageMultiplier;
+        public float KnockbackPowerMultiplier;
+        public float StaminaCostMultiplier;
+
+        public BattleDamageStatsMultiplierData(float physDamageMult, float poiseDamageMult, float knockbackPowerMult, float staminaCostMult)
+        {
+            PhysDamageMultiplier = physDamageMult;
+            PoiseDamageMultiplier = poiseDamageMult;
+            KnockbackPowerMultiplier = knockbackPowerMult;
+            StaminaCostMultiplier = staminaCostMult;
         }
     }
 
@@ -89,11 +105,26 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PhysDamageMultiplier;
+                return nhA.Stats.BodyPhysDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PhysDamageMultiplier;
             }
             else if (ent is EquipmentEntity eqA)
             {
                 return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.DamageSet.PhysDamage * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).PhysDamageMultiplier;
+            }
+
+            return 0;
+        }
+
+        //TODO: REPLACE THE BATTLEHITDATA ATTRIBUTES WITH DAMAGEDATA OBJECT
+        public static float GetFinalMagicDamageForBattleEntity(BattleEntity ent)
+        {
+            if (ent is NonEquipmentEntity nhA)
+            {
+                return nhA.Stats.BodyMagicDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PhysDamageMultiplier;
+            }
+            else if (ent is EquipmentEntity eqA)
+            {
+                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.DamageSet.MagicDamage * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).PhysDamageMultiplier;
             }
 
             return 0;
@@ -137,6 +168,22 @@ namespace Entities
             else if (ent is EquipmentEntity eqA)
             {
                 return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.StatsCostSet.StaminaCost * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).StaminaCostMultiplier;
+            }
+
+            return 0;
+        }
+
+
+        //TODO: REPLACE THE BATTLEHITDATA ATTRIBUTES WITH DAMAGEDATA OBJECT
+        public static float GetFinalManaPerHitCostForBattleEntity(BattleEntity ent)
+        {
+            if (ent is NonEquipmentEntity nhA)
+            {
+                return nhA.Stats.BodyManaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StaminaCostMultiplier;
+            }
+            else if (ent is EquipmentEntity eqA)
+            {
+                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.StatsCostSet.ManaCost * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).StaminaCostMultiplier;
             }
 
             return 0;

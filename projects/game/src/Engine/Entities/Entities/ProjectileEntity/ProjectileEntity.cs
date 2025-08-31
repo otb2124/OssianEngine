@@ -13,12 +13,6 @@ namespace Entities
         FIREBALL,
     }
 
-    public class ProjectileData
-    {
-
-        
-    }
-
     public class ProjectileEntity : StatsEntity
     {
         
@@ -53,6 +47,10 @@ namespace Entities
         public bool CanRichochet = true;
         public float RicochetCooldownTimer = 0f;
 
+        public BattleDamageStatsData BattleDamageStatsData;
+
+        public int OwnerID;
+
         public ProjectileEntity(Vector2 pos, Vector2 bodySize, Vector2 direction) : base()
         {
             Type = Projectiles.FIREBALL;
@@ -65,6 +63,7 @@ namespace Entities
 
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
+            Model.OwnerId = Id;
 
             SetAnimations();
             SetSounds();
@@ -77,6 +76,12 @@ namespace Entities
             OtherProjectileSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
 
             MoveDirection = direction;
+        }
+
+        public virtual void UpdateProjectileStats(BattleDamageStatsData battleDamageStatsData, int ownerId)
+        {
+            OwnerID = ownerId;
+            BattleDamageStatsData = battleDamageStatsData;
         }
 
 
@@ -94,7 +99,7 @@ namespace Entities
             base.SetStats();
 
             CanRegensStamina = false;
-            CanUpdateIFrames = false;
+            CanUpdateIFrames = true;
             CanFall = false;
             UpdatesModelStates = false;
 
@@ -105,9 +110,12 @@ namespace Entities
             Stats.PoiseRegenSec = 3;
 
             Stats.BodyKnockbackPower = 1;
-            Stats.BodyDamage = 5;
+            Stats.BodyPhysDamage = 5;
             Stats.BodyStaminaHitCost = 25;
             Stats.BodyPoiseDamage = 20;
+
+            Stats.IsInvincible = true;
+            Stats.invincibleFramesSec = 0.5f;
 
             Stats.Refill();
         }

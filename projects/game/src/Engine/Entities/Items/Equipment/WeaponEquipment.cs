@@ -111,6 +111,7 @@ namespace Entities
                     WeaponBodyData.MoveSet = BattleMovesets.WEAPON_MAGIC;
                     WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     WeaponBodyData.ProjectileToCast = Projectiles.FIREBALL;
+                    WeaponBodyData.DisableHitBoxDamage = true;
                     break;
             }
 

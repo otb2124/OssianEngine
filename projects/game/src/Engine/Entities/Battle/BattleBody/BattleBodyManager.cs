@@ -74,7 +74,7 @@ namespace Entities
             }
         }
 
-        public void Update(Model model)
+        public void Update(Model model, EquipmentManager equipmentManager = null)
         {
             foreach (BattleBody item in BattleBodies)
             {
@@ -82,7 +82,7 @@ namespace Entities
                 {
                     if(item.BattleBodyData != null)
                     {
-                        item.Update(model);
+                        item.Update(model, equipmentManager);
                     }
                 }
             }
@@ -113,23 +113,23 @@ namespace Entities
            hand == WeaponHands.LEFT ? BattleBodies[0] : BattleBodies[1];
 
 
-        public BattleHitData GetCurrentBattleHitData()
+        public BattleDamageStatsMultiplierData GetCurrentBattleHitData()
         {
             return BattleBodies[0].Combo.GetCurrentHit().BattleHitData;
         }
 
-        public BattleHitData GetCurrentBattleHitData(EquipmentManager equipmentManager)
+        public BattleDamageStatsMultiplierData GetCurrentBattleHitData(EquipmentManager equipmentManager)
         {
             if(HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit() != null)
             {
-                BattleHitData data = HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit().BattleHitData;
+                BattleDamageStatsMultiplierData data = HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit().BattleHitData;
                 if (data != null)
                 {
                     return data;
                 }
             }
             
-            return new BattleHitData(1, 1, 1, 1);
+            return new BattleDamageStatsMultiplierData(1, 1, 1, 1);
         }
     }
 }

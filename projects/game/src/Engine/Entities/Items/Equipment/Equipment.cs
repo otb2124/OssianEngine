@@ -32,7 +32,7 @@ namespace Entities
 
         public EquipmentSlotsTake EquipmentSlot;
 
-        public BattleItemStatsData BattleItemStatsData;
+        public BattleDamageStatsData BattleItemStatsData;
 
         public Equipment(ItemKey itemKey) : base(itemKey)
         {
@@ -41,7 +41,7 @@ namespace Entities
 
         public override void SetItem()
         {
-            BattleItemStatsData = new BattleItemStatsData();
+            BattleItemStatsData = new BattleDamageStatsData();
         }
 
         public virtual void Draw(Model model){}

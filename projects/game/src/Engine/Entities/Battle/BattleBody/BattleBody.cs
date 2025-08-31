@@ -25,6 +25,8 @@ namespace Entities
         public ModelStates ModelStateBetweenHits;
         public Projectiles ProjectileToCast;
 
+        public bool DisableHitBoxDamage;
+
         public BattleBodyData()
         {
         }
@@ -37,6 +39,7 @@ namespace Entities
             LightSourceData = lightSourceData;
             ModelStateBetweenHits = stateBetweenHits;
             ProjectileToCast = projectileToCast;
+            DisableHitBoxDamage = false;
         }
     }
 
@@ -65,8 +68,9 @@ namespace Entities
         private FlatVector InitialBodyPosition;
         private FlatVector TargetBodyPosition;
 
-
         public BattleComboHit[] MoveSetComboHits;
+
+        public ProjectileEntity Projectile;
 
         public BattleBody()
         {
@@ -113,7 +117,7 @@ namespace Entities
             NoAttackHitbox = new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f);
         }
 
-        public void Update(Model model)
+        public void Update(Model model, EquipmentManager equipmentManager = null)
         {
             float deltaTime = (float)Graphics.Graphics.CurrentLogicTime/(float)Graphics.Graphics.TimeScale;
 
@@ -141,7 +145,7 @@ namespace Entities
 
                 UpdateComboSelection(currentAttack);
                 UpdateHitbox(model);
-                UpdateSwingAndCombo(model, currentAttack, deltaTime);
+                UpdateSwingAndCombo(model, currentAttack, equipmentManager, deltaTime);
                 UpdateAnimation(model);
             }
             else
@@ -223,7 +227,7 @@ namespace Entities
             
         }
 
-        private void UpdateSwingAndCombo(Model model, AttackTypes currentAttack, float deltaTime)
+        private void UpdateSwingAndCombo(Model model, AttackTypes currentAttack, EquipmentManager equipmentManager, float deltaTime)
         {
             if (!IsSwinging)
             {
@@ -291,7 +295,15 @@ namespace Entities
                     }
 
                     projectileDirection = new Vector2(projectileDirection.X * (model.Direction == Directions.RIGHT ? -1 : 1), -projectileDirection.Y);
-                    Entities.entityManager.AddEntity(new ProjectileEntity(model.Body.Position.ToVector2(), new Vector2(20*2, 5*2), projectileDirection));
+
+                    Projectile = new ProjectileEntity(model.Body.Position.ToVector2(), new Vector2(20 * 2, 5 * 2), projectileDirection);
+
+                    if (equipmentManager != null)
+                    {
+                        Projectile.UpdateProjectileStats(equipmentManager.GetCurrentWeapon().BattleItemStatsData, model.OwnerId);
+                    }
+
+                    Entities.entityManager.AddEntity(Projectile);
                 }
             }
         }

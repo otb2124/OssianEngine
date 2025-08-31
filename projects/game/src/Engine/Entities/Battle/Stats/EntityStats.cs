@@ -27,7 +27,7 @@ namespace Entities
 
         //attack
         public float staminaAttackHitCostMultiplier;
-        public bool staminaPerAttackHitSpent = false;
+        public bool statsPerAttackHitSpent = false;
 
         //lvl
         public int currentLvl = 0;
@@ -55,10 +55,13 @@ namespace Entities
         public float rollMultiplier;
         public float sprintMultiplier;
 
-        public float BodyDamage;
+        //TODO: REPLACE WITH DAMAGEDATA OBJECT
+        public float BodyPhysDamage;
+        public float BodyMagicDamage;
         public float BodyKnockbackPower;
         public float BodyPoiseDamage;
         public float BodyStaminaHitCost;
+        public float BodyManaHitCost;
 
         public float Poise;
         public float MaxPoise;
@@ -123,7 +126,7 @@ namespace Entities
 
         public void RegenStamina()
         {
-            if (staminaPerAttackHitSpent)
+            if (statsPerAttackHitSpent)
                 return;
 
             OnStaminaRegen = false;
@@ -352,10 +355,11 @@ namespace Entities
         }
 
 
-        public void SpendStaminaForBattleHit(BattleEntity ent)
+        public void SpendStatsForBattleHit(BattleEntity ent)
         {
             stamina -= BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(ent);
-            ent.Stats.staminaPerAttackHitSpent = true;
+            mana -= BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent);
+            ent.Stats.statsPerAttackHitSpent = true;
         }
 
 

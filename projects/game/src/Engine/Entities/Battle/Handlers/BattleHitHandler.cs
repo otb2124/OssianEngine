@@ -12,22 +12,7 @@ namespace Entities
 {
     public static class BattleHitHandler
     {
-        public class BattleHitData
-        {
-            public float PhysDamageMultiplier;
-            public float PoiseDamageMultiplier;
-            public float KnockbackPowerMultiplier;
-            public float StaminaCostMultiplier;
-
-            public BattleHitData(float physDamageMult, float poiseDamageMult, float knockbackPowerMult, float staminaCostMult)
-            {
-                PhysDamageMultiplier = physDamageMult;
-                PoiseDamageMultiplier = poiseDamageMult;
-                KnockbackPowerMultiplier = knockbackPowerMult;
-                StaminaCostMultiplier = staminaCostMult;
-            }
-        }
-
+        
         public static void HandleHit(BattleEntity toEnt, BattleEntity fromEnt, RotatedRectangle toEntHitboxExtends, RotatedRectangle fromEntHitboxExtends)
         {
             if (!toEnt.Stats.IsInvincible)
@@ -35,6 +20,19 @@ namespace Entities
                 if (toEnt.Stats.HP > 0)
                 {
                     BattleTakingDamageHandler.HandleTakingDamage(toEnt, fromEnt, toEntHitboxExtends, fromEntHitboxExtends);
+                }
+            }
+
+            HandleInvincibility(toEnt);
+        }
+
+        public static void HandleHit(BattleEntity toEnt, ProjectileEntity fromEnt)
+        {
+            if (!toEnt.Stats.IsInvincible)
+            {
+                if (toEnt.Stats.HP > 0)
+                {
+                    BattleTakingDamageHandler.HandleTakingDamage(toEnt, fromEnt);
                 }
             }
 

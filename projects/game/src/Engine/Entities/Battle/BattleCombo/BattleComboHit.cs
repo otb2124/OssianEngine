@@ -9,21 +9,7 @@ using static Entities.BattleMovesetFactory;
 namespace Entities
 {
 
-    public class BattleHitData
-    {
-        public float PhysDamageMultiplier;
-        public float PoiseDamageMultiplier;
-        public float KnockbackPowerMultiplier;
-        public float StaminaCostMultiplier;
-
-        public BattleHitData(float physDamageMult, float poiseDamageMult, float knockbackPowerMult, float staminaCostMult)
-        {
-            PhysDamageMultiplier = physDamageMult;
-            PoiseDamageMultiplier = poiseDamageMult;
-            KnockbackPowerMultiplier = knockbackPowerMult;
-            StaminaCostMultiplier = staminaCostMult;
-        }
-    }
+    
 
     public class BattleComboHit
     {
@@ -34,9 +20,9 @@ namespace Entities
         public AttackTypes[] AttackSequence;
         public AnimationStates AnimationState;
         public AnimationData AnimationData;
-        public BattleHitData BattleHitData;
+        public BattleDamageStatsMultiplierData BattleHitData;
 
-        public BattleComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence, BattleHitData battleHitData)
+        public BattleComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence, BattleDamageStatsMultiplierData battleHitData)
         {
             HitboxOffset = hitboxOffset;
             EntityPositionOffset = entityPositionOffset;

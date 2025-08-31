@@ -45,6 +45,15 @@ namespace Entities
 
             if (CheckIntersection(hitboxA, hitboxB) && CanDealDamage(entA.EntityFraction, entB.EntityFraction))
             {
+
+                if(entA is EquipmentEntity equipmentEntity)
+                {
+                    if(equipmentEntity.EquipmentManager.GetCurrentWeaponBody(equipmentEntity.BattleBodyManager).BattleBodyData.DisableHitBoxDamage)
+                    {
+                        return;
+                    }
+                }
+
                 if(entB.Model.ModelState != ModelStates.BLOCKING && entA.Model.ModelState != ModelStates.BLOCKING)
                 {
                     BattleHitHandler.HandleHit(entB, entA, hitboxB, hitboxA);
@@ -71,13 +80,13 @@ namespace Entities
                     (NonEquipmentEntity nhA, NonEquipmentEntity nhB) => (
                         nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                         nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf
-                        //nhA.Stats.BodyDamage,
+                        //nhA.Stats.BodyPhysDamage,
                         //nhA.Stats.BodyKnockbackPower
                     ),
                     (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                         nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                         eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf
-                        //nhA.Stats.BodyDamage,
+                        //nhA.Stats.BodyPhysDamage,
                         //nhA.Stats.BodyKnockbackPower
                     ),
                     (EquipmentEntity eqA, NonEquipmentEntity nhB) => (

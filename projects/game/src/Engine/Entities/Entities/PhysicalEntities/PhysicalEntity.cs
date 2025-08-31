@@ -62,6 +62,7 @@ namespace Entities
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
+            Model.OwnerId = Id;
             Model.Direction = initDirection;
 
             this.baseSpriteZ = this.Model.SpriteData.z;
@@ -80,6 +81,7 @@ namespace Entities
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
+            Model.OwnerId = Id;
             Model.Direction = initDirection;
 
             this.baseSpriteZ = this.Model.SpriteData.z;
@@ -98,6 +100,7 @@ namespace Entities
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
+            Model.OwnerId = Id;
 
             this.baseSpriteZ = this.Model.SpriteData.z;
             this.spriteZ = baseSpriteZ;

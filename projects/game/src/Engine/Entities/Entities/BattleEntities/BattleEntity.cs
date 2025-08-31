@@ -31,9 +31,14 @@ namespace Entities
         }
 
 
-        public override void Update()
+        public virtual void UpdateBattleBodyManager()
         {
             BattleBodyManager.Update(Model);
+        }
+
+        public override void Update()
+        {
+            UpdateBattleBodyManager();
             base.Update();
         }
 

@@ -27,6 +27,8 @@ namespace Resources
         public RotatedRectangle CeilingRectangle;
         public RotatedRectangle SidingRectangle;
 
+        public int OwnerId;
+
         public Model()
         {
         }

@@ -30,6 +30,11 @@ namespace Entities
             EquipmentManager = new EquipmentManager();
         }
 
+        public override void UpdateBattleBodyManager()
+        {
+            BattleBodyManager.Update(Model, EquipmentManager);
+        }
+
         public override void SetBattleBodies()
         {
             BattleBodyManager = new BattleBodyManager(BattleBodyTypes.WEAPON);

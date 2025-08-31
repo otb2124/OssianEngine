@@ -55,6 +55,7 @@ namespace Physics
         public bool aabbUpdateRequired;
 
 
+        //TODO: TURN INTO TYPE, NOT PHYSICALENTITY
         public Entities.PhysicalEntity Owner = null;
 
         public bool IsColliding = false;

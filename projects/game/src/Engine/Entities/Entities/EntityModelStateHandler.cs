@@ -14,7 +14,7 @@ namespace Entities {
 
             if (state == ModelStates.IDLE || state == ModelStates.WEAPON_OUT_IDLE)
             {
-                Entity.Stats.staminaPerAttackHitSpent = false;
+                Entity.Stats.statsPerAttackHitSpent = false;
             }
 
             if (state == ModelStates.MOVING || state == ModelStates.WEAPON_OUT_MOVING)
@@ -136,16 +136,16 @@ namespace Entities {
             {
                 if (state == ModelStates.ATTACKING_LIGHT || state == ModelStates.ATTACKING_HEAVY)
                 {
-                    if (!eqEnt.Stats.staminaPerAttackHitSpent)
+                    if (!eqEnt.Stats.statsPerAttackHitSpent)
                     {
-                        eqEnt.Stats.SpendStaminaForBattleHit(eqEnt);
+                        eqEnt.Stats.SpendStatsForBattleHit(eqEnt);
                     }
 
                 }
 
                 if (state == ModelStates.BLOCKING)
                 {
-                    if (!eqEnt.Stats.staminaPerAttackHitSpent)
+                    if (!eqEnt.Stats.statsPerAttackHitSpent)
                     {
 
                     }
@@ -175,7 +175,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
-                if (player.Stats.stamina - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0)
+                if (player.Stats.stamina - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0 &&
+                    player.Stats.mana - BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(player) > 0)
                 {
                     player.Model.ModelState = ModelStates.ATTACKING_LIGHT;
                 }

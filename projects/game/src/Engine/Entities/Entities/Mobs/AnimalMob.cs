@@ -71,7 +71,7 @@ namespace Entities
                     Stats.PoiseRegenSec = 3;
 
                     Stats.BodyKnockbackPower = 1;
-                    Stats.BodyDamage = 5;
+                    Stats.BodyPhysDamage = 5;
                     Stats.BodyStaminaHitCost = 25;
                     Stats.BodyPoiseDamage = 20;
 
@@ -94,7 +94,7 @@ namespace Entities
                     Stats.PoiseRegenSec = 3;
 
                     Stats.BodyKnockbackPower = 1;
-                    Stats.BodyDamage = 5;
+                    Stats.BodyPhysDamage = 5;
                     Stats.BodyStaminaHitCost = 25;
                     Stats.BodyPoiseDamage = 20;
 
