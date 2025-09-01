@@ -17,7 +17,14 @@ namespace Entities
             MagicDamage = magicDamage;
         }
 
-        public DamageSet() { }
+        public static DamageSet One;
+        public static DamageSet Zero;
+
+        static DamageSet()
+        {
+            One = new DamageSet(1, 1);
+            Zero = new DamageSet(0, 0);
+        }
     }
 
     public class DefenseSet
@@ -31,7 +38,14 @@ namespace Entities
             MagicDef = magicDef;
         }
 
-        public DefenseSet() { }
+        public static DefenseSet One;
+        public static DefenseSet Zero;
+
+        static DefenseSet()
+        {
+            One = new DefenseSet(1, 1);
+            Zero = new DefenseSet(0, 0);
+        }
     }
 
     public class StatsCostSet
@@ -47,10 +61,17 @@ namespace Entities
             ManaCost = manacost;
         }
 
-        public StatsCostSet() { }
+        public static StatsCostSet One;
+        public static StatsCostSet Zero;
+
+        static StatsCostSet()
+        {
+            One = new StatsCostSet(1, 1, 1);
+            Zero = new StatsCostSet(0, 0, 0);
+        }
     }
 
-    public class BattleDamageStatsData
+    public class BattleHitStatsData
     {
         //TODO: add static stats effects like poison damage (if poison damage > poison def = add debuf poisoned)
         public DamageSet DamageSet;
@@ -59,7 +80,7 @@ namespace Entities
         public float PoiseDamage;
         public float KnockbackPower;
 
-        public BattleDamageStatsData(DamageSet damageSet, DefenseSet defenseSet, StatsCostSet staminaCostSet, float poiseDamage, float knockBackPower)
+        public BattleHitStatsData(DamageSet damageSet, DefenseSet defenseSet, StatsCostSet staminaCostSet, float poiseDamage, float knockBackPower)
         {
             DamageSet = damageSet;
             DefenseSet = defenseSet;
@@ -68,31 +89,15 @@ namespace Entities
             KnockbackPower = knockBackPower;
         }
 
-        public BattleDamageStatsData()
+        public static BattleHitStatsData One;
+        public static BattleHitStatsData Zero;
+
+        static BattleHitStatsData()
         {
-            DamageSet = new DamageSet();
-            DefenseSet = new DefenseSet();
-            StatsCostSet = new StatsCostSet();
-            PoiseDamage = 0f;
-            KnockbackPower = 0f;
+            One = new BattleHitStatsData(DamageSet.One, DefenseSet.One, StatsCostSet.One, 1, 1);
+            Zero = new BattleHitStatsData(DamageSet.Zero, DefenseSet.Zero, StatsCostSet.Zero, 0, 0);
         }
-    }
 
-
-    public class BattleDamageStatsMultiplierData
-    {
-        public float PhysDamageMultiplier;
-        public float PoiseDamageMultiplier;
-        public float KnockbackPowerMultiplier;
-        public float StaminaCostMultiplier;
-
-        public BattleDamageStatsMultiplierData(float physDamageMult, float poiseDamageMult, float knockbackPowerMult, float staminaCostMult)
-        {
-            PhysDamageMultiplier = physDamageMult;
-            PoiseDamageMultiplier = poiseDamageMult;
-            KnockbackPowerMultiplier = knockbackPowerMult;
-            StaminaCostMultiplier = staminaCostMult;
-        }
     }
 
 
@@ -105,11 +110,11 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyPhysDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PhysDamageMultiplier;
+                return nhA.Stats.BodyPhysDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().DamageSet.PhysDamage;
             }
             else if (ent is EquipmentEntity eqA)
             {
-                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.DamageSet.PhysDamage * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).PhysDamageMultiplier;
+                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.DamageSet.PhysDamage * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).DamageSet.PhysDamage;
             }
 
             return 0;
@@ -120,11 +125,11 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyMagicDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PhysDamageMultiplier;
+                return nhA.Stats.BodyMagicDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().DamageSet.MagicDamage;
             }
             else if (ent is EquipmentEntity eqA)
             {
-                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.DamageSet.MagicDamage * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).PhysDamageMultiplier;
+                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.DamageSet.MagicDamage * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).DamageSet.MagicDamage;
             }
 
             return 0;
@@ -134,11 +139,11 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyKnockbackPower * nhA.BattleBodyManager.GetCurrentBattleHitData().KnockbackPowerMultiplier;
+                return nhA.Stats.BodyKnockbackPower * nhA.BattleBodyManager.GetCurrentBattleHitData().KnockbackPower;
             }
             else if (ent is EquipmentEntity eqA)
             {
-                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.KnockbackPower * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).KnockbackPowerMultiplier;
+                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.KnockbackPower * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).KnockbackPower;
             }
 
             return 0;
@@ -148,11 +153,11 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyPoiseDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PoiseDamageMultiplier;
+                return nhA.Stats.BodyPoiseDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PoiseDamage;
             }
             else if (ent is EquipmentEntity eqA)
             {
-                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.PoiseDamage * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).PoiseDamageMultiplier;
+                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.PoiseDamage * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).PoiseDamage;
             }
 
             return 0;
@@ -163,11 +168,11 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyStaminaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StaminaCostMultiplier;
+                return nhA.Stats.BodyStaminaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StatsCostSet.StaminaCost;
             }
             else if (ent is EquipmentEntity eqA)
             {
-                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.StatsCostSet.StaminaCost * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).StaminaCostMultiplier;
+                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.StatsCostSet.StaminaCost * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).StatsCostSet.StaminaCost;
             }
 
             return 0;
@@ -179,11 +184,11 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyManaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StaminaCostMultiplier;
+                return nhA.Stats.BodyManaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StatsCostSet.ManaCost;
             }
             else if (ent is EquipmentEntity eqA)
             {
-                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.StatsCostSet.ManaCost * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).StaminaCostMultiplier;
+                return eqA.EquipmentManager.GetCurrentWeapon().BattleItemStatsData.StatsCostSet.ManaCost * eqA.BattleBodyManager.GetCurrentBattleHitData(eqA.EquipmentManager).StatsCostSet.ManaCost;
             }
 
             return 0;

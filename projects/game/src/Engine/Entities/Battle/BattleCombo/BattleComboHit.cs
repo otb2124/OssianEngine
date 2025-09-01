@@ -20,16 +20,16 @@ namespace Entities
         public AttackTypes[] AttackSequence;
         public AnimationStates AnimationState;
         public AnimationData AnimationData;
-        public BattleDamageStatsMultiplierData BattleHitData;
+        public BattleHitStatsData BattleHitDataMult;
 
-        public BattleComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence, BattleDamageStatsMultiplierData battleHitData)
+        public BattleComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence, BattleHitStatsData battleHitDataMult)
         {
             HitboxOffset = hitboxOffset;
             EntityPositionOffset = entityPositionOffset;
             SwingTimeSec = swingTimeSec;
             HitboxAppearanceTimePeriod = hitboxAppearanceTimePeriod;
             AttackSequence = attackSequence;
-            BattleHitData = battleHitData;
+            BattleHitDataMult = battleHitDataMult;
         }
 
 

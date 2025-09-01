@@ -52,7 +52,7 @@ namespace Entities
         public bool CanRichochet = true;
         public float RicochetCooldownTimer = 0f;
 
-        public BattleDamageStatsData BattleDamageStatsData;
+        public BattleHitStatsData BattleDamageStatsData;
 
         public int OwnerID;
 
@@ -128,7 +128,7 @@ namespace Entities
             
         }
 
-        public virtual void UpdateProjectileStats(BattleDamageStatsData battleDamageStatsData, int ownerId)
+        public virtual void UpdateProjectileStats(BattleHitStatsData battleDamageStatsData, int ownerId)
         {
             OwnerID = ownerId;
             BattleDamageStatsData = battleDamageStatsData;
