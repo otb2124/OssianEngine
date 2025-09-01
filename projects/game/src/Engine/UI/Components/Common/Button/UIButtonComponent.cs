@@ -31,10 +31,14 @@ namespace UI
         public override void Update()
         {
             //
-            UI.UIButtonHandler.CheckHover(ButtonId, Position, Size);
+            //UI.UIButtonHandler.CheckHover(ButtonId, Position, Size);
 
             base.Update();
+        }
 
+        public override void DrawDebug()
+        {
+            Graphics.Graphics.shapes.DrawBoxFill(Position.X, Position.Y, Size.X, Size.Y, Color.Red);
         }
     }
 }

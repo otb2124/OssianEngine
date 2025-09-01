@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +42,17 @@ namespace UI
                 for (int i = 0; i < children.Length; i++)
                 {
                     children[i].Draw();
+                }
+            }
+        }
+
+        public override void DrawDebug()
+        {
+            if (children != null)
+            {
+                for (int i = 0; i < children.Length; i++)
+                {
+                    children[i].DrawDebug();
                 }
             }
         }

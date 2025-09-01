@@ -51,7 +51,10 @@ namespace Physics
                 {
                     if(toEnt.Model.OwnerId != ((ProjectileEntity)bodyB.Owner).OwnerID)
                     {
-                        Entities.BattleHitHandler.HandleHit((BattleEntity)bodyA.Owner, (ProjectileEntity)bodyB.Owner);
+                        if (!toEnt.Stats.IsInvincible)
+                        {
+                            Entities.BattleHitHandler.HandleHit((BattleEntity)bodyA.Owner, (ProjectileEntity)bodyB.Owner);
+                        }
                     }
                 }
                 return ResolveProjectileBehaviourWithCollider((ProjectileEntity)bodyB.Owner, bodyA.Owner);

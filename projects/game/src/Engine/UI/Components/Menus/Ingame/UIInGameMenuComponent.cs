@@ -56,5 +56,16 @@ namespace UI
                 }
             }
         }
+
+        public override void DrawDebug()
+        {
+            if (children != null)
+            {
+                for (int i = 0; i < children.Length; i++)
+                {
+                    children[i].DrawDebug();
+                }
+            }
+        }
     }
 }

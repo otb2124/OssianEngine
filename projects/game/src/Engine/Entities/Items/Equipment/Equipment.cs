@@ -41,7 +41,7 @@ namespace Entities
 
         public override void SetItem()
         {
-            BattleItemStatsData = BattleHitStatsData.Zero;
+            BattleItemStatsData = new BattleHitStatsData();
         }
 
         public virtual void Draw(Model model){}

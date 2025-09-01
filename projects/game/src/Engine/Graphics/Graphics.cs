@@ -140,9 +140,18 @@ namespace Graphics
             }
 
             sprites.Begin(camera, BlendState.NonPremultiplied, false, false);
+
+
             //ui
             UI.UI.UIManager.Draw();
             sprites.End();
+
+            if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE || GameStateManager.gameMode == GameStateManager.GameModes.HITBOX_DEBUG_MODE)
+            {
+                shapes.Begin(camera);
+                UI.UI.UIManager.DrawDebug();
+                shapes.End();
+            }
 
             screen.Unset();
             screen.Present(sprites, Color.Black, true);

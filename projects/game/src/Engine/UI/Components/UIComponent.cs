@@ -5,6 +5,7 @@ using Graphics;
 using Utils;
 using System.Diagnostics;
 using static Resources.StaticSpriteFactory;
+using System;
 
 
 namespace UI
@@ -133,6 +134,11 @@ namespace UI
                 font.Draw(text, adjPosition, 0f, adjOrigin, adjScale, color);
             }
                    
+        }
+
+        public virtual void DrawDebug()
+        {
+            
         }
     }
 }

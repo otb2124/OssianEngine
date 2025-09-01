@@ -3,11 +3,13 @@ using Microsoft.Xna.Framework;
 using Resources;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
 using static Resources.StaticSpriteFactory;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace UI
 {
@@ -58,11 +60,19 @@ namespace UI
 
         public override void Update()
         {
-            //
-            UI.UIButtonHandler.CheckHover(ButtonId, new Vector2(Position.X, Position.Y + Size.Y*3.5f), Size);
-
             base.Update();
 
+            RectangleF buttonRect = new RectangleF(new PointF(adjPosition.X - Graphics.Graphics.camera.position.X + Graphics.Graphics.screen.Width / 4f - Size.X, adjPosition.Y - Graphics.Graphics.camera.position.Y + Graphics.Graphics.screen.Height / 4f), new SizeF(Size.X, Size.Y));
+
+            Console.WriteLine("buttonRect" + buttonRect);
+
+            UI.UIButtonHandler.CheckHover(ButtonId, buttonRect);
+        }
+
+
+        public override void DrawDebug()
+        {
+            Graphics.Graphics.shapes.DrawBoxFill(adjPosition.X + Graphics.Graphics.screen.Width / 4f - Size.X, adjPosition.Y + Graphics.Graphics.screen.Height / 4f, Size.X * adjScale.X, Size.Y * adjScale.Y, Color.Red);
         }
     }
 }

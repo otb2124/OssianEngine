@@ -21,9 +21,6 @@ namespace UI
             Position = ((UITextFrameComponent)children[0]).FramePos;
 
             children[1] = new UIButtonComponent(-1, ButtonId, new Vector2(Position.X, Position.Y + Graphics.Graphics.screen.Height + ((UITextFrameComponent)children[0]).FrameSize.Y), ((UITextFrameComponent)children[0]).FrameSize);
-
-            Console.WriteLine(Position);
-            Console.WriteLine(((UIButtonComponent)children[1]).Size);
         }
 
 
@@ -45,6 +42,17 @@ namespace UI
                 for (int i = 0; i < children.Length; i++)
                 {
                     children[i].Draw();
+                }
+            }
+        }
+
+        public override void DrawDebug()
+        {
+            if (children != null)
+            {
+                for (int i = 0; i < children.Length; i++)
+                {
+                    children[i].DrawDebug();
                 }
             }
         }

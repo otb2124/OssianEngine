@@ -120,8 +120,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
 
-                    BattleItemStatsData.DamageSet.MagicDamage = 0f;
-                    BattleItemStatsData.PoiseDamage = 50f;
+                    BattleItemStatsData.DamageSet.PhysDamage = 5f;
+                    BattleItemStatsData.PoiseDamage = 10f;
                     BattleItemStatsData.KnockbackPower = 1f;
                     BattleItemStatsData.StatsCostSet.ManaCost = 0f;
                     BattleItemStatsData.StatsCostSet.StaminaCost = 15f;

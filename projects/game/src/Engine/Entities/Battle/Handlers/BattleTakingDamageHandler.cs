@@ -24,6 +24,8 @@ namespace Entities
 
         public static void HandleTakingDamage(BattleEntity toEnt, ProjectileEntity fromEnt)
         {
+            Console.WriteLine(fromEnt.BattleDamageStatsData.DamageSet.PhysDamage);
+
             ReceivePhysDamage(toEnt, fromEnt.BattleDamageStatsData.DamageSet.PhysDamage);
             ReceiveMagicDamage(toEnt, fromEnt.BattleDamageStatsData.DamageSet.MagicDamage);
             ReceivePoiseDamage(toEnt, fromEnt.BattleDamageStatsData.PoiseDamage);

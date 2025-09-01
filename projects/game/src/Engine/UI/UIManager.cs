@@ -188,5 +188,13 @@ namespace UI
                 cursor.Draw();
             }
         }
+
+        public void DrawDebug()
+        {
+            for (int i = 0; i < components.Count; i++)
+            {
+                components[i].DrawDebug();
+            }
+        }
     }
 }

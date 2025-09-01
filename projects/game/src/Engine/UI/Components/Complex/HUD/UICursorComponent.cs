@@ -2,6 +2,8 @@
 using Resources;
 using Utils;
 using Graphics;
+using System.Drawing;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace UI
 {
@@ -37,6 +39,11 @@ namespace UI
         public override void Draw()
         {
             base.Draw();
+        }
+
+        public override void DrawDebug()
+        {
+            Graphics.Graphics.shapes.DrawBoxFill(adjPosition.X, adjPosition.Y, 32 * adjScale.X, 32 * adjScale.Y, Color.Red);
         }
     }
 }

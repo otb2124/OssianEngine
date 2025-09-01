@@ -16,22 +16,22 @@ namespace UI
         public UIButtonHandler() { }
 
 
-        public void CheckHover(int id, Vector2 position, Vector2 size)
+        public void CheckHover(int id, RectangleF buttonRect)
         {
+            
+            PointF mousePos = new PointF(Inputs.Inputs.mouse.GetMouseScreenPosition().X, Inputs.Inputs.mouse.GetMouseScreenPosition().Y);
 
-            float yOffset = Graphics.Graphics.screen.Height / 2;
+            Console.WriteLine("mousePos: " + mousePos);
 
-            RectangleF buttonRect = new RectangleF(new PointF(position.X, position.Y - yOffset), new SizeF(size.X, size.Y));
-
-            if (buttonRect.Contains(new PointF(Inputs.Inputs.mouse.GetMouseScreenPosition().X, Inputs.Inputs.mouse.GetMouseScreenPosition().Y)))
+            if (buttonRect.Contains(mousePos))
             {
                 HandleHover(id);
-                CheckClick(id, position, size);
+                CheckClick(id);
             }
             
         }
 
-        public void CheckClick(int id, Vector2 position, Vector2 size)
+        public void CheckClick(int id)
         {
             if(Inputs.Inputs.mouse.IsLeftMouseButtonPressed())
             {
