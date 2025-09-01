@@ -42,7 +42,6 @@ namespace Entities
                 _ => (null, null)
             };
 
-
             if (CheckIntersection(hitboxA, hitboxB) && CanDealDamage(entA.EntityFraction, entB.EntityFraction))
             {
 

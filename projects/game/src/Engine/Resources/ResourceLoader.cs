@@ -63,7 +63,7 @@ namespace Resources
                 SpriteSheets.ENTITIES_BANDIT,
                 SpriteSheets.ENTITIES_SLIME, SpriteSheets.ENTITIES_BAT,
 
-                SpriteSheets.ENITIES_FIREBALL,
+                SpriteSheets.ENITIES_FIREBALL, SpriteSheets.ENITIES_ARROW,
 
                 //physicalentities
                 SpriteSheets.ENTITIES_STATIC,

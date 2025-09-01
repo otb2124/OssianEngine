@@ -12,6 +12,7 @@ namespace Entities
         public enum BattleMovesets
         {
             WEAPON_MAGIC,
+            WEAPON_BOW,
 
             WEAPON_SWORD,
             WEAPON_KNIFE,
@@ -265,6 +266,27 @@ namespace Entities
                                 // Y
                                 new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 30), 1.6f), Vector2.Zero, 5f, new Vector2(0, 3f),
+                                    new AttackTypes[] { AttackTypes.HEAVY },
+                                    new BattleDamageStatsMultiplierData(1, 1, 1, 1)
+                                ),
+                            }
+                        )
+                    },
+                    {
+                        BattleMovesets.WEAPON_BOW,
+                        new BattleMoveset
+                        (
+                            new[]
+                            {
+                                // X
+                                new BattleComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 30), 1.6f), Vector2.Zero, 1f, new Vector2(0, 1f),
+                                    new AttackTypes[] { AttackTypes.LIGHT },
+                                    new BattleDamageStatsMultiplierData(1, 1, 1, 1)
+                                ),
+                                // Y
+                                new BattleComboHit(
+                                    new Utils.RotatedRectangle(new Vector2(0, 10), new Vector2(10, 30), 1.6f), Vector2.Zero, 2f, new Vector2(0, 2f),
                                     new AttackTypes[] { AttackTypes.HEAVY },
                                     new BattleDamageStatsMultiplierData(1, 1, 1, 1)
                                 ),

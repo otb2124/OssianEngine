@@ -84,6 +84,8 @@ namespace Resources
 
                 case SpriteSheets.ENITIES_FIREBALL:
                     return "entities/dynamic/fireball";
+                case SpriteSheets.ENITIES_ARROW:
+                    return "entities/dynamic/arrow";
 
                 case SpriteSheets.ENTITIES_STATIC:
                     return "entities/static/static";

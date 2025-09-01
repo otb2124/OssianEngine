@@ -17,6 +17,8 @@ namespace Entities
             TORCH,
 
             FIREBALL_SPELL,
+
+            BOW
         }
 
         public enum Chestplates

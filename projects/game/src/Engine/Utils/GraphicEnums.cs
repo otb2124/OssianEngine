@@ -44,7 +44,7 @@ namespace Utils
         ENTITIES_BANDIT,
         ENTITIES_SLIME, ENTITIES_BAT,
 
-        ENITIES_FIREBALL,
+        ENITIES_FIREBALL, ENITIES_ARROW,
 
         //physicalentities
         ENTITIES_STATIC,
@@ -104,7 +104,7 @@ namespace Utils
         ENTITIES_BANDIT,
         ENTITIES_SLIME, ENTITIES_BAT,
 
-        ENTITIES_FIREBALL,
+        ENTITIES_FIREBALL, ENTITIES_ARROW,
 
         //physicalentities
         ENTITIES_STATIC_BALL,

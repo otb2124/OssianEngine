@@ -60,7 +60,7 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.FIREBALL_SPELL)));
+            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.BOW)));
 
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Chestplates.IRON_CHESTPLATE));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Helmets.IRON_HELMET));

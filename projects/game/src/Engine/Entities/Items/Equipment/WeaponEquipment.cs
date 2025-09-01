@@ -113,6 +113,26 @@ namespace Entities
                     WeaponBodyData.ProjectileToCast = Projectiles.FIREBALL;
                     WeaponBodyData.DisableHitBoxDamage = true;
                     break;
+                case ItemLib.Weapons.BOW:
+                    Name = "Bow";
+                    Description = "A bow";
+                    Value = 500;
+                    Rarity = ItemRarity.COMMON;
+                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+
+                    BattleItemStatsData.DamageSet.MagicDamage = 0f;
+                    BattleItemStatsData.PoiseDamage = 50f;
+                    BattleItemStatsData.KnockbackPower = 1f;
+                    BattleItemStatsData.StatsCostSet.ManaCost = 0f;
+                    BattleItemStatsData.StatsCostSet.StaminaCost = 15f;
+
+                    WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
+                    WeaponBodyData.Sprite = StaticSprites.NONE;
+                    WeaponBodyData.MoveSet = BattleMovesets.WEAPON_BOW;
+                    WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
+                    WeaponBodyData.ProjectileToCast = Projectiles.ARROW;
+                    WeaponBodyData.DisableHitBoxDamage = true;
+                    break;
             }
 
             WeaponBodyData.ModelStateBetweenHits = ModelStates.WEAPON_OUT_IDLE;

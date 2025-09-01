@@ -11,11 +11,15 @@ namespace Entities
     {
         NONE,
         FIREBALL,
+        ARROW,
     }
 
     public class ProjectileEntity : StatsEntity
     {
-        
+
+
+        //add EXPLOSION TIMER
+        //low priority GRAVITY (for arrow)
         public enum ProjectileUpdateTypes
         {
             NONE,
@@ -24,6 +28,7 @@ namespace Entities
             TIMER,
         };
 
+        //add EXPLOSION
         public enum ProjectileCollisionBehaviour
         {
             NONE,
@@ -51,31 +56,76 @@ namespace Entities
 
         public int OwnerID;
 
-        public ProjectileEntity(Vector2 pos, Vector2 bodySize, Vector2 direction) : base()
+        public ProjectileEntity(Vector2 pos, Projectiles projectileType, Vector2 direction) : base()
         {
-            Type = Projectiles.FIREBALL;
-
-            Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_FIREBALL, FlatBodyFactory.CreateFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
-            Model.BodyOffset = new Vector2(0, bodySize.Y/10f*32f);
-            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
-            Model.Body.RotateTo(0f);
-            Model.UpdatesSurroundingRectangles = false;
-
-            Physics.Physics.flatWorld.AddBody(Model.Body);
-            Model.Body.Owner = this;
-            Model.OwnerId = Id;
-
-            SetAnimations();
-            SetSounds();
-            SetStats();
-
-            UpdateType = ProjectileUpdateTypes.MOVE_TIMER;
-
-            HardSurfaceBehaviour = ProjectileCollisionBehaviour.RICOCHET_VERTICALLY;
-            SoftSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
-            OtherProjectileSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
-
+            Type = projectileType;
             MoveDirection = direction;
+
+            SetProjectile(pos);
+        }
+
+
+        public void SetProjectile(Vector2 pos)
+        {
+            Vector2 bodySize;
+
+            switch (Type)
+            {
+                case Projectiles.FIREBALL:
+
+                    bodySize = new Vector2(20 * 2, 5 * 2);
+
+                    Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_FIREBALL, FlatBodyFactory.CreateFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
+                    Model.BodyOffset = new Vector2(0, bodySize.Y / 10f * 32f);
+                    Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+                    Model.Body.RotateTo(0f);
+                    Model.UpdatesSurroundingRectangles = false;
+
+                    Physics.Physics.flatWorld.AddBody(Model.Body);
+                    Model.Body.Owner = this;
+                    Model.OwnerId = Id;
+
+                    SetAnimations();
+                    SetSounds();
+                    SetStats();
+
+                    UpdateType = ProjectileUpdateTypes.MOVE_TIMER;
+
+                    HardSurfaceBehaviour = ProjectileCollisionBehaviour.RICOCHET_VERTICALLY;
+                    SoftSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
+                    OtherProjectileSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
+
+                    break;
+                case Projectiles.ARROW:
+
+                    bodySize = new Vector2(20 * 0.75f, 5 * 0.75f);
+
+                    Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_ARROW, FlatBodyFactory.CreateFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
+                    Model.BodyOffset = new Vector2(0, bodySize.Y / 10f * 32f);
+                    Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+                    Model.Body.RotateTo(0f);
+                    Model.UpdatesSurroundingRectangles = false;
+
+                    Physics.Physics.flatWorld.AddBody(Model.Body);
+                    Model.Body.Owner = this;
+                    Model.OwnerId = Id;
+
+                    SetAnimations();
+                    SetSounds();
+                    SetStats();
+
+                    UpdateType = ProjectileUpdateTypes.MOVE_TIMER;
+
+                    HardSurfaceBehaviour = ProjectileCollisionBehaviour.RICOCHET_VERTICALLY;
+                    SoftSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
+                    OtherProjectileSurfaceBehaviour = ProjectileCollisionBehaviour.SKIP;
+
+                    break;
+                case Projectiles.NONE:
+                    break;
+            }
+
+            
         }
 
         public virtual void UpdateProjectileStats(BattleDamageStatsData battleDamageStatsData, int ownerId)

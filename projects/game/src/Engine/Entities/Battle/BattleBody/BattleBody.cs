@@ -296,7 +296,7 @@ namespace Entities
 
                     projectileDirection = new Vector2(projectileDirection.X * (model.Direction == Directions.RIGHT ? -1 : 1), -projectileDirection.Y);
 
-                    Projectile = new ProjectileEntity(model.Body.Position.ToVector2(), new Vector2(20 * 2, 5 * 2), projectileDirection);
+                    Projectile = new ProjectileEntity(model.Body.Position.ToVector2(), BattleBodyData.ProjectileToCast, projectileDirection);
 
                     if (equipmentManager != null)
                     {
