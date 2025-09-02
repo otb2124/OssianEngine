@@ -31,15 +31,18 @@ namespace UI
         {
             if(Inputs.Inputs.mouse.IsLeftMouseButtonPressed())
             {
+                UI.UIManager.PreventButtonPressedOverlap = true;
                 HandleClick(id);
+            }
+            else
+            {
+                UI.UIManager.PreventButtonPressedOverlap = false;
             }
         }
 
         public void HandleHover(int id)
         {
-
-            Debug.WriteLine("Button with Id " + id + " on hover");
-
+            Console.WriteLine("Button with Id " + id + " on hover");
 
             switch (id)
             {
@@ -51,7 +54,6 @@ namespace UI
                 case 5:
                     break;
                 default:
-                    Debug.WriteLine("Button with Id " + "empty" + " on hover");
                     break;
             }
         }
@@ -59,7 +61,7 @@ namespace UI
 
         public void HandleClick(int id)
         {
-            Debug.WriteLine("Button with Id " + id + " was hit");
+            Console.WriteLine("Button with Id " + id + " was hit");
 
             switch (id)
             {
@@ -72,7 +74,6 @@ namespace UI
                     UI.UINavigator.HandleDynamicButtonNavigation(id);
                     break;
                 default:
-                    Debug.WriteLine("Button with Id " + "empty" + " was hit");
                     break;
             }
         }

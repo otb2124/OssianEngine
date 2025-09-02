@@ -166,7 +166,7 @@ namespace Entities {
             }
 
             // ATTACK
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKLIGHTPRESSED] 
+            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKLIGHTPRESSED] && !UI.UI.UIManager.PreventButtonPressedOverlap
                 && !KeyHandlerUtil.isPlayerMoving() 
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING 
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
@@ -181,7 +181,7 @@ namespace Entities {
                     player.Model.ModelState = ModelStates.ATTACKING_LIGHT;
                 }
             }
-            else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKHEAVYPRESSED]
+            else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.ATTACKHEAVYPRESSED] && !UI.UI.UIManager.PreventButtonPressedOverlap
                 && !KeyHandlerUtil.isPlayerMoving()
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING

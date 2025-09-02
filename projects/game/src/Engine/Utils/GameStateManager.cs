@@ -24,7 +24,7 @@ namespace Utils
             HITBOX_DEBUG_MODE
         }
 
-        public static GameStates gameState;
+        public static GameStates CurrentGameState;
         public static GameModes gameMode;
 
         public static bool exitRequested;
@@ -34,7 +34,7 @@ namespace Utils
 
         public static void SetDefault()
         {
-            gameState = GameStates.PLAY_STATE;
+            CurrentGameState = GameStates.PLAY_STATE;
             gameMode = GameModes.PLAY_MODE;
             IsDevMode = true;
             IsGod = false;

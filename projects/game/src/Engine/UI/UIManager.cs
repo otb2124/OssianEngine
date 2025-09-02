@@ -16,6 +16,8 @@ namespace UI
         public List<UIComponent> components;
         private static int nextId = 10;
 
+        public bool PreventButtonPressedOverlap = false;
+
         public UIManager()
         {
             Instance = this;
