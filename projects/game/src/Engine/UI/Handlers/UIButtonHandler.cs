@@ -18,17 +18,13 @@ namespace UI
 
         public void CheckHover(int id, RectangleF buttonRect)
         {
-            
-            PointF mousePos = new PointF(Inputs.Inputs.mouse.GetMouseScreenPosition().X, Inputs.Inputs.mouse.GetMouseScreenPosition().Y);
-
-            Console.WriteLine("mousePos: " + mousePos);
+            PointF mousePos = new PointF(Inputs.Inputs.mouse.GetMouseWorldPosition().X, Inputs.Inputs.mouse.GetMouseWorldPosition().Y);
 
             if (buttonRect.Contains(mousePos))
             {
                 HandleHover(id);
                 CheckClick(id);
             }
-            
         }
 
         public void CheckClick(int id)
