@@ -141,54 +141,76 @@ namespace UI
                                 Item draggedItem = fromSlot.Item;
 
 
-                                if (IsRightDrag && fromSlot.Item != null && fromSlot.Item.Stackable)
+                                if(fromSlot.Item != null)
                                 {
-                                    if (toSlot.Item != null && toSlot.Item.Stackable)
+                                    if (IsRightDrag)
                                     {
-                                        if(toSlot.Item.ItemKey == draggedItem.ItemKey)
+                                        if (fromSlot.Item.Stackable)
                                         {
-                                            toSlot.Item.Count += 1;
-                                            fromSlot.Item.Count -= 1;
-                                            Inventory.Items[ToSlotId] = toSlot.Item;
-                                            Inventory.Items[FromSlotId] = fromSlot.Item;
+                                            if (toSlot.Item != null && toSlot.Item.Stackable)
+                                            {
+                                                if (toSlot.Item.ItemKey == draggedItem.ItemKey)
+                                                {
+                                                    toSlot.Item.Count += 1;
+                                                    fromSlot.Item.Count -= 1;
+                                                    Inventory.Items[ToSlotId] = toSlot.Item;
+                                                    Inventory.Items[FromSlotId] = fromSlot.Item;
+                                                }
+                                                else
+                                                {
+                                                    SwapItems(toSlot, fromSlot, draggedItem);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (fromSlot.Item.Count > 1)
+                                                {
+                                                    draggedItem = new Item(fromSlot.Item.ItemKey) { Count = 1, Stackable = fromSlot.Item.Stackable, Type = fromSlot.Item.Type };
+                                                    fromSlot.Item.Count -= 1;
+                                                    fromSlot.SetItem(fromSlot.Item);
+                                                    Inventory.Items[FromSlotId] = fromSlot.Item;
+                                                    Inventory.Items[ToSlotId] = draggedItem;
+                                                }
+                                                else
+                                                {
+                                                    Inventory.Items[ToSlotId] = fromSlot.Item;
+                                                    Inventory.Items[FromSlotId] = null;
+                                                }
+                                            }
                                         }
                                         else
                                         {
-                                            Item tempItem = toSlot.Item;
-                                            toSlot.SetItem(draggedItem);
-                                            fromSlot.SetItem(tempItem);
-                                            Inventory.Items[ToSlotId] = toSlot.Item;
-                                            Inventory.Items[FromSlotId] = tempItem;
+                                            SwapItems(toSlot, fromSlot, draggedItem);
                                         }
                                     }
+                                    //left drag
                                     else
                                     {
-                                        if (fromSlot.Item.Count > 1)
+                                        if (fromSlot.Item.Stackable)
                                         {
-                                            draggedItem = new Item(fromSlot.Item.ItemKey) { Count = 1, Stackable = fromSlot.Item.Stackable, Type = fromSlot.Item.Type };
-                                            fromSlot.Item.Count -= 1;
-                                            fromSlot.SetItem(fromSlot.Item);
-                                            Inventory.Items[FromSlotId] = fromSlot.Item;
-                                            Inventory.Items[ToSlotId] = draggedItem;
+                                            if (toSlot.Item != null && toSlot.Item.Stackable)
+                                            {
+                                                if (toSlot.Item.ItemKey == draggedItem.ItemKey)
+                                                {
+                                                    toSlot.Item.Count += fromSlot.Item.Count;
+                                                    Inventory.Items[ToSlotId] = toSlot.Item;
+                                                    Inventory.Items[FromSlotId] = null;
+                                                }
+                                                else
+                                                {
+                                                    SwapItems(toSlot, fromSlot, draggedItem);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                SwapItems(toSlot, fromSlot, draggedItem);
+                                            }
                                         }
                                         else
                                         {
-                                            Inventory.Items[ToSlotId] = fromSlot.Item;
-                                            Inventory.Items[FromSlotId] = null;
+                                            SwapItems(toSlot, fromSlot, draggedItem);
                                         }
                                     }
-                                }
-
-                               
-
-
-                                if(!IsRightDrag)
-                                {
-                                    Item tempItem = toSlot.Item;
-                                    toSlot.SetItem(draggedItem);
-                                    fromSlot.SetItem(tempItem);
-                                    Inventory.Items[ToSlotId] = toSlot.Item;
-                                    Inventory.Items[FromSlotId] = tempItem;
                                 }
                                 
                                 
@@ -204,6 +226,15 @@ namespace UI
                 ToSlotId = -1;
                 IsRightDrag = false;
             }
+        }
+
+        public void SwapItems(UIInventorySlotComponent toSlot, UIInventorySlotComponent fromSlot, Item draggedItem)
+        {
+            Item tempItem = toSlot.Item;
+            toSlot.SetItem(draggedItem);
+            fromSlot.SetItem(tempItem);
+            Inventory.Items[ToSlotId] = toSlot.Item;
+            Inventory.Items[FromSlotId] = tempItem;
         }
 
 
