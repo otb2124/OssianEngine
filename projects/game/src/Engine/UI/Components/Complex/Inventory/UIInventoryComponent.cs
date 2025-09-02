@@ -19,52 +19,8 @@ namespace UI
 
             type = UIComponentTypes.INVENTORY;
 
-
-            Vector2 inGameMenuSize = new Vector2(80, (64 + 12) * 6);
-            Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.screen.Height - inGameMenuSize.Y - 10);
-
-            Vector2 frameSize = new Vector2((inGameMenuSize.X + 10 + 10 + 10 + 10 + 10)*3, Graphics.Graphics.screen.Height - (10 + 10));
-            Vector2 framePos = new Vector2(inGameMenuPos.X + inGameMenuSize.X + 10, Graphics.Graphics.screen.Height - frameSize.Y - 10);
-
-            Inventory inventory = ent.Inventory;
-
-            children = new UIComponent[0];
-            
-
-            if (inventory.SlotsAmount > 0 )
-            {
-                children = new UIComponent[inventory.SlotsAmount + 1];
-                children[0] = new UIFrameComponent(-1, framePos, frameSize);
-
-                SetInventory(inventory);
-            }
-        }
-
-        public void SetInventory(Inventory inventory)
-        {
-            int slotsCount = inventory.SlotsAmount;
-            int slotsInRow = 7;
-            int rowsCount = (int)Math.Ceiling((float)slotsCount / slotsInRow);
-
-            for (int row = 0; row < rowsCount; row++)
-            {
-                for (int col = 0; col < slotsInRow && (row * slotsInRow + col) < slotsCount; col++)
-                {
-                    int index = row * slotsInRow + col + 1;
-                    children[index] = new UIInventorySlotComponent(
-                        -1,
-                        new Vector2(
-                            Position.X + (((64 * 0.75f) + 4) * col),
-                            Position.Y - (((64 * 0.75f) + 4) * row)
-                        )
-                    );
-
-                    if (index < inventory.Items.Count)
-                    {
-                        ((UIInventorySlotComponent)children[index]).SetItem(inventory.Items[index]);
-                    }
-                }
-            }
+            children = new UIComponent[2];
+            children[0] = new UIInventorySlotBoardComponent(id, pos, ent);
         }
 
         public override void Update()
@@ -73,7 +29,10 @@ namespace UI
             {
                 for (int i = 0; i < children.Length; i++)
                 {
-                    children[i].Update();
+                    if(children[i] != null)
+                    {
+                        children[i].Update();
+                    }
                 }
             }
         }
@@ -84,7 +43,10 @@ namespace UI
             {
                 for (int i = 0; i < children.Length; i++)
                 {
-                    children[i].Draw();
+                    if (children[i] != null)
+                    {
+                        children[i].Draw();
+                    }
                 }
             }
         }

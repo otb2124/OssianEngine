@@ -217,6 +217,11 @@ namespace Resources
 
         public static SpriteData GetItemUISprite(Item item)
         {
+            if(item == null)
+            {
+                return StaticSpriteFactory.spriteMappings[StaticSprites.NONE];
+            }
+
             return GetItemUISpriteByItemKey(item.ItemKey);
         }
 

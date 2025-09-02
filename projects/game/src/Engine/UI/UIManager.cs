@@ -78,24 +78,29 @@ namespace UI
 
         private bool RemoveComponentRecursive(UIComponent component, UIComponent.UIComponentTypes type, int id, List<UIComponent> parentList, int indexInParent)
         {
-            if (component.children != null)
+            if(component != null)
             {
-                List<UIComponent> childrenList = component.children.ToList();
-                for (int j = childrenList.Count - 1; j >= 0; j--)
+                if (component.children != null)
                 {
-                    if (RemoveComponentRecursive(childrenList[j], type, id, childrenList, j))
+                    List<UIComponent> childrenList = component.children.ToList();
+                    for (int j = childrenList.Count - 1; j >= 0; j--)
                     {
-                        component.children = childrenList.ToArray();
-                        return true;
+                        if (RemoveComponentRecursive(childrenList[j], type, id, childrenList, j))
+                        {
+                            component.children = childrenList.ToArray();
+                            return true;
+                        }
                     }
+                }
+
+                if (component.type == type && component.Id == id)
+                {
+                    parentList.RemoveAt(indexInParent);
+                    return true;
                 }
             }
 
-            if (component.type == type && component.Id == id)
-            {
-                parentList.RemoveAt(indexInParent);
-                return true;
-            }
+            
 
             return false;
         }

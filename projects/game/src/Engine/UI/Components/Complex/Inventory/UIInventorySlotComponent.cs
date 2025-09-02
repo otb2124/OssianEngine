@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using static Resources.StaticSpriteFactory;
 using Utils;
+using System.Drawing;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace UI
 {
@@ -15,6 +17,7 @@ namespace UI
     {
 
         public Item Item;
+        public bool IsDragging;
 
         public UIInventorySlotComponent(int id, Vector2 pos) : base(id)
         {
@@ -29,15 +32,27 @@ namespace UI
             children[0] = new UIButtonIconComponent(-1, 15, Position, emptySlot, new Vector2(0.75f, 0.75f));
             children[1] = new UIIconComponent(-1, spriteData, Position, new Vector2(0.5f, 0.5f));
             children[2] = new UITextStringComponent(-1, Position, "", 0, Vector2.One);
+
+            IsDragging = false;
         }
 
         public void SetItem(Item item)
         {
             Item = item;
-            children[1] = new UIIconComponent(-1, StaticSpriteFactory.GetItemUISprite(Item), new Vector2(Position.X, Position.Y), new Vector2(0.75f, 0.75f));
-            if(Item.Count > 1)
+
+            if(Item != null)
             {
-                children[2] = new UITextStringComponent(-1, Position, Item.Count + "", 0, Vector2.One);
+                children[1] = new UIIconComponent(-1, GetItemUISprite(Item), new Vector2(Position.X, Position.Y), new Vector2(0.75f, 0.75f));
+
+                if (Item.Count > 1)
+                {
+                    children[2] = new UITextStringComponent(-1, Position, Item.Count + "", 0, Vector2.One);
+                }
+            }
+            else
+            {
+                children[1] = null;
+                children[2] = null;
             }
         }
 
@@ -51,8 +66,17 @@ namespace UI
                     {
                         children[i].Update();
                     }
-                    
                 }
+            }
+
+            //check for drag start
+            if (Item != null && children[0] is UIButtonIconComponent button)
+            {
+                IsDragging = Inputs.Inputs.mouse.IsLeftMouseButtonDown() && button.IsOnHover;
+            }
+            else
+            {
+                IsDragging = false;
             }
         }
 

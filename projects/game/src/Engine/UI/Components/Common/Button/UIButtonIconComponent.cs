@@ -20,6 +20,9 @@ namespace UI
         public Vector2 Size;
         public int ButtonId;
 
+        public bool IsOnHover;
+        public bool IsOnClick;
+
         public UIButtonIconComponent(int id, int buttonid, Vector2 position, StaticSprites sprite, Vector2 scale) : base(id)
         {
             type = UIComponentTypes.BUTTON_ICON;
@@ -62,9 +65,19 @@ namespace UI
         {
             base.Update();
 
+            
             RectangleF buttonRect = new RectangleF(new PointF(adjPosition.X, adjPosition.Y), new SizeF(Size.X * adjScale.X, Size.Y * adjScale.Y));
+            IsOnHover = UI.UIButtonHandler.CheckHover(buttonRect);
+            IsOnClick = UI.UIButtonHandler.CheckClick(buttonRect);
 
-            UI.UIButtonHandler.CheckHover(ButtonId, buttonRect);
+            if(IsOnHover)
+            {
+                UI.UIButtonHandler.HandleHover(ButtonId);
+            }
+            if(IsOnClick)
+            {
+                UI.UIButtonHandler.HandleClick(ButtonId);
+            }
         }
 
 

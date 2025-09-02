@@ -16,33 +16,39 @@ namespace UI
         public UIButtonHandler() { }
 
 
-        public void CheckHover(int id, RectangleF buttonRect)
+        public bool CheckHover(RectangleF buttonRect)
         {
             PointF mousePos = new PointF(Inputs.Inputs.mouse.GetMouseWorldPosition().X, Inputs.Inputs.mouse.GetMouseWorldPosition().Y);
 
             if (buttonRect.Contains(mousePos))
             {
-                HandleHover(id);
-                CheckClick(id);
+                return true;
             }
+
+            return false;
         }
 
-        public void CheckClick(int id)
+        public bool CheckClick(RectangleF buttonRect)
         {
-            if(Inputs.Inputs.mouse.IsLeftMouseButtonPressed())
+            if(CheckHover(buttonRect))
             {
-                UI.UIManager.PreventButtonPressedOverlap = true;
-                HandleClick(id);
+                if (Inputs.Inputs.mouse.IsLeftMouseButtonPressed())
+                {
+                    UI.UIManager.PreventButtonPressedOverlap = true;
+                    return true;
+                }
+                else
+                {
+                    UI.UIManager.PreventButtonPressedOverlap = false;
+                    return false;
+                }
             }
-            else
-            {
-                UI.UIManager.PreventButtonPressedOverlap = false;
-            }
+
+            return false;
         }
 
         public void HandleHover(int id)
         {
-            Console.WriteLine("Button with Id " + id + " on hover");
 
             switch (id)
             {
@@ -61,7 +67,6 @@ namespace UI
 
         public void HandleClick(int id)
         {
-            Console.WriteLine("Button with Id " + id + " was hit");
 
             switch (id)
             {
