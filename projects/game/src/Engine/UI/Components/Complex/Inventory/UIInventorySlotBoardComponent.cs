@@ -80,14 +80,12 @@ namespace UI
                 }
             }
 
-            // Check for dragging slot
             if (CurrentDraggingSlot == null)
             {
                 foreach (var child in children)
                 {
                     if (child is UIInventorySlotComponent slot && slot.IsDragging)
                     {
-                        Console.WriteLine("dragging");
                         CurrentDraggingSlot = slot;
                         DraggedItem = slot.Item;
                         break;
@@ -95,13 +93,10 @@ namespace UI
                 }
             }
 
-            // Check for drop
             if (CurrentDraggingSlot != null && !Inputs.Inputs.mouse.IsLeftMouseButtonDown())
             {
                 PointF mousePos = new PointF(Inputs.Inputs.mouse.GetMouseWorldPosition().X, Inputs.Inputs.mouse.GetMouseWorldPosition().Y);
                 float screenHeight = Graphics.Graphics.screen.Height;
-
-                Console.WriteLine("dropped");
 
                 foreach (var child in children)
                 {
@@ -109,30 +104,22 @@ namespace UI
                     {
                         if (slot.children[0] is UIButtonIconComponent button && button.IsOnHover)
                         {
-                            // Swap items
                             Item tempItem = slot.Item;
                             slot.SetItem(DraggedItem);
                             CurrentDraggingSlot.SetItem(tempItem);
 
-                            // Update inventory
                             int draggedChildIndex = Array.IndexOf(children, CurrentDraggingSlot);
                             int targetChildIndex = Array.IndexOf(children, slot);
                             if (draggedChildIndex > 0 && targetChildIndex > 0)
                             {
                                 int draggedSlotIndex = draggedChildIndex - 1;
                                 int targetSlotIndex = targetChildIndex - 1;
-                                Console.WriteLine($"successful drop: children[{draggedChildIndex}] (slot {draggedSlotIndex}) <-> children[{targetChildIndex}] (slot {targetSlotIndex})");
 
                                 Inventory inventory = Entity.Inventory;
                                 if (inventory != null)
                                 {
-                                    // Ensure inventory.Items has enough capacity
-                                    while (inventory.Items.Count <= Math.Max(draggedSlotIndex, targetSlotIndex))
-                                    {
-                                        inventory.Items.Add(null);
-                                    }
-                                    inventory.Items[draggedSlotIndex] = slot.Item;
-                                    inventory.Items[targetSlotIndex] = tempItem;
+                                    inventory.Items[targetSlotIndex] = slot.Item;
+                                    inventory.Items[draggedSlotIndex] = tempItem;
                                 }
                             }
                             break;

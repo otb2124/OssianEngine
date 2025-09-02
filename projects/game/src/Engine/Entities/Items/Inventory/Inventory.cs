@@ -20,7 +20,8 @@ namespace Entities
         public Inventory(ItemKey[] keys)
         {
             Items = new List<Item>();
-            foreach (var key in keys)
+            Init(keys.Length);
+            foreach (ItemKey key in keys)
             {
                 AddItem(ItemFactory.CreateItem(key));
             }
@@ -29,9 +30,20 @@ namespace Entities
         public Inventory(Item[] items)
         {
             Items = new List<Item>();
+            Init(items.Length);
             foreach (var item in items)
             {
                 AddItem(item);
+            }
+        }
+
+        public void Init(int slotsAmount)
+        {
+            SlotsAmount = slotsAmount;
+
+            for (int i = 0; i < SlotsAmount; i++)
+            {
+                Items.Add(null);
             }
         }
 
@@ -47,18 +59,32 @@ namespace Entities
                 }
                 else
                 {
-                    Items.Add(item);
+                    for (global::System.Int32 i = 0; i < Items.Count; i++)
+                    {
+                        if (Items[i] == null)
+                        {
+                            Items[i] = item;
+                            break;
+                        }
+                    }
                 }
             }
             else
             {
-                Items.Add(item);
+                for (global::System.Int32 i = 0; i < Items.Count; i++)
+                {
+                    if (Items[i] == null)
+                    {
+                        Items[i] = item;
+                        break;
+                    }
+                }
             }
         }
 
-        public void AddInventory(Inventory inventory)
+        public void AddInventory(Inventory inventoryToAdd)
         {
-            foreach (var item in inventory.Items)
+            foreach (Item item in inventoryToAdd.Items)
             {
                 AddItem(item);
             }
