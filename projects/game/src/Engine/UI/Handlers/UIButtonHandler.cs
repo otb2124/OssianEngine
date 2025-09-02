@@ -32,7 +32,7 @@ namespace UI
         {
             if(CheckHover(buttonRect))
             {
-                if (Inputs.Inputs.mouse.IsLeftMouseButtonPressed())
+                if (Inputs.Inputs.mouse.IsAnyMouseButtonPressed())
                 {
                     UI.UIManager.PreventButtonPressedOverlap = true;
                     return true;
@@ -46,6 +46,7 @@ namespace UI
 
             return false;
         }
+
 
         public void HandleHover(int id)
         {

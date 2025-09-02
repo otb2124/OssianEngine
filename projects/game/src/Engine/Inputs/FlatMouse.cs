@@ -100,6 +100,13 @@ namespace Inputs
             return this.currMouseState.MiddleButton == ButtonState.Released && this.prevMouseState.MiddleButton == ButtonState.Pressed;
         }
 
+        public bool IsAnyMouseButtonPressed()
+        {
+            return IsLeftMouseButtonPressed() ||
+                IsRightMouseButtonPressed() ||
+                IsMiddleMouseButtonPressed();
+        }
+
         public bool IsMouseButtonPressed(MouseButtons button)
         {
             return button switch

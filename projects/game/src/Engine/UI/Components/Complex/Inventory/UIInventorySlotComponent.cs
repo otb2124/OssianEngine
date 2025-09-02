@@ -17,7 +17,8 @@ namespace UI
     {
 
         public Item Item;
-        public bool IsDragging;
+        public bool IsLeftDragging;
+        public bool IsRightDragging;
 
         public UIInventorySlotComponent(int id, Vector2 pos) : base(id)
         {
@@ -33,20 +34,33 @@ namespace UI
             children[1] = new UIIconComponent(-1, spriteData, Position, new Vector2(0.5f, 0.5f));
             children[2] = new UITextStringComponent(-1, Position, "", 0, Vector2.One);
 
-            IsDragging = false;
+            IsLeftDragging = false;
+            IsRightDragging = false;
         }
 
         public void SetItem(Item item)
         {
             Item = item;
 
-            if(Item != null)
+            if (Item != null)
             {
-                children[1] = new UIIconComponent(-1, GetItemUISprite(Item), new Vector2(Position.X, Position.Y), new Vector2(0.75f, 0.75f));
-
                 if (Item.Count > 1)
                 {
+                    children[1] = new UIIconComponent(-1, GetItemUISprite(Item), new Vector2(Position.X, Position.Y), new Vector2(0.75f, 0.75f));
                     children[2] = new UITextStringComponent(-1, Position, Item.Count + "", 0, Vector2.One);
+                }
+                else
+                {
+                    children[2] = null;
+
+                    if (Item.Count > 0)
+                    {
+                        children[1] = new UIIconComponent(-1, GetItemUISprite(Item), new Vector2(Position.X, Position.Y), new Vector2(0.75f, 0.75f));
+                    }
+                    else
+                    {
+                        children[1] = null;
+                    }
                 }
             }
             else
@@ -54,6 +68,11 @@ namespace UI
                 children[1] = null;
                 children[2] = null;
             }
+        }
+
+        public void Refresh()
+        {
+            SetItem(Item);
         }
 
         public override void Update()
@@ -72,11 +91,29 @@ namespace UI
             //check for drag start
             if (Item != null && children[0] is UIButtonIconComponent button)
             {
-                IsDragging = Inputs.Inputs.mouse.IsLeftMouseButtonDown() && button.IsOnHover;
+                if (button.IsOnHover)
+                {
+                    if (Inputs.Inputs.mouse.IsLeftMouseButtonDown())
+                    {
+                        IsLeftDragging = true;
+                        IsRightDragging = false;
+                    }
+                    else if (Inputs.Inputs.mouse.IsRightMouseButtonDown())
+                    {
+                        IsRightDragging = true;
+                        IsLeftDragging = false;
+                    }
+                }
+                else
+                {
+                    IsLeftDragging = false;
+                    IsRightDragging = false;
+                }
             }
             else
             {
-                IsDragging = false;
+                IsLeftDragging = false;
+                IsRightDragging = false;
             }
         }
 
