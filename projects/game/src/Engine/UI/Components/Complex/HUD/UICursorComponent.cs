@@ -23,9 +23,9 @@ namespace UI
             Origin.Y += 0;
             Scale /= 2;
 
-            stickToCamera = true;
-            stickToCursor = true;
-            stickToZoom = true;
+            IsStickToCameraState = true;
+            IsStickToCursorState = true;
+            IsStickToZoomState = true;
         }
 
         public override void Update()

@@ -10,7 +10,9 @@ namespace UI
 
         public int FromSlotId;
         public int ToSlotId;
-        public List<Item> Items;
+        public List<List<Item>> ItemLists;
+
+        private List<Item> Items;
 
         public bool IsRightDrag;
 
@@ -18,13 +20,23 @@ namespace UI
 
         public bool WasRefreshedFlag;
 
-        public InventorySlotDragNDropManager(List<Item> items)
+        public InventorySlotDragNDropManager(List<List<Item>> itemLists)
         {
             Refresh();
 
             IsRightDrag = false;
 
-            Items = items;
+            ItemLists = new List<List<Item>>();
+            ItemLists.AddRange(itemLists);
+
+            Items = new List<Item>();
+            foreach (List<Item> list in itemLists)
+            {
+                foreach (Item item in list)
+                {
+                    Items.Add(item);
+                }
+            }
 
             FromSlotId = 0;
             ToSlotId = 0;
@@ -66,8 +78,12 @@ namespace UI
                 {
                     if (child is UIInventorySlotComponent fromSlot && (fromSlot.IsLeftDragging || fromSlot.IsRightDragging))
                     {
+                        Console.WriteLine("dragged");
+
                         FromSlotId = Slots.IndexOf(fromSlot);
                         IsRightDrag = fromSlot.IsRightDragging;
+
+                        Console.WriteLine("fromslotId: " + FromSlotId);
                         break;
                     }
                 }
@@ -101,6 +117,9 @@ namespace UI
 
                                 if (fromSlot.Item != null)
                                 {
+
+                                    Console.WriteLine("drop");
+
                                     if (IsRightDrag)
                                     {
                                         if (fromSlot.Item.Stackable)

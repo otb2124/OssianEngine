@@ -39,9 +39,9 @@ namespace UI
             aManager = new AnimationManager();
             aManager.AddStaticAnimation(mapFramePartSpriteData());
 
-            stickToCamera = true;
-            stickToZoom = true;
-            applyHalfScreenOrigin = true;
+            IsStickToCameraState = true;
+            IsStickToZoomState = true;
+            IsAppliedHalfScreenOriginState = true;
 
             adjustAll(framePos, frameSize, new Vector2(3, 3));
         }

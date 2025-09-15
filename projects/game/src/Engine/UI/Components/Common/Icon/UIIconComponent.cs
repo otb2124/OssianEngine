@@ -23,9 +23,9 @@ namespace UI
             this.Position = pos;
             Scale = scale;
 
-            stickToCamera = true;
-            stickToZoom = true;
-            applyHalfScreenOrigin = true;
+            IsStickToCameraState = true;
+            IsStickToZoomState = true;
+            IsAppliedHalfScreenOriginState = true;
         }
 
         public override void Update()

@@ -55,10 +55,14 @@ namespace UI
         public Vector2 adjOrigin;
         public Vector2 adjScale;
 
-        public bool stickToCamera;
-        public bool stickToZoom;
-        public bool stickToCursor;
-        public bool applyHalfScreenOrigin;
+        //states
+        public bool IsStickToCameraState;
+        public bool IsStickToZoomState;
+        public bool IsStickToCursorState;
+        public bool IsAppliedHalfScreenOriginState;
+
+        //flags
+        public bool WasRefreshedFlag;
 
         public UIComponent[] children;
 
@@ -87,13 +91,13 @@ namespace UI
             adjOrigin = Origin;
             adjScale = Scale;
 
-            if (applyHalfScreenOrigin)
+            if (IsAppliedHalfScreenOriginState)
             {
                 adjPosition -= new Vector2(Graphics.Graphics.screen.Width / 2, Graphics.Graphics.screen.Height / 2);
             }
 
             float zoomFactor = 1f;
-            if (stickToZoom)
+            if (IsStickToZoomState)
             {
                 float currentZoom = (float)Graphics.Graphics.camera.Z;
                 float baseZoom = (float)Graphics.Graphics.camera.GetZFromHeight(Graphics.Graphics.screen.Height);
@@ -101,23 +105,26 @@ namespace UI
                 adjScale *= zoomFactor;
             }
 
-            if (stickToCursor)
+            if (IsStickToCursorState)
             {
                 Vector2 mouseWorldPos = Inputs.Inputs.mouse.GetMouseWorldPosition();
                 adjPosition = mouseWorldPos;
             }
-            else if (stickToCamera)
+            else if (IsStickToCameraState)
             {
                 adjPosition += Graphics.Graphics.camera.Position;
-                if (stickToZoom)
+                if (IsStickToZoomState)
                 {
                     adjPosition = Graphics.Graphics.camera.Position + (adjPosition - Graphics.Graphics.camera.Position) * zoomFactor;
                 }
             }
-            else if (stickToZoom)
+            else if (IsStickToZoomState)
             {
                 adjPosition = Graphics.Graphics.camera.Position + (adjPosition - Graphics.Graphics.camera.Position) * zoomFactor;
             }
+
+
+            WasRefreshedFlag = false;
         }
 
 
@@ -137,7 +144,10 @@ namespace UI
         }
 
 
-        public virtual void Refresh() { }
+        public virtual void Refresh() 
+        {
+            WasRefreshedFlag = true;
+        }
 
         public virtual void DrawDebug()
         {

@@ -1,13 +1,11 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 
 namespace UI
 {
     public class UIInventorySlotBoardComponent : UIComponent
     {
-        public InventorySlotDragNDropManager InventorySlotDragNDropManager;
 
         public Inventory Inventory;
         public bool AllowSwapBetweenSlots;
@@ -23,14 +21,13 @@ namespace UI
             Inventory = inv;
             AllowSwapBetweenSlots = allowSwapBetweenSlots;
 
-            InventorySlotDragNDropManager = new InventorySlotDragNDropManager(Inventory.Items);
-
-            Refresh();
-            InventorySlotDragNDropManager.Refresh();
+            SetInventory(Inventory);
         }
 
         public void SetInventory(Inventory inventory)
         {
+            children = new UIComponent[inventory.SlotsAmount];
+
             int slotsCount = inventory.SlotsAmount;
             int slotsInRow = 5;
             int rowsCount = (int)Math.Ceiling((float)slotsCount / slotsInRow);
@@ -61,21 +58,14 @@ namespace UI
         {
             if (Inventory.SlotsAmount > 0)
             {
-                children = new UIComponent[Inventory.SlotsAmount];
                 SetInventory(Inventory);
-
-                InventorySlotDragNDropManager.Slots = new List<UIComponent>();
-                InventorySlotDragNDropManager.AddSlots(children);
             }
+
+            base.Refresh();
         }
 
         public override void Update()
         {
-            if(InventorySlotDragNDropManager.WasRefreshedFlag)
-            {
-                Refresh();
-            }
-
             if (children != null)
             {
                 for (int i = 0; i < children.Length; i++)
@@ -91,9 +81,6 @@ namespace UI
             {
                 return;
             }
-
-
-            InventorySlotDragNDropManager.Update();
         }
 
 

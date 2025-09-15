@@ -22,9 +22,9 @@ namespace UI
             Size = size;
             ButtonId = buttonid;
 
-            stickToCamera = true;
-            stickToZoom = true;
-            applyHalfScreenOrigin = true;
+            IsStickToCameraState = true;
+            IsStickToZoomState = true;
+            IsAppliedHalfScreenOriginState = true;
         }
 
 

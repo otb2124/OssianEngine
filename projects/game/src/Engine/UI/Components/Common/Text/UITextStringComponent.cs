@@ -22,9 +22,9 @@ namespace UI
             this.text = text;
             this.font = ResourceLoader.fonts[fontId];
 
-            stickToCamera = true;
-            stickToZoom = true;
-            applyHalfScreenOrigin = true;
+            IsStickToCameraState = true;
+            IsStickToZoomState = true;
+            IsAppliedHalfScreenOriginState = true;
 
             Position = position;
             Scale = scale;

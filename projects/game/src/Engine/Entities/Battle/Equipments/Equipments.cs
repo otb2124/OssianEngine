@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Entities
 {
@@ -71,6 +72,18 @@ namespace Entities
             }
 
             return inventory;
+        }
+
+        public List<Item> ToItemList()
+        {
+            List<Item> itemList = new List<Item>();
+
+            for (int i = 0; i < EquipmentSlots.Length; i++)
+            {
+                itemList.Add(EquipmentSlots[i].Equipment);
+            }
+
+            return itemList;
         }
     }
 }

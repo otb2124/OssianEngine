@@ -35,9 +35,9 @@ namespace UI
             Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
             ButtonId = buttonid;
 
-            stickToCamera = true;
-            stickToZoom = true;
-            applyHalfScreenOrigin = true;
+            IsStickToCameraState = true;
+            IsStickToZoomState = true;
+            IsAppliedHalfScreenOriginState = true;
 
             Scale = scale;
         }
@@ -54,9 +54,9 @@ namespace UI
             Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
             ButtonId = buttonid;
 
-            stickToCamera = true;
-            stickToZoom = true;
-            applyHalfScreenOrigin = true;
+            IsStickToCameraState = true;
+            IsStickToZoomState = true;
+            IsAppliedHalfScreenOriginState = true;
 
             Scale = scale;
         }

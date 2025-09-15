@@ -24,19 +24,48 @@ namespace UI
             children[0] = new UIInventoryComponent(-1, new Vector2(100, 500), inv);
             children[1] = new UIInventoryComponent(-1, new Vector2(500, 500), equipments);
 
-            //DropManager = new InventorySlotDragNDropManager(inv.Items);
+            DropManager = new InventorySlotDragNDropManager(new List<List<Item>> { inv.Items, equipments.ToItemList() });
+
+            DropManager.Slots = new List<UIComponent>();
+            DropManager.AddSlots(children[0].children[0].children);
+            DropManager.AddSlots(children[1].children[0].children);
         }
 
 
         public override void Update()
         {
+            if (DropManager.WasRefreshedFlag)
+            {
+                //Refresh();
+            }
+
             foreach (var item in children)
             {
                 if(children != null)
                 {
+                    if(item.WasRefreshedFlag)
+                    {
+                        DropManager.Refresh();
+                    }
+
                     item.Update();
                 }
             }
+
+            DropManager.Update();
+        }
+
+        public override void Refresh()
+        {
+            foreach (var item in children)
+            {
+                if (children != null)
+                {
+                    item.Refresh();
+                }
+            }
+
+            base.Refresh();
         }
 
         public override void Draw()
