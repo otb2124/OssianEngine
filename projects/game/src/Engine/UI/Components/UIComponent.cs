@@ -36,6 +36,7 @@ namespace UI
             HUD, CURSOR, PLAYER_INDICATORS,
             //INVENTORY
             INVENTORY, INVENTORY_SLOT, INVENTORY_SLOTBOARD,
+            INVENTORY_TO_EQUIPMENT,
             //EQUIPMENT
             EQUIPMENT, EQUIPMENT_SLOT,
         }
