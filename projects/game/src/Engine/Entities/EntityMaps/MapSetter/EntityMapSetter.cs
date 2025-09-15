@@ -60,7 +60,7 @@ namespace Entities
 
                     //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.BANDIT, new Vector2(-60,  100), 0f));
                     //entities.Add(new AnimalMob(AnimalMob.AnimalMobs.SLIME, new Vector2(-200, 100), 0f));
-                    entities.Add(new AnimalMob(AnimalMob.AnimalMobs.BAT, new Vector2(-300, 100), 0f));
+                    // entities.Add(new AnimalMob(AnimalMob.AnimalMobs.BAT, new Vector2(-300, 100), 0f));
 
                     //entities.Add(new ProjectileEntity(new Vector2(-100, 200)));
 

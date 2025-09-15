@@ -58,5 +58,19 @@ namespace Entities
             Item item = ItemFactory.CreateItem(itemKey);
             SetEquipment(item);
         }
+
+        public Inventory ToInventory()
+        {
+            Inventory inventory = new Inventory();
+
+            inventory.Init(14); //all possible slots
+
+            for (int i = 0; i < EquipmentSlots.Length; i++)
+            {
+                inventory.Items[i] = EquipmentSlots[i].Equipment;
+            }
+
+            return inventory;
+        }
     }
 }

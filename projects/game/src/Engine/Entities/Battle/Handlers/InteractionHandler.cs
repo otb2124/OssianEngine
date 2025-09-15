@@ -31,6 +31,7 @@ namespace Entities
                         Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                         Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
                         livingEnt.Stats.AllowPickup = false;
+                        UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
                     }
                 }
             }
@@ -39,6 +40,7 @@ namespace Entities
                 Entities.Player.Inventory.AddInventory(itemEnt.Containment);
                 Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                 Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
+                UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
             }
         }
     }

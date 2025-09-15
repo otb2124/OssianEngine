@@ -140,6 +140,38 @@ namespace UI
             return removedCount;
         }
 
+        public void RefreshComponentsByType(UIComponent.UIComponentTypes type)
+        {
+            foreach (UIComponent component in components)
+            {
+                RefreshComponentsByTypeRecursive(component, type);
+            }
+        }
+
+        private void RefreshComponentsByTypeRecursive(UIComponent component, UIComponent.UIComponentTypes type)
+        {
+            if (component == null)
+            {
+                return;
+            }
+
+            if (component.type == type)
+            {
+                component.Refresh();
+            }
+
+            if (component.children != null)
+            {
+                foreach (UIComponent child in component.children)
+                {
+                    if(child != null)
+                    {
+                        RefreshComponentsByTypeRecursive(child, child.type);
+                    }
+                }
+            }
+        }
+
         public void ToggleComponent(UIComponent component, UIComponent.UIComponentTypes type)
         {
             if (component == null)

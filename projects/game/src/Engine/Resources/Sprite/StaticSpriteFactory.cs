@@ -193,6 +193,7 @@ namespace Resources
         {
             { new ItemKey(ItemLib.Weapons.TERRABLADE), new Point(0,0) },
             { new ItemKey(ItemLib.Weapons.TORCH), new Point(1,0) },
+            { new ItemKey(ItemLib.Weapons.BOW), new Point(2,0) },
 
             //TODO: change to utils/none
             { new ItemKey(ItemLib.Weapons.BARE_HAND), new Point(-1,-1) },

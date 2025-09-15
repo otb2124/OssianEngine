@@ -3,11 +3,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
-using static UI.UIComponent;
 
 namespace UI
 {
@@ -19,14 +14,15 @@ namespace UI
 
         public bool IsRightDrag;
 
-        public UIInventorySlotBoardComponent(int id, Vector2 pos, StatsEntity ent) : base(id)
+        public bool AllowSwapBetweenSlots;
+
+        public UIInventorySlotBoardComponent(int id, Vector2 pos, Inventory inv, bool allowSwapBetweenSlots = true) : base(id)
         {
-            Position = new Vector2(pos.X, pos.Y);
+            Position = pos;
 
             type = UIComponentTypes.INVENTORY_SLOTBOARD;
 
-
-            Inventory = ent.Inventory;
+            Inventory = inv;
 
             children = new UIComponent[0];
 
@@ -34,8 +30,9 @@ namespace UI
 
             IsRightDrag = false;
 
-            FromSlotId = -1;
-            ToSlotId = -1;
+            FromSlotId = 0;
+            ToSlotId = 0;
+            AllowSwapBetweenSlots = allowSwapBetweenSlots; 
         }
 
         public void SetInventory(Inventory inventory)
@@ -49,12 +46,12 @@ namespace UI
                 for (int col = 0; col < slotsInRow && (row * slotsInRow + col) < slotsCount; col++)
                 {
                     int slotIndex = row * slotsInRow + col;
-                    int childIndex = slotIndex + 1;
+                    int childIndex = slotIndex;
                     children[childIndex] = new UIInventorySlotComponent(
                         -1,
                         new Vector2(
-                            new Vector2(100 + 20, 500).X + (((64 * 0.75f) + 4) * col),
-                            new Vector2(100 + 20, 500).Y - (((64 * 0.75f) + 4) * row)
+                            Position.X + (((64 * 0.75f) + 4) * col),
+                            Position.Y - (((64 * 0.75f) + 4) * row)
                         )
                     );
 
@@ -66,18 +63,16 @@ namespace UI
             }
         }
 
-        public void Refresh()
+        public override void Refresh()
         {
             if (Inventory.SlotsAmount > 0)
             {
-                children = new UIComponent[Inventory.SlotsAmount + 1];
-                children[0] = new UIFrameComponent(-1, new Vector2(100, 20), new Vector2(300, 620));
-
+                children = new UIComponent[Inventory.SlotsAmount];
                 SetInventory(Inventory);
             }
 
-            FromSlotId = -1;
-            ToSlotId = -1;
+            FromSlotId = 0;
+            ToSlotId = 0;
             IsRightDrag = false;
         }
 
@@ -94,30 +89,37 @@ namespace UI
                 }
             }
 
-            // Check for dragging slot
-            if (FromSlotId == -1)
+
+            if (!AllowSwapBetweenSlots)
+            {
+                return;
+            }
+
+
+            //dragging slot
+            if (FromSlotId == 0)
             {
                 foreach (var child in children)
                 {
                     if (child is UIInventorySlotComponent fromSlot && (fromSlot.IsLeftDragging || fromSlot.IsRightDragging))
                     {
-                        FromSlotId = Array.IndexOf(children, fromSlot) - 1;
+                        FromSlotId = Array.IndexOf(children, fromSlot);
                         IsRightDrag = fromSlot.IsRightDragging;
                         break;
                     }
                 }
             }
 
-            // Check for drop
-            if (FromSlotId != -1 && !Inputs.Inputs.mouse.IsLeftMouseButtonDown() && !Inputs.Inputs.mouse.IsRightMouseButtonDown())
+            //drop
+            if (FromSlotId != 0 && !Inputs.Inputs.mouse.IsLeftMouseButtonDown() && !Inputs.Inputs.mouse.IsRightMouseButtonDown())
             {
                 PointF mousePos = new PointF(Inputs.Inputs.mouse.GetMouseWorldPosition().X, Inputs.Inputs.mouse.GetMouseWorldPosition().Y);
                 float screenHeight = Graphics.Graphics.screen.Height;
 
-                UIInventorySlotComponent fromSlot = (FromSlotId + 1 < children.Length) ? (UIInventorySlotComponent)children[FromSlotId + 1] : null;
+                UIInventorySlotComponent fromSlot = (FromSlotId < children.Length) ? (UIInventorySlotComponent)children[FromSlotId] : null;
                 if (fromSlot == null)
                 {
-                    FromSlotId = -1;
+                    FromSlotId = 0;
                     IsRightDrag = false;
                     return;
                 }
@@ -128,18 +130,11 @@ namespace UI
                     {
                         if (toSlot.children[0] is UIButtonIconComponent button && button.IsOnHover)
                         {
-                            ToSlotId = Array.IndexOf(children, toSlot) - 1;
+                            ToSlotId = Array.IndexOf(children, toSlot);
 
                             if (Inventory != null && ToSlotId != FromSlotId && ToSlotId >= 0)
                             {
-                                // Ensure inventory.Items has enough capacity
-                                while (Inventory.Items.Count <= Math.Max(FromSlotId, ToSlotId))
-                                {
-                                    Inventory.Items.Add(null);
-                                }
-
                                 Item draggedItem = fromSlot.Item;
-
 
                                 if(fromSlot.Item != null)
                                 {
@@ -222,8 +217,8 @@ namespace UI
                     }
                 }
 
-                FromSlotId = -1;
-                ToSlotId = -1;
+                FromSlotId = 0;
+                ToSlotId = 0;
                 IsRightDrag = false;
             }
         }

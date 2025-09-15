@@ -44,12 +44,12 @@ namespace App
             Graphics.Graphics.UpdateGameTime(gameTime);
             Inputs.Inputs.Update();
             Physics.Physics.Update();
-            UI.UI.UIManager.Update();
             Entities.Entities.Update();
 
             commandManager.ProcessCommands();
 
             Graphics.Graphics.Update();
+            UI.UI.UIManager.Update();
             Sounds.Sounds.Update();
 
             base.Update(gameTime);

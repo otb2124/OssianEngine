@@ -59,7 +59,7 @@ namespace Graphics
 
         public static void Init()
         {
-            cameraOperator = new CameraOperator(camera);
+            cameraOperator = new CameraOperator();
             backgroundManager = new BackgroundManager();
             backgroundManager.Init();
 

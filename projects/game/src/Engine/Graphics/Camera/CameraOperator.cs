@@ -6,15 +6,13 @@ namespace Graphics
 {
     public class CameraOperator
     {
-        public Camera camera; 
         public float cameraSpeed = 5f; 
-        private Vector2 targetPosition; 
+        public Vector2 targetPosition; 
         private readonly float transitionSpeed = 0.05f;
 
-        public CameraOperator(Camera camera)
+        public CameraOperator()
         {
-            this.camera = camera;
-            targetPosition = camera.position;
+            targetPosition = Graphics.camera.position;
         }
 
         public void Update()
@@ -25,8 +23,8 @@ namespace Graphics
             Vector2 screenSize = new Vector2(Graphics.screen.Width, Graphics.screen.Height);
 
             // Zoom
-            float currentZoom = (float)camera.Z;
-            float initialZoom = (float)camera.MaxZ*1.5f;
+            float currentZoom = (float)Graphics.camera.Z;
+            float initialZoom = (float)Graphics.camera.MaxZ*1.5f;
             float adjScale = currentZoom / initialZoom;
 
             // Camera screen bounds (adjusted for zoom)
@@ -61,11 +59,11 @@ namespace Graphics
 
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
             {
-                camera.MoveZ(-2f);
+                Graphics.camera.MoveZ(-2f);
             }
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
             {
-                camera.MoveZ(2f);
+                Graphics.camera.MoveZ(2f);
             }
 
             float clampedX = targetPosition.X;
@@ -89,7 +87,7 @@ namespace Graphics
                 targetPosition.Y += topBound - cameraTop;
             }
 
-            camera.position = Vector2.Lerp(camera.position, targetPosition, transitionSpeed);
+            Graphics.camera.position = Vector2.Lerp(Graphics.camera.position, targetPosition, transitionSpeed);
         }
     }
 }

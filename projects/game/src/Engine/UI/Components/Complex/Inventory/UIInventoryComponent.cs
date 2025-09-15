@@ -13,14 +13,26 @@ namespace UI
     public class UIInventoryComponent : UIComponent
     {
 
-        public UIInventoryComponent(int id, Vector2 pos, StatsEntity ent) : base(id)
+        public UIInventoryComponent(int id, Vector2 pos, Inventory inventory) : base(id)
         {
-            Position = new Vector2(pos.X, pos.Y);
+            Position = pos;
 
             type = UIComponentTypes.INVENTORY;
 
-            children = new UIComponent[2];
-            children[0] = new UIInventorySlotBoardComponent(id, pos, ent);
+            children = new UIComponent[1];
+
+            children[0] = new UIInventorySlotBoardComponent(id, pos, inventory);
+        }
+
+        public UIInventoryComponent(int id, Vector2 pos, Equipments equipments) : base(id)
+        {
+            Position = pos;
+
+            type = UIComponentTypes.INVENTORY;
+
+            children = new UIComponent[1];
+
+            children[0] = new UIInventorySlotBoardComponent(id, pos, equipments.ToInventory(), false);
         }
 
         public override void Update()

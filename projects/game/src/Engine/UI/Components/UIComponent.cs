@@ -133,8 +133,10 @@ namespace UI
                 Color color = Tint ?? Color.White;
                 font.Draw(text, adjPosition, 0f, adjOrigin, adjScale, color);
             }
-                   
         }
+
+
+        public virtual void Refresh() { }
 
         public virtual void DrawDebug()
         {
