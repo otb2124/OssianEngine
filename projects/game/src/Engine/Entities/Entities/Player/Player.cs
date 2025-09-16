@@ -60,7 +60,7 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.BOW)));
+            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)), WeaponHands.LEFT);
 
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Chestplates.IRON_CHESTPLATE));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Helmets.IRON_HELMET));
@@ -87,6 +87,7 @@ namespace Entities
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Materials.SWORD_HILT)));
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Materials.SWORD_HILT)));
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
         }
 
 

@@ -30,7 +30,7 @@ namespace Entities
                     Description = "Bare hands";
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
                     BattleItemStatsData.DamageSet.PhysDamage = 1f;
                     BattleItemStatsData.PoiseDamage = 10f;
@@ -47,7 +47,7 @@ namespace Entities
                     Description = "A terrablade";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
                     BattleItemStatsData.DamageSet.PhysDamage = 20f;
                     BattleItemStatsData.PoiseDamage = 50f;
@@ -64,7 +64,7 @@ namespace Entities
                     Description = "Iron knife";
                     Value = 10;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
                     BattleItemStatsData.DamageSet.PhysDamage = 20f;
                     BattleItemStatsData.PoiseDamage = 50f;
@@ -81,7 +81,7 @@ namespace Entities
                     Description = "A torch";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
                     BattleItemStatsData.DamageSet.PhysDamage = 20f;
                     BattleItemStatsData.PoiseDamage = 50f;
@@ -99,7 +99,7 @@ namespace Entities
                     Description = "A fireball spell";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
                     BattleItemStatsData.DamageSet.MagicDamage = 20f;
                     BattleItemStatsData.PoiseDamage = 50f;
@@ -118,7 +118,7 @@ namespace Entities
                     Description = "A bow";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
                     BattleItemStatsData.DamageSet.PhysDamage = 5f;
                     BattleItemStatsData.PoiseDamage = 10f;

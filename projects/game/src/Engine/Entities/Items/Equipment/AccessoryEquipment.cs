@@ -27,7 +27,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.NECKLACE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.NECKLACE;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -36,7 +36,16 @@ namespace Entities
                     Description = "An iron helmet";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.BELT;
+                    EquipmentSlotTake = EquipmentSlotsTakes.BELT;
+
+                    BattleItemStatsData.DefenseSet.PhysDef = 5f;
+                    break;
+                case ItemLib.Rings:
+                    Name = "Iron Ring";
+                    Description = "An iron ring";
+                    Value = 500;
+                    Rarity = ItemRarity.COMMON;
+                    EquipmentSlotTake = EquipmentSlotsTakes.RING;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -45,7 +54,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.PET;
+                    EquipmentSlotTake = EquipmentSlotsTakes.PET;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -54,7 +63,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.PET_LIGHT;
+                    EquipmentSlotTake = EquipmentSlotsTakes.PET_LIGHT;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -63,7 +72,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.CONTAINMENT;
+                    EquipmentSlotTake = EquipmentSlotsTakes.CONTAINMENT;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -72,7 +81,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 100;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.CAPE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.CAPE;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;

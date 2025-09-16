@@ -34,10 +34,14 @@ namespace Entities
         public void ToggleWeaponInOut(Equipments equipments, WeaponHands currentHand, BattleBodyManager manager)
         {
             var placeholder = HandToWeaponIn(currentHand);
+            if(placeholder == null)
+            {
+                placeholder = EquipmentHelper.CreateBareHands();
+            }
             var slot = EquipmentHelper.HandToSlot(currentHand);
-            var currentWeapon = (WeaponEquipment)equipments.GetEquipmentSlot(slot).Equipment;
+            var currentWeapon = (WeaponEquipment)equipments.GetTogglingWeaponSlot(slot).Equipment;
             SetCurrentWeaponSwapPlaceHolder(currentHand, currentWeapon);
-            equipments.SetEquipment(slot, placeholder);
+            equipments.SetTogglingWeaponEquipment(slot, placeholder);
             manager.HandToEquipmentWeaponBody(currentHand).Init(placeholder.WeaponBodyData);
             IsWeaponOut = !IsWeaponOut;
         }

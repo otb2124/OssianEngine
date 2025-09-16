@@ -29,7 +29,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.TORSO;
+                    EquipmentSlotTake = EquipmentSlotsTakes.TORSO;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -38,7 +38,7 @@ namespace Entities
                     Description = "An iron helmet";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.HEAD;
+                    EquipmentSlotTake = EquipmentSlotsTakes.HEAD;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -47,7 +47,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.LEGS;
+                    EquipmentSlotTake = EquipmentSlotsTakes.LEGS;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -56,7 +56,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlot = EquipmentSlotsTake.HANDS;
+                    EquipmentSlotTake = EquipmentSlotsTakes.HANDS;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;

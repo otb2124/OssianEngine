@@ -11,14 +11,14 @@ namespace Entities
     {
 
 
-        public static EquipmentSlot.EquipmentSlots HandToSlot(WeaponHands hand) =>
-            hand == WeaponHands.LEFT ? EquipmentSlot.EquipmentSlots.WEAPON_L : EquipmentSlot.EquipmentSlots.WEAPON_R;
+        public static EquipmentSlot.EquipmentSlotTypes HandToSlot(WeaponHands hand) =>
+            hand == WeaponHands.LEFT ? EquipmentSlot.EquipmentSlotTypes.WEAPON_L : EquipmentSlot.EquipmentSlotTypes.WEAPON_R;
 
         public static WeaponEquipment CreateBareHands() =>
             (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.BARE_HAND));
 
-        public static EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type, EquipmentSlot[] equipmentSlots) =>
-            Array.Find(equipmentSlots, slot => slot.Type == type);
+        public static EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes type, EquipmentSlot[] equipmentSlots) =>
+            Array.Find(equipmentSlots, slot => slot.EquipmentSlotType == type);
 
         public static Type ItemToType(Item item)
         {
@@ -39,34 +39,34 @@ namespace Entities
                 return pair[1];
         }
 
-        public static EquipmentSlot.EquipmentSlots ItemkeyToEquipmentSlot(ItemKey key, EquipmentSlot[] slots)
+        public static EquipmentSlot.EquipmentSlotTypes ItemkeyToEquipmentSlot(ItemKey key, EquipmentSlot[] slots)
         {
             switch (ItemFactory.GetItemType(key))
             {
                 case ItemTypes.WEAPON:
-                    return GetEmptySlotOutOfPair(new EquipmentSlot[] { GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_L, slots), GetEquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON_R, slots) }).Type;
+                    return GetEmptySlotOutOfPair(new EquipmentSlot[] { GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes.WEAPON_L, slots), GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes.WEAPON_R, slots) }).EquipmentSlotType;
                 case ItemTypes.CHESTPLATE:
-                    return EquipmentSlot.EquipmentSlots.CHESTPLATE;
+                    return EquipmentSlot.EquipmentSlotTypes.CHESTPLATE;
                 case ItemTypes.HELMET:
-                    return EquipmentSlot.EquipmentSlots.HELMET;
+                    return EquipmentSlot.EquipmentSlotTypes.HELMET;
                 case ItemTypes.BOOTS:
-                    return EquipmentSlot.EquipmentSlots.BOOTS;
+                    return EquipmentSlot.EquipmentSlotTypes.BOOTS;
                 case ItemTypes.GLOVES:
-                    return EquipmentSlot.EquipmentSlots.GLOVES;
+                    return EquipmentSlot.EquipmentSlotTypes.GLOVES;
                 case ItemTypes.NECKLACE:
-                    return EquipmentSlot.EquipmentSlots.NECKLACE;
+                    return EquipmentSlot.EquipmentSlotTypes.NECKLACE;
                 case ItemTypes.CAPE:
-                    return EquipmentSlot.EquipmentSlots.CAPE;
+                    return EquipmentSlot.EquipmentSlotTypes.CAPE;
                 case ItemTypes.BELT:
-                    return EquipmentSlot.EquipmentSlots.BELT;
+                    return EquipmentSlot.EquipmentSlotTypes.BELT;
                 case ItemTypes.RING:
-                    return GetEmptySlotOutOfPair(new EquipmentSlot[] { GetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_L, slots), GetEquipmentSlot(EquipmentSlot.EquipmentSlots.RING_R, slots) }).Type;
+                    return GetEmptySlotOutOfPair(new EquipmentSlot[] { GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes.RING_L, slots), GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes.RING_R, slots) }).EquipmentSlotType;
                 case ItemTypes.PET:
-                    return EquipmentSlot.EquipmentSlots.PET;
+                    return EquipmentSlot.EquipmentSlotTypes.PET;
                 case ItemTypes.PET_LIGHT:
-                    return EquipmentSlot.EquipmentSlots.PET_LIGHT;
+                    return EquipmentSlot.EquipmentSlotTypes.PET_LIGHT;
                 case ItemTypes.CONTAINMENT:
-                    return EquipmentSlot.EquipmentSlots.CONTAINMENT;
+                    return EquipmentSlot.EquipmentSlotTypes.CONTAINMENT;
                 default:
                     throw new ArgumentException($"ItemKey {key} does not correspond to an equipment slot (type: {ItemFactory.GetItemType(key)})");
             }

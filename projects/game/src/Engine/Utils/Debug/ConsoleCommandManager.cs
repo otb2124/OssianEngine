@@ -19,7 +19,7 @@ namespace Utils
 
         public ConsoleCommandManager()
         {
-            Console.WriteLine("Console allocated. Command Prompt Ready. Use Minecraft-style commands (e.g., /spawn entity). Type /help for commands.");
+            Console.WriteLine("Console allocated. Command Prompt Ready. Use Minecraft-style commands (e.g., /spawn entity). EquipmentSlotType /help for commands.");
             commandQueue = new ConcurrentQueue<string>();
             commands = new Dictionary<string, IConsoleCommand>();
             isRunning = true;
@@ -64,7 +64,7 @@ namespace Utils
                 }
                 else if (!string.IsNullOrWhiteSpace(input))
                 {
-                    Console.WriteLine("Invalid command. CommandPool must start with '/'. Type /help for commands.");
+                    Console.WriteLine("Invalid command. CommandPool must start with '/'. EquipmentSlotType /help for commands.");
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace Utils
             string[] parts = command.Substring(1).Split(' ', StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 0)
             {
-                Console.WriteLine("Empty command. Type /help for commands.");
+                Console.WriteLine("Empty command. EquipmentSlotType /help for commands.");
                 return;
             }
 
@@ -95,7 +95,7 @@ namespace Utils
             }
             else
             {
-                Console.WriteLine($"Unknown command: {commandName}. Type /help for commands.");
+                Console.WriteLine($"Unknown command: {commandName}. EquipmentSlotType /help for commands.");
             }
         }
 

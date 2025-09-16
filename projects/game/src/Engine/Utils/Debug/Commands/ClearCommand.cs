@@ -22,7 +22,7 @@ namespace Utils
                 return;
             }
             Console.Clear();
-            Console.WriteLine("Command Prompt Ready. Type /help for commands.");
+            Console.WriteLine("Command Prompt Ready. EquipmentSlotType /help for commands.");
         }
     }
 }

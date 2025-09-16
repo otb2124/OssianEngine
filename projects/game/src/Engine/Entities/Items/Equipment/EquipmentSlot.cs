@@ -9,7 +9,7 @@ namespace Entities
     public class EquipmentSlot
     {
 
-        public enum EquipmentSlots
+        public enum EquipmentSlotTypes
         {
             WEAPON_L,
             WEAPON_R,
@@ -31,11 +31,11 @@ namespace Entities
         }
 
         public Equipment Equipment;
-        public EquipmentSlots Type;
+        public EquipmentSlotTypes EquipmentSlotType;
 
-        public EquipmentSlot(EquipmentSlots type)
+        public EquipmentSlot(EquipmentSlotTypes type)
         {
-            Type = type;
+            EquipmentSlotType = type;
         }
     }
 }
