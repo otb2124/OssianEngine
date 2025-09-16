@@ -53,11 +53,21 @@ namespace UI
 
                 if(DropManager.WeaponChanged)
                 {
-                    EquipmentManager.Equipments.TogglingWeaponSlots[0].Equipment = (WeaponEquipment)DropManager.ItemLists[1].ToEquipments().EquipmentSlots[0].Equipment;
-                    EquipmentManager.Equipments.TogglingWeaponSlots[1].Equipment = (WeaponEquipment)DropManager.ItemLists[1].ToEquipments().EquipmentSlots[1].Equipment;
+                    //EquipmentManager.Equipments.TogglingWeaponSlots[0].Equipment = (WeaponEquipment)DropManager.ItemLists[1].ToEquipments().EquipmentSlots[0].Equipment;
+                    //EquipmentManager.Equipments.TogglingWeaponSlots[1].Equipment = (WeaponEquipment)DropManager.ItemLists[1].ToEquipments().EquipmentSlots[1].Equipment;
+                    EquipmentManager.Equipments.TogglingWeaponSlots[0].Equipment = EquipmentHelper.CreateBareHands();
+                    EquipmentManager.Equipments.TogglingWeaponSlots[1].Equipment = EquipmentHelper.CreateBareHands();
                     EquipmentManager.WeaponInOutToggler.LeftWeaponIn = EquipmentHelper.CreateBareHands();
                     EquipmentManager.WeaponInOutToggler.RightWeaponIn = EquipmentHelper.CreateBareHands();
-                    EquipmentManager.WeaponInOutToggler.IsWeaponOut = true;
+
+                    if(EquipmentManager.WeaponInOutToggler.IsWeaponOut)
+                    {
+                        EquipmentManager.ToggleWeaponInOut(BattleBodyManager);
+                    }
+
+                    EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DropManager.ItemLists[1].ToEquipments().EquipmentSlots[0].Equipment, WeaponHands.LEFT);
+                    EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DropManager.ItemLists[1].ToEquipments().EquipmentSlots[1].Equipment, WeaponHands.RIGHT);
+                    
                     Console.WriteLine("weapon change");
                 }
                 
