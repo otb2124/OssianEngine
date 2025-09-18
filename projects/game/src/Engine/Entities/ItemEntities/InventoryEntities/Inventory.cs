@@ -10,7 +10,6 @@ namespace Entities
     {
 
         public List<Item> Items;
-        public int SlotsAmount;
 
         public Inventory() 
         {
@@ -39,9 +38,7 @@ namespace Entities
 
         public void Init(int slotsAmount)
         {
-            SlotsAmount = slotsAmount;
-
-            for (int i = 0; i < SlotsAmount; i++)
+            for (int i = 0; i < slotsAmount; i++)
             {
                 Items.Add(null);
             }

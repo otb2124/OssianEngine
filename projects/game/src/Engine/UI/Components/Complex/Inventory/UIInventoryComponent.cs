@@ -15,7 +15,7 @@ namespace UI
 
             children = new UIComponent[1];
 
-            children[0] = new UIInventorySlotBoardComponent(id, pos, inventory);
+            children[0] = new UIInventorySlotBoardComponent(id, pos, inventory.Items);
         }
 
         public UIInventoryComponent(int id, Vector2 pos, Equipments equipments) : base(id)
@@ -26,7 +26,7 @@ namespace UI
 
             children = new UIComponent[1];
 
-            children[0] = new UIInventorySlotBoardComponent(id, pos, equipments.ToInventory(), false);
+            children[0] = new UIInventorySlotBoardComponent(id, pos, equipments.ToInventory().Items, new int[][] { new int[] { -1 } });
         }
 
         public override void Update()

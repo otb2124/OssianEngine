@@ -39,21 +39,21 @@ namespace Entities
         public StatsEntity(Models modelPreset, Vector2 pos, float rotation = 0f) : base(modelPreset, pos, rotation)
         {
             //SetStats();
-            //SetInventory();
+            //SetSlots();
             //SetDropInventory();
         }
 
         public StatsEntity(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f) : base(sprite, body, pos, rotation)
         {
             //SetStats();
-            //SetInventory();
+            //SetSlots();
             //SetDropInventory();
         }
 
         public StatsEntity() : base()
         {
             //SetStats();
-            //SetInventory();
+            //SetSlots();
             //SetDropInventory();
         }
 

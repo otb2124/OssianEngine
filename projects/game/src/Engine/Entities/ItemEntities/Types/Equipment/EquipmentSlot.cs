@@ -11,6 +11,8 @@ namespace Entities
 
         public enum EquipmentSlotTypes
         {
+            NONE,
+
             WEAPON_L,
             WEAPON_R,
             

@@ -251,7 +251,8 @@ namespace UI
                     }
                     int localToIndex = ToSlotId - currentSlot;
 
-                    if (Equipment.EquipmentSlotTakeIntEquipmentSlotTypesMap.TryGetValue(localToIndex, out var validSlotTakes) &&
+
+                    if (Equipment.EquipmentSlotTakeEquipmentSlotTypesMap.TryGetValue(((UIInventorySlotComponent)Slots[ToSlotId]).EquipmentSlotType, out var validSlotTakes) &&
                         Array.Exists(validSlotTakes, slotTake => slotTake == eqFrom.EquipmentSlotTake))
                     {
                         if(eqFrom.EquipmentSlotTake == Equipment.EquipmentSlotsTakes.WEAPON_SINGLE || eqFrom.EquipmentSlotTake == Equipment.EquipmentSlotsTakes.WEAPON_DOUBLE)

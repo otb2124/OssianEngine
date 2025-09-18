@@ -20,7 +20,9 @@ namespace UI
         public bool IsLeftDragging;
         public bool IsRightDragging;
 
-        public UIInventorySlotComponent(int id, Vector2 pos) : base(id)
+        public EquipmentSlot.EquipmentSlotTypes EquipmentSlotType;
+
+        public UIInventorySlotComponent(int id, Vector2 pos, EquipmentSlot.EquipmentSlotTypes slotType = EquipmentSlot.EquipmentSlotTypes.NONE) : base(id)
         {
             Position = pos;
 
@@ -36,6 +38,8 @@ namespace UI
 
             IsLeftDragging = false;
             IsRightDragging = false;
+
+            EquipmentSlotType = slotType;
         }
 
         public void SetItem(Item item)
@@ -68,11 +72,6 @@ namespace UI
                 children[1] = null;
                 children[2] = null;
             }
-        }
-
-        public void Refresh()
-        {
-            SetItem(Item);
         }
 
         public override void Update()
