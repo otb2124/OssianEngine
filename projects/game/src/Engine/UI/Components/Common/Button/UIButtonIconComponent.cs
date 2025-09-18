@@ -1,12 +1,7 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Resources;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utils;
 using static Resources.StaticSpriteFactory;
 using Color = Microsoft.Xna.Framework.Color;
@@ -67,16 +62,16 @@ namespace UI
 
             
             RectangleF buttonRect = new RectangleF(new PointF(adjPosition.X, adjPosition.Y), new SizeF(Size.X * adjScale.X, Size.Y * adjScale.Y));
-            IsOnHover = UI.UIButtonHandler.CheckHover(buttonRect);
-            IsOnClick = UI.UIButtonHandler.CheckClick(buttonRect);
+            IsOnHover = UIButtonHandler.CheckHover(buttonRect);
+            IsOnClick = UIButtonHandler.CheckClick(buttonRect);
 
             if(IsOnHover)
             {
-                UI.UIButtonHandler.HandleHover(ButtonId);
+                UIButtonHandler.HandleHover(ButtonId);
             }
             if(IsOnClick)
             {
-                UI.UIButtonHandler.HandleClick(ButtonId);
+                UIButtonHandler.HandleClick(ButtonId);
             }
         }
 

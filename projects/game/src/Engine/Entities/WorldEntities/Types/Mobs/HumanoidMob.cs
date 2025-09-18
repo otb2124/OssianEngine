@@ -55,6 +55,24 @@ namespace Entities
             }
         }
 
+        public override void SetInventory()
+        {
+            switch (Type)
+            {
+                case HumanoidMobs.CITIZEN:
+                    base.SetInventory();
+
+                    Inventory.Init(40);
+
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Consumables.HEALTH_POTION)));
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public override void SetAI()
         {
 

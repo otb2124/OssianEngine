@@ -7,20 +7,33 @@ using System.Threading.Tasks;
 
 namespace UI
 {
+    public enum UINavigationStates
+    {
+        NONE,
+        CLEAR,
+        INGAME_MENU_OPEN,
+        TRADE_MENU_OPEN,
+    }
+
+
     public static class UI
     {
-
         public static UIManager UIManager;
-        public static UINavigator UINavigator;
-        public static UIButtonHandler UIButtonHandler;
+
+        public static UIOuterNavigator UIOuterNavigator;
+        public static UIInnerNavigator UIInnerNavigator;
+
+        public static UINavigationStates UIState;
 
         public static void Init()
         {
             UIManager = new UIManager();
-            UINavigator = new UINavigator();
-            UIButtonHandler= new UIButtonHandler();
+            UIInnerNavigator = new UIInnerNavigator();
+            UIOuterNavigator = new UIOuterNavigator();
 
             UIManager.Init();
+
+            UIState = UINavigationStates.CLEAR;
         }
     }
 }

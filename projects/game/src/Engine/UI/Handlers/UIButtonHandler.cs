@@ -10,13 +10,10 @@ using System.Threading.Tasks;
 
 namespace UI
 {
-    public class UIButtonHandler
+    public static class UIButtonHandler
     {
 
-        public UIButtonHandler() { }
-
-
-        public bool CheckHover(RectangleF buttonRect)
+        public static bool CheckHover(RectangleF buttonRect)
         {
             PointF mousePos = new PointF(Inputs.Inputs.mouse.GetMouseWorldPosition().X, Inputs.Inputs.mouse.GetMouseWorldPosition().Y);
 
@@ -28,7 +25,7 @@ namespace UI
             return false;
         }
 
-        public bool CheckClick(RectangleF buttonRect)
+        public static bool CheckClick(RectangleF buttonRect)
         {
             if(CheckHover(buttonRect))
             {
@@ -48,7 +45,7 @@ namespace UI
         }
 
 
-        public void HandleHover(int id)
+        public static void HandleHover(int id)
         {
 
             switch (id)
@@ -66,7 +63,7 @@ namespace UI
         }
 
 
-        public void HandleClick(int id)
+        public static void HandleClick(int id)
         {
 
             switch (id)
@@ -77,7 +74,7 @@ namespace UI
                 case 3:
                 case 4:
                 case 5:
-                    UI.UINavigator.HandleDynamicButtonNavigation(id);
+                    UI.UIInnerNavigator.HandleDynamicButtonNavigation(id);
                     break;
                 default:
                     break;

@@ -12,7 +12,6 @@ namespace UI
 {
     public class UIManager
     {
-        public static UIManager Instance { get; private set; }
         public List<UIComponent> components;
         private static int nextId = 10;
 
@@ -20,13 +19,12 @@ namespace UI
 
         public UIManager()
         {
-            Instance = this;
             components = new List<UIComponent>();
         }
 
         public void Init()
         {
-            UI.UINavigator.HandleInitialNavigation();
+            UI.UIInnerNavigator.HandleInitialNavigation();
         }
 
         public UIComponent GetComponent(UIComponent.UIComponentTypes type, int id = -1)
@@ -80,6 +78,8 @@ namespace UI
         {
             if(component != null)
             {
+                component.Destroy();
+
                 if (component.children != null)
                 {
                     List<UIComponent> childrenList = component.children.ToList();
@@ -203,7 +203,12 @@ namespace UI
 
         public void Update()
         {
-            UI.UINavigator.HandleNavigation();
+            
+            UI.UIInnerNavigator.HandleNavigation();
+
+            //update them separately
+            //outer goes last for encapsulation of processes
+            UI.UIOuterNavigator.HandleNavigation();
 
             for (int i = 0; i < components.Count; i++)
             {

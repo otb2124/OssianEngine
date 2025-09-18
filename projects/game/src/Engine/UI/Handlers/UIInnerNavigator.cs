@@ -9,7 +9,7 @@ using Utils;
 
 namespace UI
 {
-    public class UINavigator
+    public class UIInnerNavigator
     {
 
         public void HandleInitialNavigation()
@@ -29,7 +29,6 @@ namespace UI
                 }
             }
 
-
             if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEHUDPRESSED])
             {
                 UI.UIManager.ToggleComponent(new UIHUDComponent(0), UIComponent.UIComponentTypes.HUD);
@@ -41,22 +40,22 @@ namespace UI
             switch(id)
             {
                 case 0:
-                    UI.UINavigator.ToggleInGameMenu();
+                    ToggleInGameMenu();
                     break;
                 case 1:
-                    UI.UINavigator.ClearInGameMenu(UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
+                    ClearInGameMenu(UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
                     UI.UIManager.ToggleComponent(new UIInGameMenuInventoryComponent(2), UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
                     break;
                 case 2:
-                    UI.UINavigator.ClearInGameMenu(UIComponent.UIComponentTypes.MENU_INGAME_SKILLS);
+                    ClearInGameMenu(UIComponent.UIComponentTypes.MENU_INGAME_SKILLS);
                     UI.UIManager.ToggleComponent(new UIInGameMenuSkillsComponent(3), UIComponent.UIComponentTypes.MENU_INGAME_SKILLS);
                     break;
                 case 3:
-                    UI.UINavigator.ClearInGameMenu(UIComponent.UIComponentTypes.MENU_INGAME_QUESTBOOK);
+                    ClearInGameMenu(UIComponent.UIComponentTypes.MENU_INGAME_QUESTBOOK);
                     UI.UIManager.ToggleComponent(new UIInGameMenuQuestBookComponent(4), UIComponent.UIComponentTypes.MENU_INGAME_QUESTBOOK);
                     break;
                 case 4:
-                    UI.UINavigator.ClearInGameMenu(UIComponent.UIComponentTypes.MENU_INGAME_STATISTICS);
+                    ClearInGameMenu(UIComponent.UIComponentTypes.MENU_INGAME_STATISTICS);
                     UI.UIManager.ToggleComponent(new UIInGameMenuStatisticsComponent(5), UIComponent.UIComponentTypes.MENU_INGAME_STATISTICS);
                     break;
                 case 5:
@@ -67,8 +66,11 @@ namespace UI
 
         public void ToggleInGameMenu()
         {
-            UI.UIManager.ToggleComponent(new UIIngameMenuComponent(1), UIComponent.UIComponentTypes.MENU_INGAME);
-            ClearInGameMenu();
+            if(UI.UIState == UINavigationStates.CLEAR)
+            {
+                UI.UIManager.ToggleComponent(new UIIngameMenuComponent(1), UIComponent.UIComponentTypes.MENU_INGAME);
+                ClearInGameMenu();
+            }
         }
 
         private void ClearInGameMenu(UIComponent.UIComponentTypes? exception = null)

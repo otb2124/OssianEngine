@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI;
 
 namespace Entities
 {
@@ -54,6 +55,7 @@ namespace Entities
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
+                    UI.UI.UIOuterNavigator.ToggleTradeMenu(npcEnt, livingEnt);
                     Console.WriteLine("npc interaction");
                 }
             }
