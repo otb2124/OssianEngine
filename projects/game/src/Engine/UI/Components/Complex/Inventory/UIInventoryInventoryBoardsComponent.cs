@@ -39,9 +39,6 @@ namespace UI
             DropManager.Slots = new List<UIComponent>();
             DropManager.AddSlots(children[0].children[0].children);
             DropManager.AddSlots(children[1].children[0].children);
-
-            //to move to another trade menu component
-            UI.UIState = UINavigationStates.TRADE_MENU_OPEN;
         }
 
 
@@ -97,7 +94,6 @@ namespace UI
         //to move to another trade menu component
         public override void Destroy()
         {
-            UI.UIState = UINavigationStates.CLEAR;
         }
     }
 }

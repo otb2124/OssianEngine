@@ -23,7 +23,19 @@ namespace UI
 
         public void ToggleTradeMenu(StatsEntity entFrom, StatsEntity entTo)
         {
-            UI.UIManager.ToggleComponent(new UIInventoryInventoryBoardsComponent(999, Vector2.Zero, entFrom.Inventory, entTo.Inventory), UIComponent.UIComponentTypes.INVENTORY_TO_INVENTORY);
+            if(UI.UIManager.GetComponent(UIComponent.UIComponentTypes.MENU_INGAME) == null)
+            {
+                UI.UIManager.ToggleComponent(new UIInventoryInventoryBoardsComponent(999, Vector2.Zero, entFrom.Inventory, entTo.Inventory), UIComponent.UIComponentTypes.INVENTORY_TO_INVENTORY);
+            }
+
+            if (UI.UIManager.GetComponent(UIComponent.UIComponentTypes.INVENTORY_TO_INVENTORY) == null)
+            {
+                UI.PreventButtonPressedOverlap = false;
+            }
+            else
+            {
+                UI.PreventButtonPressedOverlap = true;
+            }
         }
     }
 }

@@ -66,10 +66,20 @@ namespace UI
 
         public void ToggleInGameMenu()
         {
-            if(UI.UIState == UINavigationStates.CLEAR)
+            if(UI.UIManager.GetComponent(UIComponent.UIComponentTypes.INVENTORY_TO_INVENTORY) == null)
             {
                 UI.UIManager.ToggleComponent(new UIIngameMenuComponent(1), UIComponent.UIComponentTypes.MENU_INGAME);
                 ClearInGameMenu();
+
+
+                if (UI.UIManager.GetComponent(UIComponent.UIComponentTypes.MENU_INGAME) == null)
+                {
+                    UI.PreventButtonPressedOverlap = false;
+                }
+                else
+                {
+                    UI.PreventButtonPressedOverlap = true;
+                }
             }
         }
 

@@ -56,12 +56,11 @@ namespace Entities
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
                     UI.UI.UIOuterNavigator.ToggleTradeMenu(npcEnt, livingEnt);
-                    Console.WriteLine("npc interaction");
                 }
             }
             else if(npcEnt.NPCInteractionManager.InteractionTrigger == InteractionTriggers.AUTO)
             {
-                Console.WriteLine("npc interaction");
+
             }
         }
     }

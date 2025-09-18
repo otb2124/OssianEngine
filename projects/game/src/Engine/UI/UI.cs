@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace UI
 {
-    public enum UINavigationStates
-    {
-        NONE,
-        CLEAR,
-        INGAME_MENU_OPEN,
-        TRADE_MENU_OPEN,
-    }
 
 
     public static class UI
@@ -23,7 +16,7 @@ namespace UI
         public static UIOuterNavigator UIOuterNavigator;
         public static UIInnerNavigator UIInnerNavigator;
 
-        public static UINavigationStates UIState;
+        public static bool PreventButtonPressedOverlap = false;
 
         public static void Init()
         {
@@ -32,8 +25,6 @@ namespace UI
             UIOuterNavigator = new UIOuterNavigator();
 
             UIManager.Init();
-
-            UIState = UINavigationStates.CLEAR;
         }
     }
 }

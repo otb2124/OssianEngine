@@ -33,8 +33,6 @@ namespace UI
             children[4] = new UIButtonIconComponent(-1, 3, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*4 - buttonMargins.Y * 3), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 3, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
             children[5] = new UIButtonIconComponent(-1, 4, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y * 5 - buttonMargins.Y * 4), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 4, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
             children[6] = new UIButtonIconComponent(-1, 5, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y * 6 - buttonMargins.Y * 5), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 5, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
-
-            UI.UIState = UINavigationStates.INGAME_MENU_OPEN;
         }
 
         public override void Update()
@@ -72,7 +70,6 @@ namespace UI
 
         public override void Destroy()
         {
-            UI.UIState = UINavigationStates.CLEAR;
         }
     }
 }

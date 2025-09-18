@@ -15,8 +15,6 @@ namespace UI
         public List<UIComponent> components;
         private static int nextId = 10;
 
-        public bool PreventButtonPressedOverlap = false;
-
         public UIManager()
         {
             components = new List<UIComponent>();
@@ -42,6 +40,9 @@ namespace UI
 
         private UIComponent FindComponentRecursive(UIComponent component, UIComponent.UIComponentTypes type, int id)
         {
+            if(component == null)
+                return component;
+
             if (component.type == type && (id == -1 || component.Id == id))
             {
                 return component;

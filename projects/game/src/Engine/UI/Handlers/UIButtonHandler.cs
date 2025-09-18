@@ -31,12 +31,10 @@ namespace UI
             {
                 if (Inputs.Inputs.mouse.IsAnyMouseButtonPressed())
                 {
-                    UI.UIManager.PreventButtonPressedOverlap = true;
                     return true;
                 }
                 else
                 {
-                    UI.UIManager.PreventButtonPressedOverlap = false;
                     return false;
                 }
             }
