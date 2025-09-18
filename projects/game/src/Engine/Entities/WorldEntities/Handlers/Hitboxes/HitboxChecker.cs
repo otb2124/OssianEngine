@@ -118,9 +118,17 @@ namespace Entities
 
         public static void CheckForInterraction(InteractiveEntity interactiveEnt, EquipmentEntity livingEnt)
         {
-            if (CheckIntersection(livingEnt.BattleBodyManager.BodyHitbox.extends, interactiveEnt.InteractionField.extends))
+            if (CheckIntersection(livingEnt.BattleBodyManager.BodyHitbox.extends, interactiveEnt.InteractionField.Hitbox.extends))
             {
-                InteractionHandler.HandleInterraction(interactiveEnt, livingEnt);
+                InteractionHandler.HandleInteraction(interactiveEnt, livingEnt);
+            }
+        }
+
+        public static void CheckForInterraction(NPCEntity npcEnt, EquipmentEntity livingEnt)
+        {
+            if (CheckIntersection(livingEnt.BattleBodyManager.BodyHitbox.extends, npcEnt.NPCInteractionManager.InteractionField.Hitbox.extends))
+            {
+                InteractionHandler.HandleInteraction(npcEnt, livingEnt);
             }
         }
 

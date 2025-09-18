@@ -32,6 +32,7 @@ namespace Entities
             SetInventory();
             SetDropInventory();
             SetAI();
+            SetInteractionType();
         }
 
         public void SetHumanoidMobData(out Models modelType)
@@ -60,13 +61,25 @@ namespace Entities
             switch (Type)
             {
                 case HumanoidMobs.CITIZEN:
-                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
+                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.STILL);
                     break;
                 case HumanoidMobs.BANDIT:
                     AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
                     break;
                 default:
                     AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
+                    break;
+            }
+        }
+
+        public override void SetInteractionType()
+        {
+            switch (Type)
+            {
+                case HumanoidMobs.CITIZEN:
+                    NPCInteractionManager = new NPCInteractionManager(NPCInteractionManager.NPCInteractionTypes.TRADE, InteractionTriggers.INTERACTION_BUTTON_PRESSED);
+                    break;
+                default:
                     break;
             }
         }
@@ -202,8 +215,6 @@ namespace Entities
 
                     break;
             }
-
-            
 
             Stats.Refill();
 

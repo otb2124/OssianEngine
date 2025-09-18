@@ -10,7 +10,7 @@ using MathHelper = Utils.MathHelper;
 
 namespace Entities
 {
-    public class EquipmentEntity : AIEntity
+    public class EquipmentEntity : NPCEntity
     {
 
         public EquipmentManager EquipmentManager;

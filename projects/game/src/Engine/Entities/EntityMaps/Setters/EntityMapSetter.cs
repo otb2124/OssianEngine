@@ -58,6 +58,7 @@ namespace Entities
                     //entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
                     //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
+                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, 100), 0f));
                     //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.BANDIT, new Vector2(-60,  100), 0f));
                     //entities.Add(new AnimalMob(AnimalMob.AnimalMobs.SLIME, new Vector2(-200, 100), 0f));
                     // entities.Add(new AnimalMob(AnimalMob.AnimalMobs.BAT, new Vector2(-300, 100), 0f));
@@ -74,8 +75,6 @@ namespace Entities
                 case 1:
                     //entities.Add(new AnimalMob(Models.SLIME, new Vector2(-250, 100), 0f));
                     //entities.Add(new AnimalMob(Models.SLIME, new Vector2(-200, 100), 0f));
-                    entities.Add(new NPC(NPC.NPCs.BANDIT, new Vector2(250, 100), 0f));
-
                     entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-500, -300)));
 
                     entities.Add(new PlatformEntity(new Vector2(-500, -550), 5));

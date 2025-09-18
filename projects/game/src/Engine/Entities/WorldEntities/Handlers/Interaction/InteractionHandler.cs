@@ -10,18 +10,21 @@ namespace Entities
     {
 
 
-        public static void HandleInterraction(InteractiveEntity interractiveEnt, StatsEntity livingEnt)
+        public static void HandleInteraction(WorldEntity interractiveEnt, StatsEntity livingEnt)
         {
-            //Debug.WriteLine("interraction!");
             if (interractiveEnt is InteractiveItemEntity itemInterractiveEnt)
             {
-                HandleInterractiveItemInterraction(itemInterractiveEnt, livingEnt);
+                HandleInteractiveItemInteraction(itemInterractiveEnt, livingEnt);
+            }
+            else if(interractiveEnt is NPCEntity npcEnt)
+            {
+                HandleNPCInteraction(npcEnt, livingEnt);
             }
         }
 
-        public static void HandleInterractiveItemInterraction(InteractiveItemEntity itemEnt, StatsEntity livingEnt)
+        public static void HandleInteractiveItemInteraction(InteractiveItemEntity itemEnt, StatsEntity livingEnt)
         {
-            if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP)
+            if (itemEnt.interactiveItemTrigger == InteractionTriggers.INTERACTION_BUTTON_PRESSED)
             {
                 if(livingEnt.Stats.AllowPickup)
                 {
@@ -30,17 +33,33 @@ namespace Entities
                         Entities.Player.Inventory.AddInventory(itemEnt.Containment);
                         Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                         Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
-                        livingEnt.Stats.AllowPickup = false;
                         UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
+                        livingEnt.Stats.AllowPickup = false;
                     }
                 }
             }
-            else if (itemEnt.interactiveItemType == InteractiveItemEntity.InteractiveItemType.PICKUP_AUTO)
+            else if (itemEnt.interactiveItemTrigger == InteractionTriggers.AUTO)
             {
                 Entities.Player.Inventory.AddInventory(itemEnt.Containment);
                 Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                 Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
                 UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
+            }
+        }
+
+        public static void HandleNPCInteraction(NPCEntity npcEnt, StatsEntity livingEnt)
+        {
+            
+            if(npcEnt.NPCInteractionManager.InteractionTrigger == InteractionTriggers.INTERACTION_BUTTON_PRESSED)
+            {
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
+                {
+                    Console.WriteLine("npc interaction");
+                }
+            }
+            else if(npcEnt.NPCInteractionManager.InteractionTrigger == InteractionTriggers.AUTO)
+            {
+                Console.WriteLine("npc interaction");
             }
         }
     }

@@ -21,6 +21,7 @@ namespace Entities
         public enum BehaviourCases
         {
             NONE,
+            STILL,
             IDLE,
             IDLE_RANDOM,
             AGGRO,
@@ -92,6 +93,15 @@ namespace Entities
 
                     switch (CurrentCase)
                     {
+                        case BehaviourCases.STILL:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                new EntityAICommand(entity => { entity.StandStill(); })
+                            };
+
+                            break;
+
                         case BehaviourCases.IDLE:
 
                             CommandPool = new EntityAICommand[]
@@ -140,6 +150,15 @@ namespace Entities
 
                     switch (CurrentCase)
                     {
+                        case BehaviourCases.STILL:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                new EntityAICommand(entity => { entity.StandStill(); })
+                            };
+
+                            break;
+
                         case BehaviourCases.IDLE:
 
                             CommandPool = new EntityAICommand[]
@@ -189,6 +208,15 @@ namespace Entities
                 case BehaviourPatterns.BANDIT_DEFAULT:
                     switch (CurrentCase)
                     {
+                        case BehaviourCases.STILL:
+
+                            CommandPool = new EntityAICommand[]
+                            {
+                                new EntityAICommand(entity => { entity.StandStill(); })
+                            };
+
+                            break;
+
                         case BehaviourCases.IDLE:
 
                             CommandPool = new EntityAICommand[]
@@ -235,17 +263,22 @@ namespace Entities
             }
 
 
-            foreach (var command in CommandPool)
+
+            if(CommandPool != null)
             {
-                command.Entity = entity;
-            }
+                foreach (EntityAICommand command in CommandPool)
+                {
+                    command.Entity = entity;
+                }
 
 
-            currentQueue.Clear();
-            foreach (var command in CommandPool)
-            {
-                currentQueue.Enqueue(command);
+                currentQueue.Clear();
+                foreach (EntityAICommand command in CommandPool)
+                {
+                    currentQueue.Enqueue(command);
+                }
             }
+            
 
             CaseUpdated = true;
         }

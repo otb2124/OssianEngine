@@ -9,7 +9,7 @@ using Utils;
 
 namespace Entities
 {
-    public class NonEquipmentEntity : AIEntity
+    public class NonEquipmentEntity : NPCEntity
     {
 
 
