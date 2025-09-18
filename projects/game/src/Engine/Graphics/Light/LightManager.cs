@@ -28,7 +28,7 @@ namespace Graphics
         {
             ClearLightSources();
 
-            foreach (Entity ent in Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Entities)
+            foreach (WorldEntity ent in Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Entities)
             {
                 if (ent is PhysicalEntity phent && phent.Emission != null)
                 {

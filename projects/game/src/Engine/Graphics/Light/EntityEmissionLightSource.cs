@@ -20,7 +20,7 @@ namespace Graphics
 
         public override void Update()
         {
-            Entity ent = Entities.Entities.entityManager.GetEntityById(EntityId);
+            WorldEntity ent = Entities.Entities.entityManager.GetEntityById(EntityId);
 
             if(ent is PhysicalEntity phent)
             {

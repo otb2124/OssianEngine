@@ -215,6 +215,7 @@
     <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Engine\Entities\WorldEntities\Handlers\Interaction\" />
     <Folder Include="Engine\Graphics\Window\" />
     <Folder Include="Engine\UI\Components\Menus\Main\" />
     <Folder Include="Engine\UI\Components\Misc\" />

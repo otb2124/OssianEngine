@@ -72,7 +72,7 @@ namespace Physics
         }
 
 
-        public void RefreshList(List<Entity> newList)
+        public void RefreshList(List<WorldEntity> newList)
         {
             bodyList.Clear();
             for (int i = 0; i < newList.Count; i++)

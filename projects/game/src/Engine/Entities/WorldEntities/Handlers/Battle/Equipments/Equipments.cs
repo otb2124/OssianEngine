@@ -22,8 +22,8 @@ namespace Entities
             {
                 new(EquipmentSlot.EquipmentSlotTypes.WEAPON_L),
                 new(EquipmentSlot.EquipmentSlotTypes.WEAPON_R),
-                new(EquipmentSlot.EquipmentSlotTypes.CHESTPLATE),
                 new(EquipmentSlot.EquipmentSlotTypes.HELMET),
+                new(EquipmentSlot.EquipmentSlotTypes.CHESTPLATE),
                 new(EquipmentSlot.EquipmentSlotTypes.BOOTS),
                 new(EquipmentSlot.EquipmentSlotTypes.GLOVES),
                 new(EquipmentSlot.EquipmentSlotTypes.NECKLACE),

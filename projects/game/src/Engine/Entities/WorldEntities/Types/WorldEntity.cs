@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class Entity
+    public class WorldEntity
     {
         public int Id { get; set; }
-        public Entity() 
+        public WorldEntity() 
         {
             Id = Entities.entityManager.GenerateId();
         }
-        public Entity(int id)
+        public WorldEntity(int id)
         {
             Id = id;
         }

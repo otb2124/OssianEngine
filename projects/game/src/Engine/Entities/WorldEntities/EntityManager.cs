@@ -77,7 +77,7 @@ namespace Entities
             return Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Contains(Entities.Player);
         }
 
-        public void AddEntity(Entity ent)
+        public void AddEntity(WorldEntity ent)
         {
             if (ent is PhysicalEntity physicalEntity)
             {
@@ -86,7 +86,7 @@ namespace Entities
             Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Add(ent);
 
         }
-        public void RemoveEntity(Entity ent)
+        public void RemoveEntity(WorldEntity ent)
         {
             if (ent is PhysicalEntity physicalEntity)
             {
@@ -98,7 +98,7 @@ namespace Entities
         public void RemoveAll()
         {
             var entitiesSnapshot = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.ToList();
-            foreach (Entity entity in entitiesSnapshot)
+            foreach (WorldEntity entity in entitiesSnapshot)
             {
                 if(!(entity is Player))
                 {
@@ -129,7 +129,7 @@ namespace Entities
                 return nextId++;
             }
 
-            var entities = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities ?? (Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities = new List<Entity>());
+            var entities = Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities ?? (Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities = new List<WorldEntity>());
             while (entities.Any(e => e.Id == nextId))
             {
                 nextId++;
@@ -141,7 +141,7 @@ namespace Entities
             return nextId++;
         }
 
-        public Entity GetEntityById(int id)
+        public WorldEntity GetEntityById(int id)
         {
             return Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.FirstOrDefault(e => e.Id == id);
         }

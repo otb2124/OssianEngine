@@ -13,9 +13,9 @@ namespace Entities
     {
 
 
-        public static List<Entity> FillEntityMap(int id)
+        public static List<WorldEntity> FillEntityMap(int id)
         {
-            List<Entity> entities = new List<Entity>();
+            List<WorldEntity> entities = new List<WorldEntity>();
 
             switch (id)
             {
@@ -74,7 +74,7 @@ namespace Entities
                 case 1:
                     //entities.Add(new AnimalMob(Models.SLIME, new Vector2(-250, 100), 0f));
                     //entities.Add(new AnimalMob(Models.SLIME, new Vector2(-200, 100), 0f));
-                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.BANDIT, new Vector2(250, 100), 0f));
+                    entities.Add(new NPC(NPC.NPCs.BANDIT, new Vector2(250, 100), 0f));
 
                     entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-500, -300)));
 

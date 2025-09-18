@@ -10,7 +10,7 @@ using Model = Resources.Model;
 
 namespace Entities
 {
-    public class PhysicalEntity : Entity
+    public class PhysicalEntity : WorldEntity
     {
         
         public Resources.Model Model;

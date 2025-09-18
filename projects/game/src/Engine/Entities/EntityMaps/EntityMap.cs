@@ -13,7 +13,7 @@ namespace Entities
 
         public Point Size;
         public int Id;
-        public List<Entity> Entities;
+        public List<WorldEntity> Entities;
         public List<Event> Events;
         public List<FilterLayer> FilterLayers;
 

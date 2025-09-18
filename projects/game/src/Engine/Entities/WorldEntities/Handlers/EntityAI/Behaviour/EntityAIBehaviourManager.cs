@@ -37,6 +37,7 @@ namespace Entities
 
         public static readonly Dictionary<StatsEntity.EntityFractions, StatsEntity.EntityFractions[]> AutomaticAggroFractionsMap = new()
         {
+            { StatsEntity.EntityFractions.NEUTRAL, new StatsEntity.EntityFractions[]{ }},
             { StatsEntity.EntityFractions.BANDIT, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.ANIMAL, StatsEntity.EntityFractions.PLAYER}},
             { StatsEntity.EntityFractions.ANIMAL, new StatsEntity.EntityFractions[]{ StatsEntity.EntityFractions.BANDIT, StatsEntity.EntityFractions.PLAYER}}
         };

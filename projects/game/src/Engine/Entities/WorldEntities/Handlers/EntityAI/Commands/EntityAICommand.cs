@@ -293,7 +293,7 @@ namespace Entities
         /*
         public void PerformWeaponAttackCombo(AttackTypes[] sequence)
         {
-            if (Entity is EquipmentEntity eqEnt)
+            if (WorldEntity is EquipmentEntity eqEnt)
             {
                 EntityAICommand[] commands = new EntityAICommand[sequence.Length];
                 if (!ComplexCommandSet)
