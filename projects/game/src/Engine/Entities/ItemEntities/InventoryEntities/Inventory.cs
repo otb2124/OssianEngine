@@ -92,5 +92,30 @@ namespace Entities
         {
             return Items?.FirstOrDefault(item => item?.ItemKey == key);
         }
+
+
+        public override string ToString()
+        {
+            string ToArrayString = "";
+
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i] != null)
+                {
+                    ToArrayString += Items[i].ItemKey;
+                }
+                else
+                {
+                    ToArrayString += "null";
+                }
+
+                if (i < Items.Count - 1)
+                {
+                    ToArrayString += ", ";
+                }
+            }
+
+            return ToArrayString;
+        }
     }
 }

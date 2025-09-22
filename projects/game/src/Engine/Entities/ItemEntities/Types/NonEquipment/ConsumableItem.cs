@@ -25,7 +25,7 @@ namespace Entities
                     Value = 10;
                     Rarity = ItemRarity.COMMON;
                     break;
-            }    
+            }
         }
     }
 }

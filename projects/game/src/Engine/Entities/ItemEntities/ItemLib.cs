@@ -94,7 +94,9 @@ namespace Entities
 
         public enum QuestItems
         {
-            NOTE
+            NOTE,
+            STONE,
+            HEAD,
         }
 
         public enum Currencies

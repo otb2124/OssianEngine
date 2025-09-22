@@ -87,6 +87,8 @@ namespace Entities
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Materials.SWORD_HILT)));
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Materials.SWORD_HILT)));
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
         }
 

@@ -13,16 +13,9 @@ namespace UI
     public class UIInventorySortingOptionComponent : UIComponent
     {
 
-        public enum UIInventorySortingOptions
-        {
-            WEAPONS,
-            ARMORS,
-            ACCESSORIES,
-            POTIONS,
-            MISC,
-        };
-
+        
         public UIInventorySortingOptions OptionType;
+        public bool OnClick = false;
 
         public UIInventorySortingOptionComponent(int id, Vector2 pos, UIInventorySortingOptions optionType) : base(id)
         {
@@ -70,6 +63,8 @@ namespace UI
 
         public override void Update()
         {
+            OnClick = false;
+
             if (children != null)
             {
                 for (int i = 0; i < children.Length; i++)
@@ -79,6 +74,11 @@ namespace UI
                         children[i].Update();
                     }
                 }
+            }
+
+            if (((UIButtonIconComponent)children[0]).IsOnClick)
+            {
+                OnClick = true;
             }
         }
 

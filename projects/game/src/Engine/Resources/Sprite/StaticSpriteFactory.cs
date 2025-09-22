@@ -212,7 +212,11 @@ namespace Resources
             { new ItemKey(ItemLib.Consumables.HEALTH_POTION), new Point(0,12) },
             { new ItemKey(ItemLib.Materials.SWORD_HILT), new Point(0,13) },
             { new ItemKey(ItemLib.Keys.GOLDEN_KEY), new Point(0,14) },
+
             { new ItemKey(ItemLib.QuestItems.NOTE), new Point(0,15) },
+            { new ItemKey(ItemLib.QuestItems.STONE), new Point(1,15) },
+            { new ItemKey(ItemLib.QuestItems.HEAD), new Point(2,15) },
+
             { new ItemKey(ItemLib.Currencies.GOLD_COIN), new Point(0,16) },
         };
 

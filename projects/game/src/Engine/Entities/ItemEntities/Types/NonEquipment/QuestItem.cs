@@ -24,6 +24,20 @@ namespace Entities
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
                     break;
+
+                case ItemLib.QuestItems.STONE:
+                    Name = "Richard's Note";
+                    Description = "A note from richard";
+                    Value = 0;
+                    Rarity = ItemRarity.COMMON;
+                    break;
+
+                case ItemLib.QuestItems.HEAD:
+                    Name = "Richard's Note";
+                    Description = "A note from richard";
+                    Value = 0;
+                    Rarity = ItemRarity.COMMON;
+                    break;
             }
         }
     }

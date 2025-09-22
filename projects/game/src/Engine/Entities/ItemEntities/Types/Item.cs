@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UI;
 using Utils;
 
 namespace Entities
@@ -24,6 +25,7 @@ namespace Entities
     {
         public ItemKey ItemKey;
         public ItemLib.ItemTypes Type;
+        public UI.UIInventorySortingOptions InventorySortingOption;
         public int Value;
         public string Name;
         public string Description;
@@ -43,13 +45,15 @@ namespace Entities
         public Item(ItemKey itemKey)
         {
             ItemKey = itemKey;
+            Type = ItemFactory.GetItemType(itemKey);
+            InventorySortingOption = UIInventorySortingService.ItemTypeToUISortingOption[Type];
 
             SetItem();
         }
 
         public virtual void SetItem()
         {
-
+            
         }
     }
 }
