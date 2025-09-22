@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace UI
 {
-    public static class UIButtonHandler
+    public static class UIButtonService
     {
 
         public static bool CheckHover(RectangleF buttonRect)

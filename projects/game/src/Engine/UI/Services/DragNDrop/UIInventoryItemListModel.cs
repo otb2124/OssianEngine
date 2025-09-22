@@ -1,12 +1,10 @@
 ﻿using Entities;
-using System;
 using System.Collections.Generic;
 
 namespace UI
 {
-    public class UIInventoryItemList
+    public class UIInventoryItemListModel
     {
-
         public enum UIInventoryItemListTypes
         {
             INVENTORY,
@@ -17,13 +15,13 @@ namespace UI
         public List<Item> Items;
         public UIInventoryItemListTypes UIInventoryItemListType;
 
-        public UIInventoryItemList(Inventory inv) 
+        public UIInventoryItemListModel(Inventory inv) 
         {
             UIInventoryItemListType = UIInventoryItemListTypes.INVENTORY;
             Items = inv.Items;
         }
 
-        public UIInventoryItemList(Equipments eqs)
+        public UIInventoryItemListModel(Equipments eqs)
         {
             UIInventoryItemListType = UIInventoryItemListTypes.EQUIPMENT;
             Items = eqs.ToItemList();

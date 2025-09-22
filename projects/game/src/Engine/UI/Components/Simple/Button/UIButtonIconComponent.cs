@@ -62,16 +62,16 @@ namespace UI
 
             
             RectangleF buttonRect = new RectangleF(new PointF(adjPosition.X, adjPosition.Y), new SizeF(Size.X * adjScale.X, Size.Y * adjScale.Y));
-            IsOnHover = UIButtonHandler.CheckHover(buttonRect);
-            IsOnClick = UIButtonHandler.CheckClick(buttonRect);
+            IsOnHover = UIButtonService.CheckHover(buttonRect);
+            IsOnClick = UIButtonService.CheckClick(buttonRect);
 
             if(IsOnHover)
             {
-                UIButtonHandler.HandleHover(ButtonId);
+                UIButtonService.HandleHover(ButtonId);
             }
             if(IsOnClick)
             {
-                UIButtonHandler.HandleClick(ButtonId);
+                UIButtonService.HandleClick(ButtonId);
             }
         }
 

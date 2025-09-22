@@ -31,7 +31,7 @@ namespace UI
         public override void Update()
         {
             //
-            //UI.UIButtonHandler.CheckHover(ButtonId, Position, Size);
+            //UI.UIButtonService.CheckHover(ButtonId, Position, Size);
 
             base.Update();
         }

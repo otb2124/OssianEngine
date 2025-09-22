@@ -11,7 +11,7 @@ namespace UI
     public class UIInventoryEquipmentBoardsComponent : UIComponent
     {
 
-        public UIInventorySlotDragNDropManager DropManager;
+        public UIInventorySlotDragNDropService DropManager;
 
         public Inventory Inventory;
         public EquipmentManager EquipmentManager;
@@ -32,10 +32,10 @@ namespace UI
             children[0] = new UIInventoryComponent(-1, new Vector2(100, 500), Inventory);
             children[1] = new UIInventoryComponent(-1, new Vector2(500, 500), EquipmentManager.Equipments);
 
-            DropManager = new UIInventorySlotDragNDropManager(new List<UIInventoryItemList> 
+            DropManager = new UIInventorySlotDragNDropService(new List<UIInventoryItemListModel> 
             {
-                new UIInventoryItemList(Inventory), 
-                new UIInventoryItemList(EquipmentManager.Equipments) 
+                new UIInventoryItemListModel(Inventory), 
+                new UIInventoryItemListModel(EquipmentManager.Equipments) 
             });
 
             DropManager.Slots = new List<UIComponent>();

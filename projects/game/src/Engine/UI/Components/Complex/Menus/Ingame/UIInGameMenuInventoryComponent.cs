@@ -17,9 +17,8 @@ namespace UI
         {
             type = UIComponentTypes.MENU_INGAME_INVENTORY;
 
-            children = new UIComponent[2];
+            children = new UIComponent[1];
             children[0] = new UIInventoryEquipmentBoardsComponent(-1, new Vector2(100, 500), Entities.Entities.Player.Inventory, Entities.Entities.Player.EquipmentManager, Entities.Entities.Player.BattleBodyManager);
-            children[1] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One);
         }
 
         public override void Update()

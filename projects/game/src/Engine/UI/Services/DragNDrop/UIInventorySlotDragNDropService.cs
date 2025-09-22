@@ -5,12 +5,12 @@ using System.Drawing;
 
 namespace UI
 {
-    public class UIInventorySlotDragNDropManager
+    public class UIInventorySlotDragNDropService
     {
 
         public int FromSlotId;
         public int ToSlotId;
-        public List<UIInventoryItemList> ItemLists;
+        public List<UIInventoryItemListModel> ItemLists;
 
         private List<Item> Items;
 
@@ -24,17 +24,17 @@ namespace UI
 
         public bool WeaponChanged = false;
 
-        public UIInventorySlotDragNDropManager(List<UIInventoryItemList> itemLists)
+        public UIInventorySlotDragNDropService(List<UIInventoryItemListModel> itemLists)
         {
             Refresh();
 
             IsRightDrag = false;
 
-            ItemLists = new List<UIInventoryItemList>();
+            ItemLists = new List<UIInventoryItemListModel>();
             ItemLists.AddRange(itemLists);
 
             Items = new List<Item>();
-            foreach (UIInventoryItemList list in itemLists)
+            foreach (UIInventoryItemListModel list in itemLists)
             {
                 foreach (Item item in list.Items)
                 {
@@ -240,7 +240,7 @@ namespace UI
             int toListIndex = GetListIndexForItemId(ToSlotId);
 
             //if tolist is equipment
-            if (ItemLists[toListIndex].UIInventoryItemListType == UIInventoryItemList.UIInventoryItemListTypes.EQUIPMENT)
+            if (ItemLists[toListIndex].UIInventoryItemListType == UIInventoryItemListModel.UIInventoryItemListTypes.EQUIPMENT)
             {
                 if (draggedItem is Equipment eqFrom)
                 {
@@ -277,7 +277,7 @@ namespace UI
             int fromListIndex = GetListIndexForItemId(FromSlotId);
 
             //if fromlist is equipment
-            if (ItemLists[fromListIndex].UIInventoryItemListType == UIInventoryItemList.UIInventoryItemListTypes.EQUIPMENT)
+            if (ItemLists[fromListIndex].UIInventoryItemListType == UIInventoryItemListModel.UIInventoryItemListTypes.EQUIPMENT)
             {
                 WeaponChanged = true;
             }
@@ -313,7 +313,7 @@ namespace UI
             int currentIndex = 0;
             for (int i = 0; i < ItemLists.Count; i++)
             {
-                UIInventoryItemList itemList = ItemLists[i];
+                UIInventoryItemListModel itemList = ItemLists[i];
                 for (int j = 0; j < itemList.Items.Count; j++)
                 {
                     if (currentIndex < Items.Count)

@@ -13,9 +13,11 @@ namespace UI
 
             type = UIComponentTypes.INVENTORY;
 
-            children = new UIComponent[1];
+            children = new UIComponent[3];
 
-            children[0] = new UIInventorySlotBoardComponent(id, pos, inventory.Items);
+            children[0] = new UIInventorySlotBoardComponent(-1, pos, inventory.Items);
+            children[1] = new UIInventorySortingPanelComponent(-1, pos);
+            children[2] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One);
         }
 
         public UIInventoryComponent(int id, Vector2 pos, Equipments equipments) : base(id)
@@ -26,7 +28,7 @@ namespace UI
 
             children = new UIComponent[1];
 
-            children[0] = new UIInventorySlotBoardComponent(id, pos, equipments.ToInventory().Items, new int[][] { new int[] { -1 } });
+            children[0] = new UIInventorySlotBoardComponent(-1, pos, equipments.ToInventory().Items, new int[][] { new int[] { -1 } });
         }
 
         public override void Update()
