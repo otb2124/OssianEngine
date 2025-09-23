@@ -1,11 +1,23 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 
 namespace UI
 {
+    public enum UIInventoryTypes
+    {
+        INVENTORY,
+        EQUIPMENT,
+        TRADE_BUFFER
+    }
+
     public class UIInventoryComponent : UIComponent
     {
+
+        public List<Item> Items;
+        public UIInventoryTypes InventoryType;
+
 
         public UIInventoryComponent(int id, Vector2 pos, Inventory inventory) : base(id)
         {
@@ -13,10 +25,13 @@ namespace UI
 
             type = UIComponentTypes.INVENTORY;
 
-            children = new UIComponent[3];
+            Items = inventory.Items;
 
-            children[0] = new UIInventorySlotBoardComponent(-1, pos, inventory.Items);
-            //children[1] = new UIInventorySortingPanelComponent(-1, pos);
+            InventoryType = UIInventoryTypes.INVENTORY;
+
+            children = new UIComponent[3];
+            children[0] = new UIInventorySlotBoardComponent(-1, pos, Items);
+            children[1] = new UIInventorySortingPanelComponent(-1, pos);
             children[2] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One);
         }
 
@@ -26,9 +41,12 @@ namespace UI
 
             type = UIComponentTypes.INVENTORY;
 
-            children = new UIComponent[1];
+            InventoryType = UIInventoryTypes.EQUIPMENT;
 
-            children[0] = new UIInventorySlotBoardComponent(-1, pos, equipments.ToInventory().Items, new int[][] { new int[] { -1 } });
+            Items = equipments.ToInventory().Items;
+
+            children = new UIComponent[1];
+            children[0] = new UIInventorySlotBoardComponent(-1, pos, Items, new int[][] { new int[] { -1 } });
         }
 
         public override void Update()

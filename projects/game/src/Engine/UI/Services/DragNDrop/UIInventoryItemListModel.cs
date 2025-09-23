@@ -5,25 +5,26 @@ namespace UI
 {
     public class UIInventoryItemListModel
     {
-        public enum UIInventoryItemListTypes
-        {
-            INVENTORY,
-            EQUIPMENT,
-            TRADE_BUFFER
-        }
 
         public List<Item> Items;
-        public UIInventoryItemListTypes UIInventoryItemListType;
+        public UIInventoryTypes UIInventoryItemListType;
+
+
+        public UIInventoryItemListModel(List<Item> itemList, UIInventoryTypes inventoryTypes)
+        {
+            UIInventoryItemListType = inventoryTypes;
+            Items = itemList;
+        }
 
         public UIInventoryItemListModel(Inventory inv) 
         {
-            UIInventoryItemListType = UIInventoryItemListTypes.INVENTORY;
+            UIInventoryItemListType = UIInventoryTypes.INVENTORY;
             Items = inv.Items;
         }
 
         public UIInventoryItemListModel(Equipments eqs)
         {
-            UIInventoryItemListType = UIInventoryItemListTypes.EQUIPMENT;
+            UIInventoryItemListType = UIInventoryTypes.EQUIPMENT;
             Items = eqs.ToItemList();
         }
 

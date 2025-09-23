@@ -5,16 +5,16 @@ using System.Drawing;
 
 namespace UI
 {
-    public class UIInventorySlotDragNDropService
+    public class UIInventoryDragNDropService
     {
 
         public int FromSlotId;
         public int ToSlotId;
-        public List<UIInventoryItemListModel> ItemLists;
-
-        private List<Item> Items;
 
         public bool IsRightDrag;
+
+        public List<Item> AllItems;
+        public List<UIInventoryItemListModel> InventoryLists;
 
         public List<UIComponent> Slots;
 
@@ -24,63 +24,44 @@ namespace UI
 
         public bool WeaponChanged = false;
 
-        public UIInventorySlotDragNDropService(List<UIInventoryItemListModel> itemLists)
+        public UIInventoryDragNDropService(List<UIInventoryComponent> uiInventoryComponents)
         {
             Refresh();
 
-            IsRightDrag = false;
-
-            ItemLists = new List<UIInventoryItemListModel>();
-            ItemLists.AddRange(itemLists);
-
-            Items = new List<Item>();
-            foreach (UIInventoryItemListModel list in itemLists)
-            {
-                foreach (Item item in list.Items)
-                {
-                    Items.Add(item);
-                }
-            }
-
-            FromSlotId = -1;
-            ToSlotId = -1;
-
-            WasRefreshedFlag = false;
-            WasDropPerformed = false;
-
+            AllItems = new List<Item>();
+            InventoryLists = new List<UIInventoryItemListModel>();
             Slots = new List<UIComponent>();
-        }
 
-        public void AddSlots(UIComponent[] slots)
-        {
-            foreach (UIComponent slot in slots)
+            foreach (UIInventoryComponent uiInventoryComponent in uiInventoryComponents)
             {
-                Slots.Add(slot);
+                foreach (Item item in uiInventoryComponent.Items)
+                {
+                    AllItems.Add(item);
+                }
+
+                InventoryLists.Add(new UIInventoryItemListModel(uiInventoryComponent.Items, uiInventoryComponent.InventoryType));
+                Slots.AddRange(uiInventoryComponent.children[0].children);
             }
-        }
-
-        public void Refresh()
-        {
-            FromSlotId = -1;
-            ToSlotId = -1;
-            IsRightDrag = false;
-            WasRefreshedFlag = true;
-            WasDropPerformed = true;
-        }
-
-        public void AddItems(List<Item> newItems)
-        {
-            Items.AddRange(newItems);
         }
 
         public void Update()
         {
-            WasDropPerformed = false;
-            WasRefreshedFlag = false;
-            WeaponChanged = false;
-
             if (WasDropPerformed)
-                return;
+            {
+                foreach (var child in Slots)
+                {
+                    if (child is UIInventorySlotComponent fromSlot && (fromSlot.IsLeftDragging || fromSlot.IsRightDragging))
+                    {
+                        fromSlot.IsLeftDragging = false;
+                        fromSlot.IsRightDragging = false;
+                    }
+                }
+            }
+
+            WasRefreshedFlag = false;
+            WasDropPerformed = false;
+            WeaponChanged = false;
+            
 
 
             //dragging slot
@@ -121,7 +102,7 @@ namespace UI
                         {
                             ToSlotId = Slots.IndexOf(toSlot);
 
-                            if (Items != null && ToSlotId != FromSlotId && ToSlotId >= -1)
+                            if (AllItems != null && ToSlotId != FromSlotId && ToSlotId >= -1)
                             {
                                 Item draggedItem = fromSlot.Item;
 
@@ -148,8 +129,8 @@ namespace UI
                                                 {
                                                     toSlot.Item.Count += 1;
                                                     fromSlot.Item.Count -= 1;
-                                                    Items[ToSlotId] = toSlot.Item;
-                                                    Items[FromSlotId] = fromSlot.Item;
+                                                    AllItems[ToSlotId] = toSlot.Item;
+                                                    AllItems[FromSlotId] = fromSlot.Item;
                                                 }
                                                 else
                                                 {
@@ -163,13 +144,13 @@ namespace UI
                                                     draggedItem = new Item(fromSlot.Item.ItemKey) { Count = 1, Stackable = fromSlot.Item.Stackable, Type = fromSlot.Item.Type };
                                                     fromSlot.Item.Count -= 1;
                                                     fromSlot.SetItem(fromSlot.Item);
-                                                    Items[FromSlotId] = fromSlot.Item;
-                                                    Items[ToSlotId] = draggedItem;
+                                                    AllItems[FromSlotId] = fromSlot.Item;
+                                                    AllItems[ToSlotId] = draggedItem;
                                                 }
                                                 else
                                                 {
-                                                    Items[ToSlotId] = fromSlot.Item;
-                                                    Items[FromSlotId] = null;
+                                                    AllItems[ToSlotId] = fromSlot.Item;
+                                                    AllItems[FromSlotId] = null;
                                                 }
                                             }
                                         }
@@ -188,8 +169,8 @@ namespace UI
                                                 if (toSlot.Item.ItemKey == draggedItem.ItemKey)
                                                 {
                                                     toSlot.Item.Count += fromSlot.Item.Count;
-                                                    Items[ToSlotId] = toSlot.Item;
-                                                    Items[FromSlotId] = null;
+                                                    AllItems[ToSlotId] = toSlot.Item;
+                                                    AllItems[FromSlotId] = null;
                                                 }
                                                 else
                                                 {
@@ -230,8 +211,8 @@ namespace UI
             Item tempItem = toSlot.Item;
             toSlot.SetItem(draggedItem);
             fromSlot.SetItem(tempItem);
-            Items[ToSlotId] = toSlot.Item;
-            Items[FromSlotId] = tempItem;
+            AllItems[ToSlotId] = toSlot.Item;
+            AllItems[FromSlotId] = tempItem;
         }
 
 
@@ -240,23 +221,24 @@ namespace UI
             int toListIndex = GetListIndexForItemId(ToSlotId);
 
             //if tolist is equipment
-            if (ItemLists[toListIndex].UIInventoryItemListType == UIInventoryItemListModel.UIInventoryItemListTypes.EQUIPMENT)
+            if (InventoryLists[toListIndex].UIInventoryItemListType == UIInventoryTypes.EQUIPMENT)
             {
                 if (draggedItem is Equipment eqFrom)
                 {
+
                     int currentSlot = 0;
                     for (int i = 0; i < toListIndex; i++)
                     {
-                        currentSlot += ItemLists[i].Items.Count;
+                        currentSlot += InventoryLists[i].Items.Count;
                     }
                     int localToIndex = ToSlotId - currentSlot;
-
 
                     if (Equipment.EquipmentSlotTakeEquipmentSlotTypesMap.TryGetValue(((UIInventorySlotComponent)Slots[ToSlotId]).EquipmentSlotType, out var validSlotTakes) &&
                         Array.Exists(validSlotTakes, slotTake => slotTake == eqFrom.EquipmentSlotTake))
                     {
-                        if(eqFrom.EquipmentSlotTake == Equipment.EquipmentSlotsTakes.WEAPON_SINGLE || eqFrom.EquipmentSlotTake == Equipment.EquipmentSlotsTakes.WEAPON_DOUBLE)
+                        if (eqFrom.EquipmentSlotTake == Equipment.EquipmentSlotsTakes.WEAPON_SINGLE || eqFrom.EquipmentSlotTake == Equipment.EquipmentSlotsTakes.WEAPON_DOUBLE)
                         {
+                            Console.WriteLine("weaponChanged");
                             WeaponChanged = true;
                         }    
                         return true;
@@ -277,8 +259,9 @@ namespace UI
             int fromListIndex = GetListIndexForItemId(FromSlotId);
 
             //if fromlist is equipment
-            if (ItemLists[fromListIndex].UIInventoryItemListType == UIInventoryItemListModel.UIInventoryItemListTypes.EQUIPMENT)
+            if (InventoryLists[fromListIndex].UIInventoryItemListType == UIInventoryTypes.EQUIPMENT)
             {
+                Console.WriteLine("weaponChanged");
                 WeaponChanged = true;
             }
 
@@ -288,15 +271,15 @@ namespace UI
 
         public int GetListIndexForItemId(int itemId)
         {
-            if (itemId < 0 || itemId >= Items.Count)
+            if (itemId < 0 || itemId >= AllItems.Count)
             {
                 return -1;
             }
 
             int currentSlot = 0;
-            for (int i = 0; i < ItemLists.Count; i++)
+            for (int i = 0; i < InventoryLists.Count; i++)
             {
-                int listSize = ItemLists[i].Items.Count;
+                int listSize = InventoryLists[i].Items.Count;
                 if (itemId >= currentSlot && itemId < currentSlot + listSize)
                 {
                     return i;
@@ -311,14 +294,14 @@ namespace UI
         public void UpdateLists()
         {
             int currentIndex = 0;
-            for (int i = 0; i < ItemLists.Count; i++)
+            for (int i = 0; i < InventoryLists.Count; i++)
             {
-                UIInventoryItemListModel itemList = ItemLists[i];
+                UIInventoryItemListModel itemList = InventoryLists[i];
                 for (int j = 0; j < itemList.Items.Count; j++)
                 {
-                    if (currentIndex < Items.Count)
+                    if (currentIndex < AllItems.Count)
                     {
-                        itemList.Items[j] = Items[currentIndex];
+                        itemList.Items[j] = AllItems[currentIndex];
                         currentIndex++;
                     }
                     else
@@ -327,6 +310,23 @@ namespace UI
                     }
                 }
             }
+        }
+
+
+
+        public UIInventoryItemListModel GetItemList(int listId)
+        {
+            return InventoryLists[listId];
+        }
+
+
+        public void Refresh()
+        {
+            FromSlotId = -1;
+            ToSlotId = -1;
+            IsRightDrag = false;
+            WasRefreshedFlag = true;
+            WasDropPerformed = true;
         }
     }
 }

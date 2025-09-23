@@ -11,7 +11,7 @@ namespace UI
     public class UIInventoryInventoryBoardsComponent : UIComponent
     {
 
-        public UIInventorySlotDragNDropService DropManager;
+        public UIInventoryDragNDropService DropManager;
 
         public Inventory Inventory0;
         public Inventory Inventory1;
@@ -30,15 +30,7 @@ namespace UI
             children[0] = new UIInventoryComponent(-1, new Vector2(100, 500), Inventory0);
             children[1] = new UIInventoryComponent(-1, new Vector2(500, 500), Inventory1);
 
-            DropManager = new UIInventorySlotDragNDropService(new List<UIInventoryItemListModel>
-            {
-                new UIInventoryItemListModel(Inventory0),
-                new UIInventoryItemListModel(Inventory1)
-            });
-
-            DropManager.Slots = new List<UIComponent>();
-            DropManager.AddSlots(children[0].children[0].children);
-            DropManager.AddSlots(children[1].children[0].children);
+            DropManager = new UIInventoryDragNDropService(new List<UIInventoryComponent> { (UIInventoryComponent)children[0], (UIInventoryComponent)children[1] });
         }
 
 
@@ -46,8 +38,8 @@ namespace UI
         {
             if (DropManager.WasDropPerformed)
             {
-                Inventory0.Items = DropManager.ItemLists[0].ToInventory().Items;
-                Inventory1.Items = DropManager.ItemLists[1].ToInventory().Items;
+                Inventory0.Items = DropManager.InventoryLists[0].ToInventory().Items;
+                Inventory1.Items = DropManager.InventoryLists[1].ToInventory().Items;
             }
 
             foreach (var item in children)
