@@ -29,10 +29,11 @@ namespace UI
 
             InventoryType = UIInventoryTypes.INVENTORY;
 
-            children = new UIComponent[3];
+            children = new UIComponent[4];
             children[0] = new UIInventorySlotBoardComponent(-1, pos, Items);
             children[1] = new UIInventorySortingPanelComponent(-1, pos);
-            children[2] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One);
+            children[2] = new UIInventoryPagerComponent(-1, new Vector2(250, 100));
+            children[3] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One);
         }
 
         public UIInventoryComponent(int id, Vector2 pos, Equipments equipments) : base(id)

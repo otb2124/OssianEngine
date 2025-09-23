@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static Resources.StaticSpriteFactory;
+using static UI.UIComponent;
+using Utils;
+using Microsoft.Xna.Framework;
+
+namespace UI
+{
+    public class UIInventoryPagerComponent : UIComponent
+    {
+
+        public bool OnLeftClick = false;
+        public bool OnRightClick = false;
+
+        public UIInventoryPagerComponent(int id, Vector2 pos) : base(id)
+        {
+            Position = pos;
+
+            type = UIComponentTypes.INVENTORY_PAGER;
+
+            children = new UIComponent[2];
+
+            children[0] = new UIButtonIconComponent(-1, 15, new Vector2(Position.X, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(0, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
+            children[1] = new UIButtonIconComponent(-1, 15, new Vector2(Position.X + 100, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(32, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
+        }
+
+
+        public override void Update()
+        {
+            OnLeftClick = false;
+            OnRightClick = false;
+
+            if (children != null)
+            {
+                for (int i = 0; i < children.Length; i++)
+                {
+                    if (children[i] != null)
+                    {
+                        children[i].Update();
+                    }
+                }
+            }
+
+            if (((UIButtonIconComponent)children[0]).IsOnClick)
+            {
+                OnLeftClick = true;
+            }
+
+            if (((UIButtonIconComponent)children[1]).IsOnClick)
+            {
+                OnRightClick = true;
+            }
+        }
+
+        public override void Draw()
+        {
+            if (children != null)
+            {
+                for (int i = 0; i < children.Length; i++)
+                {
+                    if (children[i] != null)
+                    {
+                        children[i].Draw();
+                    }
+                }
+            }
+        }
+    }
+}
