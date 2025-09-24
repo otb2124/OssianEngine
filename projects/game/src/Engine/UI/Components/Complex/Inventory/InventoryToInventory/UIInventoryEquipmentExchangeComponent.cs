@@ -38,7 +38,10 @@ namespace UI
 
         public override void Update()
         {
-            ReflectOnModels();
+            if (DragNDropService.WasDropPerformed)
+            {
+                ReflectOnModels();
+            }
 
             for (int i = 0; i < children.Length; i++)
             {
@@ -67,34 +70,34 @@ namespace UI
 
         public void ReflectOnModels()
         {
-            if (DragNDropService.WasDropPerformed)
+            Inventory.Items = DragNDropService.InventoryLists[0].Items;
+
+            if (children[0] is UIInventoryComponent inventoryComponent)
             {
-                if (children[0] is UIInventoryComponent inventoryComponent)
-                {
-                    inventoryComponent.SortingService.UpdateOriginalItemList(DragNDropService.InventoryLists[0].Items);
-                }
-
-                Inventory.Items = DragNDropService.InventoryLists[0].Items;
-                EquipmentManager.Equipments.EquipmentSlots = DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots;
-
-                if (DragNDropService.WeaponChanged)
-                {
-                    //EquipmentManager.Equipments.TogglingWeaponSlots[0].Equipment = (WeaponEquipment)DragNDropService.UIInventoryComponents[1].ToEquipments().EquipmentSlots[0].Equipment;
-                    //EquipmentManager.Equipments.TogglingWeaponSlots[1].Equipment = (WeaponEquipment)DragNDropService.UIInventoryComponents[1].ToEquipments().EquipmentSlots[1].Equipment;
-                    EquipmentManager.Equipments.TogglingWeaponSlots[0].Equipment = EquipmentHelper.CreateBareHands();
-                    EquipmentManager.Equipments.TogglingWeaponSlots[1].Equipment = EquipmentHelper.CreateBareHands();
-                    EquipmentManager.WeaponInOutToggler.LeftWeaponIn = EquipmentHelper.CreateBareHands();
-                    EquipmentManager.WeaponInOutToggler.RightWeaponIn = EquipmentHelper.CreateBareHands();
-
-                    if (EquipmentManager.WeaponInOutToggler.IsWeaponOut)
-                    {
-                        EquipmentManager.ToggleWeaponInOut(BattleBodyManager);
-                    }
-
-                    EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots[0].Equipment, WeaponHands.LEFT);
-                    EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots[1].Equipment, WeaponHands.RIGHT);
-                }
+                inventoryComponent.SortingService.UpdateOriginalItemList(DragNDropService.InventoryLists[0].Items);
+                Inventory.Items = inventoryComponent.SortingService.OriginalItemList;
             }
+
+            EquipmentManager.Equipments.EquipmentSlots = DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots;
+
+            if (DragNDropService.WeaponChanged)
+            {
+                //EquipmentManager.Equipments.TogglingWeaponSlots[0].Equipment = (WeaponEquipment)DragNDropService.UIInventoryComponents[1].ToEquipments().EquipmentSlots[0].Equipment;
+                //EquipmentManager.Equipments.TogglingWeaponSlots[1].Equipment = (WeaponEquipment)DragNDropService.UIInventoryComponents[1].ToEquipments().EquipmentSlots[1].Equipment;
+                EquipmentManager.Equipments.TogglingWeaponSlots[0].Equipment = EquipmentHelper.CreateBareHands();
+                EquipmentManager.Equipments.TogglingWeaponSlots[1].Equipment = EquipmentHelper.CreateBareHands();
+                EquipmentManager.WeaponInOutToggler.LeftWeaponIn = EquipmentHelper.CreateBareHands();
+                EquipmentManager.WeaponInOutToggler.RightWeaponIn = EquipmentHelper.CreateBareHands();
+
+                if (EquipmentManager.WeaponInOutToggler.IsWeaponOut)
+                {
+                    EquipmentManager.ToggleWeaponInOut(BattleBodyManager);
+                }
+
+                EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots[0].Equipment, WeaponHands.LEFT);
+                EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots[1].Equipment, WeaponHands.RIGHT);
+            }
+
         }
 
         public override void Refresh()
