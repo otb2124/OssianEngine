@@ -13,7 +13,7 @@ namespace UI
 
         public UIInventorySortingPanelComponent(int id, Vector2 pos) : base(id)
         {
-            Position = new Vector2(pos.X, pos.Y + 64);
+            Position = new Vector2(pos.X, pos.Y + 64 * 0.75f + 4);
 
             type = UIComponentTypes.INVENTORY_SORTING_PANEL;
 

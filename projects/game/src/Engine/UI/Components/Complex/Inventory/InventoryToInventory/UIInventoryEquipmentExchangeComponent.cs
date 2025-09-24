@@ -56,15 +56,6 @@ namespace UI
                         if (inventoryComponent.WasSortedFlag)
                         {
                             DragNDropService.UpdateItemList(i, inventoryComponent.Items);
-
-                            if (inventoryComponent.SortingService.LastSortingOption != UIInventorySortingOptions.NONE)
-                            {
-                                DragNDropService.InventoryLists[i].IsNonSortedInventory = false;
-                            }
-                            else
-                            {
-                                DragNDropService.InventoryLists[i].IsNonSortedInventory = true;
-                            }
                         }
                     }
                 }
