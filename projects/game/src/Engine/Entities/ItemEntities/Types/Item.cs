@@ -25,7 +25,6 @@ namespace Entities
     {
         public ItemKey ItemKey;
         public ItemLib.ItemTypes Type;
-        public UI.UIInventorySortingOptions InventorySortingOption;
         public int Value;
         public string Name;
         public string Description;
@@ -46,7 +45,6 @@ namespace Entities
         {
             ItemKey = itemKey;
             Type = ItemFactory.GetItemType(itemKey);
-            InventorySortingOption = UIInventorySortingService.ItemTypeToUISortingOption[Type];
 
             SetItem();
         }

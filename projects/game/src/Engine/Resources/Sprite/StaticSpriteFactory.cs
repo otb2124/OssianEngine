@@ -17,7 +17,7 @@ namespace Resources
             public float z;
             public float currentZ;
             public SpriteEffects effect;
-            public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z)
+            public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z = 0)
             {
                 this.sheet = sheet;
                 this.srcRect = srcRect;

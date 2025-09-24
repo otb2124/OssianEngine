@@ -10,51 +10,46 @@ namespace UI
 
     public enum UIInventorySortingOptions
     {
+        NONE,
         WEAPONS,
         ARMORS,
         ACCESSORIES,
-        POTIONS,
-        MISC,
+        MATERIALS,
+        CONSUMABLES,
+        KEYS,
+        QUEST_ITEMS,
+        CURRENCIES
     };
 
     public class UIInventorySortingService
     {
 
-        public List<Item> TotalItems;
+        public List<Item> OriginalItemList;
 
-        public UIInventorySortingService(List<Item> totalItems)
+        public UIInventorySortingService(List<Item> itemList)
         {
-            TotalItems = totalItems;
+            OriginalItemList = itemList;
         }
 
-        public List<Item> GetSortedItems(UIInventorySortingOptions newOption = UIInventorySortingOptions.WEAPONS)
+        public List<Item> GetSortedItems(UIInventorySortingOptions newOption = UIInventorySortingOptions.NONE)
         {
+            if(newOption == UIInventorySortingOptions.NONE)
+                return OriginalItemList;
 
-            List<Item> sortedItems = TotalItems
+            List<Item> sortedItems = OriginalItemList
                 .Where(item => item != null && ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) && sortingOption == newOption)
+                .OrderBy(item => item.Name)
                 .ToList();
 
-            while (sortedItems.Count < TotalItems.Count)
+            sortedItems.AddRange(OriginalItemList
+                .Where(item => item != null && (!ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) || sortingOption != newOption)));
+
+            while (sortedItems.Count < OriginalItemList.Count)
             {
                 sortedItems.Add(null);
             }
 
             return sortedItems;
-        }
-
-        public List<Item> GetChangedItems(List<Item> newItems, UIInventorySortingOptions sortingOption)
-        {
-            TotalItems.RemoveAll(item => item != null && ItemTypeToUISortingOption.TryGetValue(item.Type, out var option) && option == sortingOption);
-
-            TotalItems.AddRange(newItems.Where(item => item != null));
-
-            int originalSize = TotalItems.Count;
-            while (TotalItems.Count < originalSize)
-            {
-                TotalItems.Add(null);
-            }
-
-            return TotalItems;
         }
 
         public static Dictionary<ItemLib.ItemTypes, UIInventorySortingOptions> ItemTypeToUISortingOption = new()
@@ -74,12 +69,12 @@ namespace UI
             { ItemLib.ItemTypes.PET_LIGHT, UIInventorySortingOptions.ACCESSORIES },
             { ItemLib.ItemTypes.CONTAINMENT, UIInventorySortingOptions.ACCESSORIES },
 
-            { ItemLib.ItemTypes.CONSUMABLE, UIInventorySortingOptions.POTIONS },
-            { ItemLib.ItemTypes.MATERIAL, UIInventorySortingOptions.POTIONS },
+            { ItemLib.ItemTypes.CONSUMABLE, UIInventorySortingOptions.CONSUMABLES },
+            { ItemLib.ItemTypes.MATERIAL, UIInventorySortingOptions.MATERIALS },
 
-            { ItemLib.ItemTypes.CURRENCY, UIInventorySortingOptions.MISC },
-            { ItemLib.ItemTypes.KEY, UIInventorySortingOptions.MISC },
-            { ItemLib.ItemTypes.QUEST_ITEM, UIInventorySortingOptions.MISC },
+            { ItemLib.ItemTypes.CURRENCY, UIInventorySortingOptions.CURRENCIES },
+            { ItemLib.ItemTypes.KEY, UIInventorySortingOptions.KEYS },
+            { ItemLib.ItemTypes.QUEST_ITEM, UIInventorySortingOptions.QUEST_ITEMS },
         };
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 
 
@@ -18,6 +19,8 @@ namespace UI
         public List<Item> Items;
         public UIInventoryTypes InventoryType;
 
+        public UIInventorySortingService SortingService;
+
 
         public UIInventoryComponent(int id, Vector2 pos, Inventory inventory) : base(id)
         {
@@ -25,7 +28,8 @@ namespace UI
 
             type = UIComponentTypes.INVENTORY;
 
-            Items = inventory.Items;
+            SortingService = new UIInventorySortingService(inventory.Items);
+            Items = SortingService.GetSortedItems();
 
             InventoryType = UIInventoryTypes.INVENTORY;
 
@@ -46,7 +50,7 @@ namespace UI
 
             Items = equipments.ToInventory().Items;
 
-            children = new UIComponent[1];
+            children = new UIComponent[4];
             children[0] = new UIInventorySlotBoardComponent(-1, pos, Items, new int[][] { new int[] { -1 } });
         }
 
@@ -59,6 +63,17 @@ namespace UI
                     if(children[i] != null)
                     {
                         children[i].Update();
+                    }
+                }
+
+
+                if (children[1] != null)
+                {
+                    if (((UIInventorySortingPanelComponent)children[1]).WasOptionTypeChangedFlag)
+                    {
+                        Items = SortingService.GetSortedItems(((UIInventorySortingPanelComponent)children[1]).CurrentOptionType);
+                        Refresh();
+                        children[0] = new UIInventorySlotBoardComponent(-1, Position, Items);
                     }
                 }
             }
@@ -76,6 +91,17 @@ namespace UI
                     }
                 }
             }
+        }
+
+
+        public override void Refresh()
+        {
+            foreach (UIComponent child in children)
+            {
+                child.Refresh();
+            }
+
+            base.Refresh();
         }
     }
 }
