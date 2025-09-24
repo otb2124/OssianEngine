@@ -40,18 +40,36 @@ namespace UI
         {
             ReflectOnModels();
 
-            foreach (var item in children)
+            for (int i = 0; i < children.Length; i++)
             {
-                if(children != null)
+                if (children[i] != null)
                 {
-                    if(item.WasRefreshedFlag)
+                    if (children[i].WasRefreshedFlag)
                     {
                         DragNDropService.Refresh();
                     }
 
-                    item.Update();
+                    children[i].Update();
+
+                    if (children[i] is UIInventoryComponent inventoryComponent)
+                    {
+                        if (inventoryComponent.WasSortedFlag)
+                        {
+                            DragNDropService.UpdateItemList(i, inventoryComponent.Items);
+
+                            if (inventoryComponent.SortingService.LastSortingOption != UIInventorySortingOptions.NONE)
+                            {
+                                DragNDropService.InventoryLists[i].IsNonSortedInventory = false;
+                            }
+                            else
+                            {
+                                DragNDropService.InventoryLists[i].IsNonSortedInventory = true;
+                            }
+                        }
+                    }
                 }
             }
+
 
             DragNDropService.Update();
         }
@@ -60,8 +78,13 @@ namespace UI
         {
             if (DragNDropService.WasDropPerformed)
             {
-                Inventory.Items = DragNDropService.GetItemList(0).Items;
-                EquipmentManager.Equipments.EquipmentSlots = DragNDropService.GetItemList(1).ToEquipments().EquipmentSlots;
+                if (children[0] is UIInventoryComponent inventoryComponent)
+                {
+                    inventoryComponent.SortingService.UpdateOriginalItemList(DragNDropService.InventoryLists[0].Items);
+                }
+
+                Inventory.Items = DragNDropService.InventoryLists[0].Items;
+                EquipmentManager.Equipments.EquipmentSlots = DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots;
 
                 if (DragNDropService.WeaponChanged)
                 {

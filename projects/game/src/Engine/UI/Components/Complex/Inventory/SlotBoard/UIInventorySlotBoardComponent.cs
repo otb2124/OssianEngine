@@ -23,13 +23,13 @@ namespace UI
             Items = items;
             SlotLayout = slotLayout;
 
-            SetSlots();
+            InitSlotsLayout();
+            InitSlots();
             EquipmentSlotTypeLayout = equipmentSlotTypes;
         }
 
-        public void SetSlots()
+        public void InitSlots()
         {
-            SetSlotsLayout();
             children = new UIComponent[Items.Count];
 
             for (int row = 0; row < SlotLayout.Length; row++)
@@ -60,7 +60,25 @@ namespace UI
             }
         }
 
-        public void SetSlotsLayout()
+
+        public void UpdateSlotItems()
+        {
+            for (int row = 0; row < SlotLayout.Length; row++)
+            {
+                for (int col = 0; col < SlotLayout[row].Length; col++)
+                {
+                    int slotId = SlotLayout[row][col];
+                    if (slotId == -1 || slotId >= Items.Count)
+                    {
+                        continue; //skip invalid slots (-1 or out-of-bounds)
+                    }
+
+                    ((UIInventorySlotComponent)children[slotId]).SetItem(Items[slotId]);
+                }
+            }
+        }
+
+        public void InitSlotsLayout()
         {
             if (SlotLayout == null)
             {
@@ -106,7 +124,7 @@ namespace UI
         {
             if (Items.Count > 0)
             {
-                SetSlots();
+                UpdateSlotItems();
             }
 
             base.Refresh();

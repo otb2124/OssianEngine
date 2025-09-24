@@ -8,6 +8,7 @@ namespace UI
 
         public List<Item> Items;
         public UIInventoryTypes UIInventoryItemListType;
+        public bool IsNonSortedInventory;
 
 
         public UIInventoryItemListModel(List<Item> itemList, UIInventoryTypes inventoryTypes)

@@ -21,6 +21,8 @@ namespace UI
 
         public UIInventorySortingService SortingService;
 
+        public bool WasSortedFlag = false;
+
 
         public UIInventoryComponent(int id, Vector2 pos, Inventory inventory) : base(id)
         {
@@ -56,6 +58,8 @@ namespace UI
 
         public override void Update()
         {
+            WasSortedFlag = false;
+
             if (children != null)
             {
                 for (int i = 0; i < children.Length; i++)
@@ -72,8 +76,10 @@ namespace UI
                     if (((UIInventorySortingPanelComponent)children[1]).WasOptionTypeChangedFlag)
                     {
                         Items = SortingService.GetSortedItems(((UIInventorySortingPanelComponent)children[1]).CurrentOptionType);
-                        Refresh();
-                        children[0] = new UIInventorySlotBoardComponent(-1, Position, Items);
+                        ((UIInventorySlotBoardComponent)children[0]).Items = Items;
+                        ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
+                        WasSortedFlag = true;
+                        //((UIInventorySlotBoardComponent)children[0]). = new UIInventorySlotBoardComponent(-1, Position, Items);
                     }
                 }
             }

@@ -24,6 +24,7 @@ namespace UI
 
         public bool WeaponChanged = false;
 
+
         public UIInventoryDragNDropService(List<UIInventoryComponent> uiInventoryComponents)
         {
             Refresh();
@@ -41,6 +42,22 @@ namespace UI
 
                 InventoryLists.Add(new UIInventoryItemListModel(uiInventoryComponent.Items, uiInventoryComponent.InventoryType));
                 Slots.AddRange(uiInventoryComponent.children[0].children);
+            }
+        }
+
+        public void UpdateItemList(int id, List<Item> itemList)
+        {
+            InventoryLists[id].Items = itemList;
+
+            int listStartIndex = 0;
+            for (int i = 0; i < id; i++)
+            {
+                listStartIndex += InventoryLists[i].Items.Count;
+            }
+
+            for (int j = 0; j < itemList.Count && listStartIndex + j < AllItems.Count; j++)
+            {
+                AllItems[listStartIndex + j] = itemList[j];
             }
         }
 
@@ -109,7 +126,6 @@ namespace UI
                                 if (fromSlot.Item != null)
                                 {
                                     Console.WriteLine("drop");
-
 
                                     //if equipment then check valid slot
                                     if(!IsValidEquipmentDrop(draggedItem))
@@ -310,13 +326,6 @@ namespace UI
                     }
                 }
             }
-        }
-
-
-
-        public UIInventoryItemListModel GetItemList(int listId)
-        {
-            return InventoryLists[listId];
         }
 
 

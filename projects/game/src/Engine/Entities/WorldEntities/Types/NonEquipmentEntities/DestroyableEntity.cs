@@ -16,7 +16,7 @@ namespace Entities
         public DestroyableEntity(Utils.Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
         {
             SetStats();
-            //SetSlots();
+            //InitSlots();
             //SetDropInventory();
         }
 

@@ -25,6 +25,7 @@ namespace UI
     {
 
         public List<Item> OriginalItemList;
+        public UIInventorySortingOptions LastSortingOption;
 
         public UIInventorySortingService(List<Item> itemList)
         {
@@ -33,7 +34,9 @@ namespace UI
 
         public List<Item> GetSortedItems(UIInventorySortingOptions newOption = UIInventorySortingOptions.NONE)
         {
-            if(newOption == UIInventorySortingOptions.NONE)
+            LastSortingOption = newOption;
+
+            if (newOption == UIInventorySortingOptions.NONE)
                 return OriginalItemList;
 
             List<Item> sortedItems = OriginalItemList
@@ -50,6 +53,41 @@ namespace UI
             }
 
             return sortedItems;
+        }
+
+
+        public void UpdateOriginalItemList(List<Item> itemList)
+        {
+            for (int i = 0; i < OriginalItemList.Count; i++)
+            {
+                if (OriginalItemList[i] != null && !itemList.Any(item => item != null && item.ItemKey == OriginalItemList[i].ItemKey))
+                {
+                    OriginalItemList[i] = null;
+                }
+            }
+
+            var newItems = itemList
+                .Where(item => item != null && !OriginalItemList.Any(orig => orig != null && orig.ItemKey == item.ItemKey))
+                .ToList();
+
+            int nullIndex = 0;
+            foreach (var newItem in newItems)
+            {
+                while (nullIndex < OriginalItemList.Count && OriginalItemList[nullIndex] != null)
+                {
+                    nullIndex++;
+                }
+
+                if (nullIndex < OriginalItemList.Count)
+                {
+                    OriginalItemList[nullIndex] = newItem;
+                    nullIndex++;
+                }
+                else
+                {
+                    break;
+                }
+            }
         }
 
         public static Dictionary<ItemLib.ItemTypes, UIInventorySortingOptions> ItemTypeToUISortingOption = new()
