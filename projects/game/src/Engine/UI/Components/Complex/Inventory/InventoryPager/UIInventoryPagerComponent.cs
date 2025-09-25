@@ -16,16 +16,17 @@ namespace UI
         public bool OnPrevClick = false;
         public bool OnNextClick = false;
 
-        public UIInventoryPagerComponent(int id, Vector2 pos) : base(id)
+        public UIInventoryPagerComponent(int id, Vector2 pos, string indicatorValue) : base(id)
         {
             Position = pos;
 
             type = UIComponentTypes.INVENTORY_PAGER;
 
-            children = new UIComponent[2];
+            children = new UIComponent[3];
 
             children[0] = new UIButtonIconComponent(-1, -1, new Vector2(Position.X, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(0, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
             children[1] = new UIButtonIconComponent(-1, -1, new Vector2(Position.X + 250, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(32, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
+            children[2] = new UITextStringComponent(-1, new Vector2(Position.X + 100, Position.Y), indicatorValue, 0, Vector2.One);
         }
 
 
@@ -54,6 +55,12 @@ namespace UI
             {
                 OnNextClick = true;
             }
+        }
+
+
+        public void UpdateIndicator(string indicatorValue)
+        {
+            children[2].text = indicatorValue;
         }
 
         public override void Draw()

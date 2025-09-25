@@ -55,5 +55,10 @@ namespace UI
                 CurrentPage = 0;
             }
         }
+
+        public string GetIndicatorToString()
+        {
+            return (CurrentPage + 1) + "/" + Pages.Count; 
+        }
     }
 }

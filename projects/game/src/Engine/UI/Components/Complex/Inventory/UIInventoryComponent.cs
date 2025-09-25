@@ -40,7 +40,7 @@ namespace UI
             children = new UIComponent[4];
             children[0] = new UIInventorySlotBoardComponent(-1, pos, Items);
             children[1] = new UIInventorySortingPanelComponent(-1, pos);
-            children[2] = new UIInventoryPagerComponent(-1, new Vector2(pos.X, 100));
+            children[2] = new UIInventoryPagerComponent(-1, new Vector2(pos.X, 100), PagerService.GetIndicatorToString());
             children[3] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One);
         }
 
@@ -127,6 +127,9 @@ namespace UI
 
             //update sorting service
             SortingService.OriginalItemList = Items;
+
+            //update pager component indicators
+            ((UIInventoryPagerComponent)children[2]).UpdateIndicator(PagerService.GetIndicatorToString());
 
             WasPageChangedFlag = true;
         }
