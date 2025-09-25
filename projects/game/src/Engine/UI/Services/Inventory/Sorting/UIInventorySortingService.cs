@@ -25,27 +25,32 @@ namespace UI
     {
 
         public List<Item> OriginalItemList;
-        public UIInventorySortingOptions LastSortingOption;
+        public UIInventorySortingOptions CurrentSortingOption;
 
         public UIInventorySortingService(List<Item> itemList)
         {
             OriginalItemList = itemList;
         }
 
-        public List<Item> GetSortedItems(UIInventorySortingOptions newOption = UIInventorySortingOptions.NONE)
+        public void SetSortingOption(UIInventorySortingOptions newOption = UIInventorySortingOptions.NONE)
         {
-            LastSortingOption = newOption;
+            CurrentSortingOption = newOption;
+        }
 
-            if (newOption == UIInventorySortingOptions.NONE)
+        public List<Item> GetSortedItems()
+        {
+            Console.WriteLine(CurrentSortingOption);
+
+            if (CurrentSortingOption == UIInventorySortingOptions.NONE)
                 return OriginalItemList;
 
             List<Item> sortedItems = OriginalItemList
-                .Where(item => item != null && ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) && sortingOption == newOption)
+                .Where(item => item != null && ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) && sortingOption == CurrentSortingOption)
                 .OrderBy(item => item.Name)
                 .ToList();
 
             sortedItems.AddRange(OriginalItemList
-                .Where(item => item != null && (!ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) || sortingOption != newOption)));
+                .Where(item => item != null && (!ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) || sortingOption != CurrentSortingOption)));
 
             while (sortedItems.Count < OriginalItemList.Count)
             {

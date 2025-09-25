@@ -13,8 +13,8 @@ namespace UI
     public class UIInventoryPagerComponent : UIComponent
     {
 
-        public bool OnLeftClick = false;
-        public bool OnRightClick = false;
+        public bool OnPrevClick = false;
+        public bool OnNextClick = false;
 
         public UIInventoryPagerComponent(int id, Vector2 pos) : base(id)
         {
@@ -24,15 +24,15 @@ namespace UI
 
             children = new UIComponent[2];
 
-            children[0] = new UIButtonIconComponent(-1, 15, new Vector2(Position.X, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(0, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
-            children[1] = new UIButtonIconComponent(-1, 15, new Vector2(Position.X + 100, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(32, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
+            children[0] = new UIButtonIconComponent(-1, -1, new Vector2(Position.X, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(0, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
+            children[1] = new UIButtonIconComponent(-1, -1, new Vector2(Position.X + 250, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(32, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
         }
 
 
         public override void Update()
         {
-            OnLeftClick = false;
-            OnRightClick = false;
+            OnPrevClick = false;
+            OnNextClick = false;
 
             if (children != null)
             {
@@ -47,12 +47,12 @@ namespace UI
 
             if (((UIButtonIconComponent)children[0]).IsOnClick)
             {
-                OnLeftClick = true;
+                OnPrevClick = true;
             }
 
             if (((UIButtonIconComponent)children[1]).IsOnClick)
             {
-                OnRightClick = true;
+                OnNextClick = true;
             }
         }
 

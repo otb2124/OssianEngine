@@ -59,6 +59,13 @@ namespace UI
                         if (inventoryComponent.WasSortedFlag)
                         {
                             DragNDropService.UpdateItemList(i, inventoryComponent.Items);
+                            //DragNDropService.UpdateSlots(i, Utils.EnumerableHelper.ArrayToList(inventoryComponent.children[0].children));
+                        }
+
+                        if(inventoryComponent.WasPageChangedFlag)
+                        {
+                            DragNDropService.UpdateItemList(i, inventoryComponent.Items);
+                            DragNDropService.UpdateSlots(i, Utils.EnumerableHelper.ArrayToList(inventoryComponent.children[0].children));
                         }
                     }
                 }
@@ -70,15 +77,15 @@ namespace UI
 
         public void ReflectOnModels()
         {
-            Inventory.Items = DragNDropService.InventoryLists[0].Items;
+            Inventory.Items = DragNDropService.InventoryList[0].Items;
 
             if (children[0] is UIInventoryComponent inventoryComponent)
             {
-                inventoryComponent.SortingService.UpdateOriginalItemList(DragNDropService.InventoryLists[0].Items);
+                inventoryComponent.SortingService.UpdateOriginalItemList(DragNDropService.InventoryList[0].Items);
                 Inventory.Items = inventoryComponent.SortingService.OriginalItemList;
             }
 
-            EquipmentManager.Equipments.EquipmentSlots = DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots;
+            EquipmentManager.Equipments.EquipmentSlots = DragNDropService.InventoryList[1].ToEquipments().EquipmentSlots;
 
             if (DragNDropService.WeaponChanged)
             {
@@ -94,8 +101,8 @@ namespace UI
                     EquipmentManager.ToggleWeaponInOut(BattleBodyManager);
                 }
 
-                EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots[0].Equipment, WeaponHands.LEFT);
-                EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DragNDropService.InventoryLists[1].ToEquipments().EquipmentSlots[1].Equipment, WeaponHands.RIGHT);
+                EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DragNDropService.InventoryList[1].ToEquipments().EquipmentSlots[0].Equipment, WeaponHands.LEFT);
+                EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)DragNDropService.InventoryList[1].ToEquipments().EquipmentSlots[1].Equipment, WeaponHands.RIGHT);
             }
 
         }

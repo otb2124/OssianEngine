@@ -7,8 +7,17 @@ namespace UI
 {
     public class UIInventorySlotBoardComponent : UIComponent
     {
+        public enum UIInventorySlotBoardLayoutTypes
+        {
+            CUSTOM,
+            INVENTORY,
+            EQUIPMENT,
+        };
+
 
         public List<Item> Items;
+
+        public UIInventorySlotBoardLayoutTypes SlotLayoutType;
         public int[][] SlotLayout; //if { {-1} } then use custom layout for equipment
         public EquipmentSlot.EquipmentSlotTypes[][] EquipmentSlotTypeLayout; //to set equipment slot restrictions
 
@@ -21,16 +30,38 @@ namespace UI
             children = new UIComponent[0];
 
             Items = items;
-            SlotLayout = slotLayout;
 
-            InitSlotsLayout();
-            InitSlots();
+            SlotLayout = slotLayout;
             EquipmentSlotTypeLayout = equipmentSlotTypes;
+
+            if(SlotLayout == null)
+            {
+                SlotLayoutType = UIInventorySlotBoardLayoutTypes.INVENTORY;
+            }
+            else if (SlotLayout != null && SlotLayout.Length == 1 && SlotLayout[0].Length == 1 && SlotLayout[0][0] == -1)
+            {
+                SlotLayoutType = UIInventorySlotBoardLayoutTypes.EQUIPMENT;
+            }
+            else
+            {
+                SlotLayoutType = UIInventorySlotBoardLayoutTypes.CUSTOM;
+            }
+
+            UpdateSlotsLayout();
+            UpdateSlots();
+            UpdateSlotItems();
         }
 
-        public void InitSlots()
+        public void UpdateSlots()
         {
-            children = new UIComponent[Items.Count];
+            int slotsCount = Items.Count;
+
+            if (slotsCount > UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE)
+            {
+                slotsCount = UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE;
+            }
+
+            children = new UIComponent[slotsCount];
 
             for (int row = 0; row < SlotLayout.Length; row++)
             {
@@ -54,8 +85,6 @@ namespace UI
                         ),
                         slotType
                     );
-
-                    ((UIInventorySlotComponent)children[slotId]).SetItem(Items[slotId]);
                 }
             }
         }
@@ -78,12 +107,18 @@ namespace UI
             }
         }
 
-        public void InitSlotsLayout()
+        public void UpdateSlotsLayout()
         {
-            if (SlotLayout == null)
+            if (SlotLayoutType == UIInventorySlotBoardLayoutTypes.INVENTORY)
             {
                 //default structure (inventory)
                 int slotsCount = Items.Count;
+
+                if(slotsCount > UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE)
+                {
+                    slotsCount = UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE;
+                }
+
                 int slotsInRow = 5;
                 int rowsCount = (int)Math.Ceiling((float)slotsCount / slotsInRow);
 
@@ -99,7 +134,7 @@ namespace UI
                 }
             }
 
-            if (SlotLayout != null && SlotLayout.Length == 1 && SlotLayout[0].Length == 1 && SlotLayout[0][0] == -1)
+            if (SlotLayoutType == UIInventorySlotBoardLayoutTypes.EQUIPMENT)
             {
                 //equipmemt layout
                 SlotLayout = new int[][]

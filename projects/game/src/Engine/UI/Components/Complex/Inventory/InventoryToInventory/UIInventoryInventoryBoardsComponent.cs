@@ -38,8 +38,8 @@ namespace UI
         {
             if (DropManager.WasDropPerformed)
             {
-                Inventory0.Items = DropManager.InventoryLists[0].ToInventory().Items;
-                Inventory1.Items = DropManager.InventoryLists[1].ToInventory().Items;
+                Inventory0.Items = DropManager.InventoryList[0].ToInventory().Items;
+                Inventory1.Items = DropManager.InventoryList[1].ToInventory().Items;
             }
 
             foreach (var item in children)

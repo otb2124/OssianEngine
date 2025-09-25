@@ -20,9 +20,10 @@ namespace UI
         public UIInventoryTypes InventoryType;
 
         public UIInventorySortingService SortingService;
+        public UIInventoryPagerService PagerService;
 
         public bool WasSortedFlag = false;
-
+        public bool WasPageChangedFlag = false;
 
         public UIInventoryComponent(int id, Vector2 pos, Inventory inventory) : base(id)
         {
@@ -31,14 +32,15 @@ namespace UI
             type = UIComponentTypes.INVENTORY;
 
             SortingService = new UIInventorySortingService(inventory.Items);
-            Items = SortingService.GetSortedItems();
+            PagerService = new UIInventoryPagerService(inventory.Items);
+            Items = inventory.Items;
 
             InventoryType = UIInventoryTypes.INVENTORY;
 
             children = new UIComponent[4];
             children[0] = new UIInventorySlotBoardComponent(-1, pos, Items);
             children[1] = new UIInventorySortingPanelComponent(-1, pos);
-            children[2] = new UIInventoryPagerComponent(-1, new Vector2(250, 100));
+            children[2] = new UIInventoryPagerComponent(-1, new Vector2(pos.X, 100));
             children[3] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One);
         }
 
@@ -59,6 +61,7 @@ namespace UI
         public override void Update()
         {
             WasSortedFlag = false;
+            WasPageChangedFlag = false;
 
             if (children != null)
             {
@@ -75,14 +78,57 @@ namespace UI
                 {
                     if (((UIInventorySortingPanelComponent)children[1]).WasOptionTypeChangedFlag)
                     {
-                        Items = SortingService.GetSortedItems(((UIInventorySortingPanelComponent)children[1]).CurrentOptionType);
-                        ((UIInventorySlotBoardComponent)children[0]).Items = Items;
-                        ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
-                        WasSortedFlag = true;
-                        //((UIInventorySlotBoardComponent)children[0]). = new UIInventorySlotBoardComponent(-1, Position, Items);
+                        SortingService.SetSortingOption(((UIInventorySortingPanelComponent)children[1]).CurrentOptionType);
+                        SwitchSorting(SortingService.CurrentSortingOption);
                     }
                 }
+
+                if (children[2] != null)
+                {
+                    if(children[2] is UIInventoryPagerComponent pagerComponent)
+                    {
+                        if(pagerComponent.OnPrevClick || pagerComponent.OnNextClick)
+                        {
+                            if (pagerComponent.OnPrevClick)
+                            {
+                                PagerService.SwitchToPrevious();
+                            }
+
+                            if (pagerComponent.OnNextClick)
+                            {
+                                PagerService.SwitchToNext();
+                            }
+
+                            SwitchPage(PagerService.CurrentPage);
+                        }
+                    }
+                    
+                }
             }
+        }
+
+        public void SwitchSorting(UIInventorySortingOptions option)
+        {
+            Items = SortingService.GetSortedItems();
+            ((UIInventorySlotBoardComponent)children[0]).Items = Items;
+            ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
+            WasSortedFlag = true;
+        }
+
+        public void SwitchPage(int id)
+        {
+            Console.WriteLine("current page: " + PagerService.CurrentPage);
+
+            Items = PagerService.Pages[PagerService.CurrentPage];
+            ((UIInventorySlotBoardComponent)children[0]).Items = Items;
+            ((UIInventorySlotBoardComponent)children[0]).UpdateSlotsLayout();
+            ((UIInventorySlotBoardComponent)children[0]).UpdateSlots();
+            ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
+
+            //update sorting service
+            SortingService.OriginalItemList = Items;
+
+            WasPageChangedFlag = true;
         }
 
         public override void Draw()
