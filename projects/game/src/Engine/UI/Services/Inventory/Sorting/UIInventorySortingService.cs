@@ -46,7 +46,7 @@ namespace UI
 
             List<Item> sortedItems = OriginalItemList
                 .Where(item => item != null && ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) && sortingOption == CurrentSortingOption)
-                .OrderBy(item => item.Name)
+                .OrderBy(item => item.ItemKey.EnumValue)
                 .ToList();
 
             sortedItems.AddRange(OriginalItemList

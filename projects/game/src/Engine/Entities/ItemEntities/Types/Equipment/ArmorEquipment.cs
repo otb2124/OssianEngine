@@ -31,6 +31,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.TORSO;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Helmets.IRON_HELMET:
@@ -39,6 +41,8 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.HEAD;
+
+                    Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -49,6 +53,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.LEGS;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Gloves.IRON_GLOVES:
@@ -57,6 +63,8 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.HANDS;
+
+                    Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;

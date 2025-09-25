@@ -11,7 +11,6 @@ namespace Entities
 
         public MaterialItem(ItemKey itemKey) : base(itemKey)
         {
-            Stackable = true;
         }
 
 
@@ -24,6 +23,7 @@ namespace Entities
                     Description = "A sword hilt";
                     Value = 2;
                     Rarity = ItemRarity.COMMON;
+                    Stackable = true;
                     break;
             }
         }

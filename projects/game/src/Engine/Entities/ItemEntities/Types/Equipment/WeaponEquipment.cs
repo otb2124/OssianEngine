@@ -32,6 +32,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DamageSet.PhysDamage = 1f;
                     BattleItemStatsData.PoiseDamage = 10f;
                     BattleItemStatsData.KnockbackPower = 0.1f;
@@ -48,6 +50,8 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+
+                    Stackable = false;
 
                     BattleItemStatsData.DamageSet.PhysDamage = 20f;
                     BattleItemStatsData.PoiseDamage = 50f;
@@ -66,6 +70,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DamageSet.PhysDamage = 20f;
                     BattleItemStatsData.PoiseDamage = 50f;
                     BattleItemStatsData.KnockbackPower = 2f;
@@ -82,6 +88,8 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+
+                    Stackable = false;
 
                     BattleItemStatsData.DamageSet.PhysDamage = 20f;
                     BattleItemStatsData.PoiseDamage = 50f;
@@ -101,6 +109,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DamageSet.MagicDamage = 20f;
                     BattleItemStatsData.PoiseDamage = 50f;
                     BattleItemStatsData.KnockbackPower = 2f;
@@ -119,6 +129,8 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+
+                    Stackable = false;
 
                     BattleItemStatsData.DamageSet.PhysDamage = 5f;
                     BattleItemStatsData.PoiseDamage = 10f;

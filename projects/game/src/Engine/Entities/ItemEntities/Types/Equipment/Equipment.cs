@@ -67,24 +67,5 @@ namespace Entities
         };
         //dictionary for EquipmentSlotTake == EquipmentSlot
 
-
-        public static Dictionary<int, EquipmentSlotsTakes[]> EquipmentSlotTakeIntEquipmentSlotTypesMap = new()
-        {
-            { 0, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.WEAPON_SINGLE, EquipmentSlotsTakes.WEAPON_DOUBLE }},
-            { 1, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.WEAPON_SINGLE, EquipmentSlotsTakes.WEAPON_DOUBLE }},
-            { 2, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.HEAD }},
-            { 3, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.TORSO }},
-            { 4, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.HANDS }},
-            { 5, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.LEGS }},
-            { 6, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.CAPE }},
-            { 7, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.NECKLACE }},
-            { 8, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.BELT }},
-            { 10, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.RING }},
-            { 11, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.RING }},
-            { 12, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET }},
-            { 13, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET_LIGHT }},
-            { 14, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.CONTAINMENT }},
-        };
-        //dictionary for EquipmentSlotTake == EquipmentSlot
     }
 }

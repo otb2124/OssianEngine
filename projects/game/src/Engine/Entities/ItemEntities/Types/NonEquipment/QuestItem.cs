@@ -10,7 +10,6 @@ namespace Entities
     {
         public QuestItem(ItemKey itemKey) : base(itemKey)
         {
-            Stackable = true;
         }
 
 
@@ -23,6 +22,7 @@ namespace Entities
                     Description = "A note from richard";
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
+                    Stackable = false;
                     break;
 
                 case ItemLib.QuestItems.STONE:
@@ -30,6 +30,7 @@ namespace Entities
                     Description = "A note from richard";
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
+                    Stackable = false;
                     break;
 
                 case ItemLib.QuestItems.HEAD:
@@ -37,6 +38,7 @@ namespace Entities
                     Description = "A note from richard";
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
+                    Stackable = false;
                     break;
             }
         }

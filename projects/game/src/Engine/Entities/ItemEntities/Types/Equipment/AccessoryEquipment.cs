@@ -29,6 +29,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.NECKLACE;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Belts.IRON_BELT:
@@ -37,6 +39,8 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.BELT;
+
+                    Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -47,6 +51,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.RING;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Pets.CALL_DOG:
@@ -55,6 +61,8 @@ namespace Entities
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.PET;
+
+                    Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
@@ -65,6 +73,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.PET_LIGHT;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Containments.BACKPACK:
@@ -74,6 +84,8 @@ namespace Entities
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.CONTAINMENT;
 
+                    Stackable = false;
+
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
                 case ItemLib.Capes.LEATHER_CAPE:
@@ -82,6 +94,8 @@ namespace Entities
                     Value = 100;
                     Rarity = ItemRarity.COMMON;
                     EquipmentSlotTake = EquipmentSlotsTakes.CAPE;
+
+                    Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;

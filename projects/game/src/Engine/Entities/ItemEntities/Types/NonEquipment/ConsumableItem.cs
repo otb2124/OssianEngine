@@ -11,7 +11,7 @@ namespace Entities
 
         public ConsumableItem(ItemKey itemKey) : base(itemKey)
         {
-            Stackable = true;
+            
         }
 
 
@@ -24,6 +24,7 @@ namespace Entities
                     Description = "A health potion";
                     Value = 10;
                     Rarity = ItemRarity.COMMON;
+                    Stackable = true;
                     break;
             }
         }

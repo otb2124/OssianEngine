@@ -11,7 +11,6 @@ namespace Entities
 
         public KeyItem(ItemKey itemKey) : base(itemKey)
         {
-            Stackable = true;
         }
 
 
@@ -25,6 +24,7 @@ namespace Entities
                     Description = "A golden key";
                     Value = 1;
                     Rarity = ItemRarity.COMMON;
+                    Stackable = true;
                     break;
             }
         }

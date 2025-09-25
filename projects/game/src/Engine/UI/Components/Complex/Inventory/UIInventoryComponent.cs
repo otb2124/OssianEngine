@@ -119,14 +119,14 @@ namespace UI
         {
             Console.WriteLine("current page: " + PagerService.CurrentPage);
 
-            Items = PagerService.Pages[PagerService.CurrentPage];
+            //update sorting service
+            SortingService.OriginalItemList = PagerService.Pages[PagerService.CurrentPage];
+            Items = SortingService.GetSortedItems();
+
             ((UIInventorySlotBoardComponent)children[0]).Items = Items;
             ((UIInventorySlotBoardComponent)children[0]).UpdateSlotsLayout();
             ((UIInventorySlotBoardComponent)children[0]).UpdateSlots();
             ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
-
-            //update sorting service
-            SortingService.OriginalItemList = Items;
 
             //update pager component indicators
             ((UIInventoryPagerComponent)children[2]).UpdateIndicator(PagerService.GetIndicatorToString());

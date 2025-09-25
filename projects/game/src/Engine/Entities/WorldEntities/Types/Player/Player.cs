@@ -90,6 +90,55 @@ namespace Entities
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
+
+
+
+            //test for inventory capacity
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.QuestItems.STONE)));
         }
 
 
