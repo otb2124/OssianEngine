@@ -34,7 +34,7 @@ namespace Entities
                         Entities.Player.Inventory.AddInventory(itemEnt.Containment);
                         Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                         Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
-                        //UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
+                        UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
                         livingEnt.Stats.AllowPickup = false;
                     }
                 }
@@ -44,7 +44,7 @@ namespace Entities
                 Entities.Player.Inventory.AddInventory(itemEnt.Containment);
                 Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                 Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
-                //UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.MENU_INGAME_INVENTORY);
+                UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
             }
         }
 

@@ -153,10 +153,11 @@ namespace UI
         {
             foreach (UIComponent child in children)
             {
-                child.Refresh();
+                if(child != null)
+                {
+                    child.Refresh();
+                }
             }
-
-            base.Refresh();
         }
     }
 }

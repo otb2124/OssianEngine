@@ -80,7 +80,7 @@ namespace Entities
         {
             base.SetInventory();
 
-            Inventory.Init(41);
+            Inventory.Init(60);
 
             Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Consumables.HEALTH_POTION)));
             //Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
