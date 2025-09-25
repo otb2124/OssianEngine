@@ -109,26 +109,25 @@ namespace UI
 
         public void SwitchSorting(UIInventorySortingOptions option)
         {
+            SortingService.SetSortingOption(option);
+            PagerService.UpdateList(SortingService.GetSortedItems());
             Items = SortingService.GetSortedItems();
             ((UIInventorySlotBoardComponent)children[0]).Items = Items;
             ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
             WasSortedFlag = true;
+
+            SwitchPage(0);
         }
 
         public void SwitchPage(int id)
         {
-            Console.WriteLine("current page: " + PagerService.CurrentPage);
-
-            //update sorting service
-            SortingService.OriginalItemList = PagerService.Pages[PagerService.CurrentPage];
-            Items = SortingService.GetSortedItems();
+            Items = PagerService.Pages[id];
 
             ((UIInventorySlotBoardComponent)children[0]).Items = Items;
             ((UIInventorySlotBoardComponent)children[0]).UpdateSlotsLayout();
             ((UIInventorySlotBoardComponent)children[0]).UpdateSlots();
             ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
 
-            //update pager component indicators
             ((UIInventoryPagerComponent)children[2]).UpdateIndicator(PagerService.GetIndicatorToString());
 
             WasPageChangedFlag = true;

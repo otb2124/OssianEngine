@@ -39,20 +39,23 @@ namespace UI
 
         public List<Item> GetSortedItems()
         {
-            Console.WriteLine(CurrentSortingOption);
+            return GetSortedItems(OriginalItemList);
+        }
 
+        public List<Item> GetSortedItems(List<Item> itemList)
+        {
             if (CurrentSortingOption == UIInventorySortingOptions.NONE)
-                return OriginalItemList;
+                return itemList;
 
-            List<Item> sortedItems = OriginalItemList
+            List<Item> sortedItems = itemList
                 .Where(item => item != null && ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) && sortingOption == CurrentSortingOption)
                 .OrderBy(item => item.ItemKey.EnumValue)
                 .ToList();
 
-            sortedItems.AddRange(OriginalItemList
+            sortedItems.AddRange(itemList
                 .Where(item => item != null && (!ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) || sortingOption != CurrentSortingOption)));
 
-            while (sortedItems.Count < OriginalItemList.Count)
+            while (sortedItems.Count < itemList.Count)
             {
                 sortedItems.Add(null);
             }
