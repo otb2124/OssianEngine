@@ -17,9 +17,9 @@ namespace Graphics
 
         public void Init()
         {
-            events = BackgroundSetter.SetDynamicBackgroundEvents(Entities.Entities.entityMapManager.CurrentMapId);
-            parallax = BackgroundSetter.SetParallax(Entities.Entities.entityMapManager.CurrentMapId);
-            entities = BackgroundSetter.SetEntities(Entities.Entities.entityMapManager.CurrentMapId);
+            events = BackgroundSetter.SetDynamicBackgroundEvents(Entities.Entities.EntityMapManager.CurrentMapId);
+            parallax = BackgroundSetter.SetParallax(Entities.Entities.EntityMapManager.CurrentMapId);
+            entities = BackgroundSetter.SetEntities(Entities.Entities.EntityMapManager.CurrentMapId);
             entitiesToRemove = new List<BackgroundEntity>();
         }
 

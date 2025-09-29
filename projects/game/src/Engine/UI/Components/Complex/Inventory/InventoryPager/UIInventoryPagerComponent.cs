@@ -26,7 +26,7 @@ namespace UI
 
             children[0] = new UIButtonIconComponent(-1, -1, new Vector2(Position.X, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(0, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
             children[1] = new UIButtonIconComponent(-1, -1, new Vector2(Position.X + 250, Position.Y), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(32, 64+64, 32, 32), 0), new Vector2(0.75f, 0.75f));
-            children[2] = new UITextStringComponent(-1, new Vector2(Position.X + 100, Position.Y), indicatorValue, 0, Vector2.One);
+            children[2] = new UITextStringComponent(-1, new Vector2(Position.X + 100, Position.Y), indicatorValue, 0, Vector2.One, Color.White);
         }
 
 

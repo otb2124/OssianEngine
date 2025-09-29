@@ -20,8 +20,8 @@ namespace UI
             children = new UIComponent[3];
             children[0] = new UIFrameComponent(-1, Position, frameSize);
 
-            children[1] = new UIButtonTextFrameComponent(-1, 10, Position, "Yes", 0, Vector2.One, Vector2.Zero);
-            children[2] = new UIButtonTextFrameComponent(-1, 10, Position, "No", 0, Vector2.One, Vector2.Zero);
+            children[1] = new UIButtonTextFrameComponent(-1, 10, Position, "Yes", 0, Vector2.One, Vector2.Zero, Color.White);
+            children[2] = new UIButtonTextFrameComponent(-1, 10, Position, "No", 0, Vector2.One, Vector2.Zero, Color.White);
         }
 
         public override void Update()

@@ -6,26 +6,30 @@ namespace Entities
     public static class Entities
     {
 
-        public static EntityManager entityManager;
-        public static EntityMapManager entityMapManager;
-        public static EventManager eventManager;
+        public static EntityManager EntityManager;
+        public static EntityMapManager EntityMapManager;
+        public static EventManager EventManager;
 
         public static readonly float GlobalStartTime = 12f;
 
+        public static DialogueManager DialogueManager;
+
         public static void Init()
         {
-            entityMapManager = new EntityMapManager();
-            entityManager = new EntityManager();
-            eventManager = new EventManager();
+            EntityMapManager = new EntityMapManager();
+            EntityManager = new EntityManager();
+            EventManager = new EventManager();
 
-            entityMapManager.Init();
+            DialogueManager = new DialogueManager();
+
+            EntityMapManager.Init();
         }
 
         public static void Update()
         {
-            entityManager.Update();
-            eventManager.Update();
-            entityMapManager.Update();
+            EntityManager.Update();
+            EventManager.Update();
+            EntityMapManager.Update();
         }
 
         public static Player Player;

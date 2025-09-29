@@ -59,16 +59,16 @@ namespace Entities
             {
                 if(Type == MapChangeEvents.AUTO)
                 {
-                    Entities.entityMapManager.GlobalMapTime.AdjustForTravel(GlobalMapTime.MapTravelTimeMap[new Point(Entities.entityMapManager.CurrentMapId, MapTo)]);
-                    Entities.entityMapManager.LoadMap(MapTo, PosTo);
+                    Entities.EntityMapManager.GlobalMapTime.AdjustForTravel(GlobalMapTime.MapTravelTimeMap[new Point(Entities.EntityMapManager.CurrentMapId, MapTo)]);
+                    Entities.EntityMapManager.LoadMap(MapTo, PosTo);
                 }
 
                 if(Type == MapChangeEvents.INTERACT_PRESSED)
                 {
                     if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                     {
-                        Entities.entityMapManager.GlobalMapTime.AdjustForTravel(GlobalMapTime.MapTravelTimeMap[new Point(Entities.entityMapManager.CurrentMapId, MapTo)]);
-                        Entities.entityMapManager.LoadMap(MapTo, PosTo);
+                        Entities.EntityMapManager.GlobalMapTime.AdjustForTravel(GlobalMapTime.MapTravelTimeMap[new Point(Entities.EntityMapManager.CurrentMapId, MapTo)]);
+                        Entities.EntityMapManager.LoadMap(MapTo, PosTo);
                     }
                 }
             }

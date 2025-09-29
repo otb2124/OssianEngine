@@ -10,12 +10,20 @@ namespace Entities
 {
     public class InteractionField
     {
+        public static Vector2 DEFAULT_INTERACTIONFIELD_SIZE = new Vector2(30, 30);
+
         public Hitbox Hitbox;
         public Vector2 Size;
 
         public InteractionField(Vector2 size)
         {
             Size = size;
+            Hitbox = new Hitbox();
+        }
+
+        public InteractionField()
+        {
+            Size = DEFAULT_INTERACTIONFIELD_SIZE;
             Hitbox = new Hitbox();
         }
 

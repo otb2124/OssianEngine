@@ -22,7 +22,7 @@ namespace Utils
             }
             string entityType = args[0];
             Console.WriteLine($"Spawning entity: {entityType}");
-            // Add logic to spawn entity, e.g., Entities.entityManager.SpawnEntity(entityType);
+            // Add logic to spawn entity, e.g., Entities.EntityManager.SpawnEntity(entityType);
         }
     }
 }

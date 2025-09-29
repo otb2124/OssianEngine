@@ -17,7 +17,7 @@ namespace Entities
             string filterDescription,
             string methodName) where T : PhysicalEntity
         {
-            EntityMap map = Entities.entityMapManager.GetCurrentMap();
+            EntityMap map = Entities.EntityMapManager.GetCurrentMap();
             if (map == null || map.Entities == null)
             {
                 return null;

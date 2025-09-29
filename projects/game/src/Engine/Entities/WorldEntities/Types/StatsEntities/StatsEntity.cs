@@ -140,13 +140,13 @@ namespace Entities
                     foreach (Item item in droppedItems)
                     {
                         InteractiveItemEntity itemEnt = EntityHelper.CreateItemDrop(item, Model.Body.Position.ToVector2());
-                        Entities.entityMapManager.GetCurrentMap().Entities.Add(itemEnt);
+                        Entities.EntityMapManager.GetCurrentMap().Entities.Add(itemEnt);
                         Graphics.Graphics.lightManager.AddEntityEmissionLightSource(itemEnt);
                     }
                 }
             }
 
-            Entities.entityManager.RemoveEntity(this);
+            Entities.EntityManager.RemoveEntity(this);
         }
 
         public override void DrawCollider()

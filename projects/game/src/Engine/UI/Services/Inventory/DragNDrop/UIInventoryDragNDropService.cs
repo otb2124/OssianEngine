@@ -39,54 +39,84 @@ namespace UI
 
             foreach (UIInventoryComponent uiInventoryComponent in uiInventoryComponents)
             {
-                foreach (Item item in uiInventoryComponent.Items)
+                List<Item> paddedItems = new List<Item>(uiInventoryComponent.Items);
+                while (paddedItems.Count < 40)
+                {
+                    paddedItems.Add(null);
+                }
+
+                foreach (Item item in paddedItems)
                 {
                     AllItems.Add(item);
                 }
 
-                InventoryList.Add(new UIInventoryItemListModel(uiInventoryComponent.Items, uiInventoryComponent.InventoryType));
-
+                InventoryList.Add(new UIInventoryItemListModel(paddedItems, uiInventoryComponent.InventoryType));
 
                 List<UIComponent> slotsToAdd = new List<UIComponent>();
                 foreach (UIComponent slot in uiInventoryComponent.children[0].children)
                 {
-                    AllSlots.Add(slot);
                     slotsToAdd.Add(slot);
                 }
+                while (slotsToAdd.Count < 40)
+                {
+                    slotsToAdd.Add(null);
+                }
 
+                foreach (UIComponent slot in slotsToAdd)
+                {
+                    AllSlots.Add(slot);
+                }
                 SlotboardList.Add(slotsToAdd);
             }
         }
 
         public void UpdateItemList(int id, List<Item> itemList)
         {
-            InventoryList[id].Items = itemList;
+            // Pad itemList to 40 items
+            List<Item> paddedItems = new List<Item>(itemList ?? new List<Item>());
+            while (paddedItems.Count < 40)
+            {
+                paddedItems.Add(null);
+            }
 
+            // Update InventoryList
+            InventoryList[id].Items = paddedItems;
+
+            // Update AllItems
             int listStartIndex = 0;
             for (int i = 0; i < id; i++)
             {
                 listStartIndex += InventoryList[i].Items.Count;
             }
 
-            for (int j = 0; j < itemList.Count && listStartIndex + j < AllItems.Count; j++)
+            for (int j = 0; j < paddedItems.Count && listStartIndex + j < AllItems.Count; j++)
             {
-                AllItems[listStartIndex + j] = itemList[j];
+                AllItems[listStartIndex + j] = paddedItems[j];
             }
         }
 
         public void UpdateSlots(int id, List<UIComponent> slots)
         {
-            SlotboardList[id] = slots;
+            // Pad slots to 40
+            List<UIComponent> paddedSlots = new List<UIComponent>(slots ?? new List<UIComponent>());
+            while (paddedSlots.Count < 40)
+            {
+                paddedSlots.Add(null);
+            }
 
+            // Update SlotboardList
+            SlotboardList[id] = paddedSlots;
+
+            // Update AllSlots
             int listStartIndex = 0;
             for (int i = 0; i < id; i++)
             {
                 listStartIndex += SlotboardList[i].Count;
             }
 
-            for (int j = 0; j < slots.Count && listStartIndex + j < AllSlots.Count; j++)
+            for (int j = 0; j < paddedSlots.Count && listStartIndex + j < AllSlots.Count; j++)
             {
-                AllSlots[listStartIndex + j] = slots[j];
+                AllSlots[listStartIndex + j] = paddedSlots[j];
             }
         }
 
@@ -303,10 +333,12 @@ namespace UI
 
             int fromListIndex = GetListIndexForItemId(FromSlotId);
 
+            Console.WriteLine(FromSlotId);
+
             //if fromlist is equipment
             if (InventoryList[fromListIndex].UIInventoryItemListType == UIInventoryTypes.EQUIPMENT)
             {
-                Console.WriteLine("weaponChanged");
+                Console.WriteLine("equipmentChanged");
                 WeaponChanged = true;
             }
 
@@ -325,7 +357,32 @@ namespace UI
             for (int i = 0; i < InventoryList.Count; i++)
             {
                 int listSize = InventoryList[i].Items.Count;
+
+                Console.WriteLine(listSize + ", " + SlotboardList[i].Count);
+
                 if (itemId >= currentSlot && itemId < currentSlot + listSize)
+                {
+                    return i;
+                }
+                currentSlot += listSize;
+            }
+
+            return -1;
+        }
+
+        public int GetListIndexForSlotId(int slotId)
+        {
+            if (slotId < 0 || slotId >= AllSlots.Count)
+            {
+                return -1;
+            }
+
+            int currentSlot = 0;
+            for (int i = 0; i < SlotboardList.Count; i++)
+            {
+                int listSize = SlotboardList[i].Count;
+
+                if (slotId >= currentSlot && slotId < currentSlot + listSize)
                 {
                     return i;
                 }

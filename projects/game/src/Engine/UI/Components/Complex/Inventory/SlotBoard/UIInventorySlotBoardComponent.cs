@@ -61,7 +61,7 @@ namespace UI
                 slotsCount = UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE;
             }
 
-            children = new UIComponent[slotsCount];
+            children = new UIComponent[slotsCount]; 
 
             for (int row = 0; row < SlotLayout.Length; row++)
             {

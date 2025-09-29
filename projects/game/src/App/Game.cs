@@ -34,7 +34,7 @@ namespace App
         protected override void LoadContent()
         {
             ResourceLoader.LoadResources();
-            Entities.Entities.entityMapManager.LoadInitialMap();
+            Entities.Entities.EntityMapManager.LoadInitialMap();
         }
 
         protected override void Update(GameTime gameTime)

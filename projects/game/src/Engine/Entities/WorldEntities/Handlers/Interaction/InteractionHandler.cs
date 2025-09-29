@@ -17,7 +17,7 @@ namespace Entities
             {
                 HandleInteractiveItemInteraction(itemInterractiveEnt, livingEnt);
             }
-            else if(interractiveEnt is NPCEntity npcEnt)
+            else if (interractiveEnt is NPCEntity npcEnt)
             {
                 HandleNPCInteraction(npcEnt, livingEnt);
             }
@@ -25,40 +25,56 @@ namespace Entities
 
         public static void HandleInteractiveItemInteraction(InteractiveItemEntity itemEnt, StatsEntity livingEnt)
         {
-            if (itemEnt.interactiveItemTrigger == InteractionTriggers.INTERACTION_BUTTON_PRESSED)
+            if (itemEnt.InteractionManager.InteractionData.Trigger == InteractionTriggers.INTERACTION_BUTTON_PRESSED)
             {
-                if(livingEnt.Stats.AllowPickup)
+
+                if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
-                    if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
+                    if (livingEnt.Stats.AllowPickup)
                     {
-                        Entities.Player.Inventory.AddInventory(itemEnt.Containment);
-                        Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
-                        Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
-                        UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
-                        livingEnt.Stats.AllowPickup = false;
+                        if (itemEnt.InteractionManager.InteractionData.Action == InteractionActions.ADD_ITEM_TO_INVENTORY)
+                        {
+                            Entities.Player.Inventory.AddInventory(itemEnt.Containment);
+                            Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
+                            Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.Remove(itemEnt);
+                            UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
+                            livingEnt.Stats.AllowPickup = false;
+                        }
+
+
                     }
                 }
             }
-            else if (itemEnt.interactiveItemTrigger == InteractionTriggers.AUTO)
+            else if (itemEnt.InteractionManager.InteractionData.Trigger == InteractionTriggers.AUTO)
             {
-                Entities.Player.Inventory.AddInventory(itemEnt.Containment);
-                Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
-                Entities.entityMapManager.maps[Entities.entityMapManager.CurrentMapId].Entities.Remove(itemEnt);
-                UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
+                if (itemEnt.InteractionManager.InteractionData.Action == InteractionActions.ADD_ITEM_TO_INVENTORY)
+                {
+                    Entities.Player.Inventory.AddInventory(itemEnt.Containment);
+                    Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
+                    Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.Remove(itemEnt);
+                    UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
+                }
             }
         }
 
         public static void HandleNPCInteraction(NPCEntity npcEnt, StatsEntity livingEnt)
         {
-            
-            if(npcEnt.NPCInteractionManager.InteractionTrigger == InteractionTriggers.INTERACTION_BUTTON_PRESSED)
+
+            if (npcEnt.InteractionManager.InteractionData.Trigger == InteractionTriggers.INTERACTION_BUTTON_PRESSED)
             {
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
-                    UI.UI.UIOuterNavigator.ToggleTradeMenu(npcEnt, livingEnt);
+                    if (npcEnt.InteractionManager.InteractionData.Action == InteractionActions.START_TRADE)
+                    {
+                        UI.UI.UIOuterNavigator.ToggleTradeComponent(npcEnt, livingEnt);
+                    }
+                    else if (npcEnt.InteractionManager.InteractionData.Action == InteractionActions.START_DIALOGUE)
+                    {
+                        Entities.DialogueManager.StartDialogue(npcEnt.InteractionManager.InteractionData.DialogueId);
+                    }
                 }
             }
-            else if(npcEnt.NPCInteractionManager.InteractionTrigger == InteractionTriggers.AUTO)
+            else if (npcEnt.InteractionManager.InteractionData.Trigger == InteractionTriggers.AUTO)
             {
 
             }

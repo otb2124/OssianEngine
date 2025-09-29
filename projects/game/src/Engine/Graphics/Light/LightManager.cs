@@ -28,7 +28,7 @@ namespace Graphics
         {
             ClearLightSources();
 
-            foreach (WorldEntity ent in Entities.Entities.entityMapManager.maps[Entities.Entities.entityMapManager.CurrentMapId].Entities)
+            foreach (WorldEntity ent in Entities.Entities.EntityMapManager.maps[Entities.Entities.EntityMapManager.CurrentMapId].Entities)
             {
                 if (ent is PhysicalEntity phent && phent.Emission != null)
                 {
@@ -61,7 +61,7 @@ namespace Graphics
                 {
                     if (light is EntityEmissionLightSource eesource)
                     {
-                        if (Entities.Entities.entityManager.GetEntityById(eesource.EntityId) == null)
+                        if (Entities.Entities.EntityManager.GetEntityById(eesource.EntityId) == null)
                         {
                             lightSourcesToRemove.Add(light);
                             continue;
@@ -80,7 +80,7 @@ namespace Graphics
 
         public int GenerateId()
         {
-            if (Entities.Entities.entityMapManager == null || Entities.Entities.entityMapManager.maps == null || Entities.Entities.entityMapManager.CurrentMapId < 0 || Entities.Entities.entityMapManager.CurrentMapId >= Entities.Entities.entityMapManager.maps.Length)
+            if (Entities.Entities.EntityMapManager == null || Entities.Entities.EntityMapManager.maps == null || Entities.Entities.EntityMapManager.CurrentMapId < 0 || Entities.Entities.EntityMapManager.CurrentMapId >= Entities.Entities.EntityMapManager.maps.Length)
             {
                 return nextId++;
             }

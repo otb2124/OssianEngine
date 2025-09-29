@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace UI
 {
@@ -13,6 +15,9 @@ namespace UI
 
         public Vector2 Size;
         public int ButtonId;
+
+        public bool IsOnHover;
+        public bool IsOnClick;
 
         public UIButtonComponent(int id, int buttonid, Vector2 position, Vector2 size) : base(id)
         {
@@ -30,15 +35,25 @@ namespace UI
 
         public override void Update()
         {
-            //
-            //UI.UIButtonService.CheckHover(ButtonId, Position, Size);
-
             base.Update();
+
+            RectangleF buttonRect = new RectangleF(new PointF(adjPosition.X, adjPosition.Y), new SizeF(Size.X * adjScale.X, Size.Y * adjScale.Y));
+            IsOnHover = UIButtonService.CheckHover(buttonRect);
+            IsOnClick = UIButtonService.CheckClick(buttonRect);
+
+            if (IsOnHover)
+            {
+                UIButtonService.HandleHover(ButtonId);
+            }
+            if (IsOnClick)
+            {
+                UIButtonService.HandleClick(ButtonId);
+            }
         }
 
         public override void DrawDebug()
         {
-            Graphics.Graphics.shapes.DrawBoxFill(Position.X, Position.Y, Size.X, Size.Y, Color.Red);
+            Graphics.Graphics.shapes.DrawBoxFill(adjPosition.X, adjPosition.Y, Size.X * adjScale.X, Size.Y * adjScale.Y, Color.Red);
         }
     }
 }

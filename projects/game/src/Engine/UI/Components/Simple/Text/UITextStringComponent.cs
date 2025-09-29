@@ -17,7 +17,7 @@ namespace UI
 
 
 
-        public UITextStringComponent(int id, Vector2 position, string text, int fontId, Vector2 scale) : base(id)
+        public UITextStringComponent(int id, Vector2 position, string text, int fontId, Vector2 scale, Color color) : base(id)
         {
             this.text = text;
             this.font = ResourceLoader.fonts[fontId];
@@ -28,6 +28,7 @@ namespace UI
 
             Position = position;
             Scale = scale;
+            Color = color;
 
             type = UIComponentTypes.TEXT;
         }

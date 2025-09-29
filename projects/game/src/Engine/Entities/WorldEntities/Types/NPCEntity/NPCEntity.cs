@@ -13,7 +13,7 @@ namespace Entities
     public class NPCEntity : AIEntity
     {
 
-        public NPCInteractionManager NPCInteractionManager;
+        public InteractionManager InteractionManager;
        
         public NPCEntity(Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
         {
@@ -28,14 +28,14 @@ namespace Entities
         
         public virtual void SetInteractionType()
         {
-            //NPCInteractionManager = new NPCInteractionManager();
+            //InteractionManager = new InteractionManager();
         }
 
         public override void Update()
         {
-            if(NPCInteractionManager != null)
+            if(InteractionManager != null)
             {
-                NPCInteractionManager.Update(Model);
+                InteractionManager.Update(Model);
             }
 
             base.Update();
@@ -43,9 +43,9 @@ namespace Entities
 
         public override void DrawCollider()
         {
-            if (NPCInteractionManager != null)
+            if (InteractionManager != null)
             {
-                NPCInteractionManager.InteractionField.Draw();
+                InteractionManager.InteractionField.Draw();
             }
 
             base.DrawCollider();

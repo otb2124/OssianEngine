@@ -44,7 +44,8 @@ namespace Utils
                 new RefillCommand(),
                 new GodCommand(),
                 new ResCommand(),
-                new KillCommand()
+                new KillCommand(),
+                new SetCommand(),
             };
             commands.Add("help", new HelpCommand(commandList));
             foreach (var command in commandList)

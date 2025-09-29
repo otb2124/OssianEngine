@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using static Resources.StaticSpriteFactory;
 using Utils;
-using System.Drawing;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace UI
@@ -34,7 +33,7 @@ namespace UI
 
             children[0] = new UIButtonIconComponent(-1, 15, Position, emptySlot, new Vector2(0.75f, 0.75f));
             children[1] = new UIIconComponent(-1, spriteData, Position, new Vector2(0.5f, 0.5f));
-            children[2] = new UITextStringComponent(-1, Position, "", 0, Vector2.One);
+            children[2] = new UITextStringComponent(-1, Position, "", 0, Vector2.One, Color.White);
 
             IsLeftDragging = false;
             IsRightDragging = false;
@@ -51,7 +50,7 @@ namespace UI
                 if (Item.Count > 1)
                 {
                     children[1] = new UIIconComponent(-1, GetItemUISprite(Item), new Vector2(Position.X, Position.Y), new Vector2(0.75f, 0.75f));
-                    children[2] = new UITextStringComponent(-1, Position, Item.Count + "", 0, Vector2.One);
+                    children[2] = new UITextStringComponent(-1, Position, Item.Count + "", 0, Vector2.One, Color.White);
                 }
                 else
                 {

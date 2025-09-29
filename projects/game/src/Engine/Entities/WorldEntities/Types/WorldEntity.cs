@@ -11,7 +11,7 @@ namespace Entities
         public int Id { get; set; }
         public WorldEntity() 
         {
-            Id = Entities.entityManager.GenerateId();
+            Id = Entities.EntityManager.GenerateId();
         }
         public WorldEntity(int id)
         {

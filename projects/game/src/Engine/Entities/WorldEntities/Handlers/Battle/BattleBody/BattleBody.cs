@@ -303,7 +303,7 @@ namespace Entities
                         Projectile.UpdateProjectileStats(equipmentManager.GetCurrentWeapon().BattleItemStatsData, model.OwnerId);
                     }
 
-                    Entities.entityManager.AddEntity(Projectile);
+                    Entities.EntityManager.AddEntity(Projectile);
                 }
             }
         }

@@ -105,7 +105,7 @@ namespace Graphics
 
             //entity sprites
             sprites.Begin(camera);
-            Entities.Entities.entityManager.Draw();
+            Entities.Entities.EntityManager.Draw();
             particleManager.Draw();
             backgroundManager.DrawParallaxFrontLayers();
             sprites.End();
@@ -127,15 +127,15 @@ namespace Graphics
             if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE)
             {
                 shapes.Begin(camera);
-                Entities.Entities.entityManager.DrawColliders();
-                Entities.Entities.eventManager.DrawColliders();
+                Entities.Entities.EntityManager.DrawColliders();
+                Entities.Entities.EventManager.DrawColliders();
                 shapes.End();
             }
 
             if (GameStateManager.gameMode == GameStateManager.GameModes.HITBOX_DEBUG_MODE)
             {
                 shapes.Begin(camera);
-                Entities.Entities.entityManager.DrawHitboxes();
+                Entities.Entities.EntityManager.DrawHitboxes();
                 shapes.End();
             }
 

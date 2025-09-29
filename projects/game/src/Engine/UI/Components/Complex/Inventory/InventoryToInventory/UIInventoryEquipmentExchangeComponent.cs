@@ -53,21 +53,21 @@ namespace UI
                     }
 
                     children[i].Update();
+                }
+            }
 
-                    if (children[i] is UIInventoryComponent inventoryComponent)
-                    {
-                        if (inventoryComponent.WasSortedFlag)
-                        {
-                            DragNDropService.UpdateItemList(i, inventoryComponent.Items);
-                            //DragNDropService.UpdateSlots(i, Utils.EnumerableHelper.ArrayToList(inventoryComponent.children[0].children));
-                        }
+            if (children[0] is UIInventoryComponent inventoryComponent)
+            {
+                if (inventoryComponent.WasSortedFlag)
+                {
+                    DragNDropService.UpdateItemList(0, inventoryComponent.Items);
+                    DragNDropService.UpdateSlots(0, Utils.EnumerableHelper.ArrayToList(inventoryComponent.children[0].children));
+                }
 
-                        if(inventoryComponent.WasPageChangedFlag)
-                        {
-                            DragNDropService.UpdateItemList(i, inventoryComponent.Items);
-                            DragNDropService.UpdateSlots(i, Utils.EnumerableHelper.ArrayToList(inventoryComponent.children[0].children));
-                        }
-                    }
+                if (inventoryComponent.WasPageChangedFlag)
+                {
+                    DragNDropService.UpdateItemList(0, inventoryComponent.Items);
+                    DragNDropService.UpdateSlots(0, Utils.EnumerableHelper.ArrayToList(inventoryComponent.children[0].children));
                 }
             }
 

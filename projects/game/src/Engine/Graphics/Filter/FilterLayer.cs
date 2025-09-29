@@ -40,7 +40,7 @@ namespace Graphics
 
         public void Update()
         {
-            GlobalMapTime globalMapTime = Entities.Entities.entityMapManager.GlobalMapTime;
+            GlobalMapTime globalMapTime = Entities.Entities.EntityMapManager.GlobalMapTime;
             float hours = globalMapTime.TotalGameHours - 12f;
 
             if (Math.Abs(hours - lastUpdateHours) >= 0.01667f)

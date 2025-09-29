@@ -95,7 +95,7 @@ namespace Entities
             switch (Type)
             {
                 case HumanoidMobs.CITIZEN:
-                    NPCInteractionManager = new NPCInteractionManager(NPCInteractionManager.NPCInteractionTypes.TRADE, InteractionTriggers.INTERACTION_BUTTON_PRESSED);
+                    InteractionManager = new InteractionManager(new InteractionEntity(InteractionTriggers.INTERACTION_BUTTON_PRESSED, 0));
                     break;
                 default:
                     break;

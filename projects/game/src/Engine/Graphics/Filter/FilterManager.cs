@@ -33,7 +33,7 @@ namespace Graphics
         {
             mapLayers.Clear();
 
-            foreach (FilterLayer layer in Entities.Entities.entityMapManager.GetCurrentMap().FilterLayers)
+            foreach (FilterLayer layer in Entities.Entities.EntityMapManager.GetCurrentMap().FilterLayers)
             {
                 mapLayers.Add(layer);
             }

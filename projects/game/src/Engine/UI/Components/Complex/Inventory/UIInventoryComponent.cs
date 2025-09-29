@@ -33,7 +33,7 @@ namespace UI
 
             SortingService = new UIInventorySortingService(inventory.Items);
             PagerService = new UIInventoryPagerService(inventory.Items);
-            Items = inventory.Items;
+            Items = PagerService.Pages[PagerService.CurrentPage];
 
             InventoryType = UIInventoryTypes.INVENTORY;
 
@@ -41,7 +41,7 @@ namespace UI
             children[0] = new UIInventorySlotBoardComponent(-1, pos, Items);
             children[1] = new UIInventorySortingPanelComponent(-1, pos);
             children[2] = new UIInventoryPagerComponent(-1, new Vector2(pos.X, 100), PagerService.GetIndicatorToString());
-            children[3] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One);
+            children[3] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One, Color.White);
         }
 
         public UIInventoryComponent(int id, Vector2 pos, Equipments equipments) : base(id)

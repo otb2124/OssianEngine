@@ -118,7 +118,7 @@ namespace Entities
 
         public static void CheckForInterraction(InteractiveEntity interactiveEnt, EquipmentEntity livingEnt)
         {
-            if (CheckIntersection(livingEnt.BattleBodyManager.BodyHitbox.extends, interactiveEnt.InteractionField.Hitbox.extends))
+            if (CheckIntersection(livingEnt.BattleBodyManager.BodyHitbox.extends, interactiveEnt.InteractionManager.InteractionField.Hitbox.extends))
             {
                 InteractionHandler.HandleInteraction(interactiveEnt, livingEnt);
             }
@@ -126,7 +126,7 @@ namespace Entities
 
         public static void CheckForInterraction(NPCEntity npcEnt, EquipmentEntity livingEnt)
         {
-            if (CheckIntersection(livingEnt.BattleBodyManager.BodyHitbox.extends, npcEnt.NPCInteractionManager.InteractionField.Hitbox.extends))
+            if (CheckIntersection(livingEnt.BattleBodyManager.BodyHitbox.extends, npcEnt.InteractionManager.InteractionField.Hitbox.extends))
             {
                 InteractionHandler.HandleInteraction(npcEnt, livingEnt);
             }

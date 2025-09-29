@@ -51,7 +51,7 @@ namespace Entities
             }
             else
             {
-                Entities.entityManager.RemoveEntity(Entities.Player);
+                Entities.EntityManager.RemoveEntity(Entities.Player);
             }
 
             CurrentMapId = nextId;

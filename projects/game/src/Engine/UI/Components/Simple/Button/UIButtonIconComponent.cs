@@ -11,7 +11,6 @@ namespace UI
     public class UIButtonIconComponent : UIComponent
     {
 
-
         public Vector2 Size;
         public int ButtonId;
 

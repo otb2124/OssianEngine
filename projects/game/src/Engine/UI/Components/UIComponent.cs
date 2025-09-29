@@ -23,7 +23,7 @@ namespace UI
             //ICON
             ICON,
             //BUTTON
-            BUTTON, BUTTON_FRAME, BUTTON_TEXT_FRAME, BUTTON_ICON, BUTTON_ICON_FRAME,
+            BUTTON, BUTTON_FRAME, BUTTON_TEXT, BUTTON_TEXT_FRAME, BUTTON_ICON, BUTTON_ICON_FRAME,
             //BARS
             STAT_BAR,
             //MISC
@@ -39,6 +39,8 @@ namespace UI
             INVENTORY_TO_EQUIPMENT, INVENTORY_TO_INVENTORY,
             INVENTORY_SORTING_PANEL, INVENTORY_SORTING_PANEL_OPTION,
             INVENTORY_PAGER,
+            //DIALOGUE
+            DIALOGUE,
             //EQUIPMENT
             EQUIPMENT, EQUIPMENT_SLOT,
         }
@@ -51,6 +53,7 @@ namespace UI
         public float Rotation;
         public Vector2 Origin;
         public Vector2 Scale;
+        public Color Color;
 
         public Vector2 adjPosition;
         public float adjRotation;
@@ -71,8 +74,6 @@ namespace UI
         public string text;
         public Font font;
 
-        public Color? Tint { get; set; } = null;
-
         public UIComponentTypes type;
 
         public int Id { get; set; }
@@ -84,6 +85,7 @@ namespace UI
             Rotation = 0f;
             Origin = Vector2.Zero;
             Scale = new Vector2(1, 1);
+            Color = Color.White;
         }
 
         public virtual void Update()
@@ -134,14 +136,12 @@ namespace UI
         {
             if (aManager != null)
             {
-                Color color = Tint ?? Color.White;
-                aManager.GetCurrent().Draw(adjPosition, color, adjRotation, adjOrigin, adjScale, 0f);
+                aManager.GetCurrent().Draw(adjPosition, Color, adjRotation, adjOrigin, adjScale, 0f);
             }
 
             if(text != null)
             {
-                Color color = Tint ?? Color.White;
-                font.Draw(text, adjPosition, 0f, adjOrigin, adjScale, color);
+                font.Draw(text, adjPosition, 0f, adjOrigin, adjScale, Color);
             }
         }
 
