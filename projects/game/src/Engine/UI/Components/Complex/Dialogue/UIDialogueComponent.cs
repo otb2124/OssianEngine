@@ -38,8 +38,18 @@ namespace UI
 
             for (int i = 3; i < children.Length; i++)
             {
-                children[i] = new UIButtonTextComponent(-1, -1, new Vector2(40, 120 - ((i - 3 + 1) * 20)), (i-3 + 1) + ") " + Dialogue.Options[i-3].Text, 0, Vector2.One, Color.Black);
+                children[i] = new UIButtonTextComponent(-1, -1, new Vector2(40, 120 - ((i - 3 + 1) * 20)), (i-3 + 1) + ") " + Dialogue.Options[i-3].Text, 0, Vector2.One, GetDialogueOptionColor(Dialogue.Options[i - 3]));
             }
+        }
+
+        public Color GetDialogueOptionColor(DialogueOption option)
+        {
+            if(option.TimesUsed >= 1)
+            {
+                return UITextSeverity.Read.TextColor;
+            }
+
+            return UITextSeverity.None.TextColor;
         }
 
 

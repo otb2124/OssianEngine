@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Utils.TupleObjectsHelper;
 
 namespace Entities
 {
@@ -11,7 +12,6 @@ namespace Entities
         public Dictionary<int, DialogueOption[]> DialogueOptions;
         public Dictionary<int, Dialogue[]> Dialogues;
         public DialogueSequence[] Sequences;
-
 
         public DialogueSequence CurrentSequence;
 
@@ -82,8 +82,33 @@ namespace Entities
                 }
             }
 
-            CurrentSequence.Dialogues[CurrentDialogueId].Options[optionUIId].TimesUsed++;
+
+            //TimesUsed logic
+            DialogueOption oldDialogueOption = CurrentSequence.Dialogues[CurrentDialogueId].Options[optionUIId];
+
+            if (oldDialogueOption.ExternalDependencyMap == IntPair.MinusOne)
+            {
+                CurrentSequence.Dialogues[CurrentDialogueId].Options[optionUIId].TimesUsed++;
+            }
+            else
+            {
+                GetDialogueOptionById(oldDialogueOption.ExternalDependencyMap.Item2, oldDialogueOption.ExternalDependencyMap.Item1).TimesUsed++;
+            }
         }
+
+        public DialogueOption GetDialogueOptionById(int id, int dialogueId)
+        {
+            foreach (DialogueOption frame in DialogueOptions[dialogueId])
+            {
+                if (frame.Id == id)
+                {
+                    return frame;
+                }
+            }
+
+            return null;
+        }
+
 
         public Dialogue GetDialogueById(int id, int sequenceId)
         {
@@ -111,6 +136,18 @@ namespace Entities
             return null;
         }
 
+        public Dialogue[] GetDialogues(int sequenceId)
+        {
+            if (!Dialogues.ContainsKey(sequenceId))
+            {
+                return Array.Empty<Dialogue>();
+            }
+
+            Dialogue[] dialogues = Dialogues[sequenceId];
+
+            return dialogues;
+        }
+
         public DialogueOption[] GetAllowedOptions(int dialogueId)
         {
             if (!DialogueOptions.ContainsKey(dialogueId))
@@ -123,8 +160,8 @@ namespace Entities
 
             foreach (DialogueOption option in options)
             {
-                bool passedChecks = IsOptionMeetsRequirements(option) && IsOptionOneTimeUsed(option);
-
+                bool passedChecks = IsOptionMeetsRequirements(option) && IsOptionOneTimeUsed(option) && IsOptionPassedCopyDependency(option);
+                 
                 if (passedChecks)
                 {
                     allowedOptions.Add(option);
@@ -152,7 +189,7 @@ namespace Entities
 
         public static bool IsOptionOneTimeUsed(DialogueOption option)
         {
-            if (option.IsUsedOneTime && option.TimesUsed >= 1)
+            if (option.UseOnlyOnce && option.TimesUsed >= 1)
             {
                 return false;
             }
@@ -160,16 +197,22 @@ namespace Entities
             return true;
         }
 
-        public Dialogue[] GetDialogues(int sequenceId)
+
+        public static bool IsOptionPassedCopyDependency(DialogueOption option)
         {
-            if (!Dialogues.ContainsKey(sequenceId))
+            if(option.ExternalDependencyMap != IntPair.MinusOne)
             {
-                return Array.Empty<Dialogue>();
+                option.CopyDependencyAttributes();
+
+                if(!option.DependencyCopyPassedFlag)
+                {
+                    return false;
+                }
             }
 
-            Dialogue[] dialogues = Dialogues[sequenceId];
-
-            return dialogues;
+            return true;
         }
+
+        
     }
 }

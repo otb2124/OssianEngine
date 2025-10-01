@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
+using static Utils.TupleObjectsHelper;
 
 namespace Entities
 {
@@ -19,26 +22,62 @@ namespace Entities
         public int Id;
         public string Text;
         public int NextDialogueId;
+        public int NextSequenceId;
 
         public DialogueOptionActionTypes Type;
 
         public Requirement[] Requirements;
 
-        public bool IsUsedOneTime;
+        public bool UseOnlyOnce;
+
         public int TimesUsed;
 
-        public DialogueOption(int id, string text, int nextDialogueId = -1, bool isUsedOneTime = false, Requirement[] requirements = null) 
+        public IntPair ExternalDependencyMap;
+        public bool DependencyCopyPassedFlag;
+
+        public DialogueOption(int id, string text, int nextDialogueId = -1, int nextDialogueSequenceId = -1, Requirement[] requirements = null)
         {
             Id = id;
             Text = text;
+
             NextDialogueId = nextDialogueId;
+            NextSequenceId = nextDialogueSequenceId;
+
             Requirements = requirements;
 
-            IsUsedOneTime = isUsedOneTime;
             TimesUsed = 0;
+            ExternalDependencyMap = IntPair.MinusOne;
 
             SetType();
         }
+
+        public DialogueOption(int id, IntPair externalDependencyMap)
+        {
+            Id = id;
+            ExternalDependencyMap = externalDependencyMap;
+            DependencyCopyPassedFlag = false;
+        }
+
+        public void CopyDependencyAttributes()
+        {
+            DialogueOption[] dependencyCandidates = Entities.DialogueManager.GetAllowedOptions(ExternalDependencyMap.Item1);
+
+            DialogueOption matchingOption = dependencyCandidates?.FirstOrDefault(option => option.Id == ExternalDependencyMap.Item2);
+
+            if (matchingOption != null)
+            {
+                Text = matchingOption.Text;
+                NextDialogueId = matchingOption.NextDialogueId;
+                NextSequenceId = matchingOption.NextSequenceId;
+                Requirements = matchingOption.Requirements;
+                Type = matchingOption.Type;
+                UseOnlyOnce = matchingOption.UseOnlyOnce;
+                TimesUsed = matchingOption.TimesUsed;
+
+                DependencyCopyPassedFlag = true;
+            }
+        }
+
 
         public void SetType()
         {
