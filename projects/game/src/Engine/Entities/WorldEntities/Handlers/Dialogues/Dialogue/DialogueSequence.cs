@@ -16,12 +16,11 @@ namespace Entities
         public DialogueSequence(int id) 
         {
             Id = id;
-            
         }
 
         public void SetDialogues()
         {
-            Dialogues = DialogueManager.GetDialogues(Id);
+            Dialogues = Entities.DialogueManager.GetDialogues(Id);
         }
 
     }

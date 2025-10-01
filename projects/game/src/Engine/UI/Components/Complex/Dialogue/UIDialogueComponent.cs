@@ -63,8 +63,8 @@ namespace UI
                         {
                             if (optionButton.IsOnClick)
                             {
-                                Entities.Entities.DialogueManager.SetAnswer(Dialogue.Options[i - 3].Id);
-                                Entities.Entities.DialogueManager.StartDialogue(Dialogue.Options[i - 3].NextDialogueId);
+                                Entities.Entities.DialogueManager.SetAnswer(Dialogue.Options[i - 3].Id, i - 3);
+                                Entities.Entities.DialogueManager.SetDialogue(Dialogue.Options[i - 3].NextDialogueId);
                             }
                         }
                     }

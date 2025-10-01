@@ -19,32 +19,24 @@ namespace Entities
 
         public DialogueOption[] Options;
 
-        public bool IsOneTime;
+        public int TimesRead;
 
-        public Dialogue(int id, string text, string authorName, int authorId, bool isOneTime = false)
+        public Dialogue(int id, string text, string authorName, int authorId)
         {
             Id = id;
+
             Text = text;
-
-            AuthorEntityId = authorId;
             AuthorName = authorName;
-            CameraPosition = Vector2.Zero; //get authorid pos
-            IsOneTime = isOneTime;
-        }
 
-        public Dialogue(int id, string text, string authorName, Vector2 cameraPos)
-        {
-            Id = id;
-            Text = text;
+            //AuthorEntityId = authorId;
+            //CameraPosition = Vector2.Zero; //get authorid pos
 
-            AuthorEntityId = -1;
-            AuthorName = authorName;
-            CameraPosition = cameraPos;
+            TimesRead = 0;
         }
 
         public void SetOptions()
         {
-            Options = DialogueManager.GetAllowedOptions(Id);
+            Options = Entities.DialogueManager.GetAllowedOptions(Id);
         }
 
         public override string ToString()

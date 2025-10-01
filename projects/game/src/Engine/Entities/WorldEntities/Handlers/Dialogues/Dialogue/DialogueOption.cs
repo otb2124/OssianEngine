@@ -24,12 +24,18 @@ namespace Entities
 
         public Requirement[] Requirements;
 
-        public DialogueOption(int id, string text, int nextDialogueId = -1, Requirement[] requirements = null) 
+        public bool IsUsedOneTime;
+        public int TimesUsed;
+
+        public DialogueOption(int id, string text, int nextDialogueId = -1, bool isUsedOneTime = false, Requirement[] requirements = null) 
         {
             Id = id;
             Text = text;
             NextDialogueId = nextDialogueId;
             Requirements = requirements;
+
+            IsUsedOneTime = isUsedOneTime;
+            TimesUsed = 0;
 
             SetType();
         }

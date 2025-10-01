@@ -8,62 +8,86 @@ namespace Entities
 {
     public class DialogueManager
     {
+        public Dictionary<int, DialogueOption[]> DialogueOptions;
+        public Dictionary<int, Dialogue[]> Dialogues;
+        public DialogueSequence[] Sequences;
+
+
         public DialogueSequence CurrentSequence;
 
-        public Dialogue CurrentDialogue;
+        public int CurrentDialogueId;
         public bool IsSequenceProceeding;
 
         public Dictionary<int, int> PlayerAnswers;
 
-        public DialogueManager() 
+        public DialogueManager()
         {
-            IsSequenceProceeding = false;
-            CurrentDialogue = null;
+            Sequences = DialogueSetter.AllSequences;
+            Dialogues = DialogueSetter.AllDialogues;
+            DialogueOptions = DialogueSetter.AllDialogueOptions;
+
+
             PlayerAnswers = new Dictionary<int, int>();
+            CurrentDialogueId = -1;
+            IsSequenceProceeding = false;
         }
 
-        public void StartDialogue(int newDialogueId)
+        public void SetSequence(int sequenceId)
+        {
+            CurrentSequence = GetDialogueSequenceById(sequenceId);
+            CurrentSequence.SetDialogues();
+        }
+
+        public void SetDialogue(int newDialogueId = 0)
         {
             if (newDialogueId == -1)
             {
-                UI.UI.UIOuterNavigator.RemoveDialogueComponent();
-                CurrentDialogue = null;
+                CurrentDialogueId = -1;
                 IsSequenceProceeding = false;
+                UI.UI.UIOuterNavigator.RemoveDialogueComponent();
                 return;
             }
 
-            CurrentDialogue = GetDialogueById(newDialogueId, 0);
-            CurrentDialogue.SetOptions();
+            UpdateSequence(newDialogueId);
             
             if(!IsSequenceProceeding)
             {
-                UI.UI.UIOuterNavigator.ShowDialogueComponent(CurrentDialogue);
+                UI.UI.UIOuterNavigator.ShowDialogueComponent(CurrentSequence.Dialogues[CurrentDialogueId]);
                 IsSequenceProceeding = true;
             }
             else
             {
-                UI.UI.UIOuterNavigator.SetDialogueComponentData(CurrentDialogue);
+                UI.UI.UIOuterNavigator.SetDialogueComponentData(CurrentSequence.Dialogues[CurrentDialogueId]);
             }
         }
 
-        public void SetAnswer(int oldDialogueChosenOptionId = -1)
+        public void UpdateSequence(int newDialogueId)
         {
-            if (CurrentDialogue != null && oldDialogueChosenOptionId != -1)
+            CurrentDialogueId = newDialogueId;
+            CurrentSequence.Dialogues[CurrentDialogueId].SetOptions();
+            CurrentSequence.Dialogues[CurrentDialogueId].TimesRead++;
+        }
+
+        public void SetAnswer(int oldDialogueChosenOptionId, int optionUIId)
+        {
+            if (CurrentDialogueId != -1 && oldDialogueChosenOptionId != -1)
             {
-                if (PlayerAnswers.ContainsKey(CurrentDialogue.Id))
+                if (PlayerAnswers.ContainsKey(CurrentDialogueId))
                 {
-                    PlayerAnswers[CurrentDialogue.Id] = oldDialogueChosenOptionId;
+                    PlayerAnswers[CurrentDialogueId] = oldDialogueChosenOptionId;
                 }
                 else
                 {
-                    PlayerAnswers.Add(CurrentDialogue.Id, oldDialogueChosenOptionId);
+                    PlayerAnswers.Add(CurrentDialogueId, oldDialogueChosenOptionId);
                 }
             }
+
+            CurrentSequence.Dialogues[CurrentDialogueId].Options[optionUIId].TimesUsed++;
         }
 
-        public static Dialogue GetDialogueById(int id, int sequenceId)
+        public Dialogue GetDialogueById(int id, int sequenceId)
         {
-            foreach (Dialogue frame in DialogueSetter.AllDialogues[sequenceId])
+            foreach (Dialogue frame in Dialogues[sequenceId])
             {
                 if (frame.Id == id)
                 {
@@ -74,9 +98,9 @@ namespace Entities
             return null;
         }
 
-        public static DialogueSequence GetDialogueSequenceById(int id)
+        public DialogueSequence GetDialogueSequenceById(int id)
         {
-            foreach (DialogueSequence sequence in DialogueSetter.AllSequences)
+            foreach (DialogueSequence sequence in Sequences)
             {
                 if (sequence.Id == id)
                 {
@@ -87,33 +111,21 @@ namespace Entities
             return null;
         }
 
-        public static DialogueOption[] GetAllowedOptions(int dialogueId)
+        public DialogueOption[] GetAllowedOptions(int dialogueId)
         {
-            if (!DialogueSetter.AllDialogueOptions.ContainsKey(dialogueId))
+            if (!DialogueOptions.ContainsKey(dialogueId))
             {
                 return Array.Empty<DialogueOption>();
             }
 
-            DialogueOption[] options = DialogueSetter.AllDialogueOptions[dialogueId];
+            DialogueOption[] options = DialogueOptions[dialogueId];
             List<DialogueOption> allowedOptions = new List<DialogueOption>();
 
             foreach (DialogueOption option in options)
             {
-                bool meetsRequirements = true;
+                bool passedChecks = IsOptionMeetsRequirements(option) && IsOptionOneTimeUsed(option);
 
-                if (option.Requirements != null && option.Requirements.Length > 0)
-                {
-                    foreach (Requirement requirement in option.Requirements)
-                    {
-                        if (!requirement.Check())
-                        {
-                            meetsRequirements = false;
-                            break;
-                        }
-                    }
-                }
-
-                if (meetsRequirements)
+                if (passedChecks)
                 {
                     allowedOptions.Add(option);
                 }
@@ -122,14 +134,40 @@ namespace Entities
             return allowedOptions.ToArray();
         }
 
-        public static Dialogue[] GetDialogues(int sequenceId)
+        public static bool IsOptionMeetsRequirements(DialogueOption option)
         {
-            if (!DialogueSetter.AllDialogues.ContainsKey(sequenceId))
+            if (option.Requirements != null && option.Requirements.Length > 0)
+            {
+                foreach (Requirement requirement in option.Requirements)
+                {
+                    if (!requirement.Check())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        public static bool IsOptionOneTimeUsed(DialogueOption option)
+        {
+            if (option.IsUsedOneTime && option.TimesUsed >= 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public Dialogue[] GetDialogues(int sequenceId)
+        {
+            if (!Dialogues.ContainsKey(sequenceId))
             {
                 return Array.Empty<Dialogue>();
             }
 
-            Dialogue[] dialogues = DialogueSetter.AllDialogues[sequenceId];
+            Dialogue[] dialogues = Dialogues[sequenceId];
 
             return dialogues;
         }

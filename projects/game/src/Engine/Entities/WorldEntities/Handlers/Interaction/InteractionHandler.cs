@@ -70,7 +70,8 @@ namespace Entities
                     }
                     else if (npcEnt.InteractionManager.InteractionData.Action == InteractionActions.START_DIALOGUE)
                     {
-                        Entities.DialogueManager.StartDialogue(npcEnt.InteractionManager.InteractionData.DialogueId);
+                        Entities.DialogueManager.SetSequence(npcEnt.InteractionManager.InteractionData.DialogueId);
+                        Entities.DialogueManager.SetDialogue();
                     }
                 }
             }

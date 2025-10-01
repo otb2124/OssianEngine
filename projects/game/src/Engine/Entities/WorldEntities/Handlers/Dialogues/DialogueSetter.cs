@@ -9,6 +9,7 @@ namespace Entities
     public static class DialogueSetter
     {
 
+       
         public static Dictionary<int, DialogueOption[]> AllDialogueOptions = new()
         {
             {
@@ -17,8 +18,8 @@ namespace Entities
                 {
                     new DialogueOption(0, "Hi. Who are you?", 1),
                     new DialogueOption(1, "*Be Silent*", 1),
-                    new DialogueOption(2, "I am little bit injured. Like bleeding a bit.", 4, new Requirement[] { new CurrentHPRequirement(50, 75) }),
-                    new DialogueOption(3, "I am injured. Like bleeding.", 4, new Requirement[] { new CurrentHPRequirement(10, 50) }),
+                    new DialogueOption(2, "I am little bit injured. Like bleeding a bit.", 4, true, new Requirement[] { new CurrentHPRequirement(50, 75) }),
+                    new DialogueOption(3, "I am injured. Like bleeding.", 4, true, new Requirement[] { new CurrentHPRequirement(10, 50) }),
                 }
             },
             {
@@ -26,7 +27,7 @@ namespace Entities
                 new[]
                 {
                     new DialogueOption(0, "My name is...", 2),
-                    new DialogueOption(1, "*Remain Silent*", 3, new Requirement[] { new DialogueAnswerRequirement(0, 1) }),
+                    new DialogueOption(1, "*Remain Silent*", 3, false, new Requirement[] { new DialogueAnswerRequirement(0, 1) }),
                 }
             },
             {
@@ -48,7 +49,7 @@ namespace Entities
                 new[]
                 {
                     new DialogueOption(0, "*Leave*"),
-                    new DialogueOption(1, "I have a terrablade here", -1, new Requirement[]{ new CurrentInventoryItemKeyRequirement(new ItemKey(ItemLib.Weapons.TERRABLADE)) }),
+                    new DialogueOption(1, "I have a terrablade here", -1, false, new Requirement[]{ new CurrentInventoryItemKeyRequirement(new ItemKey(ItemLib.Weapons.TERRABLADE)) }),
                 }
             }
         };
@@ -60,7 +61,7 @@ namespace Entities
                 new Dialogue[]
                 {
                     new Dialogue(0, "Hi.", "Unknown Man", 0),
-                    new Dialogue(1, "My name is Vigo. But I think it's none of your business...", "Vigo", 0, true),
+                    new Dialogue(1, "My name is Vigo. But I think it's none of your business...", "Vigo", 0),
                     new Dialogue(2, "Sorry, I do not wish to know the name of yours. Now leave me.", "Vigo", 0),
                     new Dialogue(3, "Keep silent? Anyways...", "Vigo", 0),
                     new Dialogue(4, "Yes, I see. Sorry, can't do anything about it. Leave me.", "Vigo", 0)
