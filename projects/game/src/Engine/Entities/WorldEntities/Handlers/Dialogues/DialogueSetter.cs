@@ -48,20 +48,34 @@ namespace Entities
                 new[]
                 {
                     new DialogueOption(0, "*Leave*"),
+                    new DialogueOption(1, "I have a terrablade here", -1, new Requirement[]{ new CurrentInventoryItemKeyRequirement(new ItemKey(ItemLib.Weapons.TERRABLADE)) }),
                 }
             }
         };
 
-        public static Dialogue[] AllDialogues = new Dialogue[]
+        public static Dictionary<int, Dialogue[]> AllDialogues = new()
         {
-            new Dialogue(0, "Hi.", "Unknown Man", 0),
-            new Dialogue(1, "My name is Vigo. But I think it's none of your business...", "Vigo", 0),
-            new Dialogue(2, "Sorry, I do not wish to know the name of yours. Now leave me.", "Vigo", 0),
-            new Dialogue(3, "Keep silent? Anyways...", "Vigo", 0),
-            new Dialogue(4, "Yes, I see. Sorry, can't do anything about it. Leave me.", "Vigo", 0),
+            {
+                0,
+                new Dialogue[]
+                {
+                    new Dialogue(0, "Hi.", "Unknown Man", 0),
+                    new Dialogue(1, "My name is Vigo. But I think it's none of your business...", "Vigo", 0, true),
+                    new Dialogue(2, "Sorry, I do not wish to know the name of yours. Now leave me.", "Vigo", 0),
+                    new Dialogue(3, "Keep silent? Anyways...", "Vigo", 0),
+                    new Dialogue(4, "Yes, I see. Sorry, can't do anything about it. Leave me.", "Vigo", 0)
+                }
+            }
+            
         };
 
 
-        
+        public static DialogueSequence[] AllSequences = new DialogueSequence[]
+        {
+            new DialogueSequence(0),
+            new DialogueSequence(1),
+            new DialogueSequence(2),
+            new DialogueSequence(3),
+        };
     }
 }

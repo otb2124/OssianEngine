@@ -8,16 +8,17 @@ namespace Entities
 {
     public class DialogueManager
     {
+        public DialogueSequence CurrentSequence;
 
-        public Dialogue Current;
-        public bool IsDialogueProceeding;
+        public Dialogue CurrentDialogue;
+        public bool IsSequenceProceeding;
 
         public Dictionary<int, int> PlayerAnswers;
 
         public DialogueManager() 
         {
-            IsDialogueProceeding = false;
-            Current = null;
+            IsSequenceProceeding = false;
+            CurrentDialogue = null;
             PlayerAnswers = new Dictionary<int, int>();
         }
 
@@ -26,47 +27,60 @@ namespace Entities
             if (newDialogueId == -1)
             {
                 UI.UI.UIOuterNavigator.RemoveDialogueComponent();
-                Current = null;
-                IsDialogueProceeding = false;
+                CurrentDialogue = null;
+                IsSequenceProceeding = false;
                 return;
             }
 
-            Current = GetDialogueById(newDialogueId);
-            Current.SetOptions();
+            CurrentDialogue = GetDialogueById(newDialogueId, 0);
+            CurrentDialogue.SetOptions();
             
-            if(!IsDialogueProceeding)
+            if(!IsSequenceProceeding)
             {
-                UI.UI.UIOuterNavigator.ShowDialogueComponent(Current);
-                IsDialogueProceeding = true;
+                UI.UI.UIOuterNavigator.ShowDialogueComponent(CurrentDialogue);
+                IsSequenceProceeding = true;
             }
             else
             {
-                UI.UI.UIOuterNavigator.SetDialogueComponentData(Current);
+                UI.UI.UIOuterNavigator.SetDialogueComponentData(CurrentDialogue);
             }
         }
 
         public void SetAnswer(int oldDialogueChosenOptionId = -1)
         {
-            if (Current != null && oldDialogueChosenOptionId != -1)
+            if (CurrentDialogue != null && oldDialogueChosenOptionId != -1)
             {
-                if (PlayerAnswers.ContainsKey(Current.Id))
+                if (PlayerAnswers.ContainsKey(CurrentDialogue.Id))
                 {
-                    PlayerAnswers[Current.Id] = oldDialogueChosenOptionId;
+                    PlayerAnswers[CurrentDialogue.Id] = oldDialogueChosenOptionId;
                 }
                 else
                 {
-                    PlayerAnswers.Add(Current.Id, oldDialogueChosenOptionId);
+                    PlayerAnswers.Add(CurrentDialogue.Id, oldDialogueChosenOptionId);
                 }
             }
         }
 
-        public static Dialogue GetDialogueById(int id)
+        public static Dialogue GetDialogueById(int id, int sequenceId)
         {
-            foreach (Dialogue frame in DialogueSetter.AllDialogues)
+            foreach (Dialogue frame in DialogueSetter.AllDialogues[sequenceId])
             {
                 if (frame.Id == id)
                 {
                     return frame;
+                }
+            }
+
+            return null;
+        }
+
+        public static DialogueSequence GetDialogueSequenceById(int id)
+        {
+            foreach (DialogueSequence sequence in DialogueSetter.AllSequences)
+            {
+                if (sequence.Id == id)
+                {
+                    return sequence;
                 }
             }
 
@@ -106,6 +120,18 @@ namespace Entities
             }
 
             return allowedOptions.ToArray();
+        }
+
+        public static Dialogue[] GetDialogues(int sequenceId)
+        {
+            if (!DialogueSetter.AllDialogues.ContainsKey(sequenceId))
+            {
+                return Array.Empty<Dialogue>();
+            }
+
+            Dialogue[] dialogues = DialogueSetter.AllDialogues[sequenceId];
+
+            return dialogues;
         }
     }
 }

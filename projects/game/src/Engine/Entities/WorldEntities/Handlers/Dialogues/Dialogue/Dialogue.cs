@@ -19,7 +19,9 @@ namespace Entities
 
         public DialogueOption[] Options;
 
-        public Dialogue(int id, string text, string authorName, int authorId)
+        public bool IsOneTime;
+
+        public Dialogue(int id, string text, string authorName, int authorId, bool isOneTime = false)
         {
             Id = id;
             Text = text;
@@ -27,6 +29,7 @@ namespace Entities
             AuthorEntityId = authorId;
             AuthorName = authorName;
             CameraPosition = Vector2.Zero; //get authorid pos
+            IsOneTime = isOneTime;
         }
 
         public Dialogue(int id, string text, string authorName, Vector2 cameraPos)
