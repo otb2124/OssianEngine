@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Utils.TupleObjectsHelper;
 
 namespace Entities
 {
     public class DialogueManager
     {
-        public Dictionary<int, DialogueOption[]> DialogueOptions;
-        public Dictionary<int, Dialogue[]> Dialogues;
         public DialogueSequence[] Sequences;
 
         public DialogueSequence CurrentSequence;
@@ -18,24 +14,20 @@ namespace Entities
         public int CurrentDialogueId;
         public bool IsSequenceProceeding;
 
-        public Dictionary<int, int> PlayerAnswers;
+        public List<DialogueAnswer> AllAnswers;
 
         public DialogueManager()
         {
-            Sequences = DialogueSetter.AllSequences;
-            Dialogues = DialogueSetter.AllDialogues;
-            DialogueOptions = DialogueSetter.AllDialogueOptions;
+            Sequences = DialogueSetter.Sequences;
 
-
-            PlayerAnswers = new Dictionary<int, int>();
+            AllAnswers = new List<DialogueAnswer>();
             CurrentDialogueId = -1;
             IsSequenceProceeding = false;
         }
 
         public void SetSequence(int sequenceId)
         {
-            CurrentSequence = GetDialogueSequenceById(sequenceId);
-            CurrentSequence.SetDialogues();
+            CurrentSequence = GetSequence(sequenceId);
         }
 
         public void SetDialogue(int newDialogueId = 0)
@@ -64,66 +56,32 @@ namespace Entities
         public void UpdateSequence(int newDialogueId)
         {
             CurrentDialogueId = newDialogueId;
-            CurrentSequence.Dialogues[CurrentDialogueId].SetOptions();
+            CurrentSequence.Dialogues[CurrentDialogueId].SetCurrentOptions();
             CurrentSequence.Dialogues[CurrentDialogueId].TimesRead++;
         }
 
-        public void SetAnswer(int oldDialogueChosenOptionId, int optionUIId)
+        public void SetAnswer(int oldDialogueChosenOptionId)
         {
             if (CurrentDialogueId != -1 && oldDialogueChosenOptionId != -1)
             {
-                if (PlayerAnswers.ContainsKey(CurrentDialogueId))
-                {
-                    PlayerAnswers[CurrentDialogueId] = oldDialogueChosenOptionId;
-                }
-                else
-                {
-                    PlayerAnswers.Add(CurrentDialogueId, oldDialogueChosenOptionId);
-                }
-            }
+                DialogueAnswer answer = new DialogueAnswer(CurrentDialogueId, oldDialogueChosenOptionId);
+                AllAnswers.Add(answer);
 
+            }
 
             //TimesUsed logic
-            DialogueOption oldDialogueOption = CurrentSequence.Dialogues[CurrentDialogueId].Options[optionUIId];
+            DialogueOption oldDialogueOption = GetDialogueOption(oldDialogueChosenOptionId, CurrentDialogueId, 0);// GetDialogue(CurrentDialogueId, 0).CurrentOptions[optionUIId];
 
-            if (oldDialogueOption.ExternalDependencyMap == IntPair.MinusOne)
+            if (oldDialogueOption.ExternalDependencyMap != IntPair.MinusOne)
             {
-                CurrentSequence.Dialogues[CurrentDialogueId].Options[optionUIId].TimesUsed++;
+                DialogueOption dependencyOption = GetDialogueOption(oldDialogueOption.ExternalDependencyMap.Item2, oldDialogueOption.ExternalDependencyMap.Item1, 0);
+                dependencyOption.TimesUsed++;
             }
-            else
-            {
-                GetDialogueOptionById(oldDialogueOption.ExternalDependencyMap.Item2, oldDialogueOption.ExternalDependencyMap.Item1).TimesUsed++;
-            }
+
+            oldDialogueOption.TimesUsed++;
         }
 
-        public DialogueOption GetDialogueOptionById(int id, int dialogueId)
-        {
-            foreach (DialogueOption frame in DialogueOptions[dialogueId])
-            {
-                if (frame.Id == id)
-                {
-                    return frame;
-                }
-            }
-
-            return null;
-        }
-
-
-        public Dialogue GetDialogueById(int id, int sequenceId)
-        {
-            foreach (Dialogue frame in Dialogues[sequenceId])
-            {
-                if (frame.Id == id)
-                {
-                    return frame;
-                }
-            }
-
-            return null;
-        }
-
-        public DialogueSequence GetDialogueSequenceById(int id)
+        public DialogueSequence GetSequence(int id)
         {
             foreach (DialogueSequence sequence in Sequences)
             {
@@ -136,39 +94,14 @@ namespace Entities
             return null;
         }
 
-        public Dialogue[] GetDialogues(int sequenceId)
+        public Dialogue GetDialogue(int dialogueId, int sequenceId)
         {
-            if (!Dialogues.ContainsKey(sequenceId))
-            {
-                return Array.Empty<Dialogue>();
-            }
-
-            Dialogue[] dialogues = Dialogues[sequenceId];
-
-            return dialogues;
+            return GetSequence(sequenceId).GetDialogueById(dialogueId);
         }
 
-        public DialogueOption[] GetAllowedOptions(int dialogueId)
+        public DialogueOption GetDialogueOption(int optionId, int dialogueId, int sequenceId)
         {
-            if (!DialogueOptions.ContainsKey(dialogueId))
-            {
-                return Array.Empty<DialogueOption>();
-            }
-
-            DialogueOption[] options = DialogueOptions[dialogueId];
-            List<DialogueOption> allowedOptions = new List<DialogueOption>();
-
-            foreach (DialogueOption option in options)
-            {
-                bool passedChecks = IsOptionMeetsRequirements(option) && IsOptionOneTimeUsed(option) && IsOptionPassedCopyDependency(option);
-                 
-                if (passedChecks)
-                {
-                    allowedOptions.Add(option);
-                }
-            }
-
-            return allowedOptions.ToArray();
+            return GetSequence(sequenceId).GetDialogueById(dialogueId).GetOptionById(optionId);
         }
 
         public static bool IsOptionMeetsRequirements(DialogueOption option)
@@ -213,6 +146,75 @@ namespace Entities
             return true;
         }
 
-        
+        public DialogueAnswer[] GetAllDialogueAnswers(int dialogueId)
+        {
+            List<DialogueAnswer> answers = new List<DialogueAnswer>();
+
+            foreach (DialogueAnswer answer in AllAnswers)
+            {
+                if(answer.Data.Item1 ==  dialogueId)
+                {
+                    answers.Add(answer);
+                }
+            }
+
+            return answers.ToArray();
+        }
+
+        public DialogueAnswer GetDialogueAnswer(int dialogueId, int optionIdAnswer)
+        {
+            foreach (DialogueAnswer answer in GetAllDialogueAnswers(dialogueId))
+            {
+                if(answer.Data.Item2 == optionIdAnswer)
+                {
+                    return answer;
+                }
+            }
+
+            return null;
+        }
+
+        public DialogueOption[] GetAllDependentOptions(int dialogueId, int optionId)
+        {
+            List<DialogueOption> dependentOptions = new List<DialogueOption>();
+
+            foreach (DialogueSequence sequence in Sequences)
+            {
+                foreach (Dialogue dialogue in sequence.Dialogues)
+                {
+                    foreach (DialogueOption option in dialogue.Options)
+                    {
+                        if (option.ExternalDependencyMap != IntPair.MinusOne &&
+                        option.ExternalDependencyMap.Item1 == dialogueId &&
+                        option.ExternalDependencyMap.Item2 == optionId)
+                        {
+                            dependentOptions.Add(option);
+                        }
+                    }
+                }
+            }
+
+            return dependentOptions.ToArray();
+        }
+
+        public int GetDialogueIdByOptionId(int optionId)
+        {
+
+            foreach (DialogueSequence sequence in Sequences)
+            {
+                for (global::System.Int32 i = 0; i < sequence.Dialogues.Length; i++)
+                {
+                    foreach (DialogueOption option in sequence.Dialogues[i].Options)
+                    {
+                        if (option.Id == optionId)
+                        {
+                            return i;
+                        }
+                    }
+                }
+            }
+
+            return -1;
+        }
     }
 }

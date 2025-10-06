@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
+using static System.Formats.Asn1.AsnWriter;
 using static Utils.TupleObjectsHelper;
 
 namespace Entities
@@ -34,6 +35,7 @@ namespace Entities
 
         public IntPair ExternalDependencyMap;
         public bool DependencyCopyPassedFlag;
+        public bool IsCopy;
 
         public DialogueOption(int id, string text, int nextDialogueId = -1, int nextDialogueSequenceId = -1, Requirement[] requirements = null)
         {
@@ -48,6 +50,8 @@ namespace Entities
             TimesUsed = 0;
             ExternalDependencyMap = IntPair.MinusOne;
 
+            IsCopy = false;
+
             SetType();
         }
 
@@ -55,12 +59,15 @@ namespace Entities
         {
             Id = id;
             ExternalDependencyMap = externalDependencyMap;
+
+            Text = $"Dependent of {externalDependencyMap}";
             DependencyCopyPassedFlag = false;
+            IsCopy = true;
         }
 
         public void CopyDependencyAttributes()
         {
-            DialogueOption[] dependencyCandidates = Entities.DialogueManager.GetAllowedOptions(ExternalDependencyMap.Item1);
+            DialogueOption[] dependencyCandidates = Entities.DialogueManager.GetDialogue(ExternalDependencyMap.Item1, 0).GetCurrentOptions();
 
             DialogueOption matchingOption = dependencyCandidates?.FirstOrDefault(option => option.Id == ExternalDependencyMap.Item2);
 
@@ -94,7 +101,7 @@ namespace Entities
 
         public override string ToString()
         {
-            return "Id: " + Id + ", Text: " + Text + ", NextId: " + NextDialogueId + ", Type: " + Type;
+            return $"Id: {Id}, Text: {Text}, NextId: {NextDialogueId}, Type: {Type}, IsCopy: {IsCopy}";
         }
     }
 

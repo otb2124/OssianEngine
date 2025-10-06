@@ -9,7 +9,6 @@ namespace Entities
 
     public class DialogueAnswerRequirement : Requirement
     {
-
         public int DialogueId;
         public int OptionId;
 
@@ -21,15 +20,30 @@ namespace Entities
 
         public override bool Check()
         {
-            if(Entities.DialogueManager.PlayerAnswers.ContainsKey(DialogueId))
+            DialogueAnswer answer = Entities.DialogueManager.GetDialogueAnswer(DialogueId, OptionId);
+
+            Console.WriteLine($"Check if answer exists: {answer != null}");
+
+            if (answer != null)
             {
-                return Entities.DialogueManager.PlayerAnswers[DialogueId] == OptionId;
+                Console.WriteLine($"Original answer for: {answer}");
+                return true;
             }
-            else
+
+            DialogueOption[] dependentOptions = Entities.DialogueManager.GetAllDependentOptions(DialogueId, OptionId);
+
+            foreach (DialogueOption dependentOption in dependentOptions)
             {
-                return false;
+                DialogueAnswer dependentAnswer = Entities.DialogueManager.GetDialogueAnswer(Entities.DialogueManager.GetDialogueIdByOptionId(dependentOption.Id), dependentOption.Id);
+
+                if (dependentAnswer != null)
+                {
+                    Console.WriteLine($"Dependent answer for {answer}, is answered via {dependentAnswer}");
+                    return true;
+                }
             }
-            
+
+            return false;
         }
     }
 }

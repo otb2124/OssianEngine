@@ -1,10 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Utils;
 
 namespace Entities
 {
@@ -18,10 +14,12 @@ namespace Entities
         public Vector2 CameraPosition;
 
         public DialogueOption[] Options;
+        public DialogueOption[] CurrentOptions;
 
         public int TimesRead;
 
-        public Dialogue(int id, string text, string authorName, int authorId)
+
+        public Dialogue(int id, string text, string authorName, int authorId, DialogueOption[] options)
         {
             Id = id;
 
@@ -32,11 +30,44 @@ namespace Entities
             //CameraPosition = Vector2.Zero; //get authorid pos
 
             TimesRead = 0;
+
+            Options = options;
+            CurrentOptions = new DialogueOption[Options.Length];
         }
 
-        public void SetOptions()
+        public void SetCurrentOptions()
         {
-            Options = Entities.DialogueManager.GetAllowedOptions(Id);
+            CurrentOptions = GetCurrentOptions();
+        }
+
+        public DialogueOption[] GetCurrentOptions()
+        {
+            List<DialogueOption> allowedOptions = new List<DialogueOption>();
+
+            foreach (DialogueOption option in Options)
+            {
+                bool passedChecks = DialogueManager.IsOptionMeetsRequirements(option) && DialogueManager.IsOptionOneTimeUsed(option) && DialogueManager.IsOptionPassedCopyDependency(option);
+
+                if (passedChecks)
+                {
+                    allowedOptions.Add(option);
+                }
+            }
+
+            return allowedOptions.ToArray();
+        }
+
+        public DialogueOption GetOptionById(int id)
+        {
+            foreach (DialogueOption option in Options)
+            {
+                if (option.Id == id)
+                {
+                    return option;
+                }
+            }
+
+            return null;
         }
 
         public override string ToString()

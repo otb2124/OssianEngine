@@ -13,14 +13,23 @@ namespace Entities
         public int Id;
         public Dialogue[] Dialogues;
 
-        public DialogueSequence(int id) 
+        public DialogueSequence(int id, Dialogue[] dialogues)
         {
             Id = id;
+            Dialogues = dialogues;
         }
 
-        public void SetDialogues()
+        public Dialogue GetDialogueById(int id)
         {
-            Dialogues = Entities.DialogueManager.GetDialogues(Id);
+            foreach (Dialogue dialogue in Dialogues)
+            {
+                if (dialogue.Id == id)
+                {
+                    return dialogue;
+                }
+            }
+
+            return null;
         }
 
     }

@@ -21,7 +21,7 @@ namespace UI
             Dialogue = dialogue;
 
             int childrenCount = 3;
-            for (int i = 0; i < Dialogue.Options.Length; i++)
+            for (int i = 0; i < Dialogue.CurrentOptions.Length; i++)
             {
                 childrenCount++;
             }
@@ -38,7 +38,7 @@ namespace UI
 
             for (int i = 3; i < children.Length; i++)
             {
-                children[i] = new UIButtonTextComponent(-1, -1, new Vector2(40, 120 - ((i - 3 + 1) * 20)), (i-3 + 1) + ") " + Dialogue.Options[i-3].Text, 0, Vector2.One, GetDialogueOptionColor(Dialogue.Options[i - 3]));
+                children[i] = new UIButtonTextComponent(-1, -1, new Vector2(40, 120 - ((i - 3 + 1) * 20)), (i-3 + 1) + ") " + Dialogue.CurrentOptions[i-3].Text, 0, Vector2.One, GetDialogueOptionColor(Dialogue.CurrentOptions[i - 3]));
             }
         }
 
@@ -46,6 +46,22 @@ namespace UI
         {
             if(option.TimesUsed >= 1)
             {
+
+                /*
+                DialogueOption[] nextOptions = Entities.Entities.DialogueManager.GetAllowedOptionsForDialogue(option.NextDialogueId);
+
+                if(nextOptions != null)
+                {
+                    foreach (DialogueOption nextOption in nextOptions)
+                    {
+                        if (nextOption.TimesUsed >= 1)
+                        {
+                            return UITextSeverity.Read.TextColor;
+                        }
+                    }
+                }
+                */
+
                 return UITextSeverity.Read.TextColor;
             }
 
@@ -65,7 +81,7 @@ namespace UI
                     }
                 }
 
-                for (int i = 3; i < Dialogue.Options.Length + 3; i++)
+                for (int i = 3; i < Dialogue.CurrentOptions.Length + 3; i++)
                 {
                     if (children[i] is UIButtonTextComponent option)
                     {
@@ -73,8 +89,8 @@ namespace UI
                         {
                             if (optionButton.IsOnClick)
                             {
-                                Entities.Entities.DialogueManager.SetAnswer(Dialogue.Options[i - 3].Id, i - 3);
-                                Entities.Entities.DialogueManager.SetDialogue(Dialogue.Options[i - 3].NextDialogueId);
+                                Entities.Entities.DialogueManager.SetAnswer(Dialogue.CurrentOptions[i - 3].Id);
+                                Entities.Entities.DialogueManager.SetDialogue(Dialogue.CurrentOptions[i - 3].NextDialogueId);
                             }
                         }
                     }
