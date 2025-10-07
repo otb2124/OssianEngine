@@ -153,7 +153,8 @@ namespace Entities
                     },
                     new Requirement[]
                     {
-                        new DialogueOptionTimesUsedRequirement(0, 0, 0)
+                        new DialogueOptionTimesUsedRequirement(0, 0, 0),
+                        new CurrentInventoryItemKeyRequirement(new ItemKey(ItemLib.Weapons.TERRABLADE))
                     }
                 )
         };

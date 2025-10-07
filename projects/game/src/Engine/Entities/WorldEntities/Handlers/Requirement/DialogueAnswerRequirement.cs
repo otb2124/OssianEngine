@@ -31,7 +31,9 @@ namespace Entities
 
             foreach (DialogueOption dependentOption in dependentOptions)
             {
-                DialogueAnswer dependentAnswer = Entities.DialogueManager.GetDialogueAnswer(Entities.DialogueManager.GetDialogueIdByOptionId(dependentOption.Id), dependentOption.Id);
+                int dependentDialogueId = Entities.DialogueManager.GetDialogueIdByOptionId(dependentOption.Id);
+
+                DialogueAnswer dependentAnswer = Entities.DialogueManager.GetDialogueAnswer(dependentDialogueId, dependentOption.Id);
 
                 if (dependentAnswer != null)
                 {

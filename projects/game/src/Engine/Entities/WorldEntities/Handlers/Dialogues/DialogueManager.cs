@@ -42,10 +42,17 @@ namespace Entities
             //case to start
             if (dop is StartSequenceDOP startSequenceDOP)
             {
-                CurrentSequence = GetSequence(startSequenceDOP.SequenceId);
-                CurrentDialogueId = CurrentSequence.InitialDialogueId;
-                UpdateSequence(new NextDialogueDOP(CurrentDialogueId));
-                InitializeUIDialogueComponent();
+                if(GetSequence(startSequenceDOP.SequenceId) != null)
+                {
+                    CurrentSequence = GetSequence(startSequenceDOP.SequenceId);
+                    CurrentDialogueId = CurrentSequence.InitialDialogueId;
+                    UpdateSequence(new NextDialogueDOP(CurrentDialogueId));
+                    InitializeUIDialogueComponent();
+                }
+                else
+                {
+                    return;
+                }
             }
             
             //case to next dialogue
@@ -183,7 +190,7 @@ namespace Entities
 
             foreach (DialogueAnswer answer in AllAnswers)
             {
-                if(answer.Data.Item1 ==  dialogueId)
+                if(answer.Data.Item1 == dialogueId)
                 {
                     answers.Add(answer);
                 }
@@ -230,21 +237,16 @@ namespace Entities
 
         public int GetDialogueIdByOptionId(int optionId)
         {
-
-            foreach (DialogueSequence sequence in Sequences)
+            for (global::System.Int32 i = 0; i < CurrentSequence.Dialogues.Length; i++)
             {
-                for (global::System.Int32 i = 0; i < sequence.Dialogues.Length; i++)
+                foreach (DialogueOption option in CurrentSequence.Dialogues[i].Options)
                 {
-                    foreach (DialogueOption option in sequence.Dialogues[i].Options)
+                    if (option.Id == optionId)
                     {
-                        if (option.Id == optionId)
-                        {
-                            return i;
-                        }
+                        return CurrentSequence.Dialogues[i].Id;
                     }
                 }
             }
-
             return -1;
         }
     }

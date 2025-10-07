@@ -80,6 +80,7 @@ namespace Entities
         public enum Consumables
         {
             HEALTH_POTION,
+            CAKE,
         }
 
         public enum Materials

@@ -20,15 +20,21 @@ namespace Entities
         {
             //TODO: there are more then two currently for priority start next sequence after previous
             int[] awailableSequences = GetAwailableSequenceIds();
-            int prioritizedId = awailableSequences[0];
 
-            foreach (int id in awailableSequences)
+            int prioritizedId = -1;
+
+            if (awailableSequences.Length > 0)
             {
-                Console.WriteLine(id);
+                prioritizedId = awailableSequences[0];
 
-                if(Entities.DialogueManager.GetSequence(id).ChoicePriority > Entities.DialogueManager.GetSequence(prioritizedId).ChoicePriority)
+                foreach (int id in awailableSequences)
                 {
-                    prioritizedId = id;
+                    Console.WriteLine("priority: " + id);
+
+                    if (Entities.DialogueManager.GetSequence(id).ChoicePriority > Entities.DialogueManager.GetSequence(prioritizedId).ChoicePriority)
+                    {
+                        prioritizedId = id;
+                    }
                 }
             }
 
@@ -45,22 +51,25 @@ namespace Entities
 
                 if (!sequence.Disabled)
                 {
-                    if (sequence.Requirements != null)
+                    bool allRequirementsMet = true;
+
+                    if (sequence.Requirements != null && sequence.Requirements.Length > 0)
                     {
-                        foreach (Requirement requirement in Entities.DialogueManager.GetSequence(id).Requirements)
+                        foreach (Requirement requirement in sequence.Requirements)
                         {
-                            if (requirement.Check())
+                            if (!requirement.Check())
                             {
-                                idList.Add(id);
+                                allRequirementsMet = false;
+                                break;
                             }
                         }
                     }
-                    else
+
+                    if (allRequirementsMet)
                     {
                         idList.Add(id);
                     }
                 }
-                
             }
 
             return idList.ToArray();
