@@ -24,6 +24,8 @@ namespace Entities
 
             foreach (int id in awailableSequences)
             {
+                Console.WriteLine(id);
+
                 if(Entities.DialogueManager.GetSequence(id).ChoicePriority > Entities.DialogueManager.GetSequence(prioritizedId).ChoicePriority)
                 {
                     prioritizedId = id;
@@ -39,20 +41,26 @@ namespace Entities
 
             foreach (int id in DialogueSequenceIds)
             {
-                if(Entities.DialogueManager.GetSequence(id).Requirements != null)
+                DialogueSequence sequence = Entities.DialogueManager.GetSequence(id);
+
+                if (!sequence.Disabled)
                 {
-                    foreach (Requirement requirement in Entities.DialogueManager.GetSequence(id).Requirements)
+                    if (sequence.Requirements != null)
                     {
-                        if (requirement.Check())
+                        foreach (Requirement requirement in Entities.DialogueManager.GetSequence(id).Requirements)
                         {
-                            idList.Add(id);
+                            if (requirement.Check())
+                            {
+                                idList.Add(id);
+                            }
                         }
                     }
+                    else
+                    {
+                        idList.Add(id);
+                    }
                 }
-                else
-                {
-                    idList.Add(id); 
-                }
+                
             }
 
             return idList.ToArray();

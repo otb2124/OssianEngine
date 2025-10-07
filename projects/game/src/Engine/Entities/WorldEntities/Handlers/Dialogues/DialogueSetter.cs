@@ -21,6 +21,7 @@ namespace Entities
                                 new DialogueOption(0, "*Leave*",
                                     new DialogueOptionAction[]
                                     {
+                                        new DisableDialogueSequenceDOP(0),
                                         new ExitDialogueDOP()
                                     }
                                 ),
@@ -95,7 +96,7 @@ namespace Entities
                                     new DialogueOptionAction[]
                                     {
                                         new NextDialogueDOP(6),
-                                        new SetInitialDialogueForSequenceDOP(6, 0)
+                                        new SetInitialDialogueForSequenceDOP(6, 1)
                                     }
                                 ),
                             }

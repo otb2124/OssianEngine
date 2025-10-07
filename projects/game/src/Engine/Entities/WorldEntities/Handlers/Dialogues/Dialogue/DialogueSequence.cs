@@ -20,6 +20,7 @@ namespace Entities
         public Requirement[] Requirements;
 
         public int ChoicePriority;
+        public bool Disabled;
 
         public DialogueSequence(int id, int initialId, int choicePriority, Dialogue[] dialogues, Requirement[] requirements = null)
         {
@@ -30,6 +31,8 @@ namespace Entities
 
             Requirements = requirements;
             ChoicePriority = choicePriority;
+
+            Disabled = false;
         }
 
         public Dialogue GetDialogueById(int id)

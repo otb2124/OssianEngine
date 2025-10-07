@@ -62,6 +62,11 @@ namespace Entities
                 //UpdateUIDialogueComponent();
                 GetSequence(setInitDialogueForSequenceDOP.SequenceId).InitialDialogueId = setInitDialogueForSequenceDOP.DialogueId;
             }
+
+            if(dop is DisableDialogueSequenceDOP disableSequenceDOP)
+            {
+                GetSequence(disableSequenceDOP.SequenceId).Disabled = true;
+            }
         }
 
         public void UpdateSequence(NextDialogueDOP nextDialogueDOP)
