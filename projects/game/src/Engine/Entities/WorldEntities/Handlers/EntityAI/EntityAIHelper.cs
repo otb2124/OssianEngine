@@ -112,7 +112,7 @@ namespace Entities
 
         public static BehaviourCases GetCurrentBehaviourCase(StatsEntity ent)
         {
-            if (ent is HumanoidMob hMob)
+            if (ent is HumanoidEntity hMob)
             {
                 return hMob.AISet.BehaviourManager.CurrentCase;
             }

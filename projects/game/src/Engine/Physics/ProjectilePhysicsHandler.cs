@@ -16,7 +16,7 @@ namespace Physics
 
         public static Type[] SoftSurfaces = new Type[]
         {
-            typeof(Player), typeof(AnimalMob), typeof(HumanoidMob), typeof(PlatformEntity)
+            typeof(Player), typeof(AnimalMob), typeof(HumanoidEntity), typeof(PlatformEntity)
         };
 
         public static bool CheckProjectileCollision(FlatBody bodyA, FlatBody bodyB)

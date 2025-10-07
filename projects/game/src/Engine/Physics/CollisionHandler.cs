@@ -13,10 +13,10 @@ namespace Physics
 
         private static readonly Dictionary<Type, HashSet<Type>> IgnoreCollisionTransformationGeneral = new()
         {
-            { typeof(Player), new() { typeof(PlatformEntity), typeof(HumanoidMob), typeof(AnimalMob), typeof(LedgeEntity)} },
-            { typeof(HumanoidMob), new() { typeof(AnimalMob), typeof(HumanoidMob) } },
+            { typeof(Player), new() { typeof(PlatformEntity), typeof(HumanoidEntity), typeof(AnimalMob), typeof(LedgeEntity)} },
+            { typeof(HumanoidEntity), new() { typeof(AnimalMob), typeof(HumanoidEntity) } },
             { typeof(AnimalMob), new() { typeof(AnimalMob) } },
-            { typeof(InteractiveItemEntity), new() { typeof(AnimalMob), typeof(HumanoidMob), typeof(Player), typeof(InteractiveItemEntity) } },
+            { typeof(InteractiveItemEntity), new() { typeof(AnimalMob), typeof(HumanoidEntity), typeof(Player), typeof(InteractiveItemEntity) } },
         };
 
         private static readonly Dictionary<Type, HashSet<Type>> IgnoreCollisionTransformationAdditional = new()

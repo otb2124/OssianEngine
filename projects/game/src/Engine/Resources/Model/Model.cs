@@ -35,7 +35,9 @@ namespace Resources
         public Model(ModelPreset preset)
         {
             BodyOffset = preset.Offset;
-            Body = preset.Body;
+
+            //TODO: FIND A MORE OPTIMIZED WAY
+            Body = new FlatBody(preset.Body, preset.Body.Height, preset.Body.Width);
             SpriteData = preset.SpriteData;
             aManager = new AnimationManager();
 

@@ -58,8 +58,10 @@ namespace Entities
                     //entities.Add(new DestroyableEntity(Models.CRATE_1, new Vector2(-65, 50)));
                     //entities.Add(new DestroyableEntity(Models.BALL, new Vector2(-70, 50)));
 
-                    entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.CITIZEN, new Vector2(-60, 100), 0f));
-                    //entities.Add(new HumanoidMob(HumanoidMob.HumanoidMobs.BANDIT, new Vector2(-60,  100), 0f));
+                    entities.Add(new HumanoidEntity(HumanoidEntity.HumanoidMobs.VIGO, new Vector2(100, 100), 0f));
+                    entities.Add(new HumanoidEntity(HumanoidEntity.HumanoidMobs.WANEGRO, new Vector2(-100, 100), 0f));
+
+                    //entities.Add(new HumanoidEntity(HumanoidEntity.HumanoidMobs.BANDIT, new Vector2(-60,  100), 0f));
                     //entities.Add(new AnimalMob(AnimalMob.AnimalMobs.SLIME, new Vector2(-200, 100), 0f));
                     // entities.Add(new AnimalMob(AnimalMob.AnimalMobs.BAT, new Vector2(-300, 100), 0f));
 

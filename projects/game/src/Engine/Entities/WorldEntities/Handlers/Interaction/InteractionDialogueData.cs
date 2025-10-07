@@ -29,8 +29,6 @@ namespace Entities
 
                 foreach (int id in awailableSequences)
                 {
-                    Console.WriteLine("priority: " + id);
-
                     if (Entities.DialogueManager.GetSequence(id).ChoicePriority > Entities.DialogueManager.GetSequence(prioritizedId).ChoicePriority)
                     {
                         prioritizedId = id;

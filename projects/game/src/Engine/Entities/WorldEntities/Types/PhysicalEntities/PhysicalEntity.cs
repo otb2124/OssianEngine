@@ -65,8 +65,8 @@ namespace Entities
             Model.OwnerId = Id;
             Model.Direction = initDirection;
 
-            this.baseSpriteZ = this.Model.SpriteData.z;
-            this.spriteZ = baseSpriteZ;
+            baseSpriteZ = Model.SpriteData.z;
+            spriteZ = baseSpriteZ;
 
             SetAnimations();
             SetEmission();

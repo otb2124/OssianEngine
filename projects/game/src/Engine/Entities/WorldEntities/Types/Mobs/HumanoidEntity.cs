@@ -11,23 +11,28 @@ using static Entities.EntityAIBehaviourManager;
 
 namespace Entities
 {
-    public class HumanoidMob : EquipmentEntity
+    public class HumanoidEntity : EquipmentEntity
     {
 
         public enum HumanoidMobs
         {
             CITIZEN,
             BANDIT,
+            VIGO,
+            WANEGRO,
         }
 
 
         public HumanoidMobs Type;
 
-        public HumanoidMob(HumanoidMobs type, Vector2 pos, float rotation) : base()
+        public HumanoidEntity(HumanoidMobs type, Vector2 pos, float rotation) : base()
         {
             Type = type;
-            SetHumanoidMobData(out Models modelType);
-            Init(modelType, pos, rotation);
+
+            EntityFraction = EntityFractions.BANDIT;
+            BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
+            Init(Models.BANDIT, pos, rotation);
+
             SetStats();
             SetInventory();
             SetDropInventory();
@@ -35,31 +40,29 @@ namespace Entities
             SetInteractionType();
         }
 
-        public void SetHumanoidMobData(out Models modelType)
-        {
-            switch(Type)
-            {
-                case HumanoidMobs.CITIZEN:
-                    EntityFraction = EntityFractions.BANDIT;
-                    BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
-                    modelType = Models.BANDIT;
-                    break;
-                case HumanoidMobs.BANDIT:
-                    EntityFraction = EntityFractions.BANDIT;
-                    BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
-                    modelType = Models.BANDIT;
-                    break;
-                default:
-                    modelType = Models.BANDIT; 
-                    break;
-            }
-        }
-
         public override void SetInventory()
         {
             switch (Type)
             {
                 case HumanoidMobs.CITIZEN:
+                    base.SetInventory();
+
+                    Inventory.Init(40);
+
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Consumables.HEALTH_POTION)));
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
+                    break;
+                case HumanoidMobs.VIGO:
+                    base.SetInventory();
+
+                    Inventory.Init(40);
+
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Consumables.HEALTH_POTION)));
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)));
+                    Inventory.AddItem(ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TORCH)));
+                    break;
+                case HumanoidMobs.WANEGRO:
                     base.SetInventory();
 
                     Inventory.Init(40);
@@ -84,8 +87,13 @@ namespace Entities
                 case HumanoidMobs.BANDIT:
                     AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
                     break;
+                case HumanoidMobs.VIGO:
+                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.STILL);
+                    break;
+                case HumanoidMobs.WANEGRO:
+                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.STILL);
+                    break;
                 default:
-                    AISet = new EntityAISet(this, BehaviourPatterns.BANDIT_DEFAULT, BehaviourCases.IDLE_RANDOM);
                     break;
             }
         }
@@ -95,7 +103,12 @@ namespace Entities
             switch (Type)
             {
                 case HumanoidMobs.CITIZEN:
-                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 0, 1} ));
+                    break;
+                case HumanoidMobs.VIGO:
+                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 0, 1 }));
+                    break;
+                case HumanoidMobs.WANEGRO:
+                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 0, 1 }));
                     break;
                 default:
                     break;
@@ -206,6 +219,62 @@ namespace Entities
                     break;
 
                 case HumanoidMobs.CITIZEN:
+                    CanRegensStamina = true;
+                    CanUpdateIFrames = true;
+                    CanFall = true;
+
+                    Stats.sprintMultiplier = 1.5f;
+                    Stats.staminaSprintCostSec = 15;
+
+                    Stats.staminaRegenSec = 20;
+                    Stats.staminaUnlockSec = 1.5f;
+
+                    Stats.staminaAttackHitCostMultiplier = 25;
+
+                    Stats.rollMultiplier = 2f;
+                    Stats.staminaRollCostSec = 200;
+
+                    Stats.jumpSpeed = 2.8f;
+                    Stats.staminaJumpCostSec = 60;
+
+                    Stats.maxHP = 100;
+                    Stats.maxSpeed = 0.5f;
+                    Stats.maxMana = 100;
+                    Stats.maxStamina = 100;
+                    Stats.MaxPoise = 100;
+                    Stats.PoiseRegenSec = 10;
+
+                    break;
+
+                case HumanoidMobs.VIGO:
+                    CanRegensStamina = true;
+                    CanUpdateIFrames = true;
+                    CanFall = true;
+
+                    Stats.sprintMultiplier = 1.5f;
+                    Stats.staminaSprintCostSec = 15;
+
+                    Stats.staminaRegenSec = 20;
+                    Stats.staminaUnlockSec = 1.5f;
+
+                    Stats.staminaAttackHitCostMultiplier = 25;
+
+                    Stats.rollMultiplier = 2f;
+                    Stats.staminaRollCostSec = 200;
+
+                    Stats.jumpSpeed = 2.8f;
+                    Stats.staminaJumpCostSec = 60;
+
+                    Stats.maxHP = 100;
+                    Stats.maxSpeed = 0.5f;
+                    Stats.maxMana = 100;
+                    Stats.maxStamina = 100;
+                    Stats.MaxPoise = 100;
+                    Stats.PoiseRegenSec = 10;
+
+                    break;
+
+                case HumanoidMobs.WANEGRO:
                     CanRegensStamina = true;
                     CanUpdateIFrames = true;
                     CanFall = true;

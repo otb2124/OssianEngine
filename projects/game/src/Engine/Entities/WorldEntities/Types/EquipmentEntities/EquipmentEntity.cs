@@ -1,12 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Physics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Utils;
-using MathHelper = Utils.MathHelper;
 
 namespace Entities
 {
