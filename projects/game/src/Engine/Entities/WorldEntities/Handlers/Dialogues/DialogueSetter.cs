@@ -156,7 +156,23 @@ namespace Entities
                         new DialogueOptionTimesUsedRequirement(0, 0, 0),
                         new CurrentInventoryItemKeyRequirement(new ItemKey(ItemLib.Weapons.TERRABLADE))
                     }
-                )
+                ),
+                new DialogueSequence(2, 7, 0,
+                    new Dialogue[]
+                    {
+                        new Dialogue(7, "Yo?", "Unknown Man", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(16, "*Leave*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new ExitDialogueDOP()
+                                    }
+                                ),
+                            }
+                        )
+                    }
+                ),
         };
     }
 }
