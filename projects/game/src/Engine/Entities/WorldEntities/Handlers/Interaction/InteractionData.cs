@@ -21,31 +21,31 @@ namespace Entities
         START_TRADE
     }
 
-    public class InteractionEntity
+    public class InteractionData
     {
         public InteractionTriggers Trigger;
         public InteractionActions Action;
 
-        public int DialogueId;
+        public InteractionDialogueData DialogueSequenceData;
 
-        public InteractionEntity()
+        public InteractionData()
         {
             Trigger = InteractionTriggers.NONE;
             Action = InteractionActions.NONE;
         }
 
-        public InteractionEntity(InteractionTriggers trigger, InteractionActions action)
+        public InteractionData(InteractionTriggers trigger, InteractionActions action)
         {
             Trigger = trigger;
             Action = action;
         }
 
-        public InteractionEntity(InteractionTriggers trigger, int dialogueId)
+        public InteractionData(InteractionTriggers trigger, int[] sequenceIds)
         {
             Trigger = trigger;
             Action = InteractionActions.START_DIALOGUE;
 
-            DialogueId = dialogueId;
+            DialogueSequenceData = new InteractionDialogueData(sequenceIds);
         }
     }
 }

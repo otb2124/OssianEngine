@@ -31,19 +31,19 @@ namespace Entities
 
         }
 
-        public virtual void Init(Models modelPreset, Vector2 pos, Vector2 interactionFieldSize, InteractionEntity interactionData)
+        public virtual void Init(Models modelPreset, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
         {
             InteractionManager = new InteractionManager(interactionFieldSize, interactionData);
             base.Init(modelPreset, pos);
         }
 
-        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractionEntity interactionData)
+        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
         {
             InteractionManager = new InteractionManager(interactionFieldSize, interactionData);
             base.Init(sprite, body, pos);
         }
 
-        public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractionEntity interactionData)
+        public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
         {
             InteractionManager = new InteractionManager(interactionFieldSize, interactionData);
             base.Init(spriteData, body, pos);

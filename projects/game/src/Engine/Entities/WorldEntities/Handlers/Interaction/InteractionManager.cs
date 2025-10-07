@@ -9,15 +9,15 @@ namespace Entities
     public class InteractionManager
     {
         public InteractionField InteractionField;
-        public InteractionEntity InteractionData;
+        public InteractionData InteractionData;
 
         public InteractionManager()
         {
             InteractionField = new InteractionField();
-            InteractionData = new InteractionEntity();
+            InteractionData = new InteractionData();
         }
 
-        public InteractionManager(Vector2 interactionFieldSize, InteractionEntity data)
+        public InteractionManager(Vector2 interactionFieldSize, InteractionData data)
         {
             InteractionField = new InteractionField(interactionFieldSize);
             InteractionData = data;
@@ -26,10 +26,10 @@ namespace Entities
         public InteractionManager(Vector2 interactionFieldSize)
         {
             InteractionField = new InteractionField(interactionFieldSize);
-            InteractionData = new InteractionEntity();
+            InteractionData = new InteractionData();
         }
 
-        public InteractionManager(InteractionEntity data)
+        public InteractionManager(InteractionData data)
         {
             InteractionField = new InteractionField();
             InteractionData = data;

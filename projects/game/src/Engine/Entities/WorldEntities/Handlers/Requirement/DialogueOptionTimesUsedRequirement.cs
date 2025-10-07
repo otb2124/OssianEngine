@@ -7,22 +7,26 @@ using System.Threading.Tasks;
 namespace Entities
 {
 
-    public class DialogueAnswerRequirement : Requirement
+    public class DialogueOptionTimesUsedRequirement : Requirement
     {
-        public int DialogueId;
         public int OptionId;
+        public int DialogueId;
+        public int SequenceId;
+        public int TimesUsed;
 
-        public DialogueAnswerRequirement(int dialogueId, int optionId)
+        public DialogueOptionTimesUsedRequirement(int optionId, int dialogueId, int sequenceId, int timesUsed = 1)
         {
-            DialogueId = dialogueId;
             OptionId = optionId;
+            DialogueId = dialogueId;
+            SequenceId = sequenceId;
+            TimesUsed = timesUsed;
         }
 
         public override bool Check()
         {
-            DialogueAnswer answer = Entities.DialogueManager.GetDialogueAnswer(DialogueId, OptionId);
+            DialogueOption option = Entities.DialogueManager.GetDialogueOption(OptionId, DialogueId, SequenceId);
 
-            if (answer != null)
+            if (option.TimesUsed >= TimesUsed)
             {
                 return true;
             }
@@ -31,9 +35,7 @@ namespace Entities
 
             foreach (DialogueOption dependentOption in dependentOptions)
             {
-                DialogueAnswer dependentAnswer = Entities.DialogueManager.GetDialogueAnswer(Entities.DialogueManager.GetDialogueIdByOptionId(dependentOption.Id), dependentOption.Id);
-
-                if (dependentAnswer != null)
+                if (dependentOption.TimesUsed >= TimesUsed)
                 {
                     return true;
                 }

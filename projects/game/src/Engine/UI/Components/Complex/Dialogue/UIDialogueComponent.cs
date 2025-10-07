@@ -21,6 +21,8 @@ namespace UI
             Dialogue = dialogue;
 
             int childrenCount = 3;
+
+
             for (int i = 0; i < Dialogue.CurrentOptions.Length; i++)
             {
                 childrenCount++;
@@ -90,7 +92,7 @@ namespace UI
                             if (optionButton.IsOnClick)
                             {
                                 Entities.Entities.DialogueManager.SetAnswer(Dialogue.CurrentOptions[i - 3].Id);
-                                Entities.Entities.DialogueManager.SetDialogue(Dialogue.CurrentOptions[i - 3].NextDialogueId);
+                                Entities.Entities.DialogueManager.SetDialogue(Dialogue.CurrentOptions[i - 3].Actions);
                             }
                         }
                     }

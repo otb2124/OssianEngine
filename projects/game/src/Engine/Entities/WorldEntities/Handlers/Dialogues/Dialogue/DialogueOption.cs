@@ -1,11 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Utils;
-using static System.Formats.Asn1.AsnWriter;
+﻿using System.Linq;
 using static Utils.TupleObjectsHelper;
 
 namespace Entities
@@ -22,10 +15,8 @@ namespace Entities
     {
         public int Id;
         public string Text;
-        public int NextDialogueId;
-        public int NextSequenceId;
 
-        public DialogueOptionActionTypes Type;
+        public DialogueOptionAction[] Actions;
 
         public Requirement[] Requirements;
 
@@ -37,13 +28,12 @@ namespace Entities
         public bool DependencyCopyPassedFlag;
         public bool IsCopy;
 
-        public DialogueOption(int id, string text, int nextDialogueId = -1, int nextDialogueSequenceId = -1, Requirement[] requirements = null)
+        public DialogueOption(int id, string text, DialogueOptionAction[] actions = null, Requirement[] requirements = null)
         {
             Id = id;
             Text = text;
 
-            NextDialogueId = nextDialogueId;
-            NextSequenceId = nextDialogueSequenceId;
+            Actions = actions;
 
             Requirements = requirements;
 
@@ -51,8 +41,6 @@ namespace Entities
             ExternalDependencyMap = IntPair.MinusOne;
 
             IsCopy = false;
-
-            SetType();
         }
 
         public DialogueOption(int id, IntPair externalDependencyMap)
@@ -67,17 +55,15 @@ namespace Entities
 
         public void CopyDependencyAttributes()
         {
-            DialogueOption[] dependencyCandidates = Entities.DialogueManager.GetDialogue(ExternalDependencyMap.Item1, 0).GetCurrentOptions();
+            DialogueOption[] dependencyCandidates = Entities.DialogueManager.GetDialogue(ExternalDependencyMap.Item1, Entities.DialogueManager.CurrentSequence.Id).GetCurrentOptions();
 
             DialogueOption matchingOption = dependencyCandidates?.FirstOrDefault(option => option.Id == ExternalDependencyMap.Item2);
 
             if (matchingOption != null)
             {
                 Text = matchingOption.Text;
-                NextDialogueId = matchingOption.NextDialogueId;
-                NextSequenceId = matchingOption.NextSequenceId;
+                Actions = matchingOption.Actions;
                 Requirements = matchingOption.Requirements;
-                Type = matchingOption.Type;
                 UseOnlyOnce = matchingOption.UseOnlyOnce;
                 TimesUsed = matchingOption.TimesUsed;
 
@@ -86,22 +72,10 @@ namespace Entities
         }
 
 
-        public void SetType()
-        {
-            if(NextDialogueId == -1)
-            {
-                Type = DialogueOptionActionTypes.EXIT;
-            }
-            else
-            {
-                Type = DialogueOptionActionTypes.START_DIALOGUE;
-            }
-        }
-
 
         public override string ToString()
         {
-            return $"Id: {Id}, Text: {Text}, NextId: {NextDialogueId}, Type: {Type}, IsCopy: {IsCopy}";
+            return $"Id: {Id}, Text: {Text}, IsCopy: {IsCopy}";
         }
     }
 

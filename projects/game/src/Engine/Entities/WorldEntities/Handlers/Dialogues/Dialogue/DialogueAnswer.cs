@@ -17,7 +17,6 @@ namespace Entities
             Data = new IntPair(dialogueId, optionId);
         }
 
-
         public override string ToString()
         {
             return $"DialogueId: {Data.Item1}, OptionId: {Data.Item2}";

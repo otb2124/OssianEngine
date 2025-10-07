@@ -10,9 +10,7 @@ namespace Entities
         public DialogueSequence[] Sequences;
 
         public DialogueSequence CurrentSequence;
-
         public int CurrentDialogueId;
-        public bool IsSequenceProceeding;
 
         public List<DialogueAnswer> AllAnswers;
 
@@ -22,42 +20,70 @@ namespace Entities
 
             AllAnswers = new List<DialogueAnswer>();
             CurrentDialogueId = -1;
-            IsSequenceProceeding = false;
         }
 
-        public void SetSequence(int sequenceId)
+        public void SetDialogue(DialogueOptionAction[] dops)
         {
-            CurrentSequence = GetSequence(sequenceId);
+            foreach (DialogueOptionAction dop in dops)
+            {
+                ProcessDOP(dop);
+            }
         }
 
-        public void SetDialogue(int newDialogueId = 0)
+        public void ProcessDOP(DialogueOptionAction dop)
         {
-            if (newDialogueId == -1)
+            //case to end
+            if (dop is ExitDialogueDOP)
             {
                 CurrentDialogueId = -1;
-                IsSequenceProceeding = false;
-                UI.UI.UIOuterNavigator.RemoveDialogueComponent();
-                return;
+                RemoveUIDialogueComponent();
             }
 
-            UpdateSequence(newDialogueId);
-            
-            if(!IsSequenceProceeding)
+            //case to start
+            if (dop is StartSequenceDOP startSequenceDOP)
             {
-                UI.UI.UIOuterNavigator.ShowDialogueComponent(CurrentSequence.Dialogues[CurrentDialogueId]);
-                IsSequenceProceeding = true;
+                CurrentSequence = GetSequence(startSequenceDOP.SequenceId);
+                CurrentDialogueId = CurrentSequence.InitialDialogueId;
+                UpdateSequence(new NextDialogueDOP(CurrentDialogueId));
+                InitializeUIDialogueComponent();
             }
-            else
+            
+            //case to next dialogue
+            if(dop is NextDialogueDOP nextDop)
             {
-                UI.UI.UIOuterNavigator.SetDialogueComponentData(CurrentSequence.Dialogues[CurrentDialogueId]);
+                UpdateSequence(nextDop);
+                UpdateUIDialogueComponent();
+            }
+
+            //case to set intial dialogue for sequence
+            if (dop is SetInitialDialogueForSequenceDOP setInitDialogueForSequenceDOP)
+            {
+                //UpdateSequence(nextDop);
+                //UpdateUIDialogueComponent();
+                GetSequence(setInitDialogueForSequenceDOP.SequenceId).InitialDialogueId = setInitDialogueForSequenceDOP.DialogueId;
             }
         }
 
-        public void UpdateSequence(int newDialogueId)
+        public void UpdateSequence(NextDialogueDOP nextDialogueDOP)
         {
-            CurrentDialogueId = newDialogueId;
-            CurrentSequence.Dialogues[CurrentDialogueId].SetCurrentOptions();
-            CurrentSequence.Dialogues[CurrentDialogueId].TimesRead++;
+            CurrentDialogueId = nextDialogueDOP.DialogueId;
+            CurrentSequence.GetDialogueById(CurrentDialogueId).SetCurrentOptions();
+            CurrentSequence.GetDialogueById(CurrentDialogueId).TimesRead++;
+        }
+
+        public void InitializeUIDialogueComponent()
+        {
+            UI.UI.UIOuterNavigator.ShowDialogueComponent(CurrentSequence.GetDialogueById(CurrentDialogueId));
+        }
+
+        public void UpdateUIDialogueComponent()
+        {
+            UI.UI.UIOuterNavigator.SetDialogueComponentData(CurrentSequence.GetDialogueById(CurrentDialogueId));
+        }
+
+        public void RemoveUIDialogueComponent()
+        {
+            UI.UI.UIOuterNavigator.RemoveDialogueComponent();
         }
 
         public void SetAnswer(int oldDialogueChosenOptionId)
@@ -70,11 +96,11 @@ namespace Entities
             }
 
             //TimesUsed logic
-            DialogueOption oldDialogueOption = GetDialogueOption(oldDialogueChosenOptionId, CurrentDialogueId, 0);// GetDialogue(CurrentDialogueId, 0).CurrentOptions[optionUIId];
+            DialogueOption oldDialogueOption = GetDialogueOption(oldDialogueChosenOptionId, CurrentDialogueId, CurrentSequence.Id);// GetDialogue(CurrentDialogueId, 0).CurrentOptions[optionUIId];
 
             if (oldDialogueOption.ExternalDependencyMap != IntPair.MinusOne)
             {
-                DialogueOption dependencyOption = GetDialogueOption(oldDialogueOption.ExternalDependencyMap.Item2, oldDialogueOption.ExternalDependencyMap.Item1, 0);
+                DialogueOption dependencyOption = GetDialogueOption(oldDialogueOption.ExternalDependencyMap.Item2, oldDialogueOption.ExternalDependencyMap.Item1, CurrentSequence.Id);
                 dependencyOption.TimesUsed++;
             }
 

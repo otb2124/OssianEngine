@@ -95,7 +95,7 @@ namespace Entities
             switch (Type)
             {
                 case HumanoidMobs.CITIZEN:
-                    InteractionManager = new InteractionManager(new InteractionEntity(InteractionTriggers.INTERACTION_BUTTON_PRESSED, 0));
+                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 0, 1} ));
                     break;
                 default:
                     break;
