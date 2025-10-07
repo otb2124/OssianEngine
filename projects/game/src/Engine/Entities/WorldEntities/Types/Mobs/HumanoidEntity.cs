@@ -108,7 +108,7 @@ namespace Entities
                     InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 0, 1 }));
                     break;
                 case HumanoidMobs.WANEGRO:
-                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 2 }));
+                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 100 }));
                     break;
                 default:
                     break;

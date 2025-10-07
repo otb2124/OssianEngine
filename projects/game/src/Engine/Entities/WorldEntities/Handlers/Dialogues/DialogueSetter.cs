@@ -12,137 +12,202 @@ namespace Entities
 
         public static DialogueSequence[] Sequences = new DialogueSequence[]
         {
+
+
+                //vigo
                 new DialogueSequence(0, 0, 0,
                     new Dialogue[]
                     {
-                        new Dialogue(0, "Huh?", "Unknown Man", 0,
+                        new Dialogue(0, "Hey", "Unknown Man", 0,
                             new DialogueOption[]
                             {
-                                new DialogueOption(0, "*Leave*",
+                                new DialogueOption(0, "Hey.",
                                     new DialogueOptionAction[]
                                     {
-                                        new DisableDialogueSequenceDOP(0),
+                                        new NextDialogueDOP(1)
+                                    }
+                                ),
+                                new DialogueOption(1, "*Leave*",
+                                    new DialogueOptionAction[]
+                                    {
                                         new ExitDialogueDOP()
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(1, "Name`s Vigo. Happen to care about keeping things secret?", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(2, "*Continue*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(2)
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(2, "I have a thing that I would fancy to share somebody with. Do you happen to be that `somebody` by the chance? Hmm... Let me take a closer look on you...", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(3, "*Continue*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(3, 
+                                            new Requirement[]
+                                            {
+                                                new CurrentHPRequirement(50, 100)
+                                            }
+                                        ),
+                                        new NextDialogueDOP(4,
+                                            new Requirement[]
+                                            {
+                                                new CurrentHPRequirement(0, 50)
+                                            }
+                                        )
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(3, "Hmm... You do have a  posture of a handsome gentleman that may be the one I seek for.", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(4, "*Continue*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(5)
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(4, "Hmm... You seem to bleed a bit... Try healing your wounds any further rather than walking and spilling your blood over ground like that. But anyways...", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(5, "*Continue*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(5)
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(5, "Recently I have received a good omen from the skies. Once Ive been looking at the stars and at one moment I recognized that they started moving", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(6, "*Continue*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(6)
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(6, "They combined into letters and later words right like it sounds. After few seconds gazing into that wonderful process I got their extraterrestrial sign addressed to me: `FIND WANEGRO`.", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(7, "*Continue*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(7)
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(7, "Not a single idea about what that is supposed to mean though.", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(8, "*Continue*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(8)
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(8, "Mind giving me a hand in resolving that mystery?", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(9, "Yes, I will lend you a hand with that.",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(9)
+                                    }
+                                ),
+                                new DialogueOption(10, "Sorry but I have more stuff to work around with rather than going into your `mysteries`",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(10)
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(9, "Perfect! Look after a somebody or something named Wanegro. They should be able to help us proceed further with this message...", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(11, "*Leave*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new SetInitialDialogueForSequenceDOP(11, 0),
+                                        new ExitDialogueDOP()
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(10, "No? Hmm... Maybe come later when you would be more courageous about this...", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(12, "*Leave*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new SetInitialDialogueForSequenceDOP(12, 0),
+                                        new ExitDialogueDOP()
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(11, "Forgot about our mission? Go and find the `Wanegro`, whatever that means.", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(13, "*Leave*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new ExitDialogueDOP()
+                                    }
+                                ),
+                            }
+                        ),
+                        new Dialogue(12, "What? Got interested in this yet?", "Vigo", 0,
+                            new DialogueOption[]
+                            {
+                                new DialogueOption(14, "What was that again?",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(5),
+                                    }
+                                ),
+                                new DialogueOption(15, "Yes.",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new NextDialogueDOP(9),
+                                    }
+                                ),
+                                new DialogueOption(16, "No. *Leave*",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new ExitDialogueDOP(),
                                     }
                                 ),
                             }
                         )
                     }
                 ),
-                new DialogueSequence(1, 1, 1,
+
+                new DialogueSequence(1, 13, 1,
                     new Dialogue[]
                     {
-                        new Dialogue(1, "Hi.", "Unknown Man", 0,
+                        new Dialogue(13, "Sequence 1", "Vigo", 0,
                             new DialogueOption[]
                             {
-                                new DialogueOption(1, "Hi. Who are you?",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(2)
-                                    }
-                                ),
-                                new DialogueOption(2, "*Be Silent*",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(2)
-                                    }
-                                ),
-                                new DialogueOption(3, "I am little bit injured. Like bleeding a bit.",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(5)
-                                    },
-                                    new Requirement[]
-                                    {
-                                        new CurrentHPRequirement(50, 75)
-                                    }
-                                ) { UseOnlyOnce = true },
-                                new DialogueOption(4, "I am injured. Like bleeding.",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(5)
-                                    },
-                                    new Requirement[]
-                                    {
-                                        new CurrentHPRequirement(10, 50)
-                                    }
-                                ) { UseOnlyOnce = true },
-                            }
-                        ),
-                        new Dialogue(2, "My name is Vigo. But I think it's none of your business...", "Vigo", 0,
-                            new DialogueOption[]
-                            {
-                                new DialogueOption(5, "My name is...",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(3)
-                                    }
-                                 ),
-                                new DialogueOption(6, "*Remain Silent*",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(4)
-                                    },
-                                    new Requirement[]
-                                    {
-                                        new DialogueAnswerRequirement(1, 2)
-                                    })
-                            }
-                        ),
-                        new Dialogue(3, "Sorry, I do not wish to know the name of yours. Now leave me.", "Vigo", 0,
-                            new DialogueOption[]
-                            {
-                                new DialogueOption(7, "*Continue*",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(6),
-                                        new SetInitialDialogueForSequenceDOP(6, 1)
-                                    }
-                                ),
-                            }
-                        ),
-                        new Dialogue(4, "Keep silent? Anyways...", "Vigo", 0,
-                            new DialogueOption[]
-                            {
-                                new DialogueOption(8, "*Continue*",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(6),
-                                        new SetInitialDialogueForSequenceDOP(6, 0)
-                                    }
-                                ),
-                            }
-                        ),
-                        new Dialogue(5, "Yes, I see. Sorry, can't do anything about it. Leave me.", "Vigo", 0,
-                            new DialogueOption[]
-                            {
-                                new DialogueOption(9, "*Continue*",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new NextDialogueDOP(6),
-                                        new SetInitialDialogueForSequenceDOP(6, 0)
-                                    }
-                                ),
-                                new DialogueOption(10, "I have a terrablade here",
-                                    new DialogueOptionAction[]
-                                    {
-                                        new ExitDialogueDOP()
-                                    },
-                                    new Requirement[]
-                                    {
-                                        new CurrentInventoryItemKeyRequirement(new ItemKey(ItemLib.Weapons.TERRABLADE))
-                                    }
-                                ),
-                            }
-                        ),
-                        new Dialogue(6, "Anything I can help you more with?", "Vigo", 0,
-                            new DialogueOption[]
-                            {
-                                new DialogueOption(11, new IntPair(1, 1)),
-                                new DialogueOption(12, new IntPair(1, 2)),
-                                new DialogueOption(13, new IntPair(1, 3)),
-                                new DialogueOption(14, new IntPair(1, 4)),
-                                new DialogueOption(15, "*Leave*",
+                                new DialogueOption(17, "*Leave*",
                                     new DialogueOptionAction[]
                                     {
                                         new ExitDialogueDOP()
@@ -153,20 +218,40 @@ namespace Entities
                     },
                     new Requirement[]
                     {
-                        new DialogueOptionTimesUsedRequirement(0, 0, 0),
                         new CurrentInventoryItemKeyRequirement(new ItemKey(ItemLib.Weapons.TERRABLADE))
                     }
                 ),
-                new DialogueSequence(2, 7, 0,
+
+
+
+                //wangegro
+                new DialogueSequence(100, 100, 0,
                     new Dialogue[]
                     {
-                        new Dialogue(7, "Yo?", "Unknown Man", 0,
+                        new Dialogue(100, "...", "Unknown Man", 0,
                             new DialogueOption[]
                             {
-                                new DialogueOption(16, "*Leave*",
+                                new DialogueOption(100, "*Leave*",
                                     new DialogueOptionAction[]
                                     {
                                         new ExitDialogueDOP()
+                                    }
+                                ),
+                                new DialogueOption(101, "Happen to know Wanegro?",
+                                    new DialogueOptionAction[]
+                                    {
+                                        new ExitDialogueDOP()
+                                    },
+                                    new Requirement[]
+                                    {
+                                        new OrRequirement
+                                        (
+                                            new Requirement[]
+                                            {
+                                                new DialogueAnswerRequirement(8, 9),
+                                                new DialogueAnswerRequirement(12, 15)
+                                            }
+                                        )
                                     }
                                 ),
                             }

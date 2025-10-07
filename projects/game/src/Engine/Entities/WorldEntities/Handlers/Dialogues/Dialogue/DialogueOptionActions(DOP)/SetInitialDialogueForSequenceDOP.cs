@@ -6,21 +6,23 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class SetInitialDialogueForSequenceDOP : DialogueOptionAction
+    public class SetInitialDialogueForSequenceDOP : RequirementalDialogueOptionAction
     {
 
         public int DialogueId;
         public int SequenceId;
 
-        public SetInitialDialogueForSequenceDOP(int dialogueId, int sequeneceId)
+        public SetInitialDialogueForSequenceDOP(int dialogueId, int sequeneceId, Requirement[] requirements = null) : base(requirements)
         {
             DialogueId = dialogueId;
             SequenceId = sequeneceId;
         }
 
-        public override void Action()
+        public override void Action(DialogueManager manager)
         {
-            base.Action();
+            if (!Check()) { return; }
+
+            manager.GetSequence(SequenceId).InitialDialogueId = DialogueId;
         }
     }
 }

@@ -22,8 +22,7 @@ namespace UI
 
             int childrenCount = 3;
 
-
-            for (int i = 0; i < Dialogue.CurrentOptions.Length; i++)
+            for (int i = 0; i < Dialogue.GetAllowedOptions().Length; i++)
             {
                 childrenCount++;
             }
@@ -40,7 +39,7 @@ namespace UI
 
             for (int i = 3; i < children.Length; i++)
             {
-                children[i] = new UIButtonTextComponent(-1, -1, new Vector2(40, 120 - ((i - 3 + 1) * 20)), (i-3 + 1) + ") " + Dialogue.CurrentOptions[i-3].Text, 0, Vector2.One, GetDialogueOptionColor(Dialogue.CurrentOptions[i - 3]));
+                children[i] = new UIButtonTextComponent(-1, -1, new Vector2(40, 120 - ((i - 3 + 1) * 20)), (i-3 + 1) + ") " + Dialogue.GetAllowedOptions()[i-3].Text, 0, Vector2.One, GetDialogueOptionColor(Dialogue.GetAllowedOptions()[i - 3]));
             }
         }
 
@@ -83,7 +82,7 @@ namespace UI
                     }
                 }
 
-                for (int i = 3; i < Dialogue.CurrentOptions.Length + 3; i++)
+                for (int i = 3; i < Dialogue.GetAllowedOptions().Length + 3; i++)
                 {
                     if (children[i] is UIButtonTextComponent option)
                     {
@@ -91,8 +90,8 @@ namespace UI
                         {
                             if (optionButton.IsOnClick)
                             {
-                                Entities.Entities.DialogueManager.SetAnswer(Dialogue.CurrentOptions[i - 3].Id);
-                                Entities.Entities.DialogueManager.SetDialogue(Dialogue.CurrentOptions[i - 3].Actions);
+                                Entities.Entities.DialogueManager.SetAnswer(Dialogue.GetAllowedOptions()[i - 3].Id);
+                                Entities.Entities.DialogueManager.SetDialogue(Dialogue.GetAllowedOptions()[i - 3].Actions);
                             }
                         }
                     }

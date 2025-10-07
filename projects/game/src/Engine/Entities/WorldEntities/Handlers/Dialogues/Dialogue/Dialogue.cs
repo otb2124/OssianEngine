@@ -14,12 +14,13 @@ namespace Entities
         public Vector2 CameraPosition;
 
         public DialogueOption[] Options;
-        public DialogueOption[] CurrentOptions;
+
+        public Requirement[] Requirements;
 
         public int TimesRead;
 
 
-        public Dialogue(int id, string text, string authorName, int authorId, DialogueOption[] options)
+        public Dialogue(int id, string text, string authorName, int authorId, DialogueOption[] options, Requirement[] requirements = null)
         {
             Id = id;
 
@@ -32,15 +33,11 @@ namespace Entities
             TimesRead = 0;
 
             Options = options;
-            CurrentOptions = new DialogueOption[Options.Length];
+
+            Requirements = requirements;
         }
 
-        public void SetCurrentOptions()
-        {
-            CurrentOptions = GetCurrentOptions();
-        }
-
-        public DialogueOption[] GetCurrentOptions()
+        public DialogueOption[] GetAllowedOptions()
         {
             List<DialogueOption> allowedOptions = new List<DialogueOption>();
 

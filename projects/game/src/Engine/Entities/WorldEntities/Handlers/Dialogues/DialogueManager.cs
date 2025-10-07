@@ -26,60 +26,13 @@ namespace Entities
         {
             foreach (DialogueOptionAction dop in dops)
             {
-                ProcessDOP(dop);
+                dop.Action(this);
             }
         }
 
-        public void ProcessDOP(DialogueOptionAction dop)
+        public void UpdateSequence(int dialogueId)
         {
-            //case to end
-            if (dop is ExitDialogueDOP)
-            {
-                CurrentDialogueId = -1;
-                RemoveUIDialogueComponent();
-            }
-
-            //case to start
-            if (dop is StartSequenceDOP startSequenceDOP)
-            {
-                if(GetSequence(startSequenceDOP.SequenceId) != null)
-                {
-                    CurrentSequence = GetSequence(startSequenceDOP.SequenceId);
-                    CurrentDialogueId = CurrentSequence.InitialDialogueId;
-                    UpdateSequence(new NextDialogueDOP(CurrentDialogueId));
-                    InitializeUIDialogueComponent();
-                }
-                else
-                {
-                    return;
-                }
-            }
-            
-            //case to next dialogue
-            if(dop is NextDialogueDOP nextDop)
-            {
-                UpdateSequence(nextDop);
-                UpdateUIDialogueComponent();
-            }
-
-            //case to set intial dialogue for sequence
-            if (dop is SetInitialDialogueForSequenceDOP setInitDialogueForSequenceDOP)
-            {
-                //UpdateSequence(nextDop);
-                //UpdateUIDialogueComponent();
-                GetSequence(setInitDialogueForSequenceDOP.SequenceId).InitialDialogueId = setInitDialogueForSequenceDOP.DialogueId;
-            }
-
-            if(dop is DisableDialogueSequenceDOP disableSequenceDOP)
-            {
-                GetSequence(disableSequenceDOP.SequenceId).Disabled = true;
-            }
-        }
-
-        public void UpdateSequence(NextDialogueDOP nextDialogueDOP)
-        {
-            CurrentDialogueId = nextDialogueDOP.DialogueId;
-            CurrentSequence.GetDialogueById(CurrentDialogueId).SetCurrentOptions();
+            CurrentDialogueId = dialogueId;
             CurrentSequence.GetDialogueById(CurrentDialogueId).TimesRead++;
         }
 

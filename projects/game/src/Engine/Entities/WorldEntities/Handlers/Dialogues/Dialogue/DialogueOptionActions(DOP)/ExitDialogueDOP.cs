@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class ExitDialogueDOP : DialogueOptionAction
+    public class ExitDialogueDOP : RequirementalDialogueOptionAction
     {
 
-        public ExitDialogueDOP()
+        public ExitDialogueDOP(Requirement[] requirements = null) : base(requirements)
         {
 
         }
 
-        public override void Action()
+        public override void Action(DialogueManager manager)
         {
-            base.Action();
+            if (!Check()) { return; }
+
+            manager.CurrentDialogueId = -1;
+            manager.CurrentSequence = null;
+            manager.RemoveUIDialogueComponent();
         }
     }
 }

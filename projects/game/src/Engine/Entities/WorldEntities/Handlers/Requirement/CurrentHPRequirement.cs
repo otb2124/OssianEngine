@@ -21,7 +21,7 @@ namespace Entities
 
         public override bool Check()
         {
-            return Entities.Player.Stats.HP >= MinHP && Entities.Player.Stats.HP < MaxHP;
+            return Entities.Player.Stats.HP > MinHP && Entities.Player.Stats.HP <= MaxHP;
         }
     }
 }

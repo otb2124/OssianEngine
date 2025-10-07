@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class NextDialogueDOP : DialogueOptionAction
+    public class NextDialogueDOP : RequirementalDialogueOptionAction
     {
 
         public int DialogueId;
 
-        public NextDialogueDOP(int dialogueId)
+        public NextDialogueDOP(int dialogueId, Requirement[] requirements = null) : base(requirements)
         {
             DialogueId = dialogueId;
         }
 
-        public override void Action()
+        public override void Action(DialogueManager manager)
         {
-            base.Action();
+            if (!Check()) { return; }
+
+            manager.UpdateSequence(DialogueId);
+            manager.UpdateUIDialogueComponent();
         }
     }
 }

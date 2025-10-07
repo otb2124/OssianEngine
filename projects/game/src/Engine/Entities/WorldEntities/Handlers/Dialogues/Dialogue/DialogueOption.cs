@@ -55,7 +55,7 @@ namespace Entities
 
         public void CopyDependencyAttributes()
         {
-            DialogueOption[] dependencyCandidates = Entities.DialogueManager.GetDialogue(ExternalDependencyMap.Item1, Entities.DialogueManager.CurrentSequence.Id).GetCurrentOptions();
+            DialogueOption[] dependencyCandidates = Entities.DialogueManager.GetDialogue(ExternalDependencyMap.Item1, Entities.DialogueManager.CurrentSequence.Id).GetAllowedOptions();
 
             DialogueOption matchingOption = dependencyCandidates?.FirstOrDefault(option => option.Id == ExternalDependencyMap.Item2);
 
