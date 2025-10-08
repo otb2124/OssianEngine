@@ -4,11 +4,20 @@ using Resources;
 using System;
 using static Resources.StaticSpriteFactory;
 using Utils;
+using System.Collections.Generic;
+using static Utils.TupleObjectsHelper;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UI
 {
+
+
     public class UIDialoguePanelComponent : UIComponent
     {
+
+        public static readonly int CHAR_PER_DIALOGUE_TEXTAREA_ROW = 100;
+
+        public int FontId = 0;
 
         public Dialogue Dialogue;
 
@@ -38,7 +47,7 @@ namespace UI
                 Position = new Vector2(20, 20);
             }
 
-            FrameSize = new Vector2(300, 100);
+            FrameSize = GetFrameSize();
 
             //float OverHeadYOffset = ScreenWorldMeasuresConverter.FlatBodyBoundsToScreen(new Vector2(0, Entities.Entities.EntityManager.GetEntityByEntityDialogueId(Dialogue.AuthorEntityId).Model.Body.Height)).Y;
             float OverHeadYOffset = 100;
@@ -47,8 +56,34 @@ namespace UI
 
             children[0] = new UIFrameComponent(-1, FramePosition, FrameSize);
 
-            children[1] = new UITextStringComponent(-1, new Vector2(FramePosition.X + 4, FramePosition.Y + FrameSize.Y - 20 - 4), Dialogue.AuthorName, 0, Vector2.One, Color.DarkGray);
-            children[2] = new UITextStringComponent(-1, new Vector2(FramePosition.X + 4, FramePosition.Y + FrameSize.Y - 20 - 20), Dialogue.Text, 0, Vector2.One, Color.Black);
+            children[1] = new UITextStringComponent(-1, new Vector2(FramePosition.X + 8, FramePosition.Y + FrameSize.Y - 20 -4), Dialogue.AuthorName, 0, Vector2.One, Color.DarkGray);
+            children[2] = new UITextAreaComponent(-1, new Vector2(FramePosition.X + 8, FramePosition.Y + FrameSize.Y - 20 -20 -4), Dialogue.Text, 0, new Vector2(FrameSize.X, FrameSize.Y - 20));
+        }
+
+        public Vector2 GetFrameSize()
+        {
+            const float Padding = 4f; //padding on each side
+            const float VerticalSpacing = 20f; //space between author name and text area
+
+            SpriteFont font = ResourceLoader.fonts[FontId].GetCurrentFont();
+
+            float charWidth = font.MeasureString("i").X;
+            float lineHeight = font.LineSpacing;
+
+            //calculate text area width based on CHAR_PER_DIALOGUE_TEXTAREA_ROW
+            float textAreaWidth = charWidth * CHAR_PER_DIALOGUE_TEXTAREA_ROW;
+
+            int textLength = Dialogue.Text?.Length ?? 0;
+            int rows = (int)Math.Ceiling((float)textLength / CHAR_PER_DIALOGUE_TEXTAREA_ROW);
+            rows = Math.Max(1, rows);
+
+            float textAreaHeight = rows * lineHeight;
+
+            float frameWidth = Math.Max(textAreaWidth, lineHeight) + 2 * Padding;
+
+            float frameHeight = lineHeight + VerticalSpacing + textAreaHeight + 2 * Padding;
+
+            return new Vector2(frameWidth, frameHeight);
         }
 
         public override void Update()

@@ -19,7 +19,7 @@ namespace UI
             //FRAME
             FRAME, FRAMEPART,
             //TEXT
-            TEXT, TEXT_FRAME,
+            TEXT, TEXT_FRAME, TEXT_AREA,
             //ICON
             ICON,
             //BUTTON
@@ -71,8 +71,8 @@ namespace UI
 
         public UIComponent[] children;
 
-        public string text;
-        public Font font;
+        public string Text;
+        public Font Font;
 
         public UIComponentTypes type;
 
@@ -139,9 +139,9 @@ namespace UI
                 aManager.GetCurrent().Draw(adjPosition, Color, adjRotation, adjOrigin, adjScale, 0f);
             }
 
-            if(text != null)
+            if(Text != null)
             {
-                font.Draw(text, adjPosition, 0f, adjOrigin, adjScale, Color);
+                Font.Draw(Text, adjPosition, 0f, adjOrigin, adjScale, Color);
             }
         }
 

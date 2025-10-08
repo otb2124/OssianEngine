@@ -32,9 +32,9 @@ namespace UI
         public UIFrameComponent CalculateFrameProperties(UITextStringComponent textStringComponent)
         {
 
-            SpriteFont spriteFont = textStringComponent.font.GetCurrentFont();
+            SpriteFont spriteFont = textStringComponent.Font.GetCurrentFont();
 
-            Vector2 textSize = spriteFont.MeasureString(textStringComponent.text);
+            Vector2 textSize = spriteFont.MeasureString(textStringComponent.Text);
 
             textSize *= textStringComponent.Scale;
 

@@ -19,8 +19,8 @@ namespace UI
 
         public UITextStringComponent(int id, Vector2 position, string text, int fontId, Vector2 scale, Color color) : base(id)
         {
-            this.text = text;
-            this.font = ResourceLoader.fonts[fontId];
+            this.Text = text;
+            this.Font = ResourceLoader.fonts[fontId];
 
             IsStickToCameraState = true;
             IsStickToZoomState = true;

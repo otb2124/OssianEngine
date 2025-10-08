@@ -58,7 +58,7 @@ namespace Resources
 
         public void Draw(string text, Vector2 position, float rotation, Vector2 origin, Vector2 scale, Color color)
         {
-            Graphics.Graphics.sprites.DrawString(this.GetCurrentFont(), text, position, rotation, origin, scale, color, SpriteEffects.None, 0f);
+            Graphics.Graphics.sprites.DrawString(GetCurrentFont(), text, position, rotation, origin, scale, color, SpriteEffects.None, 0f);
         }
     }
 

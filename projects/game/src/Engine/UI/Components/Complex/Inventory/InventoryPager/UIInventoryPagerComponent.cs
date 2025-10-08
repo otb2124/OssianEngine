@@ -60,7 +60,7 @@ namespace UI
 
         public void UpdateIndicator(string indicatorValue)
         {
-            children[2].text = indicatorValue;
+            children[2].Text = indicatorValue;
         }
 
         public override void Draw()
