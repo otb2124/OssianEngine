@@ -2,10 +2,6 @@
 using Microsoft.Xna.Framework;
 using Resources;
 using System;
-using static Resources.StaticSpriteFactory;
-using Utils;
-using System.Collections.Generic;
-using static Utils.TupleObjectsHelper;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace UI

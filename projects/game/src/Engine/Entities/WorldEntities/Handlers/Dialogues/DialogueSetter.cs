@@ -36,7 +36,7 @@ namespace Entities
                                 ),
                             }
                         ),
-                        new Dialogue(1, "Name`s Vigo. Happen to care about keeping things secret?", "Vigo", 0,
+                        new Dialogue(1, "Name`s <colored_severity=\"read\">Vigo</colored>. Happen to care about keeping things <colored_severity=\"mystery\">secret?</colored>", "Vigo", 0,
                             new DialogueOption[]
                             {
                                 new DialogueOption(2, "*Continue*",

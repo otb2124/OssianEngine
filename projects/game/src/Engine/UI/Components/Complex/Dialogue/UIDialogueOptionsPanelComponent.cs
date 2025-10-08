@@ -60,10 +60,10 @@ namespace UI
                 }
                 */
 
-                return UITextSeverity.Read.TextColor;
+                return UITextStringComponent.UITextSeverity.Read.TextColor;
             }
 
-            return UITextSeverity.None.TextColor;
+            return UITextStringComponent.UITextSeverity.None.TextColor;
         }
 
 

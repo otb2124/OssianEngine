@@ -1,29 +1,24 @@
 ﻿using Graphics;
-using Microsoft.VisualBasic.ApplicationServices;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Utils;
-using static UI.UIFramePartComponent;
+using System.Text.RegularExpressions;
 using Resources;
-using SharpDX.DirectWrite;
+using static UI.UIFramePartComponent;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace UI
 {
     public class UITextAreaComponent : UIComponent
     {
-
+        public int FontId;
         public Vector2 AreaSize;
-        public List<string> TextRows;
-
 
         public UITextAreaComponent(int id, Vector2 position, string text, int fontId, Vector2 areaSize) : base(id)
         {
             Text = text;
-            Font = ResourceLoader.fonts[fontId];
+            FontId = fontId;
+            Font = ResourceLoader.fonts[FontId];
 
             IsStickToCameraState = true;
             IsStickToZoomState = true;
@@ -37,87 +32,129 @@ namespace UI
 
             type = UIComponentTypes.TEXT_AREA;
 
-            CalculateTextRows();
-
-            children = new UIComponent[TextRows.Count];
-
-            for (int i = 0; i < children.Length; i++)
-            {
-                children[i] = new UITextStringComponent(-1, new Vector2(Position.X, Position.Y - 20 * i), TextRows[i], fontId, Scale, Color);
-            }
+            CalculateWordComponents();
         }
 
-        private void CalculateTextRows()
+        private void CalculateWordComponents()
         {
-            TextRows = new List<string>();
+            var tempChildren = new List<UIComponent>();
 
-            Vector2 charSize = Font.GetCurrentFont().MeasureString("i");
-            float scaledCharWidth = charSize.X * Scale.X;
-            float scaledLineHeight = Font.GetCurrentFont().LineSpacing * Scale.Y;
+            SpriteFont spriteFont = Font.GetCurrentFont();
 
-            int maxCols = (int)Math.Floor(AreaSize.X / scaledCharWidth);
-            maxCols = Math.Max(1, maxCols);
-
+            float scaledLineHeight = spriteFont.LineSpacing * Scale.Y;
             int maxRows = (int)Math.Floor(AreaSize.Y / scaledLineHeight);
             maxRows = Math.Max(1, maxRows);
 
+            float spaceWidth = spriteFont.MeasureString(" ").X * Scale.X;
+
             if (string.IsNullOrEmpty(Text))
             {
-                TextRows.Add("");
-                Console.WriteLine("TextRows: [empty]");
-                return;
+                tempChildren.Add(new UITextStringComponent(-1, Position, "", FontId, Scale, Color));
             }
-
-            string[] words = Text.Split(new[] { ' ' }, StringSplitOptions.None);
-            StringBuilder currentLine = new StringBuilder();
-            float currentLineWidth = 0f;
-
-            foreach (string word in words)
+            else
             {
-                string testText = currentLine.Length > 0 ? currentLine.ToString() + " " + word : word;
-                float testWidth = Font.GetCurrentFont().MeasureString(testText).X * Scale.X;
+                var wordsAndTags = SplitWordsAndTags(Text);
+                float currentX = Position.X;
+                float currentY = Position.Y;
+                int currentRow = 0;
 
-                if (testWidth <= AreaSize.X && currentLine.Length + word.Length + (currentLine.Length > 0 ? 1 : 0) <= maxCols)
+                foreach (var item in wordsAndTags)
                 {
-                    if (currentLine.Length > 0)
-                        currentLine.Append(" ");
-                    currentLine.Append(word);
-                    currentLineWidth = testWidth;
-                }
-                else
-                {
-                    if (currentLine.Length > 0)
+                    string displayWord = item.Text;
+                    string measureText = item.IsTag ? item.InnerText : item.Text;
+
+                    float wordWidth = spriteFont.MeasureString(measureText).X * Scale.X;
+
+                    if (wordWidth > AreaSize.X)
                     {
-                        TextRows.Add(currentLine.ToString());
-                        currentLine.Clear();
+                        while (spriteFont.MeasureString(displayWord).X * Scale.X > AreaSize.X && displayWord.Length > 0)
+                        {
+                            displayWord = displayWord.Substring(0, displayWord.Length - 1);
+                            if (item.IsTag)
+                            {
+                                measureText = displayWord.StartsWith("<colored_severity=") && displayWord.EndsWith("</colored>")
+                                    ? Regex.Match(displayWord, @"<colored_severity=""[^""]+"">(.*?)</colored>").Groups[1].Value
+                                    : measureText.Substring(0, measureText.Length - 1);
+                            }
+                            else
+                            {
+                                measureText = displayWord;
+                            }
+                        }
+
+                        wordWidth = spriteFont.MeasureString(displayWord).X * Scale.X;
                     }
 
-                    if (Font.GetCurrentFont().MeasureString(word).X * Scale.X > AreaSize.X)
+                    if (currentX + wordWidth <= Position.X + AreaSize.X)
                     {
-                        string truncatedWord = word;
-                        while (Font.GetCurrentFont().MeasureString(truncatedWord).X * Scale.X > AreaSize.X && truncatedWord.Length > 0)
-                        {
-                            truncatedWord = truncatedWord.Substring(0, truncatedWord.Length - 1);
-                        }
-                        TextRows.Add(truncatedWord);
+                        tempChildren.Add(new UITextStringComponent(-1, new Vector2(currentX, currentY), displayWord, FontId, Scale, Color));
+                        currentX += wordWidth + spaceWidth;
                     }
                     else
                     {
-                        currentLine.Append(word);
-                        currentLineWidth = Font.GetCurrentFont().MeasureString(word).X * Scale.X;
+                        currentRow++;
+                        if (currentRow >= maxRows)
+                            break;
+
+                        currentX = Position.X;
+                        currentY -= scaledLineHeight;
+                        tempChildren.Add(new UITextStringComponent(-1, new Vector2(currentX, currentY), displayWord, FontId, Scale, Color));
+                        currentX += wordWidth + (item.IsTag ? spriteFont.MeasureString(measureText).X * Scale.X : spaceWidth);
                     }
                 }
-
-                if (TextRows.Count >= maxRows)
-                    break;
             }
 
-            if (currentLine.Length > 0 && TextRows.Count < maxRows)
+            children = tempChildren.ToArray();
+
+            for (int i = 0; i < children.Length; i++)
             {
-                TextRows.Add(currentLine.ToString());
+                var child = (UITextStringComponent)children[i];
             }
         }
 
+        private List<(string Text, string InnerText, bool IsTag)> SplitWordsAndTags(string input)
+        {
+            var result = new List<(string Text, string InnerText, bool IsTag)>();
+            if (string.IsNullOrEmpty(input))
+                return result;
+
+            string pattern = @"<colored_severity=""[^""]+"">.*?</colored>";
+            var regex = new Regex(pattern);
+            int lastIndex = 0;
+
+            foreach (Match match in regex.Matches(input))
+            {
+                if (match.Index > lastIndex)
+                {
+                    string beforeText = input.Substring(lastIndex, match.Index - lastIndex);
+                    string[] words = beforeText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var word in words)
+                    {
+                        if (!string.IsNullOrEmpty(word))
+                            result.Add((word, word, false));
+                    }
+                }
+
+                string fullTag = match.Value;
+
+                string innerText = Regex.Match(fullTag, @"<colored_severity=""[^""]+"">(.*?)</colored>").Groups[1].Value;
+                result.Add((fullTag, innerText, true));
+                lastIndex = match.Index + match.Length;
+            }
+
+            if (lastIndex < input.Length)
+            {
+                string afterText = input.Substring(lastIndex);
+                string[] words = afterText.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var word in words)
+                {
+                    if (!string.IsNullOrEmpty(word))
+                        result.Add((word, word, false));
+                }
+            }
+
+            return result;
+        }
 
         public override void Update()
         {
