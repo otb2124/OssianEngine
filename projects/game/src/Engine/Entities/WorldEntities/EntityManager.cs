@@ -155,6 +155,31 @@ namespace Entities
             return Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.FirstOrDefault(e => e.Id == id);
         }
 
+        public NPCEntity GetEntityByEntityDialogueId(int entityDialogueId)
+        {
+            foreach (WorldEntity entity in Entities.EntityMapManager.GetCurrentMap().Entities)
+            {
+                if(entity is NPCEntity interactiveEnt)
+                {
+                    if(interactiveEnt.InteractionManager != null)
+                    {
+                        if(interactiveEnt.InteractionManager.InteractionData != null)
+                        {
+                            if(interactiveEnt.InteractionManager.InteractionData.DialogueSequenceData != null)
+                            {
+                                if(interactiveEnt.InteractionManager.InteractionData.DialogueSequenceData.EntityDialogueId == entityDialogueId)
+                                {
+                                    return interactiveEnt;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
 
         //models
         public void Draw()

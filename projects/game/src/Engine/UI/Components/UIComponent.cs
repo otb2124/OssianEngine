@@ -40,7 +40,7 @@ namespace UI
             INVENTORY_SORTING_PANEL, INVENTORY_SORTING_PANEL_OPTION,
             INVENTORY_PAGER,
             //DIALOGUE
-            DIALOGUE,
+            DIALOGUE, DIALOGUE_PANEL, DIALOGUE_OPTIONS_PANEL,
             //EQUIPMENT
             EQUIPMENT, EQUIPMENT_SLOT,
         }

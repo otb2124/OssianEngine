@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,17 @@ namespace Entities
     {
 
         public int[] DialogueSequenceIds;
+        public int EntityDialogueId;
 
-        public InteractionDialogueData(int[] dialogueSequence)
+        public InteractionDialogueData(int[] dialogueSequence, int entityDialogueId = -1)
         {
             DialogueSequenceIds = dialogueSequence;
+            EntityDialogueId = entityDialogueId;
+        }
+
+        public void StartCurrentDialogue()
+        {
+            Entities.DialogueManager.SetDialogue(new StartSequenceDOP(GetPrioritiezedSequence()));
         }
 
         public int GetPrioritiezedSequence()

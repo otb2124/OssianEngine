@@ -70,7 +70,7 @@ namespace Entities
                     }
                     else if (npcEnt.InteractionManager.InteractionData.Action == InteractionActions.START_DIALOGUE)
                     {
-                        Entities.DialogueManager.SetDialogue(new DialogueOptionAction[] { new StartSequenceDOP(npcEnt.InteractionManager.InteractionData.DialogueSequenceData.GetPrioritiezedSequence()) });
+                        npcEnt.InteractionManager.InteractionData.DialogueSequenceData.StartCurrentDialogue();
                     }
                 }
             }

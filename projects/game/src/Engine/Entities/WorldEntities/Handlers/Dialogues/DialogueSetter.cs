@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -228,7 +229,7 @@ namespace Entities
                 new DialogueSequence(100, 100, 0,
                     new Dialogue[]
                     {
-                        new Dialogue(100, "...", "Unknown Man", 0,
+                        new Dialogue(100, "...", "Unknown Man", 1,
                             new DialogueOption[]
                             {
                                 new DialogueOption(100, "*Leave*",

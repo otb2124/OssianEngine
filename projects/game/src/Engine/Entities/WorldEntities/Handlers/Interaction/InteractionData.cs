@@ -40,12 +40,12 @@ namespace Entities
             Action = action;
         }
 
-        public InteractionData(InteractionTriggers trigger, int[] sequenceIds)
+        public InteractionData(InteractionTriggers trigger, int[] sequenceIds, int entityDialogueId)
         {
             Trigger = trigger;
             Action = InteractionActions.START_DIALOGUE;
 
-            DialogueSequenceData = new InteractionDialogueData(sequenceIds);
+            DialogueSequenceData = new InteractionDialogueData(sequenceIds, entityDialogueId);
         }
     }
 }

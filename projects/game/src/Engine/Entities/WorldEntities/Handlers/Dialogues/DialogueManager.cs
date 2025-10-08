@@ -30,6 +30,11 @@ namespace Entities
             }
         }
 
+        public void SetDialogue(DialogueOptionAction dop)
+        {
+            dop.Action(this);
+        }
+
         public void UpdateSequence(int dialogueId)
         {
             CurrentDialogueId = dialogueId;

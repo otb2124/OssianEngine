@@ -105,10 +105,10 @@ namespace Entities
                 case HumanoidMobs.CITIZEN:
                     break;
                 case HumanoidMobs.VIGO:
-                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 0, 1 }));
+                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 0, 1 }, 0));
                     break;
                 case HumanoidMobs.WANEGRO:
-                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 100 }));
+                    InteractionManager = new InteractionManager(new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, new int[] { 100 }, 1));
                     break;
                 default:
                     break;
