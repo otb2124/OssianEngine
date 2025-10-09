@@ -28,27 +28,9 @@ namespace Entities
         public LedgeHangingHandler LedgeHangingHandler;
         public DescencionHandler DescencionHandler;
         public GCSRectanglesStatesHandler GCSRectanglesStatesHandler;
+        public ItemPickupHandler ItemPickupHandler;
+        public FlyHandler FlyHandler;
         
-        
-
-        
-
-
-        
-
-
-
-        public bool AllowPickup = true;
-        public int PickupCounter = 0;
-        public float PickupLockSec = 0.25f;
-
-        public bool FlyingUpwards = true;
-        public int FlyingCounter = 0;
-        public float MaxFlyTimeSec = 0.5f;
-        public float FlyHeightPointOverHead = 50f;
-        public float CurrentFlyHeightPointOverHead = 50f;
-        public float LandPoint;
-
 
         public void Refill()
         {
@@ -106,7 +88,7 @@ namespace Entities
 
         public void UpdateLedgeHanging(Resources.Model model)
         {
-            LedgeHangingHandler.UpdateLedgeHanging(model, GCSRectanglesStatesHandler.IsTouchingWalls);
+            LedgeHangingHandler.UpdateLedgeHanging(model, GCSRectanglesStatesHandler);
         }
 
 
@@ -121,62 +103,15 @@ namespace Entities
         }
 
 
-        public void UpdateFly(StatsEntity ent)
+        public void UpdateFly(Resources.Model model)
         {
-            if(GCSRectanglesStatesHandler.IsGrounded)
-            {
-                LandPoint = ent.Model.Body.Position.Y;
-                CurrentFlyHeightPointOverHead = FlyHeightPointOverHead;
-            }
-
-            if (ent.Model.ModelState != ModelStates.FLYING && ent.Model.ModelState != ModelStates.FLYING_AND_MOVING)
-            {
-                FlyingCounter = 0;
-                return;
-            }
-                
-
-            if(ent.Model.Body.Position.Y < LandPoint + CurrentFlyHeightPointOverHead && FlyingUpwards)
-            {
-                FlyingUpwards = true;
-                return;
-            }
-
-            if(FlyingUpwards)
-            {
-                FlyingCounter++;
-
-                if (FlyingCounter >= MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond)
-                {
-                    FlyingUpwards = false;
-                    FlyingCounter = (int)(MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond);
-                }
-            }
-            else
-            {
-                FlyingCounter--;
-                if(FlyingCounter <= 0)
-                {
-                    FlyingUpwards = true;
-                    FlyingCounter = 0;
-                }
-            }
-
-            
+            FlyHandler.UpdateFly(model, GCSRectanglesStatesHandler);
         }
 
 
         public void UpdatePickup()
         {
-            if(!AllowPickup)
-            {
-                PickupCounter++;
-                if(PickupCounter > PickupLockSec * Graphics.Graphics.UpdatesPerSecond)
-                {
-                    AllowPickup = true;
-                    PickupCounter = 0;
-                }
-            }
+            ItemPickupHandler.Update();
         }
 
         public bool LostPoise()

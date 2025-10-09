@@ -16,7 +16,7 @@ namespace Entities
         public int UnHangingCounter = 0;
 
 
-        public void UpdateLedgeHanging(Resources.Model model, bool isTouchingWalls)
+        public void UpdateLedgeHanging(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
         {
             if (!AllowHangingOnLedge && model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
@@ -29,7 +29,7 @@ namespace Entities
                 }
             }
 
-            if (isTouchingWalls)
+            if (gcsHandler.IsTouchingWalls)
             {
                 LedgeEntity ledge = CollisionHelper.GetAnyLedges(model.Body);
                 if (ledge != null && AllowHangingOnLedge)

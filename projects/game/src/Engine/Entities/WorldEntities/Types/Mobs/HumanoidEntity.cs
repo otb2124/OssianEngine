@@ -190,110 +190,69 @@ namespace Entities
             {
                 case HumanoidMobs.BANDIT:
 
-                    CanRegensStamina = true;
-                    CanUpdateIFrames = true;
-                    CanFall = true;
-
                     StatsManager.SprintStats = new SprintStats(1.5f, 15);
-
                     StatsManager.RollStats = new RollStats(2, 200);
-
                     StatsManager.JumpStats = new JumpStats(2.8f, 60);
-
                     StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
-
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
-
                     StatsManager.PoiseStats = new PoiseStats(100, 10);
-
                     StatsManager.AggroStats = new AggroStats(200, 500);
 
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-
                     StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-
                     StatsManager.FallStatesHandler = new FallStatesHandler();
-
                     StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
                     StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
 
                 case HumanoidMobs.CITIZEN:
-                    CanRegensStamina = true;
-                    CanUpdateIFrames = true;
-                    CanFall = true;
 
                     StatsManager.SprintStats = new SprintStats(1.5f, 15);
-
                     StatsManager.RollStats = new RollStats(2, 200);
-
                     StatsManager.JumpStats = new JumpStats(2.8f, 60);
-
                     StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
-
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
+                    StatsManager.PoiseStats = new PoiseStats(100, 10);
 
                     StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-
-                    StatsManager.PoiseStats = new PoiseStats(100, 10);
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-
                     StatsManager.FallStatesHandler = new FallStatesHandler();
-
                     StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
                     StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
 
                 case HumanoidMobs.VIGO:
-                    CanRegensStamina = true;
-                    CanUpdateIFrames = true;
-                    CanFall = true;
 
                     StatsManager.SprintStats = new SprintStats(1.5f, 15);
-
                     StatsManager.RollStats = new RollStats(2, 200);
-
                     StatsManager.JumpStats = new JumpStats(2.8f, 60);
-
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
-
-                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-
                     StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
                     StatsManager.PoiseStats = new PoiseStats(100, 10);
+
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
+                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-
                     StatsManager.FallStatesHandler = new FallStatesHandler();
-
                     StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
                     StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
 
                 case HumanoidMobs.WANEGRO:
-                    CanRegensStamina = true;
-                    CanUpdateIFrames = true;
-                    CanFall = true;
 
                     StatsManager.SprintStats = new SprintStats(1.5f, 15);
-
                     StatsManager.RollStats = new RollStats(2, 200);
-
                     StatsManager.JumpStats = new JumpStats(2.8f, 60);
-
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
-
-                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-
-                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
                     StatsManager.PoiseStats = new PoiseStats(100, 10);
+
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
+                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
+                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-
                     StatsManager.FallStatesHandler = new FallStatesHandler();
-
                     StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
                     StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;

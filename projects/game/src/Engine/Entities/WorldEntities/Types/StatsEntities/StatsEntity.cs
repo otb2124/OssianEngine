@@ -16,12 +16,6 @@ namespace Entities
         public Inventory Inventory;
         public DropInventory DropInventory;
 
-        public bool CanRegensStamina;
-        public bool CanUpdateIFrames;
-        public bool CanFall;
-        public bool CanHangLedges;
-        public bool CanFly;
-
         public bool UpdatesModelStates = true;
 
         public ParticleSet.ParticleSets BloodDropParticle;
@@ -72,35 +66,44 @@ namespace Entities
                 EntityModelStateHandler.Update(this);
             }
 
-            if (CanRegensStamina)
+            if (StatsManager.StaminaRegenerationHandler != null)
             {
                 StatsManager.RegenStamina();
             }
-            if (CanUpdateIFrames)
+            if (StatsManager.InvincibleFramesHandler != null)
             {
                 StatsManager.UpdateInvincibleFrames();
             }
-            if(CanFall)
+            if(StatsManager.FallStatesHandler != null)
             {
                 StatsManager.UpdateFallen(Model);
             }
-            if(CanHangLedges)
+            if(StatsManager.LedgeHangingHandler != null)
             {
                 StatsManager.UpdateLedgeHanging(Model);
             }
-            if(CanFly)
+            if (StatsManager.FlyHandler != null)
             {
-                StatsManager.UpdateFly(this);
+                StatsManager.UpdateFly(Model);
             }
 
-            if(Model.UpdatesSurroundingRectangles)
+            if(StatsManager.GCSRectanglesStatesHandler != null)
             {
                 Model.UpdateSurroundingRectangles();
                 StatsManager.UpdateGCSStates(Model);
             }
+
+            if(StatsManager.DescencionHandler != null)
+            {
+                StatsManager.UpdateDescending(Model);
+            }
+
+            if(StatsManager.ItemPickupHandler != null)
+            {
+                StatsManager.UpdatePickup();
+            }
+
             
-            StatsManager.UpdateDescending(Model);
-            StatsManager.UpdatePickup();
 
             base.Update();
         }
@@ -111,11 +114,6 @@ namespace Entities
             StatsManager = new StatsManager();
             EntityFraction = EntityFractions.NEUTRAL;
             //BloodDropParticle = ParticleSet.ParticleSets.NONE;
-
-            CanRegensStamina = false;
-            CanUpdateIFrames = false;
-            CanFall = false;
-            CanHangLedges = false;
         }
 
         public virtual void SetInventory()

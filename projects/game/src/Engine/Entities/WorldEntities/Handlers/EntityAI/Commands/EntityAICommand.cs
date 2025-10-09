@@ -177,7 +177,7 @@ namespace Entities
             {
                 Entity.Model.ModelState = ModelStates.IDLE;
 
-                if(Entity.CanFly)
+                if(Entity.StatsManager.FlyHandler != null)
                 {
                     Entity.Model.ModelState = ModelStates.FLYING;
                 }
@@ -201,7 +201,7 @@ namespace Entities
                 Entity.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
                 Entity.Model.ModelState = ModelStates.MOVING;
 
-                if (Entity.CanFly)
+                if (Entity.StatsManager.FlyHandler != null)
                 {
                     Entity.Model.ModelState = ModelStates.FLYING_AND_MOVING;
 
@@ -209,12 +209,12 @@ namespace Entities
 
                     if(distanceX < 50f)
                     {
-                        Entity.StatsManager.FlyingUpwards = false;
+                        Entity.StatsManager.FlyHandler.FlyingUpwards = false;
 
                         if (distanceX < 10f)
                         {
                             Entity.Model.ModelState = ModelStates.FLYING;
-                            Entity.StatsManager.FlyingUpwards = false;
+                            Entity.StatsManager.FlyHandler.FlyingUpwards = false;
                         }
                     }
                 }

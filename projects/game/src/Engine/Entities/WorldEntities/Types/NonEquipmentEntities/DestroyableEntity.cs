@@ -29,12 +29,9 @@ namespace Entities
         {
             base.SetStats();
 
-            CanRegensStamina = false;
-            CanUpdateIFrames = true;
-            CanFall = false;
+            StatsManager.IndicatorStats = new IndicatorStats(100, 0, 0);
 
             StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-            StatsManager.IndicatorStats = new IndicatorStats(100, 0, 0);
             StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
             StatsManager.DescencionHandler = new DescencionHandler(1f, 1f);
 

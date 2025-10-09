@@ -21,32 +21,20 @@ namespace Entities
         {
             base.SetStats();
 
-            CanRegensStamina = true;
-            CanUpdateIFrames = true;
-            CanFall = true;
-            CanHangLedges = true;
-
             StatsManager.SprintStats = new SprintStats(1.5f, 15);
-
             StatsManager.RollStats = new RollStats(2, 200);
-
-            StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-            StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
-
             StatsManager.JumpStats = new JumpStats(2.8f, 60);
-
             StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-            StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
-
-            StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-
             StatsManager.MovementSpeedStats = new MovementSpeedStats(1f);
             StatsManager.PoiseStats = new PoiseStats(100, 10);
 
+            StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
             StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-
+            StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
             StatsManager.FallStatesHandler = new FallStatesHandler();
             StatsManager.LedgeHangingHandler = new LedgeHangingHandler();
+            StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
+            StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
 
             StatsManager.Refill();
 

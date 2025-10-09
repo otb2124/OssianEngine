@@ -60,40 +60,27 @@ namespace Entities
             {
                 case AnimalMobs.SLIME:
 
-                    CanRegensStamina = true;
-                    CanUpdateIFrames = true;
-                    CanFall = true;
-
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(3, 1.5f);
-
+                    StatsManager.AggroStats = new AggroStats(200, 500);
                     StatsManager.MovementSpeedStats = new MovementSpeedStats(0.25f);
-
                     StatsManager.PoiseStats = new PoiseStats(100, 3);
-
                     StatsManager.JumpStats = new JumpStats(2.5f, 60);
 
                     StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
                     StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-
                     StatsManager.FallStatesHandler = new FallStatesHandler();
-
-                    StatsManager.AggroStats = new AggroStats(200, 500);
-
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(3, 1.5f);
                     StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
                     StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
 
                 case AnimalMobs.BAT:
 
-                    CanFly = true;
-                    CanRegensStamina = true;
-                    CanUpdateIFrames = true;
-                    CanFall = true;
 
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(3, 1.5f);
+                    StatsManager.FlyStats = new FlyStats(0.5f);
+                    StatsManager.AggroStats = new AggroStats(200, 500);
 
                     StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
                     StatsManager.JumpStats = new JumpStats(2.8f, 60);
@@ -102,14 +89,11 @@ namespace Entities
                     StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
                     StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(3, 1.5f);
                     StatsManager.FallStatesHandler = new FallStatesHandler();
-
-                    StatsManager.FlyStats = new FlyStats(0.5f);
-                    StatsManager.AggroStats = new AggroStats(200, 500);
-
                     StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
                     StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
+                    StatsManager.FlyHandler = new FlyHandler();
 
                     break;
             }

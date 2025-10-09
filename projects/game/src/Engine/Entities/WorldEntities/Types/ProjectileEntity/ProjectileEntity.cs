@@ -148,14 +148,10 @@ namespace Entities
         {
             base.SetStats();
 
-            CanRegensStamina = false;
-            CanUpdateIFrames = true;
-            CanFall = false;
             UpdatesModelStates = false;
 
             StatsManager.IndicatorStats = new IndicatorStats(5, 0, 0);
             StatsManager.MovementSpeedStats = new MovementSpeedStats(2f);
-
             StatsManager.JumpStats = new JumpStats(2.8f, 60);
             StatsManager.PoiseStats = new PoiseStats(100, 3);
 

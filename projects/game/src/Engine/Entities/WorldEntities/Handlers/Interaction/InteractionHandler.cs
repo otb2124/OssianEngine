@@ -30,7 +30,7 @@ namespace Entities
 
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
-                    if (livingEnt.StatsManager.AllowPickup)
+                    if (livingEnt.StatsManager.ItemPickupHandler.AllowPickup)
                     {
                         if (itemEnt.InteractionManager.InteractionData.Action == InteractionActions.ADD_ITEM_TO_INVENTORY)
                         {
@@ -38,7 +38,7 @@ namespace Entities
                             Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                             Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.Remove(itemEnt);
                             UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
-                            livingEnt.StatsManager.AllowPickup = false;
+                            livingEnt.StatsManager.ItemPickupHandler.AllowPickup = false;
                         }
 
 
