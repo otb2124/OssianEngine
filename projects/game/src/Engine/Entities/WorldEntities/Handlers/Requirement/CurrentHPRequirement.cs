@@ -21,7 +21,7 @@ namespace Entities
 
         public override bool Check()
         {
-            return Entities.Player.StatsManager.IndicatorStats.HP > MinHP && Entities.Player.StatsManager.IndicatorStats.HP <= MaxHP;
+            return Entities.Player.StatsManager.GetStat(EntityStats.HP).CurrentValue > MinHP && Entities.Player.StatsManager.GetStat(EntityStats.HP).CurrentValue <= MaxHP;
         }
     }
 }

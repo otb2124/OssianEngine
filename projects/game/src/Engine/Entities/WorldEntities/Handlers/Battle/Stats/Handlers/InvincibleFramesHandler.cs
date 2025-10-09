@@ -18,7 +18,7 @@ namespace Entities
             InvincibleFramesDurationSec = invincibleFramesDurationSec;
         }
 
-        public void UpdateInvincibleFrames()
+        public void Update()
         {
             if (IsInvincible)
             {

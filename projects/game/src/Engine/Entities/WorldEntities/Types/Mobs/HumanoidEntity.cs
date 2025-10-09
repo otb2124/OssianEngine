@@ -190,13 +190,20 @@ namespace Entities
             {
                 case HumanoidMobs.BANDIT:
 
-                    StatsManager.SprintStats = new SprintStats(1.5f, 15);
-                    StatsManager.RollStats = new RollStats(2, 200);
-                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
-                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
-                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.PoiseStats = new PoiseStats(100, 10);
-                    StatsManager.AggroStats = new AggroStats(200, 500);
+
+                    StatsManager.Stats = new EntityStat[]
+                    {
+                        new EntityStat(EntityStats.HP, 100, 100),
+                        new EntityStat(EntityStats.MANA, 100, 100),
+                        new EntityStat(EntityStats.STAMINA, 100, 100),
+                        new EntityStat(EntityStats.MOVEMENT_SPEED, 0.5f, 0.5f),
+                        new EntityStat(EntityStats.JUMP_SPEED, 2.8f, 2.8f, 60),
+                        new EntityStat(EntityStats.POISE, 100, 100, 3),
+                        new EntityStat(EntityStats.AGGRO_RANGE, 200, 200),
+                        new EntityStat(EntityStats.UNAGGRO_RANGE, 500, 500),
+                        new EntityStat(EntityStats.ROLL_SPEED_MULTIPLIER, 2, 2, 200),
+                        new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
+                    };
 
                     StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
@@ -208,12 +215,17 @@ namespace Entities
 
                 case HumanoidMobs.CITIZEN:
 
-                    StatsManager.SprintStats = new SprintStats(1.5f, 15);
-                    StatsManager.RollStats = new RollStats(2, 200);
-                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
-                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
-                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.PoiseStats = new PoiseStats(100, 10);
+                    StatsManager.Stats = new EntityStat[]
+                    {
+                        new EntityStat(EntityStats.HP, 100, 100),
+                        new EntityStat(EntityStats.MANA, 100, 100),
+                        new EntityStat(EntityStats.STAMINA, 100, 100),
+                        new EntityStat(EntityStats.MOVEMENT_SPEED, 0.5f, 0.5f),
+                        new EntityStat(EntityStats.JUMP_SPEED, 2.8f, 2.8f, 60),
+                        new EntityStat(EntityStats.POISE, 100, 100, 3),
+                        new EntityStat(EntityStats.ROLL_SPEED_MULTIPLIER, 2, 2, 200),
+                        new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
+                    };
 
                     StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
                     StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
@@ -225,12 +237,17 @@ namespace Entities
 
                 case HumanoidMobs.VIGO:
 
-                    StatsManager.SprintStats = new SprintStats(1.5f, 15);
-                    StatsManager.RollStats = new RollStats(2, 200);
-                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
-                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
-                    StatsManager.PoiseStats = new PoiseStats(100, 10);
+                    StatsManager.Stats = new EntityStat[]
+                    {
+                        new EntityStat(EntityStats.HP, 100, 100),
+                        new EntityStat(EntityStats.MANA, 100, 100),
+                        new EntityStat(EntityStats.STAMINA, 100, 100),
+                        new EntityStat(EntityStats.MOVEMENT_SPEED, 0.5f, 0.5f),
+                        new EntityStat(EntityStats.JUMP_SPEED, 2.8f, 2.8f, 60),
+                        new EntityStat(EntityStats.POISE, 100, 100, 3),
+                        new EntityStat(EntityStats.ROLL_SPEED_MULTIPLIER, 2, 2, 200),
+                        new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
+                    };
 
                     StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
                     StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
@@ -242,15 +259,20 @@ namespace Entities
 
                 case HumanoidMobs.WANEGRO:
 
-                    StatsManager.SprintStats = new SprintStats(1.5f, 15);
-                    StatsManager.RollStats = new RollStats(2, 200);
-                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
-                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.PoiseStats = new PoiseStats(100, 10);
+                    StatsManager.Stats = new EntityStat[]
+                    {
+                        new EntityStat(EntityStats.HP, 100, 100),
+                        new EntityStat(EntityStats.MANA, 100, 100),
+                        new EntityStat(EntityStats.STAMINA, 100, 100),
+                        new EntityStat(EntityStats.MOVEMENT_SPEED, 0.5f, 0.5f),
+                        new EntityStat(EntityStats.JUMP_SPEED, 2.8f, 2.8f, 60),
+                        new EntityStat(EntityStats.POISE, 100, 100, 3),
+                        new EntityStat(EntityStats.ROLL_SPEED_MULTIPLIER, 2, 2, 200),
+                        new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
+                    };
 
                     StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
                     StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
                     StatsManager.FallStatesHandler = new FallStatesHandler();
                     StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
@@ -258,7 +280,7 @@ namespace Entities
                     break;
             }
 
-            StatsManager.Refill();
+            StatsManager.RefillAll();
 
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
         }

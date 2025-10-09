@@ -21,10 +21,10 @@ namespace Entities
 
 
 
-        public void UpdateFallen(Resources.Model model, PoiseStats poiseStats)
+        public void Update(Resources.Model model, EntityStat poise)
         {
 
-            if (model.Body.Angle > 0.5f || model.Body.Angle < -0.5f || poiseStats.Poise <= 0)
+            if (model.Body.Angle > 0.5f || model.Body.Angle < -0.5f || poise.CurrentValue <= 0)
             {
                 if (!model.Body.IsColliding)
                 {
@@ -53,7 +53,7 @@ namespace Entities
                     model.Body.RotateTo(0f);
 
                     //regen Poise
-                    poiseStats.Refill();
+                    poise.Refill();
                 }
             }
         }

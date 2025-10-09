@@ -19,7 +19,7 @@ namespace Entities
             GenerateParticle(toEnt, BattleStatsCalculator.GetFinalKnockbackPowerForBattleEntity(fromEnt), fromEntHitboxExtends.Position);
             PlayRecivingDamageSound(toEnt);
 
-            Console.WriteLine(toEnt.StatsManager.IndicatorStats.HP + "/" + toEnt.StatsManager.IndicatorStats.MaxHP);
+            Console.WriteLine(toEnt.StatsManager.GetStat(EntityStats.HP).CurrentValue + "/" + toEnt.StatsManager.GetStat(EntityStats.HP).MaximumValue);
         }
 
         public static void HandleTakingDamage(BattleEntity toEnt, ProjectileEntity fromEnt)
@@ -34,7 +34,7 @@ namespace Entities
             GenerateParticle(toEnt, fromEnt.BattleDamageStatsData.KnockbackPower, fromEnt.MoveDirection);
             PlayRecivingDamageSound(toEnt);
 
-            Console.WriteLine(toEnt.StatsManager.IndicatorStats.HP + "/" + toEnt.StatsManager.IndicatorStats.MaxHP + ", projectile damage");
+            Console.WriteLine(toEnt.StatsManager.GetStat(EntityStats.HP).CurrentValue + "/" + toEnt.StatsManager.GetStat(EntityStats.HP).MaximumValue + ", projectile damage");
         }
 
 
@@ -42,7 +42,7 @@ namespace Entities
         {
             if (!(toEnt is Player && GameStateManager.IsGod))
             {
-                toEnt.StatsManager.ReceiveDamage(damage);
+                toEnt.StatsManager.ReceiveIndicatorDamage(damage);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Entities
         {
             if (!(toEnt is Player && GameStateManager.IsGod))
             {
-                toEnt.StatsManager.ReceiveDamage(damage);
+                toEnt.StatsManager.ReceiveIndicatorDamage(damage);
             }
         }
 

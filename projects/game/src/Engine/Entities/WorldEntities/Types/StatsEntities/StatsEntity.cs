@@ -68,7 +68,7 @@ namespace Entities
 
             if (StatsManager.StaminaRegenerationHandler != null)
             {
-                StatsManager.RegenStamina();
+                StatsManager.UpdateStaminaRegeneration();
             }
             if (StatsManager.InvincibleFramesHandler != null)
             {
@@ -76,7 +76,7 @@ namespace Entities
             }
             if(StatsManager.FallStatesHandler != null)
             {
-                StatsManager.UpdateFallen(Model);
+                StatsManager.UpdateFallStates(Model);
             }
             if(StatsManager.LedgeHangingHandler != null)
             {
@@ -90,12 +90,12 @@ namespace Entities
             if(StatsManager.GCSRectanglesStatesHandler != null)
             {
                 Model.UpdateSurroundingRectangles();
-                StatsManager.UpdateGCSStates(Model);
+                StatsManager.UpdateGCSRectanglesStates(Model);
             }
 
             if(StatsManager.DescencionHandler != null)
             {
-                StatsManager.UpdateDescending(Model);
+                StatsManager.UpdateDescencion(Model);
             }
 
             if(StatsManager.ItemPickupHandler != null)

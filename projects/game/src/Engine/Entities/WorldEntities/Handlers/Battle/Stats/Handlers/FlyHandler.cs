@@ -18,7 +18,7 @@ namespace Entities
         public float CurrentFlyHeightPointOverHead = 50f;
         public float LandPoint;
 
-        public void UpdateFly(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
+        public void Update(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
         {
             if (gcsHandler.IsGrounded)
             {

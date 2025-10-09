@@ -29,13 +29,16 @@ namespace Entities
         {
             base.SetStats();
 
-            StatsManager.IndicatorStats = new IndicatorStats(100, 0, 0);
+            StatsManager.Stats = new EntityStat[]
+            {
+                new EntityStat(EntityStats.HP, 100, 100)
+            };
 
             StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
             StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
             StatsManager.DescencionHandler = new DescencionHandler(1f, 1f);
 
-            StatsManager.Refill();
+            StatsManager.RefillAll();
         }
 
 

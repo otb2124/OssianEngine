@@ -17,7 +17,7 @@ namespace Entities
         {
             if (!toEnt.StatsManager.InvincibleFramesHandler.IsInvincible)
             {
-                if (toEnt.StatsManager.IndicatorStats.HP > 0)
+                if (!toEnt.StatsManager.GetStat(EntityStats.HP).LessEquealZero())
                 {
                     BattleTakingDamageHandler.HandleTakingDamage(toEnt, fromEnt, toEntHitboxExtends, fromEntHitboxExtends);
                 }
@@ -30,7 +30,7 @@ namespace Entities
         {
             if (!toEnt.StatsManager.InvincibleFramesHandler.IsInvincible)
             {
-                if (toEnt.StatsManager.IndicatorStats.HP > 0)
+                if (!toEnt.StatsManager.GetStat(EntityStats.HP).LessEquealZero())
                 {
                     BattleTakingDamageHandler.HandleTakingDamage(toEnt, fromEnt);
                 }

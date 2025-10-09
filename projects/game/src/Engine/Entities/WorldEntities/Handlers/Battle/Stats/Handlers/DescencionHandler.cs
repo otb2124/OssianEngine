@@ -25,7 +25,7 @@ namespace Entities
             DescendingMultiplier = descendingMultiplier;
         }
 
-        public void UpdateDescending(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
+        public void Update(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
         {
             if (gcsHandler.IsTouchingWalls)
             {

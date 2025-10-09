@@ -1,25 +1,28 @@
-﻿using Physics;
-using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using Utils;
-
-namespace Entities
+﻿namespace Entities
 {
     public class StatsManager
     {
 
 
-        public IndicatorStats IndicatorStats;
-        public SprintStats SprintStats;
-        public RollStats RollStats;
+
         public ExperienceStats ExperienceStats;
-        public MovementSpeedStats MovementSpeedStats;
-        public JumpStats JumpStats;
-        public FlyStats FlyStats;
-        public AggroStats AggroStats;
-        public PoiseStats PoiseStats;
         public BattleHitStatsSet BodyHitStatsSet;
+
+        /*
+        public EntityStat Health;
+        public EntityStat Mana;
+        public EntityStat Stamina;
+        public EntityStat RollSpeedMultiplier;
+        public EntityStat MovementSpeedMultiplier;
+        public EntityStat JumpSpeedMultiplier;
+        public EntityStat FlySpeedMultiplier;
+        public EntityStat SprintSpeedMultiplier;
+        public EntityStat Poise;
+        public EntityStat AggroDistance
+        public EntityStat UnAggroDistance
+        */
+
+        public EntityStat[] Stats;
 
         public StatsBattleHitSpendHandler StatsBattleHitSpendHandler;
         public StaminaRegenerationHandler StaminaRegenerationHandler;
@@ -32,80 +35,80 @@ namespace Entities
         public FlyHandler FlyHandler;
         
 
-        public void Refill()
+        public void RefillAll()
         {
-            if(IndicatorStats != null)
+            foreach (EntityStat stat in Stats)
             {
-                IndicatorStats.Refill();
-            }
-            if(MovementSpeedStats != null)
-            {
-                MovementSpeedStats.Refill();
-            }
-            if(PoiseStats != null)
-            {
-                PoiseStats.Refill();
+                if(stat != null)
+                {
+                    stat.Refill();
+                }
             }
         }
 
-        public void RegenStamina()
+        public EntityStat GetStat(EntityStats statType)
         {
-            if (StatsBattleHitSpendHandler != null)
+            foreach (EntityStat stat in Stats)
             {
-                if(StatsBattleHitSpendHandler.StatsPerAttackHitSpent)
+                if(stat.Type == statType)
                 {
-                    return;
+                    return stat;
                 }
             }
 
-            StaminaRegenerationHandler.RegenStamina(IndicatorStats);
+            return null;
         }
 
         public void SpendStatsForBattleHit(BattleEntity ent)
         {
-            StatsBattleHitSpendHandler.SpendStatsForBattleHit(IndicatorStats, ent);
+            StatsBattleHitSpendHandler.SpendStatsForBattleHit(GetStat(EntityStats.STAMINA), GetStat(EntityStats.MANA), ent);
         }
 
-        public void UpdateInvincibleFrames()
+        public void ReceiveIndicatorDamage(float amount)
         {
-            InvincibleFramesHandler.UpdateInvincibleFrames();
-        }
-
-        public void ReceiveDamage(float amount)
-        {
-            IndicatorStats.HP -= amount;
+            GetStat(EntityStats.HP).ModifyCurrent(amount);
         }
 
         public void ReceivePoiseDamage(float amount)
         {
-            PoiseStats.Poise -= amount;
+            GetStat(EntityStats.POISE).ModifyCurrent(amount);
         }
 
-        public void UpdateFallen(Resources.Model model)
+        public void UpdateStaminaRegeneration()
         {
-            FallStatesHandler.UpdateFallen(model, PoiseStats);
+            StaminaRegenerationHandler.Update(GetStat(EntityStats.STAMINA), StatsBattleHitSpendHandler);
+        }
+
+        public void UpdateInvincibleFrames()
+        {
+            InvincibleFramesHandler.Update();
+        }
+
+        public void UpdateFallStates(Resources.Model model)
+        {
+            FallStatesHandler.Update(model, GetStat(EntityStats.POISE));
         }
 
         public void UpdateLedgeHanging(Resources.Model model)
         {
-            LedgeHangingHandler.UpdateLedgeHanging(model, GCSRectanglesStatesHandler);
+            LedgeHangingHandler.Update(model, GCSRectanglesStatesHandler);
         }
 
 
-        public void UpdateGCSStates(Resources.Model model)
+        public void UpdateGCSRectanglesStates(Resources.Model model)
         {
             GCSRectanglesStatesHandler.Update(model);
         }
 
-        public void UpdateDescending(Resources.Model model)
+        public void UpdateDescencion(Resources.Model model)
         {
-            DescencionHandler.UpdateDescending(model, GCSRectanglesStatesHandler);
+            DescencionHandler.Update(model, GCSRectanglesStatesHandler);
         }
 
 
         public void UpdateFly(Resources.Model model)
         {
-            FlyHandler.UpdateFly(model, GCSRectanglesStatesHandler);
+            FlyHandler.Update(model, GCSRectanglesStatesHandler);
         }
 
 
@@ -116,12 +119,12 @@ namespace Entities
 
         public bool LostPoise()
         {
-            return PoiseStats.Poise <= 0;
+            return GetStat(EntityStats.POISE).LessEquealZero();
         }
 
         public bool CheckDead()
         {
-            return IndicatorStats.HP <= 0;
+            return GetStat(EntityStats.HP).LessEquealZero();
         }
     }
 }

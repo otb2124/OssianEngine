@@ -67,21 +67,21 @@ namespace UI
             {
                 case UIStatBarStatBindings.PLAYER_HEALTH:
                     rescaleMultiplier = MathHelper.Clamp(
-                            Entities.Entities.Player.StatsManager.IndicatorStats.HP / Entities.Entities.Player.StatsManager.IndicatorStats.MaxHP,
+                            Entities.Entities.Player.StatsManager.GetStat(Entities.EntityStats.HP).CurrentValue / Entities.Entities.Player.StatsManager.GetStat(Entities.EntityStats.HP).MaximumValue,
                             0f,
                             1f
                         );
                     break;
                 case UIStatBarStatBindings.PLAYER_MANA:
                     rescaleMultiplier = MathHelper.Clamp(
-                            Entities.Entities.Player.StatsManager.IndicatorStats.Mana / Entities.Entities.Player.StatsManager.IndicatorStats.MaxMana,
+                            Entities.Entities.Player.StatsManager.GetStat(Entities.EntityStats.MANA).CurrentValue / Entities.Entities.Player.StatsManager.GetStat(Entities.EntityStats.MANA).MaximumValue,
                             0f,
                             1f
                         );
                     break;
                 case UIStatBarStatBindings.PLAYER_ENDURANCE:
                     rescaleMultiplier = MathHelper.Clamp(
-                            Entities.Entities.Player.StatsManager.IndicatorStats.Stamina / Entities.Entities.Player.StatsManager.IndicatorStats.MaxStamina,
+                            Entities.Entities.Player.StatsManager.GetStat(Entities.EntityStats.STAMINA).CurrentValue / Entities.Entities.Player.StatsManager.GetStat(Entities.EntityStats.STAMINA).MaximumValue,
                             0f,
                             1f
                         );

@@ -16,7 +16,7 @@ namespace Entities
         public int UnHangingCounter = 0;
 
 
-        public void UpdateLedgeHanging(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
+        public void Update(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
         {
             if (!AllowHangingOnLedge && model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {

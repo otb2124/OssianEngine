@@ -23,11 +23,14 @@ namespace Entities
             StaminaUnlockSec = staminaUnlockSec;
         }
 
-        public void RegenStamina(IndicatorStats iStats)
+        public void Update(EntityStat stamina, StatsBattleHitSpendHandler statsBattleHitSpendHandler)
         {
+            if (statsBattleHitSpendHandler != null && statsBattleHitSpendHandler.StatsPerAttackHitSpent)
+                return;
+
             OnStaminaRegen = false;
 
-            if (iStats.Stamina < iStats.MaxStamina && !OnUsingStamina)
+            if (stamina.CurrentValue < stamina.MaximumValue && !OnUsingStamina)
             {
                 StaminaUnlockCounter++;
 
@@ -36,11 +39,11 @@ namespace Entities
                     OnStaminaRegen = true;
                 }
 
-                iStats.Stamina += StaminaRegenSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                stamina.CurrentValue += StaminaRegenSec / (float)Graphics.Graphics.UpdatesPerSecond;
 
                 if (GameStateManager.IsGod)
                 {
-                    iStats.Stamina += iStats.MaxStamina;
+                    stamina.CurrentValue += stamina.MaximumValue;
                 }
             }
             else

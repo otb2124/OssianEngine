@@ -22,22 +22,22 @@ namespace Entities {
 
             if (state == ModelStates.MOVING || state == ModelStates.WEAPON_OUT_MOVING)
             {
-                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.MovementSpeedStats.MovementSpeed * directionXFactor, 0));
+                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
             }
 
             if (state == ModelStates.JUMPING)
             {
-                Entity.Model.Body.Jump(Entity.StatsManager.JumpStats.JumpSpeed);
-                Entity.StatsManager.IndicatorStats.Stamina -= Entity.StatsManager.JumpStats.StaminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue);
+                Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
                 Entity.StatsManager.DescencionHandler.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
             }
 
             if (state == ModelStates.JUMPING_AND_MOVING)
             {
-                Entity.Model.Body.Jump(Entity.StatsManager.JumpStats.JumpSpeed);
-                Entity.StatsManager.IndicatorStats.Stamina -= Entity.StatsManager.JumpStats.StaminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
-                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.MovementSpeedStats.MovementSpeed * directionXFactor, 0));
+                Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue);
+                Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
                 Entity.StatsManager.DescencionHandler.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
             }
@@ -48,14 +48,14 @@ namespace Entities {
 
                 if(Entity.StatsManager.FlyHandler.FlyingUpwards)
                 {
-                    Entity.Model.Body.Jump(Entity.StatsManager.FlyStats.FlySpeed);
+                    Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
                 }
                 else
                 {
-                    Entity.Model.Body.Jump(-Entity.StatsManager.FlyStats.FlySpeed);
+                    Entity.Model.Body.Jump(-Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
                 }
                 
-                Entity.StatsManager.IndicatorStats.Stamina -= Entity.StatsManager.JumpStats.StaminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
                 Entity.StatsManager.DescencionHandler.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
             }
@@ -66,26 +66,26 @@ namespace Entities {
 
                 if (Entity.StatsManager.FlyHandler.FlyingUpwards)
                 {
-                    Entity.Model.Body.Jump(Entity.StatsManager.FlyStats.FlySpeed);
+                    Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
                 }
                 else
                 {
-                    Entity.Model.Body.Jump(-Entity.StatsManager.FlyStats.FlySpeed);
+                    Entity.Model.Body.Jump(-Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
                 }
 
-                Entity.StatsManager.IndicatorStats.Stamina -= Entity.StatsManager.JumpStats.StaminaJumpCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
                 Entity.StatsManager.DescencionHandler.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
 
-                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.MovementSpeedStats.MovementSpeed * directionXFactor, 0));
+                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
             }
 
             if (state == ModelStates.SPRINTING)
             {
-                if (Entity.StatsManager.IndicatorStats.Stamina - Entity.StatsManager.SprintStats.StaminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
+                if (Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
                 {
-                    Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.MovementSpeedStats.MovementSpeed * Entity.StatsManager.SprintStats.SprintMultiplier * directionXFactor, 0));
-                    Entity.StatsManager.IndicatorStats.Stamina -= Entity.StatsManager.SprintStats.StaminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                    Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).CurrentValue * directionXFactor, 0));
+                    Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
                     Entity.StatsManager.StaminaRegenerationHandler.OnUsingStamina = true;
                 }
                 else
@@ -101,10 +101,10 @@ namespace Entities {
 
             if (state == ModelStates.ROLLING)
             {
-                if (Entity.StatsManager.IndicatorStats.Stamina - Entity.StatsManager.RollStats.StaminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
+                if (Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - Entity.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
                 {
-                    Entity.StatsManager.IndicatorStats.Stamina -= Entity.StatsManager.RollStats.StaminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond;
-                    Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.MovementSpeedStats.MovementSpeed * Entity.StatsManager.RollStats.RollMultiplier * directionXFactor, 0));
+                    Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+                    Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * Entity.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).CurrentValue * directionXFactor, 0));
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace Entities {
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
                 Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.StatsManager.DescencionHandler.DescendingMultiplier * 200);
-                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.MovementSpeedStats.MovementSpeed * directionXFactor, 0));
+                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
             }
 
             if (state == ModelStates.HANGING_ON_LEDGE)
@@ -178,8 +178,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
-                if (player.StatsManager.IndicatorStats.Stamina - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0 &&
-                    player.StatsManager.IndicatorStats.Mana - BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(player) > 0)
+                if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0 &&
+                    player.StatsManager.GetStat(EntityStats.MANA).CurrentValue - BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(player) > 0)
                 {
                     player.Model.ModelState = ModelStates.ATTACKING_LIGHT;
                 }
@@ -193,8 +193,8 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
-                if (player.StatsManager.IndicatorStats.Stamina - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0 &&
-                    player.StatsManager.IndicatorStats.Mana - BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(player) > 0)
+                if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0 &&
+                    player.StatsManager.GetStat(EntityStats.MANA).CurrentValue - BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(player) > 0)
                 {
                     player.Model.ModelState = ModelStates.ATTACKING_HEAVY;
                 }
@@ -209,9 +209,9 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
-                if (player.StatsManager.IndicatorStats.Stamina > 0)
+                if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue > 0)
                 {
-                    if (player.StatsManager.IndicatorStats.Stamina - player.StatsManager.RollStats.StaminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
+                    if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
                     {
                         player.Model.ModelState = ModelStates.BLOCKING;
                     }
@@ -244,7 +244,7 @@ namespace Entities {
                 // JUMP
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                 {
-                    if (player.StatsManager.IndicatorStats.Stamina - player.StatsManager.JumpStats.StaminaJumpCostSec > 0 && (player.StatsManager.GCSRectanglesStatesHandler.IsGrounded || player.Model.ModelState == ModelStates.HANGING_ON_LEDGE))
+                    if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec > 0 && (player.StatsManager.GCSRectanglesStatesHandler.IsGrounded || player.Model.ModelState == ModelStates.HANGING_ON_LEDGE))
                     {
                         player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
                     }
@@ -277,7 +277,7 @@ namespace Entities {
                     if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] &&
                     player.Model.ModelState != ModelStates.OVERALL_DESCENDING && player.StatsManager.GCSRectanglesStatesHandler.IsGrounded)
                     {
-                        if (player.StatsManager.IndicatorStats.Stamina - player.StatsManager.SprintStats.StaminaSprintCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
+                        if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
                             !player.StatsManager.StaminaRegenerationHandler.OnStaminaRegen)
                         {
                             player.Model.ModelState = ModelStates.SPRINTING;
@@ -288,7 +288,7 @@ namespace Entities {
                     else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED] &&
                     player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
                     {
-                        if (player.StatsManager.IndicatorStats.Stamina - player.StatsManager.RollStats.StaminaRollCostSec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
+                        if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
                             !player.StatsManager.StaminaRegenerationHandler.OnStaminaRegen)
                         {
                             player.Model.ModelState = ModelStates.ROLLING;
@@ -340,7 +340,7 @@ namespace Entities {
                     // JUMP
                     if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                     {
-                        if (player.StatsManager.IndicatorStats.Stamina - player.StatsManager.JumpStats.StaminaJumpCostSec > 0)
+                        if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.STAMINA).StaminaDependencySec > 0)
                         {
                             player.Model.ModelState = ModelStates.JUMPING;
                         }

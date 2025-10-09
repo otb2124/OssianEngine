@@ -60,11 +60,18 @@ namespace Entities
             {
                 case AnimalMobs.SLIME:
 
-                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.AggroStats = new AggroStats(200, 500);
-                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.25f);
-                    StatsManager.PoiseStats = new PoiseStats(100, 3);
-                    StatsManager.JumpStats = new JumpStats(2.5f, 60);
+
+                    StatsManager.Stats = new EntityStat[]
+                    {
+                        new EntityStat(EntityStats.HP, 100, 100),
+                        new EntityStat(EntityStats.MANA, 100, 100),
+                        new EntityStat(EntityStats.STAMINA, 100, 100),
+                        new EntityStat(EntityStats.MOVEMENT_SPEED, 0.25f, 0.25f),
+                        new EntityStat(EntityStats.JUMP_SPEED, 2.5f, 2.5f, 60),
+                        new EntityStat(EntityStats.POISE, 100, 100, 3),
+                        new EntityStat(EntityStats.AGGRO_RANGE, 200, 200),
+                        new EntityStat(EntityStats.UNAGGRO_RANGE, 500, 500)
+                    };
 
                     StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
@@ -78,13 +85,18 @@ namespace Entities
                 case AnimalMobs.BAT:
 
 
-                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
-                    StatsManager.FlyStats = new FlyStats(0.5f);
-                    StatsManager.AggroStats = new AggroStats(200, 500);
-
-                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
-                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
-                    StatsManager.PoiseStats = new PoiseStats(100, 3);
+                    StatsManager.Stats = new EntityStat[]
+                    {
+                        new EntityStat(EntityStats.HP, 100, 100),
+                        new EntityStat(EntityStats.MANA, 100, 100),
+                        new EntityStat(EntityStats.STAMINA, 100, 100),
+                        new EntityStat(EntityStats.MOVEMENT_SPEED, 0.5f, 0.25f),
+                        new EntityStat(EntityStats.JUMP_SPEED, 2.8f, 2.5f, 60),
+                        new EntityStat(EntityStats.POISE, 100, 100, 3),
+                        new EntityStat(EntityStats.AGGRO_RANGE, 200, 200),
+                        new EntityStat(EntityStats.UNAGGRO_RANGE, 500, 500),
+                        new EntityStat(EntityStats.FLY_SPEED, 0.5f, 0.5f)
+                    };
 
                     StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
@@ -98,7 +110,7 @@ namespace Entities
                     break;
             }
 
-            StatsManager.Refill();
+            StatsManager.RefillAll();
 
         }
 

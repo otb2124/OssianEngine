@@ -11,10 +11,10 @@ namespace Entities
 
         public bool StatsPerAttackHitSpent = false;
 
-        public void SpendStatsForBattleHit(IndicatorStats iStats, BattleEntity ent)
+        public void SpendStatsForBattleHit(EntityStat stamina, EntityStat mana, BattleEntity ent)
         {
-            iStats.Stamina -= BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(ent);
-            iStats.Mana -= BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent);
+            stamina.CurrentValue -= BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(ent);
+            mana.CurrentValue -= BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent);
             StatsPerAttackHitSpent = true;
         }
     }

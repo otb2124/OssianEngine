@@ -20,7 +20,7 @@ namespace Utils
         {
             if(!Entities.Entities.EntityManager.HasPlayer())
             {
-                Entities.Entities.Player.StatsManager.Refill();
+                Entities.Entities.Player.StatsManager.RefillAll();
                 Entities.Entities.Player.Model.Body.MoveTo(new FlatVector(Graphics.Graphics.camera.position.X, Graphics.Graphics.camera.position.Y));
                 Entities.Entities.EntityManager.AddEntity(Entities.Entities.Player);
                 Console.WriteLine("Ressurected.");

@@ -150,16 +150,19 @@ namespace Entities
 
             UpdatesModelStates = false;
 
-            StatsManager.IndicatorStats = new IndicatorStats(5, 0, 0);
-            StatsManager.MovementSpeedStats = new MovementSpeedStats(2f);
-            StatsManager.JumpStats = new JumpStats(2.8f, 60);
-            StatsManager.PoiseStats = new PoiseStats(100, 3);
+            StatsManager.Stats = new EntityStat[]
+            {
+                new EntityStat(EntityStats.HP, 5, 5),
+                new EntityStat(EntityStats.MOVEMENT_SPEED, 2, 2),
+                new EntityStat(EntityStats.JUMP_SPEED, 2.8f, 2.8f, 60),
+                new EntityStat(EntityStats.POISE, 100, 100, 3)
+            };
 
             StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
             StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(0.5f);
 
-            StatsManager.Refill();
+            StatsManager.RefillAll();
         }
 
         public virtual void UpdateProjectile()
@@ -177,7 +180,7 @@ namespace Entities
                 Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
                 Model.Body.linearVelocity = FlatVector.Zero;
 
-                Vector2 velocity = normalizedDirection * StatsManager.MovementSpeedStats.MovementSpeed;
+                Vector2 velocity = normalizedDirection * StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue;
                 Model.Body.Move(FlatConverter.ToFlatVector(velocity));
 
                 if (MoveDirection != Vector2.Zero)
@@ -189,7 +192,7 @@ namespace Entities
 
             if (UpdateType == ProjectileUpdateTypes.TIMER || UpdateType == ProjectileUpdateTypes.MOVE_TIMER)
             {
-                StatsManager.IndicatorStats.HP -= 1f * (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+                StatsManager.GetStat(EntityStats.HP).CurrentValue -= 1f * (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
             }
 
             if (!CanRichochet)
