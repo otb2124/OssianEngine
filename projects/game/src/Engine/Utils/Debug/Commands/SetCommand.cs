@@ -26,7 +26,7 @@ namespace Utils
 
             if (stat == "hp")
             {
-                Entities.Entities.Player.Stats.HP = int.Parse(value);
+                Entities.Entities.Player.StatsManager.IndicatorStats.HP = int.Parse(value);
             }
 
             Console.WriteLine($"Setting entities {args[0]} to: {args[1]}");

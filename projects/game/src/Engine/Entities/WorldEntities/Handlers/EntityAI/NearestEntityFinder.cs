@@ -80,12 +80,12 @@ namespace Entities
             if (candidate == null) return null;
 
             float distance = EntityAIHelper.GetEntityDistance(entFrom, candidate);
-            if (distance < entFrom.Stats.DistanceToAggro)
+            if (distance < entFrom.StatsManager.DistanceToAggro)
             {
                 return candidate;
             }
 
-            if (EntityAIHelper.GetCurrentBehaviourCase(entFrom) == BehaviourCases.AGGRO && distance > entFrom.Stats.DistanceToUnaggro)
+            if (EntityAIHelper.GetCurrentBehaviourCase(entFrom) == BehaviourCases.AGGRO && distance > entFrom.StatsManager.DistanceToUnaggro)
             {
                 return null;
             }

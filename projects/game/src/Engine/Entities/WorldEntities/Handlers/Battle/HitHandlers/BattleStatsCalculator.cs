@@ -15,7 +15,7 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyPhysDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().DamageSet.PhysDamage;
+                return nhA.StatsManager.BodyPhysDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().DamageSet.PhysDamage;
             }
             else if (ent is EquipmentEntity eqA)
             {
@@ -30,7 +30,7 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyMagicDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().DamageSet.MagicDamage;
+                return nhA.StatsManager.BodyMagicDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().DamageSet.MagicDamage;
             }
             else if (ent is EquipmentEntity eqA)
             {
@@ -44,7 +44,7 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyKnockbackPower * nhA.BattleBodyManager.GetCurrentBattleHitData().KnockbackPower;
+                return nhA.StatsManager.BodyKnockbackPower * nhA.BattleBodyManager.GetCurrentBattleHitData().KnockbackPower;
             }
             else if (ent is EquipmentEntity eqA)
             {
@@ -58,7 +58,7 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyPoiseDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PoiseDamage;
+                return nhA.StatsManager.BodyPoiseDamage * nhA.BattleBodyManager.GetCurrentBattleHitData().PoiseDamage;
             }
             else if (ent is EquipmentEntity eqA)
             {
@@ -73,7 +73,7 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyStaminaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StatsCostSet.StaminaCost;
+                return nhA.StatsManager.BodyStaminaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StatsCostSet.StaminaCost;
             }
             else if (ent is EquipmentEntity eqA)
             {
@@ -89,7 +89,7 @@ namespace Entities
         {
             if (ent is NonEquipmentEntity nhA)
             {
-                return nhA.Stats.BodyManaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StatsCostSet.ManaCost;
+                return nhA.StatsManager.BodyManaHitCost * nhA.BattleBodyManager.GetCurrentBattleHitData().StatsCostSet.ManaCost;
             }
             else if (ent is EquipmentEntity eqA)
             {

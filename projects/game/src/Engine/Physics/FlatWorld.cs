@@ -337,7 +337,7 @@ namespace Physics
                 {
                     restrictRotation = true;
 
-                    if (sEnt.Stats.LostPoise())
+                    if (sEnt.StatsManager.LostPoise())
                     {
                         //if lost poise then dont restrict rotation
                         restrictRotation = false;

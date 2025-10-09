@@ -67,7 +67,7 @@ namespace Entities
 
         public static BehaviourCases GetBehaviourCase(BattleEntity ent)
         {
-            if (ent.Stats.DistanceToAggro != -1f)
+            if (ent.StatsManager.DistanceToAggro != -1f)
             {
                 BattleEntity entTo = NearestEntityFinder.GetNearestBattleEntityInAggroRange(ent);
 
@@ -81,7 +81,7 @@ namespace Entities
                             "Aggressive BattleEntity",
                             "GetBehaviourCase"
                         );
-                        if (anyAggroTarget == null || GetEntityDistance(ent, anyAggroTarget) > ent.Stats.DistanceToUnaggro)
+                        if (anyAggroTarget == null || GetEntityDistance(ent, anyAggroTarget) > ent.StatsManager.DistanceToUnaggro)
                         {
                             return BehaviourCases.IDLE_RANDOM;
                         }
@@ -95,12 +95,12 @@ namespace Entities
                 {
                     float distance = GetEntityDistance(ent, entTo);
 
-                    if (distance < ent.Stats.DistanceToAggro)
+                    if (distance < ent.StatsManager.DistanceToAggro)
                     {
                         return BehaviourCases.AGGRO;
                     }
 
-                    if (GetCurrentBehaviourCase(ent) == BehaviourCases.AGGRO && distance <= ent.Stats.DistanceToUnaggro)
+                    if (GetCurrentBehaviourCase(ent) == BehaviourCases.AGGRO && distance <= ent.StatsManager.DistanceToUnaggro)
                     {
                         return BehaviourCases.AGGRO;
                     }

@@ -26,30 +26,29 @@ namespace Entities
             CanFall = true;
             CanHangLedges = true;
 
-            Stats.sprintMultiplier = 1.5f;
-            Stats.staminaSprintCostSec = 15;
+            StatsManager.sprintMultiplier = 1.5f;
+            StatsManager.staminaSprintCostSec = 15;
 
-            Stats.staminaRegenSec = 20;
-            Stats.staminaUnlockSec = 1.5f;
+            StatsManager.staminaRegenSec = 20;
+            StatsManager.staminaUnlockSec = 1.5f;
 
-            Stats.staminaAttackHitCostMultiplier = 1f;
+            StatsManager.staminaAttackHitCostMultiplier = 1f;
 
-            Stats.rollMultiplier = 2f;
-            Stats.staminaRollCostSec = 200;
+            StatsManager.rollMultiplier = 2f;
+            StatsManager.staminaRollCostSec = 200;
 
-            Stats.jumpSpeed = 2.8f;
-            Stats.DescendingMultiplier = 1f;
-            Stats.staminaJumpCostSec = 60;
+            StatsManager.jumpSpeed = 2.8f;
+            StatsManager.DescendingMultiplier = 1f;
+            StatsManager.staminaJumpCostSec = 60;
 
-            Stats.maxHP = 100;
-            Stats.maxSpeed = 1;
-            Stats.maxMana = 100;
-            Stats.maxStamina = 100;
-            Stats.MaxPoise = 100;
-            Stats.PoiseRegenSec = 10;
-            Stats.MaxDescendingSec = 0.5f;
+            StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
 
-            Stats.Refill();
+            StatsManager.maxSpeed = 1;
+            StatsManager.MaxPoise = 100;
+            StatsManager.PoiseRegenSec = 10;
+            StatsManager.MaxDescendingSec = 0.5f;
+
+            StatsManager.Refill();
 
             EntityFraction = EntityFractions.PLAYER;
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;

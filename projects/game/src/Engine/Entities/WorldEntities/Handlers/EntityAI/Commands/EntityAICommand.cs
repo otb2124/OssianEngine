@@ -196,7 +196,7 @@ namespace Entities
             if (distance > (stopDistance ?? defaultStopDistance))
             {
                 directionToEntity.Normalize();
-                float speed = Entity.Stats?.speed ?? 1f;
+                float speed = Entity.StatsManager?.speed ?? 1f;
                 Vector2 velocity = directionToEntity * speed;
                 Entity.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
                 Entity.Model.ModelState = ModelStates.MOVING;
@@ -209,12 +209,12 @@ namespace Entities
 
                     if(distanceX < 50f)
                     {
-                        Entity.Stats.FlyingUpwards = false;
+                        Entity.StatsManager.FlyingUpwards = false;
 
                         if (distanceX < 10f)
                         {
                             Entity.Model.ModelState = ModelStates.FLYING;
-                            Entity.Stats.FlyingUpwards = false;
+                            Entity.StatsManager.FlyingUpwards = false;
                         }
                     }
                 }

@@ -33,8 +33,8 @@ namespace Entities
             CanUpdateIFrames = true;
             CanFall = false;
 
-            Stats.maxHP = 100;
-            Stats.Refill();
+            StatsManager.IndicatorStats = new IndicatorStats(100, 0, 0);
+            StatsManager.Refill();
         }
 
 

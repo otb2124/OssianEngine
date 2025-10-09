@@ -15,9 +15,9 @@ namespace Entities
         
         public static void HandleHit(BattleEntity toEnt, BattleEntity fromEnt, RotatedRectangle toEntHitboxExtends, RotatedRectangle fromEntHitboxExtends)
         {
-            if (!toEnt.Stats.IsInvincible)
+            if (!toEnt.StatsManager.IsInvincible)
             {
-                if (toEnt.Stats.HP > 0)
+                if (toEnt.StatsManager.IndicatorStats.HP > 0)
                 {
                     BattleTakingDamageHandler.HandleTakingDamage(toEnt, fromEnt, toEntHitboxExtends, fromEntHitboxExtends);
                 }
@@ -28,9 +28,9 @@ namespace Entities
 
         public static void HandleHit(BattleEntity toEnt, ProjectileEntity fromEnt)
         {
-            if (!toEnt.Stats.IsInvincible)
+            if (!toEnt.StatsManager.IsInvincible)
             {
-                if (toEnt.Stats.HP > 0)
+                if (toEnt.StatsManager.IndicatorStats.HP > 0)
                 {
                     BattleTakingDamageHandler.HandleTakingDamage(toEnt, fromEnt);
                 }
@@ -43,7 +43,7 @@ namespace Entities
         //TODO: HANDLE DAMAGE DATA AS HANDLEHIT()
         public static void HandleBlockHit(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)
         {
-            if (!toEnt.Stats.IsInvincible)
+            if (!toEnt.StatsManager.IsInvincible)
             {
                 BattleTakingDamageHandler.ReceiveKnockBack(toEnt, knockBackPower, fromEntPos);
             }
@@ -53,10 +53,10 @@ namespace Entities
 
         public static void HandleInvincibility(StatsEntity entity)
         {
-            if (entity.Stats.IsInvincible)
+            if (entity.StatsManager.IsInvincible)
                 return;
             else
-                entity.Stats.IsInvincible = true;
+                entity.StatsManager.IsInvincible = true;
         }
 
 

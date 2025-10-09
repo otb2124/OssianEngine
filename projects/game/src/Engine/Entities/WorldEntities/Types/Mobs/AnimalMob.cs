@@ -64,19 +64,20 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    Stats.maxHP = 50;
-                    Stats.maxSpeed = 0.25f;
-                    Stats.jumpSpeed = 2.5f;
-                    Stats.MaxPoise = 100f;
-                    Stats.PoiseRegenSec = 3;
+                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
 
-                    Stats.BodyKnockbackPower = 1;
-                    Stats.BodyPhysDamage = 5;
-                    Stats.BodyStaminaHitCost = 25;
-                    Stats.BodyPoiseDamage = 20;
+                    StatsManager.maxSpeed = 0.25f;
+                    StatsManager.jumpSpeed = 2.5f;
+                    StatsManager.MaxPoise = 100f;
+                    StatsManager.PoiseRegenSec = 3;
 
-                    Stats.DistanceToAggro = 200f;
-                    Stats.DistanceToUnaggro = 500f;
+                    StatsManager.BodyKnockbackPower = 1;
+                    StatsManager.BodyPhysDamage = 5;
+                    StatsManager.BodyStaminaHitCost = 25;
+                    StatsManager.BodyPoiseDamage = 20;
+
+                    StatsManager.DistanceToAggro = 200f;
+                    StatsManager.DistanceToUnaggro = 500f;
                     break;
 
                 case AnimalMobs.BAT:
@@ -86,26 +87,27 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    Stats.maxHP = 50;
-                    Stats.maxSpeed = 0.5f;
-                    Stats.DistanceToAggro = 200f;
-                    Stats.jumpSpeed = 2.5f;
-                    Stats.MaxPoise = 100f;
-                    Stats.PoiseRegenSec = 3;
+                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
 
-                    Stats.BodyKnockbackPower = 1;
-                    Stats.BodyPhysDamage = 5;
-                    Stats.BodyStaminaHitCost = 25;
-                    Stats.BodyPoiseDamage = 20;
+                    StatsManager.maxSpeed = 0.5f;
+                    StatsManager.DistanceToAggro = 200f;
+                    StatsManager.jumpSpeed = 2.5f;
+                    StatsManager.MaxPoise = 100f;
+                    StatsManager.PoiseRegenSec = 3;
+
+                    StatsManager.BodyKnockbackPower = 1;
+                    StatsManager.BodyPhysDamage = 5;
+                    StatsManager.BodyStaminaHitCost = 25;
+                    StatsManager.BodyPoiseDamage = 20;
 
 
-                    Stats.flySpeed = 0.5f;
-                    Stats.DistanceToUnaggro = 500f;
+                    StatsManager.flySpeed = 0.5f;
+                    StatsManager.DistanceToUnaggro = 500f;
 
                     break;
             }
 
-            Stats.Refill();
+            StatsManager.Refill();
 
         }
 

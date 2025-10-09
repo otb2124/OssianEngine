@@ -79,14 +79,14 @@ namespace Entities
                     (NonEquipmentEntity nhA, NonEquipmentEntity nhB) => (
                         nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                         nhB.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf
-                        //nhA.Stats.BodyPhysDamage,
-                        //nhA.Stats.BodyKnockbackPower
+                        //nhA.StatsManager.BodyPhysDamage,
+                        //nhA.StatsManager.BodyKnockbackPower
                     ),
                     (NonEquipmentEntity nhA, EquipmentEntity eqB) => (
                         nhA.BattleBodyManager.BattleBodies[0].Hitbox.outerHalf,
                         eqB.EquipmentManager.GetCurrentWeaponBody(eqB.BattleBodyManager).Hitbox.outerHalf
-                        //nhA.Stats.BodyPhysDamage,
-                        //nhA.Stats.BodyKnockbackPower
+                        //nhA.StatsManager.BodyPhysDamage,
+                        //nhA.StatsManager.BodyKnockbackPower
                     ),
                     (EquipmentEntity eqA, NonEquipmentEntity nhB) => (
                         eqA.EquipmentManager.GetCurrentWeaponBody(eqA.BattleBodyManager).Hitbox.outerHalf,

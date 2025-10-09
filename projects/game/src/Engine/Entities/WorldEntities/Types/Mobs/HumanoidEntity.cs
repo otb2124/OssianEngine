@@ -193,29 +193,29 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    Stats.sprintMultiplier = 1.5f;
-                    Stats.staminaSprintCostSec = 15;
+                    StatsManager.sprintMultiplier = 1.5f;
+                    StatsManager.staminaSprintCostSec = 15;
 
-                    Stats.staminaRegenSec = 20;
-                    Stats.staminaUnlockSec = 1.5f;
+                    StatsManager.staminaRegenSec = 20;
+                    StatsManager.staminaUnlockSec = 1.5f;
 
-                    Stats.staminaAttackHitCostMultiplier = 25;
+                    StatsManager.staminaAttackHitCostMultiplier = 25;
 
-                    Stats.rollMultiplier = 2f;
-                    Stats.staminaRollCostSec = 200;
+                    StatsManager.rollMultiplier = 2f;
+                    StatsManager.staminaRollCostSec = 200;
 
-                    Stats.jumpSpeed = 2.8f;
-                    Stats.staminaJumpCostSec = 60;
+                    StatsManager.jumpSpeed = 2.8f;
+                    StatsManager.staminaJumpCostSec = 60;
 
-                    Stats.maxHP = 100;
-                    Stats.maxSpeed = 0.5f;
-                    Stats.maxMana = 100;
-                    Stats.maxStamina = 100;
-                    Stats.MaxPoise = 100;
-                    Stats.PoiseRegenSec = 10;
+                    StatsManager.maxSpeed = 0.5f;
 
-                    Stats.DistanceToAggro = 200f;
-                    Stats.DistanceToUnaggro = 500f;
+                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+
+                    StatsManager.MaxPoise = 100;
+                    StatsManager.PoiseRegenSec = 10;
+
+                    StatsManager.DistanceToAggro = 200f;
+                    StatsManager.DistanceToUnaggro = 500f;
                     break;
 
                 case HumanoidMobs.CITIZEN:
@@ -223,26 +223,26 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    Stats.sprintMultiplier = 1.5f;
-                    Stats.staminaSprintCostSec = 15;
+                    StatsManager.sprintMultiplier = 1.5f;
+                    StatsManager.staminaSprintCostSec = 15;
 
-                    Stats.staminaRegenSec = 20;
-                    Stats.staminaUnlockSec = 1.5f;
+                    StatsManager.staminaRegenSec = 20;
+                    StatsManager.staminaUnlockSec = 1.5f;
 
-                    Stats.staminaAttackHitCostMultiplier = 25;
+                    StatsManager.staminaAttackHitCostMultiplier = 25;
 
-                    Stats.rollMultiplier = 2f;
-                    Stats.staminaRollCostSec = 200;
+                    StatsManager.rollMultiplier = 2f;
+                    StatsManager.staminaRollCostSec = 200;
 
-                    Stats.jumpSpeed = 2.8f;
-                    Stats.staminaJumpCostSec = 60;
+                    StatsManager.jumpSpeed = 2.8f;
+                    StatsManager.staminaJumpCostSec = 60;
 
-                    Stats.maxHP = 100;
-                    Stats.maxSpeed = 0.5f;
-                    Stats.maxMana = 100;
-                    Stats.maxStamina = 100;
-                    Stats.MaxPoise = 100;
-                    Stats.PoiseRegenSec = 10;
+                    StatsManager.maxSpeed = 0.5f;
+
+                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+
+                    StatsManager.MaxPoise = 100;
+                    StatsManager.PoiseRegenSec = 10;
 
                     break;
 
@@ -251,26 +251,25 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    Stats.sprintMultiplier = 1.5f;
-                    Stats.staminaSprintCostSec = 15;
+                    StatsManager.sprintMultiplier = 1.5f;
+                    StatsManager.staminaSprintCostSec = 15;
 
-                    Stats.staminaRegenSec = 20;
-                    Stats.staminaUnlockSec = 1.5f;
+                    StatsManager.staminaRegenSec = 20;
+                    StatsManager.staminaUnlockSec = 1.5f;
 
-                    Stats.staminaAttackHitCostMultiplier = 25;
+                    StatsManager.staminaAttackHitCostMultiplier = 25;
 
-                    Stats.rollMultiplier = 2f;
-                    Stats.staminaRollCostSec = 200;
+                    StatsManager.rollMultiplier = 2f;
+                    StatsManager.staminaRollCostSec = 200;
 
-                    Stats.jumpSpeed = 2.8f;
-                    Stats.staminaJumpCostSec = 60;
+                    StatsManager.jumpSpeed = 2.8f;
+                    StatsManager.staminaJumpCostSec = 60;
 
-                    Stats.maxHP = 100;
-                    Stats.maxSpeed = 0.5f;
-                    Stats.maxMana = 100;
-                    Stats.maxStamina = 100;
-                    Stats.MaxPoise = 100;
-                    Stats.PoiseRegenSec = 10;
+                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+
+                    StatsManager.maxSpeed = 0.5f;
+                    StatsManager.MaxPoise = 100;
+                    StatsManager.PoiseRegenSec = 10;
 
                     break;
 
@@ -279,31 +278,30 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    Stats.sprintMultiplier = 1.5f;
-                    Stats.staminaSprintCostSec = 15;
+                    StatsManager.sprintMultiplier = 1.5f;
+                    StatsManager.staminaSprintCostSec = 15;
 
-                    Stats.staminaRegenSec = 20;
-                    Stats.staminaUnlockSec = 1.5f;
+                    StatsManager.staminaRegenSec = 20;
+                    StatsManager.staminaUnlockSec = 1.5f;
 
-                    Stats.staminaAttackHitCostMultiplier = 25;
+                    StatsManager.staminaAttackHitCostMultiplier = 25;
 
-                    Stats.rollMultiplier = 2f;
-                    Stats.staminaRollCostSec = 200;
+                    StatsManager.rollMultiplier = 2f;
+                    StatsManager.staminaRollCostSec = 200;
 
-                    Stats.jumpSpeed = 2.8f;
-                    Stats.staminaJumpCostSec = 60;
+                    StatsManager.jumpSpeed = 2.8f;
+                    StatsManager.staminaJumpCostSec = 60;
 
-                    Stats.maxHP = 100;
-                    Stats.maxSpeed = 0.5f;
-                    Stats.maxMana = 100;
-                    Stats.maxStamina = 100;
-                    Stats.MaxPoise = 100;
-                    Stats.PoiseRegenSec = 10;
+                    StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+
+                    StatsManager.maxSpeed = 0.5f;
+                    StatsManager.MaxPoise = 100;
+                    StatsManager.PoiseRegenSec = 10;
 
                     break;
             }
 
-            Stats.Refill();
+            StatsManager.Refill();
 
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
         }

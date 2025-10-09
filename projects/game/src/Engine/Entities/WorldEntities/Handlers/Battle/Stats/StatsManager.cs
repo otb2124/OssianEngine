@@ -6,17 +6,10 @@ using Utils;
 
 namespace Entities
 {
-    public class EntityStats
+    public class StatsManager
     {
-        //indicators
-        public float maxHP;
-        public float HP;
+        public IndicatorStats IndicatorStats;
 
-        public float maxMana;
-        public float mana;
-
-        public float maxStamina;
-        public float stamina;
         public float staminaRegenSec;
         public float staminaSprintCostSec;
         public float staminaJumpCostSec;
@@ -103,9 +96,7 @@ namespace Entities
 
         public void Refill()
         {
-            HP = maxHP;
-            mana = maxMana;
-            stamina = maxStamina;
+            IndicatorStats.Refill();
             speed = maxSpeed;
             Poise = MaxPoise;
         }
@@ -131,7 +122,7 @@ namespace Entities
 
             OnStaminaRegen = false;
 
-            if(stamina < maxStamina && !OnUsingStamina)
+            if(IndicatorStats.Stamina < IndicatorStats.MaxStamina && !OnUsingStamina)
             {
                 staminaUnlockCounter++;
 
@@ -140,11 +131,11 @@ namespace Entities
                     OnStaminaRegen = true;
                 }
 
-                stamina+=staminaRegenSec/ (float)Graphics.Graphics.UpdatesPerSecond;
+                IndicatorStats.Stamina +=staminaRegenSec/ (float)Graphics.Graphics.UpdatesPerSecond;
 
                 if(GameStateManager.IsGod)
                 {
-                    stamina += maxStamina;
+                    IndicatorStats.Stamina += IndicatorStats.MaxStamina;
                 }
             }
             else
@@ -155,7 +146,7 @@ namespace Entities
 
         public void ReceiveDamage(float amount)
         {
-            HP -= amount;
+            IndicatorStats.HP -= amount;
         }
 
         public void ReceivePoiseDamage(float amount)
@@ -303,7 +294,7 @@ namespace Entities
             }
 
             // Reset highestJumpY when grounded
-            if (ent.Stats.IsGrounded)
+            if (ent.StatsManager.IsGrounded)
             {
                 ent.highestJumpY = float.MinValue;
             }
@@ -312,7 +303,7 @@ namespace Entities
 
         public void UpdateFly(StatsEntity ent)
         {
-            if(ent.Stats.IsGrounded)
+            if(ent.StatsManager.IsGrounded)
             {
                 LandPoint = ent.Model.Body.Position.Y;
                 CurrentFlyHeightPointOverHead = FlyHeightPointOverHead;
@@ -357,9 +348,9 @@ namespace Entities
 
         public void SpendStatsForBattleHit(BattleEntity ent)
         {
-            stamina -= BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(ent);
-            mana -= BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent);
-            ent.Stats.statsPerAttackHitSpent = true;
+            IndicatorStats.Stamina -= BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(ent);
+            IndicatorStats.Mana -= BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent);
+            ent.StatsManager.statsPerAttackHitSpent = true;
         }
 
 
@@ -383,7 +374,7 @@ namespace Entities
 
         public bool CheckDead()
         {
-            return HP <= 0;
+            return IndicatorStats.HP <= 0;
         }
     }
 }

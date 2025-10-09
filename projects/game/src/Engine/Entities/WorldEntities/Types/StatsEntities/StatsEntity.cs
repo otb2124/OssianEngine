@@ -12,7 +12,7 @@ namespace Entities
     public class StatsEntity : PhysicalEntity
     {
 
-        public EntityStats Stats;
+        public StatsManager StatsManager;
         public Inventory Inventory;
         public DropInventory DropInventory;
 
@@ -60,7 +60,7 @@ namespace Entities
 
         public override void Update()
         {
-            if(Stats.CheckDead())
+            if(StatsManager.CheckDead())
             {
                 Die();
                 return;
@@ -74,24 +74,24 @@ namespace Entities
 
             if (CanRegensStamina)
             {
-                Stats.RegenStamina();
-                Stats.OnUsingStamina = false;
+                StatsManager.RegenStamina();
+                StatsManager.OnUsingStamina = false;
             }
             if (CanUpdateIFrames)
             {
-                Stats.UpdateInvincibleFrames();
+                StatsManager.UpdateInvincibleFrames();
             }
             if(CanFall)
             {
-                Stats.UpdateFallen(this.Model);
+                StatsManager.UpdateFallen(this.Model);
             }
             if(CanHangLedges)
             {
-                Stats.UpdateLedgeHanging(this);
+                StatsManager.UpdateLedgeHanging(this);
             }
             if(CanFly)
             {
-                Stats.UpdateFly(this);
+                StatsManager.UpdateFly(this);
             }
 
             if(Model.UpdatesSurroundingRectangles)
@@ -99,8 +99,8 @@ namespace Entities
                 Model.UpdateSurroundingRectangles();
             }
             
-            Stats.UpdateDescending(this);
-            Stats.UpdatePickup();
+            StatsManager.UpdateDescending(this);
+            StatsManager.UpdatePickup();
 
             base.Update();
         }
@@ -108,7 +108,7 @@ namespace Entities
 
         public virtual void SetStats()
         {
-            Stats = new EntityStats();
+            StatsManager = new StatsManager();
             EntityFraction = EntityFractions.NEUTRAL;
             //BloodDropParticle = ParticleSet.ParticleSets.NONE;
 

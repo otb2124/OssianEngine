@@ -153,21 +153,22 @@ namespace Entities
             CanFall = false;
             UpdatesModelStates = false;
 
-            Stats.maxHP = 5;
-            Stats.maxSpeed = 2f;
-            Stats.jumpSpeed = 2.5f;
-            Stats.MaxPoise = 100f;
-            Stats.PoiseRegenSec = 3;
+            StatsManager.IndicatorStats = new IndicatorStats(5, 0, 0);
+            
+            StatsManager.maxSpeed = 2f;
+            StatsManager.jumpSpeed = 2.5f;
+            StatsManager.MaxPoise = 100f;
+            StatsManager.PoiseRegenSec = 3;
 
-            Stats.BodyKnockbackPower = 1;
-            Stats.BodyPhysDamage = 5;
-            Stats.BodyStaminaHitCost = 25;
-            Stats.BodyPoiseDamage = 20;
+            StatsManager.BodyKnockbackPower = 1;
+            StatsManager.BodyPhysDamage = 5;
+            StatsManager.BodyStaminaHitCost = 25;
+            StatsManager.BodyPoiseDamage = 20;
 
-            Stats.IsInvincible = true;
-            Stats.invincibleFramesSec = 0.5f;
+            StatsManager.IsInvincible = true;
+            StatsManager.invincibleFramesSec = 0.5f;
 
-            Stats.Refill();
+            StatsManager.Refill();
         }
 
         public virtual void UpdateProjectile()
@@ -185,7 +186,7 @@ namespace Entities
                 Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
                 Model.Body.linearVelocity = FlatVector.Zero;
 
-                Vector2 velocity = normalizedDirection * Stats.speed;
+                Vector2 velocity = normalizedDirection * StatsManager.speed;
                 Model.Body.Move(FlatConverter.ToFlatVector(velocity));
 
                 if (MoveDirection != Vector2.Zero)
@@ -197,7 +198,7 @@ namespace Entities
 
             if (UpdateType == ProjectileUpdateTypes.TIMER || UpdateType == ProjectileUpdateTypes.MOVE_TIMER)
             {
-                Stats.HP -= 1f * (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
+                StatsManager.IndicatorStats.HP -= 1f * (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
             }
 
             if (!CanRichochet)
