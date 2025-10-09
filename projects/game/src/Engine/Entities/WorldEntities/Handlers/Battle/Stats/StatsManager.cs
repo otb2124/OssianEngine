@@ -8,74 +8,44 @@ namespace Entities
 {
     public class StatsManager
     {
+
+
         public IndicatorStats IndicatorStats;
+        public SprintStats SprintStats;
+        public RollStats RollStats;
+        public ExperienceStats ExperienceStats;
+        public MovementSpeedStats MovementSpeedStats;
+        public JumpStats JumpStats;
+        public FlyStats FlyStats;
+        public AggroStats AggroStats;
+        public PoiseStats PoiseStats;
+        public BattleHitStatsSet BodyHitStatsSet;
 
-        public float staminaRegenSec;
-        public float staminaSprintCostSec;
-        public float staminaJumpCostSec;
-        public float staminaRollCostSec;
- 
-        public int staminaUnlockCounter = 0;
-        public float staminaUnlockSec;
-
-        //attack
-        public float staminaAttackHitCostMultiplier;
-        public bool statsPerAttackHitSpent = false;
-
-        //lvl
-        public int currentLvl = 0;
-        public int currentXP = 0;
-
-        //speed jump roll
-        public float maxSpeed;
-        public float speed;
-        public float jumpSpeed;
-        public float flySpeed;
+        public StatsBattleHitSpendHandler StatsBattleHitSpendHandler;
+        public StaminaRegenerationHandler StaminaRegenerationHandler;
+        public InvincibleFramesHandler InvincibleFramesHandler;
+        public FallStatesHandler FallStatesHandler;
+        public LedgeHangingHandler LedgeHangingHandler;
 
         public float DescendingMultiplier;
         public bool IsJumpDescending;
         public bool AllowJumpDescending;
         public bool AllowJumpDescendingLock = true;
+
         public bool IsGrounded;
         public bool IsTouchingCeiling;
         public bool IsTouchingWalls;
+
+
         public float MaxDescendingSec;
         public int DescendingCounter = 0;
-        public bool AllowHangingOnLedge = true;
-        public int HangingCounter = 0;
-        public int UnHangingCounter = 0;
 
-        public float rollMultiplier;
-        public float sprintMultiplier;
 
-        //TODO: REPLACE WITH DAMAGEDATA OBJECT
-        public float BodyPhysDamage;
-        public float BodyMagicDamage;
-        public float BodyKnockbackPower;
-        public float BodyPoiseDamage;
-        public float BodyStaminaHitCost;
-        public float BodyManaHitCost;
-
-        public float Poise;
-        public float MaxPoise;
-        public float PoiseRegenSec;
-
-        public bool OnStaminaRegen = false;
-        public bool OnUsingStamina = false;
+        
 
         public bool AllowPickup = true;
         public int PickupCounter = 0;
         public float PickupLockSec = 0.25f;
-
-        public float invincibleFramesSec = 1f;
-        public int invincibleCounter = 0;
-        public bool IsInvincible = true;
-
-        public bool IsFalling = false;
-
-        public bool IsFallen = false;
-        public float FallenTimer = 0f;
-        public float FallenDurationAllowedSec = 3f;
 
         public bool FlyingUpwards = true;
         public int FlyingCounter = 0;
@@ -84,64 +54,44 @@ namespace Entities
         public float CurrentFlyHeightPointOverHead = 50f;
         public float LandPoint;
 
-        public float DistanceToAggro = -1f;
-        public float DistanceToUnaggro = -1f;
-
-        public Dictionary<int, int> levelExpCost = new()
-        {
-            {1, 100 },
-            {2, 250 },
-            {3, 500 }
-        };
 
         public void Refill()
         {
-            IndicatorStats.Refill();
-            speed = maxSpeed;
-            Poise = MaxPoise;
-        }
-
-
-        public void UpdateInvincibleFrames()
-        {
-            if(IsInvincible)
+            if(IndicatorStats != null)
             {
-                invincibleCounter++;
-                if(invincibleCounter > invincibleFramesSec* Graphics.Graphics.UpdatesPerSecond)
-                {
-                    IsInvincible = false;
-                    invincibleCounter = 0;
-                }
+                IndicatorStats.Refill();
+            }
+            if(MovementSpeedStats != null)
+            {
+                MovementSpeedStats.Refill();
+            }
+            if(PoiseStats != null)
+            {
+                PoiseStats.Refill();
             }
         }
 
         public void RegenStamina()
         {
-            if (statsPerAttackHitSpent)
-                return;
-
-            OnStaminaRegen = false;
-
-            if(IndicatorStats.Stamina < IndicatorStats.MaxStamina && !OnUsingStamina)
+            if (StatsBattleHitSpendHandler != null)
             {
-                staminaUnlockCounter++;
-
-                if(staminaUnlockCounter < staminaUnlockSec*Graphics.Graphics.UpdatesPerSecond)
+                if(StatsBattleHitSpendHandler.StatsPerAttackHitSpent)
                 {
-                    OnStaminaRegen = true;
-                }
-
-                IndicatorStats.Stamina +=staminaRegenSec/ (float)Graphics.Graphics.UpdatesPerSecond;
-
-                if(GameStateManager.IsGod)
-                {
-                    IndicatorStats.Stamina += IndicatorStats.MaxStamina;
+                    return;
                 }
             }
-            else
-            {
-                staminaUnlockCounter = 0;
-            }
+
+            StaminaRegenerationHandler.RegenStamina(IndicatorStats);
+        }
+
+        public void SpendStatsForBattleHit(BattleEntity ent)
+        {
+            StatsBattleHitSpendHandler.SpendStatsForBattleHit(IndicatorStats, ent);
+        }
+
+        public void UpdateInvincibleFrames()
+        {
+            InvincibleFramesHandler.UpdateInvincibleFrames();
         }
 
         public void ReceiveDamage(float amount)
@@ -151,98 +101,17 @@ namespace Entities
 
         public void ReceivePoiseDamage(float amount)
         {
-            Poise -= amount;
+            PoiseStats.Poise -= amount;
         }
 
         public void UpdateFallen(Resources.Model model)
         {
-
-            if (model.Body.Angle > 0.5f || model.Body.Angle < -0.5f || LostPoise())
-            {
-                if (!model.Body.IsColliding)
-                {
-                    if (!IsFallen)
-                    {
-                        IsFalling = true;
-                        model.ModelState = Utils.ModelStates.FALLING;
-                    }
-                }
-                else
-                {
-                    IsFallen = true;
-                    IsFalling = false;
-                    model.ModelState = Utils.ModelStates.FALLEN;
-                }
-            }
-
-            if (IsFallen)
-            {
-                FallenTimer++;
-                if (FallenTimer >= FallenDurationAllowedSec * Graphics.Graphics.UpdatesPerSecond)
-                {
-                    IsFallen = false;
-                    FallenTimer = 0f;
-                    model.Body.Move(new FlatVector(0, 10f));
-                    model.Body.RotateTo(0f);
-
-                    //regen Poise
-                    Poise = MaxPoise;
-                }
-            }
+            FallStatesHandler.UpdateFallen(model, PoiseStats);
         }
 
-        public void UpdateLedgeHanging(StatsEntity ent)
+        public void UpdateLedgeHanging(Resources.Model model)
         {
-            if(!AllowHangingOnLedge && ent.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
-            {
-                UnHangingCounter++;
-
-                if (UnHangingCounter > 0.5f * Graphics.Graphics.UpdatesPerSecond)
-                {
-                    AllowHangingOnLedge = true;
-                    UnHangingCounter = 0;
-                }
-            }
-
-
-            //removed istouchingwalls condition
-            if (IsTouchingWalls)
-            {
-                LedgeEntity ledge = CollisionHelper.GetAnyLedges(ent.Model.Body);
-                if (ledge != null && AllowHangingOnLedge)
-                {
-                    ent.Model.ModelState = ModelStates.HANGING_ON_LEDGE;
-                    ent.Model.Body.MoveTo(FlatConverter.ToFlatVector(ledge.HangingPosition));
-
-                    HangingCounter++;
-                    if (HangingCounter > 0.25f * Graphics.Graphics.UpdatesPerSecond)
-                    {
-                        AllowHangingOnLedge = false;
-                        HangingCounter = 0;
-                    }
-
-                    //TODO FIX THE LEDGES DIRECTION SWAP
-                    if (ledge.Model.Direction == Directions.RIGHT)
-                    {
-                        ent.Model.AnimationState = AnimationStates.HANGING_ON_LEDGE_RIGHT;
-                    }
-                    else
-                    {
-                        ent.Model.AnimationState = AnimationStates.HANGING_ON_LEDGE_LEFT;
-                    }
-                }
-
-
-                //autoclimb case
-                if (ledge != null && !AllowHangingOnLedge)
-                {
-                    if(ledge.AutoClimbing)
-                    {
-                        ent.Model.Body.MoveTo(FlatConverter.ToFlatVector(ledge.AutoClimbingDestination));
-                        ent.Model.ModelState = ModelStates.IDLE;
-                    }
-                }
-            }
+            LedgeHangingHandler.UpdateLedgeHanging(model, IsTouchingWalls);
         }
 
 
@@ -346,14 +215,6 @@ namespace Entities
         }
 
 
-        public void SpendStatsForBattleHit(BattleEntity ent)
-        {
-            IndicatorStats.Stamina -= BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(ent);
-            IndicatorStats.Mana -= BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent);
-            ent.StatsManager.statsPerAttackHitSpent = true;
-        }
-
-
         public void UpdatePickup()
         {
             if(!AllowPickup)
@@ -369,7 +230,7 @@ namespace Entities
 
         public bool LostPoise()
         {
-            return Poise <= 0;
+            return PoiseStats.Poise <= 0;
         }
 
         public bool CheckDead()

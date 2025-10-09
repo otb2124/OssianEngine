@@ -71,7 +71,7 @@ namespace Entities
         }
     }
 
-    public class BattleHitStatsData
+    public class BattleHitStatsSet
     {
         //TODO: add static stats effects like poison damage (if poison damage > poison def = add debuf poisoned)
         public DamageSet DamageSet;
@@ -80,7 +80,7 @@ namespace Entities
         public float PoiseDamage;
         public float KnockbackPower;
 
-        public BattleHitStatsData(DamageSet damageSet, DefenseSet defenseSet, StatsCostSet staminaCostSet, float poiseDamage, float knockBackPower)
+        public BattleHitStatsSet(DamageSet damageSet, DefenseSet defenseSet, StatsCostSet staminaCostSet, float poiseDamage, float knockBackPower)
         {
             DamageSet = damageSet;
             DefenseSet = defenseSet;
@@ -89,7 +89,7 @@ namespace Entities
             KnockbackPower = knockBackPower;
         }
 
-        public BattleHitStatsData()
+        public BattleHitStatsSet()
         {
             DamageSet = new DamageSet(0, 0);
             DefenseSet = new DefenseSet(0, 0);
@@ -98,13 +98,13 @@ namespace Entities
             KnockbackPower = 0f;
         }
 
-        public static BattleHitStatsData One;
-        public static BattleHitStatsData Zero;
+        public static BattleHitStatsSet One;
+        public static BattleHitStatsSet Zero;
 
-        static BattleHitStatsData()
+        static BattleHitStatsSet()
         {
-            One = new BattleHitStatsData(DamageSet.One, DefenseSet.One, StatsCostSet.One, 1, 1);
-            Zero = new BattleHitStatsData(DamageSet.Zero, DefenseSet.Zero, StatsCostSet.Zero, 0, 0);
+            One = new BattleHitStatsSet(DamageSet.One, DefenseSet.One, StatsCostSet.One, 1, 1);
+            Zero = new BattleHitStatsSet(DamageSet.Zero, DefenseSet.Zero, StatsCostSet.Zero, 0, 0);
         }
 
     }

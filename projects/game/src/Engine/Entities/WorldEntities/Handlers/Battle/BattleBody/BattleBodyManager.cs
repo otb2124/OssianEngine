@@ -113,23 +113,23 @@ namespace Entities
            hand == WeaponHands.LEFT ? BattleBodies[0] : BattleBodies[1];
 
 
-        public BattleHitStatsData GetCurrentBattleHitData()
+        public BattleHitStatsSet GetCurrentBattleHitData()
         {
             return BattleBodies[0].Combo.GetCurrentHit().BattleHitDataMult;
         }
 
-        public BattleHitStatsData GetCurrentBattleHitData(EquipmentManager equipmentManager)
+        public BattleHitStatsSet GetCurrentBattleHitData(EquipmentManager equipmentManager)
         {
             if(HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit() != null)
             {
-                BattleHitStatsData data = HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit().BattleHitDataMult;
+                BattleHitStatsSet data = HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit().BattleHitDataMult;
                 if (data != null)
                 {
                     return data;
                 }
             }
 
-            return BattleHitStatsData.One;
+            return BattleHitStatsSet.One;
         }
     }
 }

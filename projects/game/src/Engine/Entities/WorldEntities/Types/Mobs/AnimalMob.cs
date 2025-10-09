@@ -65,19 +65,21 @@ namespace Entities
                     CanFall = true;
 
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(3, 1.5f);
 
-                    StatsManager.maxSpeed = 0.25f;
-                    StatsManager.jumpSpeed = 2.5f;
-                    StatsManager.MaxPoise = 100f;
-                    StatsManager.PoiseRegenSec = 3;
+                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.25f);
 
-                    StatsManager.BodyKnockbackPower = 1;
-                    StatsManager.BodyPhysDamage = 5;
-                    StatsManager.BodyStaminaHitCost = 25;
-                    StatsManager.BodyPoiseDamage = 20;
+                    StatsManager.PoiseStats = new PoiseStats(100, 3);
 
-                    StatsManager.DistanceToAggro = 200f;
-                    StatsManager.DistanceToUnaggro = 500f;
+                    StatsManager.JumpStats = new JumpStats(2.5f, 60);
+
+                    StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
+
+                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
+
+                    StatsManager.FallStatesHandler = new FallStatesHandler();
+
+                    StatsManager.AggroStats = new AggroStats(200, 500);
                     break;
 
                 case AnimalMobs.BAT:
@@ -88,21 +90,20 @@ namespace Entities
                     CanFall = true;
 
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(3, 1.5f);
 
-                    StatsManager.maxSpeed = 0.5f;
-                    StatsManager.DistanceToAggro = 200f;
-                    StatsManager.jumpSpeed = 2.5f;
-                    StatsManager.MaxPoise = 100f;
-                    StatsManager.PoiseRegenSec = 3;
+                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
+                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
+                    StatsManager.PoiseStats = new PoiseStats(100, 3);
 
-                    StatsManager.BodyKnockbackPower = 1;
-                    StatsManager.BodyPhysDamage = 5;
-                    StatsManager.BodyStaminaHitCost = 25;
-                    StatsManager.BodyPoiseDamage = 20;
+                    StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
+                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
 
-                    StatsManager.flySpeed = 0.5f;
-                    StatsManager.DistanceToUnaggro = 500f;
+                    StatsManager.FallStatesHandler = new FallStatesHandler();
+
+                    StatsManager.FlyStats = new FlyStats(0.5f);
+                    StatsManager.AggroStats = new AggroStats(200, 500);
 
                     break;
             }

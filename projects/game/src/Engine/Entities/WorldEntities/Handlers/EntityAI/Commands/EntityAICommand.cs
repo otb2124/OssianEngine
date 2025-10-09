@@ -196,7 +196,7 @@ namespace Entities
             if (distance > (stopDistance ?? defaultStopDistance))
             {
                 directionToEntity.Normalize();
-                float speed = Entity.StatsManager?.speed ?? 1f;
+                float speed = Entity.StatsManager?.MovementSpeedStats.MovementSpeed ?? 1f;
                 Vector2 velocity = directionToEntity * speed;
                 Entity.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
                 Entity.Model.ModelState = ModelStates.MOVING;

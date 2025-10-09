@@ -36,7 +36,7 @@ namespace Physics
                 {
                     if (toEnt.Model.OwnerId != ((ProjectileEntity)bodyA.Owner).OwnerID)
                     {
-                        if (!toEnt.StatsManager.IsInvincible)
+                        if (!toEnt.StatsManager.InvincibleFramesHandler.IsInvincible)
                         {
                             Entities.BattleHitHandler.HandleHit((BattleEntity)bodyB.Owner, (ProjectileEntity)bodyA.Owner);
                         }
@@ -51,7 +51,7 @@ namespace Physics
                 {
                     if(toEnt.Model.OwnerId != ((ProjectileEntity)bodyB.Owner).OwnerID)
                     {
-                        if (!toEnt.StatsManager.IsInvincible)
+                        if (!toEnt.StatsManager.InvincibleFramesHandler.IsInvincible)
                         {
                             Entities.BattleHitHandler.HandleHit((BattleEntity)bodyA.Owner, (ProjectileEntity)bodyB.Owner);
                         }

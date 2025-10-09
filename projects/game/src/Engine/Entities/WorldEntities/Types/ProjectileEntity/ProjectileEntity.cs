@@ -52,7 +52,7 @@ namespace Entities
         public bool CanRichochet = true;
         public float RicochetCooldownTimer = 0f;
 
-        public BattleHitStatsData BattleDamageStatsData;
+        public BattleHitStatsSet BattleDamageStatsData;
 
         public int OwnerID;
 
@@ -128,7 +128,7 @@ namespace Entities
             
         }
 
-        public virtual void UpdateProjectileStats(BattleHitStatsData battleDamageStatsData, int ownerId)
+        public virtual void UpdateProjectileStats(BattleHitStatsSet battleDamageStatsData, int ownerId)
         {
             OwnerID = ownerId;
             BattleDamageStatsData = battleDamageStatsData;
@@ -154,19 +154,14 @@ namespace Entities
             UpdatesModelStates = false;
 
             StatsManager.IndicatorStats = new IndicatorStats(5, 0, 0);
-            
-            StatsManager.maxSpeed = 2f;
-            StatsManager.jumpSpeed = 2.5f;
-            StatsManager.MaxPoise = 100f;
-            StatsManager.PoiseRegenSec = 3;
+            StatsManager.MovementSpeedStats = new MovementSpeedStats(2f);
 
-            StatsManager.BodyKnockbackPower = 1;
-            StatsManager.BodyPhysDamage = 5;
-            StatsManager.BodyStaminaHitCost = 25;
-            StatsManager.BodyPoiseDamage = 20;
+            StatsManager.JumpStats = new JumpStats(2.8f, 60);
+            StatsManager.PoiseStats = new PoiseStats(100, 3);
 
-            StatsManager.IsInvincible = true;
-            StatsManager.invincibleFramesSec = 0.5f;
+            StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
+
+            StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(0.5f);
 
             StatsManager.Refill();
         }
@@ -186,7 +181,7 @@ namespace Entities
                 Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
                 Model.Body.linearVelocity = FlatVector.Zero;
 
-                Vector2 velocity = normalizedDirection * StatsManager.speed;
+                Vector2 velocity = normalizedDirection * StatsManager.MovementSpeedStats.MovementSpeed;
                 Model.Body.Move(FlatConverter.ToFlatVector(velocity));
 
                 if (MoveDirection != Vector2.Zero)

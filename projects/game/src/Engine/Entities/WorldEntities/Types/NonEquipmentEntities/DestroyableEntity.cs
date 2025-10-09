@@ -34,6 +34,8 @@ namespace Entities
             CanFall = false;
 
             StatsManager.IndicatorStats = new IndicatorStats(100, 0, 0);
+            StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
+
             StatsManager.Refill();
         }
 

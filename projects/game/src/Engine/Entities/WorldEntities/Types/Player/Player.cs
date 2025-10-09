@@ -26,27 +26,27 @@ namespace Entities
             CanFall = true;
             CanHangLedges = true;
 
-            StatsManager.sprintMultiplier = 1.5f;
-            StatsManager.staminaSprintCostSec = 15;
+            StatsManager.SprintStats = new SprintStats(1.5f, 15);
 
-            StatsManager.staminaRegenSec = 20;
-            StatsManager.staminaUnlockSec = 1.5f;
+            StatsManager.RollStats = new RollStats(2, 200);
 
-            StatsManager.staminaAttackHitCostMultiplier = 1f;
-
-            StatsManager.rollMultiplier = 2f;
-            StatsManager.staminaRollCostSec = 200;
-
-            StatsManager.jumpSpeed = 2.8f;
             StatsManager.DescendingMultiplier = 1f;
-            StatsManager.staminaJumpCostSec = 60;
+
+            StatsManager.JumpStats = new JumpStats(2.8f, 60);
 
             StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+            StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
 
-            StatsManager.maxSpeed = 1;
-            StatsManager.MaxPoise = 100;
-            StatsManager.PoiseRegenSec = 10;
+            StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
+
+            StatsManager.MovementSpeedStats = new MovementSpeedStats(1f);
+            StatsManager.PoiseStats = new PoiseStats(100, 10);
             StatsManager.MaxDescendingSec = 0.5f;
+
+            StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+
+            StatsManager.FallStatesHandler = new FallStatesHandler();
+            StatsManager.LedgeHangingHandler = new LedgeHangingHandler();
 
             StatsManager.Refill();
 

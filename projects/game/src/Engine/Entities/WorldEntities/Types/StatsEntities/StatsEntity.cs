@@ -75,7 +75,6 @@ namespace Entities
             if (CanRegensStamina)
             {
                 StatsManager.RegenStamina();
-                StatsManager.OnUsingStamina = false;
             }
             if (CanUpdateIFrames)
             {
@@ -83,11 +82,11 @@ namespace Entities
             }
             if(CanFall)
             {
-                StatsManager.UpdateFallen(this.Model);
+                StatsManager.UpdateFallen(Model);
             }
             if(CanHangLedges)
             {
-                StatsManager.UpdateLedgeHanging(this);
+                StatsManager.UpdateLedgeHanging(Model);
             }
             if(CanFly)
             {

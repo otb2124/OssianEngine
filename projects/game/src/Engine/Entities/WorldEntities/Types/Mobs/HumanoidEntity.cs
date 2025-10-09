@@ -189,33 +189,31 @@ namespace Entities
             switch(Type)
             {
                 case HumanoidMobs.BANDIT:
+
                     CanRegensStamina = true;
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    StatsManager.sprintMultiplier = 1.5f;
-                    StatsManager.staminaSprintCostSec = 15;
+                    StatsManager.SprintStats = new SprintStats(1.5f, 15);
 
-                    StatsManager.staminaRegenSec = 20;
-                    StatsManager.staminaUnlockSec = 1.5f;
+                    StatsManager.RollStats = new RollStats(2, 200);
 
-                    StatsManager.staminaAttackHitCostMultiplier = 25;
+                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
 
-                    StatsManager.rollMultiplier = 2f;
-                    StatsManager.staminaRollCostSec = 200;
-
-                    StatsManager.jumpSpeed = 2.8f;
-                    StatsManager.staminaJumpCostSec = 60;
-
-                    StatsManager.maxSpeed = 0.5f;
+                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
 
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
 
-                    StatsManager.MaxPoise = 100;
-                    StatsManager.PoiseRegenSec = 10;
+                    StatsManager.PoiseStats = new PoiseStats(100, 10);
 
-                    StatsManager.DistanceToAggro = 200f;
-                    StatsManager.DistanceToUnaggro = 500f;
+                    StatsManager.AggroStats = new AggroStats(200, 500);
+
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+
+                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
+
+                    StatsManager.FallStatesHandler = new FallStatesHandler();
                     break;
 
                 case HumanoidMobs.CITIZEN:
@@ -223,27 +221,23 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    StatsManager.sprintMultiplier = 1.5f;
-                    StatsManager.staminaSprintCostSec = 15;
+                    StatsManager.SprintStats = new SprintStats(1.5f, 15);
 
-                    StatsManager.staminaRegenSec = 20;
-                    StatsManager.staminaUnlockSec = 1.5f;
+                    StatsManager.RollStats = new RollStats(2, 200);
 
-                    StatsManager.staminaAttackHitCostMultiplier = 25;
+                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
 
-                    StatsManager.rollMultiplier = 2f;
-                    StatsManager.staminaRollCostSec = 200;
-
-                    StatsManager.jumpSpeed = 2.8f;
-                    StatsManager.staminaJumpCostSec = 60;
-
-                    StatsManager.maxSpeed = 0.5f;
+                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
 
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
 
-                    StatsManager.MaxPoise = 100;
-                    StatsManager.PoiseRegenSec = 10;
+                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
 
+                    StatsManager.PoiseStats = new PoiseStats(100, 10);
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+
+                    StatsManager.FallStatesHandler = new FallStatesHandler();
                     break;
 
                 case HumanoidMobs.VIGO:
@@ -251,26 +245,22 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    StatsManager.sprintMultiplier = 1.5f;
-                    StatsManager.staminaSprintCostSec = 15;
+                    StatsManager.SprintStats = new SprintStats(1.5f, 15);
 
-                    StatsManager.staminaRegenSec = 20;
-                    StatsManager.staminaUnlockSec = 1.5f;
+                    StatsManager.RollStats = new RollStats(2, 200);
 
-                    StatsManager.staminaAttackHitCostMultiplier = 25;
-
-                    StatsManager.rollMultiplier = 2f;
-                    StatsManager.staminaRollCostSec = 200;
-
-                    StatsManager.jumpSpeed = 2.8f;
-                    StatsManager.staminaJumpCostSec = 60;
+                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
 
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
 
-                    StatsManager.maxSpeed = 0.5f;
-                    StatsManager.MaxPoise = 100;
-                    StatsManager.PoiseRegenSec = 10;
+                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
 
+                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
+                    StatsManager.PoiseStats = new PoiseStats(100, 10);
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+
+                    StatsManager.FallStatesHandler = new FallStatesHandler();
                     break;
 
                 case HumanoidMobs.WANEGRO:
@@ -278,26 +268,22 @@ namespace Entities
                     CanUpdateIFrames = true;
                     CanFall = true;
 
-                    StatsManager.sprintMultiplier = 1.5f;
-                    StatsManager.staminaSprintCostSec = 15;
+                    StatsManager.SprintStats = new SprintStats(1.5f, 15);
 
-                    StatsManager.staminaRegenSec = 20;
-                    StatsManager.staminaUnlockSec = 1.5f;
+                    StatsManager.RollStats = new RollStats(2, 200);
 
-                    StatsManager.staminaAttackHitCostMultiplier = 25;
-
-                    StatsManager.rollMultiplier = 2f;
-                    StatsManager.staminaRollCostSec = 200;
-
-                    StatsManager.jumpSpeed = 2.8f;
-                    StatsManager.staminaJumpCostSec = 60;
+                    StatsManager.JumpStats = new JumpStats(2.8f, 60);
 
                     StatsManager.IndicatorStats = new IndicatorStats(100, 100, 100);
+                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
 
-                    StatsManager.maxSpeed = 0.5f;
-                    StatsManager.MaxPoise = 100;
-                    StatsManager.PoiseRegenSec = 10;
+                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
 
+                    StatsManager.MovementSpeedStats = new MovementSpeedStats(0.5f);
+                    StatsManager.PoiseStats = new PoiseStats(100, 10);
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+
+                    StatsManager.FallStatesHandler = new FallStatesHandler();
                     break;
             }
 
