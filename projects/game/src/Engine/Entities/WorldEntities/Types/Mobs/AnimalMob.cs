@@ -80,6 +80,9 @@ namespace Entities
                     StatsManager.FallStatesHandler = new FallStatesHandler();
 
                     StatsManager.AggroStats = new AggroStats(200, 500);
+
+                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
+                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
 
                 case AnimalMobs.BAT:
@@ -104,6 +107,9 @@ namespace Entities
 
                     StatsManager.FlyStats = new FlyStats(0.5f);
                     StatsManager.AggroStats = new AggroStats(200, 500);
+
+                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
+                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
 
                     break;
             }

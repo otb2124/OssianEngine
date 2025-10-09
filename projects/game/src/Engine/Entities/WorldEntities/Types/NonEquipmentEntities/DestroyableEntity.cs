@@ -33,8 +33,10 @@ namespace Entities
             CanUpdateIFrames = true;
             CanFall = false;
 
+            StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
             StatsManager.IndicatorStats = new IndicatorStats(100, 0, 0);
             StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
+            StatsManager.DescencionHandler = new DescencionHandler(1f, 1f);
 
             StatsManager.Refill();
         }

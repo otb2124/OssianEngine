@@ -37,9 +37,9 @@ namespace Physics
         }
 
 
-        public static FlatBody GetAnyWalls(StatsEntity ent)
+        public static FlatBody GetAnyWalls(Resources.Model model)
         {
-            FlatBody candidate = GetAnyBodyAtRectangleForOtherBody(ent.Model.Body, ent.Model.SidingRectangle);
+            FlatBody candidate = GetAnyBodyAtRectangleForOtherBody(model.Body, model.SidingRectangle);
 
             if (candidate != null && candidate.Owner.IsWall)
             {
@@ -49,14 +49,14 @@ namespace Physics
             return null;
         }
 
-        public static FlatBody GetAnyGround(StatsEntity ent)
+        public static FlatBody GetAnyGround(Resources.Model model)
         {
-            return GetAnyBodyAtRectangleForOtherBody(ent.Model.Body, ent.Model.GroundingRectangle);
+            return GetAnyBodyAtRectangleForOtherBody(model.Body, model.GroundingRectangle);
         }
 
-        public static FlatBody GetAnyCeiling(StatsEntity ent)
+        public static FlatBody GetAnyCeiling(Resources.Model model)
         {
-            return GetAnyBodyAtRectangleForOtherBody(ent.Model.Body, ent.Model.CeilingRectangle);
+            return GetAnyBodyAtRectangleForOtherBody(model.Body, model.CeilingRectangle);
         }
 
         public static FlatBody GetSpecificEntityTypeBodyAtRectangleForOtherBody(FlatBody flatBody, RotatedRectangle rect, Type type)
@@ -103,18 +103,18 @@ namespace Physics
 
             return null;
         }
-        public static bool IsDescending(StatsEntity ent)
+        public static bool IsDescending(Resources.Model model)
         {
-            if (GetAnyGround(ent) == null)
+            if (GetAnyGround(model) == null)
             {
-                FlatBody body = ent.Model.Body;
+                FlatBody body = model.Body;
 
-                if (body.Position.Y > ent.HighestJumpY)
+                if (body.Position.Y > model.HighestJumpY)
                 {
-                    ent.HighestJumpY = body.Position.Y;
+                    model.HighestJumpY = body.Position.Y;
                     return false;
                 }
-                else if (body.Position.Y < ent.HighestJumpY)
+                else if (body.Position.Y < model.HighestJumpY)
                 {
                     return true;
                 }

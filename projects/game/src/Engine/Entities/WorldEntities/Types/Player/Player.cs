@@ -30,7 +30,8 @@ namespace Entities
 
             StatsManager.RollStats = new RollStats(2, 200);
 
-            StatsManager.DescendingMultiplier = 1f;
+            StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
+            StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
 
             StatsManager.JumpStats = new JumpStats(2.8f, 60);
 
@@ -41,7 +42,6 @@ namespace Entities
 
             StatsManager.MovementSpeedStats = new MovementSpeedStats(1f);
             StatsManager.PoiseStats = new PoiseStats(100, 10);
-            StatsManager.MaxDescendingSec = 0.5f;
 
             StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 

@@ -96,9 +96,10 @@ namespace Entities
             if(Model.UpdatesSurroundingRectangles)
             {
                 Model.UpdateSurroundingRectangles();
+                StatsManager.UpdateGCSStates(Model);
             }
             
-            StatsManager.UpdateDescending(this);
+            StatsManager.UpdateDescending(Model);
             StatsManager.UpdatePickup();
 
             base.Update();

@@ -26,22 +26,17 @@ namespace Entities
         public InvincibleFramesHandler InvincibleFramesHandler;
         public FallStatesHandler FallStatesHandler;
         public LedgeHangingHandler LedgeHangingHandler;
+        public DescencionHandler DescencionHandler;
+        public GCSRectanglesStatesHandler GCSRectanglesStatesHandler;
+        
+        
 
-        public float DescendingMultiplier;
-        public bool IsJumpDescending;
-        public bool AllowJumpDescending;
-        public bool AllowJumpDescendingLock = true;
-
-        public bool IsGrounded;
-        public bool IsTouchingCeiling;
-        public bool IsTouchingWalls;
-
-
-        public float MaxDescendingSec;
-        public int DescendingCounter = 0;
+        
 
 
         
+
+
 
         public bool AllowPickup = true;
         public int PickupCounter = 0;
@@ -111,68 +106,24 @@ namespace Entities
 
         public void UpdateLedgeHanging(Resources.Model model)
         {
-            LedgeHangingHandler.UpdateLedgeHanging(model, IsTouchingWalls);
+            LedgeHangingHandler.UpdateLedgeHanging(model, GCSRectanglesStatesHandler.IsTouchingWalls);
         }
 
 
-        public void UpdateDescending(StatsEntity ent)
+        public void UpdateGCSStates(Resources.Model model)
         {
-            IsGrounded = CollisionHelper.GetAnyGround(ent) != null;
-            IsTouchingCeiling = CollisionHelper.GetAnyCeiling(ent) != null;
-            IsTouchingWalls = CollisionHelper.GetAnyWalls(ent) != null;
+            GCSRectanglesStatesHandler.Update(model);
+        }
 
-            if(IsTouchingWalls)
-            {
-                IsTouchingCeiling = false;
-                IsGrounded = false;
-            }
-
-            if (ent.Model.ModelState == ModelStates.JUMPING ||
-                 ent.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
-                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING ||
-                 ent.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING)
-            {
-                IsJumpDescending = CollisionHelper.IsDescending(ent);
-            }
-            
-
-            if (AllowJumpDescendingLock && IsJumpDescending)
-            {
-                DescendingCounter++;
-                AllowJumpDescending = true;
-                if (DescendingCounter > MaxDescendingSec * Graphics.Graphics.UpdatesPerSecond)
-                {
-                    IsJumpDescending = false;
-                    AllowJumpDescendingLock = false;
-                    AllowJumpDescending = false;
-                    DescendingCounter = 0;
-                }
-            }
-            else
-            {
-                DescendingCounter = 0;
-            }
-
-
-            if(IsGrounded || IsTouchingCeiling)
-            {
-                IsJumpDescending = false;
-                AllowJumpDescendingLock = false;
-                AllowJumpDescending = false;
-                DescendingCounter = 0;
-            }
-
-            // Reset highestJumpY when grounded
-            if (ent.StatsManager.IsGrounded)
-            {
-                ent.highestJumpY = float.MinValue;
-            }
+        public void UpdateDescending(Resources.Model model)
+        {
+            DescencionHandler.UpdateDescending(model, GCSRectanglesStatesHandler);
         }
 
 
         public void UpdateFly(StatsEntity ent)
         {
-            if(ent.StatsManager.IsGrounded)
+            if(GCSRectanglesStatesHandler.IsGrounded)
             {
                 LandPoint = ent.Model.Body.Position.Y;
                 CurrentFlyHeightPointOverHead = FlyHeightPointOverHead;

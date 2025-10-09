@@ -214,6 +214,9 @@ namespace Entities
                     StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
 
                     StatsManager.FallStatesHandler = new FallStatesHandler();
+
+                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
+                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
 
                 case HumanoidMobs.CITIZEN:
@@ -238,6 +241,9 @@ namespace Entities
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 
                     StatsManager.FallStatesHandler = new FallStatesHandler();
+
+                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
+                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
 
                 case HumanoidMobs.VIGO:
@@ -261,6 +267,9 @@ namespace Entities
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 
                     StatsManager.FallStatesHandler = new FallStatesHandler();
+
+                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
+                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
 
                 case HumanoidMobs.WANEGRO:
@@ -284,6 +293,9 @@ namespace Entities
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 
                     StatsManager.FallStatesHandler = new FallStatesHandler();
+
+                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
+                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
                     break;
             }
 

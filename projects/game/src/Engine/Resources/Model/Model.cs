@@ -29,6 +29,13 @@ namespace Resources
 
         public int OwnerId;
 
+        public float highestJumpY = float.MinValue;
+        public float HighestJumpY
+        {
+            get => highestJumpY;
+            set => highestJumpY = value;
+        }
+
         public Model()
         {
         }
