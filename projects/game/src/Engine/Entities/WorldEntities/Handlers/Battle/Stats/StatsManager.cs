@@ -2,38 +2,35 @@
 {
     public class StatsManager
     {
-
-
-
         public ExperienceStats ExperienceStats;
         public BattleHitStatsSet BodyHitStatsSet;
 
-        /*
-        public EntityStat Health;
-        public EntityStat Mana;
-        public EntityStat Stamina;
-        public EntityStat RollSpeedMultiplier;
-        public EntityStat MovementSpeedMultiplier;
-        public EntityStat JumpSpeedMultiplier;
-        public EntityStat FlySpeedMultiplier;
-        public EntityStat SprintSpeedMultiplier;
-        public EntityStat Poise;
-        public EntityStat AggroDistance
-        public EntityStat UnAggroDistance
-        */
-
         public EntityStat[] Stats;
+        public EntityStatFeature[] StatFeatures;
 
         public StatsBattleHitSpendHandler StatsBattleHitSpendHandler;
-        public StaminaRegenerationHandler StaminaRegenerationHandler;
-        public InvincibleFramesHandler InvincibleFramesHandler;
-        public FallStatesHandler FallStatesHandler;
-        public LedgeHangingHandler LedgeHangingHandler;
-        public DescencionHandler DescencionHandler;
-        public GCSRectanglesStatesHandler GCSRectanglesStatesHandler;
-        public ItemPickupHandler ItemPickupHandler;
-        public FlyHandler FlyHandler;
-        
+
+        //TODO: ???
+        public bool AllowJumpDescendingLock;
+        public bool AllowJumpDescending;
+
+        public bool FlyingUpwards;
+
+        public bool OnUsingStamina;
+        public bool OnStaminaRegen;
+
+        public bool IsTouchingCeiling;
+        public bool IsTouchingWalls;
+        public bool IsGrounded;
+
+        public float DescendingMultiplier;
+
+        public bool IsFallen;
+        public bool IsFalling;
+
+        public bool IsInvincible = true;
+
+        public bool AllowPickup = true;
 
         public void RefillAll()
         {
@@ -64,7 +61,7 @@
             StatsBattleHitSpendHandler.SpendStatsForBattleHit(GetStat(EntityStats.STAMINA), GetStat(EntityStats.MANA), ent);
         }
 
-        public void ReceiveIndicatorDamage(float amount)
+        public void ReceiveHPDamage(float amount)
         {
             GetStat(EntityStats.HP).ModifyCurrent(amount);
         }
@@ -74,49 +71,32 @@
             GetStat(EntityStats.POISE).ModifyCurrent(amount);
         }
 
-        public void UpdateStaminaRegeneration()
-        {
-            StaminaRegenerationHandler.Update(GetStat(EntityStats.STAMINA), StatsBattleHitSpendHandler);
-        }
 
-        public void UpdateInvincibleFrames()
+        public void UpdateFeatures(Resources.Model model)
         {
-            InvincibleFramesHandler.Update();
-        }
-
-        public void UpdateFallStates(Resources.Model model)
-        {
-            FallStatesHandler.Update(model, GetStat(EntityStats.POISE));
-        }
-
-        public void UpdateLedgeHanging(Resources.Model model)
-        {
-            LedgeHangingHandler.Update(model, GCSRectanglesStatesHandler);
+            foreach (EntityStatFeature feature in StatFeatures)
+            {
+                if(feature != null)
+                {
+                    feature.Update(this, model);
+                }
+            }
         }
 
 
-        public void UpdateGCSRectanglesStates(Resources.Model model)
+        public EntityStatFeature GetStatFeature(EntityStatFeatures type)
         {
-            GCSRectanglesStatesHandler.Update(model);
+            foreach (EntityStatFeature feature in StatFeatures)
+            {
+                if (feature.Type == type)
+                {
+                    return feature;
+                }
+            }
+
+            return null;
         }
-
-        public void UpdateDescencion(Resources.Model model)
-        {
-            DescencionHandler.Update(model, GCSRectanglesStatesHandler);
-        }
-
-
-        public void UpdateFly(Resources.Model model)
-        {
-            FlyHandler.Update(model, GCSRectanglesStatesHandler);
-        }
-
-
-        public void UpdatePickup()
-        {
-            ItemPickupHandler.Update();
-        }
-
+        
         public bool LostPoise()
         {
             return GetStat(EntityStats.POISE).LessEquealZero();

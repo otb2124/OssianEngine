@@ -33,13 +33,17 @@ namespace Entities
                 new EntityStat(EntityStats.POISE, 100, 100, 10)
             };
 
-            StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
             StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-            StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
-            StatsManager.FallStatesHandler = new FallStatesHandler();
-            StatsManager.LedgeHangingHandler = new LedgeHangingHandler();
-            StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-            StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
+
+            StatsManager.StatFeatures = new EntityStatFeature[]
+            {
+                new InvincibleFramesHandler(1f),
+                new StaminaRegenerationHandler(20, 1.5f),
+                new FallStatesHandler(),
+                new LedgeHangingHandler(),
+                new GCSRectanglesStatesHandler(),
+                new DescencionHandler(0.5f, 1f)
+            };
 
             StatsManager.RefillAll();
 

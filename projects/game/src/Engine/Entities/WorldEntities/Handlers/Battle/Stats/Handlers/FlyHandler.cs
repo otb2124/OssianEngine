@@ -8,19 +8,25 @@ using Utils;
 
 namespace Entities
 {
-    public class FlyHandler
+    public class FlyHandler : EntityStatFeature
     {
 
-        public bool FlyingUpwards = true;
         public int FlyingCounter = 0;
         public float MaxFlyTimeSec = 0.5f;
         public float FlyHeightPointOverHead = 50f;
         public float CurrentFlyHeightPointOverHead = 50f;
         public float LandPoint;
 
-        public void Update(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
+
+        public FlyHandler()
         {
-            if (gcsHandler.IsGrounded)
+            Type = EntityStatFeatures.FLY;
+        }
+
+
+        public override void Update(StatsManager statsManager, Resources.Model model)
+        {
+            if (statsManager.IsGrounded)
             {
                 LandPoint = model.Body.Position.Y;
                 CurrentFlyHeightPointOverHead = FlyHeightPointOverHead;
@@ -33,19 +39,19 @@ namespace Entities
             }
 
 
-            if (model.Body.Position.Y < LandPoint + CurrentFlyHeightPointOverHead && FlyingUpwards)
+            if (model.Body.Position.Y < LandPoint + CurrentFlyHeightPointOverHead && statsManager.FlyingUpwards)
             {
-                FlyingUpwards = true;
+                statsManager.FlyingUpwards = true;
                 return;
             }
 
-            if (FlyingUpwards)
+            if (statsManager.FlyingUpwards)
             {
                 FlyingCounter++;
 
                 if (FlyingCounter >= MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    FlyingUpwards = false;
+                    statsManager.FlyingUpwards = false;
                     FlyingCounter = (int)(MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond);
                 }
             }
@@ -54,7 +60,7 @@ namespace Entities
                 FlyingCounter--;
                 if (FlyingCounter <= 0)
                 {
-                    FlyingUpwards = true;
+                    statsManager.FlyingUpwards = true;
                     FlyingCounter = 0;
                 }
             }

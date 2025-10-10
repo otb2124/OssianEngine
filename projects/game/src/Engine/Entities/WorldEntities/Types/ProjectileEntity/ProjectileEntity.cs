@@ -160,7 +160,10 @@ namespace Entities
 
             StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
-            StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(0.5f);
+            StatsManager.StatFeatures = new EntityStatFeature[]
+            {
+                new InvincibleFramesHandler(0.5f)
+            };
 
             StatsManager.RefillAll();
         }

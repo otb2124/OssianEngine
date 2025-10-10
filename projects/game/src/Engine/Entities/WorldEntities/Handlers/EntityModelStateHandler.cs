@@ -29,7 +29,7 @@ namespace Entities {
             {
                 Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue);
                 Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
-                Entity.StatsManager.DescencionHandler.AllowJumpDescendingLock = true;
+                Entity.StatsManager.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
             }
 
@@ -38,7 +38,7 @@ namespace Entities {
                 Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue);
                 Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
                 Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
-                Entity.StatsManager.DescencionHandler.AllowJumpDescendingLock = true;
+                Entity.StatsManager.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
             }
 
@@ -46,7 +46,7 @@ namespace Entities {
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
 
-                if(Entity.StatsManager.FlyHandler.FlyingUpwards)
+                if(Entity.StatsManager.FlyingUpwards)
                 {
                     Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
                 }
@@ -56,7 +56,7 @@ namespace Entities {
                 }
                 
                 Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
-                Entity.StatsManager.DescencionHandler.AllowJumpDescendingLock = true;
+                Entity.StatsManager.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
             }
 
@@ -64,7 +64,7 @@ namespace Entities {
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
 
-                if (Entity.StatsManager.FlyHandler.FlyingUpwards)
+                if (Entity.StatsManager.FlyingUpwards)
                 {
                     Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
                 }
@@ -74,7 +74,7 @@ namespace Entities {
                 }
 
                 Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
-                Entity.StatsManager.DescencionHandler.AllowJumpDescendingLock = true;
+                Entity.StatsManager.AllowJumpDescendingLock = true;
                 Entity.Model.Body.IsFrozen = false;
 
                 Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
@@ -86,7 +86,7 @@ namespace Entities {
                 {
                     Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).CurrentValue * directionXFactor, 0));
                     Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
-                    Entity.StatsManager.StaminaRegenerationHandler.OnUsingStamina = true;
+                    Entity.StatsManager.OnUsingStamina = true;
                 }
                 else
                 {
@@ -96,7 +96,7 @@ namespace Entities {
 
             if (state == ModelStates.BLOCKING)
             {
-                Entity.StatsManager.StaminaRegenerationHandler.OnUsingStamina = true;
+                Entity.StatsManager.OnUsingStamina = true;
             }
 
             if (state == ModelStates.ROLLING)
@@ -115,13 +115,13 @@ namespace Entities {
             if (state == ModelStates.JUMPING_DESCENDING)
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
-                Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.StatsManager.DescencionHandler.DescendingMultiplier * 200);
+                Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.StatsManager.DescendingMultiplier * 200);
             }
 
             if (state == ModelStates.JUMPING_DESCENDING_AND_MOVING)
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
-                Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.StatsManager.DescencionHandler.DescendingMultiplier * 200);
+                Entity.Model.Body.linearVelocity -= new FlatVector(0, Entity.StatsManager.DescendingMultiplier * 200);
                 Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
             }
 
@@ -244,7 +244,7 @@ namespace Entities {
                 // JUMP
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                 {
-                    if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec > 0 && (player.StatsManager.GCSRectanglesStatesHandler.IsGrounded || player.Model.ModelState == ModelStates.HANGING_ON_LEDGE))
+                    if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec > 0 && (player.StatsManager.IsGrounded || player.Model.ModelState == ModelStates.HANGING_ON_LEDGE))
                     {
                         player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
                     }
@@ -254,13 +254,13 @@ namespace Entities {
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
                      player.Model.ModelState == ModelStates.JUMPING_DESCENDING) &&
-                     !player.StatsManager.GCSRectanglesStatesHandler.IsGrounded &&
-                     player.StatsManager.DescencionHandler.AllowJumpDescending)
+                     !player.StatsManager.IsGrounded &&
+                     player.StatsManager.AllowJumpDescending)
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING_AND_MOVING;
                 }
 
-                if (player.StatsManager.GCSRectanglesStatesHandler.IsTouchingCeiling || (!player.StatsManager.GCSRectanglesStatesHandler.IsGrounded && !player.StatsManager.DescencionHandler.AllowJumpDescending && player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
+                if (player.StatsManager.IsTouchingCeiling || (!player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
                 {
                     player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
                 }
@@ -275,10 +275,10 @@ namespace Entities {
 
                     // SPRINT
                     if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] &&
-                    player.Model.ModelState != ModelStates.OVERALL_DESCENDING && player.StatsManager.GCSRectanglesStatesHandler.IsGrounded)
+                    player.Model.ModelState != ModelStates.OVERALL_DESCENDING && player.StatsManager.IsGrounded)
                     {
                         if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
-                            !player.StatsManager.StaminaRegenerationHandler.OnStaminaRegen)
+                            !player.StatsManager.OnStaminaRegen)
                         {
                             player.Model.ModelState = ModelStates.SPRINTING;
                         }
@@ -289,7 +289,7 @@ namespace Entities {
                     player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
                     {
                         if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
-                            !player.StatsManager.StaminaRegenerationHandler.OnStaminaRegen)
+                            !player.StatsManager.OnStaminaRegen)
                         {
                             player.Model.ModelState = ModelStates.ROLLING;
                         }
@@ -298,18 +298,18 @@ namespace Entities {
                     //MOVE
                     else
                     {
-                        if(player.StatsManager.GCSRectanglesStatesHandler.IsGrounded && !player.StatsManager.DescencionHandler.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
+                        if(player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
                         {
                             player.Model.ModelState = player.EquipmentManager.WeaponInOutToggler.IsWeaponOut ? ModelStates.WEAPON_OUT_MOVING : ModelStates.MOVING;
                         }
-                        else if(!player.StatsManager.GCSRectanglesStatesHandler.IsGrounded && !player.StatsManager.DescencionHandler.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
+                        else if(!player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
                         {
                             player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
                         }
                     }
                 }
 
-                if (player.StatsManager.GCSRectanglesStatesHandler.IsGrounded && !player.StatsManager.DescencionHandler.AllowJumpDescending && (player.Model.ModelState == ModelStates.JUMPING_DESCENDING || player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
+                if (player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && (player.Model.ModelState == ModelStates.JUMPING_DESCENDING || player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
                 {
                     player.Model.ModelState = player.EquipmentManager.WeaponInOutToggler.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
                 }
@@ -322,17 +322,17 @@ namespace Entities {
                 // Handle descending when not moving
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING) &&
-                    !player.StatsManager.GCSRectanglesStatesHandler.IsGrounded &&
-                    player.StatsManager.DescencionHandler.AllowJumpDescending)
+                    !player.StatsManager.IsGrounded &&
+                    player.StatsManager.AllowJumpDescending)
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING;
                 }
 
-                    if (player.StatsManager.GCSRectanglesStatesHandler.IsGrounded && !player.StatsManager.DescencionHandler.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
+                    if (player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
                     {
                         player.Model.ModelState = player.EquipmentManager.WeaponInOutToggler.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
                     }
-                    else if (player.StatsManager.GCSRectanglesStatesHandler.IsTouchingCeiling || (!player.StatsManager.GCSRectanglesStatesHandler.IsGrounded && !player.StatsManager.DescencionHandler.AllowJumpDescending && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING && player.Model.ModelState != ModelStates.JUMPING && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE))
+                    else if (player.StatsManager.IsTouchingCeiling || (!player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING && player.Model.ModelState != ModelStates.JUMPING && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE))
                     {
                         player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
                     }

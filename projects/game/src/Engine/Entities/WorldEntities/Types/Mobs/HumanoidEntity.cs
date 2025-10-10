@@ -205,12 +205,17 @@ namespace Entities
                         new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
                     };
 
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
+                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    {
+                        new StaminaRegenerationHandler(20, 1.5f),
+                        new InvincibleFramesHandler(1f),
+                        new FallStatesHandler(),
+                        new GCSRectanglesStatesHandler(),
+                        new DescencionHandler(0.5f, 1f)
+                    };
+
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-                    StatsManager.FallStatesHandler = new FallStatesHandler();
-                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
+
                     break;
 
                 case HumanoidMobs.CITIZEN:
@@ -227,12 +232,18 @@ namespace Entities
                         new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
                     };
 
-                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
+                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    {
+                        new StaminaRegenerationHandler(20, 1.5f),
+                        new InvincibleFramesHandler(1f),
+                        new FallStatesHandler(),
+                        new GCSRectanglesStatesHandler(),
+                        new DescencionHandler(0.5f, 1f)
+                    };
+
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-                    StatsManager.FallStatesHandler = new FallStatesHandler();
-                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
+
+
                     break;
 
                 case HumanoidMobs.VIGO:
@@ -249,12 +260,18 @@ namespace Entities
                         new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
                     };
 
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
-                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
+                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    {
+                        new StaminaRegenerationHandler(20, 1.5f),
+                        new InvincibleFramesHandler(1f),
+                        new FallStatesHandler(),
+                        new GCSRectanglesStatesHandler(),
+                        new DescencionHandler(0.5f, 1f)
+                    };
+
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-                    StatsManager.FallStatesHandler = new FallStatesHandler();
-                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
+
+
                     break;
 
                 case HumanoidMobs.WANEGRO:
@@ -271,12 +288,18 @@ namespace Entities
                         new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
                     };
 
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(20, 1.5f);
-                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
+                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    {
+                        new StaminaRegenerationHandler(20, 1.5f),
+                        new InvincibleFramesHandler(1f),
+                        new FallStatesHandler(),
+                        new GCSRectanglesStatesHandler(),
+                        new DescencionHandler(0.5f, 1f)
+                    };
+
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
-                    StatsManager.FallStatesHandler = new FallStatesHandler();
-                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
+
+
                     break;
             }
 

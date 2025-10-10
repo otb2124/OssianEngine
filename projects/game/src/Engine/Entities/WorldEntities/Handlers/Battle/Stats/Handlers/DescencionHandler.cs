@@ -8,29 +8,31 @@ using Utils;
 
 namespace Entities
 {
-    public class DescencionHandler
+    public class DescencionHandler : EntityStatFeature
     {
 
+        public float DescendingMultiplier;
         public float MaxDescendingSec;
         public int DescendingCounter = 0;
-        public float DescendingMultiplier;
 
         public bool IsJumpDescending;
-        public bool AllowJumpDescending;
-        public bool AllowJumpDescendingLock = true;
 
         public DescencionHandler(float maxDescendingSec, float descendingMultiplier)
         {
             MaxDescendingSec = maxDescendingSec;
             DescendingMultiplier = descendingMultiplier;
+            Type = EntityStatFeatures.DESCENCION;
         }
 
-        public void Update(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
+        public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            if (gcsHandler.IsTouchingWalls)
+
+            statsManager.DescendingMultiplier = DescendingMultiplier;
+
+            if (statsManager.IsTouchingWalls)
             {
-                gcsHandler.IsTouchingCeiling = false;
-                gcsHandler.IsGrounded = false;
+                statsManager.IsTouchingCeiling = false;
+                statsManager.IsGrounded = false;
             }
 
             if (model.ModelState == ModelStates.JUMPING ||
@@ -42,15 +44,15 @@ namespace Entities
             }
 
 
-            if (AllowJumpDescendingLock && IsJumpDescending)
+            if (statsManager.AllowJumpDescendingLock && IsJumpDescending)
             {
                 DescendingCounter++;
-                AllowJumpDescending = true;
+                statsManager.AllowJumpDescending = true;
                 if (DescendingCounter > MaxDescendingSec * Graphics.Graphics.UpdatesPerSecond)
                 {
                     IsJumpDescending = false;
-                    AllowJumpDescendingLock = false;
-                    AllowJumpDescending = false;
+                    statsManager.AllowJumpDescendingLock = false;
+                    statsManager.AllowJumpDescending = false;
                     DescendingCounter = 0;
                 }
             }
@@ -60,15 +62,18 @@ namespace Entities
             }
 
 
-            if (gcsHandler.IsGrounded || gcsHandler.IsTouchingCeiling)
+            if (statsManager.IsGrounded || statsManager.IsTouchingCeiling)
             {
                 IsJumpDescending = false;
-                AllowJumpDescendingLock = false;
-                AllowJumpDescending = false;
+                statsManager.AllowJumpDescendingLock = false;
+                statsManager.AllowJumpDescending = false;
                 DescendingCounter = 0;
             }
 
-            gcsHandler.Reset(model);
+            if (statsManager.IsGrounded)
+            {
+                model.highestJumpY = float.MinValue;
+            }
         }
     }
 }

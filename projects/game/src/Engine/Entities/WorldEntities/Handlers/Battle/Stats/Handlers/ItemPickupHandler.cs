@@ -8,22 +8,25 @@ namespace Entities
 {
 
 
-    public class ItemPickupHandler
+    public class ItemPickupHandler : EntityStatFeature
     {
 
-        public bool AllowPickup = true;
         public int PickupCounter = 0;
         public float PickupLockSec = 0.25f;
 
-
-        public void Update()
+        public ItemPickupHandler()
         {
-            if (!AllowPickup)
+            Type = EntityStatFeatures.ITEM_PICKUP;
+        }
+
+        public override void Update(StatsManager statsManager, Resources.Model model)
+        {
+            if (!statsManager.AllowPickup)
             {
                 PickupCounter++;
                 if (PickupCounter > PickupLockSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    AllowPickup = true;
+                    statsManager.AllowPickup = true;
                     PickupCounter = 0;
                 }
             }

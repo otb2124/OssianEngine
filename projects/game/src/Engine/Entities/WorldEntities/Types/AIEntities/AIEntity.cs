@@ -33,7 +33,7 @@ namespace Entities
 
         public override void Update()
         {
-            if (AISet != null && !StatsManager.FallStatesHandler.IsFallen && !StatsManager.FallStatesHandler.IsFalling)
+            if (AISet != null && !StatsManager.IsFallen && !StatsManager.IsFalling)
             {
                 AISet.Update(this);
                 Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.AnimationState));

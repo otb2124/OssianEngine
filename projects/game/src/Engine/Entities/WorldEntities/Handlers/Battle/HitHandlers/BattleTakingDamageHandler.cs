@@ -42,7 +42,7 @@ namespace Entities
         {
             if (!(toEnt is Player && GameStateManager.IsGod))
             {
-                toEnt.StatsManager.ReceiveIndicatorDamage(damage);
+                toEnt.StatsManager.ReceiveHPDamage(damage);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Entities
         {
             if (!(toEnt is Player && GameStateManager.IsGod))
             {
-                toEnt.StatsManager.ReceiveIndicatorDamage(damage);
+                toEnt.StatsManager.ReceiveHPDamage(damage);
             }
         }
 

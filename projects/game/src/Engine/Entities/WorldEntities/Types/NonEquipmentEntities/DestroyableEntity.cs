@@ -34,9 +34,12 @@ namespace Entities
                 new EntityStat(EntityStats.HP, 100, 100)
             };
 
-            StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-            StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-            StatsManager.DescencionHandler = new DescencionHandler(1f, 1f);
+            StatsManager.StatFeatures = new EntityStatFeature[]
+            {
+                new GCSRectanglesStatesHandler(),
+                new InvincibleFramesHandler(1f),
+                new DescencionHandler(1f, 1f)
+            };
 
             StatsManager.RefillAll();
         }

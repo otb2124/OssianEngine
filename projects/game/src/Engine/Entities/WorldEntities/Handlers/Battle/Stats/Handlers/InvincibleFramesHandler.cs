@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class InvincibleFramesHandler
+    public class InvincibleFramesHandler : EntityStatFeature
     {
 
         public float InvincibleFramesDurationSec = 1f;
         public int InvincibleCounter = 0;
-        public bool IsInvincible = true;
 
         public InvincibleFramesHandler(float invincibleFramesDurationSec)
         {
             InvincibleFramesDurationSec = invincibleFramesDurationSec;
+            Type = EntityStatFeatures.INVINCIBLE_FRAMES;
         }
 
-        public void Update()
+        public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            if (IsInvincible)
+            if (statsManager.IsInvincible)
             {
                 InvincibleCounter++;
                 if (InvincibleCounter > InvincibleFramesDurationSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    IsInvincible = false;
+                    statsManager.IsInvincible = false;
                     InvincibleCounter = 0;
                 }
             }

@@ -7,43 +7,42 @@ using Utils;
 
 namespace Entities
 {
-    public class StaminaRegenerationHandler
+    public class StaminaRegenerationHandler : EntityStatFeature
     {
 
         public float StaminaRegenSec;
         public float StaminaUnlockSec;
 
         public int StaminaUnlockCounter = 0;
-        public bool OnStaminaRegen = false;
-        public bool OnUsingStamina = false;
 
         public StaminaRegenerationHandler(float staminaRegenSec, float staminaUnlockSec)
         {
             StaminaRegenSec = staminaRegenSec;
             StaminaUnlockSec = staminaUnlockSec;
+            Type = EntityStatFeatures.STAMINA_REGENERATION;
         }
 
-        public void Update(EntityStat stamina, StatsBattleHitSpendHandler statsBattleHitSpendHandler)
+        public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            if (statsBattleHitSpendHandler != null && statsBattleHitSpendHandler.StatsPerAttackHitSpent)
+            if (statsManager.StatsBattleHitSpendHandler != null && statsManager.StatsBattleHitSpendHandler.StatsPerAttackHitSpent)
                 return;
 
-            OnStaminaRegen = false;
+            statsManager.OnStaminaRegen = false;
 
-            if (stamina.CurrentValue < stamina.MaximumValue && !OnUsingStamina)
+            if (statsManager.GetStat(EntityStats.STAMINA).CurrentValue < statsManager.GetStat(EntityStats.STAMINA).MaximumValue && !statsManager.OnUsingStamina)
             {
                 StaminaUnlockCounter++;
 
                 if (StaminaUnlockCounter < StaminaUnlockSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    OnStaminaRegen = true;
+                    statsManager.OnStaminaRegen = true;
                 }
 
-                stamina.CurrentValue += StaminaRegenSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                statsManager.GetStat(EntityStats.STAMINA).CurrentValue += StaminaRegenSec / (float)Graphics.Graphics.UpdatesPerSecond;
 
                 if (GameStateManager.IsGod)
                 {
-                    stamina.CurrentValue += stamina.MaximumValue;
+                    statsManager.GetStat(EntityStats.STAMINA).CurrentValue += statsManager.GetStat(EntityStats.STAMINA).MaximumValue;
                 }
             }
             else
@@ -51,7 +50,7 @@ namespace Entities
                 StaminaUnlockCounter = 0;
             }
 
-            OnUsingStamina = false;
+            statsManager.OnUsingStamina = false;
         }
     }
 }

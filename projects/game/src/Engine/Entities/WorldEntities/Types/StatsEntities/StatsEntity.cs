@@ -61,49 +61,17 @@ namespace Entities
             }
 
 
-            if(UpdatesModelStates)
+            StatsManager.UpdateFeatures(Model);
+
+            if (UpdatesModelStates)
             {
                 EntityModelStateHandler.Update(this);
             }
 
-            if (StatsManager.StaminaRegenerationHandler != null)
-            {
-                StatsManager.UpdateStaminaRegeneration();
-            }
-            if (StatsManager.InvincibleFramesHandler != null)
-            {
-                StatsManager.UpdateInvincibleFrames();
-            }
-            if(StatsManager.FallStatesHandler != null)
-            {
-                StatsManager.UpdateFallStates(Model);
-            }
-            if(StatsManager.LedgeHangingHandler != null)
-            {
-                StatsManager.UpdateLedgeHanging(Model);
-            }
-            if (StatsManager.FlyHandler != null)
-            {
-                StatsManager.UpdateFly(Model);
-            }
-
-            if(StatsManager.GCSRectanglesStatesHandler != null)
+            if(StatsManager.GetStatFeature(EntityStatFeatures.GCS) != null)
             {
                 Model.UpdateSurroundingRectangles();
-                StatsManager.UpdateGCSRectanglesStates(Model);
             }
-
-            if(StatsManager.DescencionHandler != null)
-            {
-                StatsManager.UpdateDescencion(Model);
-            }
-
-            if(StatsManager.ItemPickupHandler != null)
-            {
-                StatsManager.UpdatePickup();
-            }
-
-            
 
             base.Update();
         }

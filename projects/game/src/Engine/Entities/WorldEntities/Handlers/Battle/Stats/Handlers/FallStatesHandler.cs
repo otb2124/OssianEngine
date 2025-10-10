@@ -7,47 +7,49 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class FallStatesHandler
+    public class FallStatesHandler : EntityStatFeature
     {
 
-        public bool IsFalling = false;
-
-        public bool IsFallen = false;
         public float FallenTimer = 0f;
         public float FallenDurationAllowedSec = 3f;
 
 
-        public FallStatesHandler() { }
+        public FallStatesHandler() 
+        {
+            Type = EntityStatFeatures.FALL;
+        }
 
 
 
-        public void Update(Resources.Model model, EntityStat poise)
+        public override void Update(StatsManager statsManager, Resources.Model model)
         {
 
-            if (model.Body.Angle > 0.5f || model.Body.Angle < -0.5f || poise.CurrentValue <= 0)
+            EntityStat poise = statsManager.GetStat(EntityStats.POISE);
+
+            if (model.Body.Angle > 0.5f || model.Body.Angle < -0.5f ||  poise.CurrentValue <= 0)
             {
                 if (!model.Body.IsColliding)
                 {
-                    if (!IsFallen)
+                    if (!statsManager.IsFallen)
                     {
-                        IsFalling = true;
+                        statsManager.IsFalling = true;
                         model.ModelState = Utils.ModelStates.FALLING;
                     }
                 }
                 else
                 {
-                    IsFallen = true;
-                    IsFalling = false;
+                    statsManager.IsFallen = true;
+                    statsManager.IsFalling = false;
                     model.ModelState = Utils.ModelStates.FALLEN;
                 }
             }
 
-            if (IsFallen)
+            if (statsManager.IsFallen)
             {
                 FallenTimer++;
                 if (FallenTimer >= FallenDurationAllowedSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    IsFallen = false;
+                    statsManager.IsFallen = false;
                     FallenTimer = 0f;
                     model.Body.Move(new FlatVector(0, 10f));
                     model.Body.RotateTo(0f);

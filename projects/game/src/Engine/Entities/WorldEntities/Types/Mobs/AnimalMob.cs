@@ -75,11 +75,15 @@ namespace Entities
 
                     StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
-                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-                    StatsManager.FallStatesHandler = new FallStatesHandler();
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(3, 1.5f);
-                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
+                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    {
+                        new InvincibleFramesHandler(1f),
+                        new FallStatesHandler(),
+                        new StaminaRegenerationHandler(3, 1.5f),
+                        new GCSRectanglesStatesHandler(),
+                        new DescencionHandler(0.5f, 1f),
+                    };
+
                     break;
 
                 case AnimalMobs.BAT:
@@ -100,12 +104,15 @@ namespace Entities
 
                     StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
-                    StatsManager.InvincibleFramesHandler = new InvincibleFramesHandler(1f);
-                    StatsManager.StaminaRegenerationHandler = new StaminaRegenerationHandler(3, 1.5f);
-                    StatsManager.FallStatesHandler = new FallStatesHandler();
-                    StatsManager.GCSRectanglesStatesHandler = new GCSRectanglesStatesHandler();
-                    StatsManager.DescencionHandler = new DescencionHandler(0.5f, 1f);
-                    StatsManager.FlyHandler = new FlyHandler();
+                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    {
+                        new InvincibleFramesHandler(1f),
+                        new FallStatesHandler(),
+                        new StaminaRegenerationHandler(3, 1.5f),
+                        new GCSRectanglesStatesHandler(),
+                        new DescencionHandler(0.5f, 1f),
+                        new FlyHandler()
+                    };
 
                     break;
             }

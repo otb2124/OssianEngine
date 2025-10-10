@@ -8,7 +8,7 @@ using Utils;
 
 namespace Entities
 {
-    public class LedgeHangingHandler
+    public class LedgeHangingHandler : EntityStatFeature
     {
 
         public bool AllowHangingOnLedge = true;
@@ -16,7 +16,12 @@ namespace Entities
         public int UnHangingCounter = 0;
 
 
-        public void Update(Resources.Model model, GCSRectanglesStatesHandler gcsHandler)
+        public LedgeHangingHandler()
+        {
+            Type = EntityStatFeatures.LEDGE_HANG;
+        }
+
+        public override void Update(StatsManager statsManager, Resources.Model model)
         {
             if (!AllowHangingOnLedge && model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
@@ -29,7 +34,7 @@ namespace Entities
                 }
             }
 
-            if (gcsHandler.IsTouchingWalls)
+            if (statsManager.IsTouchingWalls)
             {
                 LedgeEntity ledge = CollisionHelper.GetAnyLedges(model.Body);
                 if (ledge != null && AllowHangingOnLedge)

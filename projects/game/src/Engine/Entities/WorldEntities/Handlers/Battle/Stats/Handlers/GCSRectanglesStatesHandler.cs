@@ -7,27 +7,20 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class GCSRectanglesStatesHandler
+    public class GCSRectanglesStatesHandler : EntityStatFeature
     {
 
-        public bool IsGrounded;
-        public bool IsTouchingCeiling;
-        public bool IsTouchingWalls;
 
-        public void Update(Resources.Model model)
+        public GCSRectanglesStatesHandler()
         {
-            IsGrounded = CollisionHelper.GetAnyGround(model) != null;
-            IsTouchingCeiling = CollisionHelper.GetAnyCeiling(model) != null;
-            IsTouchingWalls = CollisionHelper.GetAnyWalls(model) != null;
+            Type = EntityStatFeatures.GCS;
         }
 
-        public void Reset(Resources.Model model)
+        public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            // Reset highestJumpY when grounded
-            if (IsGrounded)
-            {
-                model.highestJumpY = float.MinValue;
-            }
+            statsManager.IsGrounded = CollisionHelper.GetAnyGround(model) != null;
+            statsManager.IsTouchingCeiling = CollisionHelper.GetAnyCeiling(model) != null;
+            statsManager.IsTouchingWalls = CollisionHelper.GetAnyWalls(model) != null;
         }
     }
 }
