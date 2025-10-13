@@ -110,19 +110,10 @@
             return GetStat(EntityStats.MANA).CurrentValue - BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent) > 0;
         }
 
-        public bool CheckEnoughStaminaForRoll()
-        {
-            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0;
-        }
 
-        public bool CheckEnoughStaminaForJump()
+        public bool CheckEnoughStaminaForStat(EntityStats stat)
         {
-            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec > 0;
-        }
-
-        public bool CheckEnoughStaminaForsSprint()
-        {
-            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0;
+            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(stat).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0;
         }
 
         public bool LostPoise()

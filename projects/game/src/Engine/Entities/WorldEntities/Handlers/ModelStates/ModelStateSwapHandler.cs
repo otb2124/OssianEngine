@@ -7,15 +7,162 @@ namespace Entities
 
         public static ModelStateSwap[] ModelStateSwappers = new[]
         {
-            new ModelStateSwap(ModelStates.ATTACKING_LIGHT, new Requirement[] {  })
+
+            //ATTACKING_LIGHT
+            new ModelStateSwap(
+                ModelStates.ATTACKING_LIGHT,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.ATTACKLIGHTPRESSED),
+
+                            new OrRequirement(
+                                new Requirement[]
+                                {
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED),
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED)
+                                },
+                                true
+                            ),
+
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING, true),
+                            new ModelStateRequirement(ModelStates.DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.HANGING_ON_LEDGE, true),
+
+                            new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
+                            new ModelStateRequirement(ModelStates.BLOCKING, true),
+
+                            new CurrentEnoughBattleManaRequirement(),
+                            new CurrentEnoughBattleStaminaRequirement(),
+                        }
+                    )
+                }
+            ),
+
+
+            //ATTACKING_HEAVY
+            new ModelStateSwap(
+                ModelStates.ATTACKING_HEAVY,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.ATTACKHEAVYPRESSED),
+
+                            new OrRequirement(
+                                new Requirement[]
+                                {
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED),
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED)
+                                },
+                                true
+                            ),
+
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING, true),
+                            new ModelStateRequirement(ModelStates.DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.HANGING_ON_LEDGE, true),
+
+                            new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
+                            new ModelStateRequirement(ModelStates.BLOCKING, true),
+
+                            new CurrentEnoughBattleManaRequirement(),
+                            new CurrentEnoughBattleStaminaRequirement(),
+                        }
+                    )
+                }
+            ),
+
+
+            //BLOCK
+            new ModelStateSwap(
+                ModelStates.BLOCKING,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.BLOCKPRESSED),
+
+                            new OrRequirement(
+                                new Requirement[]
+                                {
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED),
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED)
+                                },
+                                true
+                            ),
+
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING, true),
+                            new ModelStateRequirement(ModelStates.DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.HANGING_ON_LEDGE, true),
+
+                            new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
+                            new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
+
+                            new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.ROLL_SPEED_MULTIPLIER)
+                        }
+                    )
+                }
+            ),
+
+
+
+            //BLOCK RESET
+            new ModelStateSwap(
+                ModelStates.IDLE,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.BLOCKPRESSED, true),
+
+                            new ModelStateRequirement(ModelStates.BLOCKING),
+
+                            new CurrentWeaponOutRequirement(),
+                        }
+                    )
+                }
+            ),
+            new ModelStateSwap(
+                ModelStates.WEAPON_OUT_IDLE,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.BLOCKPRESSED, true),
+
+                            new ModelStateRequirement(ModelStates.BLOCKING),
+
+                            new CurrentWeaponOutRequirement(true),
+                        }
+                    )
+                }
+            ),
         };
 
         public static void Update()
         {
+
+            foreach (ModelStateSwap modelStateSwap in ModelStateSwappers)
+            {
+                modelStateSwap.Update();
+            }
+
             ToggleWeapon();
-            AttackLight();
-            AttackHeavy();
-            Block();
 
             TurnRight();
             TurnLeft();
@@ -44,92 +191,6 @@ namespace Entities
             }
         }
 
-        public static void AttackLight()
-        {
-            Player player = Entities.Player;
-            // ATTACK
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.ATTACKLIGHTPRESSED])
-            {
-                if (!UI.UI.PreventButtonPressedOverlap
-                    && !KeyHandlerUtil.isPlayerMoving()
-                    && player.Model.ModelState != ModelStates.JUMPING_DESCENDING
-                    && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
-                    && player.Model.ModelState != ModelStates.JUMPING
-                    && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                    && player.Model.ModelState != ModelStates.DESCENDING
-                    && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE
-
-                    && player.Model.ModelState != ModelStates.ATTACKING_HEAVY
-                    && player.Model.ModelState != ModelStates.BLOCKING)
-                {
-                    if (player.StatsManager.CheckEnoughFinalBattleMana(player) &&
-                    player.StatsManager.CheckEnoughFinalBattleStamina(player))
-                    {
-                        player.Model.ModelState = ModelStates.ATTACKING_LIGHT;
-                    }
-                }
-            }
-        }
-
-
-        public static void AttackHeavy()
-        {
-            Player player = Entities.Player;
-
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.ATTACKHEAVYPRESSED] && !UI.UI.PreventButtonPressedOverlap
-                && !KeyHandlerUtil.isPlayerMoving()
-                && player.Model.ModelState != ModelStates.JUMPING_DESCENDING
-                && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
-                && player.Model.ModelState != ModelStates.JUMPING
-                && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                && player.Model.ModelState != ModelStates.DESCENDING
-                && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE
-
-                && player.Model.ModelState != ModelStates.ATTACKING_LIGHT
-                && player.Model.ModelState != ModelStates.BLOCKING)
-            {
-                if (player.StatsManager.CheckEnoughFinalBattleMana(player) &&
-                    player.StatsManager.CheckEnoughFinalBattleStamina(player))
-                {
-                    player.Model.ModelState = ModelStates.ATTACKING_HEAVY;
-                }
-            }
-        }
-
-        public static void Block()
-        {
-            Player player = Entities.Player;
-            //BLOCK
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.BLOCKPRESSED])
-            {
-                if (!KeyHandlerUtil.isPlayerMoving()
-                    && player.Model.ModelState != ModelStates.JUMPING_DESCENDING
-                    && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
-                    && player.Model.ModelState != ModelStates.JUMPING
-                    && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                    && player.Model.ModelState != ModelStates.DESCENDING
-                    && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE
-
-                    && player.Model.ModelState != ModelStates.ATTACKING_HEAVY
-                    && player.Model.ModelState != ModelStates.ATTACKING_LIGHT)
-                {
-                    if (player.StatsManager.CheckEnoughStaminaForRoll())
-                    {
-                        player.Model.ModelState = ModelStates.BLOCKING;
-                    }
-                }
-            }
-            //BLOCK RESET
-            else if (!Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.BLOCKPRESSED])
-            {
-                if (player.Model.ModelState == ModelStates.BLOCKING)
-                {
-                    player.Model.ModelState = player.EquipmentManager.WeaponInOutToggler.IsWeaponOut ? ModelStates.WEAPON_OUT_IDLE : ModelStates.IDLE;
-                }
-            }
-
-        }
-
 
         public static void TurnRight()
         {
@@ -137,8 +198,8 @@ namespace Entities
 
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
             {
-                if (KeyHandlerUtil.isPlayerMoving() &&
-                    player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
+                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
+                    && player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
                 {
@@ -153,7 +214,7 @@ namespace Entities
 
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
             {
-                if (KeyHandlerUtil.isPlayerMoving() &&
+                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
                     player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
@@ -169,13 +230,13 @@ namespace Entities
             // JUMP
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
             {
-                if (KeyHandlerUtil.isPlayerMoving() &&
+                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
                     player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
                 {
 
-                    if (player.StatsManager.CheckEnoughStaminaForJump()) //&& (player.StatsManager.IsGrounded || player.Model.ModelState == ModelStates.HANGING_ON_LEDGE))
+                    if (player.StatsManager.CheckEnoughStaminaForStat(EntityStats.JUMP_SPEED)) //&& (player.StatsManager.IsGrounded || player.Model.ModelState == ModelStates.HANGING_ON_LEDGE))
                     {
                         player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
 
@@ -204,7 +265,7 @@ namespace Entities
                  && player.StatsManager.AllowJumpDescending)
             {
 
-                if (KeyHandlerUtil.isPlayerMoving() &&
+                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
                     player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
@@ -230,7 +291,7 @@ namespace Entities
                 && player.Model.ModelState != ModelStates.DOUBLE_JUMPING_AND_MOVING)
             {
 
-                if (KeyHandlerUtil.isPlayerMoving() &&
+                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
                     player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
@@ -248,7 +309,7 @@ namespace Entities
             // SPRINT
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.SPRINTPRESSED])
             {
-                if (KeyHandlerUtil.isPlayerMoving() &&
+                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
                     player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
@@ -264,7 +325,7 @@ namespace Entities
                             && player.Model.ModelState != ModelStates.ROLLING
                             && player.StatsManager.IsGrounded)
                         {
-                            if (player.StatsManager.CheckEnoughStaminaForsSprint() &&
+                            if (player.StatsManager.CheckEnoughStaminaForStat(EntityStats.SPRINT_SPEED_MULTIPLIER) &&
                                 !player.StatsManager.OnStaminaRegen)
                             {
                                 player.Model.ModelState = ModelStates.SPRINTING;
@@ -284,7 +345,7 @@ namespace Entities
             //ROLL
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.BLOCKPRESSED])
             {
-                if (KeyHandlerUtil.isPlayerMoving() &&
+                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
                     player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
@@ -299,7 +360,7 @@ namespace Entities
                         if (player.Model.ModelState != ModelStates.DESCENDING
                             && player.Model.ModelState != ModelStates.SPRINTING)
                         {
-                            if (player.StatsManager.CheckEnoughStaminaForRoll() &&
+                            if (player.StatsManager.CheckEnoughStaminaForStat(EntityStats.ROLL_SPEED_MULTIPLIER) &&
                                 !player.StatsManager.OnStaminaRegen)
                             {
                                 player.Model.ModelState = ModelStates.ROLLING;
@@ -317,7 +378,7 @@ namespace Entities
             Player player = Entities.Player;
 
             //MOVE
-            if (KeyHandlerUtil.isPlayerMoving() &&
+            if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
                 player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                 player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                 player.Model.ModelState != ModelStates.FALLEN)
@@ -348,7 +409,7 @@ namespace Entities
         {
             Player player = Entities.Player;
 
-            if (KeyHandlerUtil.isPlayerMoving() &&
+            if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
                 player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                 player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                 player.Model.ModelState != ModelStates.FALLEN)
@@ -368,7 +429,7 @@ namespace Entities
             if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT
                 && player.Model.ModelState != ModelStates.ATTACKING_HEAVY
                 && player.Model.ModelState != ModelStates.BLOCKING
-                && !KeyHandlerUtil.isPlayerMoving())
+                && !(Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]))
             {
                 if ((player.Model.ModelState == ModelStates.JUMPING ||
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING) &&
@@ -388,7 +449,7 @@ namespace Entities
             if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT
                 && player.Model.ModelState != ModelStates.ATTACKING_HEAVY
                 && player.Model.ModelState != ModelStates.BLOCKING
-                && !KeyHandlerUtil.isPlayerMoving())
+                && !(Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]))
             {
                 if (player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
                 {
@@ -412,7 +473,7 @@ namespace Entities
                 if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT
                     && player.Model.ModelState != ModelStates.ATTACKING_HEAVY
                     && player.Model.ModelState != ModelStates.BLOCKING
-                    && !KeyHandlerUtil.isPlayerMoving())
+                    && !(Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]))
                 {
                     if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec > 0)
                     {

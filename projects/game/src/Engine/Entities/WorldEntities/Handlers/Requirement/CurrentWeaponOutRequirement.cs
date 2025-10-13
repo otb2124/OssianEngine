@@ -7,20 +7,16 @@ using Utils;
 
 namespace Entities
 {
-    public class CurrentInputKeyRequirement : Requirement
+    public class CurrentWeaponOutRequirement : Requirement
     {
-
-        public Inputs.KeyHandler.KeyStates KeyState;
-
-        public CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates keyState, bool negate = false)
+        public CurrentWeaponOutRequirement(bool negate = false)
         {
-            KeyState = keyState;
             IsNegation = negate;
         }
 
         public override bool Check()
         {
-            bool result = Inputs.Inputs.KeyHandler.KeyStateMap[KeyState];
+            bool result = Entities.Player.EquipmentManager.WeaponInOutToggler.IsWeaponOut;
             return IsNegation ? !result : result;
         }
     }

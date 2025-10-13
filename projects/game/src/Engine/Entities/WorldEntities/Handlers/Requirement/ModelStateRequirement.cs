@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +13,16 @@ namespace Entities
 
         public ModelStates ModelState;
 
-        public ModelStateRequirement(ModelStates modelState)
+        public ModelStateRequirement(ModelStates modelState, bool negation = false)
         {
             ModelState = modelState;
+            IsNegation = negation;
         }
 
         public override bool Check()
         {
-            return Entities.Player.Model.ModelState == ModelState;
+            bool result = Entities.Player.Model.ModelState == ModelState;
+            return IsNegation ? !result : result;
         }
     }
 }

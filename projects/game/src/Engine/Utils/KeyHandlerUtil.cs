@@ -10,11 +10,6 @@ namespace Utils
     {
 
 
-        public static bool isPlayerMoving()
-        {
-            return Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] |
-                Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED];
-        }
 
 
         public static bool isCameraMoving()
