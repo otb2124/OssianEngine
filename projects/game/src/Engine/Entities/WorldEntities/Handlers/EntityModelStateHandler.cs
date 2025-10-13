@@ -46,7 +46,7 @@ namespace Entities {
             {
                 Entity.Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
 
-                if(Entity.StatsManager.FlyingUpwards)
+                if(!Entity.StatsManager.FlyingUpwards)
                 {
                     Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
                 }

@@ -59,7 +59,7 @@ namespace Entities
             Model.OwnerId = Id;
             Model.Direction = initDirection;
 
-            baseSpriteZ = Model.SpriteData.z;
+            baseSpriteZ = Model.SpriteData.Z;
             spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -78,7 +78,7 @@ namespace Entities
             Model.OwnerId = Id;
             Model.Direction = initDirection;
 
-            this.baseSpriteZ = this.Model.SpriteData.z;
+            this.baseSpriteZ = this.Model.SpriteData.Z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();
@@ -96,7 +96,7 @@ namespace Entities
             Model.Body.Owner = this;
             Model.OwnerId = Id;
 
-            this.baseSpriteZ = this.Model.SpriteData.z;
+            this.baseSpriteZ = this.Model.SpriteData.Z;
             this.spriteZ = baseSpriteZ;
 
             SetAnimations();

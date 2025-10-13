@@ -56,7 +56,7 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.TERRABLADE)), WeaponHands.LEFT);
+            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.FIREBALL_SPELL)), WeaponHands.LEFT);
 
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Helmets.IRON_HELMET));
             EquipmentManager.Equipments.SetEquipment(new ItemKey(ItemLib.Chestplates.IRON_CHESTPLATE));

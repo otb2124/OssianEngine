@@ -12,27 +12,27 @@ namespace Resources
 
         public struct SpriteData
         {
-            public SpriteSheets sheet;
-            public Rectangle srcRect;
-            public float z;
-            public float currentZ;
-            public SpriteEffects effect;
+            public SpriteSheets Sheet;
+            public Rectangle SrcRect;
+            public float Z;
+            public float CurrentZ;
+            public SpriteEffects Effect;
             public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z = 0)
             {
-                this.sheet = sheet;
-                this.srcRect = srcRect;
-                this.currentZ = z;
-                this.z = currentZ;
-                this.effect = SpriteEffects.None;
+                Sheet = sheet;
+                SrcRect = srcRect;
+                CurrentZ = z;
+                Z = CurrentZ;
+                Effect = SpriteEffects.None;
             }
 
             public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z, SpriteEffects neweffect)
             {
-                this.sheet = sheet;
-                this.srcRect = srcRect;
-                this.currentZ = z;
-                this.z = currentZ;
-                this.effect = neweffect;
+                Sheet = sheet;
+                SrcRect = srcRect;
+                CurrentZ = z;
+                Z = CurrentZ;
+                Effect = neweffect;
             }
         }
 

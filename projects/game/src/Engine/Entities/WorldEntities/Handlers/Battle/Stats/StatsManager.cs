@@ -14,7 +14,7 @@
         public bool AllowJumpDescendingLock;
         public bool AllowJumpDescending;
 
-        public bool FlyingUpwards;
+        public bool FlyingUpwards = true;
 
         public bool OnUsingStamina;
         public bool OnStaminaRegen;

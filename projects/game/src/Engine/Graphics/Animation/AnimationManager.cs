@@ -16,31 +16,31 @@ namespace Graphics
 
         public void AddStaticAnimation(StaticSpriteFactory.SpriteData spriteData)
         {
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, AnimationStates.IDLE), new Animation(spriteData.sheet, 1, spriteData.srcRect.Location.ToVector2(), spriteData.srcRect.Size.ToVector2(), 0f, spriteData.effect));
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, AnimationStates.IDLE), new Animation(spriteData.sheet, 1, spriteData.srcRect.Location.ToVector2(), spriteData.srcRect.Size.ToVector2(), 0f, spriteData.effect));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, AnimationStates.IDLE), new Animation(spriteData.Sheet, 1, spriteData.SrcRect.Location.ToVector2(), spriteData.SrcRect.Size.ToVector2(), 0f, spriteData.Effect));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, AnimationStates.IDLE), new Animation(spriteData.Sheet, 1, spriteData.SrcRect.Location.ToVector2(), spriteData.SrcRect.Size.ToVector2(), 0f, spriteData.Effect));
         }
 
         public void AddAnimation(StaticSpriteFactory.SpriteData spriteData, Directions Directions, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 frameSize, float eachFrameDuration, SpriteEffects effect)
         {
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions, animationState), new Animation(spriteData.sheet, framesCount, startPos, frameSize, eachFrameDuration, effect));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions, animationState), new Animation(spriteData.Sheet, framesCount, startPos, frameSize, eachFrameDuration, effect));
         }
 
         public void AddAnimationForBothDirections(StaticSpriteFactory.SpriteData spriteData, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 frameSize, float eachFrameDuration)
         {
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.sheet, framesCount, startPos, frameSize, eachFrameDuration, SpriteEffects.FlipHorizontally));
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.sheet, framesCount, startPos, frameSize, eachFrameDuration, SpriteEffects.None));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.Sheet, framesCount, startPos, frameSize, eachFrameDuration, SpriteEffects.FlipHorizontally));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.Sheet, framesCount, startPos, frameSize, eachFrameDuration, SpriteEffects.None));
         }
 
         public void AddAnimationForBothDirections(StaticSpriteFactory.SpriteData spriteData, AnimationStates animationState, int framesCount, Vector2 startPos, Vector2 eachframePosOffset, Vector2 frameSize, Vector2 eachframeSizeOffset, float eachFrameDuration)
         {
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.sheet, new AnimationData(framesCount, startPos, eachframePosOffset, frameSize, eachframeSizeOffset, eachFrameDuration), SpriteEffects.FlipHorizontally));
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.sheet, new AnimationData(framesCount, startPos, eachframePosOffset, frameSize, eachframeSizeOffset, eachFrameDuration), SpriteEffects.None));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.Sheet, new AnimationData(framesCount, startPos, eachframePosOffset, frameSize, eachframeSizeOffset, eachFrameDuration), SpriteEffects.FlipHorizontally));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.Sheet, new AnimationData(framesCount, startPos, eachframePosOffset, frameSize, eachframeSizeOffset, eachFrameDuration), SpriteEffects.None));
         }
 
         public void AddAnimationForBothDirections(StaticSpriteFactory.SpriteData spriteData, AnimationStates animationState, AnimationData data)
         {
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.sheet, data, SpriteEffects.FlipHorizontally));
-            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.sheet, data, SpriteEffects.None));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.LEFT, animationState), new Animation(spriteData.Sheet, data, SpriteEffects.FlipHorizontally));
+            AddAnimation(new Tuple<Directions, AnimationStates>(Directions.RIGHT, animationState), new Animation(spriteData.Sheet, data, SpriteEffects.None));
         }
 
 

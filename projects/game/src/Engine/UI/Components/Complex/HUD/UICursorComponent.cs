@@ -18,7 +18,7 @@ namespace UI
             aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
 
             Position = Vector2.Zero;
-            Origin = StaticSpriteFactory.spriteMappings[sprite].srcRect.Size.ToVector2();
+            Origin = StaticSpriteFactory.spriteMappings[sprite].SrcRect.Size.ToVector2();
             Origin.X -= 24;
             Origin.Y += 0;
             Scale /= 2;

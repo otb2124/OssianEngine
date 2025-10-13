@@ -176,7 +176,7 @@ namespace UI
         {
             if (aManager != null)
             {
-                aManager.GetCurrent().Draw(adjPosition, Color, adjRotation, adjOrigin, adjScale, mapFramePartSpriteData().effect, 0f);
+                aManager.GetCurrent().Draw(adjPosition, Color, adjRotation, adjOrigin, adjScale, mapFramePartSpriteData().Effect, 0f);
             }
         }
     }
