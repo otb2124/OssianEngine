@@ -106,10 +106,10 @@ namespace Entities
 
                             CommandPool = new EntityAICommand[]
                             {
-                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    6f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   7f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.RIGHT); },   5f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.LEFT); },    6f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.RIGHT); },   7f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.LEFT); },    5f),
                                 new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
                                 new EntityAICommand(entity => { entity.Jump(); },                    1.5f, true),
                                 new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
@@ -163,10 +163,10 @@ namespace Entities
 
                             CommandPool = new EntityAICommand[]
                             {
-                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    6f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   7f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.RIGHT); },   5f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.LEFT); },    6f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.RIGHT); },   7f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.LEFT); },    5f),
                                 new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
                                 new EntityAICommand(entity => { entity.Jump(); },                    1.5f, true),
                                 new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
@@ -221,10 +221,10 @@ namespace Entities
 
                             CommandPool = new EntityAICommand[]
                             {
-                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   5f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    6f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.RIGHT); },   7f),
-                                //new EntityAICommand(entity => { entity.Move(Directions.LEFT); },    5f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.RIGHT); },   5f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.LEFT); },    6f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.RIGHT); },   7f),
+                                //new EntityAICommand(entity => { entity.Moving(Directions.LEFT); },    5f),
                                 new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },   3f, true),
                                 new EntityAICommand(entity => { entity.Jump(); },                   1.5f, true),
                                 new EntityAICommand(entity => { entity.MoveUntillUngrounded(); },    3f, true),

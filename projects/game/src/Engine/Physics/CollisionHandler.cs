@@ -30,7 +30,7 @@ namespace Physics
             Type typeB = bodyB.Owner.GetType();
 
             //platforms
-            if (!Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVEDOWNPRESSED])
+            if (!Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVEDOWNPRESSED])
             {
                 if (typeB == typeof(PlatformEntity))
                 {

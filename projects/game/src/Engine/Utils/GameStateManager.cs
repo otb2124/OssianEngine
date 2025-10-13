@@ -43,11 +43,11 @@ namespace Utils
 
         public static void CheckGameStatusChange()
         {
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLECOLLISIONDEBUGPRESSED] && IsDevMode)
+            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.TOGGLECOLLISIONDEBUGPRESSED] && IsDevMode)
             {
                 gameMode = gameMode == GameModes.PLAY_MODE ? GameModes.COLLISION_DEBUG_MODE : GameModes.PLAY_MODE;
             }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.TOGGLEHITBOXDEBUGPRESSED] && IsDevMode)
+            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.TOGGLEHITBOXDEBUGPRESSED] && IsDevMode)
             {
                 gameMode = gameMode == GameModes.PLAY_MODE ? GameModes.HITBOX_DEBUG_MODE : GameModes.PLAY_MODE;
             }

@@ -65,7 +65,7 @@ namespace Entities
 
             if (UpdatesModelStates)
             {
-                EntityModelStateHandler.Update(this);
+                ModelStateHandler.Update(this);
             }
 
             if(StatsManager.GetStatFeature(EntityStatFeatures.GCS) != null)

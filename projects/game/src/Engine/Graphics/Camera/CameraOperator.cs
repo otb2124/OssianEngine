@@ -40,28 +40,28 @@ namespace Graphics
             float bottomBound = -mapSize.Y;
 
             // Camera movement
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
+            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
             {
                 targetPosition.Y += cameraSpeed;
             }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED])
+            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED])
             {
                 targetPosition.Y -= cameraSpeed;
             }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED])
+            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED])
             {
                 targetPosition.X += cameraSpeed;
             }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED])
+            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED])
             {
                 targetPosition.X -= cameraSpeed;
             }
 
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
+            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
             {
                 Graphics.camera.MoveZ(-2f);
             }
-            if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
+            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
             {
                 Graphics.camera.MoveZ(2f);
             }

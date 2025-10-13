@@ -12,23 +12,23 @@ namespace Utils
 
         public static bool isPlayerMoving()
         {
-            return Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] |
-                Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED];
+            return Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] |
+                Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED];
         }
 
 
         public static bool isCameraMoving()
         {
-            return Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED] |
-                Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED] |
-                Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED] |
-                Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED];
+            return Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED] |
+                Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED] |
+                Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED] |
+                Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED];
         }
 
         public static bool isCameraZooming()
         {
-            return Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED] |
-                Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED];
+            return Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED] |
+                Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED];
         }
     }
 }

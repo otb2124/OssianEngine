@@ -98,7 +98,33 @@
 
             return null;
         }
-        
+
+
+        public bool CheckEnoughFinalBattleStamina(BattleEntity ent)
+        {
+            return GetStat(EntityStats.STAMINA).CurrentValue - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(ent) > 0;
+        }
+
+        public bool CheckEnoughFinalBattleMana(BattleEntity ent)
+        {
+            return GetStat(EntityStats.MANA).CurrentValue - BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent) > 0;
+        }
+
+        public bool CheckEnoughStaminaForRoll()
+        {
+            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0;
+        }
+
+        public bool CheckEnoughStaminaForJump()
+        {
+            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec > 0;
+        }
+
+        public bool CheckEnoughStaminaForsSprint()
+        {
+            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0;
+        }
+
         public bool LostPoise()
         {
             return GetStat(EntityStats.POISE).LessEquealZero();

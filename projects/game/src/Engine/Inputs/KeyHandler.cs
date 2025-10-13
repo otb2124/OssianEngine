@@ -60,7 +60,7 @@ namespace Inputs
             TOGGLEHITBOXDEBUGPRESSED
         }
 
-        public Dictionary<KeyStates, bool> keyStates = new Dictionary<KeyStates, bool>
+        public Dictionary<KeyStates, bool> KeyStateMap = new Dictionary<KeyStates, bool>
         {
             //Player keys
             { KeyStates.JUMPPRESSED, false },
@@ -131,9 +131,9 @@ namespace Inputs
 
             foreach (var (state, _) in keyBindings.Keys)
             {
-                if (!keyStates.ContainsKey(state))
+                if (!KeyStateMap.ContainsKey(state))
                 {
-                    keyStates[state] = false;
+                    KeyStateMap[state] = false;
                 }
             }
         }
@@ -164,7 +164,7 @@ namespace Inputs
                     }
                 }
 
-                keyStates[state] = isPressed;
+                KeyStateMap[state] = isPressed;
             }
         }
 
@@ -187,7 +187,7 @@ namespace Inputs
                     }
                 }
 
-                keyStates[state] = isPressed;
+                KeyStateMap[state] = isPressed;
             }
         }
 
@@ -214,7 +214,7 @@ namespace Inputs
 
                 if (allReleased)
                 {
-                    keyStates[state] = false;
+                    KeyStateMap[state] = false;
                 }
             }
         }
