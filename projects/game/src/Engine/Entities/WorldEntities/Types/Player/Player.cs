@@ -33,16 +33,17 @@ namespace Entities
                 new EntityStat(EntityStats.POISE, 100, 100, 10)
             };
 
-            StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+            StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
 
-            StatsManager.StatFeatures = new EntityStatFeature[]
+            StatsManager.Abilities = new EntityAbility[]
             {
-                new InvincibleFramesHandler(1f),
-                new StaminaRegenerationHandler(20, 1.5f),
-                new FallStatesHandler(),
-                new LedgeHangingHandler(),
-                new GCSRectanglesStatesHandler(),
-                new DescencionHandler(0.5f, 1f)
+                new InvincibleFramesAbility(1f),
+                new StaminaRegenerationAbility(20, 1.5f),
+                new FallAbility(),
+                new LedgeHangingAbility(),
+                new GCSRectanglesCalculatorAbility(),
+                new DescencionAbility(0.5f, 1f),
+                new DoubleJumpAbility()
             };
 
             StatsManager.RefillAll();
@@ -249,6 +250,7 @@ namespace Entities
         public override void Update()
         {
             EntityModelStateHandler.UpdatePlayerModelState(this);
+            Console.WriteLine(Model.ModelState);
             base.Update();
         }
 

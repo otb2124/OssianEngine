@@ -16,16 +16,17 @@ namespace Entities
         DESCENCION,
         FALL,
         FLY,
-        LEDGE_HANG
+        LEDGE_HANG,
+        DOUBLE_JUMP
     };
 
 
-    public class EntityStatFeature
+    public class EntityAbility
     {
 
         public EntityStatFeatures Type;
 
-        public EntityStatFeature() { }
+        public EntityAbility() { }
 
         public virtual void Update(StatsManager statsManager, Resources.Model model){ }
     }

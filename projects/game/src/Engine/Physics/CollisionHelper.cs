@@ -103,25 +103,6 @@ namespace Physics
 
             return null;
         }
-        public static bool IsDescending(Resources.Model model)
-        {
-            if (GetAnyGround(model) == null)
-            {
-                FlatBody body = model.Body;
-
-                if (body.Position.Y > model.HighestJumpY)
-                {
-                    model.HighestJumpY = body.Position.Y;
-                    return false;
-                }
-                else if (body.Position.Y < model.HighestJumpY)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         public static LedgeEntity GetAnyLedges(FlatBody body)
         {

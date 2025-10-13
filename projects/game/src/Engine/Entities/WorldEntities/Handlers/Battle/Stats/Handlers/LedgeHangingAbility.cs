@@ -8,7 +8,7 @@ using Utils;
 
 namespace Entities
 {
-    public class LedgeHangingHandler : EntityStatFeature
+    public class LedgeHangingAbility : EntityAbility
     {
 
         public bool AllowHangingOnLedge = true;
@@ -16,7 +16,7 @@ namespace Entities
         public int UnHangingCounter = 0;
 
 
-        public LedgeHangingHandler()
+        public LedgeHangingAbility()
         {
             Type = EntityStatFeatures.LEDGE_HANG;
         }

@@ -135,6 +135,23 @@ namespace Entities {
                 Entity.Model.Body.IsFrozen = false;
             }
 
+            if (state == ModelStates.DOUBLE_JUMPING)
+            {
+                Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue * 1.5f);
+                Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.StatsManager.AllowJumpDescendingLock = true;
+                Entity.Model.Body.IsFrozen = false;
+            }
+
+            if (state == ModelStates.DOUBLE_JUMPING_AND_MOVING)
+            {
+                Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue * 1.5f);
+                Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.StatsManager.AllowJumpDescendingLock = true;
+                Entity.Model.Body.IsFrozen = false;
+                Entity.Model.Body.Move(new FlatVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
+            }
+
             if (Entity is EquipmentEntity eqEnt)
             {
                 if (state == ModelStates.ATTACKING_LIGHT || state == ModelStates.ATTACKING_HEAVY)
@@ -175,7 +192,7 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
                 && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
+                && player.Model.ModelState != ModelStates.DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0 &&
@@ -190,7 +207,7 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
                 && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
+                && player.Model.ModelState != ModelStates.DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - BattleStatsCalculator.GetFinalStaminaPerHitCostForBattleEntity(player) > 0 &&
@@ -206,7 +223,7 @@ namespace Entities {
                 && player.Model.ModelState != ModelStates.JUMPING_DESCENDING_AND_MOVING
                 && player.Model.ModelState != ModelStates.JUMPING
                 && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING
-                && player.Model.ModelState != ModelStates.OVERALL_DESCENDING
+                && player.Model.ModelState != ModelStates.DESCENDING
                 && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue > 0)
@@ -244,9 +261,14 @@ namespace Entities {
                 // JUMP
                 if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.JUMPPRESSED])
                 {
-                    if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec > 0 && (player.StatsManager.IsGrounded || player.Model.ModelState == ModelStates.HANGING_ON_LEDGE))
+                    if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec > 0) //&& (player.StatsManager.IsGrounded || player.Model.ModelState == ModelStates.HANGING_ON_LEDGE))
                     {
                         player.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
+
+                        if(player.StatsManager.AllowDoubleJump)
+                        {
+                            player.Model.ModelState = ModelStates.DOUBLE_JUMPING_AND_MOVING;
+                        }
                     }
                 }
 
@@ -255,14 +277,16 @@ namespace Entities {
                      player.Model.ModelState == ModelStates.JUMPING_AND_MOVING ||
                      player.Model.ModelState == ModelStates.JUMPING_DESCENDING) &&
                      !player.StatsManager.IsGrounded &&
-                     player.StatsManager.AllowJumpDescending)
+                     player.StatsManager.AllowJumpDescending &&
+                     player.Model.ModelState != ModelStates.DOUBLE_JUMPING &&
+                     player.Model.ModelState != ModelStates.DOUBLE_JUMPING_AND_MOVING)
                 {
                     player.Model.ModelState = ModelStates.JUMPING_DESCENDING_AND_MOVING;
                 }
 
-                if (player.StatsManager.IsTouchingCeiling || (!player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING))
+                if (player.StatsManager.IsTouchingCeiling || (!player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING) && player.Model.ModelState != ModelStates.DOUBLE_JUMPING && player.Model.ModelState != ModelStates.DOUBLE_JUMPING_AND_MOVING)
                 {
-                    player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
+                    player.Model.ModelState = ModelStates.DESCENDING;
                 }
 
 
@@ -275,7 +299,7 @@ namespace Entities {
 
                     // SPRINT
                     if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.SPRINTPRESSED] &&
-                    player.Model.ModelState != ModelStates.OVERALL_DESCENDING && player.StatsManager.IsGrounded)
+                    player.Model.ModelState != ModelStates.DESCENDING && player.StatsManager.IsGrounded)
                     {
                         if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
                             !player.StatsManager.OnStaminaRegen)
@@ -286,7 +310,7 @@ namespace Entities {
 
                     //ROLL
                     else if (Inputs.Inputs.keyHandler.keyStates[Inputs.KeyHandler.KeyStates.BLOCKPRESSED] &&
-                    player.Model.ModelState != ModelStates.OVERALL_DESCENDING)
+                    player.Model.ModelState != ModelStates.DESCENDING)
                     {
                         if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0 &&
                             !player.StatsManager.OnStaminaRegen)
@@ -304,7 +328,7 @@ namespace Entities {
                         }
                         else if(!player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE)
                         {
-                            player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
+                            player.Model.ModelState = ModelStates.DESCENDING;
                         }
                     }
                 }
@@ -334,7 +358,7 @@ namespace Entities {
                     }
                     else if (player.StatsManager.IsTouchingCeiling || (!player.StatsManager.IsGrounded && !player.StatsManager.AllowJumpDescending && player.Model.ModelState != ModelStates.JUMPING_AND_MOVING && player.Model.ModelState != ModelStates.JUMPING && player.Model.ModelState != ModelStates.HANGING_ON_LEDGE))
                     {
-                        player.Model.ModelState = ModelStates.OVERALL_DESCENDING;
+                        player.Model.ModelState = ModelStates.DESCENDING;
                     }
 
                     // JUMP
@@ -343,6 +367,11 @@ namespace Entities {
                         if (player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - player.StatsManager.GetStat(EntityStats.STAMINA).StaminaDependencySec > 0)
                         {
                             player.Model.ModelState = ModelStates.JUMPING;
+
+                            if (player.StatsManager.AllowDoubleJump)
+                            {
+                                player.Model.ModelState = ModelStates.DOUBLE_JUMPING;
+                            }  
                         }
                     }
 

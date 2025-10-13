@@ -181,7 +181,7 @@ namespace Resources
                     return AnimationStates.JUMPING_DESCENDING;
                 case ModelStates.JUMPING_DESCENDING_AND_MOVING:
                     return AnimationStates.JUMPING_DESCENDING;
-                case ModelStates.OVERALL_DESCENDING:
+                case ModelStates.DESCENDING:
                     return AnimationStates.OVERALL_DESCENDING;
                 case ModelStates.BLOCKING:
                     return AnimationStates.BLOCKING_SWORD;
@@ -191,6 +191,11 @@ namespace Resources
                     return AnimationStates.FLYING;
                 case ModelStates.FLYING_AND_MOVING:
                     return AnimationStates.FLYING_AND_MOVING;
+
+                case ModelStates.DOUBLE_JUMPING:
+                    return AnimationStates.ROLL;
+                case ModelStates.DOUBLE_JUMPING_AND_MOVING:
+                    return AnimationStates.ROLL;
 
                 default:
                     return defaultCase;

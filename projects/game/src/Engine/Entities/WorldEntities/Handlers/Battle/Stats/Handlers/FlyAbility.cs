@@ -8,7 +8,7 @@ using Utils;
 
 namespace Entities
 {
-    public class FlyHandler : EntityStatFeature
+    public class FlyAbility : EntityAbility
     {
 
         public int FlyingCounter = 0;
@@ -18,7 +18,7 @@ namespace Entities
         public float LandPoint;
 
 
-        public FlyHandler()
+        public FlyAbility()
         {
             Type = EntityStatFeatures.FLY;
         }

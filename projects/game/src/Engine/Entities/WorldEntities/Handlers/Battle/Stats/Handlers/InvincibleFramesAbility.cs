@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class InvincibleFramesHandler : EntityStatFeature
+    public class InvincibleFramesAbility : EntityAbility
     {
 
         public float InvincibleFramesDurationSec = 1f;
         public int InvincibleCounter = 0;
 
-        public InvincibleFramesHandler(float invincibleFramesDurationSec)
+        public InvincibleFramesAbility(float invincibleFramesDurationSec)
         {
             InvincibleFramesDurationSec = invincibleFramesDurationSec;
             Type = EntityStatFeatures.INVINCIBLE_FRAMES;

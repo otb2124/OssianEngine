@@ -8,7 +8,7 @@ using Utils;
 
 namespace Entities
 {
-    public class DescencionHandler : EntityStatFeature
+    public class DescencionAbility : EntityAbility
     {
 
         public float DescendingMultiplier;
@@ -17,7 +17,7 @@ namespace Entities
 
         public bool IsJumpDescending;
 
-        public DescencionHandler(float maxDescendingSec, float descendingMultiplier)
+        public DescencionAbility(float maxDescendingSec, float descendingMultiplier)
         {
             MaxDescendingSec = maxDescendingSec;
             DescendingMultiplier = descendingMultiplier;
@@ -40,7 +40,7 @@ namespace Entities
                  model.ModelState == ModelStates.JUMPING_DESCENDING ||
                  model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING)
             {
-                IsJumpDescending = CollisionHelper.IsDescending(model);
+                IsJumpDescending = IsDescending(statsManager, model);
             }
 
 
@@ -74,6 +74,27 @@ namespace Entities
             {
                 model.highestJumpY = float.MinValue;
             }
+        }
+
+
+        public bool IsDescending(StatsManager statsManager, Resources.Model model)
+        {
+            if (!statsManager.IsGrounded)
+            {
+                FlatBody body = model.Body;
+
+                if (body.Position.Y > model.HighestJumpY)
+                {
+                    model.HighestJumpY = body.Position.Y;
+                    return false;
+                }
+                else if (body.Position.Y < model.HighestJumpY)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

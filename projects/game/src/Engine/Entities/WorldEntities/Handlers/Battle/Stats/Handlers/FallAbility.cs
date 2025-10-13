@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class FallStatesHandler : EntityStatFeature
+    public class FallAbility : EntityAbility
     {
 
         public float FallenTimer = 0f;
         public float FallenDurationAllowedSec = 3f;
 
 
-        public FallStatesHandler() 
+        public FallAbility() 
         {
             Type = EntityStatFeatures.FALL;
         }

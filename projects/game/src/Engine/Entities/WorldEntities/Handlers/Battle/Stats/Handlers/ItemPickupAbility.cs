@@ -8,13 +8,13 @@ namespace Entities
 {
 
 
-    public class ItemPickupHandler : EntityStatFeature
+    public class ItemPickupAbility : EntityAbility
     {
 
         public int PickupCounter = 0;
         public float PickupLockSec = 0.25f;
 
-        public ItemPickupHandler()
+        public ItemPickupAbility()
         {
             Type = EntityStatFeatures.ITEM_PICKUP;
         }

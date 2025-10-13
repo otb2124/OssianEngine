@@ -6,9 +6,9 @@
         public BattleHitStatsSet BodyHitStatsSet;
 
         public EntityStat[] Stats;
-        public EntityStatFeature[] StatFeatures;
+        public EntityAbility[] Abilities;
 
-        public StatsBattleHitSpendHandler StatsBattleHitSpendHandler;
+        public StatsBattleHitSpendTool StatsBattleHitSpendHandler;
 
         //TODO: ???
         public bool AllowJumpDescendingLock;
@@ -31,6 +31,8 @@
         public bool IsInvincible = true;
 
         public bool AllowPickup = true;
+
+        public bool AllowDoubleJump = false;
 
         public void RefillAll()
         {
@@ -74,7 +76,7 @@
 
         public void UpdateFeatures(Resources.Model model)
         {
-            foreach (EntityStatFeature feature in StatFeatures)
+            foreach (EntityAbility feature in Abilities)
             {
                 if(feature != null)
                 {
@@ -84,9 +86,9 @@
         }
 
 
-        public EntityStatFeature GetStatFeature(EntityStatFeatures type)
+        public EntityAbility GetStatFeature(EntityStatFeatures type)
         {
-            foreach (EntityStatFeature feature in StatFeatures)
+            foreach (EntityAbility feature in Abilities)
             {
                 if (feature.Type == type)
                 {

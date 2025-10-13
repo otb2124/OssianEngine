@@ -7,7 +7,7 @@ using Utils;
 
 namespace Entities
 {
-    public class StaminaRegenerationHandler : EntityStatFeature
+    public class StaminaRegenerationAbility : EntityAbility
     {
 
         public float StaminaRegenSec;
@@ -15,7 +15,7 @@ namespace Entities
 
         public int StaminaUnlockCounter = 0;
 
-        public StaminaRegenerationHandler(float staminaRegenSec, float staminaUnlockSec)
+        public StaminaRegenerationAbility(float staminaRegenSec, float staminaUnlockSec)
         {
             StaminaRegenSec = staminaRegenSec;
             StaminaUnlockSec = staminaUnlockSec;

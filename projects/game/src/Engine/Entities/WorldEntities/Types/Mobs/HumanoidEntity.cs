@@ -205,16 +205,16 @@ namespace Entities
                         new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
                     };
 
-                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    StatsManager.Abilities = new EntityAbility[]
                     {
-                        new StaminaRegenerationHandler(20, 1.5f),
-                        new InvincibleFramesHandler(1f),
-                        new FallStatesHandler(),
-                        new GCSRectanglesStatesHandler(),
-                        new DescencionHandler(0.5f, 1f)
+                        new StaminaRegenerationAbility(20, 1.5f),
+                        new InvincibleFramesAbility(1f),
+                        new FallAbility(),
+                        new GCSRectanglesCalculatorAbility(),
+                        new DescencionAbility(0.5f, 1f)
                     };
 
-                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
 
                     break;
 
@@ -232,16 +232,16 @@ namespace Entities
                         new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
                     };
 
-                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    StatsManager.Abilities = new EntityAbility[]
                     {
-                        new StaminaRegenerationHandler(20, 1.5f),
-                        new InvincibleFramesHandler(1f),
-                        new FallStatesHandler(),
-                        new GCSRectanglesStatesHandler(),
-                        new DescencionHandler(0.5f, 1f)
+                        new StaminaRegenerationAbility(20, 1.5f),
+                        new InvincibleFramesAbility(1f),
+                        new FallAbility(),
+                        new GCSRectanglesCalculatorAbility(),
+                        new DescencionAbility(0.5f, 1f)
                     };
 
-                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
 
 
                     break;
@@ -260,16 +260,16 @@ namespace Entities
                         new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
                     };
 
-                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    StatsManager.Abilities = new EntityAbility[]
                     {
-                        new StaminaRegenerationHandler(20, 1.5f),
-                        new InvincibleFramesHandler(1f),
-                        new FallStatesHandler(),
-                        new GCSRectanglesStatesHandler(),
-                        new DescencionHandler(0.5f, 1f)
+                        new StaminaRegenerationAbility(20, 1.5f),
+                        new InvincibleFramesAbility(1f),
+                        new FallAbility(),
+                        new GCSRectanglesCalculatorAbility(),
+                        new DescencionAbility(0.5f, 1f)
                     };
 
-                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
 
 
                     break;
@@ -288,16 +288,16 @@ namespace Entities
                         new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15)
                     };
 
-                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    StatsManager.Abilities = new EntityAbility[]
                     {
-                        new StaminaRegenerationHandler(20, 1.5f),
-                        new InvincibleFramesHandler(1f),
-                        new FallStatesHandler(),
-                        new GCSRectanglesStatesHandler(),
-                        new DescencionHandler(0.5f, 1f)
+                        new StaminaRegenerationAbility(20, 1.5f),
+                        new InvincibleFramesAbility(1f),
+                        new FallAbility(),
+                        new GCSRectanglesCalculatorAbility(),
+                        new DescencionAbility(0.5f, 1f)
                     };
 
-                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
 
 
                     break;

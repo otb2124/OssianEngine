@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class GCSRectanglesStatesHandler : EntityStatFeature
+    public class GCSRectanglesCalculatorAbility : EntityAbility
     {
 
 
-        public GCSRectanglesStatesHandler()
+        public GCSRectanglesCalculatorAbility()
         {
             Type = EntityStatFeatures.GCS;
         }

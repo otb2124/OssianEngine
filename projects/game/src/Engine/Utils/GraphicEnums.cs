@@ -162,6 +162,8 @@ namespace Utils
         MOVING,
         JUMPING,
         JUMPING_AND_MOVING,
+        DOUBLE_JUMPING,
+        DOUBLE_JUMPING_AND_MOVING,
         BLOCKING,
         ATTACKING_LIGHT,
         ATTACKING_HEAVY,
@@ -174,7 +176,7 @@ namespace Utils
         RECEIVING_DAMAGE, 
         JUMPING_DESCENDING,
         JUMPING_DESCENDING_AND_MOVING,
-        OVERALL_DESCENDING,
+        DESCENDING,
         HANGING_ON_LEDGE,
 
         FLYING,

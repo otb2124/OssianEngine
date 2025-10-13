@@ -75,13 +75,13 @@ namespace Entities
 
                     StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
-                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    StatsManager.Abilities = new EntityAbility[]
                     {
-                        new InvincibleFramesHandler(1f),
-                        new FallStatesHandler(),
-                        new StaminaRegenerationHandler(3, 1.5f),
-                        new GCSRectanglesStatesHandler(),
-                        new DescencionHandler(0.5f, 1f),
+                        new InvincibleFramesAbility(1f),
+                        new FallAbility(),
+                        new StaminaRegenerationAbility(3, 1.5f),
+                        new GCSRectanglesCalculatorAbility(),
+                        new DescencionAbility(0.5f, 1f),
                     };
 
                     break;
@@ -104,14 +104,14 @@ namespace Entities
 
                     StatsManager.BodyHitStatsSet = new BattleHitStatsSet(new DamageSet(5, 0), new DefenseSet(0, 0), new StatsCostSet(0, 25, 0), 20, 1);
 
-                    StatsManager.StatFeatures = new EntityStatFeature[]
+                    StatsManager.Abilities = new EntityAbility[]
                     {
-                        new InvincibleFramesHandler(1f),
-                        new FallStatesHandler(),
-                        new StaminaRegenerationHandler(3, 1.5f),
-                        new GCSRectanglesStatesHandler(),
-                        new DescencionHandler(0.5f, 1f),
-                        new FlyHandler()
+                        new InvincibleFramesAbility(1f),
+                        new FallAbility(),
+                        new StaminaRegenerationAbility(3, 1.5f),
+                        new GCSRectanglesCalculatorAbility(),
+                        new DescencionAbility(0.5f, 1f),
+                        new FlyAbility()
                     };
 
                     break;
