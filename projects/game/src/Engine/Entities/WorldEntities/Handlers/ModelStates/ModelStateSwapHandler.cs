@@ -8,6 +8,42 @@ namespace Entities
         public static ModelStateSwap[] ModelStateSwappers = new[]
         {
 
+            //IDLE
+            new ModelStateSwap(
+                ModelStates.IDLE,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new OrRequirement(
+                                new Requirement[]
+                                {
+                                    new ModelStateRequirement(ModelStates.JUMPING),
+                                    new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING),
+                                    new ModelStateRequirement(ModelStates.ATTACKING_LIGHT),
+                                    new ModelStateRequirement(ModelStates.ATTACKING_HEAVY),
+                                },
+                                true
+                             ),
+
+                            new OrRequirement(
+                                new Requirement[]
+                                {
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED),
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED),
+                                },
+                                true
+                             ),
+
+
+                            new IsGroundedRequirement(),
+                        }
+                    )
+                }
+            ),
+
+
             //ATTACKING_LIGHT
             new ModelStateSwap(
                 ModelStates.ATTACKING_LIGHT,
@@ -465,32 +501,7 @@ namespace Entities
             ),
 
 
-            //IDLE
-            new ModelStateSwap(
-                ModelStates.IDLE,
-                new Requirement[]
-                {
-                    new AndRequirement(
-                        new Requirement[]
-                        {
-                            new OrRequirement(
-                                new Requirement[]
-                                {
-                                    new ModelStateRequirement(ModelStates.JUMPING),
-                                    new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING),
-                                },
-                                true
-                             ),
-
-
-                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED, true),
-                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED, true),
-
-                            new IsGroundedRequirement(),
-                        }
-                    )
-                }
-            ),
+            
         };
 
         public static void Update()
