@@ -12,7 +12,6 @@ namespace Entities
         public int ExperienceLvl = 0;
         public int Experience = 0;
 
-
         public Dictionary<int, int> LevelExperienceCost = new()
         {
             {1, 100 },

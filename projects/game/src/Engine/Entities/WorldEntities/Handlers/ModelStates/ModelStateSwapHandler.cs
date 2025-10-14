@@ -7,7 +7,6 @@ namespace Entities
 
         public static ModelStateSwap[] ModelStateSwappers = new[]
         {
-
             //IDLE
             new ModelStateSwap(
                 ModelStates.IDLE,
