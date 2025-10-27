@@ -1,7 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
 using System;
+using System.Collections.Generic;
 using Utils;
 
 namespace Entities
@@ -137,11 +139,36 @@ namespace Entities
 
         public override void SetAnimations()
         {
-            float frameSpeed = 0.05f;
 
-            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.IDLE, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.MOVING, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
-            Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ROLL, 4, new Vector2(0, 0), new Vector2(32, 32), frameSpeed);
+            Model.AManagers = new Animator[]
+                    {
+                        new Animator
+                        (
+                            Model.SpriteData.SpriteSheet,
+                            new List<Animation>
+                            {
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.LEFT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.RIGHT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+
+                            }
+                        )
+                    };
+
         }
 
         public override void SetStats()

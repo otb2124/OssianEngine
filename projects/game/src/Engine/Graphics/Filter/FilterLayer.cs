@@ -21,7 +21,7 @@ namespace Graphics
         public float DarknessMaxAlpha = 0.95f;
         public float DarknessMinAlpha = 0f;
 
-        public AnimationManager aManager;
+        public Animator aManager;
 
         private float targetAlpha;
         private float lastUpdateHours;
@@ -34,8 +34,7 @@ namespace Graphics
             DarknessMinAlpha = MinAlpha;
             DarknessCurrentAlpha = CurrentAlpha;
             targetAlpha = DarknessCurrentAlpha;
-            aManager = new AnimationManager();
-            aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[sprites]);
+            aManager = new Animator(StaticSpriteFactory.spriteMappings[sprites]);
         }
 
         public void Update()
@@ -57,8 +56,8 @@ namespace Graphics
 
         public void Draw()
         {
-            Vector2 scale = new Vector2(Graphics.ScreenResolution.X / aManager.GetCurrent().sourceRectangles[0].Width, Graphics.ScreenResolution.Y / aManager.GetCurrent().sourceRectangles[0].Height);
-            aManager.GetCurrent().Draw(new Vector2(Graphics.camera.Position.X - Graphics.ScreenResolution.X / 2, Graphics.camera.Position.Y - Graphics.ScreenResolution.Y / 2), DarknessCurrentColor * DarknessCurrentAlpha, 0f, Vector2.Zero, scale, 0f);
+            Vector2 scale = new Vector2(Graphics.ScreenResolution.X / aManager.GetCurrent().SourceRectangles[0].Width, Graphics.ScreenResolution.Y / aManager.GetCurrent().SourceRectangles[0].Height);
+            aManager.DrawCurrent(new Vector2(Graphics.camera.Position.X - Graphics.ScreenResolution.X / 2, Graphics.camera.Position.Y - Graphics.ScreenResolution.Y / 2), DarknessCurrentColor * DarknessCurrentAlpha, 0f, Vector2.Zero, scale, 0f);
         }
     }
 }

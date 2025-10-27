@@ -45,7 +45,7 @@ namespace UI
             EQUIPMENT, EQUIPMENT_SLOT,
         }
 
-        public AnimationManager aManager;
+        public Animator aManager;
         public StaticSprites sprite;
         public SpriteData spriteData;
 
@@ -136,7 +136,7 @@ namespace UI
         {
             if (aManager != null)
             {
-                aManager.GetCurrent().Draw(adjPosition, Color, adjRotation, adjOrigin, adjScale, 0f);
+                aManager.DrawCurrent(adjPosition, Color, adjRotation, adjOrigin, adjScale, 0f);
             }
 
             if(Text != null)

@@ -1,5 +1,6 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +18,7 @@ namespace UI
         {
             this.type = UIComponentTypes.ICON;
             this.spriteData = spriteData;
-            aManager = new AnimationManager();
-            aManager.AddStaticAnimation(spriteData);
+            aManager = new Animator(spriteData);
 
             this.Position = pos;
             Scale = scale;

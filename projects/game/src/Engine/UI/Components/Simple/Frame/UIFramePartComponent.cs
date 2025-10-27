@@ -36,8 +36,7 @@ namespace UI
 
             type = UIComponentTypes.FRAMEPART;
 
-            aManager = new AnimationManager();
-            aManager.AddStaticAnimation(mapFramePartSpriteData());
+            aManager = new Animator(mapFramePartSpriteData());
 
             IsStickToCameraState = true;
             IsStickToZoomState = true;
@@ -176,7 +175,7 @@ namespace UI
         {
             if (aManager != null)
             {
-                aManager.GetCurrent().Draw(adjPosition, Color, adjRotation, adjOrigin, adjScale, mapFramePartSpriteData().Effect, 0f);
+                aManager.DrawCurrent(adjPosition, Color, adjRotation, adjOrigin, adjScale, 0f, mapFramePartSpriteData().Effect);
             }
         }
     }

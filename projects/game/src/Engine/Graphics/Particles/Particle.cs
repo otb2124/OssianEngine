@@ -26,7 +26,7 @@ namespace Graphics
         public Vector2 VelocityMultiplier;
 
         public StaticSpriteFactory.SpriteData sprite;
-        public AnimationManager aManager;
+        public Animator aManager;
         public Particles Type;
 
         public float DurationSec;
@@ -39,7 +39,6 @@ namespace Graphics
             Type = particle;
             Postion = pos;
             AdjustedScale = Vector2.One;
-            aManager = new AnimationManager();
 
             DurationCounter = 0;
 
@@ -71,7 +70,7 @@ namespace Graphics
                     break;
             }
 
-            aManager.AddStaticAnimation(sprite);
+            aManager = new Animator(sprite);
         }
 
         public void Draw()
@@ -83,7 +82,7 @@ namespace Graphics
             Vector2 adjustedScale = AdjustedScale;
 
             Graphics.sprites.Draw(
-                 ResourceLoader.spriteSheets[aManager.GetCurrent().spriteSheet].texture,
+                 ResourceLoader.spriteSheets[aManager.SpriteSheet].texture,
                  adjustedPos,
                  aManager.GetCurrent().GetCurrentFrame(),
                  Color.White,

@@ -12,14 +12,14 @@ namespace Resources
 
         public struct SpriteData
         {
-            public SpriteSheets Sheet;
+            public SpriteSheets SpriteSheet;
             public Rectangle SrcRect;
             public float Z;
             public float CurrentZ;
             public SpriteEffects Effect;
             public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z = 0)
             {
-                Sheet = sheet;
+                SpriteSheet = sheet;
                 SrcRect = srcRect;
                 CurrentZ = z;
                 Z = CurrentZ;
@@ -28,7 +28,7 @@ namespace Resources
 
             public SpriteData(SpriteSheets sheet, Rectangle srcRect, float z, SpriteEffects neweffect)
             {
-                Sheet = sheet;
+                SpriteSheet = sheet;
                 SrcRect = srcRect;
                 CurrentZ = z;
                 Z = CurrentZ;

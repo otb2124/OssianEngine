@@ -14,8 +14,7 @@ namespace UI
             type = UIComponentTypes.CURSOR;
 
             this.sprite = StaticSprites.UI_CURSOR;
-            aManager = new AnimationManager();
-            aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager = new Animator(StaticSpriteFactory.spriteMappings[this.sprite]);
 
             Position = Vector2.Zero;
             Origin = StaticSpriteFactory.spriteMappings[sprite].SrcRect.Size.ToVector2();

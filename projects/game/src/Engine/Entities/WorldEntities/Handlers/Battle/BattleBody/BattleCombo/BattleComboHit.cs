@@ -19,7 +19,7 @@ namespace Entities
         public Vector2 HitboxAppearanceTimePeriod;
         public AttackTypes[] AttackSequence;
         public AnimationStates AnimationState;
-        public AnimationData AnimationData;
+        public AnimationFramesData AnimationData;
         public BattleHitStatsSet BattleHitDataMult;
 
         public BattleComboHit(RotatedRectangle hitboxOffset, Vector2 entityPositionOffset, float swingTimeSec, Vector2 hitboxAppearanceTimePeriod, AttackTypes[] attackSequence, BattleHitStatsSet battleHitDataMult)
@@ -44,37 +44,37 @@ namespace Entities
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_SWORD_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_SWORD_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY, AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_SWORD_HEAVY_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_SWORD_LIGHT_LIGHT_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.BLOCK }))
                     {
                         AnimationState = AnimationStates.BLOCKING_SWORD;
-                        AnimationData = new AnimationData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     break;
 
@@ -84,37 +84,37 @@ namespace Entities
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_LIGHT_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_KNIFE_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_KNIFE_LIGHT_HEAVY_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.BLOCK }))
                     {
                         AnimationState = AnimationStates.BLOCKING_KNIFE;
-                        AnimationData = new AnimationData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     break;
 
@@ -123,37 +123,37 @@ namespace Entities
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.LIGHT, AttackTypes.LIGHT }))
                     {
                         AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_LIGHT_LIGHT;
-                        AnimationData = new AnimationData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 0), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_BARE_HANDS_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT, AttackTypes.HEAVY, AttackTypes.HEAVY }))
                     {
                         AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY;
-                        AnimationData = new AnimationData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(4, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.BLOCK }))
                     {
                         AnimationState = AnimationStates.BLOCKING_KNIFE;
-                        AnimationData = new AnimationData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
+                        AnimationData = new AnimationFramesData(1, new Vector2(0, 128), new Vector2(128, 128), newSpeed);
                     }
                     break;
 
@@ -161,7 +161,7 @@ namespace Entities
 
                 case BattleMovesets.BODY_SLIME:
 
-                    AnimationData = new AnimationData(1, Vector2.Zero, Vector2.Zero, newSpeed);
+                    AnimationData = new AnimationFramesData(1, Vector2.Zero, Vector2.Zero, newSpeed);
 
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
@@ -191,7 +191,7 @@ namespace Entities
 
                 case BattleMovesets.WEAPON_MAGIC:
 
-                    AnimationData = new AnimationData(1, Vector2.Zero, Vector2.Zero, newSpeed);
+                    AnimationData = new AnimationFramesData(1, Vector2.Zero, Vector2.Zero, newSpeed);
 
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
@@ -206,7 +206,7 @@ namespace Entities
 
                 case BattleMovesets.WEAPON_BOW:
 
-                    AnimationData = new AnimationData(1, Vector2.Zero, Vector2.Zero, newSpeed);
+                    AnimationData = new AnimationFramesData(1, Vector2.Zero, Vector2.Zero, newSpeed);
 
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {

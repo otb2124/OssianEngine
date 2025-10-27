@@ -57,7 +57,7 @@ namespace Entities
             },
         };
 
-        public AnimationManager[] aManagers;
+        public Animator[] aManagers;
         public int[][] Indicies;
         public bool IsGround;
         public bool DisableEntityBodyGroundingStatusOnWalls;
@@ -91,12 +91,11 @@ namespace Entities
             Model.Body.Owner = this;
 
             SpriteData[] data = TileSetCut(TileSet);
-            aManagers = new AnimationManager[data.Length];
+            aManagers = new Animator[data.Length];
 
             for (int i = 0; i < aManagers.Length; i++)
             {
-                aManagers[i] = new AnimationManager();
-                aManagers[i].AddStaticAnimation(data[i]);
+                aManagers[i] = new Animator(data[i]);
             }
         }
 
@@ -196,7 +195,7 @@ namespace Entities
                     Vector2 rotatedPos = Vector2.Transform(localPos, rotationMatrix);
                     Vector2 worldPos = FlatConverter.ToVector2(Model.Body.Position) + rotatedPos;
 
-                    aManagers[Indicies[x][y]].GetCurrent().Draw(
+                    aManagers[Indicies[x][y]].DrawCurrent(
                         worldPos,
                         Color.White,
                         this.Model.Body.Angle,
@@ -220,7 +219,7 @@ namespace Entities
                         Vector2 rotatedPos = Vector2.Transform(localPos, rotationMatrix);
                         Vector2 worldPos = new Vector2(FlatConverter.ToVector2(Model.Body.Position).X + rotatedPos.X, FlatConverter.ToVector2(Model.Body.Position).Y - rotatedPos.Y + (Indicies.Length-1) * 32);
 
-                        aManagers[tileIndex].GetCurrent().Draw(
+                        aManagers[tileIndex].DrawCurrent(
                             worldPos,
                             Color.White,
                             this.Model.Body.Angle,

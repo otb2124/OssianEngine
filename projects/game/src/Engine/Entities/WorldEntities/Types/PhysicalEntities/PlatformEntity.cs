@@ -9,7 +9,7 @@ namespace Entities
     public class PlatformEntity : PhysicalEntity
     {
 
-        public AnimationManager[] aManagers;
+        public Animator[] aManagers;
         public int[] Indicies;
 
         public PlatformEntity(Vector2 pos, int width, float rot = 0) : base()
@@ -28,12 +28,11 @@ namespace Entities
             Model.Body.Owner = this;
 
             SpriteData[] data = PlatformSetCut(Vector2.Zero);
-            aManagers = new AnimationManager[data.Length];
+            aManagers = new Animator[data.Length];
 
             for (int i = 0; i < aManagers.Length; i++)
             {
-                aManagers[i] = new AnimationManager();
-                aManagers[i].AddStaticAnimation(data[i]);
+                aManagers[i] = new Animator(data[i]);
             }
         }
 
@@ -77,7 +76,7 @@ namespace Entities
                 Vector2 rotatedPos = Vector2.Transform(localPos, rotationMatrix);
                 Vector2 worldPos = new Vector2(FlatConverter.ToVector2(Model.Body.Position).X + rotatedPos.X, FlatConverter.ToVector2(Model.Body.Position).Y - rotatedPos.Y);
 
-                aManagers[Indicies[y]].GetCurrent().Draw(
+                aManagers[Indicies[y]].DrawCurrent(
                     worldPos,
                     Color.White,
                     this.Model.Body.Angle,

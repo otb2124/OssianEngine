@@ -168,7 +168,7 @@ namespace Entities
         public virtual void UpdateAnimationState()
         {
             Model.AnimationState = Model.ModelStateToAnimationState(Model.ModelState, Model.AnimationState);
-            Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.AnimationState));
+            Model.UpdateAnimationManagers();
         }
 
         public override void Update()
@@ -180,7 +180,8 @@ namespace Entities
 
         public virtual void SetAnimations()
         {
-            Model.aManager.AddStaticAnimation(Model.SpriteData);
+            Model.AManagers = new Animator[1];
+            Model.AManagers[0] = new Animator(Model.SpriteData);
         }
 
         public override void Draw()

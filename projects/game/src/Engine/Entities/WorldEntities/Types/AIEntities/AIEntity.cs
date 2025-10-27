@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
 using Physics;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Entities
             if (AISet != null && !StatsManager.IsFallen && !StatsManager.IsFalling)
             {
                 AISet.Update(this);
-                Model.aManager.Update(new Tuple<Directions, AnimationStates>(Model.Direction, Model.AnimationState));
+                Model.AManagers[0].Update(new AnimationKey(Model.AnimationState, Model.Direction));
             }
 
             base.Update();

@@ -11,7 +11,7 @@ namespace Graphics
         public Vector2 pos;
         public Vector2 origin;
         public StaticSprites sprite;
-        public AnimationManager aManager;
+        public Animator aManager;
 
         public bool isStickToCamera;
         public bool isStickToZoom;
@@ -24,8 +24,7 @@ namespace Graphics
             this.pos = pos;
             this.origin = Vector2.Zero;
 
-            this.aManager = new AnimationManager();
-            this.aManager.AddStaticAnimation(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager = new Animator(StaticSpriteFactory.spriteMappings[this.sprite]);
 
             LayerToDrawOn = layerToDrawOn;
         }
@@ -56,7 +55,7 @@ namespace Graphics
             }
 
             Graphics.sprites.Draw(
-                 ResourceLoader.spriteSheets[aManager.GetCurrent().spriteSheet].texture,
+                 ResourceLoader.spriteSheets[aManager.SpriteSheet].texture,
                  adjustedPos,
                  aManager.GetCurrent().GetCurrentFrame(),
                  Color.White,

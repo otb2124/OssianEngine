@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Utils;
 using static Entities.EntityAIBehaviourManager;
 using static Entities.BattleMovesetFactory;
+using System.Collections.Generic;
 
 namespace Entities
 {
@@ -144,75 +145,179 @@ namespace Entities
         public override void SetAnimations()
         {
 
-            switch(Type)
+            switch (Type)
             {
                 case AnimalMobs.SLIME:
-                    float frameSpeed = 0;
-                    //IDLE
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.IDLE, 2, new Vector2(0, 0), new Vector2(64, 64), frameSpeed);
 
-                    //MOVING
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.MOVING, 2, new Vector2(0, 0), new Vector2(64, 64), frameSpeed);
+                    Model.AManagers = new Animator[]
+                    {
+                        new Animator
+                        (
+                            Model.SpriteData.SpriteSheet,
+                            new List<Animation>
+                            {
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
+                                    new AnimationFramesData(2, new Vector2(0, 0), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT),
+                                    new AnimationFramesData(2, new Vector2(0, 0), new Vector2(64, 64), 0.5f)),
 
-                    //JUMPING
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.JUMPING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                                //moving
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
+                                    new AnimationFramesData(2, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
+                                    new AnimationFramesData(2, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
 
-                    //ROLL
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                                //jumping
+                                new Animation(new AnimationKey(AnimationStates.JUMPING, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.JUMPING, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                
+                                //roll
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
 
-                    //FALLEN
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                                //fallen
+                                new Animation(new AnimationKey(AnimationStates.FALLEN, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.FALLEN, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
 
-                    //attacking
-                    frameSpeed = 2.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.BLOCKING_SLIME_BODY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.BLOCKING_SLIME_BODY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.BLOCKING_SLIME_BODY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                            }
+                        )
+                    };
+
                     break;
 
                 case AnimalMobs.BAT:
-                    frameSpeed = 0;
-                    //IDLE
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.IDLE, 1, new Vector2(0, 0), new Vector2(64, 64), frameSpeed);
 
-                    //MOVING
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.MOVING, 3, new Vector2(0, 64), new Vector2(0, -16), new Vector2(64, 64), Vector2.Zero, frameSpeed);
 
-                    //JUMPING
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.JUMPING, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                    Model.AManagers = new Animator[]
+                    {
+                        new Animator
+                        (
+                            Model.SpriteData.SpriteSheet,
+                            new List<Animation>
+                            {
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
+                                    new AnimationFramesData(2, new Vector2(0, 0), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT),
+                                    new AnimationFramesData(2, new Vector2(0, 0), new Vector2(64, 64), 0.5f)),
 
-                    //FLYING
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.FLYING, 3, new Vector2(0, 64*3), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.FLYING_AND_MOVING, 3, new Vector2(0, 64*2), new Vector2(64, 64), frameSpeed);
+                                //moving
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
+                                    new AnimationFramesData(2, new Vector2(0, 64), new Vector2(0, -16), new Vector2(64, 64), Vector2.Zero, 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
+                                    new AnimationFramesData(2, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
 
-                    //ROLL
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ROLL, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                                //jumping
+                                new Animation(new AnimationKey(AnimationStates.JUMPING, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.JUMPING, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                
+                                //fly
+                                new Animation(new AnimationKey(AnimationStates.FLYING, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.FLYING, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
 
-                    //FALLEN
-                    frameSpeed = 0.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.FALLEN, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                                //fly move
+                                new Animation(new AnimationKey(AnimationStates.FLYING_AND_MOVING, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.FLYING_AND_MOVING, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
 
-                    //attacking
-                    frameSpeed = 2.5f;
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.BLOCKING_SLIME_BODY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
-                    Model.aManager.AddAnimationForBothDirections(Model.SpriteData, AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, 3, new Vector2(0, 64), new Vector2(64, 64), frameSpeed);
+                                //roll
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //fallen
+                                new Animation(new AnimationKey(AnimationStates.FALLEN, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.FALLEN, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.BLOCKING_SLIME_BODY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.BLOCKING_SLIME_BODY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                            }
+                        )
+                    };
+
                     break;
             }
             
@@ -224,7 +329,7 @@ namespace Entities
             battleBodyData.Sprite = StaticSprites.NONE;
             battleBodyData.WeaponSwingSpeedMultiplier = 1f;
             battleBodyData.MoveSet = BattleMovesets.BODY_SLIME;
-            battleBodyData.WeaponOutAnimationData = new Graphics.AnimationData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
+            battleBodyData.WeaponOutAnimationData = new Graphics.AnimationFramesData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
             battleBodyData.ModelStateBetweenHits = ModelStates.IDLE;
 
             BattleBodyManager = new BattleBodyManager(BattleBodyTypes.BODY);

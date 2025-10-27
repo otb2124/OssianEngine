@@ -17,7 +17,7 @@ namespace Graphics
         public SpriteData Sprite;
         public float LayerSpeed;
         public Vector2 Position;
-        public AnimationManager aManager;
+        public Animator aManager;
 
         public bool StickToCameraY;
 
@@ -32,8 +32,7 @@ namespace Graphics
 
         public void Init()
         {
-            aManager = new AnimationManager();
-            aManager.AddStaticAnimation(Sprite);
+            aManager = new Animator(Sprite);
         }
 
         public void Update()
@@ -58,7 +57,7 @@ namespace Graphics
             Vector2 adjustedScale = Vector2.One;
 
             Graphics.sprites.Draw(
-                 ResourceLoader.spriteSheets[aManager.GetCurrent().spriteSheet].texture,
+                 ResourceLoader.spriteSheets[aManager.SpriteSheet].texture,
             adjustedPos,
                  aManager.GetCurrent().GetCurrentFrame(),
                  Color.White,

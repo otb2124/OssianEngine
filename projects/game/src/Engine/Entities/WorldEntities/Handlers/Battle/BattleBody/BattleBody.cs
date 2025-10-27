@@ -20,7 +20,7 @@ namespace Entities
         public float WeaponSwingSpeedMultiplier;
         public StaticSprites Sprite;
         public BattleMovesets MoveSet;
-        public AnimationData WeaponOutAnimationData;
+        public AnimationFramesData WeaponOutAnimationData;
         public LightSource.LightSourceData LightSourceData;
         public ModelStates ModelStateBetweenHits;
         public Projectiles ProjectileToCast;
@@ -31,7 +31,7 @@ namespace Entities
         {
         }
 
-        public BattleBodyData(float weaponSwingSpeedMultiplier, StaticSprites sprite, BattleMovesets moveSet, AnimationData weaponOutAnimationData, LightSource.LightSourceData lightSourceData, ModelStates stateBetweenHits = ModelStates.WEAPON_OUT_IDLE, Projectiles projectileToCast = Projectiles.NONE)
+        public BattleBodyData(float weaponSwingSpeedMultiplier, StaticSprites sprite, BattleMovesets moveSet, AnimationFramesData weaponOutAnimationData, LightSource.LightSourceData lightSourceData, ModelStates stateBetweenHits = ModelStates.WEAPON_OUT_IDLE, Projectiles projectileToCast = Projectiles.NONE)
         {
             WeaponSwingSpeedMultiplier = weaponSwingSpeedMultiplier;
             Sprite = sprite;
@@ -46,7 +46,7 @@ namespace Entities
     public class BattleBody
     {
         public WeaponHitbox Hitbox;
-        public AnimationManager AManager;
+        public Animator AManager;
         public List<AttackTypes> AttackHistory;
         private bool ComboHistoryUpdated = false;
         private bool ModelAnimationTimeUpdated = false;
@@ -84,24 +84,27 @@ namespace Entities
             BattleBodyData = data;
             MoveSetComboHits = GetWeaponComboHits(BattleBodyData.MoveSet);
 
-            AManager = new AnimationManager();
-
             for (int i = 0; i < MoveSetComboHits.Length; i++)
             {
                 MoveSetComboHits[i].SetAnimation(BattleBodyData.MoveSet, GlobalWeaponSwingSpeedMultiplier * BattleBodyData.WeaponSwingSpeedMultiplier);
-                AManager.AddAnimationForBothDirections(
-                    StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite],
-                    MoveSetComboHits[i].AnimationState,
-                    MoveSetComboHits[i].AnimationData
+
+                AManager = new Animator(StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite].SpriteSheet,
+                    new List<Animation>()
+                    {
+                        new Animation(new AnimationKey(MoveSetComboHits[i].AnimationState, Directions.LEFT), MoveSetComboHits[i].AnimationData),
+                        new Animation(new AnimationKey(MoveSetComboHits[i].AnimationState, Directions.RIGHT), MoveSetComboHits[i].AnimationData),
+                    }
                 );
             }
 
             if(BattleBodyData.ModelStateBetweenHits == ModelStates.WEAPON_OUT_IDLE)
             {
-                AManager.AddAnimationForBothDirections(
-                    StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite],
-                    AnimationStates.WEAPON_OUT_IDLE,
-                    BattleBodyData.WeaponOutAnimationData
+                AManager = new Animator(StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite].SpriteSheet,
+                    new List<Animation>()
+                    {
+                        new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.LEFT), BattleBodyData.WeaponOutAnimationData),
+                        new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.RIGHT), BattleBodyData.WeaponOutAnimationData),
+                    }
                 );
             }
             
@@ -315,14 +318,14 @@ namespace Entities
             {
                 return;
             }
-            AManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Combo.GetCurrentHit().AnimationState));
+            AManager.Update(new AnimationKey(Combo.GetCurrentHit().AnimationState, model.Direction));
 
             model.AnimationState = Combo.GetCurrentHit().AnimationState;
 
             if (!ModelAnimationTimeUpdated)
             {
-                model.aManager.GetAnimation(model.Direction, model.AnimationState).frameTime = currentHit.AnimationData.FrameTime;
-                model.aManager.GetAnimation(model.Direction, model.AnimationState).frameTimeLeft = currentHit.AnimationData.FrameTime;
+                model.AManagers[0].GetAnimation(new AnimationKey(model.AnimationState, model.Direction)).AnimationFramesData.FrameTime = currentHit.AnimationData.FrameTime;
+                model.AManagers[0].GetAnimation(new AnimationKey(model.AnimationState, model.Direction)).FrameTimeLeft = currentHit.AnimationData.FrameTime;
                 ModelAnimationTimeUpdated = true;
             }
         }
@@ -341,10 +344,10 @@ namespace Entities
             var currentHit = Combo.GetCurrentHit();
             if (currentHit == null)
             {
-                AManager.Update(new Tuple<Directions, AnimationStates>(model.Direction, Model.ModelStateToAnimationState(BattleBodyData.ModelStateBetweenHits, model.AnimationState)));
+                AManager.Update(new AnimationKey(Model.ModelStateToAnimationState(BattleBodyData.ModelStateBetweenHits, model.AnimationState), model.Direction));
             }
 
-            Rectangle spriteSize = model.aManager.GetCurrent().GetCurrentFrame();
+            Rectangle spriteSize = model.AManagers[0].GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
             float bodyWidth = model.Body.Width + model.BodyOffset.X;
@@ -356,7 +359,7 @@ namespace Entities
             float directionXOffset = model.Direction == Directions.RIGHT ? -10 : model.Body.Width * 3f + 10;
             Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.Body.Width / 2f - directionXOffset, entityBodyPos.Y - model.Body.Height / 2f);
 
-            AManager.GetCurrent().Draw(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
+            AManager.GetCurrent().Draw(AManager.SpriteSheet, entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
         }
 
         public void DrawHitbox()

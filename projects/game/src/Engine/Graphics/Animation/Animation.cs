@@ -1,21 +1,37 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 using Resources;
+using System.Collections.Generic;
 using Utils;
 
 namespace Graphics
 {
-    public class AnimationData
+
+
+    public class AnimationKey
+    {
+        public AnimationStates AnimationState;
+        public Directions Direction;
+
+        public AnimationKey(AnimationStates state, Directions direction)
+        {
+            AnimationState = state; Direction = direction; 
+        }
+    }
+
+
+    public class AnimationFramesData
     {
         public int FramesCountX;
         public Vector2 StartPos;
         public Vector2 FrameSize;
+        public float FrameTime;
+        public SpriteEffects Effect;
+
         public Vector2 EachFramePositionOffset;
         public Vector2 EachFrameSizeOffset;
-        public float FrameTime;
 
-        public AnimationData(int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime)
+        public AnimationFramesData(int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime, SpriteEffects spriteEffect = SpriteEffects.None)
         {
             FramesCountX = framesCountX;
             StartPos = startPos;
@@ -25,7 +41,7 @@ namespace Graphics
             EachFrameSizeOffset = Vector2.Zero;
         }
 
-        public AnimationData(int framesCountX, Vector2 startPos, Vector2 eachframePosOffset, Vector2 frameSize, Vector2 eachframeSizeOffset, float frameTime)
+        public AnimationFramesData(int framesCountX, Vector2 startPos, Vector2 eachframePosOffset, Vector2 frameSize, Vector2 eachframeSizeOffset, float frameTime, SpriteEffects spriteEffect = SpriteEffects.None)
         {
             FramesCountX = framesCountX;
             StartPos = startPos;
@@ -39,87 +55,62 @@ namespace Graphics
 
     public class Animation
     {
-        public SpriteSheets spriteSheet;
-        public List<Rectangle> sourceRectangles = new List<Rectangle>();
-        public int frames;
-        public int currentFrame;
-        public float frameTime;
-        public float frameTimeLeft;
-        public bool active;
-        public SpriteEffects effect;
+        public AnimationFramesData AnimationFramesData;
 
-        //TODO: change to use AnimationData object
-        public Vector2 EachFramePositionOffset;
-        public Vector2 EachFrameSizeOffset;
+        public int CurrentFrame;
+        public float FrameTimeLeft;
+        public bool Active;
+        public List<Rectangle> SourceRectangles = new List<Rectangle>();
 
-        public Animation(SpriteSheets spriteSheet, int framesCountX, Vector2 startPos, Vector2 frameSize, float frameTime, SpriteEffects neweffect)
+        public AnimationKey AnimationKey;
+
+        public Animation(AnimationKey animationKey, AnimationFramesData animationFramesData)
         {
-            this.spriteSheet = spriteSheet;
-            this.frames = framesCountX;
-            this.frameTime = frameTime;
-            this.frameTimeLeft = frameTime;
-            currentFrame = 0;
-            active = true;
-            this.effect = neweffect;
+            AnimationFramesData = animationFramesData;
 
-            for (int i = 0; i < frames; i++)
+            FrameTimeLeft = AnimationFramesData.FrameTime;
+            CurrentFrame = 0;
+            Active = true;
+
+            for (int i = 0; i < AnimationFramesData.FramesCountX; i++)
             {
-                sourceRectangles.Add(new Rectangle(i * (int)frameSize.X + (int)startPos.X, (int)startPos.Y, (int)frameSize.X, (int)frameSize.Y));
+                SourceRectangles.Add(new Rectangle(i * (int)AnimationFramesData.FrameSize.X + (int)AnimationFramesData.StartPos.X, (int)AnimationFramesData.StartPos.Y, (int)AnimationFramesData.FrameSize.X, (int)AnimationFramesData.FrameSize.Y));
             }
 
-            EachFrameSizeOffset = Vector2.Zero;
-            EachFramePositionOffset = Vector2.Zero;
+            AnimationKey = animationKey;
         }
 
-        public Animation(SpriteSheets spriteSheet, AnimationData data, SpriteEffects neweffect)
-        {
-            this.spriteSheet = spriteSheet;
-            this.frames = data.FramesCountX;
-            this.frameTime = data.FrameTime;
-            this.frameTimeLeft = data.FrameTime;
-            currentFrame = 0;
-            active = true;
-            this.effect = neweffect;
-
-            for (int i = 0; i < frames; i++)
-            {
-                sourceRectangles.Add(new Rectangle(i * (int)data.FrameSize.X + (int)data.StartPos.X, (int)data.StartPos.Y, (int)data.FrameSize.X + (int)data.EachFrameSizeOffset.X, (int)data.FrameSize.Y + (int)data.EachFrameSizeOffset.Y));
-            }
-
-            EachFrameSizeOffset = data.EachFrameSizeOffset;
-            EachFramePositionOffset = data.EachFramePositionOffset;
-        }
 
         public void Start()
         {
-            active = true;
+            Active = true;
         }
 
         public void Stop()
         {
-            active = false;
+            Active = false;
         }
 
         public void Reset()
         {
-            currentFrame = 0;
-            frameTimeLeft = frameTime;
+            CurrentFrame = 0;
+            FrameTimeLeft = AnimationFramesData.FrameTime;
         }
 
         public void Update()
         {
-            if (!active) return;
+            if (!Active) return;
 
-            frameTimeLeft -= (float)Graphics.CurrentLogicTime/(float)Graphics.TimeScale;
+            FrameTimeLeft -= (float)Graphics.CurrentLogicTime/(float)Graphics.TimeScale;
 
-            if (frameTimeLeft <= 0)
+            if (FrameTimeLeft <= 0)
             {
-                frameTimeLeft += frameTime;
-                currentFrame = (currentFrame + 1) % frames;
+                FrameTimeLeft += AnimationFramesData.FrameTime;
+                CurrentFrame = (CurrentFrame + 1) % AnimationFramesData.FramesCountX;
             }
         }
 
-        public void Draw(Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth, bool revertVerticalDraw = false)
+        public void Draw(SpriteSheets spriteSheet, Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth, bool revertVerticalDraw = false)
         {
             if(revertVerticalDraw)
             {
@@ -131,7 +122,7 @@ namespace Graphics
                 angle,
                 origin,
                 scale,
-                effect,
+                AnimationFramesData.Effect,
                 layerDepth);
             }
             else
@@ -144,12 +135,12 @@ namespace Graphics
                 angle,
                 origin,
                 scale,
-                effect | SpriteEffects.FlipVertically,
+                AnimationFramesData.Effect | SpriteEffects.FlipVertically,
                 layerDepth);
             }
         }
 
-        public void Draw(Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, SpriteEffects newEffect, float layerDepth)
+        public void Draw(SpriteSheets spriteSheet, Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth, SpriteEffects newEffect)
         {
             Graphics.sprites.Draw(
                 ResourceLoader.spriteSheets[spriteSheet].texture,
@@ -165,7 +156,7 @@ namespace Graphics
 
         public Rectangle GetCurrentFrame()
         {
-            return sourceRectangles[currentFrame];
+            return SourceRectangles[CurrentFrame];
         }
     }
 }
