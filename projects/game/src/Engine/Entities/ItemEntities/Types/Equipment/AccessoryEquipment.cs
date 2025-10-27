@@ -10,7 +10,7 @@ namespace Entities
     {
 
 
-        public AccessoryEquipment(ItemKey itemKey) : base(itemKey)
+        public AccessoryEquipment(EquatableKey itemKey) : base(itemKey)
         {
 
         }

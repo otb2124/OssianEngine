@@ -15,7 +15,7 @@ namespace Entities
             hand == WeaponHands.LEFT ? EquipmentSlot.EquipmentSlotTypes.WEAPON_L : EquipmentSlot.EquipmentSlotTypes.WEAPON_R;
 
         public static WeaponEquipment CreateBareHands() =>
-            (WeaponEquipment)ItemFactory.CreateItem(new ItemKey(ItemLib.Weapons.BARE_HAND));
+            (WeaponEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.BARE_HAND));
 
         public static EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes type, EquipmentSlot[] equipmentSlots) =>
             Array.Find(equipmentSlots, slot => slot.EquipmentSlotType == type);
@@ -25,7 +25,7 @@ namespace Entities
             return item.GetType();
         }
 
-        public static Type ItemKeyToType(ItemKey itemKey)
+        public static Type ItemKeyToType(EquatableKey itemKey)
         {
             Item item = ItemFactory.CreateItem(itemKey);
             return item.GetType();
@@ -39,7 +39,7 @@ namespace Entities
                 return pair[1];
         }
 
-        public static EquipmentSlot.EquipmentSlotTypes ItemkeyToEquipmentSlot(ItemKey key, EquipmentSlot[] slots)
+        public static EquipmentSlot.EquipmentSlotTypes ItemkeyToEquipmentSlot(EquatableKey key, EquipmentSlot[] slots)
         {
             switch (ItemFactory.GetItemType(key))
             {
@@ -68,7 +68,7 @@ namespace Entities
                 case ItemTypes.CONTAINMENT:
                     return EquipmentSlot.EquipmentSlotTypes.CONTAINMENT;
                 default:
-                    throw new ArgumentException($"ItemKey {key} does not correspond to an equipment slot (type: {ItemFactory.GetItemType(key)})");
+                    throw new ArgumentException($"EquatableKey {key} does not correspond to an equipment slot (type: {ItemFactory.GetItemType(key)})");
             }
         }
     }

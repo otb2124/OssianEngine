@@ -56,7 +56,7 @@ namespace Entities
             SetEquipment(slotType, (Equipment)item);
         }
 
-        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, ItemKey itemKey)
+        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, EquatableKey itemKey)
         {
             Item item = ItemFactory.CreateItem(itemKey);
             SetEquipment(slotType, item);
@@ -67,7 +67,7 @@ namespace Entities
             SetEquipment(EquipmentHelper.ItemkeyToEquipmentSlot(item.ItemKey, EquipmentSlots), item);
         }
 
-        public void SetEquipment(ItemKey itemKey)
+        public void SetEquipment(EquatableKey itemKey)
         {
             Item item = ItemFactory.CreateItem(itemKey);
             SetEquipment(item);

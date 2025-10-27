@@ -11,7 +11,7 @@ namespace Graphics
         public Vector2 pos;
         public Vector2 origin;
         public StaticSprites sprite;
-        public Animator aManager;
+        public AnimationSet aManager;
 
         public bool isStickToCamera;
         public bool isStickToZoom;
@@ -24,7 +24,7 @@ namespace Graphics
             this.pos = pos;
             this.origin = Vector2.Zero;
 
-            aManager = new Animator(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager = new AnimationSet(StaticSpriteFactory.spriteMappings[this.sprite]);
 
             LayerToDrawOn = layerToDrawOn;
         }

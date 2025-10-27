@@ -13,7 +13,7 @@ namespace Entities
     public class ArmorEquipment : Equipment
     {
 
-        public ArmorEquipment(ItemKey itemKey) : base(itemKey)
+        public ArmorEquipment(EquatableKey itemKey) : base(itemKey)
         {
             
         }

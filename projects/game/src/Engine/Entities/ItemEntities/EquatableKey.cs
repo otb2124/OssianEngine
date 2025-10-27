@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public readonly struct ItemKey : IEquatable<ItemKey>
+    public readonly struct EquatableKey : IEquatable<EquatableKey>
     {
         public readonly object EnumValue;
         public readonly Type EnumType;
 
-        public ItemKey(object enumValue)
+        public EquatableKey(object enumValue)
         {
             if (enumValue == null || !enumValue.GetType().IsEnum)
                 throw new ArgumentException("Value must be an enum", nameof(enumValue));
@@ -20,16 +20,16 @@ namespace Entities
         }
 
         public override bool Equals(object obj) =>
-            obj is ItemKey other && Equals(other);
+            obj is EquatableKey other && Equals(other);
 
-        public bool Equals(ItemKey other) =>
+        public bool Equals(EquatableKey other) =>
             EnumType == other.EnumType && EnumValue.Equals(other.EnumValue);
 
         public override int GetHashCode() =>
             HashCode.Combine(EnumType, EnumValue);
 
-        public static bool operator ==(ItemKey left, ItemKey right) => left.Equals(right);
-        public static bool operator !=(ItemKey left, ItemKey right) => !left.Equals(right);
+        public static bool operator ==(EquatableKey left, EquatableKey right) => left.Equals(right);
+        public static bool operator !=(EquatableKey left, EquatableKey right) => !left.Equals(right);
 
         public override string ToString() => $"{EnumType.Name}.{EnumValue}";
     }

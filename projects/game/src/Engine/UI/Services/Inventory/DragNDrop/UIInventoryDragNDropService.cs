@@ -320,7 +320,7 @@ namespace UI
                     }
                     else
                     {
-                        Console.WriteLine($"Warning: Equipment with ItemKey {eqFrom.ItemKey} and EquipmentSlotTake {eqFrom.EquipmentSlotTake} cannot be equipped in slot {localToIndex}");
+                        Console.WriteLine($"Warning: Equipment with EquatableKey {eqFrom.ItemKey} and EquipmentSlotTake {eqFrom.EquipmentSlotTake} cannot be equipped in slot {localToIndex}");
                         return false;
                     }
                 }

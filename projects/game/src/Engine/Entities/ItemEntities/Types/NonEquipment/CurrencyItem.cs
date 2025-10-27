@@ -9,7 +9,7 @@ namespace Entities
     public class CurrencyItem : Item
     {
 
-        public CurrencyItem(ItemKey itemKey) : base(itemKey)
+        public CurrencyItem(EquatableKey itemKey) : base(itemKey)
         {
         }
 

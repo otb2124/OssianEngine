@@ -22,7 +22,7 @@ namespace UI
             type = UIComponentTypes.BUTTON_ICON;
 
             this.sprite = sprite;
-            aManager = new Animator(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager = new AnimationSet(StaticSpriteFactory.spriteMappings[this.sprite]);
 
             Position = position;
             Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
@@ -40,7 +40,7 @@ namespace UI
             type = UIComponentTypes.BUTTON_ICON;
 
             this.spriteData = spriteData;
-            aManager = new Animator(spriteData);
+            aManager = new AnimationSet(spriteData);
 
             Position = position;
             Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();

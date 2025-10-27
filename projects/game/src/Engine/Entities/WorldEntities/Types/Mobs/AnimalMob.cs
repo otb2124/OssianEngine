@@ -149,9 +149,9 @@ namespace Entities
             {
                 case AnimalMobs.SLIME:
 
-                    Model.AManagers = new Animator[]
+                    Model.AManagers = new AnimationSet[]
                     {
-                        new Animator
+                        new AnimationSet
                         (
                             Model.SpriteData.SpriteSheet,
                             new List<Animation>
@@ -230,9 +230,9 @@ namespace Entities
                 case AnimalMobs.BAT:
 
 
-                    Model.AManagers = new Animator[]
+                    Model.AManagers = new AnimationSet[]
                     {
-                        new Animator
+                        new AnimationSet
                         (
                             Model.SpriteData.SpriteSheet,
                             new List<Animation>

@@ -14,7 +14,7 @@ namespace Entities
     {
 
 
-        public static Item CreateItem(ItemKey itemKey)
+        public static Item CreateItem(EquatableKey itemKey)
         {
             Item item = new Item(GetItemType(itemKey), 0, "empty", "empty", ItemRarity.TRASH);
 
@@ -58,7 +58,7 @@ namespace Entities
             return item;
         }
 
-        public static ItemTypes GetItemType(ItemKey key)
+        public static ItemTypes GetItemType(EquatableKey key)
         {
             return key.EnumType.Name switch
             {

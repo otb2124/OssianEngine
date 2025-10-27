@@ -9,7 +9,7 @@ namespace Entities
     public class KeyItem : Item
     {
 
-        public KeyItem(ItemKey itemKey) : base(itemKey)
+        public KeyItem(EquatableKey itemKey) : base(itemKey)
         {
         }
 

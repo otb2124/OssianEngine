@@ -10,13 +10,14 @@ using System.Linq;
 
 namespace Graphics
 {
-    public class Animator
+    public class AnimationSet
     {
         public List<Animation> Anims;
-        public AnimationKey LastKey;
         public SpriteSheets SpriteSheet;
 
-        public Animator(SpriteSheets spriteSheet, List<Animation> anims) 
+        public AnimationKey LastKey;
+
+        public AnimationSet(SpriteSheets spriteSheet, List<Animation> anims) 
         {
             SpriteSheet = spriteSheet;
 
@@ -28,11 +29,16 @@ namespace Graphics
         }
 
         //for static ones
-        public Animator(StaticSpriteFactory.SpriteData spriteData)
+        public AnimationSet(StaticSpriteFactory.SpriteData spriteData)
         {
             SpriteSheet = spriteData.SpriteSheet;
             Anims = new List<Animation>();
-            AddAnimation(new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT), new AnimationFramesData(1, spriteData.SrcRect.Location.ToVector2(), spriteData.SrcRect.Size.ToVector2(), 0f, spriteData.Effect)));
+            AddAnimation(
+                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT), new AnimationFramesData(1, spriteData.SrcRect.Location.ToVector2(), spriteData.SrcRect.Size.ToVector2(), 0f, spriteData.Effect))
+                );
+            AddAnimation(
+                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT), new AnimationFramesData(1, spriteData.SrcRect.Location.ToVector2(), spriteData.SrcRect.Size.ToVector2(), 0f, spriteData.Effect))
+                );
         }
 
         public void AddAnimation(Animation animation)

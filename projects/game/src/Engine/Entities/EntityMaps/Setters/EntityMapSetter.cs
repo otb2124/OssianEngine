@@ -71,7 +71,7 @@ namespace Entities
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(20, 335)));
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(30, 310)));
                     entities.Add(new InteractiveItemEntity(InteractiveItemEntity.InteractiveItems.GOLD_COIN, new Vector2(40, 305)));
-                    //entities.Add(EntityHelper.CreateItemDrop(new ItemKey(ItemLib.Weapons.TERRABLADE), new Vector2(0, 300)));
+                    //entities.Add(EntityHelper.CreateItemDrop(new EquatableKey(ItemLib.Weapons.TERRABLADE), new Vector2(0, 300)));
 
                     break;
                 case 1:

@@ -26,7 +26,7 @@ namespace Graphics
         public Vector2 VelocityMultiplier;
 
         public StaticSpriteFactory.SpriteData sprite;
-        public Animator aManager;
+        public AnimationSet aManager;
         public Particles Type;
 
         public float DurationSec;
@@ -70,7 +70,7 @@ namespace Graphics
                     break;
             }
 
-            aManager = new Animator(sprite);
+            aManager = new AnimationSet(sprite);
         }
 
         public void Draw()

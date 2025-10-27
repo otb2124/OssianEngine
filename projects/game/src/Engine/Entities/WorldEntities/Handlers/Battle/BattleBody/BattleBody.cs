@@ -46,7 +46,7 @@ namespace Entities
     public class BattleBody
     {
         public WeaponHitbox Hitbox;
-        public Animator AManager;
+        public AnimationSet AManager;
         public List<AttackTypes> AttackHistory;
         private bool ComboHistoryUpdated = false;
         private bool ModelAnimationTimeUpdated = false;
@@ -88,7 +88,7 @@ namespace Entities
             {
                 MoveSetComboHits[i].SetAnimation(BattleBodyData.MoveSet, GlobalWeaponSwingSpeedMultiplier * BattleBodyData.WeaponSwingSpeedMultiplier);
 
-                AManager = new Animator(StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite].SpriteSheet,
+                AManager = new AnimationSet(StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite].SpriteSheet,
                     new List<Animation>()
                     {
                         new Animation(new AnimationKey(MoveSetComboHits[i].AnimationState, Directions.LEFT), MoveSetComboHits[i].AnimationData),
@@ -99,7 +99,7 @@ namespace Entities
 
             if(BattleBodyData.ModelStateBetweenHits == ModelStates.WEAPON_OUT_IDLE)
             {
-                AManager = new Animator(StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite].SpriteSheet,
+                AManager = new AnimationSet(StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite].SpriteSheet,
                     new List<Animation>()
                     {
                         new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.LEFT), BattleBodyData.WeaponOutAnimationData),

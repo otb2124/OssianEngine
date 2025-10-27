@@ -39,6 +39,7 @@ namespace Graphics
             FrameTime = frameTime;
             EachFramePositionOffset = Vector2.Zero;
             EachFrameSizeOffset = Vector2.Zero;
+            Effect = spriteEffect;  
         }
 
         public AnimationFramesData(int framesCountX, Vector2 startPos, Vector2 eachframePosOffset, Vector2 frameSize, Vector2 eachframeSizeOffset, float frameTime, SpriteEffects spriteEffect = SpriteEffects.None)
@@ -49,6 +50,7 @@ namespace Graphics
             FrameTime = frameTime;
             EachFramePositionOffset = eachframePosOffset;
             EachFrameSizeOffset = eachframeSizeOffset;
+            Effect = spriteEffect;
         }
     }
 

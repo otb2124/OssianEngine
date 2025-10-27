@@ -9,7 +9,7 @@ namespace Entities
     public class PlatformEntity : PhysicalEntity
     {
 
-        public Animator[] aManagers;
+        public AnimationSet[] aManagers;
         public int[] Indicies;
 
         public PlatformEntity(Vector2 pos, int width, float rot = 0) : base()
@@ -28,11 +28,11 @@ namespace Entities
             Model.Body.Owner = this;
 
             SpriteData[] data = PlatformSetCut(Vector2.Zero);
-            aManagers = new Animator[data.Length];
+            aManagers = new AnimationSet[data.Length];
 
             for (int i = 0; i < aManagers.Length; i++)
             {
-                aManagers[i] = new Animator(data[i]);
+                aManagers[i] = new AnimationSet(data[i]);
             }
         }
 

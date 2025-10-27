@@ -140,9 +140,9 @@ namespace Entities
         public override void SetAnimations()
         {
 
-            Model.AManagers = new Animator[]
+            Model.AManagers = new AnimationSet[]
                     {
-                        new Animator
+                        new AnimationSet
                         (
                             Model.SpriteData.SpriteSheet,
                             new List<Animation>

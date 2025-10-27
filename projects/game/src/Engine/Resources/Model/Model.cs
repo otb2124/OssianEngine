@@ -13,7 +13,7 @@ namespace Resources
         public FlatBody Body;
         public StaticSpriteFactory.SpriteData SpriteData;
 
-        public Animator[] AManagers;
+        public AnimationSet[] AManagers;
 
         public Vector2 BodyOffset;
 
@@ -49,8 +49,8 @@ namespace Resources
             Body = new FlatBody(preset.Body, preset.Body.Height, preset.Body.Width);
             SpriteData = preset.SpriteData;
 
-            //AManagers = new Animator();
-            //AManagers = new Animator[0];
+            //AManagers = new AnimationSet();
+            //AManagers = new AnimationSet[0];
 
             //TODO: OPTIMIZE TO REMOVE
             SetSurroundingRectangles();
@@ -75,7 +75,7 @@ namespace Resources
 
         public void UpdateAnimationManagers()
         {
-            foreach (Animator aManager in AManagers)
+            foreach (AnimationSet aManager in AManagers)
             {
                 aManager.Update(new AnimationKey(AnimationState, Direction));
             }
@@ -110,7 +110,7 @@ namespace Resources
 
         public void Draw()
         {
-            foreach (Animator aManager in AManagers)
+            foreach (AnimationSet aManager in AManagers)
             {
                 //Model
                 Animation animation = aManager.GetCurrent();

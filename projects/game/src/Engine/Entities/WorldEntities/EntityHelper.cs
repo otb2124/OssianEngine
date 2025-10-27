@@ -11,9 +11,9 @@ namespace Entities
     public static class EntityHelper
     {
 
-        public static InteractiveItemEntity CreateItemDrop(ItemKey itemKey, Vector2 pos)
+        public static InteractiveItemEntity CreateItemDrop(EquatableKey itemKey, Vector2 pos)
         {
-            return new InteractiveItemEntity(StaticSpriteFactory.GetItemUISpriteByItemKey(itemKey), FlatBodyPreset.ITEM_DROP, pos, new Vector2(30, 30), new Inventory(new ItemKey[] { itemKey }), new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, InteractionActions.ADD_ITEM_TO_INVENTORY));
+            return new InteractiveItemEntity(StaticSpriteFactory.GetItemUISpriteByItemKey(itemKey), FlatBodyPreset.ITEM_DROP, pos, new Vector2(30, 30), new Inventory(new EquatableKey[] { itemKey }), new InteractionData(InteractionTriggers.INTERACTION_BUTTON_PRESSED, InteractionActions.ADD_ITEM_TO_INVENTORY));
         }
 
         public static InteractiveItemEntity CreateItemDrop(Item item, Vector2 pos)

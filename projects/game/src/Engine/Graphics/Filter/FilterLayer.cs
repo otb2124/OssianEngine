@@ -21,7 +21,7 @@ namespace Graphics
         public float DarknessMaxAlpha = 0.95f;
         public float DarknessMinAlpha = 0f;
 
-        public Animator aManager;
+        public AnimationSet aManager;
 
         private float targetAlpha;
         private float lastUpdateHours;
@@ -34,7 +34,7 @@ namespace Graphics
             DarknessMinAlpha = MinAlpha;
             DarknessCurrentAlpha = CurrentAlpha;
             targetAlpha = DarknessCurrentAlpha;
-            aManager = new Animator(StaticSpriteFactory.spriteMappings[sprites]);
+            aManager = new AnimationSet(StaticSpriteFactory.spriteMappings[sprites]);
         }
 
         public void Update()

@@ -43,7 +43,7 @@ namespace Entities
             switch(preset)
             {
                 case InteractiveItems.GOLD_COIN:
-                    Init(StaticSpriteFactory.GetItemUISpriteByItemKey(new ItemKey(ItemLib.Currencies.GOLD_COIN)), FlatBodyPreset.COIN, pos, new Vector2(30, 30), new Inventory(new ItemKey[] { new ItemKey(ItemLib.Currencies.GOLD_COIN) }), new InteractionData(InteractionTriggers.AUTO, InteractionActions.ADD_ITEM_TO_INVENTORY));
+                    Init(StaticSpriteFactory.GetItemUISpriteByItemKey(new EquatableKey(ItemLib.Currencies.GOLD_COIN)), FlatBodyPreset.COIN, pos, new Vector2(30, 30), new Inventory(new EquatableKey[] { new EquatableKey(ItemLib.Currencies.GOLD_COIN) }), new InteractionData(InteractionTriggers.AUTO, InteractionActions.ADD_ITEM_TO_INVENTORY));
                     break;
             }
             

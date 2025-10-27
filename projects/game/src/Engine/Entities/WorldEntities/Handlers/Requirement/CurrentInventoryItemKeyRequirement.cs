@@ -9,9 +9,9 @@ namespace Entities
     public class CurrentInventoryItemKeyRequirement : Requirement
     {
 
-        public ItemKey ItemKey;
+        public EquatableKey ItemKey;
 
-        public CurrentInventoryItemKeyRequirement(ItemKey itemkey) : base()
+        public CurrentInventoryItemKeyRequirement(EquatableKey itemkey) : base()
         {
             ItemKey = itemkey;
         }

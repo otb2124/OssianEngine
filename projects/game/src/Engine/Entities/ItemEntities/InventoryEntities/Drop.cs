@@ -13,7 +13,7 @@ namespace Entities
         public float DropChance;
         public Item Item;
 
-        public Drop(ItemKey itemKey, float dropChance)
+        public Drop(EquatableKey itemKey, float dropChance)
         {
             DropChance = dropChance;
             Item = ItemFactory.CreateItem(itemKey);

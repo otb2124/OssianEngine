@@ -180,8 +180,8 @@ namespace Entities
 
         public virtual void SetAnimations()
         {
-            Model.AManagers = new Animator[1];
-            Model.AManagers[0] = new Animator(Model.SpriteData);
+            Model.AManagers = new AnimationSet[1];
+            Model.AManagers[0] = new AnimationSet(Model.SpriteData);
         }
 
         public override void Draw()

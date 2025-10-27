@@ -12,7 +12,7 @@ namespace Entities
 
         public BattleBodyData WeaponBodyData;
 
-        public WeaponEquipment(ItemKey itemKey) : base(itemKey)
+        public WeaponEquipment(EquatableKey itemKey) : base(itemKey)
         {
             
         }

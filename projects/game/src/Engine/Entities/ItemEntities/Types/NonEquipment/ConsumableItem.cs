@@ -9,7 +9,7 @@ namespace Entities
     public class ConsumableItem : Item
     {
 
-        public ConsumableItem(ItemKey itemKey) : base(itemKey)
+        public ConsumableItem(EquatableKey itemKey) : base(itemKey)
         {
             
         }

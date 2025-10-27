@@ -8,7 +8,7 @@ namespace Entities
 {
     public class QuestItem : Item
     {
-        public QuestItem(ItemKey itemKey) : base(itemKey)
+        public QuestItem(EquatableKey itemKey) : base(itemKey)
         {
         }
 

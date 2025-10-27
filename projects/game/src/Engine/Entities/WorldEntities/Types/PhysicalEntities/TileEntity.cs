@@ -57,7 +57,7 @@ namespace Entities
             },
         };
 
-        public Animator[] aManagers;
+        public AnimationSet[] aManagers;
         public int[][] Indicies;
         public bool IsGround;
         public bool DisableEntityBodyGroundingStatusOnWalls;
@@ -91,11 +91,11 @@ namespace Entities
             Model.Body.Owner = this;
 
             SpriteData[] data = TileSetCut(TileSet);
-            aManagers = new Animator[data.Length];
+            aManagers = new AnimationSet[data.Length];
 
             for (int i = 0; i < aManagers.Length; i++)
             {
-                aManagers[i] = new Animator(data[i]);
+                aManagers[i] = new AnimationSet(data[i]);
             }
         }
 
@@ -198,7 +198,7 @@ namespace Entities
                     aManagers[Indicies[x][y]].DrawCurrent(
                         worldPos,
                         Color.White,
-                        this.Model.Body.Angle,
+                        Model.Body.Angle,
                         new Vector2(Model.Body.Width / 2f, Model.Body.Height / 2f),
                         Vector2.One,
                         0f,
@@ -222,7 +222,7 @@ namespace Entities
                         aManagers[tileIndex].DrawCurrent(
                             worldPos,
                             Color.White,
-                            this.Model.Body.Angle,
+                            Model.Body.Angle,
                             new Vector2(Model.Body.Width / 2f, Model.Body.Height / 2f),
                             Vector2.One,
                             0f,

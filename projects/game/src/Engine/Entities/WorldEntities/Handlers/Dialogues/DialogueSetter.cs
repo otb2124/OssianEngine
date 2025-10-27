@@ -219,7 +219,7 @@ namespace Entities
                     },
                     new Requirement[]
                     {
-                        new CurrentInventoryItemKeyRequirement(new ItemKey(ItemLib.Weapons.TERRABLADE))
+                        new CurrentInventoryItemKeyRequirement(new EquatableKey(ItemLib.Weapons.TERRABLADE))
                     }
                 ),
 

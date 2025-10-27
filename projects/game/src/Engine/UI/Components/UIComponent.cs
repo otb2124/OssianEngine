@@ -45,7 +45,7 @@ namespace UI
             EQUIPMENT, EQUIPMENT_SLOT,
         }
 
-        public Animator aManager;
+        public AnimationSet aManager;
         public StaticSprites sprite;
         public SpriteData spriteData;
 

@@ -37,8 +37,8 @@ namespace Entities
         public override void SetAnimations()
         {
             Model.AnimationState = AnimationStates.IDLE;
-            Model.AManagers = new Graphics.Animator[1];
-            Model.AManagers[0] = new Graphics.Animator(Model.SpriteData);
+            Model.AManagers = new Graphics.AnimationSet[1];
+            Model.AManagers[0] = new Graphics.AnimationSet(Model.SpriteData);
             //Model.AManagers.AddAnimationForBothDirections(, AnimationStates.IDLE, new Graphics.AnimationFramesData(1, Vector2.Zero, new Vector2(32, 32), 1));
             Model.AManagers[0].Update(new Graphics.AnimationKey(Model.AnimationState, Model.Direction));
         }

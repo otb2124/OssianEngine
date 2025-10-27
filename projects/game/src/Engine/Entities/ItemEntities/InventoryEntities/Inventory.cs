@@ -16,11 +16,11 @@ namespace Entities
             Items = new List<Item>();
         }
 
-        public Inventory(ItemKey[] keys)
+        public Inventory(EquatableKey[] keys)
         {
             Items = new List<Item>();
             Init(keys.Length);
-            foreach (ItemKey key in keys)
+            foreach (EquatableKey key in keys)
             {
                 AddItem(ItemFactory.CreateItem(key));
             }
@@ -88,7 +88,7 @@ namespace Entities
         }
 
 
-        public Item GetItemWithItemKey(ItemKey key)
+        public Item GetItemWithItemKey(EquatableKey key)
         {
             return Items?.FirstOrDefault(item => item?.ItemKey == key);
         }

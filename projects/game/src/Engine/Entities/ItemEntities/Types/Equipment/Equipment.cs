@@ -34,7 +34,7 @@ namespace Entities
 
         public BattleHitStatsSet BattleItemStatsData;
 
-        public Equipment(ItemKey itemKey) : base(itemKey)
+        public Equipment(EquatableKey itemKey) : base(itemKey)
         {
             
         }

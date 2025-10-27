@@ -18,7 +18,7 @@ namespace UI
         {
             this.type = UIComponentTypes.ICON;
             this.spriteData = spriteData;
-            aManager = new Animator(spriteData);
+            aManager = new AnimationSet(spriteData);
 
             this.Position = pos;
             Scale = scale;

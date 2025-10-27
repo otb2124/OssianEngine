@@ -17,7 +17,7 @@ namespace Graphics
         public SpriteData Sprite;
         public float LayerSpeed;
         public Vector2 Position;
-        public Animator aManager;
+        public AnimationSet aManager;
 
         public bool StickToCameraY;
 
@@ -32,7 +32,7 @@ namespace Graphics
 
         public void Init()
         {
-            aManager = new Animator(Sprite);
+            aManager = new AnimationSet(Sprite);
         }
 
         public void Update()

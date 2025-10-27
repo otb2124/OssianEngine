@@ -36,7 +36,7 @@ namespace UI
 
             type = UIComponentTypes.FRAMEPART;
 
-            aManager = new Animator(mapFramePartSpriteData());
+            aManager = new Graphics.AnimationSet(mapFramePartSpriteData());
 
             IsStickToCameraState = true;
             IsStickToZoomState = true;

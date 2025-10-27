@@ -189,35 +189,35 @@ namespace Resources
         }
 
 
-        public static Dictionary<ItemKey, Point> itemUISpriteMappings = new()
+        public static Dictionary<EquatableKey, Point> itemUISpriteMappings = new()
         {
-            { new ItemKey(ItemLib.Weapons.TERRABLADE), new Point(0,0) },
-            { new ItemKey(ItemLib.Weapons.TORCH), new Point(1,0) },
-            { new ItemKey(ItemLib.Weapons.BOW), new Point(2,0) },
+            { new EquatableKey(ItemLib.Weapons.TERRABLADE), new Point(0,0) },
+            { new EquatableKey(ItemLib.Weapons.TORCH), new Point(1,0) },
+            { new EquatableKey(ItemLib.Weapons.BOW), new Point(2,0) },
 
             //TODO: change to utils/none
-            { new ItemKey(ItemLib.Weapons.BARE_HAND), new Point(-1,-1) },
+            { new EquatableKey(ItemLib.Weapons.BARE_HAND), new Point(-1,-1) },
 
-            { new ItemKey(ItemLib.Chestplates.IRON_CHESTPLATE), new Point(0,1) },
-            { new ItemKey(ItemLib.Helmets.IRON_HELMET), new Point(0,2) },
-            { new ItemKey(ItemLib.Boots.IRON_BOOTS), new Point(0,3) },
-            { new ItemKey(ItemLib.Gloves.IRON_GLOVES), new Point(0,4) },
-            { new ItemKey(ItemLib.Necklaces.IRON_NECKLACE), new Point(0,5) },
-            { new ItemKey(ItemLib.Capes.LEATHER_CAPE), new Point(0,6) },
-            { new ItemKey(ItemLib.Belts.IRON_BELT), new Point(0,7) },
-            { new ItemKey(ItemLib.Rings.IRON_RING), new Point(0,8) },
-            { new ItemKey(ItemLib.Pets.CALL_DOG), new Point(0,9) },
-            { new ItemKey(ItemLib.LightPets.CALL_FIREFLY), new Point(0,10) },
-            { new ItemKey(ItemLib.Containments.BACKPACK), new Point(0,11) },
-            { new ItemKey(ItemLib.Consumables.HEALTH_POTION), new Point(0,12) },
-            { new ItemKey(ItemLib.Materials.SWORD_HILT), new Point(0,13) },
-            { new ItemKey(ItemLib.Keys.GOLDEN_KEY), new Point(0,14) },
+            { new EquatableKey(ItemLib.Chestplates.IRON_CHESTPLATE), new Point(0,1) },
+            { new EquatableKey(ItemLib.Helmets.IRON_HELMET), new Point(0,2) },
+            { new EquatableKey(ItemLib.Boots.IRON_BOOTS), new Point(0,3) },
+            { new EquatableKey(ItemLib.Gloves.IRON_GLOVES), new Point(0,4) },
+            { new EquatableKey(ItemLib.Necklaces.IRON_NECKLACE), new Point(0,5) },
+            { new EquatableKey(ItemLib.Capes.LEATHER_CAPE), new Point(0,6) },
+            { new EquatableKey(ItemLib.Belts.IRON_BELT), new Point(0,7) },
+            { new EquatableKey(ItemLib.Rings.IRON_RING), new Point(0,8) },
+            { new EquatableKey(ItemLib.Pets.CALL_DOG), new Point(0,9) },
+            { new EquatableKey(ItemLib.LightPets.CALL_FIREFLY), new Point(0,10) },
+            { new EquatableKey(ItemLib.Containments.BACKPACK), new Point(0,11) },
+            { new EquatableKey(ItemLib.Consumables.HEALTH_POTION), new Point(0,12) },
+            { new EquatableKey(ItemLib.Materials.SWORD_HILT), new Point(0,13) },
+            { new EquatableKey(ItemLib.Keys.GOLDEN_KEY), new Point(0,14) },
 
-            { new ItemKey(ItemLib.QuestItems.NOTE), new Point(0,15) },
-            { new ItemKey(ItemLib.QuestItems.STONE), new Point(1,15) },
-            { new ItemKey(ItemLib.QuestItems.HEAD), new Point(2,15) },
+            { new EquatableKey(ItemLib.QuestItems.NOTE), new Point(0,15) },
+            { new EquatableKey(ItemLib.QuestItems.STONE), new Point(1,15) },
+            { new EquatableKey(ItemLib.QuestItems.HEAD), new Point(2,15) },
 
-            { new ItemKey(ItemLib.Currencies.GOLD_COIN), new Point(0,16) },
+            { new EquatableKey(ItemLib.Currencies.GOLD_COIN), new Point(0,16) },
         };
 
         public static SpriteData GetItemUISprite(Item item)
@@ -230,7 +230,7 @@ namespace Resources
             return GetItemUISpriteByItemKey(item.ItemKey);
         }
 
-        public static SpriteData GetItemUISpriteByItemKey(ItemKey itemKey)
+        public static SpriteData GetItemUISpriteByItemKey(EquatableKey itemKey)
         {
             SpriteData data = new SpriteData();
 

@@ -23,7 +23,7 @@ namespace Entities
 
     public class Item
     {
-        public ItemKey ItemKey;
+        public EquatableKey ItemKey;
         public ItemLib.ItemTypes Type;
         public int Value;
         public string Name;
@@ -41,7 +41,7 @@ namespace Entities
             Type = type;
         }
 
-        public Item(ItemKey itemKey)
+        public Item(EquatableKey itemKey)
         {
             ItemKey = itemKey;
             Type = ItemFactory.GetItemType(itemKey);
