@@ -40,8 +40,8 @@ namespace Utils
         //--------
         //ENTITIES
         //livingentities
-        ENTITIES_PLAYER,
-        ENTITIES_BANDIT,
+        ENTITIES_HUMAN_M,
+        ENTITIES_HUMAN_M_DEBUG,
         ENTITIES_SLIME, ENTITIES_BAT,
 
         ENITIES_FIREBALL, ENITIES_ARROW,
@@ -100,8 +100,8 @@ namespace Utils
         //--------
         //ENTITIES
         //livingentities
-        ENTITIES_PLAYER,
-        ENTITIES_BANDIT,
+        ENTITIES_HUMAN_M,
+        ENTITIES_HUMAN_M_DEBUG,
         ENTITIES_SLIME, ENTITIES_BAT,
 
         ENTITIES_FIREBALL, ENTITIES_ARROW,
@@ -147,10 +147,9 @@ namespace Utils
 
     public enum Models
     {
-        PLAYER,
+        HUMAN_M,
         CRATE_0, CRATE_1, BALL,
         ITEM_DROP,
-        BANDIT,
         SLIME, BAT,
         PROJECTILE,
         LEDGE,
@@ -195,9 +194,9 @@ namespace Utils
         FALLEN,
         RECEIVING_DAMAGE,
         JUMPING_DESCENDING,
-        OVERALL_DESCENDING,
-        HANGING_ON_LEDGE_LEFT,
-        HANGING_ON_LEDGE_RIGHT,
+        DESCENDING,
+        HANGING_ALT,
+        HANGING,
         FLYING,
         FLYING_AND_MOVING,
 

@@ -41,11 +41,10 @@ namespace Resources
 
         private static readonly Dictionary<Models, ModelPreset> modelPresets = new()
         {
-            { Models.PLAYER, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_PLAYER, new Vector2(10, 5)) },
+            { Models.HUMAN_M, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_HUMAN_M, new Vector2(10, 5)) },
             { Models.CRATE_0, new ModelPreset(FlatBodyPreset.CRATE_0, StaticSprites.ENTITIES_STATIC_CRATE_0, Vector2.Zero) },
             { Models.CRATE_1, new ModelPreset(FlatBodyPreset.CRATE_1, StaticSprites.ENTITIES_STATIC_CRATE_1, Vector2.Zero) },
             { Models.BALL, new ModelPreset(FlatBodyPreset.CIRCLE, StaticSprites.ENTITIES_STATIC_BALL, Vector2.Zero) },
-            { Models.BANDIT, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_BANDIT, new Vector2(10, 5)) },
             { Models.SLIME, new ModelPreset(FlatBodyPreset.ANIMAL, StaticSprites.ENTITIES_SLIME,  new Vector2(0, 0)) },
             { Models.BAT, new ModelPreset(FlatBodyPreset.ANIMAL, StaticSprites.ENTITIES_BAT,  new Vector2(0, 0)) },
 

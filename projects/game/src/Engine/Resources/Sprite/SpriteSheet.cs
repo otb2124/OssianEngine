@@ -73,10 +73,10 @@ namespace Resources
                     return "graphics/rain/clouds";
 
                 //entities
-                case SpriteSheets.ENTITIES_PLAYER:
-                    return "entities/dynamic/Player";
-                case SpriteSheets.ENTITIES_BANDIT:
-                    return "entities/dynamic/mob0";
+                case SpriteSheets.ENTITIES_HUMAN_M:
+                    return "entities/dynamic/human_m_draft";
+                case SpriteSheets.ENTITIES_HUMAN_M_DEBUG:
+                    return "entities/dynamic/human_m_debug";
                 case SpriteSheets.ENTITIES_SLIME:
                     return "entities/dynamic/slime";
                 case SpriteSheets.ENTITIES_BAT:

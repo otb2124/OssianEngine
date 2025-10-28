@@ -52,11 +52,11 @@ namespace Entities
                     //TODO FIX THE LEDGES DIRECTION SWAP
                     if (ledge.Model.Direction == Directions.RIGHT)
                     {
-                        model.AnimationState = AnimationStates.HANGING_ON_LEDGE_RIGHT;
+                        model.AnimationState = AnimationStates.HANGING;
                     }
                     else
                     {
-                        model.AnimationState = AnimationStates.HANGING_ON_LEDGE_LEFT;
+                        model.AnimationState = AnimationStates.HANGING_ALT;
                     }
                 }
 

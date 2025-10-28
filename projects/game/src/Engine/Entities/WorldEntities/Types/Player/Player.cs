@@ -11,7 +11,7 @@ namespace Entities
     public class Player : EquipmentEntity
     {
 
-        public Player() : base(Models.PLAYER, Vector2.Zero, 0f)
+        public Player() : base(Models.HUMAN_M, Vector2.Zero, 0f)
         {
             SetStats();
             SetInventory();
@@ -142,14 +142,10 @@ namespace Entities
 
         public override void SetAnimations()
         {
-
             Model.AManagers = new AnimationSet[]
             {
-                new AnimationSet
-                (
-                    Model.SpriteData.SpriteSheet,
-                    AnimationSetSetter.GetAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet).Anims
-                )
+                AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet),
+                AnimationSetSetter.CreateAnimationDebugSetBySpriteSheet(Model.SpriteData.SpriteSheet),
             };
 
         }
@@ -181,7 +177,6 @@ namespace Entities
         public override void Update()
         {
             ModelStateSwapHandler.Update();
-            //Console.WriteLine(Model.ModelState);
             base.Update();
         }
 

@@ -59,8 +59,8 @@ namespace Resources
                 //--------
                 //ENTITIES
                 //livingentities
-                SpriteSheets.ENTITIES_PLAYER,
-                SpriteSheets.ENTITIES_BANDIT,
+                SpriteSheets.ENTITIES_HUMAN_M,
+                SpriteSheets.ENTITIES_HUMAN_M_DEBUG,
                 SpriteSheets.ENTITIES_SLIME, SpriteSheets.ENTITIES_BAT,
 
                 SpriteSheets.ENITIES_FIREBALL, SpriteSheets.ENITIES_ARROW,

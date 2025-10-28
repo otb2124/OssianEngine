@@ -1,6 +1,7 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Physics;
+using System;
 using Utils;
 using static Resources.ModelFactory;
 
@@ -197,11 +198,11 @@ namespace Resources
                 case ModelStates.JUMPING_DESCENDING_AND_MOVING:
                     return AnimationStates.JUMPING_DESCENDING;
                 case ModelStates.DESCENDING:
-                    return AnimationStates.OVERALL_DESCENDING;
+                    return AnimationStates.DESCENDING;
                 case ModelStates.BLOCKING:
                     return AnimationStates.BLOCKING_SWORD;
                 //case ModelStates.HANGING_ON_LEDGE:
-                //return AnimationStates.HANGING_ON_LEDGE_LEFT;
+                //return AnimationStates.HANGING_ALT;
                 case ModelStates.FLYING:
                     return AnimationStates.FLYING;
                 case ModelStates.FLYING_AND_MOVING:
