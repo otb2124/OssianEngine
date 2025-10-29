@@ -66,7 +66,7 @@ namespace Graphics
             get { return zoom; }
             set
             {
-                zoom = FlatMath.Clamp(value, MinZoom, MaxZoom);
+                zoom = PhysicalMath.Clamp(value, MinZoom, MaxZoom);
                 z = baseZ * (1d / zoom);
             }
         }

@@ -81,7 +81,7 @@ namespace Entities
         {
             if (!statsManager.IsGrounded)
             {
-                FlatBody body = model.Body;
+                PhysicalBody body = model.Body;
 
                 if (body.Position.Y > model.HighestJumpY)
                 {

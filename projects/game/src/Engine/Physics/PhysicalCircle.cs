@@ -4,42 +4,42 @@ using Microsoft.Xna.Framework;
 
 namespace Physics
 {
-    public readonly struct FlatCircle
+    public readonly struct PhysicalCircle
     {
         public readonly Vector2 Center;
         public readonly float Radius;
 
-        public FlatCircle(Vector2 center, float radius)
+        public PhysicalCircle(Vector2 center, float radius)
         {
             Center = center;
             Radius = radius;
         }
 
-        public FlatCircle(float x, float y, float radius)
+        public PhysicalCircle(float x, float y, float radius)
         {
             Center = new Vector2(x, y);
             Radius = radius;
         }
 
-        public bool Equals(FlatCircle other)
+        public bool Equals(PhysicalCircle other)
         {
             return Center == other.Center && Radius == other.Radius;
         }
 
         public bool Intersects(Vector2 point)
         {
-            float distance = FlatMath.Distance(FlatConverter.ToFlatVector(Center), FlatConverter.ToFlatVector(point));
+            float distance = PhysicalMath.Distance(PhysicalConverter.ToFlatVector(Center), PhysicalConverter.ToFlatVector(point));
             return distance < Radius;
         }
 
-        public void GetExtents(out FlatBox box)
+        public void GetExtents(out PhysicalBox box)
         {
             Vector2 min = new Vector2(Center.X - Radius, Center.Y - Radius);
             Vector2 max = new Vector2(Center.X + Radius, Center.Y + Radius);
-            box = new FlatBox(min, max);
+            box = new PhysicalBox(min, max);
         }
 
-        public static bool FindApproximateBoundingCircle(Vector2[] points, out FlatCircle circle)
+        public static bool FindApproximateBoundingCircle(Vector2[] points, out PhysicalCircle circle)
         {
             circle = default;
             const int minPoints = 2;
@@ -77,7 +77,7 @@ namespace Physics
 
             float radius = MathF.Sqrt(dx * dx + dy * dy);   // Radius is the distance from the center to the bounding rectangle vertex.
 
-            circle = new FlatCircle(cx, cy, radius);
+            circle = new PhysicalCircle(cx, cy, radius);
             return true;
         }
 
@@ -200,7 +200,7 @@ namespace Physics
 
         public override bool Equals(object obj)
         {
-            if (obj is FlatCircle other)
+            if (obj is PhysicalCircle other)
             {
                 return Equals(other);
             }

@@ -26,13 +26,13 @@ namespace Entities
             Containment = containment;
         }
 
-        public InteractiveItemEntity(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data) : base(sprite, body, pos, interactionFieldSize)
+        public InteractiveItemEntity(StaticSprites sprite, PhysicalBodies body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data) : base(sprite, body, pos, interactionFieldSize)
         {
             InteractionManager.InteractionData = data;
             Containment = containment;
         }
 
-        public InteractiveItemEntity(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data) : base(spriteData, body, pos, interactionFieldSize)
+        public InteractiveItemEntity(StaticSprite spriteData, PhysicalBodies body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data) : base(spriteData, body, pos, interactionFieldSize)
         {
             InteractionManager.InteractionData = data;
             Containment = containment;
@@ -43,7 +43,7 @@ namespace Entities
             switch(preset)
             {
                 case InteractiveItems.GOLD_COIN:
-                    Init(StaticSpriteFactory.GetItemUISpriteByItemKey(new EquatableKey(ItemLib.Currencies.GOLD_COIN)), FlatBodyPreset.COIN, pos, new Vector2(30, 30), new Inventory(new EquatableKey[] { new EquatableKey(ItemLib.Currencies.GOLD_COIN) }), new InteractionData(InteractionTriggers.AUTO, InteractionActions.ADD_ITEM_TO_INVENTORY));
+                    Init(StaticSpriteFactory.GetItemUISpriteByItemKey(new EquatableKey(ItemLib.Currencies.GOLD_COIN)), PhysicalBodies.COIN, pos, new Vector2(30, 30), new Inventory(new EquatableKey[] { new EquatableKey(ItemLib.Currencies.GOLD_COIN) }), new InteractionData(InteractionTriggers.AUTO, InteractionActions.ADD_ITEM_TO_INVENTORY));
                     break;
             }
             
@@ -65,13 +65,13 @@ namespace Entities
             base.Init(modelPreset, pos, interactionFieldSize, data);
         }
 
-        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
+        public virtual void Init(StaticSprites sprite, PhysicalBodies body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
         {
             Containment = containment;
             base.Init(sprite, body, pos, interactionFieldSize, data);
         }
 
-        public virtual void Init(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
+        public virtual void Init(StaticSprite spriteData, PhysicalBodies body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
         {
             Containment = containment;
             base.Init(spriteData, body, pos, interactionFieldSize, data);

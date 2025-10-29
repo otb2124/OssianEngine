@@ -3,28 +3,26 @@ using Microsoft.Xna.Framework;
 
 namespace Physics
 {
-    public readonly struct FlatEllipse
+    public readonly struct PhysicalEllipse
     {
         public readonly Vector2 Center;
         public readonly Vector2 Radius;
 
-        public FlatEllipse(Vector2 center, Vector2 radius)
+        public PhysicalEllipse(Vector2 center, Vector2 radius)
         {
             Center = center;
             Radius = radius;
         }
 
-        public void GetExtents(out FlatBox box)
+        public void GetExtents(out PhysicalBox box)
         {
             Vector2 min = new Vector2(Center.X - Radius.X, Center.Y - Radius.Y);
             Vector2 max = new Vector2(Center.X + Radius.X, Center.Y + Radius.Y);
-            box = new FlatBox(min, max);
+            box = new PhysicalBox(min, max);
         }
 
         public bool Contains(Vector2 v, out float d)
         {
-            // https://math.stackexchange.com/questions/76457/check-if-a-point-is-within-an-ellipse
-
             float dx = v.X - Center.X;
             float dy = v.Y - Center.Y;
 
@@ -40,14 +38,14 @@ namespace Physics
             return d < 1f;
         }
 
-        public bool Equals(FlatEllipse other)
+        public bool Equals(PhysicalEllipse other)
         {
             return Center == other.Center && Radius == other.Radius;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is FlatEllipse other)
+            if (obj is PhysicalEllipse other)
             {
                 return Equals(other);
             }

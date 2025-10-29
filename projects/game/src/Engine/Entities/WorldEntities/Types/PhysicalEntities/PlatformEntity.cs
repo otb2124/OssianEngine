@@ -16,13 +16,13 @@ namespace Entities
         {
             Indicies = GenerateIndicies(width);
             Model = new Model();
-            Model.Body = FlatBodyFactory.CreateFlatBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * width, 5), 1f, 0.5f);
+            Model.Body = PhysicalBodyFactory.CreatePhysicalBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * width, 5), 1f, 0.5f);
             Init(pos, rot);
         }
 
         public void Init(Vector2 pos, float rot)
         {
-            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rot);
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
@@ -63,7 +63,7 @@ namespace Entities
         public override void DrawCollider()
         {
             Color drawColor = new Color((byte)Color.Green.R, (byte)Color.Green.G, (byte)Color.Green.B, (byte)64);
-            Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(Model.Body.Position), Model.Body.Width, Model.Body.Height, Model.Body.Angle, drawColor);
+            Graphics.Graphics.shapes.DrawBoxFill(PhysicalConverter.ToVector2(Model.Body.Position), Model.Body.Width, Model.Body.Height, Model.Body.Angle, drawColor);
         }
 
         public override void Draw()
@@ -74,7 +74,7 @@ namespace Entities
             {
                 Vector2 localPos = new Vector2(y * 32, 0);
                 Vector2 rotatedPos = Vector2.Transform(localPos, rotationMatrix);
-                Vector2 worldPos = new Vector2(FlatConverter.ToVector2(Model.Body.Position).X + rotatedPos.X, FlatConverter.ToVector2(Model.Body.Position).Y - rotatedPos.Y);
+                Vector2 worldPos = new Vector2(PhysicalConverter.ToVector2(Model.Body.Position).X + rotatedPos.X, PhysicalConverter.ToVector2(Model.Body.Position).Y - rotatedPos.Y);
 
                 aManagers[Indicies[y]].DrawCurrent(
                     worldPos,

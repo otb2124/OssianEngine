@@ -7,6 +7,81 @@ using Utils;
 
 namespace Resources
 {
+
+    public enum SpriteSheets
+    {
+        NONE,
+        //--------
+        //GRAPHICS
+        //parallax
+        GRAPHICS_BG0_CANVAS,
+        GRAPHICS_BG0_B0,
+        GRAPHICS_BG0_B1,
+        GRAPHICS_BG0_B2,
+        GRAPHICS_BG0_F0,
+
+        GRAPHICS_BG1_CANVAS,
+        GRAPHICS_BG1_B0,
+        GRAPHICS_BG1_B1,
+        GRAPHICS_BG1_B2,
+        GRAPHICS_BG1_B3,
+        GRAPHICS_BG1_B4,
+        GRAPHICS_BG1_B5,
+        GRAPHICS_BG1_F0,
+
+        //static
+        GRAPHICS_STATIC,
+
+        //sun
+        GRAPHICS_SUN,
+        GRAPHICS_MOON,
+
+        //rain
+        GRAPHICS_CLOUDS,
+
+        //--------
+        //ENTITIES
+        //livingentities
+        ENTITIES_HUMAN_M,
+        ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0,
+        ENTITIES_HUMAN_M_ARMOR_HELMET_0,
+        ENTITIES_HUMAN_M_ARMOR_BOOTS_0,
+        ENTITIES_HUMAN_M_ARMOR_GLOVES_0,
+
+        ENTITIES_SLIME, ENTITIES_BAT,
+
+        ENITIES_FIREBALL, ENITIES_ARROW,
+
+        //physicalentities
+        ENTITIES_STATIC,
+
+        //platforms
+        ENTITIES_PLATFORMS,
+        ENTITIES_TILES,
+        ENTITIES_LEDGES,
+
+        //equipment
+        ENTITIES_WEAPONS_TERRABLADE,
+        ENTITIES_WEAPONS_TORCH,
+
+        //particles
+        ENTITIES_PARTICLES,
+
+        //light
+        LIGHT_DARKNESS_FULL,
+        LIGHT_DARKNESS_MIN,
+
+        //--
+        //UI
+        UI_CURSOR,
+        UI_FRAMES,
+        UI_GAME_ICON,
+        UI_ICONS,
+        UI_HUD,
+        UI_ITEMS,
+    }
+
+
     public class SpriteSheet
     {
         
@@ -195,11 +270,11 @@ namespace Resources
                 {
                     if (textureData[y * texture.Width + x].A != 0)
                     {
-                        return false; // Found a non-transparent pixel
+                        return false; //found a non-transparent pixel
                     }
                 }
             }
-            return true; // All pixels are transparent
+            return true;
         }
 
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Resources;
 using System.Collections.Generic;

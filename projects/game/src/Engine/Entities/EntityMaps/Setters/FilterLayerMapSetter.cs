@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Microsoft.Xna.Framework;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace Graphics
                 case 1:
                     layers = new List<FilterLayer>()
                     {
-                        { new FilterLayer(Color.Orange, 0.95f, 0f, 0.3f, Utils.StaticSprites.LIGHT_DARKNESS_VIGNETTE) }
+                        { new FilterLayer(Color.Orange, 0.95f, 0f, 0.3f, StaticSprites.LIGHT_DARKNESS_VIGNETTE) }
                     };
                     break;
             }

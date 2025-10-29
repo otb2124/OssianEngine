@@ -65,8 +65,8 @@ namespace Entities
         //Lerp state
         private Vector2 InitialHitboxSize;
         private Vector2 TargetHitboxSize;
-        private FlatVector InitialBodyPosition;
-        private FlatVector TargetBodyPosition;
+        private PhysicalVector InitialBodyPosition;
+        private PhysicalVector TargetBodyPosition;
 
         public BattleComboHit[] MoveSetComboHits;
 
@@ -211,12 +211,12 @@ namespace Entities
                     currentHit.HitboxOffset.Rotation * horizontalXFactor
                 );
 
-                TargetBodyPosition = InitialBodyPosition + new FlatVector(
+                TargetBodyPosition = InitialBodyPosition + new PhysicalVector(
                     currentHit.EntityPositionOffset.X * horizontalXFactor,
                     currentHit.EntityPositionOffset.Y
                 );
                 //t = Microsoft.Xna.Framework.MathHelper.Clamp(CurrentSwingTime / swingDuration, 0f, 1f);
-                FlatVector lerpedPosition = FlatVector.Lerp(InitialBodyPosition, TargetBodyPosition, t);
+                PhysicalVector lerpedPosition = PhysicalVector.Lerp(InitialBodyPosition, TargetBodyPosition, t);
                 model.Body.MoveTo(lerpedPosition);
             }
             else

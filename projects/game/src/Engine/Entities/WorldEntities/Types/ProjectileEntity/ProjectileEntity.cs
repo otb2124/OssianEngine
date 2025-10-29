@@ -77,9 +77,9 @@ namespace Entities
 
                     bodySize = new Vector2(20 * 2, 5 * 2);
 
-                    Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_FIREBALL, FlatBodyFactory.CreateFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
+                    Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_FIREBALL, PhysicalBodyFactory.CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
                     Model.BodyOffset = new Vector2(0, bodySize.Y / 10f * 32f);
-                    Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+                    Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
                     Model.Body.RotateTo(0f);
                     Model.UpdatesSurroundingRectangles = false;
 
@@ -102,9 +102,9 @@ namespace Entities
 
                     bodySize = new Vector2(20 * 0.75f, 5 * 0.75f);
 
-                    Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_ARROW, FlatBodyFactory.CreateFlatBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
+                    Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_ARROW, PhysicalBodyFactory.CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
                     Model.BodyOffset = new Vector2(0, bodySize.Y / 10f * 32f);
-                    Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+                    Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
                     Model.Body.RotateTo(0f);
                     Model.UpdatesSurroundingRectangles = false;
 
@@ -183,10 +183,10 @@ namespace Entities
                 }
 
                 Model.Body.linearVelocity *= (float)Graphics.Graphics.CurrentLogicTime / (float)Graphics.Graphics.TimeScale;
-                Model.Body.linearVelocity = FlatVector.Zero;
+                Model.Body.linearVelocity = PhysicalVector.Zero;
 
                 Vector2 velocity = normalizedDirection * StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue;
-                Model.Body.Move(FlatConverter.ToFlatVector(velocity));
+                Model.Body.Move(PhysicalConverter.ToFlatVector(velocity));
 
                 if (MoveDirection != Vector2.Zero)
                 {

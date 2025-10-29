@@ -33,14 +33,14 @@ namespace Entities
                     if (!statsManager.IsFallen)
                     {
                         statsManager.IsFalling = true;
-                        model.ModelState = Utils.ModelStates.FALLING;
+                        model.ModelState = ModelStates.FALLING;
                     }
                 }
                 else
                 {
                     statsManager.IsFallen = true;
                     statsManager.IsFalling = false;
-                    model.ModelState = Utils.ModelStates.FALLEN;
+                    model.ModelState = ModelStates.FALLEN;
                 }
             }
 
@@ -51,7 +51,7 @@ namespace Entities
                 {
                     statsManager.IsFallen = false;
                     FallenTimer = 0f;
-                    model.Body.Move(new FlatVector(0, 10f));
+                    model.Body.Move(new PhysicalVector(0, 10f));
                     model.Body.RotateTo(0f);
 
                     //regen Poise

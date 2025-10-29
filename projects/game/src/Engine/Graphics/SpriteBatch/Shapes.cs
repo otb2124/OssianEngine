@@ -95,7 +95,7 @@ namespace Graphics
             }
             else
             {
-                // Update the camera's view and projection matrices if the camera Z position has changed.
+                // Update the camera's view and projection matrices if the camera MaxZ position has changed.
                 camera.Update();
 
                 effect.View = camera.View;
@@ -309,12 +309,12 @@ namespace Graphics
             float bottom = -height * 0.5f;
             float top = bottom + height;
 
-            FlatTransform transform = new FlatTransform(FlatConverter.ToFlatVector(center), rotation, scale);
+            PhysicalTransform transform = new PhysicalTransform(PhysicalConverter.ToFlatVector(center), rotation, scale);
 
-            Vector2 a = FlatUtil.Transform(new Vector2(left, top), transform);
-            Vector2 b = FlatUtil.Transform(new Vector2(right, top), transform);
-            Vector2 c = FlatUtil.Transform(new Vector2(right, bottom), transform);
-            Vector2 d = FlatUtil.Transform(new Vector2(left, bottom), transform);
+            Vector2 a = PhysicalUtil.Transform(new Vector2(left, top), transform);
+            Vector2 b = PhysicalUtil.Transform(new Vector2(right, top), transform);
+            Vector2 c = PhysicalUtil.Transform(new Vector2(right, bottom), transform);
+            Vector2 d = PhysicalUtil.Transform(new Vector2(left, bottom), transform);
 
             this.indices[this.indexCount++] = 0 + this.vertexCount;
             this.indices[this.indexCount++] = 1 + this.vertexCount;
@@ -437,7 +437,7 @@ namespace Graphics
             DrawQuadFill(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, color);
         }
 
-        public void DrawCircleFill(in FlatCircle circle, int points, Color color)
+        public void DrawCircleFill(in PhysicalCircle circle, int points, Color color)
         {
             DrawCircleFill(circle.Center.X, circle.Center.Y, circle.Radius, points, color);
         }
@@ -454,7 +454,7 @@ namespace Graphics
             const int MinCirclePoints = 3;
             const int MaxCirclePoints = 256;
 
-            int shapeVertexCount = FlatMath.Clamp(points, MinCirclePoints, MaxCirclePoints);    // The vertex count will just be the number of points requested by the user.
+            int shapeVertexCount = PhysicalMath.Clamp(points, MinCirclePoints, MaxCirclePoints);    // The vertex count will just be the number of points requested by the user.
             int shapeTriangleCount = shapeVertexCount - 2;      // The triangle count of a convex polygon is alway 2 less than the vertex count.
             int shapeIndexCount = shapeTriangleCount * 3;       // The indices count will just be 3 times the triangle count.
 
@@ -496,7 +496,7 @@ namespace Graphics
             shapeCount++;
         }
 
-        public void DrawEllipseFill(FlatEllipse ellipse, int points, Color color)
+        public void DrawEllipseFill(PhysicalEllipse ellipse, int points, Color color)
         {
             DrawEllipseFill(ellipse.Center, ellipse.Radius, points, color);
         }
@@ -518,7 +518,7 @@ namespace Graphics
             const int MinElipsePoints = 3;
             const int MaxElipsePoints = 256;
 
-            int shapeVertexCount = FlatMath.Clamp(points, MinElipsePoints, MaxElipsePoints);    // The vertex count will just be the number of points requested by the user.
+            int shapeVertexCount = PhysicalMath.Clamp(points, MinElipsePoints, MaxElipsePoints);    // The vertex count will just be the number of points requested by the user.
             int shapeTriangleCount = shapeVertexCount - 2;      // The triangle count of a convex polygon is alway 2 less than the vertex count.
             int shapeIndexCount = shapeTriangleCount * 3;       // The indices count will just be 3 times the triangle count.
 
@@ -554,7 +554,7 @@ namespace Graphics
         }
 
 
-        /*public void DrawPolygonFill(Vector2[] vertices, int[] triangles, FlatTransform transform, Color color)
+        /*public void DrawPolygonFill(Vector2[] vertices, int[] triangles, PhysicalTransform transform, Color color)
         {
             this.EnsureStarted();
             this.EnsureSpace(vertices.Length, indices.Length);
@@ -567,7 +567,7 @@ namespace Graphics
             for (int i = 0; i < vertices.Length; i++)
             {
                 Vector2 v = vertices[i];
-                v = FlatUtil.Transform(v.X, v.Y, transform);
+                v = PhysicalUtil.Transform(v.X, v.Y, transform);
                 this.vertices[this.vertexCount++] = new VertexPositionColor(new Vector3(v.X, v.Y, 0f), color);
             }
 
@@ -613,7 +613,7 @@ namespace Graphics
         }
 
 
-        /*public void DrawPolygonFill(Span<Vector2> vertices, int[] triangles, FlatTransform transform, Color color)
+        /*public void DrawPolygonFill(Span<Vector2> vertices, int[] triangles, PhysicalTransform transform, Color color)
         {
             this.EnsureStarted();
             this.EnsureSpace(vertices.Length, indices.Length);
@@ -626,7 +626,7 @@ namespace Graphics
             for (int i = 0; i < vertices.Length; i++)
             {
                 Vector2 v = vertices[i];
-                v = FlatUtil.Transform(v.X, v.Y, transform);
+                v = PhysicalUtil.Transform(v.X, v.Y, transform);
                 this.vertices[this.vertexCount++] = new VertexPositionColor(new Vector3(v.X, v.Y, 0f), color);
             }
 
@@ -756,7 +756,7 @@ namespace Graphics
             float e1x = x2 - x1;
             float e1y = y2 - y1;
 
-            FlatMath.Normalize(new FlatVector(e1x, e1y));
+            PhysicalMath.Normalize(new PhysicalVector(e1x, e1y));
 
             float n1x = -e1y;
             float n1y = e1x;
@@ -816,7 +816,7 @@ namespace Graphics
             float e1x = x2 - x1;
             float e1y = y2 - y1;
 
-            FlatMath.Normalize(new FlatVector(e1x, e1y));
+            PhysicalMath.Normalize(new PhysicalVector(e1x, e1y));
 
             float n1x = -e1y;
             float n1y = e1x;
@@ -941,7 +941,7 @@ namespace Graphics
         }
 
 
-        public void DrawCircle(in FlatCircle circle, int points, Color color)
+        public void DrawCircle(in PhysicalCircle circle, int points, Color color)
         {
             DrawCircle(circle.Center, circle.Radius, points, color);
         }
@@ -959,7 +959,7 @@ namespace Graphics
             const int MinCirclePoints = 3;
             const int MaxCirclePoints = 256;
 
-            points = FlatMath.Clamp(points, MinCirclePoints, MaxCirclePoints);
+            points = PhysicalMath.Clamp(points, MinCirclePoints, MaxCirclePoints);
 
             float angle = MathHelper.TwoPi / points;
 
@@ -990,7 +990,7 @@ namespace Graphics
             const int MinCirclePoints = 3;
             const int MaxCirclePoints = 256;
 
-            points = FlatMath.Clamp(points, MinCirclePoints, MaxCirclePoints);
+            points = PhysicalMath.Clamp(points, MinCirclePoints, MaxCirclePoints);
 
             int totalVertexCount = points * 4;
             int totalIndexCount = totalVertexCount * 3 / 2;
@@ -1025,7 +1025,7 @@ namespace Graphics
         }
 
         /*
-        public void DrawEllipse(FlatEllipse ellipse, int points, Color color)
+        public void DrawEllipse(PhysicalEllipse ellipse, int points, Color color)
         {
             this.DrawEllipse(ellipse.Position, ellipse.Radius, points, color);
         }
@@ -1049,7 +1049,7 @@ namespace Graphics
             const int MinPoints = 3;
             const int MaxPoints = 256;
 
-            points = FlatMath.Clamp(points, MinPoints, MaxPoints);
+            points = PhysicalMath.Clamp(points, MinPoints, MaxPoints);
 
             float deltaAngle = MathHelper.TwoPi / (float)points;
             float angle = 0f;
@@ -1081,7 +1081,7 @@ namespace Graphics
                 return;
             }
 
-            FlatTransform transform = new FlatTransform(position, rotation, scale);
+            PhysicalTransform transform = new PhysicalTransform(position, rotation, scale);
             int len = vertices.Length;
 
             for (int i = 0; i < vertices.Length; i++)
@@ -1089,8 +1089,8 @@ namespace Graphics
                 Vector2 a = vertices[i];
                 Vector2 b = vertices[(i + 1) % len];
 
-                a = FlatUtil.Transform(a, transform);
-                b = FlatUtil.Transform(b, transform);
+                a = PhysicalUtil.Transform(a, transform);
+                b = PhysicalUtil.Transform(b, transform);
 
                 this.DrawLine_Slow(a, b, color);
             }
@@ -1160,7 +1160,7 @@ namespace Graphics
             this.DrawLine(x1, y1, firstX, firstY, color);
         }
 
-        public void DrawPolygon(Vector2[] vertices, FlatTransform transform, Color color)
+        public void DrawPolygon(Vector2[] vertices, PhysicalTransform transform, Color color)
         {
             if (vertices is null || vertices.Length < 3)
             {
@@ -1174,8 +1174,8 @@ namespace Graphics
                 Vector2 a = vertices[i];
                 Vector2 b = vertices[(i + 1) % vertices.Length];
 
-                a = FlatUtil.Transform(a, transform);
-                b = FlatUtil.Transform(b, transform);
+                a = PhysicalUtil.Transform(a, transform);
+                b = PhysicalUtil.Transform(b, transform);
 
                 this.DrawLine(a, b, color);
             }
@@ -1200,7 +1200,7 @@ namespace Graphics
         }
 
 
-        public void DrawPolygon(ReadOnlySpan<Vector2> vertices, FlatTransform transform, Color color)
+        public void DrawPolygon(ReadOnlySpan<Vector2> vertices, PhysicalTransform transform, Color color)
         {
             if (vertices.Length < 3)
             {
@@ -1220,8 +1220,8 @@ namespace Graphics
                 prev = next;
                 next++;
 
-                a = FlatUtil.Transform(a, transform);
-                b = FlatUtil.Transform(b, transform);
+                a = PhysicalUtil.Transform(a, transform);
+                b = PhysicalUtil.Transform(b, transform);
 
                 this.DrawLine(a, b, color);
             }
@@ -1252,7 +1252,7 @@ namespace Graphics
         }
 
 
-        public void DrawPolygonTriangles(Vector2[] vertices, int[] triangles, FlatTransform transform, Color color)
+        public void DrawPolygonTriangles(Vector2[] vertices, int[] triangles, PhysicalTransform transform, Color color)
         {
             if(vertices is null || vertices.Length < 3 || triangles is null || triangles.Length < 3)
             {
@@ -1265,9 +1265,9 @@ namespace Graphics
                 Vector2 b = vertices[triangles[i + 1]];
                 Vector2 c = vertices[triangles[i + 2]];
 
-                a = FlatUtil.Transform(a, transform);
-                b = FlatUtil.Transform(b, transform);
-                c = FlatUtil.Transform(c, transform);
+                a = PhysicalUtil.Transform(a, transform);
+                b = PhysicalUtil.Transform(b, transform);
+                c = PhysicalUtil.Transform(c, transform);
 
                 this.DrawLine(a, b, color);
                 this.DrawLine(b, c, color);

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
+using Resources;
 using System;
 using Utils;
 using static Entities.EntityAIBehaviourManager;
@@ -20,8 +21,8 @@ namespace Entities
             if (entityFrom == null || entityTo == null)
                 return Vector2.Zero;
 
-            Vector2 EntityPos1 = FlatConverter.ToVector2(entityFrom.Model.Body.Position);
-            Vector2 EntityPos2 = FlatConverter.ToVector2(entityTo.Model.Body.Position);
+            Vector2 EntityPos1 = PhysicalConverter.ToVector2(entityFrom.Model.Body.Position);
+            Vector2 EntityPos2 = PhysicalConverter.ToVector2(entityTo.Model.Body.Position);
             return EntityPos1 - EntityPos2;
         }
 
@@ -30,8 +31,8 @@ namespace Entities
             if (entityFrom == null || entityTo == null)
                 return 0f;
 
-            Vector2 pos1 = FlatConverter.ToVector2(entityFrom.Model.Body.Position);
-            Vector2 pos2 = FlatConverter.ToVector2(entityTo.Model.Body.Position);
+            Vector2 pos1 = PhysicalConverter.ToVector2(entityFrom.Model.Body.Position);
+            Vector2 pos2 = PhysicalConverter.ToVector2(entityTo.Model.Body.Position);
             return Math.Abs(pos1.X - pos2.X);
         }
 
@@ -40,8 +41,8 @@ namespace Entities
             if (entityFrom == null || entityTo == null)
                 return 0f;
 
-            Vector2 pos1 = FlatConverter.ToVector2(entityFrom.Model.Body.Position);
-            Vector2 pos2 = FlatConverter.ToVector2(entityTo.Model.Body.Position);
+            Vector2 pos1 = PhysicalConverter.ToVector2(entityFrom.Model.Body.Position);
+            Vector2 pos2 = PhysicalConverter.ToVector2(entityTo.Model.Body.Position);
             return Math.Abs(pos1.Y - pos2.Y);
         }
 

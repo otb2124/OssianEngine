@@ -4,13 +4,13 @@ namespace Physics
 {
     public static class Collisions
     {
-        public static void PointSegmentDistance(FlatVector p, FlatVector a, FlatVector b, out float distanceSquared, out FlatVector cp)
+        public static void PointSegmentDistance(PhysicalVector p, PhysicalVector a, PhysicalVector b, out float distanceSquared, out PhysicalVector cp)
         {
-            FlatVector ab = b - a;
-            FlatVector ap = p - a;
+            PhysicalVector ab = b - a;
+            PhysicalVector ap = p - a;
 
-            float proj = FlatMath.Dot(ap, ab);
-            float abLenSq = FlatMath.LengthSquared(ab);
+            float proj = PhysicalMath.Dot(ap, ab);
+            float abLenSq = PhysicalMath.LengthSquared(ab);
             float d = proj / abLenSq;
 
             if (d <= 0f)
@@ -26,10 +26,10 @@ namespace Physics
                 cp = a + ab * d;
             }
 
-            distanceSquared = FlatMath.DistanceSquared(p, cp);
+            distanceSquared = PhysicalMath.DistanceSquared(p, cp);
         }
 
-        public static bool IntersectAABBs(FlatAABB a, FlatAABB b)
+        public static bool IntersectAABBs(PhysicalAABB a, PhysicalAABB b)
         {
             if (a.Max.X <= b.Min.X || b.Max.X <= a.Min.X ||
                 a.Max.Y <= b.Min.Y || b.Max.Y <= a.Min.Y)
@@ -41,12 +41,12 @@ namespace Physics
         }
 
         public static void FindContactPoints(
-            FlatBody bodyA, FlatBody bodyB,
-            out FlatVector contact1, out FlatVector contact2,
+            PhysicalBody bodyA, PhysicalBody bodyB,
+            out PhysicalVector contact1, out PhysicalVector contact2,
             out int contactCount)
         {
-            contact1 = FlatVector.Zero;
-            contact2 = FlatVector.Zero;
+            contact1 = PhysicalVector.Zero;
+            contact2 = PhysicalVector.Zero;
             contactCount = 0;
 
             BodyShapeType BodyShapeTypeA = bodyA.BodyShapeType;
@@ -81,29 +81,29 @@ namespace Physics
         }
 
         private static void FindPolygonsContactPoints(
-            FlatVector[] verticesA, FlatVector[] verticesB,
-            out FlatVector contact1, out FlatVector contact2, out int contactCount)
+            PhysicalVector[] verticesA, PhysicalVector[] verticesB,
+            out PhysicalVector contact1, out PhysicalVector contact2, out int contactCount)
         {
-            contact1 = FlatVector.Zero;
-            contact2 = FlatVector.Zero;
+            contact1 = PhysicalVector.Zero;
+            contact2 = PhysicalVector.Zero;
             contactCount = 0;
 
             float minDistSq = float.MaxValue;
 
             for (int i = 0; i < verticesA.Length; i++)
             {
-                FlatVector p = verticesA[i];
+                PhysicalVector p = verticesA[i];
 
                 for (int j = 0; j < verticesB.Length; j++)
                 {
-                    FlatVector va = verticesB[j];
-                    FlatVector vb = verticesB[(j + 1) % verticesB.Length];
+                    PhysicalVector va = verticesB[j];
+                    PhysicalVector vb = verticesB[(j + 1) % verticesB.Length];
 
-                    PointSegmentDistance(p, va, vb, out float distSq, out FlatVector cp);
+                    PointSegmentDistance(p, va, vb, out float distSq, out PhysicalVector cp);
 
-                    if (FlatMath.NearlyEqual(distSq, minDistSq))
+                    if (PhysicalMath.NearlyEqual(distSq, minDistSq))
                     {
-                        if (!FlatMath.NearlyEqual(cp, contact1))
+                        if (!PhysicalMath.NearlyEqual(cp, contact1))
                         {
                             contact2 = cp;
                             contactCount = 2;
@@ -120,18 +120,18 @@ namespace Physics
 
             for (int i = 0; i < verticesB.Length; i++)
             {
-                FlatVector p = verticesB[i];
+                PhysicalVector p = verticesB[i];
 
                 for (int j = 0; j < verticesA.Length; j++)
                 {
-                    FlatVector va = verticesA[j];
-                    FlatVector vb = verticesA[(j + 1) % verticesA.Length];
+                    PhysicalVector va = verticesA[j];
+                    PhysicalVector vb = verticesA[(j + 1) % verticesA.Length];
 
-                    PointSegmentDistance(p, va, vb, out float distSq, out FlatVector cp);
+                    PointSegmentDistance(p, va, vb, out float distSq, out PhysicalVector cp);
 
-                    if (FlatMath.NearlyEqual(distSq, minDistSq))
+                    if (PhysicalMath.NearlyEqual(distSq, minDistSq))
                     {
-                        if (!FlatMath.NearlyEqual(cp, contact1))
+                        if (!PhysicalMath.NearlyEqual(cp, contact1))
                         {
                             contact2 = cp;
                             contactCount = 2;
@@ -148,20 +148,20 @@ namespace Physics
         }
 
         private static void FindCirclePolygonContactPoint(
-            FlatVector circleCenter, float circleRadius,
-            FlatVector polygonCenter, FlatVector[] polygonVertices,
-            out FlatVector cp)
+            PhysicalVector circleCenter, float circleRadius,
+            PhysicalVector polygonCenter, PhysicalVector[] polygonVertices,
+            out PhysicalVector cp)
         {
-            cp = FlatVector.Zero;
+            cp = PhysicalVector.Zero;
 
             float minDistSq = float.MaxValue;
 
             for (int i = 0; i < polygonVertices.Length; i++)
             {
-                FlatVector va = polygonVertices[i];
-                FlatVector vb = polygonVertices[(i + 1) % polygonVertices.Length];
+                PhysicalVector va = polygonVertices[i];
+                PhysicalVector vb = polygonVertices[(i + 1) % polygonVertices.Length];
 
-                PointSegmentDistance(circleCenter, va, vb, out float distSq, out FlatVector contact);
+                PointSegmentDistance(circleCenter, va, vb, out float distSq, out PhysicalVector contact);
 
                 if (distSq < minDistSq)
                 {
@@ -171,16 +171,16 @@ namespace Physics
             }
         }
 
-        private static void FindCirclesContactPoint(FlatVector centerA, float radiusA, FlatVector centerB, out FlatVector cp)
+        private static void FindCirclesContactPoint(PhysicalVector centerA, float radiusA, PhysicalVector centerB, out PhysicalVector cp)
         {
-            FlatVector ab = centerB - centerA;
-            FlatVector dir = FlatMath.Normalize(ab);
+            PhysicalVector ab = centerB - centerA;
+            PhysicalVector dir = PhysicalMath.Normalize(ab);
             cp = centerA + dir * radiusA;
         }
 
-        public static bool Collide(FlatBody bodyA, FlatBody bodyB, out FlatVector normal, out float depth)
+        public static bool Collide(PhysicalBody bodyA, PhysicalBody bodyB, out PhysicalVector normal, out float depth)
         {
-            normal = FlatVector.Zero;
+            normal = PhysicalVector.Zero;
             depth = 0f;
 
             BodyShapeType BodyShapeTypeA = bodyA.BodyShapeType;
@@ -227,25 +227,25 @@ namespace Physics
             return false;
         }
 
-        public static bool IntersectCirclePolygon(FlatVector circleCenter, float circleRadius,
-                                                    FlatVector polygonCenter, FlatVector[] vertices,
-                                                    out FlatVector normal, out float depth)
+        public static bool IntersectCirclePolygon(PhysicalVector circleCenter, float circleRadius,
+                                                    PhysicalVector polygonCenter, PhysicalVector[] vertices,
+                                                    out PhysicalVector normal, out float depth)
         {
-            normal = FlatVector.Zero;
+            normal = PhysicalVector.Zero;
             depth = float.MaxValue;
 
-            FlatVector axis = FlatVector.Zero;
+            PhysicalVector axis = PhysicalVector.Zero;
             float axisDepth = 0f;
             float minA, maxA, minB, maxB;
 
             for (int i = 0; i < vertices.Length; i++)
             {
-                FlatVector va = vertices[i];
-                FlatVector vb = vertices[(i + 1) % vertices.Length];
+                PhysicalVector va = vertices[i];
+                PhysicalVector vb = vertices[(i + 1) % vertices.Length];
 
-                FlatVector edge = vb - va;
-                axis = new FlatVector(-edge.Y, edge.X);
-                axis = FlatMath.Normalize(axis);
+                PhysicalVector edge = vb - va;
+                axis = new PhysicalVector(-edge.Y, edge.X);
+                axis = PhysicalMath.Normalize(axis);
 
                 ProjectVertices(vertices, axis, out minA, out maxA);
                 ProjectCircle(circleCenter, circleRadius, axis, out minB, out maxB);
@@ -265,10 +265,10 @@ namespace Physics
             }
 
             int cpIndex = FindClosestPointOnPolygon(circleCenter, vertices);
-            FlatVector cp = vertices[cpIndex];
+            PhysicalVector cp = vertices[cpIndex];
 
             axis = cp - circleCenter;
-            axis = FlatMath.Normalize(axis);
+            axis = PhysicalMath.Normalize(axis);
 
             ProjectVertices(vertices, axis, out minA, out maxA);
             ProjectCircle(circleCenter, circleRadius, axis, out minB, out maxB);
@@ -286,9 +286,9 @@ namespace Physics
                 normal = axis;
             }
 
-            FlatVector direction = polygonCenter - circleCenter;
+            PhysicalVector direction = polygonCenter - circleCenter;
 
-            if (FlatMath.Dot(direction, normal) < 0f)
+            if (PhysicalMath.Dot(direction, normal) < 0f)
             {
                 normal = -normal;
             }
@@ -296,15 +296,15 @@ namespace Physics
             return true;
         }
 
-        private static int FindClosestPointOnPolygon(FlatVector circleCenter, FlatVector[] vertices)
+        private static int FindClosestPointOnPolygon(PhysicalVector circleCenter, PhysicalVector[] vertices)
         {
             int result = -1;
             float minDistance = float.MaxValue;
 
             for (int i = 0; i < vertices.Length; i++)
             {
-                FlatVector v = vertices[i];
-                float distance = FlatMath.Distance(v, circleCenter);
+                PhysicalVector v = vertices[i];
+                float distance = PhysicalMath.Distance(v, circleCenter);
 
                 if (distance < minDistance)
                 {
@@ -316,16 +316,16 @@ namespace Physics
             return result;
         }
 
-        private static void ProjectCircle(FlatVector center, float radius, FlatVector axis, out float min, out float max)
+        private static void ProjectCircle(PhysicalVector center, float radius, PhysicalVector axis, out float min, out float max)
         {
-            FlatVector direction = FlatMath.Normalize(axis);
-            FlatVector directionAndRadius = direction * radius;
+            PhysicalVector direction = PhysicalMath.Normalize(axis);
+            PhysicalVector directionAndRadius = direction * radius;
 
-            FlatVector p1 = center + directionAndRadius;
-            FlatVector p2 = center - directionAndRadius;
+            PhysicalVector p1 = center + directionAndRadius;
+            PhysicalVector p2 = center - directionAndRadius;
 
-            min = FlatMath.Dot(p1, axis);
-            max = FlatMath.Dot(p2, axis);
+            min = PhysicalMath.Dot(p1, axis);
+            max = PhysicalMath.Dot(p2, axis);
 
             if (min > max)
             {
@@ -336,19 +336,19 @@ namespace Physics
             }
         }
 
-        public static bool IntersectPolygons(FlatVector centerA, FlatVector[] verticesA, FlatVector centerB, FlatVector[] verticesB, out FlatVector normal, out float depth)
+        public static bool IntersectPolygons(PhysicalVector centerA, PhysicalVector[] verticesA, PhysicalVector centerB, PhysicalVector[] verticesB, out PhysicalVector normal, out float depth)
         {
-            normal = FlatVector.Zero;
+            normal = PhysicalVector.Zero;
             depth = float.MaxValue;
 
             for (int i = 0; i < verticesA.Length; i++)
             {
-                FlatVector va = verticesA[i];
-                FlatVector vb = verticesA[(i + 1) % verticesA.Length];
+                PhysicalVector va = verticesA[i];
+                PhysicalVector vb = verticesA[(i + 1) % verticesA.Length];
 
-                FlatVector edge = vb - va;
-                FlatVector axis = new FlatVector(-edge.Y, edge.X);
-                axis = FlatMath.Normalize(axis);
+                PhysicalVector edge = vb - va;
+                PhysicalVector axis = new PhysicalVector(-edge.Y, edge.X);
+                axis = PhysicalMath.Normalize(axis);
 
                 ProjectVertices(verticesA, axis, out float minA, out float maxA);
                 ProjectVertices(verticesB, axis, out float minB, out float maxB);
@@ -369,12 +369,12 @@ namespace Physics
 
             for (int i = 0; i < verticesB.Length; i++)
             {
-                FlatVector va = verticesB[i];
-                FlatVector vb = verticesB[(i + 1) % verticesB.Length];
+                PhysicalVector va = verticesB[i];
+                PhysicalVector vb = verticesB[(i + 1) % verticesB.Length];
 
-                FlatVector edge = vb - va;
-                FlatVector axis = new FlatVector(-edge.Y, edge.X);
-                axis = FlatMath.Normalize(axis);
+                PhysicalVector edge = vb - va;
+                PhysicalVector axis = new PhysicalVector(-edge.Y, edge.X);
+                axis = PhysicalMath.Normalize(axis);
 
                 ProjectVertices(verticesA, axis, out float minA, out float maxA);
                 ProjectVertices(verticesB, axis, out float minB, out float maxB);
@@ -393,9 +393,9 @@ namespace Physics
                 }
             }
 
-            FlatVector direction = centerB - centerA;
+            PhysicalVector direction = centerB - centerA;
 
-            if (FlatMath.Dot(direction, normal) < 0f)
+            if (PhysicalMath.Dot(direction, normal) < 0f)
             {
                 normal = -normal;
             }
@@ -403,15 +403,15 @@ namespace Physics
             return true;
         }
 
-        private static void ProjectVertices(FlatVector[] vertices, FlatVector axis, out float min, out float max)
+        private static void ProjectVertices(PhysicalVector[] vertices, PhysicalVector axis, out float min, out float max)
         {
             min = float.MaxValue;
             max = float.MinValue;
 
             for (int i = 0; i < vertices.Length; i++)
             {
-                FlatVector v = vertices[i];
-                float proj = FlatMath.Dot(v, axis);
+                PhysicalVector v = vertices[i];
+                float proj = PhysicalMath.Dot(v, axis);
 
                 if (proj < min) { min = proj; }
                 if (proj > max) { max = proj; }
@@ -419,14 +419,14 @@ namespace Physics
         }
 
         public static bool IntersectCircles(
-            FlatVector centerA, float radiusA,
-            FlatVector centerB, float radiusB,
-            out FlatVector normal, out float depth)
+            PhysicalVector centerA, float radiusA,
+            PhysicalVector centerB, float radiusB,
+            out PhysicalVector normal, out float depth)
         {
-            normal = FlatVector.Zero;
+            normal = PhysicalVector.Zero;
             depth = 0f;
 
-            float distance = FlatMath.Distance(centerA, centerB);
+            float distance = PhysicalMath.Distance(centerA, centerB);
             float radii = radiusA + radiusB;
 
             if (distance >= radii)
@@ -434,7 +434,7 @@ namespace Physics
                 return false;
             }
 
-            normal = FlatMath.Normalize(centerB - centerA);
+            normal = PhysicalMath.Normalize(centerB - centerA);
             depth = radii - distance;
 
             return true;

@@ -25,8 +25,8 @@ namespace Graphics
 
         public void Init()
         {
-            dayTimeLayers.Add(new FilterLayer(Color.Black, 0.95f, 0f, 0.95f, Utils.StaticSprites.LIGHT_DARKNESS_FULL));
-            dayTimeLayers.Add(new FilterLayer(Color.Black, 0.95f, 0f, 1f, Utils.StaticSprites.LIGHT_DARKNESS_VIGNETTE));
+            dayTimeLayers.Add(new FilterLayer(Color.Black, 0.95f, 0f, 0.95f, StaticSprites.LIGHT_DARKNESS_FULL));
+            dayTimeLayers.Add(new FilterLayer(Color.Black, 0.95f, 0f, 1f, StaticSprites.LIGHT_DARKNESS_VIGNETTE));
         }
 
         public void UpdateLayers()

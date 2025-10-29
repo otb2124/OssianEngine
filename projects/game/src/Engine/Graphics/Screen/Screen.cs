@@ -24,8 +24,8 @@ namespace Graphics
             isDisposed = false;
             this.game = game ?? throw new ArgumentNullException("game");
 
-            Width = FlatMath.Clamp(width, MinDim, MaxDim);
-            Height = FlatMath.Clamp(height, MinDim, MaxDim);
+            Width = PhysicalMath.Clamp(width, MinDim, MaxDim);
+            Height = PhysicalMath.Clamp(height, MinDim, MaxDim);
 
             target = new RenderTarget2D(this.game.GraphicsDevice, Width, Height);
             isSet = false;

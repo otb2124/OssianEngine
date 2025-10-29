@@ -14,46 +14,46 @@ namespace Resources
         public class ModelPreset
         {
             public StaticSprite SpriteData;
-            public FlatBody Body;
+            public PhysicalBody Body;
             public Vector2 Offset;
 
-            public ModelPreset(FlatBodyPreset bodyPreset, StaticSprites spritePreset, Vector2 offset)
+            public ModelPreset(PhysicalBodies bodyPreset, StaticSprites spritePreset, Vector2 offset)
             {
-                Body = FlatBodyFactory.CreateFlatBody(bodyPreset, offset);
+                Body = PhysicalBodyFactory.CreatePhysicalBody(bodyPreset, offset);
                 SpriteData = StaticSpriteFactory.StaticSpriteMappings[spritePreset];
                 Offset = offset;
             }
 
-            public ModelPreset(FlatBody body, StaticSprites spritePreset, Vector2 offset)
+            public ModelPreset(PhysicalBody body, StaticSprites spritePreset, Vector2 offset)
             {
                 Body = body;
                 SpriteData = StaticSpriteFactory.StaticSpriteMappings[spritePreset];
                 Offset = offset;
             }
 
-            public ModelPreset(FlatBodyPreset bodyPreset, StaticSprite spriteData, Vector2 offset)
+            public ModelPreset(PhysicalBodies bodyPreset, StaticSprite spriteData, Vector2 offset)
             {
-                Body = FlatBodyFactory.CreateFlatBody(bodyPreset, offset);
+                Body = PhysicalBodyFactory.CreatePhysicalBody(bodyPreset, offset);
                 SpriteData = spriteData;
                 Offset = offset;
             }
         }
 
-        private static readonly Dictionary<Models, ModelPreset> modelPresets = new()
+        private static readonly Dictionary<Models, ModelPreset> ModelPresetsMap = new()
         {
-            { Models.HUMAN_M, new ModelPreset(FlatBodyPreset.HUMANOID, StaticSprites.ENTITIES_HUMAN_M, new Vector2(10, 5)) },
-            { Models.CRATE_0, new ModelPreset(FlatBodyPreset.CRATE_0, StaticSprites.ENTITIES_STATIC_CRATE_0, Vector2.Zero) },
-            { Models.CRATE_1, new ModelPreset(FlatBodyPreset.CRATE_1, StaticSprites.ENTITIES_STATIC_CRATE_1, Vector2.Zero) },
-            { Models.BALL, new ModelPreset(FlatBodyPreset.CIRCLE, StaticSprites.ENTITIES_STATIC_BALL, Vector2.Zero) },
-            { Models.SLIME, new ModelPreset(FlatBodyPreset.ANIMAL, StaticSprites.ENTITIES_SLIME,  new Vector2(0, 0)) },
-            { Models.BAT, new ModelPreset(FlatBodyPreset.ANIMAL, StaticSprites.ENTITIES_BAT,  new Vector2(0, 0)) },
+            { Models.HUMAN_M, new ModelPreset(PhysicalBodies.HUMANOID, StaticSprites.ENTITIES_HUMAN_M, new Vector2(10, 5)) },
+            { Models.CRATE_0, new ModelPreset(PhysicalBodies.CRATE_0, StaticSprites.ENTITIES_STATIC_CRATE_0, Vector2.Zero) },
+            { Models.CRATE_1, new ModelPreset(PhysicalBodies.CRATE_1, StaticSprites.ENTITIES_STATIC_CRATE_1, Vector2.Zero) },
+            { Models.BALL, new ModelPreset(PhysicalBodies.CIRCLE, StaticSprites.ENTITIES_STATIC_BALL, Vector2.Zero) },
+            { Models.SLIME, new ModelPreset(PhysicalBodies.ANIMAL, StaticSprites.ENTITIES_SLIME,  new Vector2(0, 0)) },
+            { Models.BAT, new ModelPreset(PhysicalBodies.ANIMAL, StaticSprites.ENTITIES_BAT,  new Vector2(0, 0)) },
 
-            { Models.LEDGE, new ModelPreset(FlatBodyPreset.LEDGE, StaticSprites.ENTITIES_LEDGE,  new Vector2(0, 0)) }
+            { Models.LEDGE, new ModelPreset(PhysicalBodies.LEDGE, StaticSprites.ENTITIES_LEDGE,  new Vector2(0, 0)) }
         };
 
         public static Model CreateModel(Models model)
         {
-            if (!modelPresets.TryGetValue(model, out var preset))
+            if (!ModelPresetsMap.TryGetValue(model, out var preset))
             {
                 throw new ArgumentOutOfRangeException(nameof(model), model, "Invalid Model type");
             }
@@ -61,17 +61,17 @@ namespace Resources
             return new Model(preset);
         }
 
-        public static Model CreateModel(StaticSprites sprite, FlatBodyPreset bodyPreset)
+        public static Model CreateModel(StaticSprites sprite, PhysicalBodies bodyPreset)
         {
             return new Model(new ModelPreset(bodyPreset, sprite, new Vector2(0, 0)));
         }
 
-        public static Model CreateModel(StaticSprites sprite, FlatBody body)
+        public static Model CreateModel(StaticSprites sprite, PhysicalBody body)
         {
             return new Model(new ModelPreset(body, sprite, new Vector2(0, 0)));
         }
 
-        public static Model CreateModel(StaticSprite spriteData, FlatBodyPreset bodyPreset)
+        public static Model CreateModel(StaticSprite spriteData, PhysicalBodies bodyPreset)
         {
             return new Model(new ModelPreset(bodyPreset, spriteData, new Vector2(0, 0)));
         }

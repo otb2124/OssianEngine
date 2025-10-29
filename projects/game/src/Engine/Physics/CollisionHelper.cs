@@ -13,33 +13,33 @@ namespace Physics
     {
         public static int GroundingBodySizeOffset = 10;
 
-        public static bool IsBodyOverBody(FlatBody body, FlatBody ground)
+        public static bool IsBodyOverBody(PhysicalBody body, PhysicalBody ground)
         {
             return body.GetAABB().Min.Y <= ground.GetAABB().Min.Y;
         }
 
-        public static RotatedRectangle CreateGroundingRectangle(FlatBody flatBody)
+        public static RotatedRectangle CreateGroundingRectangle(PhysicalBody flatBody)
         {
             Vector2 modifiedSize = new Vector2(flatBody.Width + GroundingBodySizeOffset, GroundingBodySizeOffset);
             return new RotatedRectangle(new Vector2(flatBody.Position.X, flatBody.Position.Y - flatBody.Height/ 2 - GroundingBodySizeOffset / 2), modifiedSize, flatBody.Angle);
         }
 
-        public static RotatedRectangle CreateCeilingRectangle(FlatBody flatBody)
+        public static RotatedRectangle CreateCeilingRectangle(PhysicalBody flatBody)
         {
             Vector2 modifiedSize = new Vector2(flatBody.Width + GroundingBodySizeOffset, GroundingBodySizeOffset);
             return new RotatedRectangle(new Vector2(flatBody.Position.X, flatBody.Position.Y + flatBody.Height/2 - GroundingBodySizeOffset/2), modifiedSize, flatBody.Angle);
         }
 
-        public static RotatedRectangle CreateSidingRectangle(FlatBody flatBody)
+        public static RotatedRectangle CreateSidingRectangle(PhysicalBody flatBody)
         {
             Vector2 modifiedSize = new Vector2(flatBody.Width + GroundingBodySizeOffset, flatBody.Height/2);
             return new RotatedRectangle(new Vector2(flatBody.Position.X, flatBody.Position.Y), modifiedSize, flatBody.Angle);
         }
 
 
-        public static FlatBody GetAnyWalls(Resources.Model model)
+        public static PhysicalBody GetAnyWalls(Resources.Model model)
         {
-            FlatBody candidate = GetAnyBodyAtRectangleForOtherBody(model.Body, model.SidingRectangle);
+            PhysicalBody candidate = GetAnyBodyAtRectangleForOtherBody(model.Body, model.SidingRectangle);
 
             if (candidate != null && candidate.Owner.IsWall)
             {
@@ -49,19 +49,19 @@ namespace Physics
             return null;
         }
 
-        public static FlatBody GetAnyGround(Resources.Model model)
+        public static PhysicalBody GetAnyGround(Resources.Model model)
         {
             return GetAnyBodyAtRectangleForOtherBody(model.Body, model.GroundingRectangle);
         }
 
-        public static FlatBody GetAnyCeiling(Resources.Model model)
+        public static PhysicalBody GetAnyCeiling(Resources.Model model)
         {
             return GetAnyBodyAtRectangleForOtherBody(model.Body, model.CeilingRectangle);
         }
 
-        public static FlatBody GetSpecificEntityTypeBodyAtRectangleForOtherBody(FlatBody flatBody, RotatedRectangle rect, Type type)
+        public static PhysicalBody GetSpecificEntityTypeBodyAtRectangleForOtherBody(PhysicalBody flatBody, RotatedRectangle rect, Type type)
         {
-            FlatBody candidate = GetAnyBodyAtRectangleForOtherBody(flatBody, rect);
+            PhysicalBody candidate = GetAnyBodyAtRectangleForOtherBody(flatBody, rect);
             if (candidate != null && type.IsInstanceOfType(candidate.Owner))
             {
                 return candidate;
@@ -70,7 +70,7 @@ namespace Physics
             return null;
         }
 
-        public static FlatBody GetAnyBodyAtRectangleForOtherBody(FlatBody flatBody, RotatedRectangle rect)
+        public static PhysicalBody GetAnyBodyAtRectangleForOtherBody(PhysicalBody flatBody, RotatedRectangle rect)
         {
             foreach (var item in Physics.flatWorld.bodyList)
             {
@@ -90,7 +90,7 @@ namespace Physics
             return null;
         }
 
-        public static FlatBody GetAnyBodyAtRectangle(RotatedRectangle rect)
+        public static PhysicalBody GetAnyBodyAtRectangle(RotatedRectangle rect)
         {
             foreach (var item in Physics.flatWorld.bodyList)
             {
@@ -104,9 +104,9 @@ namespace Physics
             return null;
         }
 
-        public static LedgeEntity GetAnyLedges(FlatBody body)
+        public static LedgeEntity GetAnyLedges(PhysicalBody body)
         {
-            foreach (FlatBody item in Physics.flatWorld.bodyList)
+            foreach (PhysicalBody item in Physics.flatWorld.bodyList)
             {
                 if(item.Owner is LedgeEntity)
                 {

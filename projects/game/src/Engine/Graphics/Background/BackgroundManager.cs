@@ -68,7 +68,7 @@ namespace Graphics
                 // Draw entities before the first parallax layer (LayerToDrawOn < 0)
                 foreach (var background in entities
                     .Where(e => e is BackgroundEntity && e.LayerToDrawOn < 0)
-                    .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].Z))
+                    .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].MaxZ))
                 {
                     background.Draw();
                 }
@@ -79,7 +79,7 @@ namespace Graphics
                     // Draw entities for LayerToDrawOn == i (before layer i)
                     foreach (var background in entities
                         .Where(e => e is BackgroundEntity && e.LayerToDrawOn == i)
-                        .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].Z))
+                        .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].MaxZ))
                     {
                         background.Draw();
                     }
@@ -91,7 +91,7 @@ namespace Graphics
                 // Draw entities over the last parallax back layer (LayerToDrawOn == Length)
                 foreach (var background in entities
                     .Where(e => e is BackgroundEntity && e.LayerToDrawOn == parallax.ParallaxBackLayers.Length)
-                    .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].Z))
+                    .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].MaxZ))
                 {
                     background.Draw();
                 }
@@ -99,7 +99,7 @@ namespace Graphics
                 // Draw entities after all parallax back mapLayers (LayerToDrawOn > Length)
                 foreach (var background in entities
                     .Where(e => e is BackgroundEntity && e.LayerToDrawOn > parallax.ParallaxBackLayers.Length)
-                    .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].Z))
+                    .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].MaxZ))
                 {
                     background.Draw();
                 }

@@ -19,19 +19,19 @@ namespace Physics
         public static string worldStepTimeString = string.Empty;
         public static string bodyCountString = string.Empty;
 
-        public static FlatWorld flatWorld;
+        public static PhysicalWorld flatWorld;
 
         public static void Init()
         {
-            flatWorld = new FlatWorld();
+            flatWorld = new PhysicalWorld();
             watch = new Stopwatch();
             sampleTimer.Start();
         }
 
         public static void Update()
         {
-            FlatWorld.TransformCount = 0;
-            FlatWorld.NoTransformCount = 0;
+            PhysicalWorld.TransformCount = 0;
+            PhysicalWorld.NoTransformCount = 0;
 
             watch.Restart();
             flatWorld.Step((float)Graphics.Graphics.CurrentLogicTime/(float)Graphics.Graphics.TimeScale , 20);

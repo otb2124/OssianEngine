@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Resources;
 using System.Collections.Generic;
 using Utils;
 

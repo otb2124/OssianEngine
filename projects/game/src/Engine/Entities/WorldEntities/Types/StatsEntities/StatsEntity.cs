@@ -37,7 +37,7 @@ namespace Entities
             //SetDropInventory();
         }
 
-        public StatsEntity(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f) : base(sprite, body, pos, rotation)
+        public StatsEntity(StaticSprites sprite, PhysicalBodies body, Vector2 pos, float rotation = 0f) : base(sprite, body, pos, rotation)
         {
             //SetStats();
             //UpdateSlots();

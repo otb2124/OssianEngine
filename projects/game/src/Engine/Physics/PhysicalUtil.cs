@@ -9,7 +9,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace Physics
 {
-    public static class FlatUtil
+    public static class PhysicalUtil
     {
         /// <summary>
         /// 1/10th of a millimeter.
@@ -63,7 +63,7 @@ namespace Physics
 
         public static void SetRelativeBackBufferSize(GraphicsDeviceManager graphics, float ratio)
         {
-            ratio = FlatMath.Clamp(ratio, 0.25f, 1f);
+            ratio = PhysicalMath.Clamp(ratio, 0.25f, 1f);
 
             DisplayMode dm = graphics.GraphicsDevice.DisplayMode;
 
@@ -102,14 +102,14 @@ namespace Physics
             return mph * 0.44704f;
         }
 
-        public static Vector2 Transform(Vector2 value, FlatTransform transform)
+        public static Vector2 Transform(Vector2 value, PhysicalTransform transform)
         {
             return new Vector2(
                 value.X * transform.CosScaleX - value.Y * transform.SinScaleY + transform.PositionX,
                 value.X * transform.SinScaleX + value.Y * transform.CosScaleY + transform.PositionY);
         }
 
-        public static Vector2 Transform(float x, float y, FlatTransform transform)
+        public static Vector2 Transform(float x, float y, PhysicalTransform transform)
         {
             return new Vector2(
                 x * transform.CosScaleX - y * transform.SinScaleY + transform.PositionX,
@@ -131,7 +131,7 @@ namespace Physics
             return new Vector2(MathF.Cos(angle), MathF.Sin(angle));
         }
 
-        public static bool IntersectBoxes(FlatBox a, FlatBox b)
+        public static bool IntersectBoxes(PhysicalBox a, PhysicalBox b)
         {
             if (a.Max.X <= b.Min.X ||
                 b.Max.X <= a.Min.X ||
@@ -144,7 +144,7 @@ namespace Physics
             return true;
         }
 
-        public static bool IntersectCircles(in FlatCircle a, in FlatCircle b)
+        public static bool IntersectCircles(in PhysicalCircle a, in PhysicalCircle b)
         {
             float dx = a.Center.X - b.Center.X;
             float dy = a.Center.Y - b.Center.Y;
@@ -154,7 +154,7 @@ namespace Physics
             return result;
         }
 
-        public static bool IntersectBoxes(FlatBox a, FlatBox b, out Vector2 mtv)
+        public static bool IntersectBoxes(PhysicalBox a, PhysicalBox b, out Vector2 mtv)
         {
             mtv = Vector2.Zero;
 
@@ -257,11 +257,11 @@ namespace Physics
             Vector2 ca = a - c;
             Vector2 cb = b - c;
 
-            float c1 = FlatMath.Cross(FlatConverter.ToFlatVector(ab), FlatConverter.ToFlatVector(ac));
-            float c2 = FlatMath.Cross(FlatConverter.ToFlatVector(ab), FlatConverter.ToFlatVector(ad));
+            float c1 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(ab), PhysicalConverter.ToFlatVector(ac));
+            float c2 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(ab), PhysicalConverter.ToFlatVector(ad));
 
-            float c3 = FlatMath.Cross(FlatConverter.ToFlatVector(cd), FlatConverter.ToFlatVector(ca));
-            float c4 = FlatMath.Cross(FlatConverter.ToFlatVector(cd), FlatConverter.ToFlatVector(cb));
+            float c3 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(cd), PhysicalConverter.ToFlatVector(ca));
+            float c4 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(cd), PhysicalConverter.ToFlatVector(cb));
 
             // Same sign = no intersection.
             // Result of Zero indicates that the intersection happens at an end point of one of the segments. Consider this an intersection.
@@ -316,14 +316,14 @@ namespace Physics
             return true;
         }
 
-        public static bool Intersect(in FlatCircle circle, in FlatBox box)
+        public static bool Intersect(in PhysicalCircle circle, in PhysicalBox box)
         {
-            float cx = FlatMath.Clamp(circle.Center.X, box.Min.X, box.Max.X);
-            float cy = FlatMath.Clamp(circle.Center.Y, box.Min.Y, box.Max.Y);
+            float cx = PhysicalMath.Clamp(circle.Center.X, box.Min.X, box.Max.X);
+            float cy = PhysicalMath.Clamp(circle.Center.Y, box.Min.Y, box.Max.Y);
 
             Vector2 cp = new Vector2(cx, cy);
 
-            return FlatMath.Distance(FlatConverter.ToFlatVector(circle.Center), FlatConverter.ToFlatVector(cp)) < circle.Radius;
+            return PhysicalMath.Distance(PhysicalConverter.ToFlatVector(circle.Center), PhysicalConverter.ToFlatVector(cp)) < circle.Radius;
         }
 
         public static bool IntersectCirclesFast(float ax, float ay, float ar, float bx, float by, float br, out float depth, out Vector2 normal)
@@ -364,7 +364,7 @@ namespace Physics
             return true;
         }
 
-        public static bool IntersectCircles(FlatCircle a, FlatCircle b, out float depth, out Vector2 normal)
+        public static bool IntersectCircles(PhysicalCircle a, PhysicalCircle b, out float depth, out Vector2 normal)
         {
             depth = 0f;
             normal = Vector2.Zero;
@@ -403,7 +403,7 @@ namespace Physics
             return true;
         }
 
-        //public static bool IntersectPolygonCircle(PolygonShape polygon, FlatCircle circle, out float depth, out Vector2 normal)
+        //public static bool IntersectPolygonCircle(PolygonShape polygon, PhysicalCircle circle, out float depth, out Vector2 normal)
         //{
         //    throw new NotImplementedException();
         //}
@@ -462,7 +462,7 @@ namespace Physics
             }
         }
 
-        //public static void CreateBoundingBox(PolygonShape polygon, out FlatBox box)
+        //public static void CreateBoundingBox(PolygonShape polygon, out PhysicalBox box)
         //{
         //    Vector2[] vertices = polygon.Vertices;
         //    int[] hull = polygon.ConvexHull;
@@ -482,10 +482,10 @@ namespace Physics
         //        if (v.Y > ymax) { ymax = v.Y; }
         //    }
 
-        //    box = new FlatBox(new Vector2(xmin, ymin), new Vector2(xmax, ymax));
+        //    box = new PhysicalBox(new Vector2(xmin, ymin), new Vector2(xmax, ymax));
         //}
 
-        //public static void CreateBoundingBox(PolygonShape polygon, FlatTransform transform, out FlatBox box)
+        //public static void CreateBoundingBox(PolygonShape polygon, PhysicalTransform transform, out PhysicalBox box)
         //{
         //    Vector2[] vertices = polygon.Vertices;
         //    int[] hull = polygon.ConvexHull;
@@ -498,7 +498,7 @@ namespace Physics
         //    for (int i = 0; i < hull.Length; i++)
         //    {
         //        Vector2 v = vertices[hull[i]];
-        //        v = FlatUtil.Transform(v, transform);
+        //        v = PhysicalUtil.Transform(v, transform);
 
         //        if (v.X < xmin) { xmin = v.X; }
         //        if (v.X > xmax) { xmax = v.X; }
@@ -506,10 +506,10 @@ namespace Physics
         //        if (v.Y > ymax) { ymax = v.Y; }
         //    }
 
-        //    box = new FlatBox(xmin, xmax, ymin, ymax);
+        //    box = new PhysicalBox(xmin, xmax, ymin, ymax);
         //}
 
-        public static void CreateBoundingBox(Vector2[] vertices, int[] hull, out FlatBox box)
+        public static void CreateBoundingBox(Vector2[] vertices, int[] hull, out PhysicalBox box)
         {
             float xmin = float.MaxValue;
             float xmax = float.MinValue;
@@ -526,10 +526,10 @@ namespace Physics
                 if (v.Y > ymax) { ymax = v.Y; }
             }
 
-            box = new FlatBox(xmin, xmax, ymin, ymax);
+            box = new PhysicalBox(xmin, xmax, ymin, ymax);
         }
 
-        public static void CreateBoundingBox(Vector2[] vertices, out FlatBox box)
+        public static void CreateBoundingBox(Vector2[] vertices, out PhysicalBox box)
         {
             float xmin = float.MaxValue;
             float xmax = float.MinValue;
@@ -546,7 +546,7 @@ namespace Physics
                 if (v.Y > ymax) { ymax = v.Y; }
             }
 
-            box = new FlatBox(xmin, xmax, ymin, ymax);
+            box = new PhysicalBox(xmin, xmax, ymin, ymax);
         }
 
         public static bool IsPointInTriangle(Vector2 p, Vector2 a, Vector2 b, Vector2 c)
@@ -560,9 +560,9 @@ namespace Physics
             Vector2 bp = p - b;
             Vector2 cp = p - c;
 
-            float c1 = FlatMath.Cross(FlatConverter.ToFlatVector(ab), FlatConverter.ToFlatVector(ap));
-            float c2 = FlatMath.Cross(FlatConverter.ToFlatVector(bc), FlatConverter.ToFlatVector(bp));
-            float c3 = FlatMath.Cross(FlatConverter.ToFlatVector(ca), FlatConverter.ToFlatVector(cp));
+            float c1 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(ab), PhysicalConverter.ToFlatVector(ap));
+            float c2 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(bc), PhysicalConverter.ToFlatVector(bp));
+            float c3 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(ca), PhysicalConverter.ToFlatVector(cp));
 
             if (c1 < 0f && c2 < 0f && c3 < 0f)
             {

@@ -3,26 +3,26 @@ using System.Runtime.CompilerServices;
 
 namespace Physics
 {
-    public readonly struct FlatSize
+    public readonly struct PhysicalSize
     {
         public readonly int Width;
         public readonly int Height;
 
-        public FlatSize(int width, int height)
+        public PhysicalSize(int width, int height)
         {
             Width = width;
             Height = height;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(FlatSize other)
+        public bool Equals(PhysicalSize other)
         {
             return Width == other.Width && Height == other.Height;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is FlatSize other)
+            if (obj is PhysicalSize other)
             {
                 return Equals(other);
             }

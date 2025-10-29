@@ -2,7 +2,7 @@
 
 namespace Physics
 {
-    public static class FlatMath
+    public static class PhysicalMath
     {
         /// <summary>
         /// Equal to 1/2 of a millimeter.
@@ -59,43 +59,43 @@ namespace Physics
             return value;
         }
 
-        public static float LengthSquared(FlatVector v)
+        public static float LengthSquared(PhysicalVector v)
         {
             return v.X * v.X + v.Y * v.Y;
         }
 
-        public static float Length(FlatVector v)
+        public static float Length(PhysicalVector v)
         {
             return MathF.Sqrt(v.X * v.X + v.Y * v.Y);
         }
 
-        public static float DistanceSquared(FlatVector a, FlatVector b)
+        public static float DistanceSquared(PhysicalVector a, PhysicalVector b)
         {
             float dx = a.X - b.X;
             float dy = a.Y - b.Y;
             return dx * dx + dy * dy;
         }
 
-        public static float Distance(FlatVector a, FlatVector b)
+        public static float Distance(PhysicalVector a, PhysicalVector b)
         {
             float dx = a.X - b.X;
             float dy = a.Y - b.Y;
             return MathF.Sqrt(dx * dx + dy * dy);
         }
 
-        public static FlatVector Normalize(FlatVector v)
+        public static PhysicalVector Normalize(PhysicalVector v)
         {
             float len = Length(v);
-            return new FlatVector(v.X / len, v.Y / len);
+            return new PhysicalVector(v.X / len, v.Y / len);
         }
 
-        public static float Dot(FlatVector a, FlatVector b)
+        public static float Dot(PhysicalVector a, PhysicalVector b)
         {
             // a · b = ax * bx + ay * by
             return a.X * b.X + a.Y * b.Y;
         }
 
-        public static float Cross(FlatVector a, FlatVector b)
+        public static float Cross(PhysicalVector a, PhysicalVector b)
         {
             // cz = ax * by − ay * bx
             return a.X * b.Y - a.Y * b.X;
@@ -106,13 +106,13 @@ namespace Physics
             return MathF.Abs(a - b) < VerySmallAmount;
         }
 
-        public static bool NearlyEqual(FlatVector a, FlatVector b)
+        public static bool NearlyEqual(PhysicalVector a, PhysicalVector b)
         {
             return DistanceSquared(a, b) < VerySmallAmount * VerySmallAmount;
         }
 
 
-        public static FlatVector RotateVector(FlatVector vector, float angle)
+        public static PhysicalVector RotateVector(PhysicalVector vector, float angle)
         {
             float cos = MathF.Cos(angle);
             float sin = MathF.Sin(angle);
@@ -120,25 +120,25 @@ namespace Physics
             float newX = vector.X * cos - vector.Y * sin;
             float newY = vector.X * sin + vector.Y * cos;
 
-            return new FlatVector(newX, newY);
+            return new PhysicalVector(newX, newY);
         }
 
 
-        public static FlatVector ClampMagnitude(FlatVector vector, float maxLength)
+        public static PhysicalVector ClampMagnitude(PhysicalVector vector, float maxLength)
         {
             float lengthSquared = LengthSquared(vector);
 
             if (lengthSquared > maxLength * maxLength)
             {
                 float scaleFactor = maxLength / MathF.Sqrt(lengthSquared);
-                return new FlatVector(vector.X * scaleFactor, vector.Y * scaleFactor);
+                return new PhysicalVector(vector.X * scaleFactor, vector.Y * scaleFactor);
             }
 
             return vector;
         }
 
 
-        public static float AngleBetween(FlatVector a, FlatVector b)
+        public static float AngleBetween(PhysicalVector a, PhysicalVector b)
         {
             // Calculate the dot product
             float dotProduct = Dot(a, b);

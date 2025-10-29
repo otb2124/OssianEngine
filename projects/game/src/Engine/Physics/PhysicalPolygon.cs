@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 namespace Physics
 {
-    public static class FlatPolygon
+    public static class PhysicalPolygon
     {
-        public static float Area(FlatVector[] vertices)
+        public static float Area(PhysicalVector[] vertices)
         {
             float area = 0f;
 
             for (int i = 0; i < vertices.Length; i++)
             {
-                FlatVector a = vertices[i];
-                FlatVector b = vertices[(i + 1) % vertices.Length];
+                PhysicalVector a = vertices[i];
+                PhysicalVector b = vertices[(i + 1) % vertices.Length];
 
                 float width = b.X - a.X;
                 float height = (b.Y + b.X) * 0.5f;
@@ -24,19 +24,19 @@ namespace Physics
             return area;
         }
 
-        public static bool PointInTriangle(FlatVector p, FlatVector a, FlatVector b, FlatVector c)
+        public static bool PointInTriangle(PhysicalVector p, PhysicalVector a, PhysicalVector b, PhysicalVector c)
         {
-            FlatVector ab = b - a;
-            FlatVector bc = c - b;
-            FlatVector ca = a - c;
+            PhysicalVector ab = b - a;
+            PhysicalVector bc = c - b;
+            PhysicalVector ca = a - c;
 
-            FlatVector ap = p - a;
-            FlatVector bp = p - b;
-            FlatVector cp = p - c;
+            PhysicalVector ap = p - a;
+            PhysicalVector bp = p - b;
+            PhysicalVector cp = p - c;
 
-            float c1 = FlatMath.Cross(ap, ab);
-            float c2 = FlatMath.Cross(bp, bc);
-            float c3 = FlatMath.Cross(cp, ca);
+            float c1 = PhysicalMath.Cross(ap, ab);
+            float c2 = PhysicalMath.Cross(bp, bc);
+            float c3 = PhysicalMath.Cross(cp, ca);
 
             if (c1 <= 0f || c2 <= 0f || c3 <= 0f)
             {
@@ -46,11 +46,11 @@ namespace Physics
             return true;
         }
 
-        private static bool AnyVerticesInTriangle(FlatVector[] vertices, FlatVector a, FlatVector b, FlatVector c)
+        private static bool AnyVerticesInTriangle(PhysicalVector[] vertices, PhysicalVector a, PhysicalVector b, PhysicalVector c)
         {
             for (int j = 0; j < vertices.Length; j++)
             {
-                FlatVector p = vertices[j];
+                PhysicalVector p = vertices[j];
 
                 if (PointInTriangle(p, a, b, c))
                 {
@@ -77,7 +77,7 @@ namespace Physics
             return list[index];
         }
 
-        public static bool Triangulate(FlatVector[] vertices, [NotNullWhen(true)] out int[] triangleIndices, out string errorMessage)
+        public static bool Triangulate(PhysicalVector[] vertices, [NotNullWhen(true)] out int[] triangleIndices, out string errorMessage)
         {
             triangleIndices = null;
             errorMessage = string.Empty;
@@ -114,12 +114,12 @@ namespace Physics
                     int b = GetItem(indices, i);
                     int c = GetItem(indices, i + 1);
 
-                    FlatVector va = vertices[a];
-                    FlatVector vb = vertices[b];
-                    FlatVector vc = vertices[c];
+                    PhysicalVector va = vertices[a];
+                    PhysicalVector vb = vertices[b];
+                    PhysicalVector vc = vertices[c];
 
                     // Test for convexity. If not convex move to next angle.
-                    if (FlatMath.Cross(va - vb, vc - vb) <= 0f)
+                    if (PhysicalMath.Cross(va - vb, vc - vb) <= 0f)
                     {
                         continue;
                     }

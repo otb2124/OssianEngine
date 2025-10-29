@@ -20,10 +20,10 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Model model)
         {
-            if(model.ModelState == Utils.ModelStates.JUMPING_DESCENDING || 
-                model.ModelState == Utils.ModelStates.JUMPING_DESCENDING_AND_MOVING || 
-                model.ModelState == Utils.ModelStates.DOUBLE_JUMPING ||
-                model.ModelState == Utils.ModelStates.DOUBLE_JUMPING_AND_MOVING)
+            if(model.ModelState == ModelStates.JUMPING_DESCENDING || 
+                model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING || 
+                model.ModelState == ModelStates.DOUBLE_JUMPING ||
+                model.ModelState == ModelStates.DOUBLE_JUMPING_AND_MOVING)
             {
                 statsManager.AllowDoubleJump = true;
             }

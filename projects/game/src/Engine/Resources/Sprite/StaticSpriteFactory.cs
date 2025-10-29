@@ -7,29 +7,81 @@ using Utils;
 namespace Resources
 {
 
+    public enum StaticSprites
+    {
+        NONE,
+        //--------
+        //GRAPHICS
+        //parallax
+        GRAPHICS_PARALLAX_0_0,
+        GRAPHICS_PARALLAX_0_1,
+        GRAPHICS_PARALLAX_0_2,
+        GRAPHICS_PARALLAX_0_3,
+        GRAPHICS_PARALLAX_0_N,
+
+        //static
+        GRAPHICS_STATIC_DRAGON,
+
+        //sun
+        GRAPHICS_SUN,
+        GRAPHICS_MOON,
+
+        //rain
+        GRAPHICS_CLOUD_0,
+
+        //--------
+        //ENTITIES
+        //livingentities
+        ENTITIES_HUMAN_M,
+        ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0,
+        ENTITIES_HUMAN_M_ARMOR_HELMET_0,
+        ENTITIES_HUMAN_M_ARMOR_BOOTS_0,
+        ENTITIES_HUMAN_M_ARMOR_GLOVES_0,
+
+        ENTITIES_SLIME, ENTITIES_BAT,
+
+        ENTITIES_FIREBALL, ENTITIES_ARROW,
+
+        //physicalentities
+        ENTITIES_STATIC_BALL,
+
+        //ledges
+        ENTITIES_LEDGE,
+
+        //crates
+        ENTITIES_STATIC_CRATE_0,
+        ENTITIES_STATIC_CRATE_1,
+
+        //equipment
+        ENTITIES_WEAPONS_TERRABLADE,
+        ENTITIES_WEAPONS_TORCH,
+
+        //light
+        LIGHT_DARKNESS_FULL,
+        LIGHT_DARKNESS_VIGNETTE,
+
+        //--
+        //UI
+        //MISC
+        UI_CURSOR,
+        UI_GAME_ICON
+    }
+
+
     public struct StaticSprite
     {
         public SpriteSheets SpriteSheet;
         public Rectangle SrcRect;
-        public float Z;
+        public float MaxZ;
         public float CurrentZ;
         public SpriteEffects Effect;
-        public StaticSprite(SpriteSheets sheet, Rectangle srcRect, float z = 0)
+        public StaticSprite(SpriteSheets sheet, Rectangle srcRect, float z = 0, SpriteEffects effect = SpriteEffects.None)
         {
             SpriteSheet = sheet;
             SrcRect = srcRect;
             CurrentZ = z;
-            Z = CurrentZ;
-            Effect = SpriteEffects.None;
-        }
-
-        public StaticSprite(SpriteSheets sheet, Rectangle srcRect, float z, SpriteEffects neweffect)
-        {
-            SpriteSheet = sheet;
-            SrcRect = srcRect;
-            CurrentZ = z;
-            Z = CurrentZ;
-            Effect = neweffect;
+            MaxZ = CurrentZ;
+            Effect = effect;
         }
     }
 

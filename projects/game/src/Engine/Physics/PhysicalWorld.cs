@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Physics
 {
-    public sealed class FlatWorld
+    public sealed class PhysicalWorld
     {
         public static int TransformCount = 0;
         public static int NoTransformCount = 0;
@@ -19,18 +19,18 @@ namespace Physics
         public static readonly int MinIterations = 1;
         public static readonly int MaxIterations = 128;
 
-        public FlatVector gravity;
+        public PhysicalVector gravity;
         public static readonly int ConstantGravityMultiplier = 50;
         public static readonly float GlobalGravityMultiplier = 1f;
 
-        public List<FlatBody> bodyList;
+        public List<PhysicalBody> bodyList;
         private List<(int, int)> contactPairs;
 
-        private FlatVector[] contactList;
-        private FlatVector[] impulseList;
-        private FlatVector[] raList;
-        private FlatVector[] rbList;
-        private FlatVector[] frictionImpulseList;
+        private PhysicalVector[] contactList;
+        private PhysicalVector[] impulseList;
+        private PhysicalVector[] raList;
+        private PhysicalVector[] rbList;
+        private PhysicalVector[] frictionImpulseList;
         private float[] jList;
 
         public int BodyCount
@@ -38,21 +38,21 @@ namespace Physics
             get { return bodyList.Count; }
         }
 
-        public FlatWorld()
+        public PhysicalWorld()
         {
-            gravity = new FlatVector(0f, -9.81f * GlobalGravityMultiplier * ConstantGravityMultiplier);
-            bodyList = new List<FlatBody>();
+            gravity = new PhysicalVector(0f, -9.81f * GlobalGravityMultiplier * ConstantGravityMultiplier);
+            bodyList = new List<PhysicalBody>();
             contactPairs = new List<(int, int)>();
 
-            contactList = new FlatVector[2];
-            impulseList = new FlatVector[2];
-            raList = new FlatVector[2];
-            rbList = new FlatVector[2];
-            frictionImpulseList = new FlatVector[2];
+            contactList = new PhysicalVector[2];
+            impulseList = new PhysicalVector[2];
+            raList = new PhysicalVector[2];
+            rbList = new PhysicalVector[2];
+            frictionImpulseList = new PhysicalVector[2];
             jList = new float[2];
         }
 
-        public void AddBody(FlatBody body)
+        public void AddBody(PhysicalBody body)
         {
             bodyList.Add(body);
 
@@ -66,7 +66,7 @@ namespace Physics
             }*/
         }
 
-        public bool RemoveBody(FlatBody body)
+        public bool RemoveBody(PhysicalBody body)
         {
             return bodyList.Remove(body);
         }
@@ -84,7 +84,7 @@ namespace Physics
             }
         }
 
-        public bool GetBody(int index, out FlatBody body)
+        public bool GetBody(int index, out PhysicalBody body)
         {
             body = null;
 
@@ -99,7 +99,7 @@ namespace Physics
 
         public void Step(float time, int totalIterations)
         {
-            totalIterations = FlatMath.Clamp(totalIterations, MinIterations, MaxIterations);
+            totalIterations = PhysicalMath.Clamp(totalIterations, MinIterations, MaxIterations);
 
             for (int currentIteration = 0; currentIteration < totalIterations; currentIteration++)
             {
@@ -114,13 +114,13 @@ namespace Physics
         {
             for (int i = 0; i < bodyList.Count - 1; i++)
             {
-                FlatBody bodyA = bodyList[i];
-                FlatAABB bodyA_aabb = bodyA.GetAABB();
+                PhysicalBody bodyA = bodyList[i];
+                PhysicalAABB bodyA_aabb = bodyA.GetAABB();
 
                 for (int j = i + 1; j < bodyList.Count; j++)
                 {
-                    FlatBody bodyB = bodyList[j];
-                    FlatAABB bodyB_aabb = bodyB.GetAABB();
+                    PhysicalBody bodyB = bodyList[j];
+                    PhysicalAABB bodyB_aabb = bodyB.GetAABB();
 
                     if (bodyA.IsStatic && bodyB.IsStatic)
                     {
@@ -151,29 +151,29 @@ namespace Physics
             for (int i = 0; i < contactPairs.Count; i++)
             {
                 (int, int) pair = contactPairs[i];
-                FlatBody bodyA = bodyList[pair.Item1];
-                FlatBody bodyB = bodyList[pair.Item2];
+                PhysicalBody bodyA = bodyList[pair.Item1];
+                PhysicalBody bodyB = bodyList[pair.Item2];
 
-                if (Collisions.Collide(bodyA, bodyB, out FlatVector normal, out float depth))
+                if (Collisions.Collide(bodyA, bodyB, out PhysicalVector normal, out float depth))
                 {
                     bodyA.IsColliding = true;
                     bodyB.IsColliding = true;
 
                     {
                         SeparateBodies(bodyA, bodyB, normal * depth);
-                        Collisions.FindContactPoints(bodyA, bodyB, out FlatVector contact1, out FlatVector contact2, out int contactCount);
-                        FlatManifold contact = new FlatManifold(bodyA, bodyB, normal, depth, contact1, contact2, contactCount);
+                        Collisions.FindContactPoints(bodyA, bodyB, out PhysicalVector contact1, out PhysicalVector contact2, out int contactCount);
+                        PhysicalManifold contact = new PhysicalManifold(bodyA, bodyB, normal, depth, contact1, contact2, contactCount);
                         ResolveCollisionWithRotationAndFriction(in contact);
 
                         //Damp X-velocity for Player-related collisions
                         const float dampingFactor = 5.0f; //Adjust for desired decay rate
                         if (bodyA.Owner is Player || bodyB.Owner is Player)
                         {
-                            bodyA.LinearVelocity = new FlatVector(
+                            bodyA.LinearVelocity = new PhysicalVector(
                                 bodyA.LinearVelocity.X * (1f - dampingFactor * deltaTime),
                                 bodyA.LinearVelocity.Y
                             );
-                            bodyB.LinearVelocity = new FlatVector(
+                            bodyB.LinearVelocity = new PhysicalVector(
                                 bodyB.LinearVelocity.X * (1f - dampingFactor * deltaTime),
                                 bodyB.LinearVelocity.Y
                             );
@@ -198,7 +198,7 @@ namespace Physics
             }
         }
 
-        private void SeparateBodies(FlatBody bodyA, FlatBody bodyB, FlatVector mtv)
+        private void SeparateBodies(PhysicalBody bodyA, PhysicalBody bodyB, PhysicalVector mtv)
         {
             if (bodyA.IsStatic)
             {
@@ -215,16 +215,16 @@ namespace Physics
             }
         }
 
-        public void ResolveCollisionBasic(in FlatManifold contact, bool restrictFriction)
+        public void ResolveCollisionBasic(in PhysicalManifold contact, bool restrictFriction)
         {
-            FlatBody bodyA = contact.BodyA;
-            FlatBody bodyB = contact.BodyB;
-            FlatVector normal = contact.Normal;
+            PhysicalBody bodyA = contact.BodyA;
+            PhysicalBody bodyB = contact.BodyB;
+            PhysicalVector normal = contact.Normal;
             float depth = contact.Depth;
 
-            FlatVector relativeVelocity = bodyB.LinearVelocity - bodyA.LinearVelocity;
+            PhysicalVector relativeVelocity = bodyB.LinearVelocity - bodyA.LinearVelocity;
 
-            if (FlatMath.Dot(relativeVelocity, normal) > 0f)
+            if (PhysicalMath.Dot(relativeVelocity, normal) > 0f)
             {
                 return;
             }
@@ -232,25 +232,25 @@ namespace Physics
             float e = MathF.Min(bodyA.Restitution, bodyB.Restitution);
 
             
-            float j = -(1f + e) * FlatMath.Dot(relativeVelocity, normal);
+            float j = -(1f + e) * PhysicalMath.Dot(relativeVelocity, normal);
             j /= bodyA.InvMass + bodyB.InvMass;
             
 
-            FlatVector impulse = j * normal;
+            PhysicalVector impulse = j * normal;
 
             bodyA.LinearVelocity -= impulse * bodyA.InvMass;
             bodyB.LinearVelocity += impulse * bodyB.InvMass;
         }
 
-        public void ResolveCollisionWithRotation(in FlatManifold contact)
+        public void ResolveCollisionWithRotation(in PhysicalManifold contact)
         {
-            FlatBody bodyA = contact.BodyA;
-            FlatBody bodyB = contact.BodyB;
+            PhysicalBody bodyA = contact.BodyA;
+            PhysicalBody bodyB = contact.BodyB;
 
             
-            FlatVector normal = contact.Normal;
-            FlatVector contact1 = contact.Contact1;
-            FlatVector contact2 = contact.Contact2;
+            PhysicalVector normal = contact.Normal;
+            PhysicalVector contact1 = contact.Contact1;
+            PhysicalVector contact2 = contact.Contact2;
             int contactCount = contact.ContactCount;
 
             float e = MathF.Min(bodyA.Restitution, bodyB.Restitution);
@@ -260,38 +260,38 @@ namespace Physics
 
             for (int i = 0; i < contactCount; i++)
             {
-                impulseList[i] = FlatVector.Zero;
-                raList[i] = FlatVector.Zero;
-                rbList[i] = FlatVector.Zero;
+                impulseList[i] = PhysicalVector.Zero;
+                raList[i] = PhysicalVector.Zero;
+                rbList[i] = PhysicalVector.Zero;
             }
 
             for (int i = 0; i < contactCount; i++)
             {
-                FlatVector ra = contactList[i] - bodyA.Position;
-                FlatVector rb = contactList[i] - bodyB.Position;
+                PhysicalVector ra = contactList[i] - bodyA.Position;
+                PhysicalVector rb = contactList[i] - bodyB.Position;
 
                 raList[i] = ra;
                 rbList[i] = rb;
 
-                FlatVector raPerp = new FlatVector(-ra.Y, ra.X);
-                FlatVector rbPerp = new FlatVector(-rb.Y, rb.X);
+                PhysicalVector raPerp = new PhysicalVector(-ra.Y, ra.X);
+                PhysicalVector rbPerp = new PhysicalVector(-rb.Y, rb.X);
 
-                FlatVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
-                FlatVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
+                PhysicalVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
+                PhysicalVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
 
-                FlatVector relativeVelocity =
+                PhysicalVector relativeVelocity =
                     bodyB.LinearVelocity + angularLinearVelocityB -
                     (bodyA.LinearVelocity + angularLinearVelocityA);
 
-                float contactVelocityMag = FlatMath.Dot(relativeVelocity, normal);
+                float contactVelocityMag = PhysicalMath.Dot(relativeVelocity, normal);
 
                 if (contactVelocityMag > 0f)
                 {
                     continue;
                 }
 
-                float raPerpDotN = FlatMath.Dot(raPerp, normal);
-                float rbPerpDotN = FlatMath.Dot(rbPerp, normal);
+                float raPerpDotN = PhysicalMath.Dot(raPerp, normal);
+                float rbPerpDotN = PhysicalMath.Dot(rbPerp, normal);
 
                 float denom = bodyA.InvMass + bodyB.InvMass +
                     raPerpDotN * raPerpDotN * bodyA.InvInertia +
@@ -301,27 +301,27 @@ namespace Physics
                 j /= denom;
                 j /= contactCount;
 
-                FlatVector impulse = j * normal;
+                PhysicalVector impulse = j * normal;
                 impulseList[i] = impulse;
             }
 
             for (int i = 0; i < contactCount; i++)
             {
-                FlatVector impulse = impulseList[i];
-                FlatVector ra = raList[i];
-                FlatVector rb = rbList[i];
+                PhysicalVector impulse = impulseList[i];
+                PhysicalVector ra = raList[i];
+                PhysicalVector rb = rbList[i];
 
                 bodyA.LinearVelocity += -impulse * bodyA.InvMass;
-                bodyA.AngularVelocity += -FlatMath.Cross(ra, impulse) * bodyA.InvInertia;
+                bodyA.AngularVelocity += -PhysicalMath.Cross(ra, impulse) * bodyA.InvInertia;
                 bodyB.LinearVelocity += impulse * bodyB.InvMass;
-                bodyB.AngularVelocity += FlatMath.Cross(rb, impulse) * bodyB.InvInertia;
+                bodyB.AngularVelocity += PhysicalMath.Cross(rb, impulse) * bodyB.InvInertia;
             }
         }
 
-        public void ResolveCollisionWithRotationAndFriction(in FlatManifold contact)
+        public void ResolveCollisionWithRotationAndFriction(in PhysicalManifold contact)
         {
-            FlatBody bodyA = contact.BodyA;
-            FlatBody bodyB = contact.BodyB;
+            PhysicalBody bodyA = contact.BodyA;
+            PhysicalBody bodyB = contact.BodyB;
 
             PhysicalEntity bodyAOwner = bodyA.Owner;
             PhysicalEntity bodyBOwner = bodyB.Owner;
@@ -346,9 +346,9 @@ namespace Physics
                 
             }
 
-            FlatVector normal = contact.Normal;
-            FlatVector contact1 = contact.Contact1;
-            FlatVector contact2 = contact.Contact2;
+            PhysicalVector normal = contact.Normal;
+            PhysicalVector contact1 = contact.Contact1;
+            PhysicalVector contact2 = contact.Contact2;
             int contactCount = contact.ContactCount;
 
             float e = MathF.Min(bodyA.Restitution, bodyB.Restitution);
@@ -361,26 +361,26 @@ namespace Physics
 
             for (int i = 0; i < contactCount; i++)
             {
-                impulseList[i] = FlatVector.Zero;
-                raList[i] = FlatVector.Zero;
-                rbList[i] = FlatVector.Zero;
-                frictionImpulseList[i] = FlatVector.Zero;
+                impulseList[i] = PhysicalVector.Zero;
+                raList[i] = PhysicalVector.Zero;
+                rbList[i] = PhysicalVector.Zero;
+                frictionImpulseList[i] = PhysicalVector.Zero;
                 jList[i] = 0f;
             }
 
             for (int i = 0; i < contactCount; i++)
             {
-                FlatVector ra = contactList[i] - bodyA.Position;
-                FlatVector rb = contactList[i] - bodyB.Position;
+                PhysicalVector ra = contactList[i] - bodyA.Position;
+                PhysicalVector rb = contactList[i] - bodyB.Position;
 
                 raList[i] = ra;
                 rbList[i] = rb;
 
-                FlatVector raPerp = new FlatVector(-ra.Y, ra.X);
-                FlatVector rbPerp = new FlatVector(-rb.Y, rb.X);
+                PhysicalVector raPerp = new PhysicalVector(-ra.Y, ra.X);
+                PhysicalVector rbPerp = new PhysicalVector(-rb.Y, rb.X);
 
-                FlatVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
-                FlatVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
+                PhysicalVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
+                PhysicalVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
 
                 if (restrictRotation)
                 {
@@ -388,19 +388,19 @@ namespace Physics
                     bodyB.AngularVelocity = 0f;
                 }
 
-                FlatVector relativeVelocity =
+                PhysicalVector relativeVelocity =
                     bodyB.LinearVelocity + angularLinearVelocityB -
                     (bodyA.LinearVelocity + angularLinearVelocityA);
 
-                float contactVelocityMag = FlatMath.Dot(relativeVelocity, normal);
+                float contactVelocityMag = PhysicalMath.Dot(relativeVelocity, normal);
 
                 if (contactVelocityMag > 0f)
                 {
                     continue;
                 }
 
-                float raPerpDotN = FlatMath.Dot(raPerp, normal);
-                float rbPerpDotN = FlatMath.Dot(rbPerp, normal);
+                float raPerpDotN = PhysicalMath.Dot(raPerp, normal);
+                float rbPerpDotN = PhysicalMath.Dot(rbPerp, normal);
 
                 float denom = bodyA.InvMass + bodyB.InvMass +
                     raPerpDotN * raPerpDotN * bodyA.InvInertia +
@@ -412,25 +412,25 @@ namespace Physics
 
                 jList[i] = j;
 
-                FlatVector impulse = j * normal;
+                PhysicalVector impulse = j * normal;
                 impulseList[i] = impulse;
             }
 
             for (int i = 0; i < contactCount; i++)
             {
-                FlatVector impulse = impulseList[i];
-                FlatVector ra = raList[i];
-                FlatVector rb = rbList[i];
+                PhysicalVector impulse = impulseList[i];
+                PhysicalVector ra = raList[i];
+                PhysicalVector rb = rbList[i];
 
                 bodyA.LinearVelocity += -impulse * bodyA.InvMass;
-                bodyA.AngularVelocity += -FlatMath.Cross(ra, impulse) * bodyA.InvInertia;
+                bodyA.AngularVelocity += -PhysicalMath.Cross(ra, impulse) * bodyA.InvInertia;
                 if (restrictRotation)
                 {
                     bodyA.AngularVelocity = 0f;
                 }
 
                 bodyB.LinearVelocity += impulse * bodyB.InvMass;
-                bodyB.AngularVelocity += FlatMath.Cross(rb, impulse) * bodyB.InvInertia;
+                bodyB.AngularVelocity += PhysicalMath.Cross(rb, impulse) * bodyB.InvInertia;
                 if (restrictRotation)
                 {
                     bodyB.AngularVelocity = 0f;
@@ -439,51 +439,51 @@ namespace Physics
 
             for (int i = 0; i < contactCount; i++)
             {
-                FlatVector ra = contactList[i] - bodyA.Position;
-                FlatVector rb = contactList[i] - bodyB.Position;
+                PhysicalVector ra = contactList[i] - bodyA.Position;
+                PhysicalVector rb = contactList[i] - bodyB.Position;
 
                 raList[i] = ra;
                 rbList[i] = rb;
 
-                FlatVector raPerp = new FlatVector(-ra.Y, ra.X);
-                FlatVector rbPerp = new FlatVector(-rb.Y, rb.X);
+                PhysicalVector raPerp = new PhysicalVector(-ra.Y, ra.X);
+                PhysicalVector rbPerp = new PhysicalVector(-rb.Y, rb.X);
 
-                FlatVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
-                FlatVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
+                PhysicalVector angularLinearVelocityA = raPerp * bodyA.AngularVelocity;
+                PhysicalVector angularLinearVelocityB = rbPerp * bodyB.AngularVelocity;
 
                 if (restrictRotation)
                 {
-                    angularLinearVelocityA = FlatVector.Zero;
-                    angularLinearVelocityB = FlatVector.Zero;
+                    angularLinearVelocityA = PhysicalVector.Zero;
+                    angularLinearVelocityB = PhysicalVector.Zero;
                 }
 
-                FlatVector relativeVelocity =
+                PhysicalVector relativeVelocity =
                     bodyB.LinearVelocity + angularLinearVelocityB -
                     (bodyA.LinearVelocity + angularLinearVelocityA);
 
-                FlatVector tangent = relativeVelocity - FlatMath.Dot(relativeVelocity, normal) * normal;
+                PhysicalVector tangent = relativeVelocity - PhysicalMath.Dot(relativeVelocity, normal) * normal;
 
-                if (FlatMath.NearlyEqual(tangent, FlatVector.Zero))
+                if (PhysicalMath.NearlyEqual(tangent, PhysicalVector.Zero))
                 {
                     continue;
                 }
                 else
                 {
-                    tangent = FlatMath.Normalize(tangent);
+                    tangent = PhysicalMath.Normalize(tangent);
                 }
 
-                float raPerpDotT = FlatMath.Dot(raPerp, tangent);
-                float rbPerpDotT = FlatMath.Dot(rbPerp, tangent);
+                float raPerpDotT = PhysicalMath.Dot(raPerp, tangent);
+                float rbPerpDotT = PhysicalMath.Dot(rbPerp, tangent);
 
                 float denom = bodyA.InvMass + bodyB.InvMass +
                     raPerpDotT * raPerpDotT * bodyA.InvInertia +
                     rbPerpDotT * rbPerpDotT * bodyB.InvInertia;
 
-                float jt = -FlatMath.Dot(relativeVelocity, tangent);
+                float jt = -PhysicalMath.Dot(relativeVelocity, tangent);
                 jt /= denom;
                 jt /= contactCount;
 
-                FlatVector frictionImpulse;
+                PhysicalVector frictionImpulse;
                 float j = jList[i];
 
                 if (MathF.Abs(jt) <= j * sf)
@@ -501,15 +501,15 @@ namespace Physics
             for (int i = 0; i < contactCount; i++)
             {
 
-                FlatVector frictionImpulse = frictionImpulseList[i];
-                FlatVector ra = raList[i];
-                FlatVector rb = rbList[i];
+                PhysicalVector frictionImpulse = frictionImpulseList[i];
+                PhysicalVector ra = raList[i];
+                PhysicalVector rb = rbList[i];
 
                 bodyA.LinearVelocity += -frictionImpulse * bodyA.InvMass;
-                bodyA.AngularVelocity += -FlatMath.Cross(ra, frictionImpulse) * bodyA.InvInertia;
+                bodyA.AngularVelocity += -PhysicalMath.Cross(ra, frictionImpulse) * bodyA.InvInertia;
 
                 bodyB.LinearVelocity += frictionImpulse * bodyB.InvMass;
-                bodyB.AngularVelocity += FlatMath.Cross(rb, frictionImpulse) * bodyB.InvInertia;
+                bodyB.AngularVelocity += PhysicalMath.Cross(rb, frictionImpulse) * bodyB.InvInertia;
 
                 if (restrictRotation)
                 {

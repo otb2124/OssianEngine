@@ -15,6 +15,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 namespace Resources
 {
 
+    public enum EntityAppearanceAttributes
+    {
+        BODY,
+        BODY_DETAILS,
+        ARMOR
+    };
+
     public class ModelAppearancePart
     {
         public List<AnimationSet> AnimationsSets;
@@ -44,7 +51,7 @@ namespace Resources
             }
         }
 
-        public void Draw(FlatBody body, Vector2 BodyOffset, float DrawAngle)
+        public void Draw(PhysicalBody body, Vector2 BodyOffset, float DrawAngle)
         {
             foreach (AnimationSet aManager in AnimationsSets)
             {
@@ -63,7 +70,7 @@ namespace Resources
                 {
                     scaleX = bodyWidth / (spriteSize.Width - animation.AnimationFramesData.EachFrameSizeOffset.X);
                     scaleY = bodyHeight / (spriteSize.Height - animation.AnimationFramesData.EachFrameSizeOffset.Y);
-                    newPos = FlatConverter.ToVector2(body.Position) - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
+                    newPos = PhysicalConverter.ToVector2(body.Position) - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
                     newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
                     newPos += new Vector2(animation.AnimationFramesData.EachFramePositionOffset.X * scaleX, animation.AnimationFramesData.EachFramePositionOffset.Y * scaleY);
                 }
@@ -71,7 +78,7 @@ namespace Resources
                 {
                     scaleX = body.Radius / spriteSize.Width * 2;
                     scaleY = body.Radius / spriteSize.Height * 2;
-                    newPos = FlatConverter.ToVector2(body.Position) - new Vector2(body.Radius, body.Radius);
+                    newPos = PhysicalConverter.ToVector2(body.Position) - new Vector2(body.Radius, body.Radius);
                     newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
                 }
 
@@ -124,7 +131,7 @@ namespace Resources
         }
 
 
-        public void Draw(FlatBody body, Vector2 BodyOffset, float DrawAngle)
+        public void Draw(PhysicalBody body, Vector2 BodyOffset, float DrawAngle)
         {
             foreach (ModelAppearancePart part in AppearanceParts)
             {

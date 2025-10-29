@@ -24,13 +24,13 @@ namespace Physics
     }
 
 
-    public sealed class FlatBody
+    public sealed class PhysicalBody
     {
-        private FlatVector position;
-        public FlatVector linearVelocity;
+        private PhysicalVector position;
+        public PhysicalVector linearVelocity;
         private float angle;
         private float angularVelocity;
-        public FlatVector force;
+        public PhysicalVector force;
 
         public BodyShapeType BodyShapeType;
         public float Density;
@@ -47,9 +47,9 @@ namespace Physics
         public float StaticFriction;
         public float DynamicFriction;
 
-        private readonly FlatVector[] vertices;
-        private FlatVector[] transformedVertices;
-        private FlatAABB aabb;
+        private readonly PhysicalVector[] vertices;
+        private PhysicalVector[] transformedVertices;
+        private PhysicalAABB aabb;
 
         private bool transformUpdateRequired;
         public bool aabbUpdateRequired;
@@ -62,12 +62,12 @@ namespace Physics
         public bool IsFrozen = false;
 
 
-        public FlatVector Position
+        public PhysicalVector Position
         {
             get { return position; }
         }
 
-        public FlatVector LinearVelocity
+        public PhysicalVector LinearVelocity
         {
             get { return linearVelocity; }
             set { linearVelocity = value; }
@@ -84,14 +84,14 @@ namespace Physics
             internal set { angularVelocity = value; }
         }
 
-        private FlatBody(float density, float mass, float inertia, float restitution, float area,
-            bool isStatic, float radius, float width, float height, FlatVector[] vertices, BodyShapeType BodyShapeType)
+        private PhysicalBody(float density, float mass, float inertia, float restitution, float area,
+            bool isStatic, float radius, float width, float height, PhysicalVector[] vertices, BodyShapeType BodyShapeType)
         {
-            position = FlatVector.Zero;
-            linearVelocity = FlatVector.Zero;
+            position = PhysicalVector.Zero;
+            linearVelocity = PhysicalVector.Zero;
             angle = 0f;
             angularVelocity = 0f;
-            force = FlatVector.Zero;
+            force = PhysicalVector.Zero;
 
             this.BodyShapeType = BodyShapeType;
             Density = density;
@@ -111,7 +111,7 @@ namespace Physics
             if (BodyShapeType is BodyShapeType.Box)
             {
                 this.vertices = vertices;
-                transformedVertices = new FlatVector[this.vertices.Length];
+                transformedVertices = new PhysicalVector[this.vertices.Length];
             }
             else
             {
@@ -123,18 +123,18 @@ namespace Physics
             aabbUpdateRequired = true;
         }
 
-        private static FlatVector[] CreateBoxVertices(float width, float height)
+        private static PhysicalVector[] CreateBoxVertices(float width, float height)
         {
             float left = -width / 2f;
             float right = left + width;
             float bottom = -height / 2f;
             float top = bottom + height;
 
-            FlatVector[] vertices = new FlatVector[4];
-            vertices[0] = new FlatVector(left, top);
-            vertices[1] = new FlatVector(right, top);
-            vertices[2] = new FlatVector(right, bottom);
-            vertices[3] = new FlatVector(left, bottom);
+            PhysicalVector[] vertices = new PhysicalVector[4];
+            vertices[0] = new PhysicalVector(left, top);
+            vertices[1] = new PhysicalVector(right, top);
+            vertices[2] = new PhysicalVector(right, bottom);
+            vertices[3] = new PhysicalVector(left, bottom);
 
             return vertices;
         }
@@ -151,30 +151,30 @@ namespace Physics
             return triangles;
         }
 
-        public FlatVector[] GetTransformedVertices()
+        public PhysicalVector[] GetTransformedVertices()
         {
             if (transformUpdateRequired)
             {
-                FlatTransform transform = new FlatTransform(position, angle);
+                PhysicalTransform transform = new PhysicalTransform(position, angle);
 
                 for (int i = 0; i < vertices.Length; i++)
                 {
-                    FlatVector v = vertices[i];
-                    transformedVertices[i] = FlatVector.Transform(v, transform);
+                    PhysicalVector v = vertices[i];
+                    transformedVertices[i] = PhysicalVector.Transform(v, transform);
                 }
 
-                FlatWorld.TransformCount++;
+                PhysicalWorld.TransformCount++;
             }
             else
             {
-                FlatWorld.NoTransformCount++;
+                PhysicalWorld.NoTransformCount++;
             }
 
             transformUpdateRequired = false;
             return transformedVertices;
         }
 
-        public FlatAABB GetAABB()
+        public PhysicalAABB GetAABB()
         {
             if (aabbUpdateRequired)
             {
@@ -185,11 +185,11 @@ namespace Physics
 
                 if (BodyShapeType is BodyShapeType.Box)
                 {
-                    FlatVector[] vertices = GetTransformedVertices();
+                    PhysicalVector[] vertices = GetTransformedVertices();
 
                     for (int i = 0; i < vertices.Length; i++)
                     {
-                        FlatVector v = vertices[i];
+                        PhysicalVector v = vertices[i];
 
                         if (v.X < minX) { minX = v.X; }
                         if (v.X > maxX) { maxX = v.X; }
@@ -209,14 +209,14 @@ namespace Physics
                     throw new Exception("Unknown BodyShapeType.");
                 }
 
-                aabb = new FlatAABB(minX, minY, maxX, maxY);
+                aabb = new PhysicalAABB(minX, minY, maxX, maxY);
             }
 
             aabbUpdateRequired = false;
             return aabb;
         }
 
-        internal void Step(float time, FlatVector gravity, int iterations)
+        internal void Step(float time, PhysicalVector gravity, int iterations)
         {
             if (IsStatic || IsFrozen)
             {
@@ -228,7 +228,7 @@ namespace Physics
             // force = mass * acc
             // acc = force / mass;
 
-            //FlatVector acceleration = this.force / this.Mass;
+            //PhysicalVector acceleration = this.force / this.Mass;
             //this.linearVelocity += acceleration * time;
 
 
@@ -237,12 +237,12 @@ namespace Physics
 
             angle += angularVelocity * time;
 
-            force = FlatVector.Zero;
+            force = PhysicalVector.Zero;
             transformUpdateRequired = true;
             aabbUpdateRequired = true;
         }
 
-        public void Move(FlatVector amount)
+        public void Move(PhysicalVector amount)
         {
             position += amount;
             transformUpdateRequired = true;
@@ -251,10 +251,10 @@ namespace Physics
 
         public void Jump(float amount)
         {
-            position += new FlatVector(0, amount);
+            position += new PhysicalVector(0, amount);
         }
 
-        public void MoveTo(FlatVector position)
+        public void MoveTo(PhysicalVector position)
         {
             this.position = position;
             transformUpdateRequired = true;
@@ -275,43 +275,43 @@ namespace Physics
             aabbUpdateRequired = true;
         }
 
-        public void AddForce(FlatVector amount)
+        public void AddForce(PhysicalVector amount)
         {
             force = amount;
         }
 
-        public static bool CreateCircleBody(float radius, float density, bool isStatic, float restitution, out FlatBody body, out string errorMessage)
+        public static bool CreateCircleBody(float radius, float density, bool isStatic, float restitution, out PhysicalBody body, out string errorMessage)
         {
             body = null;
             errorMessage = string.Empty;
 
             float area = radius * radius * MathF.PI;
 
-            if (area < FlatWorld.MinBodySize)
+            if (area < PhysicalWorld.MinBodySize)
             {
-                errorMessage = $"Circle radius is too small. Min circle area is {FlatWorld.MinBodySize}.";
+                errorMessage = $"Circle radius is too small. Min circle area is {PhysicalWorld.MinBodySize}.";
                 return false;
             }
 
-            if (area > FlatWorld.MaxBodySize)
+            if (area > PhysicalWorld.MaxBodySize)
             {
-                errorMessage = $"Circle radius is too large. Max circle area is {FlatWorld.MaxBodySize}.";
+                errorMessage = $"Circle radius is too large. Max circle area is {PhysicalWorld.MaxBodySize}.";
                 return false;
             }
 
-            if (density < FlatWorld.MinDensity)
+            if (density < PhysicalWorld.MinDensity)
             {
-                errorMessage = $"Density is too small. Min density is {FlatWorld.MinDensity}";
+                errorMessage = $"Density is too small. Min density is {PhysicalWorld.MinDensity}";
                 return false;
             }
 
-            if (density > FlatWorld.MaxDensity)
+            if (density > PhysicalWorld.MaxDensity)
             {
-                errorMessage = $"Density is too large. Max density is {FlatWorld.MaxDensity}";
+                errorMessage = $"Density is too large. Max density is {PhysicalWorld.MaxDensity}";
                 return false;
             }
 
-            restitution = FlatMath.Clamp(restitution, 0f, 1f);
+            restitution = PhysicalMath.Clamp(restitution, 0f, 1f);
 
             float mass = 0f;
             float inertia = 0f;
@@ -326,42 +326,42 @@ namespace Physics
             
 
 
-            body = new FlatBody(density, mass, inertia, restitution, area, isStatic, radius, 0f, 0f, null, BodyShapeType.Circle);
+            body = new PhysicalBody(density, mass, inertia, restitution, area, isStatic, radius, 0f, 0f, null, BodyShapeType.Circle);
             return true;
         }
 
-        public static bool CreateBoxBody(float width, float height, float density, bool isStatic, float restitution, out FlatBody body, out string errorMessage)
+        public static bool CreateBoxBody(float width, float height, float density, bool isStatic, float restitution, out PhysicalBody body, out string errorMessage)
         {
             body = null;
             errorMessage = string.Empty;
 
             float area = width * height;
 
-            if (area < FlatWorld.MinBodySize)
+            if (area < PhysicalWorld.MinBodySize)
             {
-                errorMessage = $"Area is too small. Min area is {FlatWorld.MinBodySize}.";
+                errorMessage = $"Area is too small. Min area is {PhysicalWorld.MinBodySize}.";
                 return false;
             }
 
-            if (area > FlatWorld.MaxBodySize)
+            if (area > PhysicalWorld.MaxBodySize)
             {
-                errorMessage = $"Area is too large. Max area is {FlatWorld.MaxBodySize}.";
+                errorMessage = $"Area is too large. Max area is {PhysicalWorld.MaxBodySize}.";
                 return false;
             }
 
-            if (density < FlatWorld.MinDensity)
+            if (density < PhysicalWorld.MinDensity)
             {
-                errorMessage = $"Density is too small. Min density is {FlatWorld.MinDensity}";
+                errorMessage = $"Density is too small. Min density is {PhysicalWorld.MinDensity}";
                 return false;
             }
 
-            if (density > FlatWorld.MaxDensity)
+            if (density > PhysicalWorld.MaxDensity)
             {
-                errorMessage = $"Density is too large. Max density is {FlatWorld.MaxDensity}";
+                errorMessage = $"Density is too large. Max density is {PhysicalWorld.MaxDensity}";
                 return false;
             }
 
-            restitution = FlatMath.Clamp(restitution, 0f, 1f);
+            restitution = PhysicalMath.Clamp(restitution, 0f, 1f);
 
             float mass = 0f;
             float inertia = 0f;
@@ -376,15 +376,15 @@ namespace Physics
                 
             }
 
-            FlatVector[] vertices = CreateBoxVertices(width, height);
+            PhysicalVector[] vertices = CreateBoxVertices(width, height);
 
-            body = new FlatBody(density, mass, inertia, restitution, area, isStatic, 0f, width, height, vertices, BodyShapeType.Box);
+            body = new PhysicalBody(density, mass, inertia, restitution, area, isStatic, 0f, width, height, vertices, BodyShapeType.Box);
             return true;
         }
 
 
 
-        public void ApplyForce(FlatVector force)
+        public void ApplyForce(PhysicalVector force)
         {
             if (!IsStatic)
             {
@@ -400,7 +400,7 @@ namespace Physics
 
 
 
-        public FlatBody(FlatBody existingBody, float newHeight, float newWidth)
+        public PhysicalBody(PhysicalBody existingBody, float newHeight, float newWidth)
         {
             // Copy properties from the existing Body
             position = existingBody.Position;
@@ -428,7 +428,7 @@ namespace Physics
             {
                 // Recreate vertices with new height
                 vertices = CreateBoxVertices(existingBody.Width, newHeight);
-                transformedVertices = new FlatVector[vertices.Length];
+                transformedVertices = new PhysicalVector[vertices.Length];
             }
             else
             {

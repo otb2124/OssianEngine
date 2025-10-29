@@ -47,7 +47,7 @@ namespace Graphics
         public static void SetGameProps(Game game)
         {
             game.Window.Position = WindowPositon;
-            FlatUtil.SetRelativeBackBufferSize(graphicsDeviceManager, BufferRatio);
+            PhysicalUtil.SetRelativeBackBufferSize(graphicsDeviceManager, BufferRatio);
             screen = new Screen(game, ScreenResolution.X, ScreenResolution.Y);
             sprites = new Sprites(game);
             shapes = new Shapes(game);

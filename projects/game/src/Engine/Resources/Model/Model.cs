@@ -20,9 +20,17 @@ namespace Resources
         PROJECTILE,
         LEDGE,
     }
+
+    public enum Directions
+    {
+        LEFT,
+        RIGHT
+    }
+
+
     public class Model
     {
-        public FlatBody Body;
+        public PhysicalBody Body;
         public StaticSprite SpriteData;
 
         public ModelAppearance ModelAppearance;
@@ -58,7 +66,7 @@ namespace Resources
             BodyOffset = preset.Offset;
 
             //TODO: FIND A MORE OPTIMIZED WAY
-            Body = new FlatBody(preset.Body, preset.Body.Height, preset.Body.Width);
+            Body = new PhysicalBody(preset.Body, preset.Body.Height, preset.Body.Width);
             SpriteData = preset.SpriteData;
 
             //AManagers = new AnimationSet();
@@ -96,11 +104,11 @@ namespace Resources
 
             if (this.Body.BodyShapeType == BodyShapeType.Box)
             {
-                Graphics.Graphics.shapes.DrawBoxFill(FlatConverter.ToVector2(Body.Position), Body.Width, Body.Height, Body.Angle, drawColor);
+                Graphics.Graphics.shapes.DrawBoxFill(PhysicalConverter.ToVector2(Body.Position), Body.Width, Body.Height, Body.Angle, drawColor);
             }
             else
             {
-                Graphics.Graphics.shapes.DrawCircleFill(FlatConverter.ToVector2(Body.Position), Body.Radius, 26, drawColor);
+                Graphics.Graphics.shapes.DrawCircleFill(PhysicalConverter.ToVector2(Body.Position), Body.Radius, 26, drawColor);
             }
         }
 

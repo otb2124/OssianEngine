@@ -64,14 +64,14 @@ namespace Entities
 
         public static void ReceiveKnockBack(StatsEntity toEnt, float knockBackPower, Vector2 fromEntHitboxExtendsPos)
         {
-            FlatVector knockbackForce = CalculateKnockBackForce(toEnt.Model.Body.Position, FlatConverter.ToFlatVector(fromEntHitboxExtendsPos), knockBackPower);
-            FlatVector fixedKnockbackForce = new FlatVector(knockbackForce.X, knockbackForce.Y + knockBackPower);
+            PhysicalVector knockbackForce = CalculateKnockBackForce(toEnt.Model.Body.Position, PhysicalConverter.ToFlatVector(fromEntHitboxExtendsPos), knockBackPower);
+            PhysicalVector fixedKnockbackForce = new PhysicalVector(knockbackForce.X, knockbackForce.Y + knockBackPower);
             toEnt.Model.Body.ApplyForce(fixedKnockbackForce);
         }
 
-        public static FlatVector CalculateKnockBackForce(FlatVector toEntPos, FlatVector fromEntPos, float knockbackPower)
+        public static PhysicalVector CalculateKnockBackForce(PhysicalVector toEntPos, PhysicalVector fromEntPos, float knockbackPower)
         {
-            FlatVector direction = FlatMath.Normalize(toEntPos - fromEntPos);
+            PhysicalVector direction = PhysicalMath.Normalize(toEntPos - fromEntPos);
             return direction * knockbackPower;
         }
 
@@ -79,7 +79,7 @@ namespace Entities
         {
             if (toEnt.BloodDropParticle != Graphics.ParticleSet.ParticleSets.NONE)
             {
-                Graphics.Graphics.particleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.Body.Position.ToVector2(), CalculateKnockBackForce(toEnt.Model.Body.Position, FlatConverter.ToFlatVector(fromEntHitboxExtendsPos), knockbackPower).ToVector2() / 2));
+                Graphics.Graphics.particleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.Body.Position.ToVector2(), CalculateKnockBackForce(toEnt.Model.Body.Position, PhysicalConverter.ToFlatVector(fromEntHitboxExtendsPos), knockbackPower).ToVector2() / 2));
             }
         }
 

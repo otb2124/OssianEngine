@@ -2,9 +2,9 @@
 
 namespace Physics
 {
-    public struct FlatTransform
+    public struct PhysicalTransform
     {
-        public readonly static FlatTransform Zero = new FlatTransform(0f, 0f, 0f);
+        public readonly static PhysicalTransform Zero = new PhysicalTransform(0f, 0f, 0f);
 
         public readonly float PositionX;
         public readonly float PositionY;
@@ -17,7 +17,7 @@ namespace Physics
         public float SinScaleX => Sin;
         public float CosScaleY => Cos;
 
-        public FlatTransform(FlatVector position, float angle)
+        public PhysicalTransform(PhysicalVector position, float angle)
         {
             PositionX = position.X;
             PositionY = position.Y;
@@ -25,7 +25,7 @@ namespace Physics
             Cos = MathF.Cos(angle);
         }
 
-        public FlatTransform(float x, float y, float angle)
+        public PhysicalTransform(float x, float y, float angle)
         {
             PositionX = x;
             PositionY = y;

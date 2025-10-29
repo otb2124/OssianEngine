@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Resources;
 using System.Collections.Generic;
 using System.Linq;
 using Utils;
@@ -24,7 +26,7 @@ namespace Graphics
         public static AnimationSet[] AnimationSets = new AnimationSet[]
         {
             new AnimationSet(
-                Utils.SpriteSheets.ENTITIES_HUMAN_M,
+                SpriteSheets.ENTITIES_HUMAN_M,
                 new List<Animation>
                             {
                                 //idle

@@ -16,12 +16,12 @@ namespace Entities
             InteractionManager = new InteractionManager(interactionFieldSize);
         }
 
-        public InteractiveEntity(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize) : base(sprite, body, pos)
+        public InteractiveEntity(StaticSprites sprite, PhysicalBodies body, Vector2 pos, Vector2 interactionFieldSize) : base(sprite, body, pos)
         {
             InteractionManager = new InteractionManager(interactionFieldSize);
         }
 
-        public InteractiveEntity(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize) : base(spriteData, body, pos)
+        public InteractiveEntity(StaticSprite spriteData, PhysicalBodies body, Vector2 pos, Vector2 interactionFieldSize) : base(spriteData, body, pos)
         {
             InteractionManager = new InteractionManager(interactionFieldSize);
         }
@@ -37,13 +37,13 @@ namespace Entities
             base.Init(modelPreset, pos);
         }
 
-        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
+        public virtual void Init(StaticSprites sprite, PhysicalBodies body, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
         {
             InteractionManager = new InteractionManager(interactionFieldSize, interactionData);
             base.Init(sprite, body, pos);
         }
 
-        public virtual void Init(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
+        public virtual void Init(StaticSprite spriteData, PhysicalBodies body, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
         {
             InteractionManager = new InteractionManager(interactionFieldSize, interactionData);
             base.Init(spriteData, body, pos);

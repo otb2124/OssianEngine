@@ -19,7 +19,7 @@ namespace Physics
             typeof(Player), typeof(AnimalMob), typeof(HumanoidEntity), typeof(PlatformEntity)
         };
 
-        public static bool CheckProjectileCollision(FlatBody bodyA, FlatBody bodyB)
+        public static bool CheckProjectileCollision(PhysicalBody bodyA, PhysicalBody bodyB)
         {
             Type typeA = bodyA.Owner.GetType();
             Type typeB = bodyB.Owner.GetType();

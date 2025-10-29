@@ -33,12 +33,12 @@ namespace Entities
             Init(modelPreset, pos, rotation);
         }
 
-        public PhysicalEntity(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f) : base()
+        public PhysicalEntity(StaticSprites sprite, PhysicalBodies body, Vector2 pos, float rotation = 0f) : base()
         {
             Init(sprite, body, pos, rotation);
         }
 
-        public PhysicalEntity(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f) : base()
+        public PhysicalEntity(StaticSprite spriteData, PhysicalBodies body, Vector2 pos, float rotation = 0f) : base()
         {
             Init(spriteData, body, pos, rotation);
         }
@@ -51,7 +51,7 @@ namespace Entities
         public virtual void Init(Models modelPreset, Vector2 pos, float rotation = 0f, Directions initDirection = Directions.LEFT)
         {
             Model = ModelFactory.CreateModel(modelPreset);
-            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
@@ -59,7 +59,7 @@ namespace Entities
             Model.OwnerId = Id;
             Model.Direction = initDirection;
 
-            baseSpriteZ = Model.SpriteData.Z;
+            baseSpriteZ = Model.SpriteData.MaxZ;
             spriteZ = baseSpriteZ;
 
             SetAppearance();
@@ -67,10 +67,10 @@ namespace Entities
             SetSounds();
         }
 
-        public virtual void Init(StaticSprites sprite, FlatBodyPreset body, Vector2 pos, float rotation = 0f, Directions initDirection = Directions.LEFT)
+        public virtual void Init(StaticSprites sprite, PhysicalBodies body, Vector2 pos, float rotation = 0f, Directions initDirection = Directions.LEFT)
         {
             Model = ModelFactory.CreateModel(sprite, body);
-            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
@@ -78,7 +78,7 @@ namespace Entities
             Model.OwnerId = Id;
             Model.Direction = initDirection;
 
-            this.baseSpriteZ = this.Model.SpriteData.Z;
+            this.baseSpriteZ = this.Model.SpriteData.MaxZ;
             this.spriteZ = baseSpriteZ;
 
             SetAppearance();
@@ -86,17 +86,17 @@ namespace Entities
             SetSounds();
         }
 
-        public virtual void Init(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
+        public virtual void Init(StaticSprite spriteData, PhysicalBodies body, Vector2 pos, float rotation = 0f)
         {
             Model = ModelFactory.CreateModel(spriteData, body);
-            Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));
+            Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
             Model.Body.RotateTo(rotation);
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
             Model.OwnerId = Id;
 
-            this.baseSpriteZ = this.Model.SpriteData.Z;
+            this.baseSpriteZ = this.Model.SpriteData.MaxZ;
             this.spriteZ = baseSpriteZ;
 
             SetAppearance();

@@ -24,7 +24,7 @@ namespace Physics
             { typeof(Player), new() { typeof(ProjectileEntity)} },
         };
 
-        public static bool IgnoreCollision(FlatBody bodyA, FlatBody bodyB, bool additional = false)
+        public static bool IgnoreCollision(PhysicalBody bodyA, PhysicalBody bodyB, bool additional = false)
         {
             Type typeA = bodyA.Owner.GetType();
             Type typeB = bodyB.Owner.GetType();

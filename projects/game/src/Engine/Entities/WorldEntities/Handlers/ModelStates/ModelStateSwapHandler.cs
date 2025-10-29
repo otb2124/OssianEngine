@@ -1,4 +1,5 @@
-﻿using Utils;
+﻿using Resources;
+using Utils;
 
 namespace Entities
 {

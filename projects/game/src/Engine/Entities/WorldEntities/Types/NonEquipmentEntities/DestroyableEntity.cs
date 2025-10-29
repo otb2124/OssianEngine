@@ -48,7 +48,7 @@ namespace Entities
 
         public override void Update()
         {
-            //UpdateDamageHitbox(FlatConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), 0f);
+            //UpdateDamageHitbox(PhysicalConverter.ToVector2(this.Model.Body.Position), new Vector2(this.Model.Body.Width, this.Model.Body.Height), 0f);
 
             base.Update();
         }
