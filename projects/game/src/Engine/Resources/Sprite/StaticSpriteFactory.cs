@@ -88,41 +88,6 @@ namespace Resources
     public static class StaticSpriteFactory
     {
 
-        public static readonly Dictionary<StaticSprites, StaticSprite> StaticSpriteMappings = new()
-        {
-            { StaticSprites.NONE, new StaticSprite(SpriteSheets.NONE, new Rectangle(0,0,0,0), 0) },
-
-            { StaticSprites.GRAPHICS_CLOUD_0, new StaticSprite(SpriteSheets.GRAPHICS_CLOUDS, new Rectangle(0,0,360,128), 2) },
-            { StaticSprites.GRAPHICS_SUN, new StaticSprite(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
-
-            { StaticSprites.GRAPHICS_MOON, new StaticSprite(SpriteSheets.GRAPHICS_MOON, new Rectangle(0,0,64,64), 0) },
-            { StaticSprites.GRAPHICS_STATIC_DRAGON, new StaticSprite(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
-
-            { StaticSprites.ENTITIES_STATIC_BALL, new StaticSprite(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 0, 64, 64), 98)},
-            { StaticSprites.ENTITIES_STATIC_CRATE_0, new StaticSprite(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 64, 64, 64), 98)},
-            { StaticSprites.ENTITIES_STATIC_CRATE_1, new StaticSprite(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 98)},
-
-            { StaticSprites.ENTITIES_LEDGE, new StaticSprite(SpriteSheets.ENTITIES_LEDGES, new Rectangle(0, 0, 32, 32), 98)},
-
-            { StaticSprites.ENTITIES_HUMAN_M, new StaticSprite(SpriteSheets.ENTITIES_HUMAN_M, new Rectangle(0,0,64,128), 100)},
-            { StaticSprites.ENTITIES_SLIME, new StaticSprite(SpriteSheets.ENTITIES_SLIME, new Rectangle(0,0,64,64), 99)},
-            { StaticSprites.ENTITIES_BAT, new StaticSprite(SpriteSheets.ENTITIES_BAT, new Rectangle(0,64,64,64), 99)},
-
-            { StaticSprites.ENTITIES_FIREBALL, new StaticSprite(SpriteSheets.ENITIES_FIREBALL, new Rectangle(0,0,64,64), 99)},
-            { StaticSprites.ENTITIES_ARROW, new StaticSprite(SpriteSheets.ENITIES_ARROW, new Rectangle(0,0,64,64), 99)},
-
-            { StaticSprites.LIGHT_DARKNESS_FULL, new StaticSprite(SpriteSheets.LIGHT_DARKNESS_FULL, new Rectangle(0,0,80,64), 200) },
-            { StaticSprites.LIGHT_DARKNESS_VIGNETTE, new StaticSprite(SpriteSheets.LIGHT_DARKNESS_MIN, new Rectangle(0,0,320,180), 200) },
-
-            { StaticSprites.UI_GAME_ICON, new StaticSprite(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
-            { StaticSprites.UI_CURSOR, new StaticSprite(SpriteSheets.UI_CURSOR, new Rectangle(0,0,32,32), 0) },
-
-            { StaticSprites.ENTITIES_WEAPONS_TERRABLADE, new StaticSprite(SpriteSheets.ENTITIES_WEAPONS_TERRABLADE, new Rectangle(0,0,32,64), 200) },
-            { StaticSprites.ENTITIES_WEAPONS_TORCH, new StaticSprite(SpriteSheets.ENTITIES_WEAPONS_TORCH, new Rectangle(0,0,32,64), 200) }
-        };
-
-
-
         public static StaticSprite[] TileSetCut(TileEntity.TileSets tileSet)
         {
             StaticSprite[] data = new StaticSprite[16];
@@ -347,7 +312,38 @@ namespace Resources
             }
         };
 
-        
+        public static readonly Dictionary<StaticSprites, StaticSprite> StaticSpriteMappings = new()
+        {
+            { StaticSprites.NONE, new StaticSprite(SpriteSheets.NONE, new Rectangle(0,0,0,0), 0) },
+
+            { StaticSprites.GRAPHICS_CLOUD_0, new StaticSprite(SpriteSheets.GRAPHICS_CLOUDS, new Rectangle(0,0,360,128), 2) },
+            { StaticSprites.GRAPHICS_SUN, new StaticSprite(SpriteSheets.GRAPHICS_SUN, new Rectangle(0,0,64,64), 0) },
+
+            { StaticSprites.GRAPHICS_MOON, new StaticSprite(SpriteSheets.GRAPHICS_MOON, new Rectangle(0,0,64,64), 0) },
+            { StaticSprites.GRAPHICS_STATIC_DRAGON, new StaticSprite(SpriteSheets.GRAPHICS_STATIC, new Rectangle(0,0,128,64), 1) },
+
+            { StaticSprites.ENTITIES_STATIC_BALL, new StaticSprite(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 0, 64, 64), 98)},
+            { StaticSprites.ENTITIES_STATIC_CRATE_0, new StaticSprite(SpriteSheets.ENTITIES_STATIC, new Rectangle(0, 64, 64, 64), 98)},
+            { StaticSprites.ENTITIES_STATIC_CRATE_1, new StaticSprite(SpriteSheets.ENTITIES_STATIC, new Rectangle(64, 64, 16, 16), 98)},
+
+            { StaticSprites.ENTITIES_LEDGE, new StaticSprite(SpriteSheets.ENTITIES_LEDGES, new Rectangle(0, 0, 32, 32), 98)},
+
+            { StaticSprites.ENTITIES_HUMAN_M, new StaticSprite(SpriteSheets.ENTITIES_HUMAN_M, new Rectangle(0,0,64,128), 100)},
+            { StaticSprites.ENTITIES_SLIME, new StaticSprite(SpriteSheets.ENTITIES_SLIME, new Rectangle(0,0,64,64), 99)},
+            { StaticSprites.ENTITIES_BAT, new StaticSprite(SpriteSheets.ENTITIES_BAT, new Rectangle(0,64,64,64), 99)},
+
+            { StaticSprites.ENTITIES_FIREBALL, new StaticSprite(SpriteSheets.ENITIES_FIREBALL, new Rectangle(0,0,64,64), 99)},
+            { StaticSprites.ENTITIES_ARROW, new StaticSprite(SpriteSheets.ENITIES_ARROW, new Rectangle(0,0,64,64), 99)},
+
+            { StaticSprites.LIGHT_DARKNESS_FULL, new StaticSprite(SpriteSheets.LIGHT_DARKNESS_FULL, new Rectangle(0,0,80,64), 200) },
+            { StaticSprites.LIGHT_DARKNESS_VIGNETTE, new StaticSprite(SpriteSheets.LIGHT_DARKNESS_MIN, new Rectangle(0,0,320,180), 200) },
+
+            { StaticSprites.UI_GAME_ICON, new StaticSprite(SpriteSheets.UI_GAME_ICON, new Rectangle(0,0,64,64), 0) },
+            { StaticSprites.UI_CURSOR, new StaticSprite(SpriteSheets.UI_CURSOR, new Rectangle(0,0,32,32), 0) },
+
+            { StaticSprites.ENTITIES_WEAPONS_TERRABLADE, new StaticSprite(SpriteSheets.ENTITIES_WEAPONS_TERRABLADE, new Rectangle(0,0,32,64), 200) },
+            { StaticSprites.ENTITIES_WEAPONS_TORCH, new StaticSprite(SpriteSheets.ENTITIES_WEAPONS_TORCH, new Rectangle(0,0,32,64), 200) }
+        };
 
     }
 }
