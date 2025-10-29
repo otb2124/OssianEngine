@@ -25,7 +25,7 @@ namespace Graphics
         public Vector2 Postion;
         public Vector2 VelocityMultiplier;
 
-        public StaticSpriteFactory.SpriteData sprite;
+        public StaticSprite sprite;
         public AnimationSet aManager;
         public Particles Type;
 

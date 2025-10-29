@@ -29,7 +29,7 @@ namespace UI
 
             if (Dialogue.IsOnlyContinueDialogue)
             {
-                children[0] = new UIButtonIconComponent(-1, -1, new Vector2(200, 20), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(0, 128 + 32, 64, 32), 0), Vector2.One);
+                children[0] = new UIButtonIconComponent(-1, -1, new Vector2(200, 20), new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(0, 128 + 32, 64, 32), 0), Vector2.One);
             }
             else
             {

@@ -27,7 +27,7 @@ namespace Entities
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
 
-            SpriteData[] data = PlatformSetCut(Vector2.Zero);
+            StaticSprite[] data = PlatformSetCut(Vector2.Zero);
             aManagers = new AnimationSet[data.Length];
 
             for (int i = 0; i < aManagers.Length; i++)

@@ -29,7 +29,7 @@ namespace UI
 
             children = new UIComponent[3];
 
-            SpriteData emptySlot = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(0, 64, 64, 64), 0);
+            StaticSprite emptySlot = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(0, 64, 64, 64), 0);
 
             children[0] = new UIButtonIconComponent(-1, 15, Position, emptySlot, new Vector2(0.75f, 0.75f));
             children[1] = new UIIconComponent(-1, spriteData, Position, new Vector2(0.5f, 0.5f));

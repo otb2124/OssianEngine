@@ -98,6 +98,23 @@ namespace Resources
             return part?.AnimationsSets ?? new List<AnimationSet>();
         }
 
+
+        public void SetAppearancePart(ModelAppearancePart part)
+        {
+            if (part == null) throw new ArgumentNullException(nameof(part));
+            var existing = AppearanceParts.FirstOrDefault(p => p.Attribute == part.Attribute);
+
+            if (existing == null)
+            {
+                AppearanceParts.Add(part);
+            }
+            else
+            {
+                int index = AppearanceParts.IndexOf(existing);
+                AppearanceParts[index] = part;
+            }
+        }
+
         public void Update(AnimationKey animationKey)
         {
             foreach (ModelAppearancePart part in AppearanceParts)

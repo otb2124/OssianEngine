@@ -57,7 +57,7 @@ namespace Entities
                 }
             }
 
-            Model.ModelAppearance.AppearanceParts.Add(armorPart);
+            Model.ModelAppearance.SetAppearancePart(armorPart);
         }
 
         public override void UpdateBattleBodyManager()

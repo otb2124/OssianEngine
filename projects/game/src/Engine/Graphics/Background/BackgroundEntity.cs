@@ -24,7 +24,7 @@ namespace Graphics
             this.pos = pos;
             this.origin = Vector2.Zero;
 
-            aManager = new AnimationSet(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[this.sprite]);
 
             LayerToDrawOn = layerToDrawOn;
         }

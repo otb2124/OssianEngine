@@ -41,7 +41,6 @@ namespace Utils
         //ENTITIES
         //livingentities
         ENTITIES_HUMAN_M,
-        ENTITIES_HUMAN_M_DEBUG,
         ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0,
         ENTITIES_HUMAN_M_ARMOR_HELMET_0,
         ENTITIES_HUMAN_M_ARMOR_BOOTS_0,
@@ -106,7 +105,6 @@ namespace Utils
         //ENTITIES
         //livingentities
         ENTITIES_HUMAN_M,
-        ENTITIES_HUMAN_M_DEBUG,
         ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0,
         ENTITIES_HUMAN_M_ARMOR_HELMET_0,
         ENTITIES_HUMAN_M_ARMOR_BOOTS_0,
@@ -155,15 +153,7 @@ namespace Utils
         PROJECTILE
     }
 
-    public enum Models
-    {
-        HUMAN_M,
-        CRATE_0, CRATE_1, BALL,
-        ITEM_DROP,
-        SLIME, BAT,
-        PROJECTILE,
-        LEDGE,
-    }
+    
 
     public enum ModelStates
     {

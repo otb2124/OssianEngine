@@ -11,7 +11,7 @@ namespace Entities
 
         public InteractionManager InteractionManager;
 
-        public InteractiveEntity(Utils.Models modelPreset, Vector2 pos, Vector2 interactionFieldSize) : base(modelPreset, pos)
+        public InteractiveEntity(Models modelPreset, Vector2 pos, Vector2 interactionFieldSize) : base(modelPreset, pos)
         {
             InteractionManager = new InteractionManager(interactionFieldSize);
         }
@@ -21,7 +21,7 @@ namespace Entities
             InteractionManager = new InteractionManager(interactionFieldSize);
         }
 
-        public InteractiveEntity(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize) : base(spriteData, body, pos)
+        public InteractiveEntity(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize) : base(spriteData, body, pos)
         {
             InteractionManager = new InteractionManager(interactionFieldSize);
         }
@@ -43,7 +43,7 @@ namespace Entities
             base.Init(sprite, body, pos);
         }
 
-        public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
+        public virtual void Init(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, InteractionData interactionData)
         {
             InteractionManager = new InteractionManager(interactionFieldSize, interactionData);
             base.Init(spriteData, body, pos);

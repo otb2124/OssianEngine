@@ -44,7 +44,7 @@ namespace UI
                     break;
             }
 
-            SpriteData[] spriteData = StaticSpriteFactory.UIHUDStatBarCut(new Vector2(0 + spriteSheetOffsetX, 0), 64);
+            StaticSprite[] spriteData = StaticSpriteFactory.UIHUDStatBarCut(new Vector2(0 + spriteSheetOffsetX, 0), 64);
 
             Vector2 scale = new Vector2(1, 1);
 

@@ -21,7 +21,7 @@ namespace UI
             type = UIComponentTypes.PLAYER_INDICATORS;
 
             //frame
-            SpriteData[] spriteData = StaticSpriteFactory.UIHUDStatBarCut(new Vector2(0, 0), 64);
+            StaticSprite[] spriteData = StaticSpriteFactory.UIHUDStatBarCut(new Vector2(0, 0), 64);
             Vector2 scale = new Vector2(1, 1);
             children = new UIComponent[6];
             children[0] = new UIIconComponent(-1, spriteData[0], Position, scale);

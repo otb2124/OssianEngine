@@ -34,7 +34,7 @@ namespace Graphics
             DarknessMinAlpha = MinAlpha;
             DarknessCurrentAlpha = CurrentAlpha;
             targetAlpha = DarknessCurrentAlpha;
-            aManager = new AnimationSet(StaticSpriteFactory.spriteMappings[sprites]);
+            aManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[sprites]);
         }
 
         public void Update()

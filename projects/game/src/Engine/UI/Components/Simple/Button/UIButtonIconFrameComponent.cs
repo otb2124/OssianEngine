@@ -22,7 +22,7 @@ namespace UI
             Position = new Vector2(position.X + paddings.X / 2 - UIFramePartComponent.FRAMEPARTSIZE, position.Y + paddings.Y / 2);
 
             this.sprite = sprite;
-            aManager = new AnimationSet(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[this.sprite]);
 
             Vector2 Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
 

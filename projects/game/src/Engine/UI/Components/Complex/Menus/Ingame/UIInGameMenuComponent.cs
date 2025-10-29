@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,12 +28,12 @@ namespace UI
             children = new UIComponent[7];
             children[0] = new UIFrameComponent(-1, Position, frameSize);
 
-            children[1] = new UIButtonIconComponent(-1, 0, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*1 - buttonMargins.Y*0), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 0, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
-            children[2] = new UIButtonIconComponent(-1, 1, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*2 - buttonMargins.Y * 1), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 1, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
-            children[3] = new UIButtonIconComponent(-1, 2, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*3 - buttonMargins.Y * 2), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 2, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
-            children[4] = new UIButtonIconComponent(-1, 3, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*4 - buttonMargins.Y * 3), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 3, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
-            children[5] = new UIButtonIconComponent(-1, 4, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y * 5 - buttonMargins.Y * 4), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 4, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
-            children[6] = new UIButtonIconComponent(-1, 5, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y * 6 - buttonMargins.Y * 5), new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 5, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
+            children[1] = new UIButtonIconComponent(-1, 0, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*1 - buttonMargins.Y*0), new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 0, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
+            children[2] = new UIButtonIconComponent(-1, 1, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*2 - buttonMargins.Y * 1), new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 1, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
+            children[3] = new UIButtonIconComponent(-1, 2, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*3 - buttonMargins.Y * 2), new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 2, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
+            children[4] = new UIButtonIconComponent(-1, 3, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y*4 - buttonMargins.Y * 3), new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 3, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
+            children[5] = new UIButtonIconComponent(-1, 4, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y * 5 - buttonMargins.Y * 4), new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 4, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
+            children[6] = new UIButtonIconComponent(-1, 5, new Vector2(Position.X + buttonMargins.X, Position.Y + frameSize.Y - buttonSize.Y * 6 - buttonMargins.Y * 5), new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(iconSrcRectSize.X * 5, 0, iconSrcRectSize.X, iconSrcRectSize.Y), 100), Vector2.One);
         }
 
         public override void Update()

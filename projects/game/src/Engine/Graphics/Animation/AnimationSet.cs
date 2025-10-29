@@ -29,7 +29,7 @@ namespace Graphics
         }
 
         //for static ones
-        public AnimationSet(StaticSpriteFactory.SpriteData spriteData)
+        public AnimationSet(StaticSprite spriteData)
         {
             SpriteSheet = spriteData.SpriteSheet;
             Anims = new List<Animation>();

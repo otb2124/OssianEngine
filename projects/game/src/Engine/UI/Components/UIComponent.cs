@@ -47,7 +47,7 @@ namespace UI
 
         public AnimationSet aManager;
         public StaticSprites sprite;
-        public SpriteData spriteData;
+        public StaticSprite spriteData;
 
         public Vector2 Position;
         public float Rotation;

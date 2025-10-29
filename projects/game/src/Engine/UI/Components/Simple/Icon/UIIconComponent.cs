@@ -14,7 +14,7 @@ namespace UI
     {
 
 
-        public UIIconComponent(int id, SpriteData spriteData, Vector2 pos, Vector2 scale) : base(id)
+        public UIIconComponent(int id, StaticSprite spriteData, Vector2 pos, Vector2 scale) : base(id)
         {
             this.type = UIComponentTypes.ICON;
             this.spriteData = spriteData;

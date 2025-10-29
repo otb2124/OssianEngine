@@ -90,7 +90,7 @@ namespace Entities
             //Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
 
-            SpriteData[] data = TileSetCut(TileSet);
+            StaticSprite[] data = TileSetCut(TileSet);
             aManagers = new AnimationSet[data.Length];
 
             for (int i = 0; i < aManagers.Length; i++)

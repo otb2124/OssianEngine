@@ -5,6 +5,7 @@ using System.Text;
 using static Resources.StaticSpriteFactory;
 using Utils;
 using Microsoft.Xna.Framework;
+using Resources;
 
 namespace UI
 {
@@ -25,45 +26,45 @@ namespace UI
 
             children = new UIComponent[2];
 
-            SpriteData sortingIconSlotSprite = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 16 * 0, 128, 32, 32), 0);
+            StaticSprite sortingIconSlotSprite = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 16 * 0, 128, 32, 32), 0);
 
             children[0] = new UIButtonIconComponent(-1, 15, Position, sortingIconSlotSprite, new Vector2(0.75f, 0.75f));
             children[1] = new UIIconComponent(-1, GetSpriteData(), Position, new Vector2(0.75f, 0.75f));
         }
 
 
-        public SpriteData GetSpriteData()
+        public StaticSprite GetSpriteData()
         {
-            SpriteData spriteData = new SpriteData();
+            StaticSprite spriteData = new StaticSprite();
 
             switch(OptionType)
             {
                 case UIInventorySortingOptions.NONE:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 1, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 1, 128, 32, 32), 0);
                     break;
                 case UIInventorySortingOptions.WEAPONS:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 2, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 2, 128, 32, 32), 0);
                     break;
                 case UIInventorySortingOptions.ARMORS:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 3, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 3, 128, 32, 32), 0);
                     break;
                 case UIInventorySortingOptions.ACCESSORIES:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 4, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 4, 128, 32, 32), 0);
                     break;
                 case UIInventorySortingOptions.MATERIALS:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 5, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 5, 128, 32, 32), 0);
                     break;
                 case UIInventorySortingOptions.CONSUMABLES:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 6, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 6, 128, 32, 32), 0);
                     break;
                 case UIInventorySortingOptions.KEYS:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 7, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 7, 128, 32, 32), 0);
                     break;
                 case UIInventorySortingOptions.QUEST_ITEMS:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 8, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 8, 128, 32, 32), 0);
                     break;
                 case UIInventorySortingOptions.CURRENCIES:
-                    spriteData = new SpriteData(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 9, 128, 32, 32), 0);
+                    spriteData = new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64 + 32 * 9, 128, 32, 32), 0);
                     break;
             }
 

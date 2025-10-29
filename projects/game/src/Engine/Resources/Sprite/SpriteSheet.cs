@@ -75,8 +75,6 @@ namespace Resources
                 //entities
                 case SpriteSheets.ENTITIES_HUMAN_M:
                     return "entities/dynamic/human_m_draft";
-                case SpriteSheets.ENTITIES_HUMAN_M_DEBUG:
-                    return "entities/dynamic/human_m_debug";
                 case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0:
                     return "entities/dynamic/human_m_armor_chestplate_0";
                 case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0:

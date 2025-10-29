@@ -14,10 +14,10 @@ namespace UI
             type = UIComponentTypes.CURSOR;
 
             this.sprite = StaticSprites.UI_CURSOR;
-            aManager = new AnimationSet(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[this.sprite]);
 
             Position = Vector2.Zero;
-            Origin = StaticSpriteFactory.spriteMappings[sprite].SrcRect.Size.ToVector2();
+            Origin = StaticSpriteFactory.StaticSpriteMappings[sprite].SrcRect.Size.ToVector2();
             Origin.X -= 24;
             Origin.Y += 0;
             Scale /= 2;

@@ -14,7 +14,7 @@ namespace Graphics
     public class ParallaxLayer
     {
 
-        public SpriteData Sprite;
+        public StaticSprite Sprite;
         public float LayerSpeed;
         public Vector2 Position;
         public AnimationSet aManager;
@@ -22,7 +22,7 @@ namespace Graphics
         public bool StickToCameraY;
 
         //wider = faster
-        public ParallaxLayer(SpriteData spriteData, float speed, bool stickToCameraY = false)
+        public ParallaxLayer(StaticSprite spriteData, float speed, bool stickToCameraY = false)
         {
             Sprite = spriteData;
             LayerSpeed = speed;

@@ -22,7 +22,7 @@ namespace UI
             type = UIComponentTypes.BUTTON_ICON;
 
             this.sprite = sprite;
-            aManager = new AnimationSet(StaticSpriteFactory.spriteMappings[this.sprite]);
+            aManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[this.sprite]);
 
             Position = position;
             Size = aManager.GetCurrent().GetCurrentFrame().Size.ToVector2();
@@ -35,7 +35,7 @@ namespace UI
             Scale = scale;
         }
 
-        public UIButtonIconComponent(int id, int buttonid, Vector2 position, SpriteData spriteData, Vector2 scale) : base(id)
+        public UIButtonIconComponent(int id, int buttonid, Vector2 position, StaticSprite spriteData, Vector2 scale) : base(id)
         {
             type = UIComponentTypes.BUTTON_ICON;
 

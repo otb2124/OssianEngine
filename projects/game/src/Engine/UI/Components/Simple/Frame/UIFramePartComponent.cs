@@ -45,7 +45,7 @@ namespace UI
             adjustAll(framePos, frameSize, new Vector2(3, 3));
         }
 
-        private StaticSpriteFactory.SpriteData mapFramePartSpriteData()
+        private Resources.StaticSprite mapFramePartSpriteData()
         {
             switch(frameType)
             {

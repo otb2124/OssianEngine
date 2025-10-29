@@ -10,10 +10,20 @@ using static Resources.ModelFactory;
 
 namespace Resources
 {
+
+    public enum Models
+    {
+        HUMAN_M,
+        CRATE_0, CRATE_1, BALL,
+        ITEM_DROP,
+        SLIME, BAT,
+        PROJECTILE,
+        LEDGE,
+    }
     public class Model
     {
         public FlatBody Body;
-        public StaticSpriteFactory.SpriteData SpriteData;
+        public StaticSprite SpriteData;
 
         public ModelAppearance ModelAppearance;
 

@@ -13,25 +13,25 @@ namespace Resources
 
         public class ModelPreset
         {
-            public StaticSpriteFactory.SpriteData SpriteData;
+            public StaticSprite SpriteData;
             public FlatBody Body;
             public Vector2 Offset;
 
             public ModelPreset(FlatBodyPreset bodyPreset, StaticSprites spritePreset, Vector2 offset)
             {
                 Body = FlatBodyFactory.CreateFlatBody(bodyPreset, offset);
-                SpriteData = StaticSpriteFactory.spriteMappings[spritePreset];
+                SpriteData = StaticSpriteFactory.StaticSpriteMappings[spritePreset];
                 Offset = offset;
             }
 
             public ModelPreset(FlatBody body, StaticSprites spritePreset, Vector2 offset)
             {
                 Body = body;
-                SpriteData = StaticSpriteFactory.spriteMappings[spritePreset];
+                SpriteData = StaticSpriteFactory.StaticSpriteMappings[spritePreset];
                 Offset = offset;
             }
 
-            public ModelPreset(FlatBodyPreset bodyPreset, StaticSpriteFactory.SpriteData spriteData, Vector2 offset)
+            public ModelPreset(FlatBodyPreset bodyPreset, StaticSprite spriteData, Vector2 offset)
             {
                 Body = FlatBodyFactory.CreateFlatBody(bodyPreset, offset);
                 SpriteData = spriteData;
@@ -71,7 +71,7 @@ namespace Resources
             return new Model(new ModelPreset(body, sprite, new Vector2(0, 0)));
         }
 
-        public static Model CreateModel(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset bodyPreset)
+        public static Model CreateModel(StaticSprite spriteData, FlatBodyPreset bodyPreset)
         {
             return new Model(new ModelPreset(bodyPreset, spriteData, new Vector2(0, 0)));
         }

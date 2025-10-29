@@ -35,9 +35,9 @@ namespace Graphics
 
                                 //moving
                                 new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
-                                    new AnimationFramesData(1, new Vector2(0, 128*1), new Vector2(64, 128), 0.1f, SpriteEffects.FlipHorizontally)),
+                                    new AnimationFramesData(1, new Vector2(0, 128*1), new Vector2(64, 128), 1f, SpriteEffects.FlipHorizontally)),
                                 new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
-                                    new AnimationFramesData(1, new Vector2(0, 128*1), new Vector2(64, 128), 0.1f)),
+                                    new AnimationFramesData(1, new Vector2(0, 128*1), new Vector2(64, 128), 1f)),
 
                                  //weapon out
                                 new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.LEFT),

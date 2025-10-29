@@ -38,7 +38,7 @@ namespace Entities
             Init(sprite, body, pos, rotation);
         }
 
-        public PhysicalEntity(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f) : base()
+        public PhysicalEntity(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f) : base()
         {
             Init(spriteData, body, pos, rotation);
         }
@@ -86,7 +86,7 @@ namespace Entities
             SetSounds();
         }
 
-        public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
+        public virtual void Init(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, float rotation = 0f)
         {
             Model = ModelFactory.CreateModel(spriteData, body);
             Model.Body.MoveTo(FlatConverter.ToFlatVector(pos));

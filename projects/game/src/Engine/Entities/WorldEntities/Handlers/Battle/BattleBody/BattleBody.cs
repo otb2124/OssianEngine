@@ -88,7 +88,7 @@ namespace Entities
             {
                 MoveSetComboHits[i].SetAnimation(BattleBodyData.MoveSet, GlobalWeaponSwingSpeedMultiplier * BattleBodyData.WeaponSwingSpeedMultiplier);
 
-                AManager = new AnimationSet(StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite].SpriteSheet,
+                AManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[BattleBodyData.Sprite].SpriteSheet,
                     new List<Animation>()
                     {
                         new Animation(new AnimationKey(MoveSetComboHits[i].AnimationState, Directions.LEFT), MoveSetComboHits[i].AnimationData),
@@ -99,7 +99,7 @@ namespace Entities
 
             if(BattleBodyData.ModelStateBetweenHits == ModelStates.WEAPON_OUT_IDLE)
             {
-                AManager = new AnimationSet(StaticSpriteFactory.spriteMappings[BattleBodyData.Sprite].SpriteSheet,
+                AManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[BattleBodyData.Sprite].SpriteSheet,
                     new List<Animation>()
                     {
                         new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.LEFT), BattleBodyData.WeaponOutAnimationData),

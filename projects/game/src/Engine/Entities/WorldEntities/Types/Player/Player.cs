@@ -63,7 +63,7 @@ namespace Entities
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Helmets.IRON_HELMET));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Chestplates.IRON_CHESTPLATE));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Boots.IRON_BOOTS));
-            //EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Gloves.IRON_GLOVES));
+            EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Gloves.IRON_GLOVES));
 
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Capes.LEATHER_CAPE));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Necklaces.IRON_NECKLACE));

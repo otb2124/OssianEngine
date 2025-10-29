@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Entities
 
 
 
-        public DestroyableEntity(Utils.Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
+        public DestroyableEntity(Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
         {
             SetStats();
             //UpdateSlots();

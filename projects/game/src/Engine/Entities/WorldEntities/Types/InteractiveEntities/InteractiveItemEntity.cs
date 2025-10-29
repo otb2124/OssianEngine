@@ -20,7 +20,7 @@ namespace Entities
 
         public Inventory Containment;
 
-        public InteractiveItemEntity(Utils.Models modelPreset, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data) : base(modelPreset, pos, interactionFieldSize)
+        public InteractiveItemEntity(Models modelPreset, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data) : base(modelPreset, pos, interactionFieldSize)
         {
             InteractionManager.InteractionData = data;
             Containment = containment;
@@ -32,7 +32,7 @@ namespace Entities
             Containment = containment;
         }
 
-        public InteractiveItemEntity(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data) : base(spriteData, body, pos, interactionFieldSize)
+        public InteractiveItemEntity(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data) : base(spriteData, body, pos, interactionFieldSize)
         {
             InteractionManager.InteractionData = data;
             Containment = containment;
@@ -59,7 +59,7 @@ namespace Entities
             Emission = new LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(10f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.7f), 50f, 0f);
             base.SetEmission();
         }
-        public virtual void Init(Utils.Models modelPreset, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
+        public virtual void Init(Models modelPreset, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
         {
             Containment = containment;
             base.Init(modelPreset, pos, interactionFieldSize, data);
@@ -71,7 +71,7 @@ namespace Entities
             base.Init(sprite, body, pos, interactionFieldSize, data);
         }
 
-        public virtual void Init(StaticSpriteFactory.SpriteData spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
+        public virtual void Init(StaticSprite spriteData, FlatBodyPreset body, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
         {
             Containment = containment;
             base.Init(spriteData, body, pos, interactionFieldSize, data);
