@@ -155,53 +155,37 @@ namespace Resources
             return -1;
         }
 
+        public static readonly Dictionary<ModelStates, AnimationStates> ModelStateToAnimationStateMap = new Dictionary<ModelStates, AnimationStates>
+            {
+                { ModelStates.MOVING,                     AnimationStates.MOVING },
+                { ModelStates.IDLE,                       AnimationStates.IDLE },
+                { ModelStates.JUMPING,                    AnimationStates.JUMPING },
+                { ModelStates.JUMPING_AND_MOVING,         AnimationStates.JUMPING },
+                { ModelStates.SPRINTING,                  AnimationStates.SPRINTING },
+                { ModelStates.WEAPON_OUT_IDLE,            AnimationStates.WEAPON_OUT_IDLE },
+                { ModelStates.WEAPON_OUT_MOVING,          AnimationStates.WEAPON_OUT_MOVING },
+                { ModelStates.ROLLING,                    AnimationStates.ROLL },
+                { ModelStates.FALLEN,                     AnimationStates.FALLEN },
+                { ModelStates.FALLING,                    AnimationStates.ROLL },
+                { ModelStates.JUMPING_DESCENDING,         AnimationStates.JUMPING_DESCENDING },
+                { ModelStates.JUMPING_DESCENDING_AND_MOVING, AnimationStates.JUMPING_DESCENDING },
+                { ModelStates.DESCENDING,                 AnimationStates.DESCENDING },
+                { ModelStates.BLOCKING,                   AnimationStates.BLOCKING_SWORD },
+                { ModelStates.FLYING,                     AnimationStates.FLYING },
+                { ModelStates.FLYING_AND_MOVING,          AnimationStates.FLYING_AND_MOVING },
+                { ModelStates.DOUBLE_JUMPING,             AnimationStates.ROLL },
+                { ModelStates.DOUBLE_JUMPING_AND_MOVING,  AnimationStates.ROLL }
+            };
+
+
+        private static AnimationStates GetOrDefaultAnimationState(ModelStates state, AnimationStates fallback)
+        {
+            return ModelStateToAnimationStateMap.TryGetValue(state, out var anim) ? anim : fallback;
+        }
+
         public static AnimationStates ModelStateToAnimationState(ModelStates state, AnimationStates defaultCase)
         {
-            switch (state)
-            {
-                case ModelStates.MOVING:
-                    return AnimationStates.MOVING;
-                case ModelStates.IDLE:
-                    return AnimationStates.IDLE;
-                case ModelStates.JUMPING:
-                    return AnimationStates.JUMPING;
-                case ModelStates.JUMPING_AND_MOVING:
-                    return AnimationStates.JUMPING;
-                case ModelStates.SPRINTING:
-                    return AnimationStates.SPRINTING;
-                case ModelStates.WEAPON_OUT_IDLE:
-                    return AnimationStates.WEAPON_OUT_IDLE;
-                case ModelStates.WEAPON_OUT_MOVING:
-                    return AnimationStates.WEAPON_OUT_MOVING;
-                case ModelStates.ROLLING:
-                    return AnimationStates.ROLL;
-                case ModelStates.FALLEN:
-                    return AnimationStates.FALLEN;
-                case ModelStates.FALLING:
-                    return AnimationStates.ROLL;
-                case ModelStates.JUMPING_DESCENDING:
-                    return AnimationStates.JUMPING_DESCENDING;
-                case ModelStates.JUMPING_DESCENDING_AND_MOVING:
-                    return AnimationStates.JUMPING_DESCENDING;
-                case ModelStates.DESCENDING:
-                    return AnimationStates.DESCENDING;
-                case ModelStates.BLOCKING:
-                    return AnimationStates.BLOCKING_SWORD;
-                //case ModelStates.HANGING_ON_LEDGE:
-                //return AnimationStates.HANGING_ALT;
-                case ModelStates.FLYING:
-                    return AnimationStates.FLYING;
-                case ModelStates.FLYING_AND_MOVING:
-                    return AnimationStates.FLYING_AND_MOVING;
-
-                case ModelStates.DOUBLE_JUMPING:
-                    return AnimationStates.ROLL;
-                case ModelStates.DOUBLE_JUMPING_AND_MOVING:
-                    return AnimationStates.ROLL;
-
-                default:
-                    return defaultCase;
-            }
+            return GetOrDefaultAnimationState(state, defaultCase);
         }
 
     }

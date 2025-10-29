@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Physics;
+using Resources;
 using SharpDX.MediaFoundation;
+using System;
+using System.Collections.Generic;
 using Utils;
 
 namespace Resources
@@ -19,49 +22,48 @@ namespace Resources
         PROJECTILE
     }
 
+    public struct PhysicalBodyPreset
+    {
+        public BodyDynamics Dynamics;
+        public BodyShapeType Shape;
+        public Vector2 Size;   //width/height for Box, radius for Circle
+        public float Density;
+        public float Restitution;
+
+        public PhysicalBodyPreset(BodyDynamics dynamics, BodyShapeType shape, Vector2 size, float density, float restitution)
+        {
+            Dynamics = dynamics;
+            Shape = shape;
+            Size = size;
+            Density = density;
+            Restitution = restitution;
+        }
+    }
+
 
     public static class PhysicalBodyFactory
     {
-
-
         public static PhysicalBody CreatePhysicalBody(PhysicalBodies preset, Vector2 offSet)
         {
-            PhysicalBody body;
-
-            switch (preset)
+            if (!PhysicalBodyPresetMap.TryGetValue(preset, out PhysicalBodyPreset config))
             {
-                case PhysicalBodies.CRATE_0:
-                    body = CreatePhysicalBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(50 - offSet.X, 50 - offSet.Y), 0.5f, 0.5f);
-                    break;
-                case PhysicalBodies.CRATE_1:
-                    body = CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(10 - offSet.X, 10 - offSet.Y), 0.5f, 0.5f);
-                    break;
-                case PhysicalBodies.CIRCLE:
-                    body = CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10 - offSet.X, 10 - offSet.Y), 0.5f, 2);
-                    break;
-                case PhysicalBodies.COIN:
-                    body = CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(5 - offSet.X, 5 - offSet.Y), 0.5f, 2);
-                    break;
-                case PhysicalBodies.ITEM_DROP:
-                    body = CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10 - offSet.X, 10 - offSet.Y), 0.5f, 2);
-                    break;
-                case PhysicalBodies.HUMANOID:
-                    body = CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 40 - offSet.Y), 10, 0);
-                    break;
-                case PhysicalBodies.ANIMAL:
-                    body = CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 20 - offSet.Y), 10, 0);
-                    break;
-                case PhysicalBodies.LEDGE:
-                    body = CreatePhysicalBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 20 - offSet.Y), 1, 0);
-                    break;
-                case PhysicalBodies.PROJECTILE:
-                    body = CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20 - offSet.X, 20 - offSet.Y), 1, 0);
-                    break;
-                default:
-                    body = CreatePhysicalBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(10 - offSet.X, 10 - offSet.Y), 1, 0);
-                    break;
+                //fallback (same as your default case)
+                config = new PhysicalBodyPreset(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(10, 10), 1f, 0f);
             }
-            return body;
+
+            Vector2 adjustedSize = new Vector2(config.Size.X - offSet.X, config.Size.Y - offSet.Y);
+
+            //prevent negative/zero sizes
+            adjustedSize.X = Math.Max(1, adjustedSize.X);
+            adjustedSize.Y = Math.Max(1, adjustedSize.Y);
+
+            return CreatePhysicalBody(
+                config.Dynamics,
+                config.Shape,
+                adjustedSize,
+                config.Density,
+                config.Restitution
+            );
         }
 
 
@@ -92,5 +94,19 @@ namespace Resources
 
             return body;
         }
+
+
+        public static Dictionary<PhysicalBodies, PhysicalBodyPreset> PhysicalBodyPresetMap = new Dictionary<PhysicalBodies, PhysicalBodyPreset>
+            {
+                { PhysicalBodies.CRATE_0,   new PhysicalBodyPreset(BodyDynamics.STATIC, BodyShapeType.Box,    new Vector2(50, 50), 0.5f, 0.5f) },
+                { PhysicalBodies.CRATE_1,   new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,    new Vector2(10, 10), 0.5f, 0.5f) },
+                { PhysicalBodies.CIRCLE,    new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 2f)   },
+                { PhysicalBodies.COIN,      new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(5, 5), 0.5f, 2f)   },
+                { PhysicalBodies.ITEM_DROP, new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 2f)   },
+                { PhysicalBodies.HUMANOID,  new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20, 40), 10f, 0f)   },
+                { PhysicalBodies.ANIMAL,    new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20, 20), 10f, 0f)   },
+                { PhysicalBodies.LEDGE,     new PhysicalBodyPreset(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(20, 20), 1f, 0f)   },
+                { PhysicalBodies.PROJECTILE,new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20, 20), 1f, 0f)   }
+            };
     }
 }

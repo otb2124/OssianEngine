@@ -240,7 +240,7 @@ namespace Resources
         }
 
 
-        public static Dictionary<EquatableKey, Point> itemUISpriteMappings = new()
+        public static Dictionary<EquatableKey, Point> ItemUISpriteMappings = new()
         {
             { new EquatableKey(ItemLib.Weapons.TERRABLADE), new Point(0,0) },
             { new EquatableKey(ItemLib.Weapons.TORCH), new Point(1,0) },
@@ -286,7 +286,7 @@ namespace Resources
             StaticSprite data = new StaticSprite();
 
             Point iconSize = new Point(64, 64);
-            Point spriteSheetLocation = itemUISpriteMappings[itemKey];
+            Point spriteSheetLocation = ItemUISpriteMappings[itemKey];
 
             data = new StaticSprite(SpriteSheets.UI_ITEMS, new Rectangle(spriteSheetLocation * iconSize, iconSize), 100);
 
@@ -294,7 +294,7 @@ namespace Resources
         }
 
 
-        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, StaticSprite> backgroundCanvasLayerSprites = new()
+        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, StaticSprite> BackgroundCanvasLayerSprites = new()
         {
             { 
                 Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING, new StaticSprite(SpriteSheets.GRAPHICS_BG0_CANVAS, new Rectangle(0, 0, 1280, 720), -100)
@@ -304,7 +304,7 @@ namespace Resources
             },
         };
 
-        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, StaticSprite[]> backgroundBackLayerSprites = new()
+        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, StaticSprite[]> BackgroundBackLayerSprites = new()
         {
             { 
                 Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,
@@ -329,7 +329,7 @@ namespace Resources
             }
         };
 
-        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, StaticSprite[]> backgroundFrontLayerSprites = new()
+        public static readonly Dictionary<Graphics.ParallaxBackground.ParallaxBackgrounds, StaticSprite[]> BackgroundFrontLayerSprites = new()
         {
             { 
                 Graphics.ParallaxBackground.ParallaxBackgrounds.SEASIDE_EVENING,

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Resources
@@ -75,101 +76,7 @@ namespace Resources
 
         public string GetSoundPath(Sounds key)
         {
-            switch (key)
-            {
-                case Sounds.NONE:
-                    return "sfx/none";
-                case Sounds.BODY_ARMOR_1:
-                    return "sfx/Body-armor-1";
-                case Sounds.BODY_ARMOR_2:
-                    return "sfx/Body-armor-2";
-                case Sounds.BODY_ARMOR_3:
-                    return "sfx/Body-armor-3";
-                case Sounds.BODY_ARMOR_4:
-                    return "sfx/Body-armor-4";
-                case Sounds.BODY_HAUBERK_1:
-                    return "sfx/Body-hauberk-1";
-                case Sounds.BODY_HAUBERK_2:
-                    return "sfx/Body-hauberk-2";
-                case Sounds.BODY_HAUBERK_3:
-                    return "sfx/Body-hauberk-3";
-                case Sounds.BODY_HAUBERK_4:
-                    return "sfx/Body-hauberk-4";
-                case Sounds.BODY_LOBE_1:
-                    return "sfx/Body-lobe-1";
-                case Sounds.BODY_LOBE_2:
-                    return "sfx/Body-lobe-2";
-                case Sounds.BODY_LOBE_3:
-                    return "sfx/Body-lobe-3";
-                case Sounds.BODY_LOBE_4:
-                    return "sfx/Body-lobe-4";
-                case Sounds.BOW_SHOT1:
-                    return "sfx/bow-shot1";
-                case Sounds.BOW_SHOT2:
-                    return "sfx/bow-shot2";
-                case Sounds.BOW_SHOT3:
-                    return "sfx/bow-shot3";
-                case Sounds.BOW_STANCE1:
-                    return "sfx/bow-stance1";
-                case Sounds.BREATH:
-                    return "sfx/breath";
-                case Sounds.DAMAGE1:
-                    return "sfx/damage1";
-                case Sounds.DAMAGE2:
-                    return "sfx/damage2";
-                case Sounds.DAMAGE3:
-                    return "sfx/damage3";
-                case Sounds.DOWNS_KNEE:
-                    return "sfx/downs-knee";
-                case Sounds.FOOT_SOIL_R1:
-                    return "sfx/foot-soil-r1";
-                case Sounds.FOOT_SOIL_R2:
-                    return "sfx/foot-soil-r2";
-                case Sounds.FOOT_SOIL_R3:
-                    return "sfx/foot-soil-r3";
-                case Sounds.FOOT_SOIL_R4:
-                    return "sfx/foot-soil-r4";
-                case Sounds.FOOT_STONE_W1:
-                    return "sfx/foot-stone-w1";
-                case Sounds.FOOT_STONE_W2:
-                    return "sfx/foot-stone-w2";
-                case Sounds.FOOT_STONE_W3:
-                    return "sfx/foot-stone-w3";
-                case Sounds.HUMANOID_FOOTSTEP0:
-                    return "sfx/humanoid_footstep0";
-                case Sounds.HUMANOID_FOOTSTEP1:
-                    return "sfx/humanoid_footstep1";
-                case Sounds.HUMANOID_FOOTSTEP2:
-                    return "sfx/humanoid_footstep2";
-                case Sounds.HUMANOID_HURT:
-                    return "sfx/humanoid_hurt";
-                case Sounds.IRON_CUT_IRON:
-                    return "sfx/iron-cut-iron";
-                case Sounds.IRON_CUT_IRON2:
-                    return "sfx/iron-cut-iron2";
-                case Sounds.IRON_CUT_IRON3:
-                    return "sfx/iron-cut-iron3";
-                case Sounds.IRON_CUT_MEAT:
-                    return "sfx/iron-cut-meat";
-                case Sounds.IRON_CUT_MEAT2:
-                    return "sfx/iron-cut-meat2";
-                case Sounds.MAGIC_FIRE:
-                    return "sfx/magic-fire";
-                case Sounds.MAGIC_FORCE23:
-                    return "sfx/magic-force23";
-                case Sounds.SWING_KATANA:
-                    return "sfx/swing-katana";
-                case Sounds.SWING_SWORD:
-                    return "sfx/swing-sword";
-                case Sounds.SWING_SWORD2:
-                    return "sfx/swing-sword2";
-                case Sounds.SWING_SWORD_CHARGE:
-                    return "sfx/swing-sword-charge";
-                case Sounds.TORCH:
-                    return "sfx/torch";
-                default:
-                    return "sfx/humanoid-hurt";
-            }
+            return SoundPathMap[key];
         }
 
         public void Load()
@@ -178,5 +85,54 @@ namespace Resources
             string path = Path.Combine("res", "sounds", SoundPath);
             Effect = Graphics.Graphics.contentManager.Load<SoundEffect>(path);
         }
+
+        public static Dictionary<Sounds, string> SoundPathMap = new Dictionary<Sounds, string>()
+        {
+                { Sounds.NONE,                "sfx/none" },
+                { Sounds.BODY_ARMOR_1,        "sfx/Body-armor-1" },
+                { Sounds.BODY_ARMOR_2,        "sfx/Body-armor-2" },
+                { Sounds.BODY_ARMOR_3,        "sfx/Body-armor-3" },
+                { Sounds.BODY_ARMOR_4,        "sfx/Body-armor-4" },
+                { Sounds.BODY_HAUBERK_1,      "sfx/Body-hauberk-1" },
+                { Sounds.BODY_HAUBERK_2,      "sfx/Body-hauberk-2" },
+                { Sounds.BODY_HAUBERK_3,      "sfx/Body-hauberk-3" },
+                { Sounds.BODY_HAUBERK_4,      "sfx/Body-hauberk-4" },
+                { Sounds.BODY_LOBE_1,         "sfx/Body-lobe-1" },
+                { Sounds.BODY_LOBE_2,         "sfx/Body-lobe-2" },
+                { Sounds.BODY_LOBE_3,         "sfx/Body-lobe-3" },
+                { Sounds.BODY_LOBE_4,         "sfx/Body-lobe-4" },
+                { Sounds.BOW_SHOT1,           "sfx/bow-shot1" },
+                { Sounds.BOW_SHOT2,           "sfx/bow-shot2" },
+                { Sounds.BOW_SHOT3,           "sfx/bow-shot3" },
+                { Sounds.BOW_STANCE1,         "sfx/bow-stance1" },
+                { Sounds.BREATH,              "sfx/breath" },
+                { Sounds.DAMAGE1,             "sfx/damage1" },
+                { Sounds.DAMAGE2,             "sfx/damage2" },
+                { Sounds.DAMAGE3,             "sfx/damage3" },
+                { Sounds.DOWNS_KNEE,          "sfx/downs-knee" },
+                { Sounds.FOOT_SOIL_R1,        "sfx/foot-soil-r1" },
+                { Sounds.FOOT_SOIL_R2,        "sfx/foot-soil-r2" },
+                { Sounds.FOOT_SOIL_R3,        "sfx/foot-soil-r3" },
+                { Sounds.FOOT_SOIL_R4,        "sfx/foot-soil-r4" },
+                { Sounds.FOOT_STONE_W1,       "sfx/foot-stone-w1" },
+                { Sounds.FOOT_STONE_W2,       "sfx/foot-stone-w2" },
+                { Sounds.FOOT_STONE_W3,       "sfx/foot-stone-w3" },
+                { Sounds.HUMANOID_FOOTSTEP0,  "sfx/humanoid_footstep0" },
+                { Sounds.HUMANOID_FOOTSTEP1,  "sfx/humanoid_footstep1" },
+                { Sounds.HUMANOID_FOOTSTEP2,  "sfx/humanoid_footstep2" },
+                { Sounds.HUMANOID_HURT,       "sfx/humanoid_hurt" },
+                { Sounds.IRON_CUT_IRON,       "sfx/iron-cut-iron" },
+                { Sounds.IRON_CUT_IRON2,      "sfx/iron-cut-iron2" },
+                { Sounds.IRON_CUT_IRON3,      "sfx/iron-cut-iron3" },
+                { Sounds.IRON_CUT_MEAT,       "sfx/iron-cut-meat" },
+                { Sounds.IRON_CUT_MEAT2,      "sfx/iron-cut-meat2" },
+                { Sounds.MAGIC_FIRE,          "sfx/magic-fire" },
+                { Sounds.MAGIC_FORCE23,       "sfx/magic-force23" },
+                { Sounds.SWING_KATANA,        "sfx/swing-katana" },
+                { Sounds.SWING_SWORD,         "sfx/swing-sword" },
+                { Sounds.SWING_SWORD2,        "sfx/swing-sword2" },
+                { Sounds.SWING_SWORD_CHARGE,  "sfx/swing-sword-charge" },
+                { Sounds.TORCH,               "sfx/torch" }
+        };
     }
 }

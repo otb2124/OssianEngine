@@ -57,7 +57,7 @@ namespace Graphics
             Vector2 adjustedScale = Vector2.One;
 
             Graphics.sprites.Draw(
-                 ResourceLoader.spriteSheets[aManager.SpriteSheet].texture,
+                 ResourceLoader.spriteSheets[aManager.SpriteSheet].Texture,
             adjustedPos,
                  aManager.GetCurrent().GetCurrentFrame(),
                  Color.White,

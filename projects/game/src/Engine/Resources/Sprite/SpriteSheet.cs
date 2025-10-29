@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Resources;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Utils;
 
@@ -85,135 +87,29 @@ namespace Resources
     public class SpriteSheet
     {
         
-        public SpriteSheets id;
-        public Texture2D texture;
+        public SpriteSheets Type;
+        public Texture2D Texture;
 
         public SpriteSheet(string texturePath)
         {
            Load(texturePath);
         }
-        public SpriteSheet(SpriteSheets spriteSheetId)
+        public SpriteSheet(SpriteSheets spriteSheetType)
         {
-            this.id = spriteSheetId;
+            Type = spriteSheetType;
             Load(GetSpriteSheetTexturePath());
         }
 
         public string GetSpriteSheetTexturePath()
         {
-
-            switch (id)
-            {
-                case SpriteSheets.NONE:
-                    return "utils/none";
-                //graphics
-                case SpriteSheets.GRAPHICS_BG0_CANVAS:
-                    return "graphics/parallax/bg0/canvas";
-                case SpriteSheets.GRAPHICS_BG0_B0:
-                    return "graphics/parallax/bg0/B0";
-                case SpriteSheets.GRAPHICS_BG0_B1:
-                    return "graphics/parallax/bg0/B1";
-                case SpriteSheets.GRAPHICS_BG0_B2:
-                    return "graphics/parallax/bg0/B2";
-                case SpriteSheets.GRAPHICS_BG0_F0:
-                    return "graphics/parallax/bg0/F0";
-
-
-
-                //graphics
-                case SpriteSheets.GRAPHICS_BG1_CANVAS:
-                    return "graphics/parallax/bg1/canvas";
-                case SpriteSheets.GRAPHICS_BG1_B0:
-                    return "graphics/parallax/bg1/B0";
-                case SpriteSheets.GRAPHICS_BG1_B1:
-                    return "graphics/parallax/bg1/B1";
-                case SpriteSheets.GRAPHICS_BG1_B2:
-                    return "graphics/parallax/bg1/B2";
-                case SpriteSheets.GRAPHICS_BG1_B3:
-                    return "graphics/parallax/bg1/B3";
-                case SpriteSheets.GRAPHICS_BG1_B4:
-                    return "graphics/parallax/bg1/B4";
-                case SpriteSheets.GRAPHICS_BG1_B5:
-                    return "graphics/parallax/bg1/B5";
-                case SpriteSheets.GRAPHICS_BG1_F0:
-                    return "graphics/parallax/bg1/F0";
-
-
-                case SpriteSheets.GRAPHICS_STATIC:
-                    return "graphics/static";
-                case SpriteSheets.GRAPHICS_SUN:
-                    return "graphics/sun";
-                case SpriteSheets.GRAPHICS_MOON:
-                    return "graphics/moon";
-                case SpriteSheets.GRAPHICS_CLOUDS:
-                    return "graphics/rain/clouds";
-
-                //entities
-                case SpriteSheets.ENTITIES_HUMAN_M:
-                    return "entities/dynamic/human_m_draft";
-                case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0:
-                    return "entities/dynamic/human_m_armor_chestplate_0";
-                case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0:
-                    return "entities/dynamic/human_m_armor_helmet_0";
-                case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_BOOTS_0:
-                    return "entities/dynamic/human_m_armor_boots_0";
-                case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_GLOVES_0:
-                    return "entities/dynamic/human_m_armor_gloves_0";
-
-                case SpriteSheets.ENTITIES_SLIME:
-                    return "entities/dynamic/slime";
-                case SpriteSheets.ENTITIES_BAT:
-                    return "entities/dynamic/bat";
-
-                case SpriteSheets.ENITIES_FIREBALL:
-                    return "entities/dynamic/fireball";
-                case SpriteSheets.ENITIES_ARROW:
-                    return "entities/dynamic/arrow";
-
-                case SpriteSheets.ENTITIES_STATIC:
-                    return "entities/static/static";
-                case SpriteSheets.ENTITIES_TILES:
-                    return "entities/static/tiles";
-                case SpriteSheets.ENTITIES_PLATFORMS:
-                    return "entities/static/platforms";
-                case SpriteSheets.ENTITIES_LEDGES:
-                    return "entities/static/ledges";
-
-                case SpriteSheets.ENTITIES_PARTICLES:
-                    return "entities/static/particles";
-                case SpriteSheets.ENTITIES_WEAPONS_TERRABLADE:
-                    return "entities/equipment/terrablade";
-                case SpriteSheets.ENTITIES_WEAPONS_TORCH:
-                    return "entities/equipment/torch";
-
-                //light
-                case SpriteSheets.LIGHT_DARKNESS_FULL:
-                    return "graphics/light/light_darkness_full";
-                case SpriteSheets.LIGHT_DARKNESS_MIN:
-                    return "graphics/light/light_darkness_min";
-
-                //UI
-                case SpriteSheets.UI_CURSOR:
-                    return "ui/cursor";
-                case SpriteSheets.UI_FRAMES:
-                    return "ui/frames";
-                case SpriteSheets.UI_GAME_ICON:
-                    return "ui/gameicon";
-                case SpriteSheets.UI_ICONS:
-                    return "ui/icons";
-                case SpriteSheets.UI_HUD:
-                    return "ui/hud";
-                case SpriteSheets.UI_ITEMS:
-                    return "ui/items";
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(id), id, null);
-            }
+            return SpritesheetPathMap[Type];
         }
 
         public void Load(string path)
         {
             using (FileStream fileStream = new FileStream(ResourceLoader.GLOBAL_RES_PATH + "sprites/" + path + ".png", FileMode.Open))
             {
-                texture = Texture2D.FromStream(Graphics.Graphics.graphicsDeviceManager.GraphicsDevice, fileStream);
+                Texture = Texture2D.FromStream(Graphics.Graphics.graphicsDeviceManager.GraphicsDevice, fileStream);
             }
         }
 
@@ -248,12 +144,12 @@ namespace Resources
 
         public int GetTotalCols(int spriteWidth)
         {
-            return texture.Width / spriteWidth;
+            return Texture.Width / spriteWidth;
         }
 
         public int GetTotalRows(int spriteHeight)
         {
-            return texture.Height / spriteHeight;
+            return Texture.Height / spriteHeight;
         }
 
 
@@ -261,14 +157,14 @@ namespace Resources
 
         private bool IsSourceRectangleEmpty(Rectangle sourceRectangle)
         {
-            Color[] textureData = new Color[texture.Width * texture.Height];
-            texture.GetData(textureData);
+            Color[] textureData = new Color[Texture.Width * Texture.Height];
+            Texture.GetData(textureData);
 
             for (int y = sourceRectangle.Y; y < sourceRectangle.Y + sourceRectangle.Height; y++)
             {
                 for (int x = sourceRectangle.X; x < sourceRectangle.X + sourceRectangle.Width; x++)
                 {
-                    if (textureData[y * texture.Width + x].A != 0)
+                    if (textureData[y * Texture.Width + x].A != 0)
                     {
                         return false; //found a non-transparent pixel
                     }
@@ -315,5 +211,67 @@ namespace Resources
 
             return totalSprites;
         }
+
+        public static Dictionary<SpriteSheets, string> SpritesheetPathMap = new Dictionary<SpriteSheets, string>
+            {
+                { SpriteSheets.NONE,                         "utils/none" },
+
+                // graphics – parallax
+                { SpriteSheets.GRAPHICS_BG0_CANVAS,          "graphics/parallax/bg0/canvas" },
+                { SpriteSheets.GRAPHICS_BG0_B0,              "graphics/parallax/bg0/B0" },
+                { SpriteSheets.GRAPHICS_BG0_B1,              "graphics/parallax/bg0/B1" },
+                { SpriteSheets.GRAPHICS_BG0_B2,              "graphics/parallax/bg0/B2" },
+                { SpriteSheets.GRAPHICS_BG0_F0,              "graphics/parallax/bg0/F0" },
+
+                { SpriteSheets.GRAPHICS_BG1_CANVAS,          "graphics/parallax/bg1/canvas" },
+                { SpriteSheets.GRAPHICS_BG1_B0,              "graphics/parallax/bg1/B0" },
+                { SpriteSheets.GRAPHICS_BG1_B1,              "graphics/parallax/bg1/B1" },
+                { SpriteSheets.GRAPHICS_BG1_B2,              "graphics/parallax/bg1/B2" },
+                { SpriteSheets.GRAPHICS_BG1_B3,              "graphics/parallax/bg1/B3" },
+                { SpriteSheets.GRAPHICS_BG1_B4,              "graphics/parallax/bg1/B4" },
+                { SpriteSheets.GRAPHICS_BG1_B5,              "graphics/parallax/bg1/B5" },
+                { SpriteSheets.GRAPHICS_BG1_F0,              "graphics/parallax/bg1/F0" },
+
+                { SpriteSheets.GRAPHICS_STATIC,              "graphics/static" },
+                { SpriteSheets.GRAPHICS_SUN,                 "graphics/sun" },
+                { SpriteSheets.GRAPHICS_MOON,                "graphics/moon" },
+                { SpriteSheets.GRAPHICS_CLOUDS,              "graphics/rain/clouds" },
+
+                // entities – living
+                { SpriteSheets.ENTITIES_HUMAN_M,                     "entities/dynamic/human_m_draft" },
+                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0,  "entities/dynamic/human_m_armor_chestplate_0" },
+                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0,      "entities/dynamic/human_m_armor_helmet_0" },
+                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_BOOTS_0,       "entities/dynamic/human_m_armor_boots_0" },
+                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_GLOVES_0,      "entities/dynamic/human_m_armor_gloves_0" },
+
+                { SpriteSheets.ENTITIES_SLIME,                       "entities/dynamic/slime" },
+                { SpriteSheets.ENTITIES_BAT,                         "entities/dynamic/bat" },
+
+                { SpriteSheets.ENITIES_FIREBALL,                     "entities/dynamic/fireball" },
+                { SpriteSheets.ENITIES_ARROW,                        "entities/dynamic/arrow" },
+
+                // entities – static / platforms
+                { SpriteSheets.ENTITIES_STATIC,      "entities/static/static" },
+                { SpriteSheets.ENTITIES_TILES,       "entities/static/tiles" },
+                { SpriteSheets.ENTITIES_PLATFORMS,   "entities/static/platforms" },
+                { SpriteSheets.ENTITIES_LEDGES,      "entities/static/ledges" },
+
+                // equipment
+                { SpriteSheets.ENTITIES_PARTICLES,           "entities/static/particles" },
+                { SpriteSheets.ENTITIES_WEAPONS_TERRABLADE, "entities/equipment/terrablade" },
+                { SpriteSheets.ENTITIES_WEAPONS_TORCH,      "entities/equipment/torch" },
+
+                // light
+                { SpriteSheets.LIGHT_DARKNESS_FULL, "graphics/light/light_darkness_full" },
+                { SpriteSheets.LIGHT_DARKNESS_MIN,  "graphics/light/light_darkness_min" },
+
+                // UI
+                { SpriteSheets.UI_CURSOR,    "ui/cursor" },
+                { SpriteSheets.UI_FRAMES,    "ui/frames" },
+                { SpriteSheets.UI_GAME_ICON, "ui/gameicon" },
+                { SpriteSheets.UI_ICONS,     "ui/icons" },
+                { SpriteSheets.UI_HUD,       "ui/hud" },
+                { SpriteSheets.UI_ITEMS,     "ui/items" }
+            };
     }
 }
