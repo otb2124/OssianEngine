@@ -139,36 +139,11 @@ namespace Entities
 
         public override void SetAnimations()
         {
+            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
 
-            Model.AManagers = new AnimationSet[]
-                    {
-                        new AnimationSet
-                        (
-                            Model.SpriteData.SpriteSheet,
-                            new List<Animation>
-                            {
-                                //idle
-                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
-                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
-                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT),
-                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+            bodyPart.AddAnimationSet(AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet));
 
-                                //idle
-                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
-                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
-                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
-                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
-
-                                //idle
-                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.LEFT),
-                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
-                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.RIGHT),
-                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
-
-                            }
-                        )
-                    };
-
+            Model.ModelAppearance.AppearanceParts.Add(bodyPart);
         }
 
         public override void SetStats()

@@ -62,8 +62,9 @@ namespace Entities
 
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Helmets.IRON_HELMET));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Chestplates.IRON_CHESTPLATE));
-            EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Gloves.IRON_GLOVES));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Boots.IRON_BOOTS));
+            //EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Gloves.IRON_GLOVES));
+
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Capes.LEATHER_CAPE));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Necklaces.IRON_NECKLACE));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Belts.IRON_BELT));
@@ -72,6 +73,8 @@ namespace Entities
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Containments.BACKPACK));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Pets.CALL_DOG));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.LightPets.CALL_FIREFLY));
+
+            base.SetEquipmentAnimations();
         }
 
         public override void SetInventory()
@@ -142,12 +145,14 @@ namespace Entities
 
         public override void SetAnimations()
         {
-            Model.AManagers = new AnimationSet[]
-            {
-                AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet),
-                AnimationSetSetter.CreateAnimationDebugSetBySpriteSheet(Model.SpriteData.SpriteSheet),
-            };
 
+            Model.ModelAppearance = new ModelAppearance();
+
+            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
+
+            bodyPart.AddAnimationSet(AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet));
+
+            Model.ModelAppearance.AppearanceParts.Add(bodyPart);
         }
 
         public override void SetSounds()

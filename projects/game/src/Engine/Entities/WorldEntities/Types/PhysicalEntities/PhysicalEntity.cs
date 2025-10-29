@@ -168,7 +168,7 @@ namespace Entities
         public virtual void UpdateAnimationState()
         {
             Model.AnimationState = Model.ModelStateToAnimationState(Model.ModelState, Model.AnimationState);
-            Model.UpdateAnimationManagers();
+            Model.UpdateAppearance();
         }
 
         public override void Update()
@@ -180,8 +180,12 @@ namespace Entities
 
         public virtual void SetAnimations()
         {
-            Model.AManagers = new AnimationSet[1];
-            Model.AManagers[0] = new AnimationSet(Model.SpriteData);
+            //Model.AManagers = new List<AnimationSet>();
+
+            Model.ModelAppearance = new ModelAppearance();
+            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
+            bodyPart.AddAnimationSet(new AnimationSet(Model.SpriteData));
+            Model.ModelAppearance.AppearanceParts.Add(bodyPart);
         }
 
         public override void Draw()

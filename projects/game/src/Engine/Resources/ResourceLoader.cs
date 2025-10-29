@@ -61,6 +61,11 @@ namespace Resources
                 //livingentities
                 SpriteSheets.ENTITIES_HUMAN_M,
                 SpriteSheets.ENTITIES_HUMAN_M_DEBUG,
+                SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0,
+                SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0,
+                SpriteSheets.ENTITIES_HUMAN_M_ARMOR_BOOTS_0,
+                SpriteSheets.ENTITIES_HUMAN_M_ARMOR_GLOVES_0,
+
                 SpriteSheets.ENTITIES_SLIME, SpriteSheets.ENTITIES_BAT,
 
                 SpriteSheets.ENITIES_FIREBALL, SpriteSheets.ENITIES_ARROW,

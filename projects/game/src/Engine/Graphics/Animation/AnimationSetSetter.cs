@@ -20,16 +20,6 @@ namespace Graphics
             return new AnimationSet(found.SpriteSheet, found.Anims);
         }
 
-        public static AnimationSet CreateAnimationDebugSetBySpriteSheet(SpriteSheets spriteSheet)
-        {
-            return new AnimationSet(DebugSpriteSheetMap[spriteSheet], CreateAnimationSetBySpriteSheet(spriteSheet).Anims);
-        }
-
-        public static readonly Dictionary<SpriteSheets, SpriteSheets> DebugSpriteSheetMap = new Dictionary<SpriteSheets, SpriteSheets>()
-        {
-            { SpriteSheets.ENTITIES_HUMAN_M, SpriteSheets.ENTITIES_HUMAN_M_DEBUG }
-        };
-
 
         public static AnimationSet[] AnimationSets = new AnimationSet[]
         {
@@ -243,8 +233,197 @@ namespace Graphics
                                 new Animation(new AnimationKey(AnimationStates.ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY, Directions.RIGHT),
                                     new AnimationFramesData(1, new Vector2(0, 128*8), new Vector2(64, 128), 0.15f)),
                             }
-                         )
+                         ),
+
+
+
+                        new AnimationSet
+                        (
+                            SpriteSheets.ENTITIES_SLIME,
+                            new List<Animation>
+                            {
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
+                                    new AnimationFramesData(2, new Vector2(0, 0), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT),
+                                    new AnimationFramesData(2, new Vector2(0, 0), new Vector2(64, 64), 0.5f)),
+
+                                //moving
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
+                                    new AnimationFramesData(2, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
+                                    new AnimationFramesData(2, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //jumping
+                                new Animation(new AnimationKey(AnimationStates.JUMPING, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.JUMPING, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                
+                                //roll
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //fallen
+                                new Animation(new AnimationKey(AnimationStates.FALLEN, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.FALLEN, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.BLOCKING_SLIME_BODY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.BLOCKING_SLIME_BODY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                            }
+                        ),
+
+
+                        new AnimationSet
+                        (
+                            SpriteSheets.ENTITIES_BAT,
+                            new List<Animation>
+                            {
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
+                                    new AnimationFramesData(2, new Vector2(0, 0), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT),
+                                    new AnimationFramesData(2, new Vector2(0, 0), new Vector2(64, 64), 0.5f)),
+
+                                //moving
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
+                                    new AnimationFramesData(2, new Vector2(0, 64), new Vector2(0, -16), new Vector2(64, 64), Vector2.Zero, 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
+                                    new AnimationFramesData(2, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //jumping
+                                new Animation(new AnimationKey(AnimationStates.JUMPING, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.JUMPING, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                
+                                //fly
+                                new Animation(new AnimationKey(AnimationStates.FLYING, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.FLYING, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //fly move
+                                new Animation(new AnimationKey(AnimationStates.FLYING_AND_MOVING, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.FLYING_AND_MOVING, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //roll
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //fallen
+                                new Animation(new AnimationKey(AnimationStates.FALLEN, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.FALLEN, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.BLOCKING_SLIME_BODY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.BLOCKING_SLIME_BODY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_LIGHT_LIGHT_LIGHT, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+
+                                //attacking
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, Directions.LEFT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                                new Animation(new AnimationKey(AnimationStates.ATTACKING_SLIME_BODY_HEAVY_HEAVY, Directions.RIGHT),
+                                    new AnimationFramesData(3, new Vector2(0, 64), new Vector2(64, 64), 0.5f)),
+                            }
+                        ),
+
+
+                        new AnimationSet
+                        (
+                            SpriteSheets.ENITIES_FIREBALL,
+                            new List<Animation>
+                            {
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+                                new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+
+                                //idle
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.LEFT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+                                new Animation(new AnimationKey(AnimationStates.ROLL, Directions.RIGHT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
+
+                            }
+                        )
         };
+
 
     }
 

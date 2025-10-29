@@ -37,7 +37,8 @@ namespace Entities
             if (AISet != null && !StatsManager.IsFallen && !StatsManager.IsFalling)
             {
                 AISet.Update(this);
-                Model.AManagers[0].Update(new AnimationKey(Model.AnimationState, Model.Direction));
+
+                Model.UpdateAppearance();
             }
 
             base.Update();

@@ -14,6 +14,8 @@ namespace Entities
     public class ArmorEquipment : Equipment
     {
 
+        public SpriteSheets SpriteSheet;
+
         public ArmorEquipment(EquatableKey itemKey) : base(itemKey)
         {
             
@@ -35,6 +37,8 @@ namespace Entities
                     Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
+
+                    SpriteSheet = SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0;
                     break;
                 case ItemLib.Helmets.IRON_HELMET:
                     Name = "Iron Helmet";
@@ -46,6 +50,9 @@ namespace Entities
                     Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
+
+
+                    SpriteSheet = SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0;
                     break;
                 case ItemLib.Boots.IRON_BOOTS:
                     Name = "Iron Boots";
@@ -57,6 +64,8 @@ namespace Entities
                     Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
+
+                    SpriteSheet = SpriteSheets.ENTITIES_HUMAN_M_ARMOR_BOOTS_0;
                     break;
                 case ItemLib.Gloves.IRON_GLOVES:
                     Name = "Iron Gloves";
@@ -68,6 +77,8 @@ namespace Entities
                     Stackable = false;
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
+
+                    SpriteSheet = SpriteSheets.ENTITIES_HUMAN_M_ARMOR_GLOVES_0;
                     break;
             }
         }

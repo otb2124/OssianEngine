@@ -77,6 +77,15 @@ namespace Resources
                     return "entities/dynamic/human_m_draft";
                 case SpriteSheets.ENTITIES_HUMAN_M_DEBUG:
                     return "entities/dynamic/human_m_debug";
+                case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0:
+                    return "entities/dynamic/human_m_armor_chestplate_0";
+                case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0:
+                    return "entities/dynamic/human_m_armor_helmet_0";
+                case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_BOOTS_0:
+                    return "entities/dynamic/human_m_armor_boots_0";
+                case SpriteSheets.ENTITIES_HUMAN_M_ARMOR_GLOVES_0:
+                    return "entities/dynamic/human_m_armor_gloves_0";
+
                 case SpriteSheets.ENTITIES_SLIME:
                     return "entities/dynamic/slime";
                 case SpriteSheets.ENTITIES_BAT:

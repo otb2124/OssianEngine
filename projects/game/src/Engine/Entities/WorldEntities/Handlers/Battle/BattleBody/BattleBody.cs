@@ -324,8 +324,8 @@ namespace Entities
 
             if (!ModelAnimationTimeUpdated)
             {
-                model.AManagers[0].GetAnimation(new AnimationKey(model.AnimationState, model.Direction)).AnimationFramesData.FrameTime = currentHit.AnimationData.FrameTime;
-                model.AManagers[0].GetAnimation(new AnimationKey(model.AnimationState, model.Direction)).FrameTimeLeft = currentHit.AnimationData.FrameTime;
+                model.ModelAppearance.GetAnimationSets(ModelAppearanceParts.BODY)[0].GetAnimation(new AnimationKey(model.AnimationState, model.Direction)).AnimationFramesData.FrameTime = currentHit.AnimationData.FrameTime;
+                model.ModelAppearance.GetAnimationSets(ModelAppearanceParts.BODY)[0].GetAnimation(new AnimationKey(model.AnimationState, model.Direction)).FrameTimeLeft = currentHit.AnimationData.FrameTime;
                 ModelAnimationTimeUpdated = true;
             }
         }
@@ -347,7 +347,7 @@ namespace Entities
                 AManager.Update(new AnimationKey(Model.ModelStateToAnimationState(BattleBodyData.ModelStateBetweenHits, model.AnimationState), model.Direction));
             }
 
-            Rectangle spriteSize = model.AManagers[0].GetCurrent().GetCurrentFrame();
+            Rectangle spriteSize = model.ModelAppearance.GetAnimationSets(ModelAppearanceParts.BODY)[0].GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
             float bodyWidth = model.Body.Width + model.BodyOffset.X;

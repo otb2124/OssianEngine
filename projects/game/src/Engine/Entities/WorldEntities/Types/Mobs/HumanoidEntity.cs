@@ -118,11 +118,14 @@ namespace Entities
 
         public override void SetAnimations()
         {
-            Model.AManagers = new AnimationSet[]
-            {
-                AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet),
-                AnimationSetSetter.CreateAnimationDebugSetBySpriteSheet(Model.SpriteData.SpriteSheet),
-            };
+
+            Model.ModelAppearance = new ModelAppearance();
+
+            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
+
+            bodyPart.AddAnimationSet(AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet));
+
+            Model.ModelAppearance.AppearanceParts.Add(bodyPart);
         }
 
         public override void SetSounds()

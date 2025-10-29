@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Graphics;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 using Utils;
 
 namespace Entities
@@ -18,9 +20,25 @@ namespace Entities
             SetEquipment();
         }
 
+
         public virtual void SetEquipment()
         {
             EquipmentManager = new EquipmentManager();
+        }
+
+        public virtual void SetEquipmentAnimations()
+        {
+            ModelAppearancePart armorPart = new ModelAppearancePart(ModelAppearanceParts.ARMOR);
+
+            foreach (EquipmentSlot slot in EquipmentManager.Equipments.EquipmentSlots)
+            {
+                if (slot.Equipment is ArmorEquipment armorEq)
+                {
+                    armorPart.AddAnimationSet(new AnimationSet(armorEq.SpriteSheet, AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet).Anims));
+                }
+            }
+
+            Model.ModelAppearance.AppearanceParts.Add(armorPart);
         }
 
         public override void UpdateBattleBodyManager()

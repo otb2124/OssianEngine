@@ -37,10 +37,19 @@ namespace Entities
         public override void SetAnimations()
         {
             Model.AnimationState = AnimationStates.IDLE;
-            Model.AManagers = new Graphics.AnimationSet[1];
-            Model.AManagers[0] = new Graphics.AnimationSet(Model.SpriteData);
-            //Model.AManagers.AddAnimationForBothDirections(, AnimationStates.IDLE, new Graphics.AnimationFramesData(1, Vector2.Zero, new Vector2(32, 32), 1));
-            Model.AManagers[0].Update(new Graphics.AnimationKey(Model.AnimationState, Model.Direction));
+            //Model.AManagers = new List<Graphics.AnimationSet>();
+
+
+
+            Model.ModelAppearance = new ModelAppearance();
+
+            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
+
+            bodyPart.AddAnimationSet(new Graphics.AnimationSet(Model.SpriteData));
+
+            Model.ModelAppearance.AppearanceParts.Add(bodyPart);
+
+            Model.UpdateAppearance();
         }
 
         public override void Draw()

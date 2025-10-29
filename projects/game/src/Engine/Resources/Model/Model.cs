@@ -1,7 +1,9 @@
-﻿using Graphics;
+﻿using Entities;
+using Graphics;
 using Microsoft.Xna.Framework;
 using Physics;
 using System;
+using System.Collections.Generic;
 using Utils;
 using static Resources.ModelFactory;
 
@@ -14,7 +16,7 @@ namespace Resources
         public FlatBody Body;
         public StaticSpriteFactory.SpriteData SpriteData;
 
-        public AnimationSet[] AManagers;
+        public ModelAppearance ModelAppearance;
 
         public Vector2 BodyOffset;
 
@@ -74,12 +76,9 @@ namespace Resources
         }
 
 
-        public void UpdateAnimationManagers()
+        public void UpdateAppearance()
         {
-            foreach (AnimationSet aManager in AManagers)
-            {
-                aManager.Update(new AnimationKey(AnimationState, Direction));
-            }
+            ModelAppearance.Update(new AnimationKey(AnimationState, Direction));
         }
 
         public void DrawCollider()
@@ -111,37 +110,7 @@ namespace Resources
 
         public void Draw()
         {
-            foreach (AnimationSet aManager in AManagers)
-            {
-                //Model
-                Animation animation = aManager.GetCurrent();
-                Rectangle spriteSize = animation.GetCurrentFrame();
-                float scaleX = 1f;
-                float scaleY = 1f;
-                Vector2 newPos = new Vector2(Body.Position.X, Body.Position.Y);
-                Vector2 textureCenter = new Vector2(spriteSize.Width / 2f, spriteSize.Height / 2f);
-
-                float bodyWidth = Body.Width + BodyOffset.X;
-                float bodyHeight = Body.Height + BodyOffset.Y;
-
-                if (Body.BodyShapeType == BodyShapeType.Box)
-                {
-                    scaleX = bodyWidth / (spriteSize.Width - animation.AnimationFramesData.EachFrameSizeOffset.X);
-                    scaleY = bodyHeight / (spriteSize.Height - animation.AnimationFramesData.EachFrameSizeOffset.Y);
-                    newPos = FlatConverter.ToVector2(Body.Position) - new Vector2(bodyWidth / 2f, bodyHeight / 2f);
-                    newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
-                    newPos += new Vector2(animation.AnimationFramesData.EachFramePositionOffset.X * scaleX, animation.AnimationFramesData.EachFramePositionOffset.Y * scaleY);
-                }
-                else
-                {
-                    scaleX = Body.Radius / spriteSize.Width * 2;
-                    scaleY = Body.Radius / spriteSize.Height * 2;
-                    newPos = FlatConverter.ToVector2(Body.Position) - new Vector2(Body.Radius, Body.Radius);
-                    newPos += new Vector2(spriteSize.Width / 2f * scaleX, spriteSize.Height / 2f * scaleY);
-                }
-
-                aManager.DrawCurrent(newPos, Color.White, DrawAngle, textureCenter, new Vector2(scaleX, scaleY), 0f);
-            }
+            ModelAppearance.Draw(Body, BodyOffset, DrawAngle);
         }
 
         public void SwapDirection()
