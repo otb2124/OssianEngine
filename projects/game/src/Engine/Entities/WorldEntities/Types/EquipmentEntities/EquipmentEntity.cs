@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Utils;
+using Resources;
+using static Resources.ModelFactory;
 
 namespace Entities
 {
@@ -10,9 +12,10 @@ namespace Entities
 
         public EquipmentManager EquipmentManager;
 
-        public EquipmentEntity(Models modelPreset, Vector2 pos, float rot = 0) : base(modelPreset, pos, rot)
+        public EquipmentEntity(Models modelPreset, Vector2 pos, float rot = 0) : base()
         {
             SetEquipment();
+            base.Init(modelPreset, pos, rot);
         }
 
         public EquipmentEntity() : base()
@@ -26,9 +29,25 @@ namespace Entities
             EquipmentManager = new EquipmentManager();
         }
 
+
+        public override void SetAppearance()
+        {
+            //Model.AManagers = new List<AnimationSet>();
+            Model.ModelAppearance = new ModelAppearance();
+            SetBodyAppearance();
+            SetEquipmentAnimations();
+        }
+
+        public override void SetBodyAppearance()
+        {
+            ModelAppearancePart bodyPart = new ModelAppearancePart(EntityAppearanceAttributes.BODY);
+            bodyPart.AddAnimationSet(AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet));
+            Model.ModelAppearance.AppearanceParts.Add(bodyPart);
+        }
+
         public virtual void SetEquipmentAnimations()
         {
-            ModelAppearancePart armorPart = new ModelAppearancePart(ModelAppearanceParts.ARMOR);
+            ModelAppearancePart armorPart = new ModelAppearancePart(EntityAppearanceAttributes.ARMOR);
 
             foreach (EquipmentSlot slot in EquipmentManager.Equipments.EquipmentSlots)
             {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
+using Resources;
 
 namespace Entities
 {
@@ -34,7 +35,7 @@ namespace Entities
             Init(Models.LEDGE, pos, 0f, direction);
         }
 
-        public override void SetAnimations()
+        public override void SetAppearance()
         {
             Model.AnimationState = AnimationStates.IDLE;
             //Model.AManagers = new List<Graphics.AnimationSet>();
@@ -43,7 +44,7 @@ namespace Entities
 
             Model.ModelAppearance = new ModelAppearance();
 
-            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
+            ModelAppearancePart bodyPart = new ModelAppearancePart(EntityAppearanceAttributes.BODY);
 
             bodyPart.AddAnimationSet(new Graphics.AnimationSet(Model.SpriteData));
 

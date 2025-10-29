@@ -73,8 +73,6 @@ namespace Entities
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Containments.BACKPACK));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Pets.CALL_DOG));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.LightPets.CALL_FIREFLY));
-
-            base.SetEquipmentAnimations();
         }
 
         public override void SetInventory()
@@ -140,19 +138,6 @@ namespace Entities
             Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
             Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
             Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-        }
-
-
-        public override void SetAnimations()
-        {
-
-            Model.ModelAppearance = new ModelAppearance();
-
-            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
-
-            bodyPart.AddAnimationSet(AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet));
-
-            Model.ModelAppearance.AppearanceParts.Add(bodyPart);
         }
 
         public override void SetSounds()

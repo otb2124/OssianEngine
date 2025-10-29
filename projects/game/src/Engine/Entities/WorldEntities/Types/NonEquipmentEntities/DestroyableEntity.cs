@@ -20,9 +20,9 @@ namespace Entities
             //SetDropInventory();
         }
 
-        public override void SetAnimations()
+        public override void SetAppearance()
         {
-            base.SetAnimations();
+            base.SetAppearance();
         }
 
         public override void SetStats()

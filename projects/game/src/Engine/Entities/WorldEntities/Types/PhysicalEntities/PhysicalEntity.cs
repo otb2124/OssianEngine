@@ -13,7 +13,7 @@ namespace Entities
     public class PhysicalEntity : WorldEntity
     {
         
-        public Resources.Model Model;
+        public Model Model;
 
         public float baseSpriteZ;
         public float spriteZ;
@@ -62,7 +62,7 @@ namespace Entities
             baseSpriteZ = Model.SpriteData.Z;
             spriteZ = baseSpriteZ;
 
-            SetAnimations();
+            SetAppearance();
             SetEmission();
             SetSounds();
         }
@@ -81,7 +81,7 @@ namespace Entities
             this.baseSpriteZ = this.Model.SpriteData.Z;
             this.spriteZ = baseSpriteZ;
 
-            SetAnimations();
+            SetAppearance();
             SetEmission();
             SetSounds();
         }
@@ -99,7 +99,7 @@ namespace Entities
             this.baseSpriteZ = this.Model.SpriteData.Z;
             this.spriteZ = baseSpriteZ;
 
-            SetAnimations();
+            SetAppearance();
             SetEmission();
         }
 
@@ -178,12 +178,16 @@ namespace Entities
             base.Update();
         }
 
-        public virtual void SetAnimations()
+        public virtual void SetAppearance()
         {
             //Model.AManagers = new List<AnimationSet>();
-
             Model.ModelAppearance = new ModelAppearance();
-            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
+            SetBodyAppearance();
+        }
+
+        public virtual void SetBodyAppearance()
+        {
+            ModelAppearancePart bodyPart = new ModelAppearancePart(EntityAppearanceAttributes.BODY);
             bodyPart.AddAnimationSet(new AnimationSet(Model.SpriteData));
             Model.ModelAppearance.AppearanceParts.Add(bodyPart);
         }

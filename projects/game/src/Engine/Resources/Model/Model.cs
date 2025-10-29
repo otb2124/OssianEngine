@@ -12,7 +12,6 @@ namespace Resources
 {
     public class Model
     {
-
         public FlatBody Body;
         public StaticSpriteFactory.SpriteData SpriteData;
 

@@ -1,4 +1,5 @@
-﻿using Graphics;
+﻿using Entities;
+using Graphics;
 using Microsoft.Xna.Framework;
 using Physics;
 using System;
@@ -11,30 +12,22 @@ using UI;
 using Utils;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
-namespace Entities
+namespace Resources
 {
-
-    public enum ModelAppearanceParts
-    {
-        BODY,
-        BODY_DETAILS,
-        ARMOR,
-    };
 
     public class ModelAppearancePart
     {
         public List<AnimationSet> AnimationsSets;
-
-        public ModelAppearanceParts Type;
-        public ModelAppearancePart(ModelAppearanceParts modelAppearanceParts, List<AnimationSet> sets) 
+        public EntityAppearanceAttributes Attribute;
+        public ModelAppearancePart(EntityAppearanceAttributes modelAppearanceParts, List<AnimationSet> sets) 
         {
-            Type = modelAppearanceParts;
+            Attribute = modelAppearanceParts;
             AnimationsSets = sets;
         }
 
-        public ModelAppearancePart(ModelAppearanceParts modelAppearanceParts)
+        public ModelAppearancePart(EntityAppearanceAttributes modelAppearanceParts)
         {
-            Type = modelAppearanceParts;
+            Attribute = modelAppearanceParts;
             AnimationsSets = new List<AnimationSet>();
         }
 
@@ -89,7 +82,6 @@ namespace Entities
 
     public class ModelAppearance
     {
-
         public List<ModelAppearancePart> AppearanceParts;
 
         public ModelAppearance()
@@ -97,12 +89,12 @@ namespace Entities
             AppearanceParts = new List<ModelAppearancePart>();
         }
 
-        public List<AnimationSet> GetAnimationSets(ModelAppearanceParts partType)
+        public List<AnimationSet> GetAnimationSets(EntityAppearanceAttributes partType)
         {
             if (AppearanceParts == null)
                 return new List<AnimationSet>();
 
-            var part = AppearanceParts.FirstOrDefault(p => p.Type == partType);
+            var part = AppearanceParts.FirstOrDefault(p => p.Attribute == partType);
             return part?.AnimationsSets ?? new List<AnimationSet>();
         }
 

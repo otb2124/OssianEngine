@@ -87,7 +87,7 @@ namespace Entities
                     Model.Body.Owner = this;
                     Model.OwnerId = Id;
 
-                    SetAnimations();
+                    SetAppearance();
                     SetSounds();
                     SetStats();
 
@@ -112,7 +112,7 @@ namespace Entities
                     Model.Body.Owner = this;
                     Model.OwnerId = Id;
 
-                    SetAnimations();
+                    SetAppearance();
                     SetSounds();
                     SetStats();
 
@@ -137,9 +137,9 @@ namespace Entities
         }
 
 
-        public override void SetAnimations()
+        public override void SetAppearance()
         {
-            ModelAppearancePart bodyPart = new ModelAppearancePart(ModelAppearanceParts.BODY);
+            ModelAppearancePart bodyPart = new ModelAppearancePart(EntityAppearanceAttributes.BODY);
 
             bodyPart.AddAnimationSet(AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet));
 
