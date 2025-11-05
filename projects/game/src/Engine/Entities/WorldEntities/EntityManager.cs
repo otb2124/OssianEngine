@@ -186,8 +186,8 @@ namespace Entities
         {
             var sortedEntities = Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities
                 .OrderBy(e =>
-                    (e is TileEntity plent) ? 0
-                    : (e is PhysicalEntity phent) ? phent.spriteZ
+                    (e is TileEntity plent) ? plent.SpriteZ
+                    : (e is PhysicalEntity phent) ? phent.SpriteZ
                     : (e is PlatformEntity platformEntity) ? 0
                     : float.MaxValue);
 

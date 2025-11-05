@@ -16,7 +16,7 @@ namespace Entities
         public Model Model;
 
         public float baseSpriteZ;
-        public float spriteZ;
+        public float SpriteZ;
 
         public bool UpdatesSurroundingRectangles = true;
 
@@ -60,7 +60,7 @@ namespace Entities
             Model.Direction = initDirection;
 
             baseSpriteZ = Model.SpriteData.MaxZ;
-            spriteZ = baseSpriteZ;
+            SpriteZ = baseSpriteZ;
 
             SetAppearance();
             SetEmission();
@@ -79,7 +79,7 @@ namespace Entities
             Model.Direction = initDirection;
 
             this.baseSpriteZ = this.Model.SpriteData.MaxZ;
-            this.spriteZ = baseSpriteZ;
+            this.SpriteZ = baseSpriteZ;
 
             SetAppearance();
             SetEmission();
@@ -97,7 +97,7 @@ namespace Entities
             Model.OwnerId = Id;
 
             this.baseSpriteZ = this.Model.SpriteData.MaxZ;
-            this.spriteZ = baseSpriteZ;
+            this.SpriteZ = baseSpriteZ;
 
             SetAppearance();
             SetEmission();

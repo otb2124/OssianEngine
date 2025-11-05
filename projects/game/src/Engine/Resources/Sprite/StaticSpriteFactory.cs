@@ -97,11 +97,14 @@ namespace Resources
 
             switch (tileSet)
             {
-                case TileEntity.TileSets.SET0:
+                case TileEntity.TileSets.TILE_0:
                     pos = Vector2.Zero;
                     break;
-                case TileEntity.TileSets.SET1:
-                    pos = new Vector2(0, tileSize*2*1);
+                case TileEntity.TileSets.TILE_1:
+                    pos = new Vector2(0, tileSize*2);
+                    break;
+                case TileEntity.TileSets.WATER_0:
+                    pos = new Vector2(0, tileSize*4);
                     break;
             }
 

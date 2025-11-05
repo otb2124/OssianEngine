@@ -16,46 +16,10 @@ namespace Entities
 
         public enum TileSets
         {
-            SET0,
-            SET1
+            TILE_0,
+            TILE_1,
+            WATER_0,
         }
-
-        public static Dictionary<Vector2, int[][]> layoutToIndicies = new()
-        {
-            {
-                //vert flip
-                new Vector2(2, 1),
-                new int[][]
-                {
-                    new int[]{ 2, 3 },
-                }
-            },
-            { 
-                //vert flip
-                new Vector2(3, 1),
-                new int[][]
-                {
-                    new int[]{ 2, 5, 3 },
-                }
-            },
-            {
-                new Vector2(3, 2),
-                new int[][]
-                {
-                    new int[]{ 0, 4, 1 },
-                    new int[]{ 2, 5, 3 },
-                }
-            },
-            {
-                new Vector2(3, 3),
-                new int[][]
-                {
-                    new int[]{ 0, 4, 1 },
-                    new int[]{ 11, 13, 12 },
-                    new int[]{ 2, 5, 3 },
-                }
-            },
-        };
 
         public AnimationSet[] aManagers;
         public int[][] Indicies;
@@ -69,7 +33,6 @@ namespace Entities
             Indicies = GenerateIndicies(layout.X, layout.Y, isGround);
             Model = ModelFactory.CreateModel(StaticSprites.NONE, PhysicalBodyFactory.CreatePhysicalBody(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(32 * layout.X, 32 * layout.Y), 1f, 0.5f));
             Init(pos, rot);
-
 
             IsGround = isGround;
             DisableEntityBodyGroundingStatusOnWalls = disableEntityGrounding;
@@ -107,7 +70,7 @@ namespace Entities
 
         private static int[][] GenerateIndicies(int width, int height, bool isGrounding)
         {
-            if (!isGrounding && layoutToIndicies.TryGetValue(new Vector2(width, height), out int[][] predefined))
+            if (!isGrounding && LayoutToTilesetIndicies.TryGetValue(new Vector2(width, height), out int[][] predefined))
             {
                 return predefined;
             }
@@ -232,7 +195,48 @@ namespace Entities
                 }
             }
         }
+
+
+
+        public static Dictionary<Vector2, int[][]> LayoutToTilesetIndicies = new()
+        {
+            {
+                //vert flip
+                new Vector2(2, 1),
+                new int[][]
+                {
+                    new int[]{ 2, 3 },
+                }
+            },
+            { 
+                //vert flip
+                new Vector2(3, 1),
+                new int[][]
+                {
+                    new int[]{ 2, 5, 3 },
+                }
+            },
+            {
+                new Vector2(3, 2),
+                new int[][]
+                {
+                    new int[]{ 0, 4, 1 },
+                    new int[]{ 2, 5, 3 },
+                }
+            },
+            {
+                new Vector2(3, 3),
+                new int[][]
+                {
+                    new int[]{ 0, 4, 1 },
+                    new int[]{ 11, 13, 12 },
+                    new int[]{ 2, 5, 3 },
+                }
+            },
+        };
     }
+
+
 
 
 
