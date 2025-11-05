@@ -12,6 +12,7 @@ namespace Entities
     public enum StatEffects
     {
         POISONED,
+        FAST_LEGS,
         IN_WATER,
     };
 
@@ -29,10 +30,13 @@ namespace Entities
         public float IntensivitySec;
 
         public bool ApplyOnce;
+        private bool WasAppliedOnce = false;
+
+        public bool RestoresToDefault;
 
         private uint Counter;
 
-        public StatEffect(StatEffects type, Dictionary<EntityStats, float> entityStatAffection, float maxDuration, bool isAffectMultiplying, bool applyOnce = true, float intensivitySec = 0)
+        public StatEffect(StatEffects type, Dictionary<EntityStats, float> entityStatAffection, float maxDuration, bool isAffectMultiplying, bool applyOnce = true, float intensivitySec = 0, bool restoresToDefault = false)
         {
             Type = type;
             EntityStatAffection = entityStatAffection;
@@ -41,23 +45,34 @@ namespace Entities
             IntensivitySec = (uint)(intensivitySec * Graphics.Graphics.UpdatesPerSecond);
             IsAffectMultiplying = isAffectMultiplying;
             ApplyOnce = applyOnce;
+            RestoresToDefault = restoresToDefault;
         }
 
         public void Update(EntityStat[] stats)
         {
             if (CurrentDuration == 0) return;
+
+            bool isLastTick = (CurrentDuration == 1);
+
             CurrentDuration--;
 
-            if (ApplyOnce)
+            if (RestoresToDefault && isLastTick)
             {
-                if (CurrentDuration == MaxDuration - 1)
-                    Apply(stats);
+                foreach (var kvp in EntityStatAffection)
+                {
+                    EntityStat s = stats.FirstOrDefault(x => x.Type == kvp.Key);
+                    if (s != null) s.CurrentValue = s.MaximumValue;
+                }
                 return;
             }
 
             if (IntensivitySec == 0)
             {
-                Apply(stats);
+                if ((ApplyOnce && !WasAppliedOnce) || !ApplyOnce)
+                {
+                    Apply(stats);
+                    WasAppliedOnce = true;
+                }
                 return;
             }
 
@@ -83,14 +98,13 @@ namespace Entities
                     stat.CurrentValue *= value;
                 else
                     stat.CurrentValue += value;
-
-                stat.CurrentValue = MathHelper.Clamp(stat.CurrentValue, 0f, stat.MaximumValue);
             }
         }
 
         public static Dictionary<StatEffects, StatEffect> StatEffectMap = new()
         {
-            { StatEffects.POISONED, new StatEffect(StatEffects.POISONED, new Dictionary<EntityStats, float> { { EntityStats.HP, -10f } }, 5f, false, false, 1f) }
+            { StatEffects.POISONED, new StatEffect(StatEffects.POISONED, new Dictionary<EntityStats, float> { { EntityStats.HP, -10f } }, 5f, false, false, 1f) },
+            { StatEffects.FAST_LEGS, new StatEffect(StatEffects.FAST_LEGS, new Dictionary<EntityStats, float> { { EntityStats.MOVEMENT_SPEED, 2f } }, 10f, true, true, 0f, true) }
         };
     }
 }

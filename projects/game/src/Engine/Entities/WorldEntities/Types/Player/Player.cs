@@ -49,7 +49,7 @@ namespace Entities
 
             StatsManager.RefillAll();
 
-            StatsManager.AddStatEffect(StatEffects.POISONED);
+            StatsManager.AddStatEffect(StatEffects.FAST_LEGS);
 
             EntityFraction = EntityFractions.PLAYER;
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
@@ -169,6 +169,7 @@ namespace Entities
         public override void Update()
         {
             ModelStateSwapHandler.Update();
+            Console.WriteLine(StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue);
             base.Update();
         }
 
