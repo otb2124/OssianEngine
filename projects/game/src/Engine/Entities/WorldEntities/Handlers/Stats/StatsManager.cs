@@ -1,4 +1,6 @@
-﻿namespace Entities
+﻿using System.Collections.Generic;
+
+namespace Entities
 {
     public class StatsManager
     {
@@ -9,6 +11,8 @@
         public EntityAbility[] Abilities;
 
         public StatsBattleHitSpendTool StatsBattleHitSpendHandler;
+
+        public List<StatEffect> CurrentStatEffects;
 
         //TODO: ???
         public bool AllowJumpDescendingLock;
@@ -33,6 +37,11 @@
         public bool AllowPickup = true;
 
         public bool AllowDoubleJump = false;
+
+        public StatsManager()
+        {
+            CurrentStatEffects = new List<StatEffect>();
+        }
 
         public void RefillAll()
         {
@@ -74,7 +83,7 @@
         }
 
 
-        public void UpdateFeatures(Resources.Model model)
+        public void UpdateAbilities(Resources.Model model)
         {
             foreach (EntityAbility feature in Abilities)
             {
@@ -86,17 +95,32 @@
         }
 
 
-        public EntityAbility GetStatFeature(EntityStatFeatures type)
+        public EntityAbility GetStatAbilities(EntityStatFeatures type)
         {
-            foreach (EntityAbility feature in Abilities)
+            foreach (EntityAbility ability in Abilities)
             {
-                if (feature.Type == type)
+                if (ability.Type == type)
                 {
-                    return feature;
+                    return ability;
                 }
             }
 
             return null;
+        }
+
+
+        public void AddStatEffect(StatEffects effect)
+        {
+            CurrentStatEffects.Add(StatEffect.StatEffectMap[effect]);
+        }
+
+
+        public void UpdateStatEffects()
+        {
+            foreach (var item in CurrentStatEffects)
+            {
+                item.Update(Stats);
+            }
         }
 
 

@@ -61,14 +61,15 @@ namespace Entities
             }
 
 
-            StatsManager.UpdateFeatures(Model);
+            StatsManager.UpdateAbilities(Model);
+            StatsManager.UpdateStatEffects();
 
             if (UpdatesModelStates)
             {
                 ModelStateHandler.Update(this);
             }
 
-            if(StatsManager.GetStatFeature(EntityStatFeatures.GCS) != null)
+            if(StatsManager.GetStatAbilities(EntityStatFeatures.GCS) != null)
             {
                 Model.UpdateSurroundingRectangles();
             }

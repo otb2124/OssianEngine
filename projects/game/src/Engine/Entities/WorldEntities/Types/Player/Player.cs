@@ -49,6 +49,8 @@ namespace Entities
 
             StatsManager.RefillAll();
 
+            StatsManager.AddStatEffect(StatEffects.POISONED);
+
             EntityFraction = EntityFractions.PLAYER;
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
         }
