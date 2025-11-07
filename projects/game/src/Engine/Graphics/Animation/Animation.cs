@@ -18,6 +18,12 @@ namespace Graphics
         {
             AnimationState = state; Direction = direction; 
         }
+
+        public static AnimationKey IdleKey;
+        static AnimationKey()
+        {
+            IdleKey = new AnimationKey(AnimationStates.IDLE, Directions.LEFT);
+        }
     }
 
 
