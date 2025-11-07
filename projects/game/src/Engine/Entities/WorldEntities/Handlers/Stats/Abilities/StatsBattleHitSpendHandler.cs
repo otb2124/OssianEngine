@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class StatsBattleHitSpendTool
+    public class StatsBattleHitSpendHandler
     {
 
         public bool StatsPerAttackHitSpent = false;

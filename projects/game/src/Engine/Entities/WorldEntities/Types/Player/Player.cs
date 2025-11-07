@@ -34,7 +34,7 @@ namespace Entities
                 new EntityStat(EntityStats.POISE, 100, 100, 10)
             };
 
-            StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
+            StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 
             StatsManager.Abilities = new EntityAbility[]
             {
@@ -44,12 +44,13 @@ namespace Entities
                 new LedgeHangingAbility(),
                 new GCSRectanglesCalculatorAbility(),
                 new DescencionAbility(0.5f, 1f),
-                new DoubleJumpAbility()
+                new DoubleJumpAbility(),
+                new InwaterWalkingAbility(0.5f)
             };
 
             StatsManager.RefillAll();
 
-            StatsManager.AddStatEffect(StatEffects.FAST_LEGS);
+            //StatsManager.AddStatEffect(StatEffects.FAST_LEGS);
 
             EntityFraction = EntityFractions.PLAYER;
             BloodDropParticle = ParticleSet.ParticleSets.HUMAN_BLOOD_SPLASH;
@@ -169,7 +170,7 @@ namespace Entities
         public override void Update()
         {
             ModelStateSwapHandler.Update();
-            Console.WriteLine(StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue);
+            Console.WriteLine(Model.ModelState);
             base.Update();
         }
 

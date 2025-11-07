@@ -17,7 +17,8 @@ namespace Entities
         FALL,
         FLY,
         LEDGE_HANG,
-        DOUBLE_JUMP
+        DOUBLE_JUMP,
+        INWATER_WALKING
     };
 
 

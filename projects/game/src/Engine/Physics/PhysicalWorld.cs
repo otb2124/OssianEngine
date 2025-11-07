@@ -133,12 +133,13 @@ namespace Physics
                     }
                     else
                     {
-                        //COLLISION HAPPENS
+                        CollisionHandler.HandleUnrestrictedCollision(bodyA, bodyB);
+
                         if (CollisionHandler.IgnoreCollision(bodyA, bodyB) || ProjectilePhysicsHandler.CheckProjectileCollision(bodyA, bodyB))
                         {
+                            //collision does not happen
                             continue;
                         }
-                        
                     }
 
                     contactPairs.Add((i, j));

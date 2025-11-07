@@ -169,7 +169,7 @@ namespace Entities
                         new DescencionAbility(0.5f, 1f)
                     };
 
-                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 
                     break;
 
@@ -196,7 +196,7 @@ namespace Entities
                         new DescencionAbility(0.5f, 1f)
                     };
 
-                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 
 
                     break;
@@ -224,7 +224,7 @@ namespace Entities
                         new DescencionAbility(0.5f, 1f)
                     };
 
-                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 
 
                     break;
@@ -252,7 +252,7 @@ namespace Entities
                         new DescencionAbility(0.5f, 1f)
                     };
 
-                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendTool();
+                    StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
 
 
                     break;

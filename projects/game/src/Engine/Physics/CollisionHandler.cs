@@ -1,10 +1,6 @@
 ﻿using Entities;
-using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Utils;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace Physics
 {
@@ -24,6 +20,11 @@ namespace Physics
         {
             { typeof(Player), new() { typeof(ProjectileEntity)} },
         };
+
+        public static void HandleUnrestrictedCollision(PhysicalBody bodyA, PhysicalBody bodyB)
+        {
+
+        }
 
         public static bool IgnoreCollision(PhysicalBody bodyA, PhysicalBody bodyB, bool additional = false)
         {
@@ -57,7 +58,6 @@ namespace Physics
                     return true;
                 }
             }
-            
 
             return false;
         }

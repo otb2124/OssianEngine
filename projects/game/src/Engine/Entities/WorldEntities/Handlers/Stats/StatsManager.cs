@@ -10,7 +10,7 @@ namespace Entities
         public EntityStat[] Stats;
         public EntityAbility[] Abilities;
 
-        public StatsBattleHitSpendTool StatsBattleHitSpendHandler;
+        public StatsBattleHitSpendHandler StatsBattleHitSpendHandler;
 
         public List<StatEffect> CurrentStatEffects;
 
@@ -109,17 +109,44 @@ namespace Entities
         }
 
 
+
+        public bool HasStatEffect(StatEffects effect)
+        {
+            if (!StatEffect.StatEffectMap.TryGetValue(effect, out var effectInstance))
+                return false;
+
+            return CurrentStatEffects.Contains(effectInstance);
+        }
+
         public void AddStatEffect(StatEffects effect)
         {
             CurrentStatEffects.Add(StatEffect.StatEffectMap[effect]);
         }
 
+        public void RemoveStatEffect(StatEffects effect)
+        {
+            var effectInstance = StatEffect.StatEffectMap[effect];
+            effectInstance.TryRestore(Stats);
+            CurrentStatEffects.Remove(effectInstance);
+        }
 
         public void UpdateStatEffects()
         {
-            foreach (var item in CurrentStatEffects)
+            var toRemove = new List<StatEffects>();
+
+            foreach (var effect in CurrentStatEffects)
             {
-                item.Update(Stats);
+                effect.Update(Stats);
+
+                if (effect.MaxDuration != -1f && effect.CurrentDuration == 0f)
+                {
+                    toRemove.Add(effect.Type);
+                }
+            }
+
+            foreach (var effectType in toRemove)
+            {
+                RemoveStatEffect(effectType);
             }
         }
 

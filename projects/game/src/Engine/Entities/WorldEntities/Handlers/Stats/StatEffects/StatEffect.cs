@@ -13,7 +13,6 @@ namespace Entities
     {
         POISONED,
         FAST_LEGS,
-        IN_WATER,
     };
 
     public class StatEffect
@@ -50,20 +49,11 @@ namespace Entities
 
         public void Update(EntityStat[] stats)
         {
-            if (CurrentDuration == 0) return;
-
-            bool isLastTick = (CurrentDuration == 1);
-
-            CurrentDuration--;
-
-            if (RestoresToDefault && isLastTick)
+            if (CurrentDuration != -1f)
             {
-                foreach (var kvp in EntityStatAffection)
-                {
-                    EntityStat s = stats.FirstOrDefault(x => x.Type == kvp.Key);
-                    if (s != null) s.CurrentValue = s.MaximumValue;
-                }
-                return;
+                if (CurrentDuration == 0) return;
+
+                CurrentDuration--;
             }
 
             if (IntensivitySec == 0)
@@ -101,10 +91,23 @@ namespace Entities
             }
         }
 
+        public void TryRestore(EntityStat[] stats)
+        {
+            if(RestoresToDefault)
+            {
+                foreach (var kvp in EntityStatAffection)
+                {
+                    EntityStat s = stats.FirstOrDefault(x => x.Type == kvp.Key);
+                    if (s != null) s.CurrentValue = s.MaximumValue;
+                }
+            }
+            
+        }
+
         public static Dictionary<StatEffects, StatEffect> StatEffectMap = new()
         {
             { StatEffects.POISONED, new StatEffect(StatEffects.POISONED, new Dictionary<EntityStats, float> { { EntityStats.HP, -10f } }, 5f, false, false, 1f) },
-            { StatEffects.FAST_LEGS, new StatEffect(StatEffects.FAST_LEGS, new Dictionary<EntityStats, float> { { EntityStats.MOVEMENT_SPEED, 2f } }, 10f, true, true, 0f, true) }
+            { StatEffects.FAST_LEGS, new StatEffect(StatEffects.FAST_LEGS, new Dictionary<EntityStats, float> { { EntityStats.MOVEMENT_SPEED, 2f } }, 10f, true, true, 0f, true) },
         };
     }
 }

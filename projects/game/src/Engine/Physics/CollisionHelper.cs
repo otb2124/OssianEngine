@@ -123,5 +123,25 @@ namespace Physics
 
             return null;
         }
+
+        public static WaterTileEntity GetAnyWaterTiles(PhysicalBody body)
+        {
+            foreach (PhysicalBody item in Physics.flatWorld.bodyList)
+            {
+                if (item.Owner is WaterTileEntity)
+                {
+                    RotatedRectangle bodyBBox = body.ToRectangle();
+                    RotatedRectangle itemBox = item.ToRectangle();
+
+                    if (bodyBBox.Intersects(itemBox))
+                    {
+                        return (WaterTileEntity)item.Owner;
+                    }
+                }
+
+            }
+
+            return null;
+        }
     }
 }

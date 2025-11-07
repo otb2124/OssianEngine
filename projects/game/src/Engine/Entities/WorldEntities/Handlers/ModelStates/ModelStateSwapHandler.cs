@@ -19,6 +19,7 @@ namespace Entities
                             new OrRequirement(
                                 new Requirement[]
                                 {
+                                    new ModelStateRequirement(ModelStates.MOVING),
                                     new ModelStateRequirement(ModelStates.JUMPING),
                                     new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING),
                                     new ModelStateRequirement(ModelStates.ATTACKING_LIGHT),
@@ -460,7 +461,7 @@ namespace Entities
                 }
             ),
 
-
+            
 
 
             //MOVING
@@ -493,15 +494,14 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
 
+                            new ModelStateRequirement(ModelStates.INWATER_MOVING, true),
+
                             new IsGroundedRequirement(),
                             new AllowJumpDescendingRequirement(true),
                         }
                     )
                 }
             ),
-
-
-            
         };
 
         public static void Update()

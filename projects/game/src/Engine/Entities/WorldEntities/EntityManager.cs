@@ -56,12 +56,12 @@ namespace Entities
                                         HitboxChecker.CheckWeaponToWeaponCollision((BattleEntity)entFrom, (BattleEntity)entTo);
                                     }
 
-                                    if (entFrom is InteractiveEntity && entTo is Player)
+                                    if(entFrom is InteractiveEntity && entTo is Player)
                                     {
                                         HitboxChecker.CheckForInterraction((InteractiveEntity)entFrom, (EquipmentEntity)entTo);
                                     }
 
-                                    if (entFrom is NPCEntity npcEnt && entTo is Player)
+                                    if(entFrom is NPCEntity npcEnt && entTo is Player)
                                     {
                                         if(npcEnt.InteractionManager != null)
                                         {

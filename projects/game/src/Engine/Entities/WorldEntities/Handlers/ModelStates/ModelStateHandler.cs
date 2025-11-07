@@ -29,6 +29,7 @@ namespace Entities {
         JUMPING_DESCENDING_AND_MOVING,
         DESCENDING,
         HANGING_ON_LEDGE,
+        INWATER_MOVING,
 
         FLYING,
         FLYING_AND_MOVING,
@@ -51,6 +52,7 @@ namespace Entities {
         DESCENDING,
         HANGING_ALT,
         HANGING,
+        INWATER_WALKING,
         FLYING,
         FLYING_AND_MOVING,
 
@@ -115,7 +117,7 @@ namespace Entities {
                 }
             }
 
-            if (state == ModelStates.MOVING || state == ModelStates.WEAPON_OUT_MOVING)
+            if (state == ModelStates.MOVING || state == ModelStates.WEAPON_OUT_MOVING || state == ModelStates.INWATER_MOVING)
             {
                 Entity.Model.Body.Move(new PhysicalVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
             }

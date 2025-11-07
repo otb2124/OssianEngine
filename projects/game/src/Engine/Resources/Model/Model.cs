@@ -171,6 +171,7 @@ namespace Resources
                 { ModelStates.JUMPING_DESCENDING_AND_MOVING, AnimationStates.JUMPING_DESCENDING },
                 { ModelStates.DESCENDING,                 AnimationStates.DESCENDING },
                 { ModelStates.BLOCKING,                   AnimationStates.BLOCKING_SWORD },
+                { ModelStates.INWATER_MOVING,            AnimationStates.MOVING },
                 { ModelStates.FLYING,                     AnimationStates.FLYING },
                 { ModelStates.FLYING_AND_MOVING,          AnimationStates.FLYING_AND_MOVING },
                 { ModelStates.DOUBLE_JUMPING,             AnimationStates.ROLL },
