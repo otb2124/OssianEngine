@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Utils;
+using static Entities.TileEntity;
 
 namespace Resources
 {
@@ -154,18 +155,39 @@ namespace Resources
             return data;
         }
 
-        public static StaticSprite[] PlatformSetCut(Vector2 pos, int tileSize = 32)
+        public static StaticSprite[] PlatformSetCut(Platforms type, bool disableRotation, int tileSize = 32)
         {
             StaticSprite[] data = new StaticSprite[3];
-            
-            //left
-            data[0] = new StaticSprite(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            Vector2 pos = Vector2.Zero;
 
-            //center
-            data[1] = new StaticSprite(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            switch (type)
+            {
+                case Platforms.PLATFROM0:
+                    pos = Vector2.Zero;
+                    break;
+                case Platforms.STAIR0:
+                    pos = new Vector2(0, tileSize * 1);
+                    break;
+            }
 
-            //right
-            data[2] = new StaticSprite(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
+            var leftTile = new StaticSprite(
+                SpriteSheets.ENTITIES_PLATFORMS,
+                new Rectangle((int)pos.X, (int)pos.Y, tileSize, tileSize),
+                0
+            );
+
+            if (disableRotation)
+            {
+                data[0] = leftTile;
+                data[1] = leftTile;
+                data[2] = leftTile;
+            }
+            else
+            {
+                data[0] = new StaticSprite(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+                data[1] = new StaticSprite(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+                data[2] = new StaticSprite(SpriteSheets.ENTITIES_PLATFORMS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0, SpriteEffects.FlipHorizontally);
+            }
 
             return data;
         }

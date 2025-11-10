@@ -486,7 +486,7 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.SPRINTING, true),
                             new ModelStateRequirement(ModelStates.ROLLING, true),
 
-                            new ModelStateRequirement(ModelStates.DESCENDING, true),
+                            //new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
                             new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
 

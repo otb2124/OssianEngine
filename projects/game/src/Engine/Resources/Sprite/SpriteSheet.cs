@@ -61,6 +61,7 @@ namespace Resources
         ENTITIES_PLATFORMS,
         ENTITIES_TILES,
         ENTITIES_LEDGES,
+        ENTITIES_STAIRS,
 
         //equipment
         ENTITIES_WEAPONS_TERRABLADE,
@@ -85,6 +86,10 @@ namespace Resources
         UI_ICONS,
         UI_HUD,
         UI_ITEMS,
+
+
+        //utils
+        UTILS_TILE_GRID,
     }
 
 
@@ -218,47 +223,46 @@ namespace Resources
 
         public static Dictionary<SpriteSheets, string> SpritesheetPathMap = new Dictionary<SpriteSheets, string>
             {
-                { SpriteSheets.NONE,                                 "utils/none" },
-
                 // graphics – parallax
-                { SpriteSheets.GRAPHICS_BG0_CANVAS,                  "graphics/parallax/bg0/canvas" },
-                { SpriteSheets.GRAPHICS_BG0_B0,                      "graphics/parallax/bg0/B0" },
-                { SpriteSheets.GRAPHICS_BG0_B1,                      "graphics/parallax/bg0/B1" },
-                { SpriteSheets.GRAPHICS_BG0_B2,                      "graphics/parallax/bg0/B2" },
-                { SpriteSheets.GRAPHICS_BG0_F0,                      "graphics/parallax/bg0/F0" },
+                { SpriteSheets.GRAPHICS_BG0_CANVAS,                 "graphics/parallax/bg0/canvas" },
+                { SpriteSheets.GRAPHICS_BG0_B0,                     "graphics/parallax/bg0/B0" },
+                { SpriteSheets.GRAPHICS_BG0_B1,                     "graphics/parallax/bg0/B1" },
+                { SpriteSheets.GRAPHICS_BG0_B2,                     "graphics/parallax/bg0/B2" },
+                { SpriteSheets.GRAPHICS_BG0_F0,                     "graphics/parallax/bg0/F0" },
 
-                { SpriteSheets.GRAPHICS_BG1_CANVAS,                  "graphics/parallax/bg1/canvas" },
-                { SpriteSheets.GRAPHICS_BG1_B0,                      "graphics/parallax/bg1/B0" },
-                { SpriteSheets.GRAPHICS_BG1_B1,                      "graphics/parallax/bg1/B1" },
-                { SpriteSheets.GRAPHICS_BG1_B2,                      "graphics/parallax/bg1/B2" },
-                { SpriteSheets.GRAPHICS_BG1_B3,                      "graphics/parallax/bg1/B3" },
-                { SpriteSheets.GRAPHICS_BG1_B4,                      "graphics/parallax/bg1/B4" },
-                { SpriteSheets.GRAPHICS_BG1_B5,                      "graphics/parallax/bg1/B5" },
-                { SpriteSheets.GRAPHICS_BG1_F0,                      "graphics/parallax/bg1/F0" },
+                { SpriteSheets.GRAPHICS_BG1_CANVAS,                 "graphics/parallax/bg1/canvas" },
+                { SpriteSheets.GRAPHICS_BG1_B0,                     "graphics/parallax/bg1/B0" },
+                { SpriteSheets.GRAPHICS_BG1_B1,                     "graphics/parallax/bg1/B1" },
+                { SpriteSheets.GRAPHICS_BG1_B2,                     "graphics/parallax/bg1/B2" },
+                { SpriteSheets.GRAPHICS_BG1_B3,                     "graphics/parallax/bg1/B3" },
+                { SpriteSheets.GRAPHICS_BG1_B4,                     "graphics/parallax/bg1/B4" },
+                { SpriteSheets.GRAPHICS_BG1_B5,                     "graphics/parallax/bg1/B5" },
+                { SpriteSheets.GRAPHICS_BG1_F0,                     "graphics/parallax/bg1/F0" },
 
-                { SpriteSheets.GRAPHICS_STATIC,                      "graphics/static" },
-                { SpriteSheets.GRAPHICS_SUN,                         "graphics/sun" },
-                { SpriteSheets.GRAPHICS_MOON,                        "graphics/moon" },
-                { SpriteSheets.GRAPHICS_CLOUDS,                      "graphics/rain/clouds" },
+                { SpriteSheets.GRAPHICS_STATIC,                     "graphics/static" },
+                { SpriteSheets.GRAPHICS_SUN,                        "graphics/sun" },
+                { SpriteSheets.GRAPHICS_MOON,                       "graphics/moon" },
+                { SpriteSheets.GRAPHICS_CLOUDS,                     "graphics/rain/clouds" },
 
                 // entities – living
-                { SpriteSheets.ENTITIES_HUMAN_M,                     "entities/dynamic/human_m_draft" },
-                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0,  "entities/dynamic/human_m_armor_chestplate_0" },
-                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0,      "entities/dynamic/human_m_armor_helmet_0" },
-                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_BOOTS_0,       "entities/dynamic/human_m_armor_boots_0" },
-                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_GLOVES_0,      "entities/dynamic/human_m_armor_gloves_0" },
+                { SpriteSheets.ENTITIES_HUMAN_M,                    "entities/dynamic/human_m_draft" },
+                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0, "entities/dynamic/human_m_armor_chestplate_0" },
+                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0,     "entities/dynamic/human_m_armor_helmet_0" },
+                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_BOOTS_0,      "entities/dynamic/human_m_armor_boots_0" },
+                { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_GLOVES_0,     "entities/dynamic/human_m_armor_gloves_0" },
 
-                { SpriteSheets.ENTITIES_SLIME,                       "entities/dynamic/slime" },
-                { SpriteSheets.ENTITIES_BAT,                         "entities/dynamic/bat" },
+                { SpriteSheets.ENTITIES_SLIME,                      "entities/dynamic/slime" },
+                { SpriteSheets.ENTITIES_BAT,                        "entities/dynamic/bat" },
 
-                { SpriteSheets.ENITIES_FIREBALL,                     "entities/dynamic/fireball" },
-                { SpriteSheets.ENITIES_ARROW,                        "entities/dynamic/arrow" },
+                { SpriteSheets.ENITIES_FIREBALL,                    "entities/dynamic/fireball" },
+                { SpriteSheets.ENITIES_ARROW,                       "entities/dynamic/arrow" },
 
                 // entities – static / platforms
                 { SpriteSheets.ENTITIES_STATIC,                     "entities/static/static" },
                 { SpriteSheets.ENTITIES_TILES,                      "entities/static/tiles" },
                 { SpriteSheets.ENTITIES_PLATFORMS,                  "entities/static/platforms" },
                 { SpriteSheets.ENTITIES_LEDGES,                     "entities/static/ledges" },
+                { SpriteSheets.ENTITIES_STAIRS,                     "entities/static/stairs" },
 
                 // particles 
                 { SpriteSheets.ENTITIES_PARTICLES,                  "entities/static/particles" },
@@ -281,7 +285,12 @@ namespace Resources
                 { SpriteSheets.UI_GAME_ICON,                        "ui/gameicon" },
                 { SpriteSheets.UI_ICONS,                            "ui/icons" },
                 { SpriteSheets.UI_HUD,                              "ui/hud" },
-                { SpriteSheets.UI_ITEMS,                            "ui/items" }
+                { SpriteSheets.UI_ITEMS,                            "ui/items" },
+
+
+                //utils
+                { SpriteSheets.NONE,                                "utils/none" },
+                { SpriteSheets.UTILS_TILE_GRID,                     "utils/tile_grid" }
             };
     }
 }
