@@ -41,7 +41,7 @@ namespace Entities
                 if (ledge != null && AllowHangingOnLedge)
                 {
                     model.ModelState = ModelStates.HANGING_ON_LEDGE;
-                    model.Body.MoveTo(PhysicalConverter.ToFlatVector(ledge.HangingPosition));
+                    model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(ledge.HangingPosition));
 
                     HangingCounter++;
                     if (HangingCounter > 0.25f * Graphics.Graphics.UpdatesPerSecond)
@@ -67,7 +67,7 @@ namespace Entities
                 {
                     if (ledge.AutoClimbing)
                     {
-                        model.Body.MoveTo(PhysicalConverter.ToFlatVector(ledge.AutoClimbingDestination));
+                        model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(ledge.AutoClimbingDestination));
                         model.ModelState = ModelStates.IDLE;
                     }
                 }

@@ -55,7 +55,7 @@ namespace Entities
             }
 
             CurrentMapId = nextId;
-            Entities.Player.Model.Body.MoveTo(PhysicalConverter.ToFlatVector(playerPos));
+            Entities.Player.Model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(playerPos));
             maps[nextId].Entities.Add(Entities.Player);
 
             Physics.Physics.flatWorld.RefreshList(maps[nextId].Entities);

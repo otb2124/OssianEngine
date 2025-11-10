@@ -39,6 +39,19 @@ namespace Entities
             HandleInvincibility(toEnt);
         }
 
+        public static void HandleHit(BattleEntity toEnt, SpikeEntity fromEnt)
+        {
+            if (!toEnt.StatsManager.IsInvincible)
+            {
+                if (!toEnt.StatsManager.GetStat(EntityStats.HP).LessEquealZero())
+                {
+                    BattleTakingDamageHandler.HandleTakingDamage(toEnt, fromEnt);
+                }
+            }
+
+            HandleInvincibility(toEnt);
+        }
+
 
         //TODO: HANDLE DAMAGE DATA AS HANDLEHIT()
         public static void HandleBlockHit(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)

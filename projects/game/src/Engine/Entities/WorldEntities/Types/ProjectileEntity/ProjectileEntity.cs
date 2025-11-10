@@ -79,7 +79,7 @@ namespace Entities
 
                     Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_FIREBALL, PhysicalBodyFactory.CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
                     Model.BodyOffset = new Vector2(0, bodySize.Y / 10f * 32f);
-                    Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
+                    Model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(pos));
                     Model.Body.RotateTo(0f);
                     Model.UpdatesSurroundingRectangles = false;
 
@@ -104,7 +104,7 @@ namespace Entities
 
                     Model = ModelFactory.CreateModel(StaticSprites.ENTITIES_ARROW, PhysicalBodyFactory.CreatePhysicalBody(BodyDynamics.DYNAMIC, BodyShapeType.Box, bodySize, 1f, 0f));
                     Model.BodyOffset = new Vector2(0, bodySize.Y / 10f * 32f);
-                    Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
+                    Model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(pos));
                     Model.Body.RotateTo(0f);
                     Model.UpdatesSurroundingRectangles = false;
 
@@ -186,7 +186,7 @@ namespace Entities
                 Model.Body.linearVelocity = PhysicalVector.Zero;
 
                 Vector2 velocity = normalizedDirection * StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue;
-                Model.Body.Move(PhysicalConverter.ToFlatVector(velocity));
+                Model.Body.Move(PhysicalConverter.ToPhysicalVector(velocity));
 
                 if (MoveDirection != Vector2.Zero)
                 {

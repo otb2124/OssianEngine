@@ -25,11 +25,15 @@ namespace Entities
     {
 
         public Spikes Type;
+        public DamageSet DamageSet;
+        public float KnockbackPower;
 
         public SpikeEntity(Spikes type, Vector2 pos, float rot = 0) : base()
         {
             Type = type;
             Init(StaticSpriteFactory.SpikeSetCut(type), GetPhysicalBodyPreset(Type), pos, rot);
+            DamageSet = new DamageSet(10f, 10f);
+            KnockbackPower = 2f;
         }
 
 

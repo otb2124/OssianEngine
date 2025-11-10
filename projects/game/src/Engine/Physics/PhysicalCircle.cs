@@ -28,7 +28,7 @@ namespace Physics
 
         public bool Intersects(Vector2 point)
         {
-            float distance = PhysicalMath.Distance(PhysicalConverter.ToFlatVector(Center), PhysicalConverter.ToFlatVector(point));
+            float distance = PhysicalMath.Distance(PhysicalConverter.ToPhysicalVector(Center), PhysicalConverter.ToPhysicalVector(point));
             return distance < Radius;
         }
 

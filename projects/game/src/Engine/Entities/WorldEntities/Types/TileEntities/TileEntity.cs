@@ -48,7 +48,7 @@ namespace Entities
 
         public void Init(Vector2 pos, float rot)
         {
-            Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
+            Model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(pos));
             Model.Body.RotateTo(rot);
             //Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;

@@ -163,5 +163,25 @@ namespace Physics
 
             return null;
         }
+
+        public static SpikeEntity GetAnySpikes(PhysicalBody body)
+        {
+            foreach (PhysicalBody item in Physics.flatWorld.bodyList)
+            {
+                if (item.Owner is SpikeEntity)
+                {
+                    RotatedRectangle bodyBBox = body.ToRectangle();
+                    RotatedRectangle itemBox = item.ToRectangle();
+
+                    if (bodyBBox.Intersects(itemBox))
+                    {
+                        return (SpikeEntity)item.Owner;
+                    }
+                }
+
+            }
+
+            return null;
+        }
     }
 }

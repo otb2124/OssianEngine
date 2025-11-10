@@ -51,7 +51,7 @@ namespace Entities
         public virtual void Init(Models modelPreset, Vector2 pos, float rotation = 0f, Directions initDirection = Directions.LEFT)
         {
             Model = ModelFactory.CreateModel(modelPreset);
-            Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
+            Model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(pos));
             Model.Body.RotateTo(rotation);
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
@@ -70,7 +70,7 @@ namespace Entities
         public virtual void Init(StaticSprites sprite, PhysicalBodies body, Vector2 pos, float rotation = 0f, Directions initDirection = Directions.LEFT)
         {
             Model = ModelFactory.CreateModel(sprite, body);
-            Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
+            Model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(pos));
             Model.Body.RotateTo(rotation);
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);
@@ -89,7 +89,7 @@ namespace Entities
         public virtual void Init(StaticSprite spriteData, PhysicalBodies body, Vector2 pos, float rotation = 0f)
         {
             Model = ModelFactory.CreateModel(spriteData, body);
-            Model.Body.MoveTo(PhysicalConverter.ToFlatVector(pos));
+            Model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(pos));
             Model.Body.RotateTo(rotation);
             Model.UpdatesSurroundingRectangles = UpdatesSurroundingRectangles;
             Physics.Physics.flatWorld.AddBody(Model.Body);

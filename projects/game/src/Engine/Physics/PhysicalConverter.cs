@@ -12,7 +12,7 @@ namespace Physics
             return new Vector2(x, y);
         }
 
-        public static PhysicalVector ToFlatVector(Vector2 vector2)
+        public static PhysicalVector ToPhysicalVector(Vector2 vector2)
         {
             return new PhysicalVector(vector2.X, vector2.Y);
         }

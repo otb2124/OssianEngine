@@ -257,11 +257,11 @@ namespace Physics
             Vector2 ca = a - c;
             Vector2 cb = b - c;
 
-            float c1 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(ab), PhysicalConverter.ToFlatVector(ac));
-            float c2 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(ab), PhysicalConverter.ToFlatVector(ad));
+            float c1 = PhysicalMath.Cross(PhysicalConverter.ToPhysicalVector(ab), PhysicalConverter.ToPhysicalVector(ac));
+            float c2 = PhysicalMath.Cross(PhysicalConverter.ToPhysicalVector(ab), PhysicalConverter.ToPhysicalVector(ad));
 
-            float c3 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(cd), PhysicalConverter.ToFlatVector(ca));
-            float c4 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(cd), PhysicalConverter.ToFlatVector(cb));
+            float c3 = PhysicalMath.Cross(PhysicalConverter.ToPhysicalVector(cd), PhysicalConverter.ToPhysicalVector(ca));
+            float c4 = PhysicalMath.Cross(PhysicalConverter.ToPhysicalVector(cd), PhysicalConverter.ToPhysicalVector(cb));
 
             // Same sign = no intersection.
             // Result of Zero indicates that the intersection happens at an end point of one of the segments. Consider this an intersection.
@@ -323,7 +323,7 @@ namespace Physics
 
             Vector2 cp = new Vector2(cx, cy);
 
-            return PhysicalMath.Distance(PhysicalConverter.ToFlatVector(circle.Center), PhysicalConverter.ToFlatVector(cp)) < circle.Radius;
+            return PhysicalMath.Distance(PhysicalConverter.ToPhysicalVector(circle.Center), PhysicalConverter.ToPhysicalVector(cp)) < circle.Radius;
         }
 
         public static bool IntersectCirclesFast(float ax, float ay, float ar, float bx, float by, float br, out float depth, out Vector2 normal)
@@ -560,9 +560,9 @@ namespace Physics
             Vector2 bp = p - b;
             Vector2 cp = p - c;
 
-            float c1 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(ab), PhysicalConverter.ToFlatVector(ap));
-            float c2 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(bc), PhysicalConverter.ToFlatVector(bp));
-            float c3 = PhysicalMath.Cross(PhysicalConverter.ToFlatVector(ca), PhysicalConverter.ToFlatVector(cp));
+            float c1 = PhysicalMath.Cross(PhysicalConverter.ToPhysicalVector(ab), PhysicalConverter.ToPhysicalVector(ap));
+            float c2 = PhysicalMath.Cross(PhysicalConverter.ToPhysicalVector(bc), PhysicalConverter.ToPhysicalVector(bp));
+            float c3 = PhysicalMath.Cross(PhysicalConverter.ToPhysicalVector(ca), PhysicalConverter.ToPhysicalVector(cp));
 
             if (c1 < 0f && c2 < 0f && c3 < 0f)
             {

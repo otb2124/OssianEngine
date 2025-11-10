@@ -37,6 +37,19 @@ namespace Entities
             Console.WriteLine(toEnt.StatsManager.GetStat(EntityStats.HP).CurrentValue + "/" + toEnt.StatsManager.GetStat(EntityStats.HP).MaximumValue + ", projectile damage");
         }
 
+        public static void HandleTakingDamage(BattleEntity toEnt, SpikeEntity fromEnt)
+        {
+            ReceivePhysDamage(toEnt, fromEnt.DamageSet.PhysDamage);
+            ReceiveMagicDamage(toEnt, fromEnt.DamageSet.MagicDamage);
+            //ReceivePoiseDamage(toEnt, fromEnt.PoiseDamage);
+            ReceiveKnockBack(toEnt, fromEnt.KnockbackPower, fromEnt.Model.Body.Position.ToVector2());
+
+            GenerateParticle(toEnt, fromEnt.KnockbackPower, fromEnt.Model.Body.Position.ToVector2());
+            PlayRecivingDamageSound(toEnt);
+
+            Console.WriteLine(toEnt.StatsManager.GetStat(EntityStats.HP).CurrentValue + "/" + toEnt.StatsManager.GetStat(EntityStats.HP).MaximumValue + ", prick into spike damage");
+        }
+
 
         public static void ReceivePhysDamage(BattleEntity toEnt, float damage)
         {
@@ -64,7 +77,7 @@ namespace Entities
 
         public static void ReceiveKnockBack(StatsEntity toEnt, float knockBackPower, Vector2 fromEntHitboxExtendsPos)
         {
-            PhysicalVector knockbackForce = CalculateKnockBackForce(toEnt.Model.Body.Position, PhysicalConverter.ToFlatVector(fromEntHitboxExtendsPos), knockBackPower);
+            PhysicalVector knockbackForce = CalculateKnockBackForce(toEnt.Model.Body.Position, PhysicalConverter.ToPhysicalVector(fromEntHitboxExtendsPos), knockBackPower);
             PhysicalVector fixedKnockbackForce = new PhysicalVector(knockbackForce.X, knockbackForce.Y + knockBackPower);
             toEnt.Model.Body.ApplyForce(fixedKnockbackForce);
         }
@@ -79,7 +92,7 @@ namespace Entities
         {
             if (toEnt.BloodDropParticle != Graphics.ParticleSet.ParticleSets.NONE)
             {
-                Graphics.Graphics.ParticleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.Body.Position.ToVector2(), CalculateKnockBackForce(toEnt.Model.Body.Position, PhysicalConverter.ToFlatVector(fromEntHitboxExtendsPos), knockbackPower).ToVector2() / 2));
+                Graphics.Graphics.ParticleManager.ParticleSets.Add(new Graphics.ParticleSet(toEnt.BloodDropParticle, toEnt.Model.Body.Position.ToVector2(), CalculateKnockBackForce(toEnt.Model.Body.Position, PhysicalConverter.ToPhysicalVector(fromEntHitboxExtendsPos), knockbackPower).ToVector2() / 2));
             }
         }
 

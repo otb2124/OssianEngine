@@ -309,7 +309,7 @@ namespace Graphics
             float bottom = -height * 0.5f;
             float top = bottom + height;
 
-            PhysicalTransform transform = new PhysicalTransform(PhysicalConverter.ToFlatVector(center), rotation, scale);
+            PhysicalTransform transform = new PhysicalTransform(PhysicalConverter.ToPhysicalVector(center), rotation, scale);
 
             Vector2 a = PhysicalUtil.Transform(new Vector2(left, top), transform);
             Vector2 b = PhysicalUtil.Transform(new Vector2(right, top), transform);

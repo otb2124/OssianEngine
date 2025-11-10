@@ -46,7 +46,8 @@ namespace Entities
                 new DescencionAbility(0.5f, 1.25f),
                 new DoubleJumpAbility(),
                 new InwaterWalkingAbility(0.5f),
-                new LadderClimbingAbility()
+                new LadderClimbingAbility(),
+                new PrickIntoSpikeAbility()
             };
 
             StatsManager.RefillAll();

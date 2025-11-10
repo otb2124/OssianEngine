@@ -20,6 +20,7 @@ namespace Entities
         DOUBLE_JUMP,
         INWATER_WALKING,
         LADDER_CLIMBING,
+        PRICK_INTO_SPIKE
     };
 
 
