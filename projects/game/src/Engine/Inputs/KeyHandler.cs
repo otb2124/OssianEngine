@@ -34,6 +34,7 @@ namespace Inputs
             MOVERIGHTPRESSED,
             MOVELEFTPRESSED,
             MOVEDOWNPRESSED,
+            MOVEUPPRESSED,
             ATTACKLIGHTPRESSED,
             ATTACKHEAVYPRESSED,
             TOGGLEWEAPONPRESSED,
@@ -67,6 +68,7 @@ namespace Inputs
             { KeyStates.MOVERIGHTPRESSED, false },
             { KeyStates.MOVELEFTPRESSED, false },
             { KeyStates.MOVEDOWNPRESSED, false },
+            { KeyStates.MOVEUPPRESSED, false },
             { KeyStates.ATTACKLIGHTPRESSED, false },
             { KeyStates.ATTACKHEAVYPRESSED, false },
             { KeyStates.TOGGLEWEAPONPRESSED, false },
@@ -94,12 +96,13 @@ namespace Inputs
         };
 
 
-        public Dictionary<(KeyStates state, bool clickOnly), List<InputKey>> keyBindings = new Dictionary<(KeyStates, bool), List<InputKey>>
+        public Dictionary<(KeyStates state, bool clickOnly), List<InputKey>> KeyBindings = new Dictionary<(KeyStates, bool), List<InputKey>>
         {
             //Player keys
             { (KeyStates.MOVERIGHTPRESSED, false), new List<InputKey> { new InputKey(Keys.D) } },
             { (KeyStates.MOVELEFTPRESSED, false), new List<InputKey> { new InputKey(Keys.A) } },
             { (KeyStates.MOVEDOWNPRESSED, false), new List<InputKey> { new InputKey(Keys.S) } },
+            { (KeyStates.MOVEUPPRESSED, false), new List<InputKey> { new InputKey(Keys.W) } },
             { (KeyStates.SPRINTPRESSED, false), new List<InputKey> { new InputKey(Keys.LeftShift) } },
             { (KeyStates.JUMPPRESSED, false), new List<InputKey> { new InputKey(Keys.Space) } },
             { (KeyStates.INTERACTRESSED, true), new List<InputKey> { new InputKey(Keys.E) } },
@@ -129,7 +132,7 @@ namespace Inputs
 
         public KeyHandler() {
 
-            foreach (var (state, _) in keyBindings.Keys)
+            foreach (var (state, _) in KeyBindings.Keys)
             {
                 if (!KeyStateMap.ContainsKey(state))
                 {
@@ -147,7 +150,7 @@ namespace Inputs
 
         private void HandleKeyClicks()
         {
-            foreach (var ((state, clickOnly), bindings) in keyBindings)
+            foreach (var ((state, clickOnly), bindings) in KeyBindings)
             {
                 if (!clickOnly) continue;
 
@@ -170,7 +173,7 @@ namespace Inputs
 
         private void HandleKeyPresses()
         {
-            foreach (var ((state, clickOnly), bindings) in keyBindings)
+            foreach (var ((state, clickOnly), bindings) in KeyBindings)
             {
                 if (clickOnly) continue;
 
@@ -193,7 +196,7 @@ namespace Inputs
 
         private void HandleKeyReleases()
         {
-            foreach (var ((state, clickOnly), bindings) in keyBindings)
+            foreach (var ((state, clickOnly), bindings) in KeyBindings)
             {
                 if (clickOnly) continue;
 
@@ -220,7 +223,7 @@ namespace Inputs
         }
 
 
-        private bool isAnyPressed()
+        private bool IsAnyPressed()
         {
             return Inputs.keyboard.GetPressedKeys().Count > 0 || Inputs.mouse.GetPressedButtons().Count > 0;
         }

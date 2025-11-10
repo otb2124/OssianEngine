@@ -215,6 +215,7 @@ namespace Entities
 
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
+                            new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
 
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED)
@@ -245,6 +246,7 @@ namespace Entities
 
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
+                            new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
 
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED)
@@ -282,7 +284,7 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
-
+                            new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
 
@@ -322,7 +324,7 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
-
+                            new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
 

@@ -143,5 +143,25 @@ namespace Physics
 
             return null;
         }
+
+        public static LadderEntity GetAnyLadders(PhysicalBody body)
+        {
+            foreach (PhysicalBody item in Physics.flatWorld.bodyList)
+            {
+                if (item.Owner is LadderEntity)
+                {
+                    RotatedRectangle bodyBBox = body.ToRectangle();
+                    RotatedRectangle itemBox = item.ToRectangle();
+
+                    if (bodyBBox.Intersects(itemBox))
+                    {
+                        return (LadderEntity)item.Owner;
+                    }
+                }
+
+            }
+
+            return null;
+        }
     }
 }

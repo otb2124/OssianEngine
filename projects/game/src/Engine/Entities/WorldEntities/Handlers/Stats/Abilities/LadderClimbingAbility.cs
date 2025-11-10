@@ -1,11 +1,5 @@
 ﻿using Physics;
 using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Utils;
 
 namespace Entities
 {
@@ -18,59 +12,50 @@ namespace Entities
             Type = EntityStatFeatures.LADDER_CLIMBING;
         }
 
-        public override void Update(StatsManager statsManager, Resources.Model model)
+        public override void Update(StatsManager statsManager, Model model)
         {
 
-            /*
-            if (!AllowHangingOnLedge && model.ModelState != ModelStates.HANGING_ON_LEDGE)
+            LadderEntity ladder = CollisionHelper.GetAnyLadders(model.Body);
+            if (ladder != null)
             {
-                UnHangingCounter++;
-
-                if (UnHangingCounter > 0.5f * Graphics.Graphics.UpdatesPerSecond)
+                if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVEUPPRESSED])
                 {
-                    AllowHangingOnLedge = true;
-                    UnHangingCounter = 0;
-                }
-            }
-
-            if (statsManager.IsTouchingWalls)
-            {
-                LedgeEntity ledge = CollisionHelper.GetAnyLedges(model.Body);
-                if (ledge != null && AllowHangingOnLedge)
-                {
-                    model.ModelState = ModelStates.HANGING_ON_LEDGE;
-                    model.Body.MoveTo(PhysicalConverter.ToFlatVector(ledge.HangingPosition));
-
-                    HangingCounter++;
-                    if (HangingCounter > 0.25f * Graphics.Graphics.UpdatesPerSecond)
-                    {
-                        AllowHangingOnLedge = false;
-                        HangingCounter = 0;
-                    }
-
-                    //TODO FIX THE LEDGES DIRECTION SWAP
-                    if (ledge.Model.Direction == Directions.RIGHT)
-                    {
-                        model.AnimationState = AnimationStates.HANGING;
-                    }
-                    else
-                    {
-                        model.AnimationState = AnimationStates.HANGING_ALT;
-                    }
+                    model.ModelState = ModelStates.CLIMBING_LADDER;
                 }
 
-
-                //autoclimb case
-                if (ledge != null && !AllowHangingOnLedge)
+                if (model.ModelState == ModelStates.CLIMBING_LADDER)
                 {
-                    if (ledge.AutoClimbing)
+                    model.Body.IsFrozen = true;
+
+                    if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
                     {
-                        model.Body.MoveTo(PhysicalConverter.ToFlatVector(ledge.AutoClimbingDestination));
-                        model.ModelState = ModelStates.IDLE;
+                        model.Body.Move(new PhysicalVector(statsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * -1f, 0));
+                    }
+                            
+                    if(Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
+                    {
+                        model.Body.Move(new PhysicalVector(statsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * 1f, 0));
+                    }
+
+                    if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVEUPPRESSED])
+                    {
+                        model.Body.Move(new PhysicalVector(0, statsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * 1f));
+                    }
+
+                    if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVEDOWNPRESSED])
+                    {
+                        model.Body.Move(new PhysicalVector(0, statsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * -1f));
                     }
                 }
             }
-            */
+            else
+            {
+                if(model.ModelState == ModelStates.CLIMBING_LADDER)
+                {
+                    model.Body.IsFrozen = false;
+                    model.ModelState = ModelStates.IDLE;
+                }
+            }
         }
     }
 }

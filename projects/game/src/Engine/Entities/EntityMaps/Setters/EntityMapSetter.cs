@@ -22,6 +22,7 @@ namespace Entities
                 case 0:
                     //ledge parkour way
                     entities.Add(new TileEntity(new Vector2(550, -400), new Point(5, 5), TileEntity.TileSets.TILE_0, 0, true) { IsWall = true});
+
                     entities.Add(new LedgeEntity(new Vector2(474, -460), Directions.LEFT, LedgeEntity.Ledges.LEDGE0));
                     entities.Add(new LedgeEntity(new Vector2(474, -330), Directions.LEFT, LedgeEntity.Ledges.LEDGE0, true));
                     entities.Add(new LedgeEntity(new Vector2(626, -460), Directions.RIGHT, LedgeEntity.Ledges.LEDGE0));
@@ -48,6 +49,7 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(500,  -680), new Point(12, 2), TileEntity.TileSets.TILE_0, 0, true));
 
                     entities.Add(new LadderEntity(Ladders.LADDER0, new Vector2(-120, -60), 10));
+                    entities.Add(new LadderEntity(Ladders.LADDER0, new Vector2(-184, -300), 10));
                     entities.Add(new LadderEntity(Ladders.LADDER0, new Vector2(-220, 0), 5));
 
                     entities.Add(new PlatformEntity(Platforms.PLATFROM0, new Vector2(140, 0), 5));
