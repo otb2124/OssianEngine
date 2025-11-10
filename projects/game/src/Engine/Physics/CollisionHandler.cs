@@ -9,11 +9,11 @@ namespace Physics
 
         private static readonly Dictionary<Type, HashSet<Type>> IgnoreCollisionTransformationGeneral = new()
         {
-            { typeof(Player), new() { typeof(PlatformEntity), typeof(HumanoidEntity), typeof(AnimalMob), typeof(LedgeEntity), typeof(WaterTileEntity)} },
-            { typeof(HumanoidEntity), new() { typeof(AnimalMob), typeof(HumanoidEntity), typeof(WaterTileEntity) } },
-            { typeof(AnimalMob), new() { typeof(AnimalMob), typeof(WaterTileEntity) } },
-            { typeof(InteractiveItemEntity), new() { typeof(AnimalMob), typeof(HumanoidEntity), typeof(Player), typeof(InteractiveItemEntity), typeof(WaterTileEntity) } },
-            { typeof(DestroyableEntity), new () { typeof(WaterTileEntity) } }
+            { typeof(Player), new() { typeof(PlatformEntity), typeof(HumanoidEntity), typeof(AnimalMob), typeof(LedgeEntity), typeof(WaterTileEntity), typeof(LadderEntity)} },
+            { typeof(HumanoidEntity), new() { typeof(AnimalMob), typeof(HumanoidEntity), typeof(WaterTileEntity), typeof(LadderEntity) } },
+            { typeof(AnimalMob), new() { typeof(AnimalMob), typeof(WaterTileEntity), typeof(LadderEntity) } },
+            { typeof(InteractiveItemEntity), new() { typeof(AnimalMob), typeof(HumanoidEntity), typeof(Player), typeof(InteractiveItemEntity), typeof(WaterTileEntity), typeof(LadderEntity) } },
+            { typeof(DestroyableEntity), new () { typeof(WaterTileEntity), typeof(LadderEntity) } }
         };
 
         private static readonly Dictionary<Type, HashSet<Type>> IgnoreCollisionTransformationAdditional = new()

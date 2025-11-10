@@ -95,7 +95,7 @@ namespace Graphics
             }
             else
             {
-                // Update the Camera's view and projection matrices if the Camera MaxZ position has changed.
+                // Check the Camera's view and projection matrices if the Camera MaxZ position has changed.
                 camera.Update();
 
                 effect.View = camera.View;

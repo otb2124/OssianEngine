@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Physics;
 using Resources;
-using static Resources.StaticSpriteFactory;
 
 namespace Entities
 {
@@ -39,7 +38,7 @@ namespace Entities
             Physics.Physics.flatWorld.AddBody(Model.Body);
             Model.Body.Owner = this;
 
-            StaticSprite[] data = PlatformSetCut(Type, DisableRotationMatrixDraw);
+            StaticSprite[] data = StaticSpriteFactory.PlatformSetCut(Type, DisableRotationMatrixDraw);
             aManagers = new AnimationSet[data.Length];
 
             for (int i = 0; i < aManagers.Length; i++)

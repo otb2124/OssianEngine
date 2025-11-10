@@ -24,7 +24,10 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            if (model.ModelState == ModelStates.MOVING || model.ModelState == ModelStates.INWATER_MOVING || model.ModelState == ModelStates.WEAPON_OUT_MOVING)
+            if (model.ModelState == ModelStates.MOVING || 
+                model.ModelState == ModelStates.INWATER_MOVING || 
+                model.ModelState == ModelStates.WEAPON_OUT_MOVING ||
+                model.ModelState == ModelStates.SPRINTING)
             {
                 WaterTileEntity waterTile = CollisionHelper.GetAnyWaterTiles(model.Body);
                 if (waterTile != null)
@@ -35,7 +38,6 @@ namespace Entities
                         MultiplierApplied = true;
                         StatRestored = false;
                     }
-
 
                     Graphics.Graphics.VFXManager.AddSingleVFX(Graphics.VFXs.WATER_STEP, model.Body.Position.ToVector2(), Vector2.One);
                     model.ModelState = ModelStates.INWATER_MOVING;

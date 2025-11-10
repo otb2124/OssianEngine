@@ -32,8 +32,10 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(200,  -250), new Point(2, 1), TileEntity.TileSets.TILE_0));
                     entities.Add(new TileEntity(new Vector2(400,  -250), new Point(3, 2), TileEntity.TileSets.TILE_0));
                     entities.Add(new TileEntity(new Vector2(600,  -200), new Point(6, 1), TileEntity.TileSets.TILE_0, 0.4f));
+
                     entities.Add(new PlatformEntity(Platforms.STAIR0, new Vector2(700, -100), 5, true, 0.7f));
                     entities.Add(new PlatformEntity(Platforms.PLATFROM0, new Vector2(800, -100), 5, false, 0.7f));
+
                     entities.Add(new TileEntity(new Vector2(800,  -250), new Point(3, 2), TileEntity.TileSets.TILE_0));
                     entities.Add(new TileEntity(new Vector2(1000, -250), new Point(2, 2), TileEntity.TileSets.TILE_0));
                     entities.Add(new TileEntity(new Vector2(1000, -250), new Point(3, 2), TileEntity.TileSets.TILE_0));
@@ -44,6 +46,9 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(0,    -625), new Point(20, 1), TileEntity.TileSets.TILE_0, 0, true));
                     entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.TILE_0, 0, true));
                     entities.Add(new TileEntity(new Vector2(500,  -680), new Point(12, 2), TileEntity.TileSets.TILE_0, 0, true));
+
+                    entities.Add(new LadderEntity(Ladders.LADDER0, new Vector2(-120, -60), 10));
+                    entities.Add(new LadderEntity(Ladders.LADDER0, new Vector2(-220, 0), 5));
 
                     entities.Add(new PlatformEntity(Platforms.PLATFROM0, new Vector2(140, 0), 5));
                     entities.Add(new PlatformEntity(Platforms.PLATFROM0, new Vector2(0, -60), 5));
@@ -96,6 +101,8 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(500, -600), new Point(12, 2), TileEntity.TileSets.TILE_1, 0, true));
                     entities.Add(new TileEntity(new Vector2(1000, -600), new Point(12, 2), TileEntity.TileSets.TILE_1, 0, true));
                     entities.Add(new TileEntity(new Vector2(-1000, -600), new Point(12, 2), TileEntity.TileSets.TILE_1, 0, true));
+
+                    
 
                     break;
             }

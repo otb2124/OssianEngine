@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,21 +14,37 @@ namespace Entities
         public ModelStates ModelState;
 
 
-        public ModelStateSwap(ModelStates modelState, Requirement[] requirements)
+        public ModelStateSwap(ModelStates modelState, Requirement[] requirements = null)
         {
             ModelState = modelState;
             Requirements = requirements;
         }
 
-        public void Update()
+        public void Check()
         {
-            foreach (Requirement requirement in Requirements)
+            if(Requirements == null)
             {
-                if (requirement.Check())
+                Entities.Player.Model.ModelState = ModelState;
+            }
+            else
+            {
+                foreach (Requirement requirement in Requirements)
                 {
-                    Entities.Player.Model.ModelState = ModelState;
+                    if (requirement.Check())
+                    {
+                        Entities.Player.Model.ModelState = ModelState;
+                    }
                 }
             }
+            
+        }
+
+        public void Apply(StatsEntity Entity)
+        {
+            ModelStates state = Entity.Model.ModelState;
+            int directionXFactor = Entity.Model.Direction == Directions.RIGHT ? 1 : -1;
+
+            ModelStateHandler.StateActions[state](Entity, directionXFactor);
         }
     }
 

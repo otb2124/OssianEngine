@@ -1,9 +1,10 @@
 ﻿using Resources;
+using System.Linq;
 using Utils;
 
 namespace Entities
 {
-    public static class ModelStateSwapHandler
+    public static class ModelStateManager
     {
 
         public static ModelStateSwap[] ModelStateSwappers = new[]
@@ -411,6 +412,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
 
+                            new ModelStateRequirement(ModelStates.INWATER_MOVING, true),
+
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.SPRINT_SPEED_MULTIPLIER),
                             new IsOnStaminaRegenRequirement(true),
                             new IsGroundedRequirement(),
@@ -488,7 +491,7 @@ namespace Entities
 
                             //new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
-                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
+                            //new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
 
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
@@ -502,20 +505,77 @@ namespace Entities
                     )
                 }
             ),
+
+            //MOVING
+            new ModelStateSwap(
+                ModelStates.INWATER_MOVING,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                             new OrRequirement(
+                                new Requirement[]
+                                {
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED),
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED)
+                                }
+                             ),
+
+                            new ModelStateRequirement(ModelStates.JUMPING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING, true),
+
+                            new ModelStateRequirement(ModelStates.SPRINTING, true),
+                            new ModelStateRequirement(ModelStates.ROLLING, true),
+
+                            //new ModelStateRequirement(ModelStates.DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
+
+                            new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
+                            new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
+                            new ModelStateRequirement(ModelStates.FALLEN, true),
+
+                            new ModelStateRequirement(ModelStates.MOVING, true),
+
+                            new IsGroundedRequirement(),
+                            new AllowJumpDescendingRequirement(true),
+                        }
+                    )
+                }
+            ),
         };
+
+
+        public static ModelStateSwap GetModelStateSwap(ModelStates modelState)
+        {
+            return ModelStateSwappers.FirstOrDefault(swap => swap.ModelState == modelState);
+        }
+
 
         public static void Update()
         {
 
             foreach (ModelStateSwap modelStateSwap in ModelStateSwappers)
             {
-                modelStateSwap.Update();
+                modelStateSwap.Check();
             }
 
             ToggleWeapon();
 
             TurnRight();
             TurnLeft();
+        }
+
+
+        public static void Apply(StatsEntity Entity)
+        {
+            ModelStateSwap swap = GetModelStateSwap(Entity.Model.ModelState);
+
+            if (swap != null)
+            {
+                swap.Apply(Entity);
+            }
         }
 
 

@@ -79,10 +79,10 @@ namespace UI
                 paddedItems.Add(null);
             }
 
-            // Update InventoryList
+            // Check InventoryList
             InventoryList[id].Items = paddedItems;
 
-            // Update AllItems
+            // Check AllItems
             int listStartIndex = 0;
             for (int i = 0; i < id; i++)
             {
@@ -104,10 +104,10 @@ namespace UI
                 paddedSlots.Add(null);
             }
 
-            // Update SlotboardList
+            // Check SlotboardList
             SlotboardList[id] = paddedSlots;
 
-            // Update AllSlots
+            // Check AllSlots
             int listStartIndex = 0;
             for (int i = 0; i < id; i++)
             {

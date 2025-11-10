@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Entities
 {
@@ -160,7 +161,6 @@ namespace Entities
         {
             return GetStat(EntityStats.MANA).CurrentValue - BattleStatsCalculator.GetFinalManaPerHitCostForBattleEntity(ent) > 0;
         }
-
 
         public bool CheckEnoughStaminaForStat(EntityStats stat)
         {

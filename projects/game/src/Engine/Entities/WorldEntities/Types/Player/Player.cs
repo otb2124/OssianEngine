@@ -45,7 +45,8 @@ namespace Entities
                 new GCSRectanglesCalculatorAbility(),
                 new DescencionAbility(0.5f, 1f),
                 new DoubleJumpAbility(),
-                new InwaterWalkingAbility(0.5f)
+                new InwaterWalkingAbility(0.5f),
+                new LadderClimbingAbility()
             };
 
             StatsManager.RefillAll();
@@ -169,7 +170,7 @@ namespace Entities
 
         public override void Update()
         {
-            ModelStateSwapHandler.Update();
+            ModelStateManager.Update();
             Console.WriteLine(Model.ModelState);
             base.Update();
         }

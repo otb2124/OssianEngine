@@ -192,6 +192,31 @@ namespace Resources
             return data;
         }
 
+
+        public static StaticSprite[] LadderSetCut(Ladders type, int tileSize = 32)
+        {
+            StaticSprite[] data = new StaticSprite[3];
+            Vector2 pos = Vector2.Zero;
+
+            switch (type)
+            {
+                case Ladders.LADDER0:
+                    pos = Vector2.Zero;
+                    break;
+                //case Ladders.STAIR0:
+                //    pos = new Vector2(0, tileSize * 1);
+                //    break;
+            }
+
+            data[0] = new StaticSprite(SpriteSheets.ENTITIES_LADDERS, new Rectangle((int)pos.X + 0 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            data[1] = new StaticSprite(SpriteSheets.ENTITIES_LADDERS, new Rectangle((int)pos.X + 1 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+            data[2] = new StaticSprite(SpriteSheets.ENTITIES_LADDERS, new Rectangle((int)pos.X + 2 * tileSize, (int)pos.Y, tileSize, tileSize), 0);
+
+            return data;
+        }
+
+
+
         public static StaticSprite[] UIFrameCut(Vector2 pos, int tileSize)
         {
             StaticSprite[] data = new StaticSprite[9];
