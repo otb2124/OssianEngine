@@ -161,7 +161,7 @@ namespace UI
             if (FromSlotId != -1 && !Inputs.Inputs.mouse.IsLeftMouseButtonDown() && !Inputs.Inputs.mouse.IsRightMouseButtonDown())
             {
                 PointF mousePos = new PointF(Inputs.Inputs.mouse.GetMouseWorldPosition().X, Inputs.Inputs.mouse.GetMouseWorldPosition().Y);
-                float screenHeight = Graphics.Graphics.screen.Height;
+                float screenHeight = Graphics.Graphics.Screen.Height;
 
                 UIInventorySlotComponent fromSlot = (FromSlotId < AllSlots.Count) ? (UIInventorySlotComponent)AllSlots[FromSlotId] : null;
                 if (fromSlot == null)

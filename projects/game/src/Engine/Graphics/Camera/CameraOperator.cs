@@ -12,7 +12,7 @@ namespace Graphics
 
         public CameraOperator()
         {
-            targetPosition = Graphics.camera.position;
+            targetPosition = Graphics.Camera.position;
         }
 
         public void Update()
@@ -20,14 +20,14 @@ namespace Graphics
             targetPosition = PhysicalConverter.ToVector2(Entities.Entities.Player.Model.Body.Position);
 
             Vector2 mapSize = Entities.Entities.EntityMapManager.GetCurrentMap().Size.ToVector2() / 2f;
-            Vector2 screenSize = new Vector2(Graphics.screen.Width, Graphics.screen.Height);
+            Vector2 screenSize = new Vector2(Graphics.Screen.Width, Graphics.Screen.Height);
 
             // Zoom
-            float currentZoom = (float)Graphics.camera.Z;
-            float initialZoom = (float)Graphics.camera.MaxZ*1.5f;
+            float currentZoom = (float)Graphics.Camera.Z;
+            float initialZoom = (float)Graphics.Camera.MaxZ*1.5f;
             float adjScale = currentZoom / initialZoom;
 
-            // Camera screen bounds (adjusted for zoom)
+            // Camera Screen bounds (adjusted for zoom)
             float cameraLeft = targetPosition.X - (screenSize.X / 2 * adjScale);
             float cameraRight = targetPosition.X + (screenSize.X / 2 * adjScale);
             float cameraTop = targetPosition.Y + (screenSize.Y / 2 * adjScale);
@@ -59,11 +59,11 @@ namespace Graphics
 
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
             {
-                Graphics.camera.MoveZ(-2f);
+                Graphics.Camera.MoveZ(-2f);
             }
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
             {
-                Graphics.camera.MoveZ(2f);
+                Graphics.Camera.MoveZ(2f);
             }
 
             float clampedX = targetPosition.X;
@@ -87,7 +87,7 @@ namespace Graphics
                 targetPosition.Y += topBound - cameraTop;
             }
 
-            Graphics.camera.position = Vector2.Lerp(Graphics.camera.position, targetPosition, transitionSpeed);
+            Graphics.Camera.position = Vector2.Lerp(Graphics.Camera.position, targetPosition, transitionSpeed);
         }
     }
 }

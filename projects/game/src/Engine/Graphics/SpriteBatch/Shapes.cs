@@ -95,7 +95,7 @@ namespace Graphics
             }
             else
             {
-                // Update the camera's view and projection matrices if the camera MaxZ position has changed.
+                // Update the Camera's view and projection matrices if the Camera MaxZ position has changed.
                 camera.Update();
 
                 effect.View = camera.View;
@@ -638,11 +638,11 @@ namespace Graphics
             // Default thickness with no zoom.
             float thickness = 2f;
 
-            // If we are using the world camera then we need to adjust the "thickness" of the line
+            // If we are using the world Camera then we need to adjust the "thickness" of the line
             //  so no matter how far we have "zoomed" into the world the line will look the same.
             if (this.usingCamera)
             {
-                thickness /= (float)this.camera.Zoom;
+                thickness /= (float)this.Camera.Zoom;
             }
 
             Vector2 edge = b - a;
@@ -663,7 +663,7 @@ namespace Graphics
             // Default thickness with not zoom.
             float thickness = 2f;
 
-            // If we are using the world camera then we need to adjust the "thickness" of the line
+            // If we are using the world Camera then we need to adjust the "thickness" of the line
             //  so no matter how far we have "zoomed" into the world the line will look the same.
             if (usingCamera)
             {
@@ -700,7 +700,7 @@ namespace Graphics
             // Default thickness with not zoom.
             float thickness = 2f;
 
-            // If we are using the world camera then we need to adjust the "thickness" of the line
+            // If we are using the world Camera then we need to adjust the "thickness" of the line
             //  so no matter how far we have "zoomed" into the world the line will look the same.
             if (usingCamera)
             {
@@ -743,7 +743,7 @@ namespace Graphics
             // Default thickness with no zoom.
             float thickness = 0.3f;
 
-            // If we are using the world camera then we need to adjust the "thickness" of the line
+            // If we are using the world Camera then we need to adjust the "thickness" of the line
             //  so no matter how far we have "zoomed" into the world the line will look the same.
             if (usingCamera)
             {
@@ -803,7 +803,7 @@ namespace Graphics
             // Default thickness with not zoom.
             float thickness = 2f;
 
-            // If we are using the world camera then we need to adjust the "thickness" of the line
+            // If we are using the world Camera then we need to adjust the "thickness" of the line
             //  so no matter how far we have "zoomed" into the world the line will look the same.
             if (usingCamera)
             {

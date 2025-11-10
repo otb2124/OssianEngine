@@ -51,7 +51,7 @@ namespace Entities
         public override void Draw(Color color)
         {
             Color drawColor = new Color((byte)color.R, (byte)color.G, (byte)color.B, (byte)64);
-            Graphics.Graphics.shapes.DrawBoxFill(this.outerHalf.Position, outerHalf.Width, outerHalf.Height, outerHalf.Rotation, drawColor);
+            Graphics.Graphics.Shapes.DrawBoxFill(this.outerHalf.Position, outerHalf.Width, outerHalf.Height, outerHalf.Rotation, drawColor);
         }
     }
 }

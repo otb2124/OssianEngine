@@ -10,9 +10,9 @@ namespace Entities
 {
     public class EntityMap
     {
+        public int Id;
 
         public Point Size;
-        public int Id;
         public List<WorldEntity> Entities;
         public List<Event> Events;
         public List<FilterLayer> FilterLayers;

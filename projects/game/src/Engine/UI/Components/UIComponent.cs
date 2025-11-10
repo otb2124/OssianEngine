@@ -97,14 +97,14 @@ namespace UI
 
             if (IsAppliedHalfScreenOriginState)
             {
-                adjPosition -= new Vector2(Graphics.Graphics.screen.Width / 2, Graphics.Graphics.screen.Height / 2);
+                adjPosition -= new Vector2(Graphics.Graphics.Screen.Width / 2, Graphics.Graphics.Screen.Height / 2);
             }
 
             float zoomFactor = 1f;
             if (IsStickToZoomState)
             {
-                float currentZoom = (float)Graphics.Graphics.camera.Z;
-                float baseZoom = (float)Graphics.Graphics.camera.GetZFromHeight(Graphics.Graphics.screen.Height);
+                float currentZoom = (float)Graphics.Graphics.Camera.Z;
+                float baseZoom = (float)Graphics.Graphics.Camera.GetZFromHeight(Graphics.Graphics.Screen.Height);
                 zoomFactor = currentZoom / baseZoom;
                 adjScale *= zoomFactor;
             }
@@ -116,15 +116,15 @@ namespace UI
             }
             else if (IsStickToCameraState)
             {
-                adjPosition += Graphics.Graphics.camera.Position;
+                adjPosition += Graphics.Graphics.Camera.Position;
                 if (IsStickToZoomState)
                 {
-                    adjPosition = Graphics.Graphics.camera.Position + (adjPosition - Graphics.Graphics.camera.Position) * zoomFactor;
+                    adjPosition = Graphics.Graphics.Camera.Position + (adjPosition - Graphics.Graphics.Camera.Position) * zoomFactor;
                 }
             }
             else if (IsStickToZoomState)
             {
-                adjPosition = Graphics.Graphics.camera.Position + (adjPosition - Graphics.Graphics.camera.Position) * zoomFactor;
+                adjPosition = Graphics.Graphics.Camera.Position + (adjPosition - Graphics.Graphics.Camera.Position) * zoomFactor;
             }
 
 

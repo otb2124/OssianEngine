@@ -142,23 +142,23 @@ namespace Inputs
 
         public Vector2 GetMouseScreenPosition()
         {
-            Rectangle screenDestinationRectangle = Graphics.Graphics.screen.CalculateDestinationRectangle();
+            Rectangle screenDestinationRectangle = Graphics.Graphics.Screen.CalculateDestinationRectangle();
             Point mouseWindowPosition = this.MouseWindowPosition;
             float sx = mouseWindowPosition.X - screenDestinationRectangle.X;
             float sy = mouseWindowPosition.Y - screenDestinationRectangle.Y;
             sx /= (float)screenDestinationRectangle.Width;
             sy /= (float)screenDestinationRectangle.Height;
-            float x = sx * (float)Graphics.Graphics.screen.Width;
-            float y = sy * (float)Graphics.Graphics.screen.Height;
+            float x = sx * (float)Graphics.Graphics.Screen.Width;
+            float y = sy * (float)Graphics.Graphics.Screen.Height;
 
             return new Vector2(x, y);
         }
 
         public Vector2 GetMouseWorldPosition()
         {
-            Viewport screenViewport = new Viewport(0, 0, Graphics.Graphics.screen.Width, Graphics.Graphics.screen.Height);
+            Viewport screenViewport = new Viewport(0, 0, Graphics.Graphics.Screen.Width, Graphics.Graphics.Screen.Height);
             Vector2 mouseScreenPosition = this.GetMouseScreenPosition();
-            Ray mouseRay = this.CreateMouseRay(mouseScreenPosition, screenViewport, Graphics.Graphics.camera);
+            Ray mouseRay = this.CreateMouseRay(mouseScreenPosition, screenViewport, Graphics.Graphics.Camera);
             Plane worldPlane = new Plane(new Vector3(0, 0, 1f), 0f);
             float? dist = mouseRay.Intersects(worldPlane);
             Vector3 ip = mouseRay.Position + mouseRay.Direction * dist.Value;

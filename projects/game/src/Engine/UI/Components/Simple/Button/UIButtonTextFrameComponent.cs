@@ -20,7 +20,7 @@ namespace UI
 
             Position = ((UITextFrameComponent)children[0]).FramePos;
 
-            children[1] = new UIButtonComponent(-1, ButtonId, new Vector2(Position.X, Position.Y + Graphics.Graphics.screen.Height + ((UITextFrameComponent)children[0]).FrameSize.Y), ((UITextFrameComponent)children[0]).FrameSize);
+            children[1] = new UIButtonComponent(-1, ButtonId, new Vector2(Position.X, Position.Y + Graphics.Graphics.Screen.Height + ((UITextFrameComponent)children[0]).FrameSize.Y), ((UITextFrameComponent)children[0]).FrameSize);
         }
 
 

@@ -108,7 +108,7 @@ namespace Entities
                     {
                         InteractiveItemEntity itemEnt = EntityHelper.CreateItemDrop(item, Model.Body.Position.ToVector2());
                         Entities.EntityMapManager.GetCurrentMap().Entities.Add(itemEnt);
-                        Graphics.Graphics.lightManager.AddEntityEmissionLightSource(itemEnt);
+                        Graphics.Graphics.LightManager.AddEntityEmissionLightSource(itemEnt);
                     }
                 }
             }

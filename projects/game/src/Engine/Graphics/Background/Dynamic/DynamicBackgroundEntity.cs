@@ -22,22 +22,22 @@ namespace Graphics
         {
             float movement = Speed;
 
-            if (LayerToDrawOn < Graphics.backgroundManager.parallax.ParallaxBackLayers.Length)
+            if (LayerToDrawOn < Graphics.BackgroundManager.parallax.ParallaxBackLayers.Length)
             {
                 movement = Speed;//find a way to bind to the parallax layer speeds
             }
 
             pos.X += Direction == Directions.RIGHT ? movement : -movement;
 
-            float cameraLeft = Graphics.camera.position.X - Graphics.screen.Width / 2;
-            float cameraRight = Graphics.camera.position.X + Graphics.screen.Width / 2;
+            float cameraLeft = Graphics.Camera.position.X - Graphics.Screen.Width / 2;
+            float cameraRight = Graphics.Camera.position.X + Graphics.Screen.Width / 2;
             if (Direction == Directions.RIGHT && pos.X > cameraRight + 200)
             {
-                Graphics.backgroundManager.RemoveEntity(this);
+                Graphics.BackgroundManager.RemoveEntity(this);
             }
             else if (Direction == Directions.LEFT && pos.X < cameraLeft - 200)
             {
-                Graphics.backgroundManager.RemoveEntity(this);
+                Graphics.BackgroundManager.RemoveEntity(this);
             }
         }
 

@@ -31,7 +31,7 @@ namespace Entities
         public virtual void Draw(Color color)
         {
             Color drawColor = new Color((byte)color.R, (byte)color.G, (byte)color.B, (byte)64);
-            Graphics.Graphics.shapes.DrawBoxFill(this.extends.Position, extends.Width, extends.Height, extends.Rotation, drawColor);
+            Graphics.Graphics.Shapes.DrawBoxFill(this.extends.Position, extends.Width, extends.Height, extends.Rotation, drawColor);
         }
     }
 }

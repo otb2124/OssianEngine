@@ -107,9 +107,9 @@ namespace Resources
 
         public void Load(string path)
         {
-            using (FileStream fileStream = new FileStream(ResourceLoader.GLOBAL_RES_PATH + "sprites/" + path + ".png", FileMode.Open))
+            using (FileStream fileStream = new FileStream(ResourceLoader.GLOBAL_RES_PATH + "Sprites/" + path + ".png", FileMode.Open))
             {
-                Texture = Texture2D.FromStream(Graphics.Graphics.graphicsDeviceManager.GraphicsDevice, fileStream);
+                Texture = Texture2D.FromStream(Graphics.Graphics.GraphicsDeviceManager.GraphicsDevice, fileStream);
             }
         }
 

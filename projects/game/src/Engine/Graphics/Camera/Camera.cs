@@ -84,7 +84,7 @@ namespace Graphics
 
         public Camera(Screen screen, Game game)
         {
-            position = new Vector2(0, -Graphics.screen.Height/2f);
+            position = new Vector2(0, -Graphics.Screen.Height/2f);
             view = Matrix.Identity;
             proj = Matrix.Identity;
 

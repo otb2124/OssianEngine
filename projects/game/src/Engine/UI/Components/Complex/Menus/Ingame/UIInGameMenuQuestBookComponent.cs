@@ -16,10 +16,10 @@ namespace UI
         public UIInGameMenuQuestBookComponent(int id) : base(id)
         {
             Vector2 inGameMenuSize = new Vector2(80, (64+12)*6);
-            Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.screen.Height - inGameMenuSize.Y - 10);
+            Vector2 inGameMenuPos = new Vector2(0 + 10, Graphics.Graphics.Screen.Height - inGameMenuSize.Y - 10);
 
-            Vector2 frameSize = new Vector2(Graphics.Graphics.screen.Width - (inGameMenuSize.X + 10 + 10 + 10), Graphics.Graphics.screen.Height - (10+10));
-            Position = new Vector2(inGameMenuPos.X + inGameMenuSize.X + 10, Graphics.Graphics.screen.Height - frameSize.Y - 10);
+            Vector2 frameSize = new Vector2(Graphics.Graphics.Screen.Width - (inGameMenuSize.X + 10 + 10 + 10), Graphics.Graphics.Screen.Height - (10+10));
+            Position = new Vector2(inGameMenuPos.X + inGameMenuSize.X + 10, Graphics.Graphics.Screen.Height - frameSize.Y - 10);
            
 
             type = UIComponentTypes.MENU_INGAME_QUESTBOOK;

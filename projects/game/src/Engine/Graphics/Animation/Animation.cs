@@ -123,7 +123,7 @@ namespace Graphics
         {
             if(revertVerticalDraw)
             {
-                Graphics.sprites.Draw(
+                Graphics.Sprites.Draw(
                 ResourceLoader.spriteSheets[spriteSheet].Texture,
                 position,
                 GetCurrentFrame(),
@@ -136,7 +136,7 @@ namespace Graphics
             }
             else
             {
-                Graphics.sprites.Draw(
+                Graphics.Sprites.Draw(
                 ResourceLoader.spriteSheets[spriteSheet].Texture,
                 position,
                 GetCurrentFrame(),
@@ -151,7 +151,7 @@ namespace Graphics
 
         public void Draw(SpriteSheets spriteSheet, Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth, SpriteEffects newEffect)
         {
-            Graphics.sprites.Draw(
+            Graphics.Sprites.Draw(
                 ResourceLoader.spriteSheets[spriteSheet].Texture,
                 position,
                 GetCurrentFrame(),
@@ -166,6 +166,12 @@ namespace Graphics
         public Rectangle GetCurrentFrame()
         {
             return SourceRectangles[CurrentFrame];
+        }
+
+
+        public bool IsLastFrame()
+        {
+            return CurrentFrame == AnimationFramesData.FramesCountX - 1;
         }
     }
 }

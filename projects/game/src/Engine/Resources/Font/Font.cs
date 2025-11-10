@@ -36,7 +36,7 @@ namespace Resources
                 {
                     string fontPath = Path.Combine("res", "fonts", Path.GetFileNameWithoutExtension(fontFiles[i]));
 
-                    fontTypes[i] = Graphics.Graphics.contentManager.Load<SpriteFont>(fontPath);
+                    fontTypes[i] = Graphics.Graphics.ContentManager.Load<SpriteFont>(fontPath);
                     fontTypeNames[i] = Path.GetFileNameWithoutExtension(fontFiles[i]);
                 }
             }
@@ -58,7 +58,7 @@ namespace Resources
 
         public void Draw(string text, Vector2 position, float rotation, Vector2 origin, Vector2 scale, Color color)
         {
-            Graphics.Graphics.sprites.DrawString(GetCurrentFont(), text, position, rotation, origin, scale, color, SpriteEffects.None, 0f);
+            Graphics.Graphics.Sprites.DrawString(GetCurrentFont(), text, position, rotation, origin, scale, color, SpriteEffects.None, 0f);
         }
     }
 

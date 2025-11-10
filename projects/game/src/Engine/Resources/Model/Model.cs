@@ -104,11 +104,11 @@ namespace Resources
 
             if (this.Body.BodyShapeType == BodyShapeType.Box)
             {
-                Graphics.Graphics.shapes.DrawBoxFill(PhysicalConverter.ToVector2(Body.Position), Body.Width, Body.Height, Body.Angle, drawColor);
+                Graphics.Graphics.Shapes.DrawBoxFill(PhysicalConverter.ToVector2(Body.Position), Body.Width, Body.Height, Body.Angle, drawColor);
             }
             else
             {
-                Graphics.Graphics.shapes.DrawCircleFill(PhysicalConverter.ToVector2(Body.Position), Body.Radius, 26, drawColor);
+                Graphics.Graphics.Shapes.DrawCircleFill(PhysicalConverter.ToVector2(Body.Position), Body.Radius, 26, drawColor);
             }
         }
 
@@ -119,9 +119,9 @@ namespace Resources
 
             if (Body.BodyShapeType == BodyShapeType.Box)
             {
-                Graphics.Graphics.shapes.DrawBoxFill(GroundingRectangle.Position, GroundingRectangle.Width, GroundingRectangle.Height, GroundingRectangle.Rotation, drawColor);
-                Graphics.Graphics.shapes.DrawBoxFill(CeilingRectangle.Position, CeilingRectangle.Width, CeilingRectangle.Height, CeilingRectangle.Rotation, drawColor);
-                Graphics.Graphics.shapes.DrawBoxFill(SidingRectangle.Position, SidingRectangle.Width, SidingRectangle.Height, SidingRectangle.Rotation, drawColor);
+                Graphics.Graphics.Shapes.DrawBoxFill(GroundingRectangle.Position, GroundingRectangle.Width, GroundingRectangle.Height, GroundingRectangle.Rotation, drawColor);
+                Graphics.Graphics.Shapes.DrawBoxFill(CeilingRectangle.Position, CeilingRectangle.Width, CeilingRectangle.Height, CeilingRectangle.Rotation, drawColor);
+                Graphics.Graphics.Shapes.DrawBoxFill(SidingRectangle.Position, SidingRectangle.Width, SidingRectangle.Height, SidingRectangle.Rotation, drawColor);
             }
         }
 

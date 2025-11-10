@@ -81,9 +81,9 @@ namespace Resources
 
         public void Load()
         {
-            string soundsDirectory = Path.Combine("Content", "res", "sounds");
-            string path = Path.Combine("res", "sounds", SoundPath);
-            Effect = Graphics.Graphics.contentManager.Load<SoundEffect>(path);
+            string soundsDirectory = Path.Combine("Content", "res", "Sounds");
+            string path = Path.Combine("res", "Sounds", SoundPath);
+            Effect = Graphics.Graphics.ContentManager.Load<SoundEffect>(path);
         }
 
         public static Dictionary<Sounds, string> SoundPathMap = new Dictionary<Sounds, string>()

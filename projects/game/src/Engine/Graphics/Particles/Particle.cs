@@ -81,7 +81,7 @@ namespace Graphics
             Vector2 adjustedOrigin = (srcRect.Size.ToVector2() / 2);
             Vector2 adjustedScale = AdjustedScale;
 
-            Graphics.sprites.Draw(
+            Graphics.Sprites.Draw(
                  ResourceLoader.spriteSheets[aManager.SpriteSheet].Texture,
                  adjustedPos,
                  aManager.GetCurrent().GetCurrentFrame(),

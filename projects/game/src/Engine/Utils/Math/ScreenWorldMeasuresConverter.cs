@@ -14,13 +14,13 @@ namespace Utils
 
         public static Vector2 ToWorldPos(Vector2 screenPos)
         {
-            return screenPos += Graphics.Graphics.camera.Position;
+            return screenPos += Graphics.Graphics.Camera.Position;
         }
 
 
         public static Vector2 ToScreenPos(Vector2 worldPos)
         {
-            Vector2 screenPos = worldPos - Graphics.Graphics.camera.Position;
+            Vector2 screenPos = worldPos - Graphics.Graphics.Camera.Position;
             Vector2 screenPosPlusScreenBounds = new Vector2(screenPos.X + Graphics.Graphics.ScreenResolution.X / 2f, screenPos.Y + Graphics.Graphics.ScreenResolution.Y / 2f);
 
             return screenPosPlusScreenBounds;
@@ -28,8 +28,8 @@ namespace Utils
 
         public static Vector2 FlatBodyBoundsToScreen(Vector2 bodyBounds)
         {
-            float currentZoom = (float)Graphics.Graphics.camera.Z;
-            float baseZoom = (float)Graphics.Graphics.camera.GetZFromHeight(Graphics.Graphics.screen.Height);
+            float currentZoom = (float)Graphics.Graphics.Camera.Z;
+            float baseZoom = (float)Graphics.Graphics.Camera.GetZFromHeight(Graphics.Graphics.Screen.Height);
             float zoomFactor = currentZoom / baseZoom;
 
             return bodyBounds *= zoomFactor;

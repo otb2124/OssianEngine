@@ -23,7 +23,7 @@ namespace UI
             children[0] = new UICursorComponent(-1);
 
             //INDICATORS
-            Vector2 topLeft = new Vector2(0, Graphics.Graphics.screen.Height - 32*1.5f);
+            Vector2 topLeft = new Vector2(0, Graphics.Graphics.Screen.Height - 32*1.5f);
             children[1] = new UIPlayerIndicatorsComponent(-1, new Vector2(Position.X, Position.Y + topLeft.Y - 16));
         }
 

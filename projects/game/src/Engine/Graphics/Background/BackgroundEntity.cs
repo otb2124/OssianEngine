@@ -45,16 +45,16 @@ namespace Graphics
 
             if (isStickToCamera)
             {
-                adjustedPos += Graphics.camera.position;
+                adjustedPos += Graphics.Camera.position;
             }
             if (isStickToZoom)
             {
-                float currentZoom = (float)Graphics.camera.Z;
-                float baseZoom = (float)Graphics.camera.GetZFromHeight(Graphics.screen.Height);
+                float currentZoom = (float)Graphics.Camera.Z;
+                float baseZoom = (float)Graphics.Camera.GetZFromHeight(Graphics.Screen.Height);
                 adjustedScale *= currentZoom / baseZoom;
             }
 
-            Graphics.sprites.Draw(
+            Graphics.Sprites.Draw(
                  ResourceLoader.spriteSheets[aManager.SpriteSheet].Texture,
                  adjustedPos,
                  aManager.GetCurrent().GetCurrentFrame(),

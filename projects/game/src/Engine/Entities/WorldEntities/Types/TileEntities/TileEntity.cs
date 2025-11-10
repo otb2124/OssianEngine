@@ -65,7 +65,7 @@ namespace Entities
         public override void DrawCollider()
         {
             Color drawColor = new Color((byte)Color.Green.R, (byte)Color.Green.G, (byte)Color.Green.B, (byte)64);
-            Graphics.Graphics.shapes.DrawBoxFill(PhysicalConverter.ToVector2(Model.Body.Position), Model.Body.Width, Model.Body.Height, Model.Body.Angle, drawColor);
+            Graphics.Graphics.Shapes.DrawBoxFill(PhysicalConverter.ToVector2(Model.Body.Position), Model.Body.Width, Model.Body.Height, Model.Body.Angle, drawColor);
         }
 
         private static int[][] GenerateIndicies(int width, int height, bool isGrounding)

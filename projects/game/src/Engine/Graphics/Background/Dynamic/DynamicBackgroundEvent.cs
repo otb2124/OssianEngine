@@ -31,9 +31,9 @@ namespace Graphics
 
         public void Update()
         {
-            for (int i = 0; i < Graphics.backgroundManager.entities.Count; i++)
+            for (int i = 0; i < Graphics.BackgroundManager.entities.Count; i++)
             {
-                if (Graphics.backgroundManager.entities[i] is DynamicBackgroundEntity ent)
+                if (Graphics.BackgroundManager.entities[i] is DynamicBackgroundEntity ent)
                 {
                     ent.Update();
                 }
@@ -43,7 +43,7 @@ namespace Graphics
 
             if (SpawnTimer >= SpawnInterval)
             {
-                int dynamicEntityCount = Graphics.backgroundManager.entities.Count(e => e is DynamicBackgroundEntity);
+                int dynamicEntityCount = Graphics.BackgroundManager.entities.Count(e => e is DynamicBackgroundEntity);
                 if (dynamicEntityCount < CountLimit)
                 {
                     SpawnEntity();
@@ -54,25 +54,25 @@ namespace Graphics
 
         public static void SpawnEntity()
         {
-            int layerCount = Graphics.backgroundManager.parallax.ParallaxBackLayers.Length;
+            int layerCount = Graphics.BackgroundManager.parallax.ParallaxBackLayers.Length;
             int randomLayerId = RandomHelper.RandomInteger(0, layerCount + 1);
-            float layerYOffset = layerCount > 0 ? randomLayerId * Graphics.screen.Height / layerCount : 0;
+            float layerYOffset = layerCount > 0 ? randomLayerId * Graphics.Screen.Height / layerCount : 0;
             if (randomLayerId >= layerCount)
             {
-                layerYOffset = layerCount > 0 ? (layerCount - 1) * Graphics.screen.Height / layerCount : 0;
+                layerYOffset = layerCount > 0 ? (layerCount - 1) * Graphics.Screen.Height / layerCount : 0;
             }
 
             Directions direction = RandomHelper.RandomInteger(0, 2) == 0 ? Directions.LEFT : Directions.RIGHT;
 
             float spawnX = direction == Directions.LEFT
-                ? Graphics.camera.Position.X + Graphics.screen.Width / 2 + 200
-                : Graphics.camera.Position.X - Graphics.screen.Width / 2 - 200;
+                ? Graphics.Camera.Position.X + Graphics.Screen.Width / 2 + 200
+                : Graphics.Camera.Position.X - Graphics.Screen.Width / 2 - 200;
             float spawnY = RandomHelper.RandomFloating(
-                Graphics.camera.Position.Y - (Graphics.screen.Height / 2) - layerYOffset,
-                Graphics.camera.Position.Y + (Graphics.screen.Height / 2) - layerYOffset
+                Graphics.Camera.Position.Y - (Graphics.Screen.Height / 2) - layerYOffset,
+                Graphics.Camera.Position.Y + (Graphics.Screen.Height / 2) - layerYOffset
             );
 
-            Graphics.backgroundManager.AddEntity(new DynamicBackgroundEntity(StaticSprites.GRAPHICS_CLOUD_0, new Vector2(spawnX, spawnY), randomLayerId, direction));
+            Graphics.BackgroundManager.AddEntity(new DynamicBackgroundEntity(StaticSprites.GRAPHICS_CLOUD_0, new Vector2(spawnX, spawnY), randomLayerId, direction));
         }
     }
 }

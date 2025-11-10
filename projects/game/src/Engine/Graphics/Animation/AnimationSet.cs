@@ -67,6 +67,11 @@ namespace Graphics
             }
         }
 
+        public void Update()
+        {
+            Update(AnimationKey.IdleKey);
+        }
+
         public Animation GetCurrent()
         {
             return GetAnimation(LastKey);
@@ -91,6 +96,13 @@ namespace Graphics
         public void DrawCurrent(Vector2 pos, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth, SpriteEffects effect)
         {
             GetCurrent().Draw(SpriteSheet, pos, color, angle, origin, scale, layerDepth, effect);
+        }
+
+
+        public bool IsCurrentAnimationLastFrame()
+        {
+            var currentAnim = GetCurrent();
+            return currentAnim != null && currentAnim.IsLastFrame();
         }
     }
 }

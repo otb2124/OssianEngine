@@ -42,7 +42,7 @@ namespace Inputs
             PARRYPRESSED,
             BLOCKPRESSED,
 
-            //camera
+            //Camera
             CAMERALEFTPRESSED,
             CAMERARIGHTPRESSED,
             CAMERAUPPRESSED,
@@ -75,7 +75,7 @@ namespace Inputs
             { KeyStates.BLOCKPRESSED, false },
             { KeyStates.PARRYPRESSED, false },
 
-            //camera
+            //Camera
             { KeyStates.CAMERALEFTPRESSED, false },
             { KeyStates.CAMERARIGHTPRESSED, false },
             { KeyStates.CAMERAUPPRESSED, false },
@@ -109,7 +109,7 @@ namespace Inputs
             { (KeyStates.ATTACKLIGHTPRESSED, true), new List<InputKey> { new InputKey(FlatMouse.MouseButtons.Left) } },
             { (KeyStates.ATTACKHEAVYPRESSED, true), new List<InputKey> { new InputKey(FlatMouse.MouseButtons.Right) } },
 
-            //camera
+            //Camera
             { (KeyStates.CAMERALEFTPRESSED, false), new List<InputKey> { new InputKey(Keys.Left) } },
             { (KeyStates.CAMERARIGHTPRESSED, false), new List<InputKey> { new InputKey(Keys.Right) } },
             { (KeyStates.CAMERAUPPRESSED, false), new List<InputKey> { new InputKey(Keys.Up) } },

@@ -83,21 +83,21 @@ namespace Inputs
 
         public Vector2 GetMouseScreenPosition(Game game, Screen screen)
         {
-            // Get the size and position of the screen when stretched to fit into the game window (keeping the correct aspect ratio).
+            // Get the size and position of the Screen when stretched to fit into the game window (keeping the correct aspect ratio).
             Rectangle screenDestinationRectangle = screen.CalculateDestinationRectangle();
 
             // Get the position of the mouse in the game window backbuffer coordinates.
             Point mouseWindowPosition = this.MouseWindowPosition;
 
-            // Get the position of the mouse relative to the screen destination rectangle position.
+            // Get the position of the mouse relative to the Screen destination rectangle position.
             float sx = mouseWindowPosition.X - screenDestinationRectangle.X;
             float sy = mouseWindowPosition.Y - screenDestinationRectangle.Y;
 
-            // Convert the position to a normalized ratio inside the screen destination rectangle.
+            // Convert the position to a normalized ratio inside the Screen destination rectangle.
             sx /= (float)screenDestinationRectangle.Width;
             sy /= (float)screenDestinationRectangle.Height;
 
-            // Multiply the normalized coordinates by the actual size of the screen to get the location in screen coordinates.
+            // Multiply the normalized coordinates by the actual size of the Screen to get the location in Screen coordinates.
             float x = sx * (float)screen.Width;
             float y = sy * (float)screen.Height;
 
@@ -106,13 +106,13 @@ namespace Inputs
 
         public Vector2 GetMouseWorldPositionInPixels(Game game, Screen screen, Camera camera)
         {
-            // Create a viewport based on the game screen.
+            // Create a viewport based on the game Screen.
             Viewport screenViewport = new Viewport(0, 0, screen.Width, screen.Height);
 
-            // Get the mouse pixel coordinates in that screen.
+            // Get the mouse pixel coordinates in that Screen.
             Vector2 mouseScreenPosition = this.GetMouseScreenPosition(game, screen);
 
-            // Create a ray that starts at the mouse screen position and points "into" the screen towards the game world plane.
+            // Create a ray that starts at the mouse Screen position and points "into" the Screen towards the game world plane.
             Ray mouseRay = this.GetMouseRay(mouseScreenPosition, screenViewport, camera);
 
             // Plane where the flat 2D game world takes place.
@@ -127,9 +127,9 @@ namespace Inputs
             return result;
         }
 
-        //public Vector2 GetMouseWorldPositionInMeters(Game game, Screen screen, Camera camera)
+        //public Vector2 GetMouseWorldPositionInMeters(Game game, Screen Screen, Camera Camera)
         //{
-        //    return Util.ConvertPixelsToMeters(this.GetMouseWorldPositionInPixels(game, screen, camera));
+        //    return Util.ConvertPixelsToMeters(this.GetMouseWorldPositionInPixels(game, Screen, Camera));
         //}
 
         private Ray GetMouseRay(Vector2 mouseScreenPosition, Viewport viewport, Camera camera)
@@ -146,7 +146,7 @@ namespace Inputs
             Vector3 direction = farPoint - nearPoint;
             direction.Normalize();
 
-            // Resulting ray starts at the near mouse position and points "into" the screen.
+            // Resulting ray starts at the near mouse position and points "into" the Screen.
             Ray result = new Ray(nearPoint, direction);
             return result;
         }

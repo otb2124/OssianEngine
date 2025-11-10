@@ -60,11 +60,11 @@ namespace Entities
 
             Physics.Physics.flatWorld.RefreshList(maps[nextId].Entities);
 
-            Graphics.Graphics.backgroundManager.RemoveAll();
-            Graphics.Graphics.backgroundManager.Init();
+            Graphics.Graphics.BackgroundManager.RemoveAll();
+            Graphics.Graphics.BackgroundManager.Init();
 
-            Graphics.Graphics.lightManager.Init();
-            Graphics.Graphics.filterManager.UpdateLayers();
+            Graphics.Graphics.LightManager.Init();
+            Graphics.Graphics.FilterManager.UpdateLayers();
         }
 
         public void LoadInitialMap()

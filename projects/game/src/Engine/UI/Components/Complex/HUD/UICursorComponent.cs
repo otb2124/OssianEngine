@@ -42,7 +42,7 @@ namespace UI
 
         public override void DrawDebug()
         {
-            Graphics.Graphics.shapes.DrawBoxFill(adjPosition.X, adjPosition.Y, 32 * adjScale.X, 32 * adjScale.Y, Color.Red);
+            Graphics.Graphics.Shapes.DrawBoxFill(adjPosition.X, adjPosition.Y, 32 * adjScale.X, 32 * adjScale.Y, Color.Red);
         }
     }
 }

@@ -11,18 +11,19 @@ namespace Graphics
 {
     public static class Graphics
     {
-        public static Sprites sprites;
-        public static Shapes shapes;
-        public static GraphicsDeviceManager graphicsDeviceManager;
-        public static ContentManager contentManager;
-        public static Camera camera;
-        public static CameraOperator cameraOperator;
-        public static Screen screen;
+        public static Sprites Sprites;
+        public static Shapes Shapes;
+        public static GraphicsDeviceManager GraphicsDeviceManager;
+        public static ContentManager ContentManager;
+        public static Camera Camera;
+        public static CameraOperator CameraOperator;
+        public static Screen Screen;
 
-        public static BackgroundManager backgroundManager;
-        public static ParticleManager particleManager;
-        public static LightManager lightManager;
-        public static FilterManager filterManager;
+        public static BackgroundManager BackgroundManager;
+        public static ParticleManager ParticleManager;
+        public static LightManager LightManager;
+        public static FilterManager FilterManager;
+        public static VFXManager VFXManager;
 
         public const double UpdatesPerSecond = 120d;
         public const double TargetLogicFrameRate = 60d;
@@ -35,51 +36,55 @@ namespace Graphics
         public static readonly float BufferRatio = 0.85f;
 
 
-        public static void OnGameObjectConstruction(Game game)
+        public static void OnGameObjectConstruction(Game Game)
         {
-            graphicsDeviceManager = new GraphicsDeviceManager(game);
-            graphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
-            game.IsMouseVisible = false;
-            game.IsFixedTimeStep = true;
-            game.TargetElapsedTime = TimeSpan.FromTicks((long)Math.Round((double)TimeSpan.TicksPerSecond / UpdatesPerSecond));
+            GraphicsDeviceManager = new GraphicsDeviceManager(Game);
+            GraphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
+            Game.IsMouseVisible = false;
+            Game.IsFixedTimeStep = true;
+            Game.TargetElapsedTime = TimeSpan.FromTicks((long)Math.Round((double)TimeSpan.TicksPerSecond / UpdatesPerSecond));
         }
 
         public static void SetGameProps(Game game)
         {
             game.Window.Position = WindowPositon;
-            PhysicalUtil.SetRelativeBackBufferSize(graphicsDeviceManager, BufferRatio);
-            screen = new Screen(game, ScreenResolution.X, ScreenResolution.Y);
-            sprites = new Sprites(game);
-            shapes = new Shapes(game);
-            contentManager = game.Content;
-            contentManager.RootDirectory = ResourceLoader.ContentFolderPath;
-            camera = new Camera(screen, game);
+            PhysicalUtil.SetRelativeBackBufferSize(GraphicsDeviceManager, BufferRatio);
+            Screen = new Screen(game, ScreenResolution.X, ScreenResolution.Y);
+            Sprites = new Sprites(game);
+            Shapes = new Shapes(game);
+            ContentManager = game.Content;
+            ContentManager.RootDirectory = ResourceLoader.ContentFolderPath;
+            Camera = new Camera(Screen, game);
         }
 
 
         public static void Init()
         {
-            cameraOperator = new CameraOperator();
-            backgroundManager = new BackgroundManager();
-            backgroundManager.Init();
+            CameraOperator = new CameraOperator();
+            BackgroundManager = new BackgroundManager();
+            BackgroundManager.Init();
 
-            particleManager = new ParticleManager();
+            ParticleManager = new ParticleManager();
 
-            lightManager = new LightManager();
-            filterManager = new FilterManager();
-            filterManager.Init();
+            LightManager = new LightManager();
+            FilterManager = new FilterManager();
+            FilterManager.Init();
+
+            VFXManager = new VFXManager();
         }
 
         public static void Update()
         {
-            cameraOperator.Update();
-            camera.Update();
+            CameraOperator.Update();
+            Camera.Update();
 
-            particleManager.Update();
-            backgroundManager.Update();
+            ParticleManager.Update();
+            BackgroundManager.Update();
 
-            lightManager.Update();
-            filterManager.Update();
+            LightManager.Update();
+            FilterManager.Update();
+
+            VFXManager.Update();
         }
 
         public static void UpdateGameTime(GameTime newGameTime)
@@ -89,72 +94,72 @@ namespace Graphics
 
         public static void Draw()
         {
-            graphicsDeviceManager.GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDeviceManager.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            screen.Set();
+            Screen.Set();
 
             //bg
-            sprites.Begin(camera, BlendState.Additive);
-            backgroundManager.DrawCanvas();
-            sprites.End();
+            Sprites.Begin(Camera, BlendState.Additive);
+            BackgroundManager.DrawCanvas();
+            Sprites.End();
 
-            //bg mapLayers
-            sprites.Begin(camera, BlendState.NonPremultiplied);
-            backgroundManager.Draw();
-            sprites.End();
+            //bg MapLayers
+            Sprites.Begin(Camera, BlendState.NonPremultiplied);
+            BackgroundManager.Draw();
+            Sprites.End();
 
-            //entity sprites
-            sprites.Begin(camera);
+            //entity Sprites
+            Sprites.Begin(Camera);
             Entities.Entities.EntityManager.Draw();
-            particleManager.Draw();
-            backgroundManager.DrawParallaxFrontLayers();
-            sprites.End();
+            ParticleManager.Draw();
+            BackgroundManager.DrawParallaxFrontLayers();
+            Sprites.End();
 
             if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 //filters
-                sprites.Begin(camera, BlendState.AlphaBlend);
-                filterManager.Draw();
-                sprites.End();
+                Sprites.Begin(Camera, BlendState.AlphaBlend);
+                FilterManager.Draw();
+                Sprites.End();
 
                 //light
-                sprites.Begin(camera, BlendState.Additive, false, true);
-                lightManager.Draw();
-                sprites.End();
+                Sprites.Begin(Camera, BlendState.Additive, false, true);
+                LightManager.Draw();
+                Sprites.End();
             }
 
-            //hitboxes over models (fix to over entity sprites, but under weapon sprites)
+            //hitboxes over models (fix to over entity Sprites, but under weapon Sprites)
             if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE)
             {
-                shapes.Begin(camera);
+                Shapes.Begin(Camera);
                 Entities.Entities.EntityManager.DrawColliders();
                 Entities.Entities.EventManager.DrawColliders();
-                shapes.End();
+                Shapes.End();
             }
 
             if (GameStateManager.gameMode == GameStateManager.GameModes.HITBOX_DEBUG_MODE)
             {
-                shapes.Begin(camera);
+                Shapes.Begin(Camera);
                 Entities.Entities.EntityManager.DrawHitboxes();
-                shapes.End();
+                Shapes.End();
             }
 
-            sprites.Begin(camera, BlendState.NonPremultiplied, false, false);
+            Sprites.Begin(Camera, BlendState.NonPremultiplied, false, false);
 
 
             //ui
             UI.UI.UIManager.Draw();
-            sprites.End();
+            Sprites.End();
 
             if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE || GameStateManager.gameMode == GameStateManager.GameModes.HITBOX_DEBUG_MODE)
             {
-                shapes.Begin(camera);
+                Shapes.Begin(Camera);
                 UI.UI.UIManager.DrawDebug();
-                shapes.End();
+                Shapes.End();
             }
 
-            screen.Unset();
-            screen.Present(sprites, Color.Black, true);
+            Screen.Unset();
+            Screen.Present(Sprites, Color.Black, true);
         }
 
     }

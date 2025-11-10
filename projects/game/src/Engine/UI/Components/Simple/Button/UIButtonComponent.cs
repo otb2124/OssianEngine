@@ -53,7 +53,7 @@ namespace UI
 
         public override void DrawDebug()
         {
-            Graphics.Graphics.shapes.DrawBoxFill(adjPosition.X, adjPosition.Y, Size.X * adjScale.X, Size.Y * adjScale.Y, Color.Red);
+            Graphics.Graphics.Shapes.DrawBoxFill(adjPosition.X, adjPosition.Y, Size.X * adjScale.X, Size.Y * adjScale.Y, Color.Red);
         }
     }
 }

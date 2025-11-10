@@ -13,7 +13,7 @@ namespace UI
             Vector2 buttonMargins = new Vector2(8, 12);
 
             Vector2 frameSize = new Vector2(80, (buttonSize.Y + buttonMargins.Y) * 6);
-            Position = new Vector2(0 + margins.X, Graphics.Graphics.screen.Height - frameSize.Y - margins.Y);
+            Position = new Vector2(0 + margins.X, Graphics.Graphics.Screen.Height - frameSize.Y - margins.Y);
 
             type = UIComponentTypes.WARNING_WINDOW;
 

@@ -57,7 +57,7 @@ namespace Graphics
         public void Draw()
         {
             Vector2 scale = new Vector2(Graphics.ScreenResolution.X / aManager.GetCurrent().SourceRectangles[0].Width, Graphics.ScreenResolution.Y / aManager.GetCurrent().SourceRectangles[0].Height);
-            aManager.DrawCurrent(new Vector2(Graphics.camera.Position.X - Graphics.ScreenResolution.X / 2, Graphics.camera.Position.Y - Graphics.ScreenResolution.Y / 2), DarknessCurrentColor * DarknessCurrentAlpha, 0f, Vector2.Zero, scale, 0f);
+            aManager.DrawCurrent(new Vector2(Graphics.Camera.Position.X - Graphics.ScreenResolution.X / 2, Graphics.Camera.Position.Y - Graphics.ScreenResolution.Y / 2), DarknessCurrentColor * DarknessCurrentAlpha, 0f, Vector2.Zero, scale, 0f);
         }
     }
 }

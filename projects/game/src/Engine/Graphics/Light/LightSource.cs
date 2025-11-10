@@ -29,7 +29,7 @@ namespace Graphics
             Data = new LightSourceData(LightSourceData.LightSourceForms.CIRCULAR, new Vector2(radius, radius), Vector2.Zero, color, 50f, 0f);
             texture = CreateCircleTexture(64);
 
-            Id = Graphics.lightManager.GenerateId();
+            Id = Graphics.LightManager.GenerateId();
         }
 
         public LightSource(Vector2 position, LightSourceData data)
@@ -38,22 +38,22 @@ namespace Graphics
             Data = data;
             texture = CreateCircleTexture(64);
 
-            Id = Graphics.lightManager.GenerateId();
+            Id = Graphics.LightManager.GenerateId();
         }
 
         public LightSource(Vector2 position, Vector2 size, Color color)
         {
             Position = position;
             Data = new LightSourceData(LightSourceData.LightSourceForms.RECTANGULAR, size, Vector2.Zero, color, 50f, 0f);
-            texture = new Texture2D(Graphics.graphicsDeviceManager.GraphicsDevice, 1, 1);
+            texture = new Texture2D(Graphics.GraphicsDeviceManager.GraphicsDevice, 1, 1);
             texture.SetData(new[] { Color.White });
 
-            Id = Graphics.lightManager.GenerateId();
+            Id = Graphics.LightManager.GenerateId();
         }
 
         private Texture2D CreateCircleTexture(int diameter)
         {
-            Texture2D texture = new Texture2D(Graphics.graphicsDeviceManager.GraphicsDevice, diameter, diameter);
+            Texture2D texture = new Texture2D(Graphics.GraphicsDeviceManager.GraphicsDevice, diameter, diameter);
             Color[] data = new Color[diameter * diameter];
             float radius = diameter / 2f;
             Vector2 center = new Vector2(radius, radius);
@@ -101,7 +101,7 @@ namespace Graphics
 
             if (Data.Form == LightSourceData.LightSourceForms.CIRCULAR)
             {
-                Graphics.sprites.Draw(
+                Graphics.Sprites.Draw(
                     texture,
                     null,
                     new Vector2(texture.Width / 2f, texture.Height / 2f),
@@ -113,7 +113,7 @@ namespace Graphics
             }
             else
             {
-                Graphics.sprites.Draw(
+                Graphics.Sprites.Draw(
                     texture,
                     null,
                     new Vector2(0.5f, 0.5f),

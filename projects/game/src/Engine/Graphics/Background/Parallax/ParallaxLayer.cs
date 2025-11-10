@@ -26,7 +26,7 @@ namespace Graphics
         {
             Sprite = spriteData;
             LayerSpeed = speed;
-            Position = new Vector2(0, -Graphics.screen.Height/2f);
+            Position = new Vector2(0, -Graphics.Screen.Height/2f);
             StickToCameraY = stickToCameraY;
         }
 
@@ -37,13 +37,13 @@ namespace Graphics
 
         public void Update()
         {
-            float cameraposX = Graphics.camera.Position.X;
+            float cameraposX = Graphics.Camera.Position.X;
 
             Position.X = cameraposX * LayerSpeed;
 
             if(StickToCameraY)
             {
-                float cameraposY = Graphics.camera.Position.Y;
+                float cameraposY = Graphics.Camera.Position.Y;
                 Position.Y = cameraposY;
             }
         }
@@ -56,7 +56,7 @@ namespace Graphics
             Vector2 adjustedOrigin = new Vector2(srcRect.Width/2, srcRect.Height/2);
             Vector2 adjustedScale = Vector2.One;
 
-            Graphics.sprites.Draw(
+            Graphics.Sprites.Draw(
                  ResourceLoader.spriteSheets[aManager.SpriteSheet].Texture,
             adjustedPos,
                  aManager.GetCurrent().GetCurrentFrame(),

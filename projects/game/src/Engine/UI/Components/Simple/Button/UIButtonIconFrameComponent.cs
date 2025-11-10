@@ -31,7 +31,7 @@ namespace UI
             IsAppliedHalfScreenOriginState = true;
 
             children = new UIComponent[1];
-            children[0] = new UIButtonFrameComponent(-1, buttonid, position, Size+paddings, new Vector2(0, Graphics.Graphics.screen.Height / 2 + Size.Y));
+            children[0] = new UIButtonFrameComponent(-1, buttonid, position, Size+paddings, new Vector2(0, Graphics.Graphics.Screen.Height / 2 + Size.Y));
         }
 
 

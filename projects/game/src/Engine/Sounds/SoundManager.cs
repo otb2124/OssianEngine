@@ -13,23 +13,23 @@ namespace Sounds
     public class SoundManager
     {
 
-        public int nextId;
+        public int NextId;
 
-        public List<SoundSource> sounds;
-        public List<SoundSource> soundsToRemove;
+        public List<SoundSource> Sounds;
+        public List<SoundSource> SoundsToRemove;
 
 
         public SoundManager() 
         {
-           sounds = new List<SoundSource>();
-           soundsToRemove = new List<SoundSource>();
+           Sounds = new List<SoundSource>();
+           SoundsToRemove = new List<SoundSource>();
         }
 
         public void Update()
         {
-            soundsToRemove.Clear();
+            SoundsToRemove.Clear();
 
-            foreach (var sound in sounds)
+            foreach (var sound in Sounds)
             {
                 if (sound.IsLooping || sound.DurationSec == 0)
                 {
@@ -45,25 +45,25 @@ namespace Sounds
                     else
                     {
                         sound.Stop();
-                        soundsToRemove.Add(sound);
+                        SoundsToRemove.Add(sound);
                     }
                 }
             }
 
-            foreach (var sound in soundsToRemove)
+            foreach (var sound in SoundsToRemove)
             {
-                sounds.Remove(sound);
+                Sounds.Remove(sound);
             }
         }
 
         public void AddSoundSource(SoundSource source)
         {
-            if (sounds.Any(s => s.Id == source.Id))
+            if (Sounds.Any(s => s.Id == source.Id))
             {
                 return;
             }
 
-            sounds.Add(source);
+            Sounds.Add(source);
         }
 
             public void PlaySound(Resources.Sounds key, float volume = 1f, float pitch = 0f, float pan = 0f)
@@ -77,26 +77,26 @@ namespace Sounds
 
         public int GenerateId()
         {
-            if (sounds != null)
+            if (Sounds != null)
             {
-                return nextId++;
+                return NextId++;
             }
 
-            var entities = sounds;
-            while (entities.Any(e => e.Id == nextId))
+            var entities = Sounds;
+            while (entities.Any(e => e.Id == NextId))
             {
-                nextId++;
-                if (nextId < 0)
+                NextId++;
+                if (NextId < 0)
                 {
-                    nextId = 1;
+                    NextId = 1;
                 }
             }
-            return nextId++;
+            return NextId++;
         }
 
         public SoundSource GetSoundSourceById(int id)
         {
-            return sounds.FirstOrDefault(e => e.Id == id);
+            return Sounds.FirstOrDefault(e => e.Id == id);
         }
     }
 }

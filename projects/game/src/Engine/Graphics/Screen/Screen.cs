@@ -89,7 +89,7 @@ namespace Graphics
 
             if (sprites is null)
             {
-                throw new ArgumentNullException("sprites");
+                throw new ArgumentNullException("Sprites");
             }
 
             game.GraphicsDevice.Clear(backgroundColor);

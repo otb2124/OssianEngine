@@ -73,7 +73,7 @@ namespace Graphics
                     background.Draw();
                 }
 
-                // Draw interleaved entities and parallax back mapLayers
+                // Draw interleaved entities and parallax back MapLayers
                 for (int i = 0; i < parallax.ParallaxBackLayers.Length; i++)
                 {
                     // Draw entities for LayerToDrawOn == i (before layer i)
@@ -96,7 +96,7 @@ namespace Graphics
                     background.Draw();
                 }
 
-                // Draw entities after all parallax back mapLayers (LayerToDrawOn > Length)
+                // Draw entities after all parallax back MapLayers (LayerToDrawOn > Length)
                 foreach (var background in entities
                     .Where(e => e is BackgroundEntity && e.LayerToDrawOn > parallax.ParallaxBackLayers.Length)
                     .OrderBy(e => StaticSpriteFactory.StaticSpriteMappings[e.sprite].MaxZ))

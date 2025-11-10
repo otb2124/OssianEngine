@@ -103,7 +103,7 @@ namespace Entities
                                 ),
                             }
                         ),
-                        new Dialogue(6, "They combined into letters and later words right like it sounds. After few seconds gazing into that wonderful process I got their extraterrestrial sign addressed to me: `FIND WANEGRO`.", "Vigo", 0,
+                        new Dialogue(6, "They combined into letters and later words right like it Sounds. After few seconds gazing into that wonderful process I got their extraterrestrial sign addressed to me: `FIND WANEGRO`.", "Vigo", 0,
                             new DialogueOption[]
                             {
                                 new DialogueOption(7, "*Continue*",
