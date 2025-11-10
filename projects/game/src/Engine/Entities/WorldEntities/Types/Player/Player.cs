@@ -43,7 +43,7 @@ namespace Entities
                 new FallAbility(),
                 new LedgeHangingAbility(),
                 new GCSRectanglesCalculatorAbility(),
-                new DescencionAbility(0.5f, 1f),
+                new DescencionAbility(0.5f, 1.25f),
                 new DoubleJumpAbility(),
                 new InwaterWalkingAbility(0.5f),
                 new LadderClimbingAbility()
