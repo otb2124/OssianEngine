@@ -71,6 +71,7 @@ namespace Graphics
             FilterManager.Init();
 
             VFXManager = new VFXManager();
+            VFXManager.Init();
         }
 
         public static void Update()
@@ -112,6 +113,7 @@ namespace Graphics
             Sprites.Begin(Camera);
             Entities.Entities.EntityManager.Draw();
             ParticleManager.Draw();
+            VFXManager.Draw();
             BackgroundManager.DrawParallaxFrontLayers();
             Sprites.End();
 

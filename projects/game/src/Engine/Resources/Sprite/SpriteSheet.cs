@@ -69,6 +69,9 @@ namespace Resources
         //particles
         ENTITIES_PARTICLES,
 
+        //vfxs
+        VFX_EXPLOSION,
+
         //light
         LIGHT_DARKNESS_FULL,
         LIGHT_DARKNESS_MIN,
@@ -256,8 +259,11 @@ namespace Resources
                 { SpriteSheets.ENTITIES_PLATFORMS,   "entities/static/platforms" },
                 { SpriteSheets.ENTITIES_LEDGES,      "entities/static/ledges" },
 
-                // equipment
+                // particles 
                 { SpriteSheets.ENTITIES_PARTICLES,           "entities/static/particles" },
+                { SpriteSheets.VFX_EXPLOSION,                "entities/dynamic/vfxs" },
+
+                // weapon bodies
                 { SpriteSheets.ENTITIES_WEAPONS_TERRABLADE, "entities/equipment/terrablade" },
                 { SpriteSheets.ENTITIES_WEAPONS_TORCH,      "entities/equipment/torch" },
 

@@ -19,7 +19,7 @@ namespace Entities
                             new OrRequirement(
                                 new Requirement[]
                                 {
-                                    new ModelStateRequirement(ModelStates.MOVING),
+                                    //new ModelStateRequirement(ModelStates.MOVING),
                                     new ModelStateRequirement(ModelStates.JUMPING),
                                     new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING),
                                     new ModelStateRequirement(ModelStates.ATTACKING_LIGHT),

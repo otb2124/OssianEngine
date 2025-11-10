@@ -27,9 +27,12 @@ namespace Graphics
 
         public bool WasPlayed = false;
 
-        public VFX(SpriteSheets sheet, Animation anim)
+        public VFX(VFXs type, Vector2 pos, Vector2 size, AnimationSet animSet)
         {
-            AnimationSet = new AnimationSet(sheet, new List<Animation>() { anim });
+            Type = type;
+            Position = pos;
+            Size = size;
+            AnimationSet = animSet;
         }
 
         public void Update()
@@ -48,9 +51,9 @@ namespace Graphics
         }
 
 
-        public static Dictionary<VFXs, VFX> VFXMap = new()
+        public static Dictionary<VFXs, SpriteSheets> VFXSpriteSheetMap = new()
         {
-            { VFXs.EXPLOSION, new VFX(SpriteSheets.ENITIES_FIREBALL, new Animation(AnimationKey.IdleKey, new AnimationFramesData(6, new Vector2(0, 0), new Vector2(64, 64), 1f, SpriteEffects.None))) }
+            { VFXs.EXPLOSION, SpriteSheets.VFX_EXPLOSION }
         };
     }
 }
