@@ -48,6 +48,12 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.TILE_0, 0, true));
                     entities.Add(new TileEntity(new Vector2(500,  -680), new Point(12, 2), TileEntity.TileSets.TILE_0, 0, true));
 
+                    entities.Add(new SpikeEntity(Spikes.FLOOR_SPIKE_0, new Vector2(-500, -568)));
+                    entities.Add(new SpikeEntity(Spikes.FLOOR_SPIKE_1, new Vector2(-532, -568)));
+                    entities.Add(new SpikeEntity(Spikes.FLOOR_SPIKE_2, new Vector2(-564, -560)));
+                    entities.Add(new SpikeEntity(Spikes.FLOOR_SPIKE_3, new Vector2(-596, -552)));
+                    entities.Add(new SpikeEntity(Spikes.FLOOR_SPIKE_4, new Vector2(-596-32, -552)));
+
                     entities.Add(new LadderEntity(Ladders.LADDER0, new Vector2(-120, -60), 10));
                     entities.Add(new LadderEntity(Ladders.LADDER0, new Vector2(-184, -300), 10));
                     entities.Add(new LadderEntity(Ladders.LADDER0, new Vector2(-220, 0), 5));

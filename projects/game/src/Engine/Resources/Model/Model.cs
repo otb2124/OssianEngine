@@ -157,25 +157,25 @@ namespace Resources
 
         public static readonly Dictionary<ModelStates, AnimationStates> ModelStateToAnimationStateMap = new Dictionary<ModelStates, AnimationStates>
             {
-                { ModelStates.MOVING,                     AnimationStates.MOVING },
-                { ModelStates.IDLE,                       AnimationStates.IDLE },
-                { ModelStates.JUMPING,                    AnimationStates.JUMPING },
-                { ModelStates.JUMPING_AND_MOVING,         AnimationStates.JUMPING },
-                { ModelStates.SPRINTING,                  AnimationStates.SPRINTING },
-                { ModelStates.WEAPON_OUT_IDLE,            AnimationStates.WEAPON_OUT_IDLE },
-                { ModelStates.WEAPON_OUT_MOVING,          AnimationStates.WEAPON_OUT_MOVING },
-                { ModelStates.ROLLING,                    AnimationStates.ROLL },
-                { ModelStates.FALLEN,                     AnimationStates.FALLEN },
-                { ModelStates.FALLING,                    AnimationStates.ROLL },
-                { ModelStates.JUMPING_DESCENDING,         AnimationStates.JUMPING_DESCENDING },
-                { ModelStates.JUMPING_DESCENDING_AND_MOVING, AnimationStates.JUMPING_DESCENDING },
-                { ModelStates.DESCENDING,                 AnimationStates.DESCENDING },
-                { ModelStates.BLOCKING,                   AnimationStates.BLOCKING_SWORD },
-                { ModelStates.INWATER_MOVING,            AnimationStates.MOVING },
-                { ModelStates.FLYING,                     AnimationStates.FLYING },
-                { ModelStates.FLYING_AND_MOVING,          AnimationStates.FLYING_AND_MOVING },
-                { ModelStates.DOUBLE_JUMPING,             AnimationStates.ROLL },
-                { ModelStates.DOUBLE_JUMPING_AND_MOVING,  AnimationStates.ROLL }
+                { ModelStates.MOVING,                           AnimationStates.MOVING },
+                { ModelStates.IDLE,                             AnimationStates.IDLE },
+                { ModelStates.JUMPING,                          AnimationStates.JUMPING },
+                { ModelStates.JUMPING_AND_MOVING,               AnimationStates.JUMPING },
+                { ModelStates.SPRINTING,                        AnimationStates.SPRINTING },
+                { ModelStates.WEAPON_OUT_IDLE,                  AnimationStates.WEAPON_OUT_IDLE },
+                { ModelStates.WEAPON_OUT_MOVING,                AnimationStates.WEAPON_OUT_MOVING },
+                { ModelStates.ROLLING,                          AnimationStates.ROLL },
+                { ModelStates.FALLEN,                           AnimationStates.FALLEN },
+                { ModelStates.FALLING,                          AnimationStates.ROLL },
+                { ModelStates.JUMPING_DESCENDING,               AnimationStates.JUMPING_DESCENDING },
+                { ModelStates.JUMPING_DESCENDING_AND_MOVING,    AnimationStates.JUMPING_DESCENDING },
+                { ModelStates.DESCENDING,                       AnimationStates.DESCENDING },
+                { ModelStates.BLOCKING,                         AnimationStates.BLOCKING_SWORD },
+                { ModelStates.INWATER_MOVING,                   AnimationStates.MOVING },
+                { ModelStates.FLYING,                           AnimationStates.FLYING },
+                { ModelStates.FLYING_AND_MOVING,                AnimationStates.FLYING_AND_MOVING },
+                { ModelStates.DOUBLE_JUMPING,                   AnimationStates.ROLL },
+                { ModelStates.DOUBLE_JUMPING_AND_MOVING,        AnimationStates.ROLL }
             };
 
 

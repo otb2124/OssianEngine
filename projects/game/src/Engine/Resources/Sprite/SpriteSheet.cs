@@ -62,6 +62,7 @@ namespace Resources
         ENTITIES_TILES,
         ENTITIES_LEDGES,
         ENTITIES_LADDERS,
+        ENTITIES_SPIKES,
 
         //equipment
         ENTITIES_WEAPONS_TERRABLADE,
@@ -262,7 +263,8 @@ namespace Resources
                 { SpriteSheets.ENTITIES_TILES,                      "entities/static/tiles" },
                 { SpriteSheets.ENTITIES_PLATFORMS,                  "entities/static/platforms" },
                 { SpriteSheets.ENTITIES_LEDGES,                     "entities/static/ledges" },
-                { SpriteSheets.ENTITIES_LADDERS,                     "entities/static/ladders" },
+                { SpriteSheets.ENTITIES_LADDERS,                    "entities/static/ladders" },
+                { SpriteSheets.ENTITIES_SPIKES,                     "entities/static/spikes" },
 
                 // particles 
                 { SpriteSheets.ENTITIES_PARTICLES,                  "entities/static/particles" },

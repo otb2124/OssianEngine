@@ -16,10 +16,11 @@ namespace Resources
         CIRCLE,
         COIN,
         ITEM_DROP,
-        HUMANOID,
-        ANIMAL,
+        HUMAN,
+        SLIME,
         LEDGE,
-        PROJECTILE
+        PROJECTILE,
+        SPIKE_S, SPIKE_L, SPIKE_XL
     }
 
     public struct PhysicalBodyPreset
@@ -96,17 +97,21 @@ namespace Resources
         }
 
 
+
         public static Dictionary<PhysicalBodies, PhysicalBodyPreset> PhysicalBodyPresetMap = new Dictionary<PhysicalBodies, PhysicalBodyPreset>
             {
-                { PhysicalBodies.CRATE_0,   new PhysicalBodyPreset(BodyDynamics.STATIC, BodyShapeType.Box,    new Vector2(50, 50), 0.5f, 0.5f) },
+                { PhysicalBodies.CRATE_0,   new PhysicalBodyPreset(BodyDynamics.STATIC,  BodyShapeType.Box,    new Vector2(50, 50), 0.5f, 0.5f) },
                 { PhysicalBodies.CRATE_1,   new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,    new Vector2(10, 10), 0.5f, 0.5f) },
                 { PhysicalBodies.CIRCLE,    new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 2f)   },
                 { PhysicalBodies.COIN,      new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(5, 5), 0.5f, 2f)   },
                 { PhysicalBodies.ITEM_DROP, new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 2f)   },
-                { PhysicalBodies.HUMANOID,  new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20, 40), 10f, 0f)   },
-                { PhysicalBodies.ANIMAL,    new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20, 20), 10f, 0f)   },
-                { PhysicalBodies.LEDGE,     new PhysicalBodyPreset(BodyDynamics.STATIC, BodyShapeType.Box, new Vector2(20, 20), 1f, 0f)   },
-                { PhysicalBodies.PROJECTILE,new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box, new Vector2(20, 20), 1f, 0f)   }
+                { PhysicalBodies.HUMAN,  new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,       new Vector2(20, 40), 10f, 0f)   },
+                { PhysicalBodies.SLIME,    new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,     new Vector2(20, 20), 10f, 0f)   },
+                { PhysicalBodies.LEDGE,     new PhysicalBodyPreset(BodyDynamics.STATIC,  BodyShapeType.Box,    new Vector2(20, 20), 1f, 0f)   },
+                { PhysicalBodies.PROJECTILE,new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,    new Vector2(20, 20), 1f, 0f)   },
+                { PhysicalBodies.SPIKE_S,   new PhysicalBodyPreset(BodyDynamics.STATIC,  BodyShapeType.Box,    new Vector2(32, 32), 1f, 0f)   },
+                { PhysicalBodies.SPIKE_L,   new PhysicalBodyPreset(BodyDynamics.STATIC,  BodyShapeType.Box,    new Vector2(32, 48), 1f, 0f)   },
+                { PhysicalBodies.SPIKE_XL,   new PhysicalBodyPreset(BodyDynamics.STATIC,  BodyShapeType.Box,   new Vector2(32, 64), 1f, 0f)   }
             };
     }
 }

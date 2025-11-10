@@ -216,6 +216,43 @@ namespace Resources
         }
 
 
+        public static StaticSprite SpikeSetCut(Spikes type)
+        {
+            StaticSprite data = new StaticSprite();
+
+            Vector2 pos = Vector2.Zero;
+            Vector2 size = Vector2.Zero;
+
+            switch (type)
+            {
+                case Spikes.FLOOR_SPIKE_0:
+                    pos = new Vector2(32*0, 32);
+                    size = new Vector2(32, 32);
+                    break;
+                case Spikes.FLOOR_SPIKE_1:
+                    pos = new Vector2(32*1, 32);
+                    size = new Vector2(32, 32);
+                    break;
+                case Spikes.FLOOR_SPIKE_2:
+                    pos = new Vector2(32*2, 0);
+                    size = new Vector2(32, 64);
+                    break;
+                case Spikes.FLOOR_SPIKE_3:
+                    pos = new Vector2(32*3, 0);
+                    size = new Vector2(32, 64);
+                    break;
+                case Spikes.FLOOR_SPIKE_4:
+                    pos = new Vector2(32*4, 0);
+                    size = new Vector2(32, 64);
+                    break;
+            }
+
+            data = new StaticSprite(SpriteSheets.ENTITIES_SPIKES, new Rectangle((int)pos.X, (int)pos.Y, (int)size.X, (int)size.Y), 0);
+
+            return data;
+        }
+
+
 
         public static StaticSprite[] UIFrameCut(Vector2 pos, int tileSize)
         {
