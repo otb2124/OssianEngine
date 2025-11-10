@@ -71,6 +71,7 @@ namespace Resources
 
         //vfxs
         VFX_EXPLOSION,
+        VFX_WATER_STEP,
 
         //light
         LIGHT_DARKNESS_FULL,
@@ -217,28 +218,28 @@ namespace Resources
 
         public static Dictionary<SpriteSheets, string> SpritesheetPathMap = new Dictionary<SpriteSheets, string>
             {
-                { SpriteSheets.NONE,                         "utils/none" },
+                { SpriteSheets.NONE,                                 "utils/none" },
 
                 // graphics – parallax
-                { SpriteSheets.GRAPHICS_BG0_CANVAS,          "graphics/parallax/bg0/canvas" },
-                { SpriteSheets.GRAPHICS_BG0_B0,              "graphics/parallax/bg0/B0" },
-                { SpriteSheets.GRAPHICS_BG0_B1,              "graphics/parallax/bg0/B1" },
-                { SpriteSheets.GRAPHICS_BG0_B2,              "graphics/parallax/bg0/B2" },
-                { SpriteSheets.GRAPHICS_BG0_F0,              "graphics/parallax/bg0/F0" },
+                { SpriteSheets.GRAPHICS_BG0_CANVAS,                  "graphics/parallax/bg0/canvas" },
+                { SpriteSheets.GRAPHICS_BG0_B0,                      "graphics/parallax/bg0/B0" },
+                { SpriteSheets.GRAPHICS_BG0_B1,                      "graphics/parallax/bg0/B1" },
+                { SpriteSheets.GRAPHICS_BG0_B2,                      "graphics/parallax/bg0/B2" },
+                { SpriteSheets.GRAPHICS_BG0_F0,                      "graphics/parallax/bg0/F0" },
 
-                { SpriteSheets.GRAPHICS_BG1_CANVAS,          "graphics/parallax/bg1/canvas" },
-                { SpriteSheets.GRAPHICS_BG1_B0,              "graphics/parallax/bg1/B0" },
-                { SpriteSheets.GRAPHICS_BG1_B1,              "graphics/parallax/bg1/B1" },
-                { SpriteSheets.GRAPHICS_BG1_B2,              "graphics/parallax/bg1/B2" },
-                { SpriteSheets.GRAPHICS_BG1_B3,              "graphics/parallax/bg1/B3" },
-                { SpriteSheets.GRAPHICS_BG1_B4,              "graphics/parallax/bg1/B4" },
-                { SpriteSheets.GRAPHICS_BG1_B5,              "graphics/parallax/bg1/B5" },
-                { SpriteSheets.GRAPHICS_BG1_F0,              "graphics/parallax/bg1/F0" },
+                { SpriteSheets.GRAPHICS_BG1_CANVAS,                  "graphics/parallax/bg1/canvas" },
+                { SpriteSheets.GRAPHICS_BG1_B0,                      "graphics/parallax/bg1/B0" },
+                { SpriteSheets.GRAPHICS_BG1_B1,                      "graphics/parallax/bg1/B1" },
+                { SpriteSheets.GRAPHICS_BG1_B2,                      "graphics/parallax/bg1/B2" },
+                { SpriteSheets.GRAPHICS_BG1_B3,                      "graphics/parallax/bg1/B3" },
+                { SpriteSheets.GRAPHICS_BG1_B4,                      "graphics/parallax/bg1/B4" },
+                { SpriteSheets.GRAPHICS_BG1_B5,                      "graphics/parallax/bg1/B5" },
+                { SpriteSheets.GRAPHICS_BG1_F0,                      "graphics/parallax/bg1/F0" },
 
-                { SpriteSheets.GRAPHICS_STATIC,              "graphics/static" },
-                { SpriteSheets.GRAPHICS_SUN,                 "graphics/sun" },
-                { SpriteSheets.GRAPHICS_MOON,                "graphics/moon" },
-                { SpriteSheets.GRAPHICS_CLOUDS,              "graphics/rain/clouds" },
+                { SpriteSheets.GRAPHICS_STATIC,                      "graphics/static" },
+                { SpriteSheets.GRAPHICS_SUN,                         "graphics/sun" },
+                { SpriteSheets.GRAPHICS_MOON,                        "graphics/moon" },
+                { SpriteSheets.GRAPHICS_CLOUDS,                      "graphics/rain/clouds" },
 
                 // entities – living
                 { SpriteSheets.ENTITIES_HUMAN_M,                     "entities/dynamic/human_m_draft" },
@@ -254,30 +255,33 @@ namespace Resources
                 { SpriteSheets.ENITIES_ARROW,                        "entities/dynamic/arrow" },
 
                 // entities – static / platforms
-                { SpriteSheets.ENTITIES_STATIC,      "entities/static/static" },
-                { SpriteSheets.ENTITIES_TILES,       "entities/static/tiles" },
-                { SpriteSheets.ENTITIES_PLATFORMS,   "entities/static/platforms" },
-                { SpriteSheets.ENTITIES_LEDGES,      "entities/static/ledges" },
+                { SpriteSheets.ENTITIES_STATIC,                     "entities/static/static" },
+                { SpriteSheets.ENTITIES_TILES,                      "entities/static/tiles" },
+                { SpriteSheets.ENTITIES_PLATFORMS,                  "entities/static/platforms" },
+                { SpriteSheets.ENTITIES_LEDGES,                     "entities/static/ledges" },
 
                 // particles 
-                { SpriteSheets.ENTITIES_PARTICLES,           "entities/static/particles" },
-                { SpriteSheets.VFX_EXPLOSION,                "entities/dynamic/vfxs" },
+                { SpriteSheets.ENTITIES_PARTICLES,                  "entities/static/particles" },
+
+                // vfx
+                { SpriteSheets.VFX_EXPLOSION,                       "entities/dynamic/vfxs_explosion" },
+                { SpriteSheets.VFX_WATER_STEP,                      "entities/dynamic/vfxs_water_step" },
 
                 // weapon bodies
-                { SpriteSheets.ENTITIES_WEAPONS_TERRABLADE, "entities/equipment/terrablade" },
-                { SpriteSheets.ENTITIES_WEAPONS_TORCH,      "entities/equipment/torch" },
+                { SpriteSheets.ENTITIES_WEAPONS_TERRABLADE,         "entities/equipment/terrablade" },
+                { SpriteSheets.ENTITIES_WEAPONS_TORCH,              "entities/equipment/torch" },
 
                 // light
-                { SpriteSheets.LIGHT_DARKNESS_FULL, "graphics/light/light_darkness_full" },
-                { SpriteSheets.LIGHT_DARKNESS_MIN,  "graphics/light/light_darkness_min" },
+                { SpriteSheets.LIGHT_DARKNESS_FULL,                 "graphics/light/light_darkness_full" },
+                { SpriteSheets.LIGHT_DARKNESS_MIN,                  "graphics/light/light_darkness_min" },
 
                 // UI
-                { SpriteSheets.UI_CURSOR,    "ui/cursor" },
-                { SpriteSheets.UI_FRAMES,    "ui/frames" },
-                { SpriteSheets.UI_GAME_ICON, "ui/gameicon" },
-                { SpriteSheets.UI_ICONS,     "ui/icons" },
-                { SpriteSheets.UI_HUD,       "ui/hud" },
-                { SpriteSheets.UI_ITEMS,     "ui/items" }
+                { SpriteSheets.UI_CURSOR,                           "ui/cursor" },
+                { SpriteSheets.UI_FRAMES,                           "ui/frames" },
+                { SpriteSheets.UI_GAME_ICON,                        "ui/gameicon" },
+                { SpriteSheets.UI_ICONS,                            "ui/icons" },
+                { SpriteSheets.UI_HUD,                              "ui/hud" },
+                { SpriteSheets.UI_ITEMS,                            "ui/items" }
             };
     }
 }

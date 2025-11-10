@@ -37,7 +37,7 @@ namespace Entities
                     entities.Add(new TileEntity(new Vector2(1000, -250), new Point(3, 2), TileEntity.TileSets.TILE_0));
                     entities.Add(new TileEntity(new Vector2(-150,   90), new Point(15, 1), TileEntity.TileSets.TILE_0));
 
-                    entities.Add(new WaterTileEntity(new Vector2(500, -640), new Point(12, 2), TileEntity.TileSets.WATER_0, 0));
+                    entities.Add(new WaterTileEntity(new Vector2(510, -640), new Point(12, 1), TileEntity.TileSets.WATER_0, 0));
 
                     entities.Add(new TileEntity(new Vector2(0,    -625), new Point(20, 1), TileEntity.TileSets.TILE_0, 0, true));
                     entities.Add(new TileEntity(new Vector2(-500, -600), new Point(12, 2), TileEntity.TileSets.TILE_0, 0, true));

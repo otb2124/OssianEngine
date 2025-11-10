@@ -28,6 +28,14 @@ namespace Graphics
             VFXList.Add(new VFX(type, pos, size, AnimationSetSetter.CreateAnimationSetBySpriteSheet(VFX.VFXSpriteSheetMap[type])));
         }
 
+        public void AddSingleVFX(VFXs type, Vector2 pos, Vector2 size)
+        {
+            if (!VFXList.Any(vfx => vfx.Type == type))
+            {
+                VFXList.Add(new VFX(type, pos, size, AnimationSetSetter.CreateAnimationSetBySpriteSheet(VFX.VFXSpriteSheetMap[type])));
+            }
+        }
+
         public void Update()
         {
             for (int i = VFXList.Count - 1; i >= 0; i--)

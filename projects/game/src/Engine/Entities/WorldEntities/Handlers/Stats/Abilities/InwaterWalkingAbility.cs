@@ -1,4 +1,5 @@
-﻿using Physics;
+﻿using Microsoft.Xna.Framework;
+using Physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,8 @@ namespace Entities
                         StatRestored = false;
                     }
 
+
+                    Graphics.Graphics.VFXManager.AddSingleVFX(Graphics.VFXs.WATER_STEP, model.Body.Position.ToVector2(), Vector2.One);
                     model.ModelState = ModelStates.INWATER_MOVING;
                 }
                 else

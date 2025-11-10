@@ -425,15 +425,26 @@ namespace Graphics
                             }
                         ),
 
+
+                        //vfx
                         new AnimationSet
                         (
                             SpriteSheets.VFX_EXPLOSION,
                             new List<Animation>
                             {
                                 new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
-                                    new AnimationFramesData(6, new Vector2(0, 0), new Vector2(32, 32), 1f)),
+                                    new AnimationFramesData(6, new Vector2(0, 0), new Vector2(32, 32), 0.05f)),
                             }
+                        ),
 
+                        new AnimationSet
+                        (
+                            SpriteSheets.VFX_WATER_STEP,
+                            new List<Animation>
+                            {
+                                new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
+                                    new AnimationFramesData(4, new Vector2(0, 0), new Vector2(32, 32), 0.075f)),
+                            }
                         ),
         };
 

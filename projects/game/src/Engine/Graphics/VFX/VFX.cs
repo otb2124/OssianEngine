@@ -13,12 +13,11 @@ namespace Graphics
     public enum VFXs
     {
         EXPLOSION,
-        WATER_MOVE_EFFECT,
+        WATER_STEP,
     };
 
     public class VFX
     {
-
         public VFXs Type;
         public AnimationSet AnimationSet;
 
@@ -53,7 +52,8 @@ namespace Graphics
 
         public static Dictionary<VFXs, SpriteSheets> VFXSpriteSheetMap = new()
         {
-            { VFXs.EXPLOSION, SpriteSheets.VFX_EXPLOSION }
+            { VFXs.EXPLOSION, SpriteSheets.VFX_EXPLOSION },
+            { VFXs.WATER_STEP, SpriteSheets.VFX_WATER_STEP }
         };
     }
 }
