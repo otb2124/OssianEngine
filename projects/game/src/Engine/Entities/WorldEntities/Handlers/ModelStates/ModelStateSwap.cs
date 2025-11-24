@@ -38,14 +38,6 @@ namespace Entities
             }
             
         }
-
-        public void Apply(StatsEntity Entity)
-        {
-            ModelStates state = Entity.Model.ModelState;
-            int directionXFactor = Entity.Model.Direction == Directions.RIGHT ? 1 : -1;
-
-            ModelStateHandler.StateActions[state](Entity, directionXFactor);
-        }
     }
 
 }

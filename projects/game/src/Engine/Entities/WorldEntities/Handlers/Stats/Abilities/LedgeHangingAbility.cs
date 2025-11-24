@@ -24,6 +24,7 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Resources.Model model)
         {
+
             if (!AllowHangingOnLedge && model.ModelState != ModelStates.HANGING_ON_LEDGE)
             {
                 UnHangingCounter++;

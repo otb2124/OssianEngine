@@ -107,6 +107,14 @@ namespace Entities {
     public static class ModelStateHandler
     {
 
+        public static void Handle(StatsEntity Entity)
+        {
+            ModelStates state = Entity.Model.ModelState;
+            int directionXFactor = Entity.Model.Direction == Directions.RIGHT ? 1 : -1;
+
+            StateActions[state](Entity, directionXFactor);
+        }
+
         public static void Idle(StatsEntity Entity)
         {
             if (Entity.StatsManager.StatsBattleHitSpendHandler != null)

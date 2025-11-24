@@ -60,6 +60,10 @@ namespace Entities
                 return;
             }
 
+            if (StatsManager.GetStatAbilities(EntityStatFeatures.GCS) != null)
+            {
+                Model.UpdateSurroundingRectangles();
+            }
 
             StatsManager.UpdateAbilities(Model);
             StatsManager.UpdateStatEffects();
@@ -67,11 +71,6 @@ namespace Entities
             if (UpdatesModelStates)
             {
                 ModelStateManager.Apply(this);
-            }
-
-            if(StatsManager.GetStatAbilities(EntityStatFeatures.GCS) != null)
-            {
-                Model.UpdateSurroundingRectangles();
             }
 
             base.Update();

@@ -11,7 +11,7 @@ namespace Utils
     {
 
         public string Name => "exit";
-        public string Description => "Exit the game";
+        public string Description => "Exit the Game";
         public bool IsForDebug => false;
 
         public void Execute(string[] args)

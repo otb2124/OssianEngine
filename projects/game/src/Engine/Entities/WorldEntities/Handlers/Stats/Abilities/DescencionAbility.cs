@@ -26,7 +26,6 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Resources.Model model)
         {
-
             statsManager.DescendingMultiplier = DescendingMultiplier;
 
             if (statsManager.IsTouchingWalls)

@@ -21,12 +21,12 @@ namespace Entities
             {
                 case 0:
                     //ledge parkour way
-                    entities.Add(new TileEntity(new Vector2(550, -400), new Point(5, 5), TileEntity.TileSets.TILE_0, 0, true) { IsWall = true});
+                    entities.Add(new TileEntity(new Vector2(350, -400), new Point(5, 5), TileEntity.TileSets.TILE_0, 0, true) { IsWall = true});
 
-                    entities.Add(new LedgeEntity(new Vector2(474, -460), Directions.LEFT, LedgeEntity.Ledges.LEDGE0));
-                    entities.Add(new LedgeEntity(new Vector2(474, -330), Directions.LEFT, LedgeEntity.Ledges.LEDGE0, true));
-                    entities.Add(new LedgeEntity(new Vector2(626, -460), Directions.RIGHT, LedgeEntity.Ledges.LEDGE0));
-                    entities.Add(new LedgeEntity(new Vector2(626, -330), Directions.RIGHT, LedgeEntity.Ledges.LEDGE0, true));
+                    entities.Add(new LedgeEntity(new Vector2(272, -460), Directions.LEFT, LedgeEntity.Ledges.LEDGE0));
+                    entities.Add(new LedgeEntity(new Vector2(272, -330), Directions.LEFT, LedgeEntity.Ledges.LEDGE0, true));
+                    entities.Add(new LedgeEntity(new Vector2(426, -460), Directions.RIGHT, LedgeEntity.Ledges.LEDGE0));
+                    entities.Add(new LedgeEntity(new Vector2(426, -330), Directions.RIGHT, LedgeEntity.Ledges.LEDGE0, true));
 
                     entities.Add(new TileEntity(new Vector2(-75,  -250), new Point(3, 3), TileEntity.TileSets.TILE_0));
                     entities.Add(new TileEntity(new Vector2(50,   -250), new Point(3, 1), TileEntity.TileSets.TILE_0));

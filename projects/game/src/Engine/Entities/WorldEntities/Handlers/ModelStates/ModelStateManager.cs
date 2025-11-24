@@ -287,6 +287,7 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
+                            new ModelStateRequirement(ModelStates.HANGING_ON_LEDGE, true),
 
                             //new IsGroundedRequirement(true),
                             new AllowJumpDescendingRequirement(),
@@ -346,7 +347,7 @@ namespace Entities
                     new OrRequirement(
                         new Requirement[]
                         {
-                            new IsTouchingCeilingRequirement(),
+                            //new IsTouchingCeilingRequirement(),
                             new AndRequirement(
                                 new Requirement[]
                                 {
@@ -368,7 +369,7 @@ namespace Entities
 
                                     new ModelStateRequirement(ModelStates.DOUBLE_JUMPING, true),
                                     new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
-
+                                    new ModelStateRequirement(ModelStates.HANGING_ON_LEDGE, true),
                                     new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                                     new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                                     new ModelStateRequirement(ModelStates.FALLEN, true),
@@ -546,6 +547,28 @@ namespace Entities
                     )
                 }
             ),
+
+
+            //HANGING_ON_LEDGE
+            new ModelStateSwap(
+                ModelStates.HANGING_ON_LEDGE,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
+                            new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
+
+                            new ModelStateRequirement(ModelStates.DESCENDING , true),
+
+
+                            new IsGroundedRequirement(true),
+                            new AllowJumpDescendingRequirement(),
+                        }
+                    )
+                }
+            ),
         };
 
 
@@ -557,7 +580,6 @@ namespace Entities
 
         public static void Update()
         {
-
             foreach (ModelStateSwap modelStateSwap in ModelStateSwappers)
             {
                 modelStateSwap.Check();
@@ -576,7 +598,7 @@ namespace Entities
 
             if (swap != null)
             {
-                swap.Apply(Entity);
+                ModelStateHandler.Handle(Entity);
             }
         }
 
