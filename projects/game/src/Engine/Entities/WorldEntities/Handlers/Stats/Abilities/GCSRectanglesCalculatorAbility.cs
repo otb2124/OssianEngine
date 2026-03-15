@@ -10,6 +10,9 @@ namespace Entities
     public class GCSRectanglesCalculatorAbility : EntityAbility
     {
 
+        public bool IsTouchingCeiling;
+        public bool IsTouchingWalls;
+        public bool IsGrounded;
 
         public GCSRectanglesCalculatorAbility()
         {
@@ -18,9 +21,9 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            statsManager.IsGrounded = CollisionHelper.GetAnyGround(model) != null;
-            statsManager.IsTouchingCeiling = CollisionHelper.GetAnyCeiling(model) != null;
-            statsManager.IsTouchingWalls = CollisionHelper.GetAnyWalls(model) != null;
+            IsGrounded = CollisionHelper.GetAnyGround(model) != null;
+            IsTouchingCeiling = CollisionHelper.GetAnyCeiling(model) != null;
+            IsTouchingWalls = CollisionHelper.GetAnyWalls(model) != null;
         }
     }
 }

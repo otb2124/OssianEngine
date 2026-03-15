@@ -18,7 +18,7 @@ namespace Entities
 
         public override bool Check()
         {
-            bool result = Entities.Player.StatsManager.IsTouchingCeiling;
+            bool result = Entities.Player.StatsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsTouchingCeiling;
             return IsNegation ? !result : result;
         }
     }

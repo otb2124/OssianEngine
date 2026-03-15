@@ -17,6 +17,9 @@ namespace Entities
 
         public bool IsJumpDescending;
 
+        public bool AllowJumpDescendingLock;
+        public bool AllowJumpDescending;
+
         public DescencionAbility(float maxDescendingSec, float descendingMultiplier)
         {
             MaxDescendingSec = maxDescendingSec;
@@ -26,12 +29,10 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            statsManager.DescendingMultiplier = DescendingMultiplier;
-
-            if (statsManager.IsTouchingWalls)
+            if (statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsTouchingWalls)
             {
-                statsManager.IsTouchingCeiling = false;
-                statsManager.IsGrounded = false;
+                statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsTouchingCeiling = false;
+                statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsGrounded = false;
             }
 
             if (model.ModelState == ModelStates.JUMPING ||
@@ -43,15 +44,15 @@ namespace Entities
             }
 
 
-            if (statsManager.AllowJumpDescendingLock && IsJumpDescending)
+            if (AllowJumpDescendingLock && IsJumpDescending)
             {
                 DescendingCounter++;
-                statsManager.AllowJumpDescending = true;
+                AllowJumpDescending = true;
                 if (DescendingCounter > MaxDescendingSec * Graphics.Graphics.UpdatesPerSecond)
                 {
                     IsJumpDescending = false;
-                    statsManager.AllowJumpDescendingLock = false;
-                    statsManager.AllowJumpDescending = false;
+                    AllowJumpDescendingLock = false;
+                    AllowJumpDescending = false;
                     DescendingCounter = 0;
                 }
             }
@@ -61,15 +62,15 @@ namespace Entities
             }
 
 
-            if (statsManager.IsGrounded || statsManager.IsTouchingCeiling)
+            if (statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsGrounded || statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsTouchingCeiling)
             {
                 IsJumpDescending = false;
-                statsManager.AllowJumpDescendingLock = false;
-                statsManager.AllowJumpDescending = false;
+                AllowJumpDescendingLock = false;
+                AllowJumpDescending = false;
                 DescendingCounter = 0;
             }
 
-            if (statsManager.IsGrounded)
+            if (statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsGrounded)
             {
                 model.highestJumpY = float.MinValue;
             }
@@ -78,7 +79,7 @@ namespace Entities
 
         public bool IsDescending(StatsManager statsManager, Resources.Model model)
         {
-            if (!statsManager.IsGrounded)
+            if (!statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsGrounded)
             {
                 PhysicalBody body = model.Body;
 

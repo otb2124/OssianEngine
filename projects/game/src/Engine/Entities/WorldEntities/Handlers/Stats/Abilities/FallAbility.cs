@@ -13,6 +13,9 @@ namespace Entities
         public float FallenTimer = 0f;
         public float FallenDurationAllowedSec = 3f;
 
+        public bool IsFallen;
+        public bool IsFalling;
+
 
         public FallAbility() 
         {
@@ -30,26 +33,26 @@ namespace Entities
             {
                 if (!model.Body.IsColliding)
                 {
-                    if (!statsManager.IsFallen)
+                    if (!IsFallen)
                     {
-                        statsManager.IsFalling = true;
+                        IsFalling = true;
                         model.ModelState = ModelStates.FALLING;
                     }
                 }
                 else
                 {
-                    statsManager.IsFallen = true;
-                    statsManager.IsFalling = false;
+                    IsFallen = true;
+                    IsFalling = false;
                     model.ModelState = ModelStates.FALLEN;
                 }
             }
 
-            if (statsManager.IsFallen)
+            if (IsFallen)
             {
                 FallenTimer++;
                 if (FallenTimer >= FallenDurationAllowedSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    statsManager.IsFallen = false;
+                    IsFallen = false;
                     FallenTimer = 0f;
                     model.Body.Move(new PhysicalVector(0, 10f));
                     model.Body.RotateTo(0f);

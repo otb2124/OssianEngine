@@ -14,6 +14,8 @@ namespace Entities
         public int PickupCounter = 0;
         public float PickupLockSec = 0.25f;
 
+        public bool AllowPickup = true;
+
         public ItemPickupAbility()
         {
             Type = EntityStatFeatures.ITEM_PICKUP;
@@ -21,12 +23,12 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            if (!statsManager.AllowPickup)
+            if (!AllowPickup)
             {
                 PickupCounter++;
                 if (PickupCounter > PickupLockSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    statsManager.AllowPickup = true;
+                    AllowPickup = true;
                     PickupCounter = 0;
                 }
             }

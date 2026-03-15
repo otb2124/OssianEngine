@@ -60,7 +60,7 @@ namespace Entities
                 return;
             }
 
-            if (StatsManager.GetStatAbilities(EntityStatFeatures.GCS) != null)
+            if (StatsManager.GetStatAbility(EntityStatFeatures.GCS) != null)
             {
                 Model.UpdateSurroundingRectangles();
             }

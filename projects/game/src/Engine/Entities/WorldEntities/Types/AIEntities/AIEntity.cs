@@ -35,7 +35,7 @@ namespace Entities
 
         public override void Update()
         {
-            if (AISet != null && !StatsManager.IsFallen && !StatsManager.IsFalling)
+            if (AISet != null && !StatsManager.GetStatAbility<FallAbility>().IsFallen && !StatsManager.GetStatAbility<FallAbility>().IsFalling)
             {
                 AISet.Update(this);
 

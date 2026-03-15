@@ -377,7 +377,7 @@ namespace Entities
                             )
                         }
                     )
-                    
+
                 }
             ),
 
@@ -561,7 +561,11 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
 
                             new ModelStateRequirement(ModelStates.DESCENDING , true),
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
 
+                            new ModelStateRequirement(ModelStates.JUMPING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING, true),
 
                             new IsGroundedRequirement(true),
                             new AllowJumpDescendingRequirement(),

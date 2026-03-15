@@ -15,30 +15,7 @@ namespace Entities
 
         public List<StatEffect> CurrentStatEffects;
 
-        //TODO: ???
-        public bool AllowJumpDescendingLock;
-        public bool AllowJumpDescending;
-
-        public bool FlyingUpwards = true;
-
-        public bool OnUsingStamina;
-        public bool OnStaminaRegen;
-
-        public bool IsTouchingCeiling;
-        public bool IsTouchingWalls;
-        public bool IsGrounded;
-
-        public float DescendingMultiplier;
-
-        public bool IsFallen;
-        public bool IsFalling;
-
-        public bool IsInvincible = true;
-
-        public bool AllowPickup = true;
-
-        public bool AllowDoubleJump = false;
-
+        
         public StatsManager()
         {
             CurrentStatEffects = new List<StatEffect>();
@@ -95,8 +72,7 @@ namespace Entities
             }
         }
 
-
-        public EntityAbility GetStatAbilities(EntityStatFeatures type)
+        public EntityAbility GetStatAbility(EntityStatFeatures type)
         {
             foreach (EntityAbility ability in Abilities)
             {
@@ -106,6 +82,16 @@ namespace Entities
                 }
             }
 
+            return null;
+        }
+
+        public T GetStatAbility<T>() where T : EntityAbility
+        {
+            foreach (EntityAbility ability in Abilities)
+            {
+                if (ability is T typed)
+                    return typed;
+            }
             return null;
         }
 

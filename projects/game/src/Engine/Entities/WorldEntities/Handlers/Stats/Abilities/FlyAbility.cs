@@ -17,6 +17,8 @@ namespace Entities
         public float CurrentFlyHeightPointOverHead = 50f;
         public float LandPoint;
 
+        public bool FlyingUpwards = true;
+
 
         public FlyAbility()
         {
@@ -26,7 +28,7 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            if (statsManager.IsGrounded)
+            if (statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsGrounded)
             {
                 LandPoint = model.Body.Position.Y;
                 CurrentFlyHeightPointOverHead = FlyHeightPointOverHead;
@@ -39,19 +41,19 @@ namespace Entities
             }
 
 
-            if (model.Body.Position.Y < LandPoint + CurrentFlyHeightPointOverHead && statsManager.FlyingUpwards)
+            if (model.Body.Position.Y < LandPoint + CurrentFlyHeightPointOverHead && FlyingUpwards)
             {
-                statsManager.FlyingUpwards = true;
+                FlyingUpwards = true;
                 return;
             }
 
-            if (statsManager.FlyingUpwards)
+            if (FlyingUpwards)
             {
                 FlyingCounter++;
 
                 if (FlyingCounter >= MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    statsManager.FlyingUpwards = false;
+                    FlyingUpwards = false;
                     FlyingCounter = (int)(MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond);
                 }
             }
@@ -60,7 +62,7 @@ namespace Entities
                 FlyingCounter--;
                 if (FlyingCounter <= 0)
                 {
-                    statsManager.FlyingUpwards = true;
+                    FlyingUpwards = true;
                     FlyingCounter = 0;
                 }
             }

@@ -18,7 +18,7 @@ namespace Entities
 
         public override bool Check()
         {
-            bool result = Entities.Player.StatsManager.OnStaminaRegen;
+            bool result = Entities.Player.StatsManager.GetStatAbility<StaminaRegenerationAbility>().OnStaminaRegen;
             return IsNegation ? !result : result;
         }
     }

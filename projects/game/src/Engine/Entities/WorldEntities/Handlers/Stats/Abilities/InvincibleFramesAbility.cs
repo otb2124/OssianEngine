@@ -11,6 +11,7 @@ namespace Entities
 
         public float InvincibleFramesDurationSec = 1f;
         public int InvincibleCounter = 0;
+        public bool IsInvincible = true;
 
         public InvincibleFramesAbility(float invincibleFramesDurationSec)
         {
@@ -20,12 +21,12 @@ namespace Entities
 
         public override void Update(StatsManager statsManager, Resources.Model model)
         {
-            if (statsManager.IsInvincible)
+            if (IsInvincible)
             {
                 InvincibleCounter++;
                 if (InvincibleCounter > InvincibleFramesDurationSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    statsManager.IsInvincible = false;
+                    IsInvincible = false;
                     InvincibleCounter = 0;
                 }
             }

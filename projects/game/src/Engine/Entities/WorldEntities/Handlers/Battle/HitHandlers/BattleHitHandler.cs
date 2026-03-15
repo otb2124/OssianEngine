@@ -15,7 +15,7 @@ namespace Entities
         
         public static void HandleHit(BattleEntity toEnt, BattleEntity fromEnt, RotatedRectangle toEntHitboxExtends, RotatedRectangle fromEntHitboxExtends)
         {
-            if (!toEnt.StatsManager.IsInvincible)
+            if (!toEnt.StatsManager.GetStatAbility<InvincibleFramesAbility>().IsInvincible)
             {
                 if (!toEnt.StatsManager.GetStat(EntityStats.HP).LessEquealZero())
                 {
@@ -28,7 +28,7 @@ namespace Entities
 
         public static void HandleHit(BattleEntity toEnt, ProjectileEntity fromEnt)
         {
-            if (!toEnt.StatsManager.IsInvincible)
+            if (!toEnt.StatsManager.GetStatAbility<InvincibleFramesAbility>().IsInvincible)
             {
                 if (!toEnt.StatsManager.GetStat(EntityStats.HP).LessEquealZero())
                 {
@@ -41,7 +41,7 @@ namespace Entities
 
         public static void HandleHit(BattleEntity toEnt, SpikeEntity fromEnt)
         {
-            if (!toEnt.StatsManager.IsInvincible)
+            if (!toEnt.StatsManager.GetStatAbility<InvincibleFramesAbility>().IsInvincible)
             {
                 if (!toEnt.StatsManager.GetStat(EntityStats.HP).LessEquealZero())
                 {
@@ -56,7 +56,7 @@ namespace Entities
         //TODO: HANDLE DAMAGE DATA AS HANDLEHIT()
         public static void HandleBlockHit(StatsEntity toEnt, float damage, float knockBackPower, Vector2 fromEntPos)
         {
-            if (!toEnt.StatsManager.IsInvincible)
+            if (!toEnt.StatsManager.GetStatAbility<InvincibleFramesAbility>().IsInvincible)
             {
                 BattleTakingDamageHandler.ReceiveKnockBack(toEnt, knockBackPower, fromEntPos);
             }
@@ -66,10 +66,10 @@ namespace Entities
 
         public static void HandleInvincibility(StatsEntity entity)
         {
-            if (entity.StatsManager.IsInvincible)
+            if (entity.StatsManager.GetStatAbility<InvincibleFramesAbility>().IsInvincible)
                 return;
             else
-                entity.StatsManager.IsInvincible = true;
+                entity.StatsManager.GetStatAbility<InvincibleFramesAbility>().IsInvincible = true;
         }
 
 

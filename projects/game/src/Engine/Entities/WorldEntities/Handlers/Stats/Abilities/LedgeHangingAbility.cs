@@ -36,10 +36,14 @@ namespace Entities
                 }
             }
 
-            if (statsManager.IsTouchingWalls)
+            if (statsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsTouchingWalls)
             {
                 LedgeEntity ledge = CollisionHelper.GetAnyLedges(model.Body);
-                if (ledge != null && AllowHangingOnLedge)
+
+                bool isJumping = model.ModelState == ModelStates.JUMPING
+                              || model.ModelState == ModelStates.JUMPING_AND_MOVING;
+
+                if (ledge != null && AllowHangingOnLedge && !isJumping)
                 {
                     model.ModelState = ModelStates.HANGING_ON_LEDGE;
                     model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(ledge.HangingPosition));

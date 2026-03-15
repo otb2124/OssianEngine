@@ -10,7 +10,7 @@ namespace Entities
     public class DoubleJumpAbility : EntityAbility
     {
 
-
+        public bool AllowDoubleJump = false;
 
         public DoubleJumpAbility()
         {
@@ -25,11 +25,11 @@ namespace Entities
                 model.ModelState == ModelStates.DOUBLE_JUMPING ||
                 model.ModelState == ModelStates.DOUBLE_JUMPING_AND_MOVING)
             {
-                statsManager.AllowDoubleJump = true;
+                AllowDoubleJump = true;
             }
             else
             {
-                statsManager.AllowDoubleJump = false;
+                AllowDoubleJump = false;
             }
         }
     }

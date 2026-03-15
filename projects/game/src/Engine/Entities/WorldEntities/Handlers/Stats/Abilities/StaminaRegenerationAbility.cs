@@ -15,6 +15,9 @@ namespace Entities
 
         public int StaminaUnlockCounter = 0;
 
+        public bool OnUsingStamina;
+        public bool OnStaminaRegen;
+
         public StaminaRegenerationAbility(float staminaRegenSec, float staminaUnlockSec)
         {
             StaminaRegenSec = staminaRegenSec;
@@ -27,15 +30,15 @@ namespace Entities
             if (statsManager.StatsBattleHitSpendHandler != null && statsManager.StatsBattleHitSpendHandler.StatsPerAttackHitSpent)
                 return;
 
-            statsManager.OnStaminaRegen = false;
+            OnStaminaRegen = false;
 
-            if (statsManager.GetStat(EntityStats.STAMINA).CurrentValue < statsManager.GetStat(EntityStats.STAMINA).MaximumValue && !statsManager.OnUsingStamina)
+            if (statsManager.GetStat(EntityStats.STAMINA).CurrentValue < statsManager.GetStat(EntityStats.STAMINA).MaximumValue && !OnUsingStamina)
             {
                 StaminaUnlockCounter++;
 
                 if (StaminaUnlockCounter < StaminaUnlockSec * Graphics.Graphics.UpdatesPerSecond)
                 {
-                    statsManager.OnStaminaRegen = true;
+                    OnStaminaRegen = true;
                 }
 
                 statsManager.GetStat(EntityStats.STAMINA).CurrentValue += StaminaRegenSec / (float)Graphics.Graphics.UpdatesPerSecond;
@@ -50,7 +53,7 @@ namespace Entities
                 StaminaUnlockCounter = 0;
             }
 
-            statsManager.OnUsingStamina = false;
+            OnUsingStamina = false;
         }
     }
 }

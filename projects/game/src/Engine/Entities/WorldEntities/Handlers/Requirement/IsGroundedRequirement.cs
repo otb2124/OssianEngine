@@ -18,7 +18,7 @@ namespace Entities
 
         public override bool Check()
         {
-            bool result = Entities.Player.StatsManager.IsGrounded;
+            bool result = Entities.Player.StatsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsGrounded;
             return IsNegation ? !result : result;
         }
     }
