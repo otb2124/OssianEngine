@@ -682,12 +682,11 @@ namespace Entities
 
         public static void TurnRight()
         {
-            Player player = Entities.Player;
-
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
             {
-                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
-                    && player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
+                Player player = Entities.Player;
+
+                if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
                 {
@@ -698,12 +697,11 @@ namespace Entities
 
         public static void TurnLeft()
         {
-            Player player = Entities.Player;
-
             if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
             {
-                if ((Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED] || Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED]) &&
-                    player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
+                Player player = Entities.Player;
+
+                if (player.Model.ModelState != ModelStates.ATTACKING_LIGHT &&
                     player.Model.ModelState != ModelStates.ATTACKING_HEAVY &&
                     player.Model.ModelState != ModelStates.FALLEN)
                 {

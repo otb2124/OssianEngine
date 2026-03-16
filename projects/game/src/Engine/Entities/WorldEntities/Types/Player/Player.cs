@@ -65,6 +65,7 @@ namespace Entities
 
             EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TERRABLADE)), WeaponHands.LEFT);
 
+            /*
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Helmets.IRON_HELMET));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Chestplates.IRON_CHESTPLATE));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Boots.IRON_BOOTS));
@@ -78,6 +79,7 @@ namespace Entities
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Containments.BACKPACK));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Pets.CALL_DOG));
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.LightPets.CALL_FIREFLY));
+            */
         }
 
         public override void SetInventory()

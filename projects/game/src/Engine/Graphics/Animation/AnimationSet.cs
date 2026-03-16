@@ -49,27 +49,40 @@ namespace Graphics
 
         public void Update(AnimationKey key)
         {
-
             if (ContainsAnimationKey(key))
             {
+                // Same animation state, different direction — carry frame over
+                if (LastKey != null
+                    && LastKey.AnimationState == key.AnimationState
+                    && LastKey.Direction != key.Direction)
+                {
+                    Animation outgoing = GetAnimation(LastKey);
+                    Animation incoming = GetAnimation(key);
+                    if (outgoing != null && incoming != null)
+                    {
+                        incoming.CurrentFrame = outgoing.CurrentFrame;
+                        incoming.FrameTimeLeft = outgoing.FrameTimeLeft;
+                    }
+                }
+
                 GetAnimation(key).Start();
                 GetAnimation(key).Update();
                 LastKey = key;
             }
             else
             {
-                if(GetAnimation(LastKey) != null)
+                if (GetAnimation(LastKey) != null)
                 {
                     GetAnimation(LastKey).Stop();
                     GetAnimation(LastKey).Reset();
                 }
-                
             }
         }
 
+
         public void Update()
         {
-            Update(AnimationKey.IdleKey);
+            Update(new AnimationKey(AnimationStates.IDLE, Directions.LEFT));
         }
 
         public Animation GetCurrent()

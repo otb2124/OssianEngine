@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Resources;
+using System;
 using System.Collections.Generic;
 using Utils;
 
@@ -17,12 +18,6 @@ namespace Graphics
         public AnimationKey(AnimationStates state, Directions direction)
         {
             AnimationState = state; Direction = direction; 
-        }
-
-        public static AnimationKey IdleKey;
-        static AnimationKey()
-        {
-            IdleKey = new AnimationKey(AnimationStates.IDLE, Directions.LEFT);
         }
     }
 

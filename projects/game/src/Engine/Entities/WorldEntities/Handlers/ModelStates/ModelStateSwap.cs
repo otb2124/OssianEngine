@@ -45,7 +45,6 @@ namespace Entities
 
                     if (requirement.Check())
                     {
-                        Console.WriteLine(ModelState);
                         Entities.Player.Model.ModelState = ModelState;
                     }
                 }

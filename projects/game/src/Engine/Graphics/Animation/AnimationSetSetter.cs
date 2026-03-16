@@ -19,7 +19,15 @@ namespace Graphics
         public static AnimationSet CreateAnimationSetBySpriteSheet(SpriteSheets spriteSheet)
         {
             AnimationSet found = GetAnimationSetBySpriteSheet(spriteSheet);
-            return new AnimationSet(found.SpriteSheet, found.Anims);
+
+            // Deep-copy each Animation so instances don't share frame state with the template
+            List<Animation> copies = new List<Animation>();
+            foreach (Animation anim in found.Anims)
+            {
+                copies.Add(new Animation(anim.AnimationKey, anim.AnimationFramesData));
+            }
+
+            return new AnimationSet(found.SpriteSheet, copies);
         }
 
 
@@ -31,21 +39,21 @@ namespace Graphics
                             {
                                 //idle
                                 new Animation(new AnimationKey(AnimationStates.IDLE, Directions.LEFT),
-                                    new AnimationFramesData(1, new Vector2(0, 128*0), new Vector2(64, 128), 0.1f, SpriteEffects.FlipHorizontally)),
+                                    new AnimationFramesData(4, new Vector2(0, 128*0), new Vector2(64, 128), 0.5f, SpriteEffects.FlipHorizontally)),
                                 new Animation(new AnimationKey(AnimationStates.IDLE, Directions.RIGHT),
-                                    new AnimationFramesData(1, new Vector2(0, 128*0), new Vector2(64, 128), 0.1f)),
+                                    new AnimationFramesData(4, new Vector2(0, 128*0), new Vector2(64, 128), 0.5f)),
 
                                 //moving
                                 new Animation(new AnimationKey(AnimationStates.MOVING, Directions.LEFT),
-                                    new AnimationFramesData(1, new Vector2(0, 128*1), new Vector2(64, 128), 1f, SpriteEffects.FlipHorizontally)),
+                                    new AnimationFramesData(4, new Vector2(0, 128*1), new Vector2(64, 128), 0.5f, SpriteEffects.FlipHorizontally)),
                                 new Animation(new AnimationKey(AnimationStates.MOVING, Directions.RIGHT),
-                                    new AnimationFramesData(1, new Vector2(0, 128*1), new Vector2(64, 128), 1f)),
+                                    new AnimationFramesData(4, new Vector2(0, 128*1), new Vector2(64, 128), 0.5f)),
 
                                  //weapon out
                                 new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.LEFT),
-                                    new AnimationFramesData(1, new Vector2(0, 128*2), new Vector2(64, 128), 0.15f, SpriteEffects.FlipHorizontally)),
+                                    new AnimationFramesData(1, new Vector2(0, 128*2), new Vector2(64, 128), 0.5f, SpriteEffects.FlipHorizontally)),
                                 new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.RIGHT),
-                                    new AnimationFramesData(1, new Vector2(0, 128*2), new Vector2(64, 128), 0.15f)),
+                                    new AnimationFramesData(1, new Vector2(0, 128*2), new Vector2(64, 128), 0.5f)),
 
                                 //weapon out moving
                                 new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_MOVING, Directions.LEFT),
