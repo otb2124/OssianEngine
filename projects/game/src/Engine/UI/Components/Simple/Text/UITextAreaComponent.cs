@@ -60,6 +60,17 @@ namespace UI
 
                 foreach (var item in wordsAndTags)
                 {
+                    // handle <br> line break token
+                    if (item.IsLineBreak)
+                    {
+                        currentRow++;
+                        if (currentRow >= maxRows)
+                            break;
+                        currentX = Position.X;
+                        currentY -= scaledLineHeight;
+                        continue;
+                    }
+
                     string displayWord = item.Text;
                     string measureText = item.IsTag ? item.InnerText : item.Text;
 
@@ -112,13 +123,13 @@ namespace UI
             }
         }
 
-        private List<(string Text, string InnerText, bool IsTag)> SplitWordsAndTags(string input)
+        private List<(string Text, string InnerText, bool IsTag, bool IsLineBreak)> SplitWordsAndTags(string input)
         {
-            var result = new List<(string Text, string InnerText, bool IsTag)>();
+            var result = new List<(string Text, string InnerText, bool IsTag, bool IsLineBreak)>();
             if (string.IsNullOrEmpty(input))
                 return result;
 
-            string pattern = @"<colored_severity=""[^""]+"">.*?</colored>";
+            string pattern = @"<br>|<colored_severity=""[^""]+"">.*?</colored>";
             var regex = new Regex(pattern);
             int lastIndex = 0;
 
@@ -131,14 +142,21 @@ namespace UI
                     foreach (var word in words)
                     {
                         if (!string.IsNullOrEmpty(word))
-                            result.Add((word, word, false));
+                            result.Add((word, word, false, false));
                     }
                 }
 
                 string fullTag = match.Value;
 
-                string innerText = Regex.Match(fullTag, @"<colored_severity=""[^""]+"">(.*?)</colored>").Groups[1].Value;
-                result.Add((fullTag, innerText, true));
+                if (fullTag == "<br>")
+                {
+                    result.Add(("<br>", "", false, true));
+                }
+                else
+                {
+                    string innerText = Regex.Match(fullTag, @"<colored_severity=""[^""]+"">(.*?)</colored>").Groups[1].Value;
+                    result.Add((fullTag, innerText, true, false));
+                }
                 lastIndex = match.Index + match.Length;
             }
 
@@ -149,7 +167,7 @@ namespace UI
                 foreach (var word in words)
                 {
                     if (!string.IsNullOrEmpty(word))
-                        result.Add((word, word, false));
+                        result.Add((word, word, false, false));
                 }
             }
 

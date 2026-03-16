@@ -151,7 +151,6 @@ namespace Graphics
 
             //ui
             UI.UI.UIManager.Draw();
-            Sprites.End();
 
             if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE || GameStateManager.gameMode == GameStateManager.GameModes.HITBOX_DEBUG_MODE)
             {
@@ -159,6 +158,8 @@ namespace Graphics
                 UI.UI.UIManager.DrawDebug();
                 Shapes.End();
             }
+
+            Sprites.End();
 
             Screen.Unset();
             Screen.Present(Sprites, Color.Black, true);

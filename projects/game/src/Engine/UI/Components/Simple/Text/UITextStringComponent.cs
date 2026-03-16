@@ -31,6 +31,8 @@ namespace UI
             public static UITextSeverity Danger { get; private set; }
             public static UITextSeverity Mystery { get; private set; }
 
+            public static UITextSeverity Debug { get; private set; }
+
 
             static UITextSeverity()
             {
@@ -38,6 +40,7 @@ namespace UI
                 Read = new UITextSeverity(Color.Gray);
                 Danger = new UITextSeverity(Color.OrangeRed);
                 Mystery = new UITextSeverity(Color.Purple);
+                Debug = new UITextSeverity(Color.Green);
             }
         }
 

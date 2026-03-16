@@ -19,12 +19,13 @@ namespace UI
 
             type = UIComponentTypes.HUD;
 
-            children = new UIComponent[2];
+            children = new UIComponent[3];
             children[0] = new UICursorComponent(-1);
 
             //INDICATORS
             Vector2 topLeft = new Vector2(0, Graphics.Graphics.Screen.Height - 32*1.5f);
             children[1] = new UIPlayerIndicatorsComponent(-1, new Vector2(Position.X, Position.Y + topLeft.Y - 16));
+            children[2] = new UIDebugInfoComponent(-1, new Vector2(0, Graphics.Graphics.ScreenResolution.Y), new Vector2(800, 1200));
         }
 
         public override void Update()
