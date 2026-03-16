@@ -12,7 +12,13 @@ namespace Entities
 
         public override bool Check(StatsEntity Entity)
         {
-            bool result = Entity.StatsManager.GetStatAbility<DoubleJumpAbility>().AllowDoubleJump;
+            bool result = false;
+
+            if (Entity.StatsManager.GetStatAbility<DoubleJumpAbility>() != null)
+            {
+                result = Entity.StatsManager.GetStatAbility<DoubleJumpAbility>().AllowDoubleJump;
+            }
+
             return IsNegation ? !result : result;
         }
     }

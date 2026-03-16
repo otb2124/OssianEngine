@@ -17,7 +17,13 @@ namespace Entities
 
         public override bool Check(StatsEntity Entity)
         {
-            bool result = Entity.StatsManager.GetStatAbility<DescencionAbility>().AllowJumpDescending;
+            bool result = false;
+
+            if (Entity.StatsManager.GetStatAbility<DescencionAbility>() != null)
+            {
+                result = Entity.StatsManager.GetStatAbility<DescencionAbility>().AllowJumpDescending;
+            }
+
             return IsNegation ? !result : result;
         }
     }

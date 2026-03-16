@@ -179,7 +179,7 @@ namespace Entities
             }
             else
             {
-                Entity.Model.ModelState = ModelStates.IDLE;
+                StandStill();
 
                 if(Entity.StatsManager.GetStatAbility(EntityStatFeatures.FLY) != null)
                 {
@@ -203,7 +203,7 @@ namespace Entities
                 float speed = Entity.StatsManager?.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue ?? 1f;
                 Vector2 velocity = directionToEntity * speed;
                 Entity.Model.Direction = velocity.X > 0 ? Directions.RIGHT : Directions.LEFT;
-                Entity.Model.ModelState = ModelStates.MOVING;
+                Move();
 
                 if (Entity.StatsManager.GetStatAbility(EntityStatFeatures.FLY) != null)
                 {
