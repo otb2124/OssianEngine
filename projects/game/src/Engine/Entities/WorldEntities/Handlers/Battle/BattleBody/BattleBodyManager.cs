@@ -10,13 +10,6 @@ using Model = Resources.Model;
 
 namespace Entities
 {
-    public enum WeaponHands
-    {
-        LEFT,
-        RIGHT,
-        BOTH
-    }
-
     public enum BattleBodyTypes
     {
         WEAPON,
@@ -26,10 +19,13 @@ namespace Entities
     public class BattleBodyManager
     {
         public List<BattleBody> BattleBodies;
+
+        // Single weapon body — replaces HandToEquipmentWeaponBody
+        public BattleBody WeaponBody => BattleBodies[0];
         public Hitbox BodyHitbox;
         public BattleBodyTypes BattleBodyType;
 
-        public BattleBodyManager(BattleBodyTypes bodyType) 
+        public BattleBodyManager(BattleBodyTypes bodyType)
         {
             BattleBodies = new List<BattleBody>();
             BodyHitbox = new Hitbox();
@@ -40,10 +36,7 @@ namespace Entities
 
         public void Init()
         {
-            if (BattleBodyType == BattleBodyTypes.WEAPON)
-                CreateBodies(2);
-            else
-                CreateBodies(1);
+            CreateBodies(1);
         }
 
         public void CreateBodies(int count)
@@ -78,9 +71,9 @@ namespace Entities
         {
             foreach (BattleBody item in BattleBodies)
             {
-                if(item != null)
+                if (item != null)
                 {
-                    if(item.BattleBodyData != null)
+                    if (item.BattleBodyData != null)
                     {
                         item.Update(model, equipmentManager);
                     }
@@ -109,10 +102,6 @@ namespace Entities
         }
 
 
-        public BattleBody HandToEquipmentWeaponBody(WeaponHands hand) =>
-           hand == WeaponHands.LEFT ? BattleBodies[0] : BattleBodies[1];
-
-
         public BattleHitStatsSet GetCurrentBattleHitData()
         {
             return BattleBodies[0].Combo.GetCurrentHit().BattleHitDataMult;
@@ -120,13 +109,11 @@ namespace Entities
 
         public BattleHitStatsSet GetCurrentBattleHitData(EquipmentManager equipmentManager)
         {
-            if(HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit() != null)
+            if (WeaponBody.Combo?.GetCurrentHit() != null)
             {
-                BattleHitStatsSet data = HandToEquipmentWeaponBody(equipmentManager.CurrentHand).Combo.GetCurrentHit().BattleHitDataMult;
+                BattleHitStatsSet data = WeaponBody.Combo.GetCurrentHit().BattleHitDataMult;
                 if (data != null)
-                {
                     return data;
-                }
             }
 
             return BattleHitStatsSet.One;

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
-
 namespace UI
 {
     public enum UIInventoryTypes
@@ -13,150 +12,110 @@ namespace UI
         TRADE_BUFFER
     }
 
+    // Shows a pageable, filterable inventory grid.
+    // Always operates directly on Inventory.Items — no copies, no snapshots.
     public class UIInventoryComponent : UIComponent
     {
-
-        public List<Item> Items;
-        public UIInventoryTypes InventoryType;
+        public Inventory Inventory;
+        public UIInventoryTypes InventoryType = UIInventoryTypes.INVENTORY;
 
         public UIInventorySortingService SortingService;
         public UIInventoryPagerService PagerService;
 
-        public bool WasSortedFlag = false;
-        public bool WasPageChangedFlag = false;
+        // The current page's item list (a GetRange slice — read-only view)
+        public List<Item> CurrentPageItems => PagerService.GetCurrentPage();
+
+        // Slot board is children[0], sorting panel children[1], pager children[2]
+        private UIInventorySlotBoardComponent Board => (UIInventorySlotBoardComponent)children[0];
+        private UIInventorySortingPanelComponent SortPanel => children[1] as UIInventorySortingPanelComponent;
+        private UIInventoryPagerComponent Pager => children[2] as UIInventoryPagerComponent;
+
+        // Set by Update() so the exchange component knows something changed
+        public UIInventorySlotComponent ClickedSlot { get; private set; }
+        public bool SlotRightClicked { get; private set; }
 
         public UIInventoryComponent(int id, Vector2 pos, Inventory inventory) : base(id)
         {
             Position = pos;
-
             type = UIComponentTypes.INVENTORY;
+            Inventory = inventory;
 
-            SortingService = new UIInventorySortingService(inventory.Items);
-            PagerService = new UIInventoryPagerService(inventory.Items);
-            Items = PagerService.Pages[PagerService.CurrentPage];
-
-            InventoryType = UIInventoryTypes.INVENTORY;
+            SortingService = new UIInventorySortingService(Inventory.Items);
+            PagerService = new UIInventoryPagerService(SortingService.GetFilteredItems());
 
             children = new UIComponent[4];
-            children[0] = new UIInventorySlotBoardComponent(-1, pos, Items);
+            children[0] = new UIInventorySlotBoardComponent(-1, pos, CurrentPageItems);
             children[1] = new UIInventorySortingPanelComponent(-1, pos);
-            children[2] = new UIInventoryPagerComponent(-1, new Vector2(pos.X, 100), PagerService.GetIndicatorToString());
-            children[3] = new UITextStringComponent(-1, new Vector2(250, 600), "Inventory", 0, Vector2.One, Color.White);
-        }
-
-        public UIInventoryComponent(int id, Vector2 pos, Equipments equipments) : base(id)
-        {
-            Position = pos;
-
-            type = UIComponentTypes.INVENTORY;
-
-            InventoryType = UIInventoryTypes.EQUIPMENT;
-
-            Items = equipments.ToInventory().Items;
-
-            children = new UIComponent[4];
-            children[0] = new UIInventorySlotBoardComponent(-1, pos, Items, new int[][] { new int[] { -1 } });
+            children[2] = new UIInventoryPagerComponent(-1, new Vector2(pos.X, 100),
+                              PagerService.GetIndicatorToString());
+            children[3] = new UITextStringComponent(-1, new Vector2(250, 600),
+                              "Inventory", 0, Vector2.One, Color.White);
         }
 
         public override void Update()
         {
-            WasSortedFlag = false;
-            WasPageChangedFlag = false;
+            ClickedSlot = null;
+            SlotRightClicked = false;
 
-            if (children != null)
+            for (int i = 0; i < children.Length; i++)
+                children[i]?.Update();
+
+            // Sorting
+            if (SortPanel != null && SortPanel.WasOptionTypeChangedFlag)
             {
-                for (int i = 0; i < children.Length; i++)
+                SortingService.SetSortingOption(SortPanel.CurrentOptionType);
+                PagerService.UpdateList(SortingService.GetFilteredItems());
+                ApplyPage();
+            }
+
+            // Paging
+            if (Pager != null)
+            {
+                if (Pager.OnPrevClick) { PagerService.SwitchToPrevious(); ApplyPage(); }
+                if (Pager.OnNextClick) { PagerService.SwitchToNext(); ApplyPage(); }
+            }
+
+            // Detect clicked slot — report back to parent
+            foreach (UIComponent child in Board.children)
+            {
+                if (child is UIInventorySlotComponent slot && slot.Item != null)
                 {
-                    if(children[i] != null)
+                    if (slot.IsRightClicked || slot.IsLeftClicked)
                     {
-                        children[i].Update();
+                        ClickedSlot = slot;
+                        SlotRightClicked = slot.IsRightClicked;
+                        break;
                     }
-                }
-
-
-                if (children[1] != null)
-                {
-                    if (((UIInventorySortingPanelComponent)children[1]).WasOptionTypeChangedFlag)
-                    {
-                        SortingService.SetSortingOption(((UIInventorySortingPanelComponent)children[1]).CurrentOptionType);
-                        SwitchSorting(SortingService.CurrentSortingOption);
-                    }
-                }
-
-                if (children[2] != null)
-                {
-                    if(children[2] is UIInventoryPagerComponent pagerComponent)
-                    {
-                        if(pagerComponent.OnPrevClick || pagerComponent.OnNextClick)
-                        {
-                            if (pagerComponent.OnPrevClick)
-                            {
-                                PagerService.SwitchToPrevious();
-                            }
-
-                            if (pagerComponent.OnNextClick)
-                            {
-                                PagerService.SwitchToNext();
-                            }
-
-                            SwitchPage(PagerService.CurrentPage);
-                        }
-                    }
-                    
                 }
             }
         }
 
-        public void SwitchSorting(UIInventorySortingOptions option)
+        // Refresh board to match current inventory state (call after equip/unequip)
+        public void RefreshBoard()
         {
-            SortingService.SetSortingOption(option);
-            PagerService.UpdateList(SortingService.GetSortedItems());
-            Items = SortingService.GetSortedItems();
-            ((UIInventorySlotBoardComponent)children[0]).Items = Items;
-            ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
-            WasSortedFlag = true;
-
-            SwitchPage(0);
+            PagerService.UpdateList(SortingService.GetFilteredItems());
+            ApplyPage();
         }
 
-        public void SwitchPage(int id)
+        private void ApplyPage()
         {
-            Items = PagerService.Pages[id];
-
-            ((UIInventorySlotBoardComponent)children[0]).Items = Items;
-            ((UIInventorySlotBoardComponent)children[0]).UpdateSlotsLayout();
-            ((UIInventorySlotBoardComponent)children[0]).UpdateSlots();
-            ((UIInventorySlotBoardComponent)children[0]).UpdateSlotItems();
-
-            ((UIInventoryPagerComponent)children[2]).UpdateIndicator(PagerService.GetIndicatorToString());
-
-            WasPageChangedFlag = true;
+            Board.Items = CurrentPageItems;
+            Board.UpdateSlotsLayout();
+            Board.UpdateSlots();
+            Board.UpdateSlotItems();
+            Pager?.UpdateIndicator(PagerService.GetIndicatorToString());
         }
 
         public override void Draw()
         {
-            if (children != null)
-            {
-                for (int i = 0; i < children.Length; i++)
-                {
-                    if (children[i] != null)
-                    {
-                        children[i].Draw();
-                    }
-                }
-            }
+            for (int i = 0; i < children.Length; i++)
+                children[i]?.Draw();
         }
-
 
         public override void Refresh()
         {
-            foreach (UIComponent child in children)
-            {
-                if(child != null)
-                {
-                    child.Refresh();
-                }
-            }
+            foreach (var child in children)
+                child?.Refresh();
         }
     }
 }

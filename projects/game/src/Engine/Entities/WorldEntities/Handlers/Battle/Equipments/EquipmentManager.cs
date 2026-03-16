@@ -1,23 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using Resources;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Resources;
 
 namespace Entities
 {
     public class EquipmentManager
     {
-
         public Equipments Equipments;
         public WeaponInOutToggler WeaponInOutToggler;
 
-        //TODO: ADD CURRENTHANDSWAPPER OR SMTH
-        public WeaponHands CurrentHand = WeaponHands.LEFT;
-
-        public EquipmentManager() 
+        public EquipmentManager()
         {
             Equipments = new Equipments();
             WeaponInOutToggler = new WeaponInOutToggler();
@@ -25,33 +15,29 @@ namespace Entities
 
         public WeaponEquipment GetCurrentWeapon()
         {
-            var currentSlot = GetCurrentWeaponSlot();
-            var equipment = EquipmentHelper.GetEquipmentSlot(currentSlot, Equipments.TogglingWeaponSlots).Equipment;
-            if (equipment == null)
-            {
-                return WeaponInOutToggler.HandToWeaponIn(CurrentHand);
-            }
-            return (WeaponEquipment)equipment;
+            var toggling = Equipments.TogglingWeaponSlot.Equipment;
+            return toggling != null
+                ? (WeaponEquipment)toggling
+                : WeaponInOutToggler.WeaponIn ?? EquipmentHelper.CreateBareHands();
         }
 
         public BattleBody GetCurrentWeaponBody(BattleBodyManager manager) =>
-            manager.HandToEquipmentWeaponBody(CurrentHand);
+            manager.WeaponBody;
 
         public EquipmentSlot.EquipmentSlotTypes GetCurrentWeaponSlot() =>
-           EquipmentHelper.HandToSlot(CurrentHand);
+            EquipmentSlot.EquipmentSlotTypes.WEAPON;
 
-
-        public void SetWeapon(BattleBodyManager manager, WeaponEquipment weapon, WeaponHands hand)
+        public void SetWeapon(BattleBodyManager manager, WeaponEquipment weapon)
         {
-            WeaponInOutToggler.SetWeaponSwapPlaceHolder(hand, weapon);
-            Equipments.SetEquipment(EquipmentHelper.HandToSlot(hand), weapon);
-            Equipments.SetTogglingWeaponEquipment(EquipmentHelper.HandToSlot(hand), EquipmentHelper.CreateBareHands());
-            manager.HandToEquipmentWeaponBody(hand).Init(EquipmentHelper.CreateBareHands().WeaponBodyData);
+            WeaponInOutToggler.SetWeaponPlaceholder(weapon);
+            Equipments.SetEquipment(EquipmentSlot.EquipmentSlotTypes.WEAPON, weapon);
+            Equipments.TogglingWeaponSlot.Equipment = EquipmentHelper.CreateBareHands();
+            manager.WeaponBody.Init(EquipmentHelper.CreateBareHands().WeaponBodyData);
         }
 
         public void ToggleWeaponInOut(BattleBodyManager manager)
         {
-            WeaponInOutToggler.ToggleWeaponInOut(Equipments, CurrentHand, manager);
+            WeaponInOutToggler.ToggleWeaponInOut(Equipments, manager);
         }
     }
 }

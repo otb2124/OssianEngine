@@ -1,5 +1,4 @@
-﻿
-using Graphics;
+﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Resources;
 using Utils;
@@ -14,7 +13,7 @@ namespace Entities
 
         public WeaponEquipment(EquatableKey itemKey) : base(itemKey)
         {
-            
+
         }
 
         public override void SetItem()
@@ -30,7 +29,7 @@ namespace Entities
                     Description = "Bare hands";
                     Value = 0;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON;
 
                     Stackable = false;
 
@@ -49,7 +48,7 @@ namespace Entities
                     Description = "A terrablade";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON;
 
                     Stackable = false;
 
@@ -68,7 +67,7 @@ namespace Entities
                     Description = "Iron knife";
                     Value = 10;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON;
 
                     Stackable = false;
 
@@ -87,7 +86,7 @@ namespace Entities
                     Description = "A torch";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON;
 
                     Stackable = false;
 
@@ -107,7 +106,7 @@ namespace Entities
                     Description = "A fireball spell";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON;
 
                     Stackable = false;
 
@@ -128,7 +127,7 @@ namespace Entities
                     Description = "A bow";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON_SINGLE;
+                    EquipmentSlotTake = EquipmentSlotsTakes.WEAPON;
 
                     Stackable = false;
 

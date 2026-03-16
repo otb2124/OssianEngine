@@ -34,7 +34,7 @@ namespace UI
             SlotLayout = slotLayout;
             EquipmentSlotTypeLayout = equipmentSlotTypes;
 
-            if(SlotLayout == null)
+            if (SlotLayout == null)
             {
                 SlotLayoutType = UIInventorySlotBoardLayoutTypes.INVENTORY;
             }
@@ -61,7 +61,7 @@ namespace UI
                 slotsCount = UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE;
             }
 
-            children = new UIComponent[slotsCount]; 
+            children = new UIComponent[slotsCount];
 
             for (int row = 0; row < SlotLayout.Length; row++)
             {
@@ -114,7 +114,7 @@ namespace UI
                 //default structure (inventory)
                 int slotsCount = Items.Count;
 
-                if(slotsCount > UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE)
+                if (slotsCount > UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE)
                 {
                     slotsCount = UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE;
                 }
@@ -139,15 +139,15 @@ namespace UI
                 //equipmemt layout
                 SlotLayout = new int[][]
                 {
-                    new int[] {  0,  1, -1,  6,  7},
-                    new int[] {  2,  3, -1,  8,  9},
-                    new int[] {  4,  5, -1, 10, 11},
-                    new int[] { -1, 13, -1, 12, -1},
+                    new int[] {  0, -1, -1,  5,  6},
+                    new int[] {  1,  2, -1,  7,  8},
+                    new int[] {  3,  4, -1,  9, 10},
+                    new int[] { -1, 12, -1, 11, -1},
                 };
 
                 EquipmentSlotTypeLayout = new EquipmentSlot.EquipmentSlotTypes[][]
                 {
-                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.WEAPON_L,    EquipmentSlot.EquipmentSlotTypes.WEAPON_R,   EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.NECKLACE, EquipmentSlot.EquipmentSlotTypes.CAPE},
+                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.WEAPON,      EquipmentSlot.EquipmentSlotTypes.NONE,       EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.NECKLACE, EquipmentSlot.EquipmentSlotTypes.CAPE},
                     new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.HELMET,      EquipmentSlot.EquipmentSlotTypes.CHESTPLATE, EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.BELT,     EquipmentSlot.EquipmentSlotTypes.RING_L},
                     new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.BOOTS,       EquipmentSlot.EquipmentSlotTypes.GLOVES,     EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.RING_R,   EquipmentSlot.EquipmentSlotTypes.PET },
                     new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.NONE,        EquipmentSlot.EquipmentSlotTypes.CONTAINMENT,EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.NONE,     EquipmentSlot.EquipmentSlotTypes.NONE},

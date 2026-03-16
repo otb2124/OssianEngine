@@ -4,25 +4,20 @@ using Utils;
 
 namespace Entities
 {
-
     public class Equipments
     {
-
         public EquipmentSlot[] EquipmentSlots;
-        public EquipmentSlot[] TogglingWeaponSlots;
+
+        // Single toggling slot for weapon in/out
+        public EquipmentSlot TogglingWeaponSlot;
 
         public Equipments()
         {
-            TogglingWeaponSlots = new EquipmentSlot[]
-            {
-                new(EquipmentSlot.EquipmentSlotTypes.WEAPON_L),
-                new(EquipmentSlot.EquipmentSlotTypes.WEAPON_R),
-            };
+            TogglingWeaponSlot = new EquipmentSlot(EquipmentSlot.EquipmentSlotTypes.WEAPON);
 
             EquipmentSlots = new EquipmentSlot[]
             {
-                new(EquipmentSlot.EquipmentSlotTypes.WEAPON_L),
-                new(EquipmentSlot.EquipmentSlotTypes.WEAPON_R),
+                new(EquipmentSlot.EquipmentSlotTypes.WEAPON),
                 new(EquipmentSlot.EquipmentSlotTypes.HELMET),
                 new(EquipmentSlot.EquipmentSlotTypes.CHESTPLATE),
                 new(EquipmentSlot.EquipmentSlotTypes.BOOTS),
@@ -38,66 +33,39 @@ namespace Entities
             };
         }
 
-
-
         public EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes type) =>
             Array.Find(EquipmentSlots, slot => slot.EquipmentSlotType == type);
-
-        public EquipmentSlot GetTogglingWeaponSlot(EquipmentSlot.EquipmentSlotTypes type) =>
-            Array.Find(TogglingWeaponSlots, slot => slot.EquipmentSlotType == type);
 
         public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, Equipment item) =>
             EquipmentHelper.GetEquipmentSlot(slotType, EquipmentSlots).Equipment = item;
 
-        public void SetTogglingWeaponEquipment(EquipmentSlot.EquipmentSlotTypes slotType, Equipment item) =>
-            EquipmentHelper.GetEquipmentSlot(slotType, TogglingWeaponSlots).Equipment = item;
-
-        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, Item item)
-        {
+        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, Item item) =>
             SetEquipment(slotType, (Equipment)item);
-        }
 
-        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, EquatableKey itemKey)
-        {
-            Item item = ItemFactory.CreateItem(itemKey);
-            SetEquipment(slotType, item);
-        }
+        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, EquatableKey itemKey) =>
+            SetEquipment(slotType, ItemFactory.CreateItem(itemKey));
 
-        public void SetEquipment(Item item)
-        {
+        public void SetEquipment(Item item) =>
             SetEquipment(EquipmentHelper.ItemkeyToEquipmentSlot(item.ItemKey, EquipmentSlots), item);
-        }
 
-        public void SetEquipment(EquatableKey itemKey)
-        {
-            Item item = ItemFactory.CreateItem(itemKey);
-            SetEquipment(item);
-        }
+        public void SetEquipment(EquatableKey itemKey) =>
+            SetEquipment(ItemFactory.CreateItem(itemKey));
 
         public Inventory ToInventory()
         {
             Inventory inventory = new Inventory();
-
-            inventory.Init(14); //all possible slots
-
+            inventory.Init(EquipmentSlots.Length);
             for (int i = 0; i < EquipmentSlots.Length; i++)
-            {
                 inventory.Items[i] = EquipmentSlots[i].Equipment;
-            }
-
             return inventory;
         }
 
         public List<Item> ToItemList()
         {
-            List<Item> itemList = new List<Item>();
-
-            for (int i = 0; i < EquipmentSlots.Length; i++)
-            {
-                itemList.Add(EquipmentSlots[i].Equipment);
-            }
-
-            return itemList;
+            var list = new List<Item>();
+            foreach (var slot in EquipmentSlots)
+                list.Add(slot.Equipment);
+            return list;
         }
     }
 }

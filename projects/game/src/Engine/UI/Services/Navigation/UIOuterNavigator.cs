@@ -26,7 +26,7 @@ namespace UI
         {
             if(UI.UIManager.GetComponent(UIComponent.UIComponentTypes.MENU_INGAME) == null)
             {
-                UI.UIManager.ToggleComponent(new UIInventoryInventoryBoardsComponent(999, Vector2.Zero, entFrom.Inventory, entTo.Inventory), UIComponent.UIComponentTypes.INVENTORY_TO_INVENTORY);
+                //UI.UIManager.ToggleComponent(new UIInventoryInventoryBoardsComponent(999, Vector2.Zero, entFrom.Inventory, entTo.Inventory), UIComponent.UIComponentTypes.INVENTORY_TO_INVENTORY);
             }
 
             if (UI.UIManager.GetComponent(UIComponent.UIComponentTypes.INVENTORY_TO_INVENTORY) == null)

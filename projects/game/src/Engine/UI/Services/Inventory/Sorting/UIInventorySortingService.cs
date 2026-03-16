@@ -1,13 +1,10 @@
 ﻿using Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Utils;
 
 namespace UI
 {
-
     public enum UIInventorySortingOptions
     {
         NONE,
@@ -23,7 +20,7 @@ namespace UI
 
     public class UIInventorySortingService
     {
-
+        // The canonical, unmodified full inventory list. Never paged, never filtered.
         public List<Item> OriginalItemList;
         public UIInventorySortingOptions CurrentSortingOption;
 
@@ -37,90 +34,71 @@ namespace UI
             CurrentSortingOption = newOption;
         }
 
-        public List<Item> GetSortedItems()
-        {
-            return GetSortedItems(OriginalItemList);
-        }
-
-        public List<Item> GetSortedItems(List<Item> itemList)
+        // Returns filtered list (matching items only + null padding to original size).
+        // NONE returns original list as-is.
+        public List<Item> GetFilteredItems()
         {
             if (CurrentSortingOption == UIInventorySortingOptions.NONE)
-                return itemList;
+                return OriginalItemList;
 
-            List<Item> sortedItems = itemList
-                .Where(item => item != null && ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) && sortingOption == CurrentSortingOption)
+            List<Item> filtered = OriginalItemList
+                .Where(item => item != null &&
+                       ItemTypeToUISortingOption.TryGetValue(item.Type, out var opt) &&
+                       opt == CurrentSortingOption)
                 .OrderBy(item => item.ItemKey.EnumValue)
                 .ToList();
 
-            sortedItems.AddRange(itemList
-                .Where(item => item != null && (!ItemTypeToUISortingOption.TryGetValue(item.Type, out var sortingOption) || sortingOption != CurrentSortingOption)));
+            while (filtered.Count < OriginalItemList.Count)
+                filtered.Add(null);
 
-            while (sortedItems.Count < itemList.Count)
-            {
-                sortedItems.Add(null);
-            }
-
-            return sortedItems;
+            return filtered;
         }
 
-
-        public void UpdateOriginalItemList(List<Item> itemList)
+        // Syncs OriginalItemList after drag-drop. Updates counts, nullifies removed, inserts new.
+        public void SyncFromDragResult(List<Item> updatedList)
         {
             for (int i = 0; i < OriginalItemList.Count; i++)
             {
-                if (OriginalItemList[i] != null && !itemList.Any(item => item != null && item.ItemKey == OriginalItemList[i].ItemKey))
-                {
+                if (OriginalItemList[i] == null) continue;
+                Item match = updatedList.FirstOrDefault(
+                    item => item != null && item.ItemKey == OriginalItemList[i].ItemKey);
+                if (match == null)
                     OriginalItemList[i] = null;
-                }
+                else
+                    OriginalItemList[i].Count = match.Count;
             }
 
-            var newItems = itemList
-                .Where(item => item != null && !OriginalItemList.Any(orig => orig != null && orig.ItemKey == item.ItemKey))
-                .ToList();
+            var tracked = new HashSet<EquatableKey>(
+                OriginalItemList.Where(i => i != null).Select(i => i.ItemKey));
 
-            int nullIndex = 0;
-            foreach (var newItem in newItems)
+            foreach (var newItem in updatedList.Where(item => item != null && !tracked.Contains(item.ItemKey)))
             {
-                while (nullIndex < OriginalItemList.Count && OriginalItemList[nullIndex] != null)
-                {
-                    nullIndex++;
-                }
-
-                if (nullIndex < OriginalItemList.Count)
-                {
-                    OriginalItemList[nullIndex] = newItem;
-                    nullIndex++;
-                }
-                else
-                {
-                    break;
-                }
+                int slot = OriginalItemList.IndexOf(null);
+                if (slot == -1) break;
+                OriginalItemList[slot] = newItem;
+                tracked.Add(newItem.ItemKey);
             }
         }
 
-        public static Dictionary<ItemLib.ItemTypes, UIInventorySortingOptions> ItemTypeToUISortingOption = new()
+        public static readonly Dictionary<ItemLib.ItemTypes, UIInventorySortingOptions> ItemTypeToUISortingOption = new()
         {
-            { ItemLib.ItemTypes.WEAPON, UIInventorySortingOptions.WEAPONS },
-
-            { ItemLib.ItemTypes.CHESTPLATE, UIInventorySortingOptions.ARMORS },
-            { ItemLib.ItemTypes.HELMET, UIInventorySortingOptions.ARMORS },
-            { ItemLib.ItemTypes.BOOTS, UIInventorySortingOptions.ARMORS },
-            { ItemLib.ItemTypes.GLOVES, UIInventorySortingOptions.ARMORS },
-
-            { ItemLib.ItemTypes.NECKLACE, UIInventorySortingOptions.ACCESSORIES },
-            { ItemLib.ItemTypes.BELT, UIInventorySortingOptions.ACCESSORIES },
-            { ItemLib.ItemTypes.RING, UIInventorySortingOptions.ACCESSORIES },
-            { ItemLib.ItemTypes.CAPE, UIInventorySortingOptions.ACCESSORIES },
-            { ItemLib.ItemTypes.PET, UIInventorySortingOptions.ACCESSORIES },
-            { ItemLib.ItemTypes.PET_LIGHT, UIInventorySortingOptions.ACCESSORIES },
+            { ItemLib.ItemTypes.WEAPON,      UIInventorySortingOptions.WEAPONS },
+            { ItemLib.ItemTypes.CHESTPLATE,  UIInventorySortingOptions.ARMORS },
+            { ItemLib.ItemTypes.HELMET,      UIInventorySortingOptions.ARMORS },
+            { ItemLib.ItemTypes.BOOTS,       UIInventorySortingOptions.ARMORS },
+            { ItemLib.ItemTypes.GLOVES,      UIInventorySortingOptions.ARMORS },
+            { ItemLib.ItemTypes.NECKLACE,    UIInventorySortingOptions.ACCESSORIES },
+            { ItemLib.ItemTypes.BELT,        UIInventorySortingOptions.ACCESSORIES },
+            { ItemLib.ItemTypes.RING,        UIInventorySortingOptions.ACCESSORIES },
+            { ItemLib.ItemTypes.CAPE,        UIInventorySortingOptions.ACCESSORIES },
+            { ItemLib.ItemTypes.PET,         UIInventorySortingOptions.ACCESSORIES },
+            { ItemLib.ItemTypes.PET_LIGHT,   UIInventorySortingOptions.ACCESSORIES },
             { ItemLib.ItemTypes.CONTAINMENT, UIInventorySortingOptions.ACCESSORIES },
-
-            { ItemLib.ItemTypes.CONSUMABLE, UIInventorySortingOptions.CONSUMABLES },
-            { ItemLib.ItemTypes.MATERIAL, UIInventorySortingOptions.MATERIALS },
-
-            { ItemLib.ItemTypes.CURRENCY, UIInventorySortingOptions.CURRENCIES },
-            { ItemLib.ItemTypes.KEY, UIInventorySortingOptions.KEYS },
-            { ItemLib.ItemTypes.QUEST_ITEM, UIInventorySortingOptions.QUEST_ITEMS },
+            { ItemLib.ItemTypes.CONSUMABLE,  UIInventorySortingOptions.CONSUMABLES },
+            { ItemLib.ItemTypes.MATERIAL,    UIInventorySortingOptions.MATERIALS },
+            { ItemLib.ItemTypes.CURRENCY,    UIInventorySortingOptions.CURRENCIES },
+            { ItemLib.ItemTypes.KEY,         UIInventorySortingOptions.KEYS },
+            { ItemLib.ItemTypes.QUEST_ITEM,  UIInventorySortingOptions.QUEST_ITEMS },
         };
     }
 }

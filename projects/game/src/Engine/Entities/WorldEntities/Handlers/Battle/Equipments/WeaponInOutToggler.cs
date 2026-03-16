@@ -1,57 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Entities
+﻿namespace Entities
 {
     public class WeaponInOutToggler
     {
-
-        public WeaponEquipment LeftWeaponIn;
-        public WeaponEquipment RightWeaponIn;
+        public WeaponEquipment WeaponIn;
         public bool IsWeaponOut = false;
 
-        public WeaponInOutToggler()
+        public WeaponInOutToggler() { }
+
+        public void SetWeaponPlaceholder(WeaponEquipment weapon)
         {
+            WeaponIn = weapon;
         }
 
-        public void SetWeaponSwapPlaceHolder(WeaponHands hand, WeaponEquipment toChange)
+        public void ToggleWeaponInOut(Equipments equipments, BattleBodyManager manager)
         {
-            if (hand == WeaponHands.LEFT)
-                LeftWeaponIn = toChange;
-            else
-                RightWeaponIn = toChange;
-        }
+            WeaponEquipment placeholder = WeaponIn ?? EquipmentHelper.CreateBareHands();
 
-        public void SetCurrentWeaponSwapPlaceHolder(WeaponHands currentHand, WeaponEquipment toChange) =>
-            SetWeaponSwapPlaceHolder(currentHand, toChange);
+            EquipmentSlot slot = equipments.TogglingWeaponSlot;
+            WeaponEquipment current = (WeaponEquipment)slot.Equipment;
 
-        public WeaponEquipment HandToWeaponIn(WeaponHands hand) =>
-            hand == WeaponHands.LEFT ? LeftWeaponIn : RightWeaponIn;
+            SetWeaponPlaceholder(current);
+            slot.Equipment = placeholder;
 
-        public void ToggleWeaponInOut(Equipments equipments, WeaponHands currentHand, BattleBodyManager manager)
-        {
-            var placeholder = HandToWeaponIn(currentHand);
-            if(placeholder == null)
-            {
-                placeholder = EquipmentHelper.CreateBareHands();
-            }
-            var slot = EquipmentHelper.HandToSlot(currentHand);
-            var currentWeapon = (WeaponEquipment)equipments.GetTogglingWeaponSlot(slot).Equipment;
-            SetCurrentWeaponSwapPlaceHolder(currentHand, currentWeapon);
-            equipments.SetTogglingWeaponEquipment(slot, placeholder);
-            manager.HandToEquipmentWeaponBody(currentHand).Init(placeholder.WeaponBodyData);
+            manager.WeaponBody.Init(placeholder.WeaponBodyData);
             IsWeaponOut = !IsWeaponOut;
-        }
-
-        public void WeaponInSwap(Equipments equipments, WeaponHands currentHand, BattleBodyManager manager)
-        {
-            var placeholder = HandToWeaponIn(currentHand);
-            var slot = EquipmentHelper.HandToSlot(currentHand);
-            equipments.SetEquipment(slot, placeholder);
-            manager.HandToEquipmentWeaponBody(currentHand).Init(placeholder.WeaponBodyData);
         }
     }
 }

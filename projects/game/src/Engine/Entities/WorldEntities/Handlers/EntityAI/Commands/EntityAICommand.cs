@@ -1,13 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Physics;
 using Resources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Utils;
 using static Entities.BattleMovesetFactory;
 
 namespace Entities
