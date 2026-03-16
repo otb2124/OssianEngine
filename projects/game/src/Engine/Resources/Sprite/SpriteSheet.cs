@@ -246,7 +246,7 @@ namespace Resources
                 { SpriteSheets.GRAPHICS_CLOUDS,                     "graphics/rain/clouds" },
 
                 // entities – living
-                { SpriteSheets.ENTITIES_HUMAN_M,                    "entities/dynamic/human_m_draft" },
+                { SpriteSheets.ENTITIES_HUMAN_M,                    "entities/dynamic/male" },
                 { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0, "entities/dynamic/human_m_armor_chestplate_0" },
                 { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_HELMET_0,     "entities/dynamic/human_m_armor_helmet_0" },
                 { SpriteSheets.ENTITIES_HUMAN_M_ARMOR_BOOTS_0,      "entities/dynamic/human_m_armor_boots_0" },

@@ -54,12 +54,6 @@ namespace Entities
 
         public override void Update()
         {
-            if(StatsManager.CheckDead())
-            {
-                Die();
-                return;
-            }
-
             if (StatsManager.GetStatAbility(EntityStatFeatures.GCS) != null)
             {
                 Model.UpdateSurroundingRectangles();
@@ -92,27 +86,6 @@ namespace Entities
         public virtual void SetDropInventory()
         {
             DropInventory = new DropInventory();
-        }
-
-
-        public virtual void Die()
-        {
-            if(DropInventory != null)
-            {
-                if (!DropInventory.IsEmpty())
-                {
-                    List<Item> droppedItems = DropInventory.TryDrop();
-
-                    foreach (Item item in droppedItems)
-                    {
-                        InteractiveItemEntity itemEnt = EntityHelper.CreateItemDrop(item, Model.Body.Position.ToVector2());
-                        Entities.EntityMapManager.GetCurrentMap().Entities.Add(itemEnt);
-                        Graphics.Graphics.LightManager.AddEntityEmissionLightSource(itemEnt);
-                    }
-                }
-            }
-
-            Entities.EntityManager.RemoveEntity(this);
         }
 
         public override void DrawCollider()

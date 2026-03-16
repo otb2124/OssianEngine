@@ -1,0 +1,18 @@
+0 idle - 4
+1 weapon_out_idle - 4
+2 walk - 8
+3 weapon_out_walk - 8
+4 sprint - 8
+5 roll - 2
+6 jump - 4
+7 jump descend - 2
+8 descending - 1
+9 fallen - 1
+10 hang - 1
+11 hang alt - 1
+12 die - 4
+13 attack_block - 2
+14 attack_hand - 4
+15 attack_sword - 4
+16 attack_spell - 4
+17 attack_bow - 4

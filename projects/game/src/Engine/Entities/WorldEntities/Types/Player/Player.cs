@@ -47,7 +47,8 @@ namespace Entities
                 new DoubleJumpAbility(),
                 new InwaterWalkingAbility(0.5f),
                 new LadderClimbingAbility(),
-                new PrickIntoSpikeAbility()
+                new PrickIntoSpikeAbility(),
+                new DieAbility(),
             };
 
             StatsManager.RefillAll();
@@ -163,17 +164,9 @@ namespace Entities
             base.SetEmission();
         }
 
-        public override void Die()
-        {
-            if(!GameStateManager.IsGod)
-            {
-                base.Die();
-            }
-        }
-
         public override void Update()
         {
-            ModelStateManager.Update();
+            ModelStateManager.Update(Model);
             //Console.WriteLine(Model.ModelState);
             base.Update();
         }

@@ -166,7 +166,8 @@ namespace Entities
                         new InvincibleFramesAbility(1f),
                         new FallAbility(),
                         new GCSRectanglesCalculatorAbility(),
-                        new DescencionAbility(0.5f, 1f)
+                        new DescencionAbility(0.5f, 1f),
+                        new DieAbility(),
                     };
 
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();

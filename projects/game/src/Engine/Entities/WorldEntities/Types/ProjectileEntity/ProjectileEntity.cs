@@ -139,6 +139,8 @@ namespace Entities
 
         public override void SetAppearance()
         {
+            Model.ModelAppearance = new ModelAppearance();
+
             ModelAppearancePart bodyPart = new ModelAppearancePart(EntityAppearanceAttributes.BODY);
 
             bodyPart.AddAnimationSet(AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet));

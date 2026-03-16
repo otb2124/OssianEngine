@@ -9,6 +9,23 @@ namespace Entities
 
         public static ModelStateSwap[] ModelStateSwappers = new[]
         {
+
+            //DYING
+            new ModelStateSwap(
+                ModelStates.DYING,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new IsGroundedRequirement(),
+                            new IsDyingRequirement()
+                        }
+                    )
+                }
+            ),
+
+
             //IDLE
             new ModelStateSwap(
                 ModelStates.IDLE,
@@ -37,6 +54,8 @@ namespace Entities
                                 },
                                 true
                              ),
+
+                            new ModelStateRequirement(ModelStates.DYING, true),
 
 
                             new IsGroundedRequirement(),
@@ -75,6 +94,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.BLOCKING, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new CurrentEnoughBattleManaRequirement(),
                             new CurrentEnoughBattleStaminaRequirement(),
                         }
@@ -111,6 +132,8 @@ namespace Entities
 
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.BLOCKING, true),
+
+                            new ModelStateRequirement(ModelStates.DYING, true),
 
                             new CurrentEnoughBattleManaRequirement(),
                             new CurrentEnoughBattleStaminaRequirement(),
@@ -149,6 +172,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.ROLL_SPEED_MULTIPLIER)
                         }
                     )
@@ -169,6 +194,8 @@ namespace Entities
 
                             new ModelStateRequirement(ModelStates.BLOCKING),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new CurrentWeaponOutRequirement(),
                         }
                     )
@@ -184,6 +211,8 @@ namespace Entities
                             new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.BLOCKPRESSED, true),
 
                             new ModelStateRequirement(ModelStates.BLOCKING),
+
+                            new ModelStateRequirement(ModelStates.DYING, true),
 
                             new CurrentWeaponOutRequirement(true),
                         }
@@ -218,7 +247,7 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
 
-                            
+                            new ModelStateRequirement(ModelStates.DYING, true),
 
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED),
 
@@ -258,6 +287,8 @@ namespace Entities
 
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new IsGroundedRequirement(),
                         }
                     )
@@ -283,6 +314,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED)
                         }
                     )
@@ -299,7 +332,7 @@ namespace Entities
                         new Requirement[]
                         {
                             new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.JUMPPRESSED),
-  
+
                             new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING),
 
                             new AllowDoubleJumpRequirement(),
@@ -307,6 +340,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
+
+                            new ModelStateRequirement(ModelStates.DYING, true),
 
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED)
                         }
@@ -348,6 +383,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
                             new ModelStateRequirement(ModelStates.HANGING_ON_LEDGE, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             //new IsGroundedRequirement(true),
                             new AllowJumpDescendingRequirement(),
                         }
@@ -388,6 +425,7 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
 
                             //new IsGroundedRequirement(true),
                             new AllowJumpDescendingRequirement(),
@@ -433,6 +471,8 @@ namespace Entities
                                     new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                                     new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                                     new ModelStateRequirement(ModelStates.FALLEN, true),
+
+                                    new ModelStateRequirement(ModelStates.DYING, true),
                                 }
                             )
                         }
@@ -477,7 +517,10 @@ namespace Entities
 
                             new ModelStateRequirement(ModelStates.INWATER_MOVING, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.SPRINT_SPEED_MULTIPLIER),
+
                             new IsOnStaminaRegenRequirement(true),
                             new IsGroundedRequirement(),
                         }
@@ -518,6 +561,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
+
+                            new ModelStateRequirement(ModelStates.DYING, true),
 
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.ROLL_SPEED_MULTIPLIER),
                             new IsOnStaminaRegenRequirement(true),
@@ -562,6 +607,8 @@ namespace Entities
 
                             new ModelStateRequirement(ModelStates.INWATER_MOVING, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new IsGroundedRequirement(),
                             new AllowJumpDescendingRequirement(true),
                         }
@@ -601,6 +648,8 @@ namespace Entities
 
                             new ModelStateRequirement(ModelStates.MOVING, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new IsGroundedRequirement(),
                             new AllowJumpDescendingRequirement(true),
                         }
@@ -629,6 +678,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.JUMPING, true),
                             new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING, true),
 
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
                             new IsGroundedRequirement(true),
                             new AllowJumpDescendingRequirement(),
                         }
@@ -644,11 +695,11 @@ namespace Entities
         }
 
 
-        public static void Update()
+        public static void Update(Model model)
         {
             foreach (ModelStateSwap modelStateSwap in ModelStateSwappers)
             {
-                modelStateSwap.Check();
+                modelStateSwap.Check(model);
             }
 
             ToggleWeapon();

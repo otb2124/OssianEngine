@@ -105,7 +105,7 @@ namespace Resources
                 { PhysicalBodies.CIRCLE,    new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 2f)   },
                 { PhysicalBodies.COIN,      new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(5, 5), 0.5f, 2f)   },
                 { PhysicalBodies.ITEM_DROP, new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Circle, new Vector2(10, 10), 0.5f, 2f)   },
-                { PhysicalBodies.HUMAN,  new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,       new Vector2(20, 40), 10f, 0f)   },
+                { PhysicalBodies.HUMAN,  new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,       new Vector2(40, 40), 10f, 0f)   },
                 { PhysicalBodies.SLIME,    new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,     new Vector2(20, 20), 10f, 0f)   },
                 { PhysicalBodies.LEDGE,     new PhysicalBodyPreset(BodyDynamics.STATIC,  BodyShapeType.Box,    new Vector2(20, 20), 1f, 0f)   },
                 { PhysicalBodies.PROJECTILE,new PhysicalBodyPreset(BodyDynamics.DYNAMIC, BodyShapeType.Box,    new Vector2(20, 20), 1f, 0f)   },

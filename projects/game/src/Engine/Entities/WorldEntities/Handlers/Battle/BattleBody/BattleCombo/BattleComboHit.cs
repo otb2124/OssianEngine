@@ -189,17 +189,17 @@ namespace Entities
                     }
                     break;
 
-                case BattleMovesets.WEAPON_MAGIC:
+                case BattleMovesets.WEAPON_SPELL:
 
                     AnimationData = new AnimationFramesData(1, Vector2.Zero, Vector2.Zero, newSpeed);
 
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
-                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT;
+                        AnimationState = AnimationStates.ATTACKING_SPELL_LIGHT;
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
                     {
-                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_HEAVY;
+                        AnimationState = AnimationStates.ATTACKING_SPELL_HEAVY;
                     }
 
                     break;
@@ -210,11 +210,11 @@ namespace Entities
 
                     if (AttackSequence.SequenceEqual(new[] { AttackTypes.LIGHT }))
                     {
-                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_LIGHT;
+                        AnimationState = AnimationStates.ATTACKING_BOW_LIGHT;
                     }
                     else if (AttackSequence.SequenceEqual(new[] { AttackTypes.HEAVY }))
                     {
-                        AnimationState = AnimationStates.ATTACKING_BARE_HANDS_HEAVY;
+                        AnimationState = AnimationStates.ATTACKING_BOW_HEAVY;
                     }
 
                     break;

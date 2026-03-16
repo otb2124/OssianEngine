@@ -33,6 +33,7 @@ namespace Entities {
         HANGING_ON_LEDGE,
         INWATER_MOVING,
         CLIMBING_LADDER,
+        DYING,
 
         FLYING,
         FLYING_AND_MOVING,
@@ -85,6 +86,12 @@ namespace Entities {
         ATTACKING_BARE_HANDS_HEAVY,
         ATTACKING_BARE_HANDS_LIGHT_HEAVY,
         ATTACKING_BARE_HANDS_LIGHT_HEAVY_HEAVY,
+
+        ATTACKING_SPELL_LIGHT,
+        ATTACKING_SPELL_HEAVY,
+
+        ATTACKING_BOW_LIGHT,
+        ATTACKING_BOW_HEAVY,
 
         BLOCKING_SLIME_BODY,
 
@@ -310,6 +317,26 @@ namespace Entities {
             Entity.Model.Body.Move(new PhysicalVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
         }
 
+        public static void Die(StatsEntity Entity)
+        {
+            if (Entity.DropInventory != null)
+            {
+                if (!Entity.DropInventory.IsEmpty())
+                {
+                    List<Item> droppedItems = Entity.DropInventory.TryDrop();
+
+                    foreach (Item item in droppedItems)
+                    {
+                        InteractiveItemEntity itemEnt = EntityHelper.CreateItemDrop(item, Entity.Model.Body.Position.ToVector2());
+                        Entities.EntityMapManager.GetCurrentMap().Entities.Add(itemEnt);
+                        Graphics.Graphics.LightManager.AddEntityEmissionLightSource(itemEnt);
+                    }
+                }
+            }
+
+            Entities.EntityManager.RemoveEntity(Entity);
+        }
+
 
         public static Dictionary<ModelStates, Action<StatsEntity, int>> StateActions = new()
         {
@@ -339,6 +366,7 @@ namespace Entities {
             { ModelStates.RECEIVING_DAMAGE,      (e, d) => ReceiveDamage(e) },
             { ModelStates.DESCENDING,            (e, d) => Descend(e) },
             { ModelStates.CLIMBING_LADDER,       (e, d) => ClimbLadder(e) },
+            { ModelStates.DYING,                 (e, d) => Die(e) },
         };
         
     }

@@ -84,6 +84,7 @@ namespace Entities
                         new StaminaRegenerationAbility(3, 1.5f),
                         new GCSRectanglesCalculatorAbility(),
                         new DescencionAbility(0.5f, 1f),
+                        new DieAbility(),
                     };
 
                     break;

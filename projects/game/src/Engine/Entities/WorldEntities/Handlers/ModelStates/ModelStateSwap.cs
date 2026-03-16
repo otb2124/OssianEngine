@@ -20,11 +20,11 @@ namespace Entities
             Requirements = requirements;
         }
 
-        public void Check()
+        public void Check(Model model)
         {
             if(Requirements == null)
             {
-                Entities.Player.Model.ModelState = ModelState;
+                model.ModelState = ModelState;
             }
             else
             {
@@ -45,7 +45,7 @@ namespace Entities
 
                     if (requirement.Check())
                     {
-                        Entities.Player.Model.ModelState = ModelState;
+                        model.ModelState = ModelState;
                     }
                 }
             }

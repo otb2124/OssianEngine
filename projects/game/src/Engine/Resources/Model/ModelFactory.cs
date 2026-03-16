@@ -43,7 +43,7 @@ namespace Resources
         //TODO: FIX TO SET THE OFFSET FOR ALL AS new Vector2(X, Y: 16)
         private static readonly Dictionary<Models, ModelPreset> ModelPresetsMap = new()
         {
-            { Models.HUMAN_M, new ModelPreset(PhysicalBodies.HUMAN, StaticSprites.ENTITIES_HUMAN_M, new Vector2(10, 5)) },
+            { Models.HUMAN_M, new ModelPreset(PhysicalBodies.HUMAN, StaticSprites.ENTITIES_HUMAN_M, new Vector2(30, 5)) },
             { Models.CRATE_0, new ModelPreset(PhysicalBodies.CRATE_0, StaticSprites.ENTITIES_STATIC_CRATE_0, Vector2.Zero) },
             { Models.CRATE_1, new ModelPreset(PhysicalBodies.CRATE_1, StaticSprites.ENTITIES_STATIC_CRATE_1, Vector2.Zero) },
             { Models.BALL, new ModelPreset(PhysicalBodies.CIRCLE, StaticSprites.ENTITIES_STATIC_BALL, Vector2.Zero) },

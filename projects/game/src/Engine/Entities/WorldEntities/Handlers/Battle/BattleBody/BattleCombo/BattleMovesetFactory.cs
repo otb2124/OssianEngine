@@ -11,7 +11,7 @@ namespace Entities
     {
         public enum BattleMovesets
         {
-            WEAPON_MAGIC,
+            WEAPON_SPELL,
             WEAPON_BOW,
 
             WEAPON_SWORD,
@@ -252,7 +252,7 @@ namespace Entities
                         )
                     },
                     {
-                        BattleMovesets.WEAPON_MAGIC,
+                        BattleMovesets.WEAPON_SPELL,
                         new BattleMoveset
                         (
                             new[]

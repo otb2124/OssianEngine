@@ -118,7 +118,7 @@ namespace Entities
 
                     WeaponBodyData.WeaponSwingSpeedMultiplier = 1f;
                     WeaponBodyData.Sprite = StaticSprites.NONE;
-                    WeaponBodyData.MoveSet = BattleMovesets.WEAPON_MAGIC;
+                    WeaponBodyData.MoveSet = BattleMovesets.WEAPON_SPELL;
                     WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationFramesData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
                     WeaponBodyData.ProjectileToCast = Projectiles.FIREBALL;
                     WeaponBodyData.DisableHitBoxDamage = true;
