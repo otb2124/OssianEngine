@@ -29,6 +29,7 @@ namespace Entities
             SetInventory();
             SetDropInventory();
             SetAI();
+            SetControl();
         }
 
         public virtual void SetAnimalMobData(out Models modelType)
@@ -79,9 +80,9 @@ namespace Entities
 
                     StatsManager.Abilities = new EntityAbility[]
                     {
+                        new StaminaRegenerationAbility(20, 1.5f),
                         new InvincibleFramesAbility(1f),
                         new FallAbility(),
-                        new StaminaRegenerationAbility(3, 1.5f),
                         new GCSRectanglesCalculatorAbility(),
                         new DescencionAbility(0.5f, 1f),
                         new DieAbility(),
@@ -114,7 +115,8 @@ namespace Entities
                         new StaminaRegenerationAbility(3, 1.5f),
                         new GCSRectanglesCalculatorAbility(),
                         new DescencionAbility(0.5f, 1f),
-                        new FlyAbility()
+                        new FlyAbility(),
+                        new DieAbility(),
                     };
 
                     break;
@@ -141,6 +143,12 @@ namespace Entities
 
             EntityFraction = EntityFractions.ANIMAL;
             AISet = new EntityAISet(this, pattern, BehaviourCases.IDLE_RANDOM);
+        }
+
+
+        public override void SetControl()
+        {
+            EntityControlHandler = new EntityControlHandler();
         }
 
 

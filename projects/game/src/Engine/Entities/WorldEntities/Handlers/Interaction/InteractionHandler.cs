@@ -28,7 +28,7 @@ namespace Entities
             if (itemEnt.InteractionManager.InteractionData.Trigger == InteractionTriggers.INTERACTION_BUTTON_PRESSED)
             {
 
-                if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
+                if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
                     if (livingEnt.StatsManager.GetStatAbility<ItemPickupAbility>().AllowPickup)
                     {
@@ -62,7 +62,7 @@ namespace Entities
 
             if (npcEnt.InteractionManager.InteractionData.Trigger == InteractionTriggers.INTERACTION_BUTTON_PRESSED)
             {
-                if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
+                if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                 {
                     if (npcEnt.InteractionManager.InteractionData.Action == InteractionActions.START_TRADE)
                     {

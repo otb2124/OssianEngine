@@ -174,8 +174,8 @@ namespace Resources
                 { ModelStates.INWATER_MOVING,                   AnimationStates.MOVING },
                 { ModelStates.FLYING,                           AnimationStates.FLYING },
                 { ModelStates.FLYING_AND_MOVING,                AnimationStates.FLYING_AND_MOVING },
-                { ModelStates.DOUBLE_JUMPING,                   AnimationStates.ROLL },
-                { ModelStates.DOUBLE_JUMPING_AND_MOVING,        AnimationStates.ROLL }
+                { ModelStates.DOUBLE_JUMPING,                   AnimationStates.JUMPING },
+                { ModelStates.DOUBLE_JUMPING_AND_MOVING,        AnimationStates.JUMPING }
             };
 
 

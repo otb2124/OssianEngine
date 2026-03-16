@@ -19,9 +19,9 @@ namespace Entities
             IsNegation = negation;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            bool result = Entities.Player.Model.ModelState == ModelState;
+            bool result = Entity.Model.ModelState == ModelState;
             return IsNegation ? !result : result;
         }
     }

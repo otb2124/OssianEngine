@@ -45,6 +45,11 @@ namespace Entities
             StatsManager.RefillAll();
         }
 
+        public override void SetControl()
+        {
+            EntityControlHandler = new EntityControlHandler();
+        }
+
 
         public override void Update()
         {

@@ -17,9 +17,9 @@ namespace Entities
             ItemKey = itemkey;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            return Entities.Player.Inventory.GetItemWithItemKey(ItemKey) != null;
+            return Entity.Inventory.GetItemWithItemKey(ItemKey) != null;
         }
     }
 }

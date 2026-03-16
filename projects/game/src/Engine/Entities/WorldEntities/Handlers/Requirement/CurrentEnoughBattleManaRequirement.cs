@@ -12,9 +12,14 @@ namespace Entities
         {
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            return Entities.Player.StatsManager.CheckEnoughFinalBattleMana(Entities.Player);
+            if (Entity != null && Entity is BattleEntity ent)
+            {
+                return Entity.StatsManager.CheckEnoughFinalBattleMana(ent);
+            }
+
+            return false;
         }
     }
 }

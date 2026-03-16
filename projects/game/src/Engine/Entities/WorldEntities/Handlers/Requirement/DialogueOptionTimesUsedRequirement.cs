@@ -22,7 +22,7 @@ namespace Entities
             TimesUsed = timesUsed;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
             DialogueOption option = Entities.DialogueManager.GetDialogueOption(OptionId, DialogueId, SequenceId);
 

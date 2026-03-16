@@ -40,28 +40,28 @@ namespace Graphics
             float bottomBound = -mapSize.Y;
 
             // Camera movement
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.CAMERAUPPRESSED])
             {
                 targetPosition.Y += cameraSpeed;
             }
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.CAMERADOWNPRESSED])
             {
                 targetPosition.Y -= cameraSpeed;
             }
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.CAMERARIGHTPRESSED])
             {
                 targetPosition.X += cameraSpeed;
             }
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.CAMERALEFTPRESSED])
             {
                 targetPosition.X -= cameraSpeed;
             }
 
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMUPPRESSED])
             {
                 Graphics.Camera.MoveZ(-2f);
             }
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.CAMERAZOOMDOWNPRESSED])
             {
                 Graphics.Camera.MoveZ(2f);
             }

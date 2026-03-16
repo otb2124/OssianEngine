@@ -16,9 +16,15 @@ namespace Entities
             IsNegation = negation;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            bool result = Entities.Player.StatsManager.GetStatAbility<DieAbility>().IsDying;
+            bool result = false;
+
+            if(Entity.StatsManager.GetStatAbility<DieAbility>() != null)
+            {
+                result = Entity.StatsManager.GetStatAbility<DieAbility>().IsDying;
+            }
+
             return IsNegation ? !result : result;
         }
     }

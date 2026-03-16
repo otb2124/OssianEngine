@@ -18,7 +18,7 @@ namespace Entities
             LadderEntity ladder = CollisionHelper.GetAnyLadders(model.Body);
             if (ladder != null)
             {
-                if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVEUPPRESSED])
+                if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.MOVEUPPRESSED])
                 {
                     model.ModelState = ModelStates.CLIMBING_LADDER;
                 }
@@ -27,22 +27,22 @@ namespace Entities
                 {
                     model.Body.IsFrozen = true;
 
-                    if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
+                    if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
                     {
                         model.Body.Move(new PhysicalVector(statsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * -1f, 0));
                     }
                             
-                    if(Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
+                    if(Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
                     {
                         model.Body.Move(new PhysicalVector(statsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * 1f, 0));
                     }
 
-                    if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVEUPPRESSED])
+                    if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.MOVEUPPRESSED])
                     {
                         model.Body.Move(new PhysicalVector(0, statsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * 1f));
                     }
 
-                    if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVEDOWNPRESSED])
+                    if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.MOVEDOWNPRESSED])
                     {
                         model.Body.Move(new PhysicalVector(0, statsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * -1f));
                     }

@@ -18,9 +18,15 @@ namespace Entities
             IsNegation = negate;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            bool result = Inputs.Inputs.KeyHandler.KeyStateMap[KeyState];
+            bool result = false;
+
+            if(Entity != null && Entity is AIEntity ent)
+            {
+                result = ent.EntityControlHandler.ControlStateMap[KeyState];
+            }
+
             return IsNegation ? !result : result;
         }
     }

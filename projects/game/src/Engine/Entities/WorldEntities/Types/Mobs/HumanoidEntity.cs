@@ -39,6 +39,7 @@ namespace Entities
             SetDropInventory();
             SetAI();
             SetInteractionType();
+            SetControl();
         }
 
         public override void SetInventory()
@@ -97,6 +98,11 @@ namespace Entities
                 default:
                     break;
             }
+        }
+
+        public override void SetControl()
+        {
+            EntityControlHandler = new EntityControlHandler();
         }
 
         public override void SetInteractionType()
@@ -194,7 +200,8 @@ namespace Entities
                         new InvincibleFramesAbility(1f),
                         new FallAbility(),
                         new GCSRectanglesCalculatorAbility(),
-                        new DescencionAbility(0.5f, 1f)
+                        new DescencionAbility(0.5f, 1f),
+                        new DieAbility(),
                     };
 
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
@@ -222,7 +229,8 @@ namespace Entities
                         new InvincibleFramesAbility(1f),
                         new FallAbility(),
                         new GCSRectanglesCalculatorAbility(),
-                        new DescencionAbility(0.5f, 1f)
+                        new DescencionAbility(0.5f, 1f),
+                        new DieAbility(),
                     };
 
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();
@@ -250,7 +258,8 @@ namespace Entities
                         new InvincibleFramesAbility(1f),
                         new FallAbility(),
                         new GCSRectanglesCalculatorAbility(),
-                        new DescencionAbility(0.5f, 1f)
+                        new DescencionAbility(0.5f, 1f),
+                        new DieAbility(),
                     };
 
                     StatsManager.StatsBattleHitSpendHandler = new StatsBattleHitSpendHandler();

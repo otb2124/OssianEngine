@@ -19,9 +19,9 @@ namespace Entities
             MaxHP = maxHp;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            return Entities.Player.StatsManager.GetStat(EntityStats.HP).CurrentValue > MinHP && Entities.Player.StatsManager.GetStat(EntityStats.HP).CurrentValue <= MaxHP;
+            return Entity.StatsManager.GetStat(EntityStats.HP).CurrentValue > MinHP && Entity.StatsManager.GetStat(EntityStats.HP).CurrentValue <= MaxHP;
         }
     }
 }

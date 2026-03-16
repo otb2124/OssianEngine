@@ -5,8 +5,10 @@ namespace Entities
 {
     public class Requirement
     {
+        public StatsEntity Entity;
         public bool IsNegation;
-        public virtual bool Check() => false;
+
+        public virtual bool Check(StatsEntity Entity = null) => false;
     }
 
     public class OrRequirement : Requirement
@@ -19,7 +21,7 @@ namespace Entities
             IsNegation = negate;
         }
 
-        public override bool Check() => IsNegation ? !Requirements.Any(r => r.Check()) : Requirements.Any(r => r.Check());
+        public override bool Check(StatsEntity Entity = null) => IsNegation ? !Requirements.Any(r => r.Check(Entity)) : Requirements.Any(r => r.Check(Entity));
     }
 
     public class AndRequirement : Requirement
@@ -32,6 +34,6 @@ namespace Entities
             IsNegation = negate;
         }
 
-        public override bool Check() => IsNegation ? !Requirements.All(r => r.Check()) : Requirements.All(r => r.Check());
+        public override bool Check(StatsEntity Entity = null) => IsNegation ? !Requirements.All(r => r.Check(Entity)) : Requirements.All(r => r.Check(Entity));
     }
 }

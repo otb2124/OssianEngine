@@ -18,7 +18,7 @@ namespace Entities
             OptionId = optionId;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
             DialogueAnswer answer = Entities.DialogueManager.GetDialogueAnswer(DialogueId, OptionId);
 

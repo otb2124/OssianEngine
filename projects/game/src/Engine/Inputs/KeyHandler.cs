@@ -61,40 +61,6 @@ namespace Inputs
             TOGGLEHITBOXDEBUGPRESSED
         }
 
-        public Dictionary<KeyStates, bool> KeyStateMap = new Dictionary<KeyStates, bool>
-        {
-            //Player keys
-            { KeyStates.JUMPPRESSED, false },
-            { KeyStates.MOVERIGHTPRESSED, false },
-            { KeyStates.MOVELEFTPRESSED, false },
-            { KeyStates.MOVEDOWNPRESSED, false },
-            { KeyStates.MOVEUPPRESSED, false },
-            { KeyStates.ATTACKLIGHTPRESSED, false },
-            { KeyStates.ATTACKHEAVYPRESSED, false },
-            { KeyStates.TOGGLEWEAPONPRESSED, false },
-            { KeyStates.SPRINTPRESSED, false },
-            { KeyStates.INTERACTRESSED, false },
-            { KeyStates.BLOCKPRESSED, false },
-            { KeyStates.PARRYPRESSED, false },
-
-            //Camera
-            { KeyStates.CAMERALEFTPRESSED, false },
-            { KeyStates.CAMERARIGHTPRESSED, false },
-            { KeyStates.CAMERAUPPRESSED, false },
-            { KeyStates.CAMERADOWNPRESSED, false },
-
-            { KeyStates.CAMERAZOOMUPPRESSED, false },
-            { KeyStates.CAMERAZOOMDOWNPRESSED, false },
-
-            //ui
-            { KeyStates.TOGGLEMENUPRESSED, false },
-            { KeyStates.TOGGLEHUDPRESSED, false },
-
-            //debug
-            { KeyStates.TOGGLECOLLISIONDEBUGPRESSED, false },
-            { KeyStates.TOGGLEHITBOXDEBUGPRESSED, false }
-        };
-
 
         public Dictionary<(KeyStates state, bool clickOnly), List<InputKey>> KeyBindings = new Dictionary<(KeyStates, bool), List<InputKey>>
         {
@@ -131,14 +97,6 @@ namespace Inputs
 
 
         public KeyHandler() {
-
-            foreach (var (state, _) in KeyBindings.Keys)
-            {
-                if (!KeyStateMap.ContainsKey(state))
-                {
-                    KeyStateMap[state] = false;
-                }
-            }
         }
 
         public void Update()
@@ -167,7 +125,7 @@ namespace Inputs
                     }
                 }
 
-                KeyStateMap[state] = isPressed;
+                Entities.Entities.Player.EntityControlHandler.ControlStateMap[state] = isPressed;
             }
         }
 
@@ -190,7 +148,7 @@ namespace Inputs
                     }
                 }
 
-                KeyStateMap[state] = isPressed;
+                Entities.Entities.Player.EntityControlHandler.ControlStateMap[state] = isPressed;
             }
         }
 
@@ -217,7 +175,7 @@ namespace Inputs
 
                 if (allReleased)
                 {
-                    KeyStateMap[state] = false;
+                    Entities.Entities.Player.EntityControlHandler.ControlStateMap[state] = false;
                 }
             }
         }

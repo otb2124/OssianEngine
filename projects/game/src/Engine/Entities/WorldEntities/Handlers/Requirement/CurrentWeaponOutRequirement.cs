@@ -14,9 +14,17 @@ namespace Entities
             IsNegation = negate;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            bool result = Entities.Player.EquipmentManager.WeaponInOutToggler.IsWeaponOut;
+
+            bool result = false;
+
+
+            if (Entity != null && Entity is EquipmentEntity ent)
+            {
+                result = ent.EquipmentManager.WeaponInOutToggler.IsWeaponOut;
+            }
+
             return IsNegation ? !result : result;
         }
     }

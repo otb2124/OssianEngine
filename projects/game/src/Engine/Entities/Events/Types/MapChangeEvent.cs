@@ -66,7 +66,7 @@ namespace Entities
 
                 if(Type == MapChangeEvents.INTERACT_PRESSED)
                 {
-                    if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
+                    if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                     {
                         Entities.EntityMapManager.GlobalMapTime.AdjustForTravel(GlobalMapTime.MapTravelTimeMap[new Point(Entities.EntityMapManager.CurrentMapId, MapTo)]);
                         Entities.EntityMapManager.LoadMap(MapTo, PosTo);

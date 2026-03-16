@@ -20,6 +20,8 @@ namespace Entities
 
         public ParticleSet.ParticleSets BloodDropParticle;
 
+        public EntityControlHandler EntityControlHandler;
+
         public enum EntityFractions
         {
             NEUTRAL,
@@ -52,8 +54,20 @@ namespace Entities
         }
 
 
+        public virtual void SetControl()
+        {
+            //
+        }
+
+
         public override void Update()
         {
+            if(EntityControlHandler != null)
+            {
+                ModelStateManager.Update(this);
+            }
+            
+
             if (StatsManager.GetStatAbility(EntityStatFeatures.GCS) != null)
             {
                 Model.UpdateSurroundingRectangles();

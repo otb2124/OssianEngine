@@ -19,7 +19,7 @@ namespace UI
 
         public void HandleNavigation()
         {
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.TOGGLEMENUPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.TOGGLEMENUPRESSED])
             {
                 ToggleInGameMenu();
 
@@ -29,7 +29,7 @@ namespace UI
                 }
             }
 
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.TOGGLEHUDPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.TOGGLEHUDPRESSED])
             {
                 UI.UIManager.ToggleComponent(new UIHUDComponent(0), UIComponent.UIComponentTypes.HUD);
             }

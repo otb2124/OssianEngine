@@ -20,11 +20,11 @@ namespace Entities
             Requirements = requirements;
         }
 
-        public void Check(Model model)
+        public void Check(StatsEntity Entity)
         {
             if(Requirements == null)
             {
-                model.ModelState = ModelState;
+                Entity.Model.ModelState = ModelState;
             }
             else
             {
@@ -43,9 +43,9 @@ namespace Entities
                     }
                     */
 
-                    if (requirement.Check())
+                    if (requirement.Check(Entity))
                     {
-                        model.ModelState = ModelState;
+                        Entity.Model.ModelState = ModelState;
                     }
                 }
             }

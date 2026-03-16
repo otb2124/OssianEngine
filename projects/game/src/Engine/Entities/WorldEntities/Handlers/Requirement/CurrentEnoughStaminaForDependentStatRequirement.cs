@@ -17,9 +17,9 @@ namespace Entities
             Stat = stats;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            bool result = Entities.Player.StatsManager.CheckEnoughStaminaForStat(Stat);
+            bool result = Entity.StatsManager.CheckEnoughStaminaForStat(Stat);
             return IsNegation ? !result : result;
         }
     }

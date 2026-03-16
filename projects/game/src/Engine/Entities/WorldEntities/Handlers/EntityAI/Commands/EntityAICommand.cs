@@ -4,6 +4,7 @@ using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
@@ -66,7 +67,7 @@ namespace Entities
 
         public void StandStill()
         {
-            Entity.Model.ModelState = ModelStates.IDLE;
+            Entity.EntityControlHandler.ResetAllStates();
         }
 
         public void Move()
@@ -76,8 +77,14 @@ namespace Entities
 
         public void Move(Directions direction)
         {
-            Entity.Model.Direction = direction;
-            Entity.Model.ModelState = ModelStates.MOVING;
+            if(direction == Directions.LEFT)
+            {
+                Entity.EntityControlHandler.SetState(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED, true);
+            }
+            else
+            {
+                Entity.EntityControlHandler.SetState(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED, true);
+            }
         }
 
         public void MoveUntillUngrounded()
@@ -87,8 +94,6 @@ namespace Entities
 
         public void MoveUntillUngrounded(Directions direction)
         {
-            Entity.Model.Direction = direction;
-
             if (EntityAIHelper.HasGroundForward(Entity))
             {
                 Move(direction);
@@ -101,8 +106,6 @@ namespace Entities
 
         public void MoveUntillUngroundedAndStandStill(Directions direction)
         {
-            Entity.Model.Direction = direction;
-
             if (EntityAIHelper.HasGroundForward(Entity))
             {
                 Move(direction);
@@ -115,13 +118,13 @@ namespace Entities
 
         public void Jump()
         {
-            Entity.Model.ModelState = ModelStates.JUMPING;
+            Entity.EntityControlHandler.SetState(Inputs.KeyHandler.KeyStates.JUMPPRESSED, true);
         }
 
         public void JumpAndMove(Directions direction)
         {
-            Entity.Model.Direction = direction;
-            Entity.Model.ModelState = ModelStates.JUMPING_AND_MOVING;
+            Move(direction);
+            Jump();
         }
 
         public void Fly()
@@ -142,8 +145,8 @@ namespace Entities
 
         public void Sprint(Directions direction)
         {
-            Entity.Model.ModelState = ModelStates.SPRINTING;
-            Entity.Model.Direction = direction;
+            Entity.EntityControlHandler.SetState(Inputs.KeyHandler.KeyStates.SPRINTPRESSED, true);
+            Move(direction);
         }
 
         public void PerformAttack(AttackTypes type)

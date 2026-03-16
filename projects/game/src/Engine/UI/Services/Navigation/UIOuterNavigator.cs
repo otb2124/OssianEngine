@@ -14,7 +14,7 @@ namespace UI
 
         public void HandleNavigation()
         {
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.TOGGLEMENUPRESSED])
+            if (Entities.Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.TOGGLEMENUPRESSED])
             {
                 UI.UIManager.RemoveComponent(UIComponent.UIComponentTypes.INVENTORY_TO_INVENTORY, 999);
                 UI.UIManager.RemoveComponent(UIComponent.UIComponentTypes.DIALOGUE, 999);

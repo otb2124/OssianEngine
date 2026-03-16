@@ -15,6 +15,7 @@ namespace Entities
         {
             SetStats();
             SetInventory();
+            SetControl();
             //SetDropInventory();
         }
 
@@ -164,9 +165,14 @@ namespace Entities
             base.SetEmission();
         }
 
+        public override void SetControl()
+        {
+            EntityControlHandler = new EntityControlHandler();
+        }
+
         public override void Update()
         {
-            ModelStateManager.Update(Model);
+            
             //Console.WriteLine(Model.ModelState);
             base.Update();
         }

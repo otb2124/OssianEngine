@@ -16,9 +16,9 @@ namespace Entities
             IsNegation = negation;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            bool result = Entities.Player.StatsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsGrounded;
+            bool result = Entity.StatsManager.GetStatAbility<GCSRectanglesCalculatorAbility>().IsGrounded;
             return IsNegation ? !result : result;
         }
     }

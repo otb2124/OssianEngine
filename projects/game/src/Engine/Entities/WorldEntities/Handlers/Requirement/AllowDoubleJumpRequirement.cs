@@ -10,9 +10,9 @@ namespace Entities
             IsNegation = negation;
         }
 
-        public override bool Check()
+        public override bool Check(StatsEntity Entity)
         {
-            bool result = Entities.Player.StatsManager.GetStatAbility<DoubleJumpAbility>().AllowDoubleJump;
+            bool result = Entity.StatsManager.GetStatAbility<DoubleJumpAbility>().AllowDoubleJump;
             return IsNegation ? !result : result;
         }
     }

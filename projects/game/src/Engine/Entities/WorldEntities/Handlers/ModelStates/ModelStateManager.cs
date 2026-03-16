@@ -695,11 +695,11 @@ namespace Entities
         }
 
 
-        public static void Update(Model model)
+        public static void Update(StatsEntity Entity)
         {
             foreach (ModelStateSwap modelStateSwap in ModelStateSwappers)
             {
-                modelStateSwap.Check(model);
+                modelStateSwap.Check(Entity);
             }
 
             ToggleWeapon();
@@ -724,7 +724,7 @@ namespace Entities
         {
             Player player = Entities.Player;
             // WEAPON TOGGLE
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
+            if (player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.TOGGLEWEAPONPRESSED])
             {
                 player.EquipmentManager.ToggleWeaponInOut(player.BattleBodyManager);
             }
@@ -733,7 +733,7 @@ namespace Entities
 
         public static void TurnRight()
         {
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
+            if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED])
             {
                 Player player = Entities.Player;
 
@@ -748,7 +748,7 @@ namespace Entities
 
         public static void TurnLeft()
         {
-            if (Inputs.Inputs.KeyHandler.KeyStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
+            if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED])
             {
                 Player player = Entities.Player;
 
