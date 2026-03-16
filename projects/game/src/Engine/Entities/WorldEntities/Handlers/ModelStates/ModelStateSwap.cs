@@ -28,10 +28,24 @@ namespace Entities
             }
             else
             {
+
                 foreach (Requirement requirement in Requirements)
                 {
+
+                    /*
+                    if (ModelState == ModelStates.DOUBLE_JUMPING_AND_MOVING)
+                    {
+                        foreach (Requirement req in ((AndRequirement)requirement).Requirements)
+                        {
+                            Console.WriteLine(req.ToString() + ": " + req.Check());
+                        }
+
+                    }
+                    */
+
                     if (requirement.Check())
                     {
+                        Console.WriteLine(ModelState);
                         Entities.Player.Model.ModelState = ModelState;
                     }
                 }

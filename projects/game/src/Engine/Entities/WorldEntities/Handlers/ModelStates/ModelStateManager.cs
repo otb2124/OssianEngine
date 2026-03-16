@@ -218,7 +218,11 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
 
-                            new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED)
+                            
+
+                            new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED),
+
+                            new IsGroundedRequirement(),
                         }
                     )
                 }
@@ -247,6 +251,61 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
                             new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.FALLEN, true),
+
+                            new ModelStateRequirement(ModelStates.DOUBLE_JUMPING, true),
+                            new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
+
+                            new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED),
+
+                            new IsGroundedRequirement(),
+                        }
+                    )
+                }
+            ),
+
+
+            //DOUBLE_JUMPING
+            new ModelStateSwap(
+                ModelStates.DOUBLE_JUMPING,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.JUMPPRESSED),
+
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING),
+
+                            new AllowDoubleJumpRequirement(),
+
+                            new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
+                            new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
+                            new ModelStateRequirement(ModelStates.FALLEN, true),
+
+                            new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED)
+                        }
+                    )
+                }
+            ),
+ 
+ 
+            //DOUBLE_JUMPING_AND_MOVING
+            new ModelStateSwap(
+                ModelStates.DOUBLE_JUMPING_AND_MOVING,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.JUMPPRESSED),
+  
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING),
+
+                            new AllowDoubleJumpRequirement(),
+
+                            new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
+                            new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
                             new ModelStateRequirement(ModelStates.FALLEN, true),
 
                             new CurrentEnoughStaminaForDependentStatRequirement(EntityStats.JUMP_SPEED)
@@ -328,6 +387,7 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.DESCENDING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING, true),
                             new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
+
 
                             //new IsGroundedRequirement(true),
                             new AllowJumpDescendingRequirement(),
@@ -563,6 +623,8 @@ namespace Entities
                             new ModelStateRequirement(ModelStates.DESCENDING , true),
                             new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
                             new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
+                            new ModelStateRequirement(ModelStates.DOUBLE_JUMPING, true),
+                            new ModelStateRequirement(ModelStates.DOUBLE_JUMPING_AND_MOVING, true),
 
                             new ModelStateRequirement(ModelStates.JUMPING, true),
                             new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING, true),

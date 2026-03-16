@@ -172,7 +172,7 @@ namespace Entities
         public override void Update()
         {
             ModelStateManager.Update();
-            Console.WriteLine(Model.ModelState);
+            //Console.WriteLine(Model.ModelState);
             base.Update();
         }
 
