@@ -107,7 +107,7 @@ namespace Inputs
             { (KeyStates.JUMPPRESSED, false), new List<InputKey> { new InputKey(Keys.Space) } },
             { (KeyStates.INTERACTRESSED, true), new List<InputKey> { new InputKey(Keys.E) } },
             { (KeyStates.BLOCKPRESSED, false), new List<InputKey> { new InputKey(Keys.LeftAlt) } },
-            { (KeyStates.TOGGLEWEAPONPRESSED, true), new List<InputKey> { new InputKey(Keys.Q),  new InputKey(Keys.CapsLock) } },
+            { (KeyStates.TOGGLEWEAPONPRESSED, true), new List<InputKey> { new InputKey(Keys.R),  new InputKey(Keys.CapsLock) } },
             { (KeyStates.PARRYPRESSED, false), new List<InputKey> { new InputKey(Keys.LeftControl) } },
             { (KeyStates.ATTACKLIGHTPRESSED, true), new List<InputKey> { new InputKey(FlatMouse.MouseButtons.Left) } },
             { (KeyStates.ATTACKHEAVYPRESSED, true), new List<InputKey> { new InputKey(FlatMouse.MouseButtons.Right) } },
