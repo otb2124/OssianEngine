@@ -9,6 +9,7 @@ namespace UI
     public class UIInventorySlotComponent : UIComponent
     {
         public Item Item;
+        public bool IsHovered;
         public bool IsRightClicked;
         public bool IsLeftClicked;
         public EquipmentSlot.EquipmentSlotTypes EquipmentSlotType;
@@ -31,17 +32,14 @@ namespace UI
         public void SetItem(Item item)
         {
             Item = item;
-
             if (item == null)
             {
                 children[1] = null;
                 children[2] = null;
                 return;
             }
-
             children[1] = new UIIconComponent(-1, GetItemUISprite(item),
                 new Vector2(Position.X, Position.Y), new Vector2(0.75f, 0.75f));
-
             children[2] = (item.Stackable && item.Count > 1)
                 ? new UITextStringComponent(-1, Position, item.Count.ToString(), 0, Vector2.One, Color.White)
                 : null;
@@ -51,12 +49,14 @@ namespace UI
         {
             IsRightClicked = false;
             IsLeftClicked = false;
+            IsHovered = false;
 
             for (int i = 0; i < children.Length; i++)
                 children[i]?.Update();
 
             if (children[0] is UIButtonIconComponent btn && btn.IsOnHover)
             {
+                IsHovered = true;
                 if (Inputs.Inputs.mouse.IsRightMouseButtonPressed())
                     IsRightClicked = true;
                 if (Inputs.Inputs.mouse.IsLeftMouseButtonPressed())

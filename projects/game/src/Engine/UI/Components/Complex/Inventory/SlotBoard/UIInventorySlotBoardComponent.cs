@@ -14,38 +14,30 @@ namespace UI
             EQUIPMENT,
         };
 
-
         public List<Item> Items;
 
         public UIInventorySlotBoardLayoutTypes SlotLayoutType;
-        public int[][] SlotLayout; //if { {-1} } then use custom layout for equipment
-        public EquipmentSlot.EquipmentSlotTypes[][] EquipmentSlotTypeLayout; //to set equipment slot restrictions
+        public int[][] SlotLayout;
+        public EquipmentSlot.EquipmentSlotTypes[][] EquipmentSlotTypeLayout;
+
+        // One tooltip for the whole board
+        private UIInventoryItemTooltipComponent _tooltip = new UIInventoryItemTooltipComponent(-1);
 
         public UIInventorySlotBoardComponent(int id, Vector2 pos, List<Item> items, int[][] slotLayout = null, EquipmentSlot.EquipmentSlotTypes[][] equipmentSlotTypes = null) : base(id)
         {
             Position = pos;
-
             type = UIComponentTypes.INVENTORY_SLOTBOARD;
-
             children = new UIComponent[0];
-
             Items = items;
-
             SlotLayout = slotLayout;
             EquipmentSlotTypeLayout = equipmentSlotTypes;
 
             if (SlotLayout == null)
-            {
                 SlotLayoutType = UIInventorySlotBoardLayoutTypes.INVENTORY;
-            }
-            else if (SlotLayout != null && SlotLayout.Length == 1 && SlotLayout[0].Length == 1 && SlotLayout[0][0] == -1)
-            {
+            else if (SlotLayout.Length == 1 && SlotLayout[0].Length == 1 && SlotLayout[0][0] == -1)
                 SlotLayoutType = UIInventorySlotBoardLayoutTypes.EQUIPMENT;
-            }
             else
-            {
                 SlotLayoutType = UIInventorySlotBoardLayoutTypes.CUSTOM;
-            }
 
             UpdateSlotsLayout();
             UpdateSlots();
@@ -54,13 +46,7 @@ namespace UI
 
         public void UpdateSlots()
         {
-            int slotsCount = Items.Count;
-
-            if (slotsCount > UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE)
-            {
-                slotsCount = UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE;
-            }
-
+            int slotsCount = Math.Min(Items.Count, UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE);
             children = new UIComponent[slotsCount];
 
             for (int row = 0; row < SlotLayout.Length; row++)
@@ -68,14 +54,14 @@ namespace UI
                 for (int col = 0; col < SlotLayout[row].Length; col++)
                 {
                     int slotId = SlotLayout[row][col];
-                    if (slotId == -1 || slotId >= Items.Count)
-                    {
-                        continue; //skip invalid slots (-1 or out-of-bounds)
-                    }
+                    if (slotId == -1 || slotId >= Items.Count) continue;
 
-                    EquipmentSlot.EquipmentSlotTypes slotType = EquipmentSlotTypeLayout != null && row < EquipmentSlotTypeLayout.Length && col < EquipmentSlotTypeLayout[row].Length
-                        ? EquipmentSlotTypeLayout[row][col]
-                        : EquipmentSlot.EquipmentSlotTypes.NONE;
+                    EquipmentSlot.EquipmentSlotTypes slotType =
+                        EquipmentSlotTypeLayout != null &&
+                        row < EquipmentSlotTypeLayout.Length &&
+                        col < EquipmentSlotTypeLayout[row].Length
+                            ? EquipmentSlotTypeLayout[row][col]
+                            : EquipmentSlot.EquipmentSlotTypes.NONE;
 
                     children[slotId] = new UIInventorySlotComponent(
                         -1,
@@ -89,7 +75,6 @@ namespace UI
             }
         }
 
-
         public void UpdateSlotItems()
         {
             for (int row = 0; row < SlotLayout.Length; row++)
@@ -97,11 +82,7 @@ namespace UI
                 for (int col = 0; col < SlotLayout[row].Length; col++)
                 {
                     int slotId = SlotLayout[row][col];
-                    if (slotId == -1 || slotId >= Items.Count)
-                    {
-                        continue; //skip invalid slots (-1 or out-of-bounds)
-                    }
-
+                    if (slotId == -1 || slotId >= Items.Count) continue;
                     ((UIInventorySlotComponent)children[slotId]).SetItem(Items[slotId]);
                 }
             }
@@ -111,14 +92,7 @@ namespace UI
         {
             if (SlotLayoutType == UIInventorySlotBoardLayoutTypes.INVENTORY)
             {
-                //default structure (inventory)
-                int slotsCount = Items.Count;
-
-                if (slotsCount > UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE)
-                {
-                    slotsCount = UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE;
-                }
-
+                int slotsCount = Math.Min(Items.Count, UIInventoryPagerService.MAX_SLOT_COUNT_PER_PAGE);
                 int slotsInRow = 5;
                 int rowsCount = (int)Math.Ceiling((float)slotsCount / slotsInRow);
 
@@ -128,15 +102,12 @@ namespace UI
                     int colsInRow = Math.Min(slotsInRow, slotsCount - row * slotsInRow);
                     SlotLayout[row] = new int[colsInRow];
                     for (int col = 0; col < colsInRow; col++)
-                    {
                         SlotLayout[row][col] = row * slotsInRow + col;
-                    }
                 }
             }
 
             if (SlotLayoutType == UIInventorySlotBoardLayoutTypes.EQUIPMENT)
             {
-                //equipmemt layout
                 SlotLayout = new int[][]
                 {
                     new int[] {  0, -1, -1,  5,  6},
@@ -147,10 +118,10 @@ namespace UI
 
                 EquipmentSlotTypeLayout = new EquipmentSlot.EquipmentSlotTypes[][]
                 {
-                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.WEAPON,      EquipmentSlot.EquipmentSlotTypes.NONE,       EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.NECKLACE, EquipmentSlot.EquipmentSlotTypes.CAPE},
-                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.HELMET,      EquipmentSlot.EquipmentSlotTypes.CHESTPLATE, EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.BELT,     EquipmentSlot.EquipmentSlotTypes.RING_L},
-                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.BOOTS,       EquipmentSlot.EquipmentSlotTypes.GLOVES,     EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.RING_R,   EquipmentSlot.EquipmentSlotTypes.PET },
-                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.NONE,        EquipmentSlot.EquipmentSlotTypes.CONTAINMENT,EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.NONE,     EquipmentSlot.EquipmentSlotTypes.NONE},
+                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.WEAPON,      EquipmentSlot.EquipmentSlotTypes.NONE,       EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.NECKLACE, EquipmentSlot.EquipmentSlotTypes.CAPE      },
+                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.HELMET,      EquipmentSlot.EquipmentSlotTypes.CHESTPLATE, EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.BELT,     EquipmentSlot.EquipmentSlotTypes.RING_L    },
+                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.BOOTS,       EquipmentSlot.EquipmentSlotTypes.GLOVES,     EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.RING_R,   EquipmentSlot.EquipmentSlotTypes.PET       },
+                    new EquipmentSlot.EquipmentSlotTypes[] { EquipmentSlot.EquipmentSlotTypes.NONE,        EquipmentSlot.EquipmentSlotTypes.CONTAINMENT,EquipmentSlot.EquipmentSlotTypes.NONE, EquipmentSlot.EquipmentSlotTypes.NONE,     EquipmentSlot.EquipmentSlotTypes.NONE      },
                 };
             }
         }
@@ -158,40 +129,35 @@ namespace UI
         public override void Refresh()
         {
             if (Items.Count > 0)
-            {
                 UpdateSlotItems();
-            }
-
             base.Refresh();
         }
 
         public override void Update()
         {
             if (children != null)
-            {
                 for (int i = 0; i < children.Length; i++)
-                {
-                    if (children[i] != null)
-                    {
-                        children[i].Update();
-                    }
-                }
-            }
+                    children[i]?.Update();
 
+            // Find hovered slot and drive the shared tooltip
+            Item hoveredItem = null;
+            if (children != null)
+                for (int i = 0; i < children.Length; i++)
+                    if (children[i] is UIInventorySlotComponent slot && slot.IsHovered)
+                    { hoveredItem = slot.Item; break; }
+
+            _tooltip.Show(hoveredItem);
+            _tooltip.Update();
         }
 
         public override void Draw()
         {
             if (children != null)
-            {
                 for (int i = 0; i < children.Length; i++)
-                {
-                    if (children[i] != null)
-                    {
-                        children[i].Draw();
-                    }
-                }
-            }
+                    children[i]?.Draw();
+
+            // Draw tooltip last so it renders on top of all slots
+            _tooltip.Draw();
         }
     }
 }
