@@ -47,7 +47,7 @@ namespace Entities
 
         public override void SetControl()
         {
-            EntityControlHandler = new EntityControlHandler();
+            EntityControlHandler = new EntityControlHandler(false);
         }
 
 

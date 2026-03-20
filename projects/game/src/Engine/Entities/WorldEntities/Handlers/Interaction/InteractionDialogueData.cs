@@ -63,7 +63,7 @@ namespace Entities
                     {
                         foreach (Requirement requirement in sequence.Requirements)
                         {
-                            if (!requirement.Check())
+                            if (!requirement.Check(Entities.Player))
                             {
                                 allRequirementsMet = false;
                                 break;

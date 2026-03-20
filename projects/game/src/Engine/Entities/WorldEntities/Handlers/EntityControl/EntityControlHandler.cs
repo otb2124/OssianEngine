@@ -10,6 +10,8 @@ namespace Entities
     public class EntityControlHandler
     {
 
+        public bool ApplyUIPrevention = false;
+
         public static KeyStates[] Controls =
         {
             //main
@@ -46,16 +48,20 @@ namespace Entities
 
         public Dictionary<KeyStates, bool> ControlStateMap;
 
-        public EntityControlHandler()
+        public EntityControlHandler(bool applyUIPrevention)
         {
 
             ControlStateMap = new Dictionary<KeyStates, bool>();
 
             ResetAllStates();
+            ApplyUIPrevention = applyUIPrevention;
         }
 
         public void SetState(KeyStates key, bool pressed)
         {
+            if(ApplyUIPrevention && UI.UI.PreventButtonPressedOverlap && (key == KeyStates.ATTACKLIGHTPRESSED || key == KeyStates.ATTACKHEAVYPRESSED))
+                return;
+
             ControlStateMap[key] = pressed;
         }
 

@@ -106,7 +106,7 @@ namespace Entities
             {
                 foreach (Requirement requirement in option.Requirements)
                 {
-                    if (!requirement.Check())
+                    if (!requirement.Check(Entities.Player))
                     {
                         return false;
                     }

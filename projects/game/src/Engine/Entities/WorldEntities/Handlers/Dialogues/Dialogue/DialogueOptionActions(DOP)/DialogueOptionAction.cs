@@ -31,7 +31,7 @@ namespace Entities
 
             foreach (Requirement requirement in Requirements)
             {
-                if(!requirement.Check())
+                if(!requirement.Check(Entities.Player))
                 {
                     return false;
                 }

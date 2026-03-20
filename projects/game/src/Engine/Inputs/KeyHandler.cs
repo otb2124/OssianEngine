@@ -125,7 +125,7 @@ namespace Inputs
                     }
                 }
 
-                Entities.Entities.Player.EntityControlHandler.ControlStateMap[state] = isPressed;
+                Entities.Entities.Player.EntityControlHandler.SetState(state, isPressed);
             }
         }
 
@@ -148,7 +148,7 @@ namespace Inputs
                     }
                 }
 
-                Entities.Entities.Player.EntityControlHandler.ControlStateMap[state] = isPressed;
+                Entities.Entities.Player.EntityControlHandler.SetState(state, isPressed);
             }
         }
 
@@ -175,7 +175,7 @@ namespace Inputs
 
                 if (allReleased)
                 {
-                    Entities.Entities.Player.EntityControlHandler.ControlStateMap[state] = false;
+                    Entities.Entities.Player.EntityControlHandler.SetState(state, false);
                 }
             }
         }
