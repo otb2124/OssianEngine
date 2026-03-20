@@ -80,9 +80,9 @@ namespace Entities
 
                             //BLOCK
                             new BattleComboHit(
-                                new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
+                                new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 1f),
                                 new AttackTypes[] { AttackTypes.BLOCK },
-                                BattleHitStatsSet.One
+                                BattleHitStatsSet.Zero
                             ),
                         }
                     )
@@ -139,7 +139,7 @@ namespace Entities
                                 new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
                                     new AttackTypes[] { AttackTypes.BLOCK },
-                                    BattleHitStatsSet.One
+                                    BattleHitStatsSet.Zero
                                 ),
                             }
                         )
@@ -195,7 +195,7 @@ namespace Entities
                                 new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
                                     new AttackTypes[] { AttackTypes.BLOCK },
-                                    BattleHitStatsSet.One
+                                    BattleHitStatsSet.Zero
                                 ),
                             }
                         )
@@ -246,7 +246,7 @@ namespace Entities
                                 new BattleComboHit(
                                     new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f), Vector2.Zero, 1f, new Vector2(0f, 0.9f),
                                     new AttackTypes[] { AttackTypes.BLOCK },
-                                    BattleHitStatsSet.One
+                                    BattleHitStatsSet.Zero
                                 ),
                             }
                         )
