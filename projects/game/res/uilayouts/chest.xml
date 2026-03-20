@@ -1,0 +1,4 @@
+<buffer>
+    <inventory pos="100,500" title="inventory" sorting="true" target="entities.player"></inventory>
+    <inventory pos="100,500" title="inventory" sorting="true" target="tree.target"></inventory>
+</buffer>

@@ -1,0 +1,5 @@
+<buffer>
+    <inventory pos="100,500" title="inventory" sorting="true" target="entities.player"></inventory>
+    <barter pos="100,500" title="barter"></barter>
+    <inventory pos="100,500" title="trader" sorting="true" target="tree.target"></inventory>
+</buffer>

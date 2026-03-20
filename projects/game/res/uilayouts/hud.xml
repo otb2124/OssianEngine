@@ -1,0 +1,3 @@
+<stat-bar pos="0,0" target="entities.player.health"></stat-bar>
+<stat-bar pos="0,0" target="entities.player.mana"></stat-bar>
+<stat-bar pos="0,0" target="entities.player.endurance"></stat-bar>
