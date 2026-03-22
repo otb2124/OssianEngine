@@ -43,17 +43,17 @@ namespace Entities
 
         public void InitializeUIDialogueComponent()
         {
-            UI.UI.UIOuterNavigator.ShowDialogueComponent(CurrentSequence.GetDialogueById(CurrentDialogueId));
+            //UI.UI.UIOuterNavigator.ShowDialogueComponent(CurrentSequence.GetDialogueById(CurrentDialogueId));
         }
 
         public void UpdateUIDialogueComponent()
         {
-            UI.UI.UIOuterNavigator.SetDialogueComponentData(CurrentSequence.GetDialogueById(CurrentDialogueId));
+            //UI.UI.UIOuterNavigator.SetDialogueComponentData(CurrentSequence.GetDialogueById(CurrentDialogueId));
         }
 
         public void RemoveUIDialogueComponent()
         {
-            UI.UI.UIOuterNavigator.RemoveDialogueComponent();
+            //UI.UI.UIOuterNavigator.RemoveDialogueComponent();
         }
 
         public void SetAnswer(int oldDialogueChosenOptionId)

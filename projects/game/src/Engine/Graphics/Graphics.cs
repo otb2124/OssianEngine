@@ -150,12 +150,12 @@ namespace Graphics
 
 
             //ui
-            UI.UI.UIManager.Draw();
+            //UI.UI.UIManager.Draw();
 
             if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE || GameStateManager.gameMode == GameStateManager.GameModes.HITBOX_DEBUG_MODE)
             {
                 Shapes.Begin(Camera);
-                UI.UI.UIManager.DrawDebug();
+                //UI.UI.UIManager.DrawDebug();
                 Shapes.End();
             }
 

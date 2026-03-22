@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UI;
 
 namespace Entities
 {
@@ -37,7 +36,7 @@ namespace Entities
                             Entities.Player.Inventory.AddInventory(itemEnt.Containment);
                             Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                             Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.Remove(itemEnt);
-                            UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
+                            //UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
                             livingEnt.StatsManager.GetStatAbility<ItemPickupAbility>().AllowPickup = false;
                         }
 
@@ -52,7 +51,7 @@ namespace Entities
                     Entities.Player.Inventory.AddInventory(itemEnt.Containment);
                     Physics.Physics.flatWorld.RemoveBody(itemEnt.Model.Body);
                     Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.Remove(itemEnt);
-                    UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
+                    //UI.UI.UIManager.RefreshComponentsByType(UI.UIComponent.UIComponentTypes.INVENTORY);
                 }
             }
         }
@@ -66,7 +65,7 @@ namespace Entities
                 {
                     if (npcEnt.InteractionManager.InteractionData.Action == InteractionActions.START_TRADE)
                     {
-                        UI.UI.UIOuterNavigator.ToggleTradeComponent(npcEnt, livingEnt);
+                        //UI.UI.UIOuterNavigator.ToggleTradeComponent(npcEnt, livingEnt);
                     }
                     else if (npcEnt.InteractionManager.InteractionData.Action == InteractionActions.START_DIALOGUE)
                     {

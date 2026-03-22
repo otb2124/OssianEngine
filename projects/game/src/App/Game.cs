@@ -22,7 +22,7 @@ namespace App
             Inputs.Inputs.Init();
             Entities.Entities.Init();
             Graphics.Graphics.Init();
-            UI.UI.Init();
+            //UI.UI.Init();
             Sounds.Sounds.Init();
 
             GameStateManager.SetDefault();
@@ -49,7 +49,7 @@ namespace App
             commandManager.ProcessCommands();
 
             Graphics.Graphics.Update();
-            UI.UI.UIManager.Update();
+            //UI.UI.UIManager.Update();
             Sounds.Sounds.Update();
 
             base.Update(gameTime);
