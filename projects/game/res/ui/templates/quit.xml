@@ -1,0 +1,10 @@
+<Project>
+    <Panel>
+
+        <Label
+            Text="quit"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+
+    </Panel>
+</Project>

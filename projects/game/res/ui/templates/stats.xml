@@ -1,0 +1,10 @@
+<Project>
+    <Panel>
+
+        <Label
+            Text="stats"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+
+    </Panel>
+</Project>

@@ -1,17 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <VerticalStackPanel HorizontalAlignment="Center" 
-                      VerticalAlignment="Center" 
-                      Spacing="20">
+  <Panel>
 
-    <Label Id="lblTitle" Text="CS Platformer Sandbox" StyleName="title"/>
+    <Panel Id="menuFrame"
+           HorizontalAlignment="Left"
+           VerticalAlignment="Center"
+           Left="16"
+           Padding="8">
 
-    <TextButton Id="btnPlay"    Text="Play"      Width="220"/>
-    <TextButton Id="btnOptions" Text="Options"   Width="220"/>
-    <TextButton Id="btnQuit"    Text="Quit"      Width="220"/>
+      <VerticalStackPanel
+        Spacing="8">
 
-    <ImageButton Id="btnSword"
-             ImageTextureId="icon_sword"
-             Width="48" Height="48"/>
+        <ImageButton Id="btnContinue"  Width="40" Height="40" StyleName="ingameMenuButton" ImageColor="White"/>
+        <ImageButton Id="btnInventory" Width="40" Height="40" StyleName="ingameMenuButton" ImageColor="White"/>
+        <ImageButton Id="btnSkills"    Width="40" Height="40" StyleName="ingameMenuButton" ImageColor="White"/>
+        <ImageButton Id="btnQuestbook" Width="40" Height="40" StyleName="ingameMenuButton" ImageColor="White"/>
+        <ImageButton Id="btnStats"     Width="40" Height="40" StyleName="ingameMenuButton" ImageColor="White"/>
+        <ImageButton Id="btnSettings"  Width="40" Height="40" StyleName="ingameMenuButton" ImageColor="White"/>
+        <ImageButton Id="btnQuit"      Width="40" Height="40" StyleName="ingameMenuButton" ImageColor="White"/>
 
-  </VerticalStackPanel>
+      </VerticalStackPanel>
+
+    </Panel>
+
+  </Panel>
 </Project>

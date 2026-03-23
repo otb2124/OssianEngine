@@ -6,6 +6,7 @@ using Resources;
 using System.Collections.Generic;
 using AssetManagementBase;
 using Myra.Graphics2D.TextureAtlases;
+using SharpDX.Direct2D1.Effects;
 
 namespace UI
 {
@@ -15,6 +16,8 @@ namespace UI
         public Panel Root;
         public List<UIComponent> Components;
 
+        public static float UIScale { get; private set; } = 1f;
+
         public UIDesktop() { }
 
         public void Init(Game game)
@@ -23,6 +26,13 @@ namespace UI
             Desktop = new Desktop();
             Root = new Panel();
             Desktop.Root = Root;
+
+            var viewport = Graphics.Graphics.GraphicsDeviceManager.GraphicsDevice.Viewport;
+            var scaleX = (float)viewport.Width / Graphics.Graphics.ScreenResolution.X;
+            var scaleY = (float)viewport.Height / Graphics.Graphics.ScreenResolution.Y;
+            UIScale = Math.Min(scaleX, scaleY);
+
+
             UIStylesheet.Apply();
 
             Components = new List<UIComponent>();
@@ -31,18 +41,45 @@ namespace UI
             game.IsMouseVisible = true;
         }
 
-        public bool HasComponent<T>() where T : UIComponent
+        public void ScaleWidgets(Widget widget)
         {
-            var component = Components.Find(c => c is T);
-            if (component != null) return true;
+            if (widget == null) return;
 
-            return false;
+            if (widget.Width.HasValue)
+                widget.Width = (int)(widget.Width.Value * UIScale);
+
+            if (widget.Height.HasValue)
+                widget.Height = (int)(widget.Height.Value * UIScale);
+
+            widget.Left = (int)(widget.Left * UIScale);
+            widget.Top = (int)(widget.Top * UIScale);
+
+            if (widget is Container container)
+            {
+                foreach (var child in container.Widgets)
+                    ScaleWidgets(child);
+            }
+        }
+
+        public bool HasComponent(Type type)
+        {
+            return Components.Find(c => c.GetType() == type) != null;
+        }
+
+        public void ToggleComponent(Type type)
+        {
+            if (!HasComponent(type))
+                AddComponent((UIComponent)Activator.CreateInstance(type));
+            else
+                RemoveComponent(type);
         }
 
         public void AddComponent(UIComponent component)
         {
+            component.ReloadTemplate();
             Components.Add(component);
             Root.Widgets.Add(component.Template.Project.Root);
+            ScaleWidgets(component.Template.Project.Root);
             component.Init();
         }
 
@@ -53,9 +90,9 @@ namespace UI
         }
 
         // remove by type
-        public void RemoveComponent<T>() where T : UIComponent
+        public void RemoveComponent(Type type)
         {
-            var component = Components.Find(c => c is T);
+            var component = Components.Find(c => c.GetType() == type);
             if (component == null) return;
             Root.Widgets.Remove(component.Template.Project.Root);
             Components.Remove(component);

@@ -80,6 +80,13 @@ namespace UI
             questItem.OverBackground = new SolidBrush(new Color(50, 50, 80, 210));
             questItem.PressedBackground = new SolidBrush(new Color(20, 20, 60, 230));
             s.ButtonStyles["questItem"] = questItem;
+
+            var ingameMenuButton = (ButtonStyle)s.ButtonStyle.Clone();
+            ingameMenuButton.Background = null;
+            ingameMenuButton.OverBackground = new SolidBrush(new Color(255, 255, 255, 30));
+            ingameMenuButton.PressedBackground = new SolidBrush(new Color(255, 255, 255, 60));
+            ingameMenuButton.BorderThickness = new Thickness(0);
+            s.ButtonStyles["ingameMenuButton"] = ingameMenuButton;
         }
 
         private static void ApplyProgressBarStyles(Stylesheet s)
@@ -103,6 +110,11 @@ namespace UI
             xpBar.Background = new SolidBrush(new Color(0, 0, 0, 136));
             xpBar.Filler = new SolidBrush(new Color(180, 130, 255, 204));
             s.HorizontalProgressBarStyles["xpBar"] = xpBar;
+        }
+
+        private static void ApplyPanelStyles(Stylesheet s)
+        {
+
         }
     }
 }

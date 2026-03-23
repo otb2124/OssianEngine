@@ -18,14 +18,19 @@ namespace UI
 
         }
 
+        public virtual void Init()
+        {
+
+        }
+
         public void SetTemplate(UITemplates template)
         {
             Template = ResourceLoader.uiTemplates[template];
         }
 
-        public virtual void Init()
+        public void ReloadTemplate()
         {
-
+            Template.Load();
         }
     }
 }

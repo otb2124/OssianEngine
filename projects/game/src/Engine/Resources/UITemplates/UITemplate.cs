@@ -14,8 +14,13 @@ namespace Resources
     {
         NONE,
         INGAME,
+        INVENTORY,
+        SKILLS,
+        QUESTBOOK,
+        STATS,
+        SETTINGS,
+        QUIT,
         HUD,
-        QUESTBOOK
     };
 
 
@@ -46,8 +51,13 @@ namespace Resources
         {
                 { UITemplates.NONE,          "none" },
                 { UITemplates.INGAME,        "ingame" },
-                { UITemplates.HUD,           "hud" },
+                { UITemplates.INVENTORY,     "inventory" },
+                { UITemplates.SKILLS,        "skills" },
                 { UITemplates.QUESTBOOK,     "questbook" },
+                { UITemplates.STATS,         "stats" },
+                { UITemplates.SETTINGS,      "settings" },
+                { UITemplates.QUIT,          "quit" },
+                { UITemplates.HUD,           "hud" },
         };
     }
 }

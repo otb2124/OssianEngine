@@ -1,0 +1,10 @@
+<Project>
+    <Panel>
+
+        <Label
+            Text="inv"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+
+    </Panel>
+</Project>
