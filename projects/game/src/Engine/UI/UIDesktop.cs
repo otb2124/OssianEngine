@@ -23,6 +23,7 @@ namespace UI
             Desktop = new Desktop();
             Root = new Panel();
             Desktop.Root = Root;
+            UIStylesheet.Apply();
 
             Components = new List<UIComponent>();
 

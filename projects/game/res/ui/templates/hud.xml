@@ -7,7 +7,7 @@
                         Spacing="6" Left="16" Top="16">
 
       <HorizontalStackPanel Spacing="8">
-        <Label Text="HP" Width="24"/>
+        <Label Text="HP" Width="24" StyleName="hud"/>
         <HorizontalProgressBar Id="healthBar"  StyleName="healthBar"  Width="180" Height="14" Value="80"/>
         <Label Id="lblHealth" Text="80/100"/>
       </HorizontalStackPanel>
