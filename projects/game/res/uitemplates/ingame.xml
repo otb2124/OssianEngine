@@ -1,0 +1,14 @@
+<Project>
+  <VerticalStackPanel HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      Spacing="20">
+
+    <Label Id="lblTitle" Text="CS Platformer Sandbox"
+           HorizontalAlignment="Center"/>
+
+    <TextButton Id="btnPlay"    Text="Play"      Width="220"/>
+    <TextButton Id="btnOptions" Text="Options"   Width="220"/>
+    <TextButton Id="btnQuit"    Text="Quit"      Width="220"/>
+
+  </VerticalStackPanel>
+</Project>

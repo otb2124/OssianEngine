@@ -14,13 +14,22 @@ namespace Resources
         public static Font[] fonts;
         public static Dictionary<SpriteSheets, SpriteSheet> spriteSheets;
         public static Dictionary<Sounds, SoundResource> soundResources;
+        public static Dictionary<UITemplates, UITemplate> uiTemplates;
 
+        public static bool ResourcesLoaded = false;
+        public static bool MapLoaded = false;
+        public static bool ContentLoaded = false;
 
         public static void LoadResources()
         {
+            ResourcesLoaded = false;
+
             LoadSprites();
             LoadFonts();
             LoadSounds();
+            LoadUITemplates();
+
+            ResourcesLoaded = true;
         }
 
         public static void LoadSprites()
@@ -73,6 +82,18 @@ namespace Resources
                 if (soundEnum == Sounds.NONE) continue;
 
                 soundResources[soundEnum] = new SoundResource(soundEnum);
+            }
+        }
+
+        public static void LoadUITemplates()
+        {
+            uiTemplates = new Dictionary<UITemplates, UITemplate>();
+
+            foreach (UITemplates uiTemplateEnum in Enum.GetValues(typeof(UITemplates)))
+            {
+                if (uiTemplateEnum == UITemplates.NONE) continue;
+
+                uiTemplates[uiTemplateEnum] = new UITemplate(uiTemplateEnum);
             }
         }
     }

@@ -79,5 +79,5 @@ namespace Entities
                 ControlStateMap[state] = false;
             }
         }
-        }
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
 using Physics;
+using Resources;
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,9 @@ namespace Entities
 
         public void LoadMap(int nextId, Vector2 playerPos)
         {
-            if(Entities.Player == null)
+            ResourceLoader.MapLoaded = false;
+
+            if (Entities.Player == null)
             {
                 Entities.Player = new Player();
             }
@@ -65,6 +68,8 @@ namespace Entities
 
             Graphics.Graphics.LightManager.Init();
             Graphics.Graphics.FilterManager.UpdateLayers();
+
+            ResourceLoader.MapLoaded = true;
         }
 
         public void LoadInitialMap()

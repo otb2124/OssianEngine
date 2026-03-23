@@ -22,7 +22,7 @@ namespace App
             Inputs.Inputs.Init();
             Entities.Entities.Init();
             Graphics.Graphics.Init();
-            //UI.UI.Init();
+            UI.UI.Init(this);
             Sounds.Sounds.Init();
 
             GameStateManager.SetDefault();
@@ -33,8 +33,12 @@ namespace App
 
         protected override void LoadContent()
         {
+            ResourceLoader.ContentLoaded = false;
+
             ResourceLoader.LoadResources();
             Entities.Entities.EntityMapManager.LoadInitialMap();
+
+            ResourceLoader.ContentLoaded = true;
         }
 
         protected override void Update(GameTime gameTime)
@@ -49,7 +53,7 @@ namespace App
             commandManager.ProcessCommands();
 
             Graphics.Graphics.Update();
-            //UI.UI.UIManager.Update();
+            UI.UI.Update();
             Sounds.Sounds.Update();
 
             base.Update(gameTime);

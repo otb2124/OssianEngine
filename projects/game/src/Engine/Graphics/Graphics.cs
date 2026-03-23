@@ -146,23 +146,11 @@ namespace Graphics
                 Shapes.End();
             }
 
-            Sprites.Begin(Camera, BlendState.NonPremultiplied, false, false);
-
-
-            //ui
-            //UI.UI.UIManager.Draw();
-
-            if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE || GameStateManager.gameMode == GameStateManager.GameModes.HITBOX_DEBUG_MODE)
-            {
-                Shapes.Begin(Camera);
-                //UI.UI.UIManager.DrawDebug();
-                Shapes.End();
-            }
-
-            Sprites.End();
-
             Screen.Unset();
             Screen.Present(Sprites, Color.Black, true);
+
+            //ui
+            UI.UI.Draw();
         }
 
     }
