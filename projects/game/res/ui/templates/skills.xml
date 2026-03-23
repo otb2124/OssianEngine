@@ -1,10 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
-    <Panel>
+  <Panel>
 
-        <Label
-            Text="skills"
+    <Panel
+      Id="skillsFrame"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="600"
+      Height="500"
+      StyleName="questPanel">
+
+      <VerticalStackPanel Width="600" Spacing="0">
+
+        <!-- header -->
+        <HorizontalStackPanel Height="40" Spacing="0">
+          <Label
+            Text="Skills"
+            StyleName="title"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"/>
+            VerticalAlignment="Center"
+            Left="12"/>
+          <TextButton
+            Id="btnCloseSkills"
+            Text="Close"
+            Width="80"
+            HorizontalAlignment="Right"
+            StyleName="menuButton"
+            Left="420"
+            Top="6"/>
+        </HorizontalStackPanel>
+
+        <HorizontalSeparator/>
+
+        <!-- scrollable tree area -->
+        <ScrollViewer
+          Id="skillsScroll"
+          Width="600"
+          Height="450">
+          <Panel Id="skillsTree" Width="560" Height="1200">
+
+            <!-- tooltip — floats over tree, hidden by default -->
+            <Panel
+              Id="skillTooltipPanel"
+              Width="180"
+              Height="70"
+              StyleName="tooltipPanel"
+              Visible="false"
+              ZIndex="999">
+              <VerticalStackPanel Spacing="4" Left="8" Top="8" Right="8">
+                <Label Id="skillTooltipName"  Text="" StyleName="questTitle" Wrap="true" Width="164"/>
+                <Label Id="skillTooltipDesc"  Text="" StyleName="muted"      Wrap="true" Width="164"/>
+              </VerticalStackPanel>
+            </Panel>
+
+          </Panel>
+        </ScrollViewer>
+
+      </VerticalStackPanel>
 
     </Panel>
+
+  </Panel>
 </Project>

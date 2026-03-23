@@ -1,10 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
-    <Panel>
+  <Panel>
 
-        <Label
-            Text="settings"
+    <Panel
+      Id="settingsFrame"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="700"
+      Height="500"
+      StyleName="questPanel">
+
+      <HorizontalStackPanel Width="700" Height="500">
+
+        <!-- left side: tabs -->
+        <VerticalStackPanel Width="160" Height="500" Spacing="0">
+
+          <Label
+            Text="Settings"
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"/>
+            StyleName="title"
+            Top="10"/>
+
+          <HorizontalSeparator Top="10"/>
+
+          <VerticalStackPanel Id="tabList" Spacing="4" Top="12" Left="8" Right="8">
+            <TextButton Id="tabGameplay"  Text="Gameplay"  Width="140" StyleName="questItem"/>
+            <TextButton Id="tabGraphics"  Text="Graphics"  Width="140" StyleName="questItem"/>
+            <TextButton Id="tabSound"     Text="Sound"     Width="140" StyleName="questItem"/>
+            <TextButton Id="tabControls"  Text="Controls"  Width="140" StyleName="questItem"/>
+          </VerticalStackPanel>
+
+        </VerticalStackPanel>
+
+        <VerticalSeparator/>
+
+        <!-- right side: content panels -->
+        <VerticalStackPanel Width="536" Height="500" Left="12" Right="12" Top="12">
+
+          <!-- gameplay panel -->
+          <VerticalStackPanel Id="panelGameplay" Spacing="16">
+            <Label Text="Gameplay" StyleName="questTitle"/>
+            <HorizontalSeparator/>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Difficulty" Width="160" VerticalAlignment="Center"/>
+              <ComboBox Id="cbDifficulty" Width="200">
+                <ListItem Text="Easy"/>
+                <ListItem Text="Normal"/>
+                <ListItem Text="Hard"/>
+              </ComboBox>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Show Hints" Width="160" VerticalAlignment="Center"/>
+              <CheckBox Id="chkHints"/>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Autosave" Width="160" VerticalAlignment="Center"/>
+              <CheckBox Id="chkAutosave"/>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Camera Shake" Width="160" VerticalAlignment="Center"/>
+              <CheckBox Id="chkCameraShake"/>
+            </HorizontalStackPanel>
+          </VerticalStackPanel>
+
+          <!-- graphics panel -->
+          <VerticalStackPanel Id="panelGraphics" Spacing="16" Visible="false">
+            <Label Text="Graphics" StyleName="questTitle"/>
+            <HorizontalSeparator/>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Resolution" Width="160" VerticalAlignment="Center"/>
+              <ComboBox Id="cbResolution" Width="200">
+                <ListItem Text="1280x720"/>
+                <ListItem Text="1920x1080"/>
+                <ListItem Text="2560x1440"/>
+              </ComboBox>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Fullscreen" Width="160" VerticalAlignment="Center"/>
+              <CheckBox Id="chkFullscreen"/>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="VSync" Width="160" VerticalAlignment="Center"/>
+              <CheckBox Id="chkVSync"/>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Particle Effects" Width="160" VerticalAlignment="Center"/>
+              <CheckBox Id="chkParticles"/>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Brightness" Width="160" VerticalAlignment="Center"/>
+              <HorizontalSlider Id="sliderBrightness" Width="200" Minimum="0" Maximum="100" Value="80"/>
+              <Label Id="lblBrightness" Text="80" Width="30"/>
+            </HorizontalStackPanel>
+          </VerticalStackPanel>
+
+          <!-- sound panel -->
+          <VerticalStackPanel Id="panelSound" Spacing="16" Visible="false">
+            <Label Text="Sound" StyleName="questTitle"/>
+            <HorizontalSeparator/>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Master Volume" Width="160" VerticalAlignment="Center"/>
+              <HorizontalSlider Id="sliderMaster" Width="200" Minimum="0" Maximum="100" Value="100"/>
+              <Label Id="lblMaster" Text="100" Width="30"/>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Music Volume" Width="160" VerticalAlignment="Center"/>
+              <HorizontalSlider Id="sliderMusic" Width="200" Minimum="0" Maximum="100" Value="80"/>
+              <Label Id="lblMusic" Text="80" Width="30"/>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="SFX Volume" Width="160" VerticalAlignment="Center"/>
+              <HorizontalSlider Id="sliderSFX" Width="200" Minimum="0" Maximum="100" Value="100"/>
+              <Label Id="lblSFX" Text="100" Width="30"/>
+            </HorizontalStackPanel>
+            <HorizontalStackPanel Spacing="12">
+              <Label Text="Mute All" Width="160" VerticalAlignment="Center"/>
+              <CheckBox Id="chkMute"/>
+            </HorizontalStackPanel>
+          </VerticalStackPanel>
+
+          <!-- controls panel -->
+          <VerticalStackPanel Id="panelControls" Spacing="16" Visible="false">
+            <Label Text="Controls" StyleName="questTitle"/>
+            <HorizontalSeparator/>
+            <ScrollViewer Width="452" Height="300">
+              <VerticalStackPanel Spacing="8">
+                <HorizontalStackPanel Spacing="12">
+                  <Label Text="Move Left"    Width="160"/>
+                  <TextButton Id="keyMoveLeft"    Text="A"      Width="100" StyleName="menuButton"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="12">
+                  <Label Text="Move Right"   Width="160"/>
+                  <TextButton Id="keyMoveRight"   Text="D"      Width="100" StyleName="menuButton"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="12">
+                  <Label Text="Jump"         Width="160"/>
+                  <TextButton Id="keyJump"         Text="Space"  Width="100" StyleName="menuButton"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="12">
+                  <Label Text="Attack"       Width="160"/>
+                  <TextButton Id="keyAttack"       Text="LMB"    Width="100" StyleName="menuButton"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="12">
+                  <Label Text="Dodge"        Width="160"/>
+                  <TextButton Id="keyDodge"        Text="LShift" Width="100" StyleName="menuButton"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="12">
+                  <Label Text="Interact"     Width="160"/>
+                  <TextButton Id="keyInteract"     Text="E"      Width="100" StyleName="menuButton"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="12">
+                  <Label Text="Open Menu"    Width="160"/>
+                  <TextButton Id="keyMenu"         Text="Escape" Width="100" StyleName="menuButton"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+            </ScrollViewer>
+          </VerticalStackPanel>
+
+          <!-- bottom: close button -->
+          <TextButton
+            Id="btnCloseSettings"
+            Text="Close"
+            Width="120"
+            HorizontalAlignment="Right"
+            StyleName="menuButton"
+            Top="8"/>
+
+        </VerticalStackPanel>
+
+      </HorizontalStackPanel>
 
     </Panel>
+
+  </Panel>
 </Project>

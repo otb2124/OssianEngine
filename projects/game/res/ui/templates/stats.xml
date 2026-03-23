@@ -1,10 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
-    <Panel>
+  <Panel>
 
-        <Label
-            Text="stats"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"/>
+    <Panel
+      Id="statsFrame"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="620"
+      Height="520"
+      StyleName="questPanel">
+
+      <VerticalStackPanel Width="620" Spacing="0">
+
+        <!-- header -->
+        <HorizontalStackPanel Height="40" Spacing="0">
+          <Label
+            Text="Character"
+            StyleName="title"
+            VerticalAlignment="Center"
+            Left="12"/>
+          <TextButton
+            Id="btnCloseStats"
+            Text="Close"
+            Width="80"
+            HorizontalAlignment="Right"
+            StyleName="menuButton"
+            Left="420"
+            Top="6"/>
+        </HorizontalStackPanel>
+
+        <HorizontalSeparator/>
+
+        <ScrollViewer Width="620" Height="470">
+          <VerticalStackPanel Width="600" Spacing="0" Left="12" Right="12" Top="12">
+
+            <!-- character info -->
+            <HorizontalStackPanel Spacing="0" Height="80">
+              <VerticalStackPanel Spacing="4" Width="300">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Name"    Width="120" StyleName="muted"/>
+                  <Label Id="lblName"   Text="Orest"    StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Class"   Width="120" StyleName="muted"/>
+                  <Label Id="lblClass"  Text="Warrior"  StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Level"   Width="120" StyleName="muted"/>
+                  <Label Id="lblLevel"  Text="12"        StyleName="questTitle"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+              <VerticalStackPanel Spacing="4" Width="300">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Experience" Width="120" StyleName="muted"/>
+                  <Label Id="lblExp"       Text="4200 / 6000" StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalProgressBar Id="xpBar" Width="260" Height="10" Value="70" StyleName="xpBar"/>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Skill Points" Width="120" StyleName="muted"/>
+                  <Label Id="lblSkillPts"    Text="3"    StyleName="success"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+            </HorizontalStackPanel>
+
+            <HorizontalSeparator Top="4" Bottom="4"/>
+
+            <!-- attributes -->
+            <Label Text="Attributes" StyleName="questTitle" Top="4" Bottom="8"/>
+            <HorizontalStackPanel Spacing="0" Width="576">
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Strength"     Width="120" StyleName="muted"/>
+                  <Label Id="lblStr"         Text="42"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Dexterity"    Width="120" StyleName="muted"/>
+                  <Label Id="lblDex"         Text="28"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Intelligence" Width="120" StyleName="muted"/>
+                  <Label Id="lblInt"         Text="15"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Willpower"    Width="120" StyleName="muted"/>
+                  <Label Id="lblWil"         Text="20"   StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Vitality"     Width="120" StyleName="muted"/>
+                  <Label Id="lblVit"         Text="60"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Endurance"    Width="120" StyleName="muted"/>
+                  <Label Id="lblEnd"         Text="45"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Agility"      Width="120" StyleName="muted"/>
+                  <Label Id="lblAgi"         Text="33"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Charisma"     Width="120" StyleName="muted"/>
+                  <Label Id="lblCha"         Text="10"   StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+            </HorizontalStackPanel>
+
+            <HorizontalSeparator Top="8" Bottom="4"/>
+
+            <!-- combat -->
+            <Label Text="Combat" StyleName="questTitle" Top="4" Bottom="8"/>
+            <HorizontalStackPanel Spacing="0" Width="576">
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Attack"        Width="120" StyleName="muted"/>
+                  <Label Id="lblAtk"          Text="78"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Defense"       Width="120" StyleName="muted"/>
+                  <Label Id="lblDef"          Text="34"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Crit Chance"   Width="120" StyleName="muted"/>
+                  <Label Id="lblCrit"         Text="12%"  StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Crit Damage"   Width="120" StyleName="muted"/>
+                  <Label Id="lblCritDmg"      Text="180%" StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Magic Attack"  Width="120" StyleName="muted"/>
+                  <Label Id="lblMAtk"         Text="22"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Magic Defense" Width="120" StyleName="muted"/>
+                  <Label Id="lblMDef"         Text="18"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Attack Speed"  Width="120" StyleName="muted"/>
+                  <Label Id="lblAtkSpd"       Text="1.4"  StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Range"         Width="120" StyleName="muted"/>
+                  <Label Id="lblRange"        Text="Melee" StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+            </HorizontalStackPanel>
+
+            <HorizontalSeparator Top="8" Bottom="4"/>
+
+            <!-- resistances -->
+            <Label Text="Resistances" StyleName="questTitle" Top="4" Bottom="8"/>
+            <HorizontalStackPanel Spacing="0" Width="576">
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Fire"          Width="120" StyleName="muted"/>
+                  <Label Id="lblResFire"      Text="20%"  StyleName="danger"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Ice"           Width="120" StyleName="muted"/>
+                  <Label Id="lblResIce"       Text="10%"  StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Lightning"     Width="120" StyleName="muted"/>
+                  <Label Id="lblResLightning" Text="0%"   StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Poison"        Width="120" StyleName="muted"/>
+                  <Label Id="lblResPoison"    Text="45%"  StyleName="success"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Dark"          Width="120" StyleName="muted"/>
+                  <Label Id="lblResDark"      Text="5%"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Holy"          Width="120" StyleName="muted"/>
+                  <Label Id="lblResHoly"      Text="15%"  StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+            </HorizontalStackPanel>
+
+            <HorizontalSeparator Top="8" Bottom="4"/>
+
+            <!-- skills -->
+            <Label Text="Proficiencies" StyleName="questTitle" Top="4" Bottom="8"/>
+            <HorizontalStackPanel Spacing="0" Width="576">
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="One-Handed"    Width="120" StyleName="muted"/>
+                  <Label Id="lblProf1H"       Text="65"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Two-Handed"    Width="120" StyleName="muted"/>
+                  <Label Id="lblProf2H"       Text="40"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Bow"           Width="120" StyleName="muted"/>
+                  <Label Id="lblProfBow"      Text="20"   StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Sneak"         Width="120" StyleName="muted"/>
+                  <Label Id="lblProfSneak"    Text="15"   StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Pickpocket"    Width="120" StyleName="muted"/>
+                  <Label Id="lblProfPick"     Text="5"    StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Alchemy"       Width="120" StyleName="muted"/>
+                  <Label Id="lblProfAlch"     Text="30"   StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+            </HorizontalStackPanel>
+
+            <HorizontalSeparator Top="8" Bottom="4"/>
+
+            <!-- economy -->
+            <Label Text="Economy" StyleName="questTitle" Top="4" Bottom="8"/>
+            <HorizontalStackPanel Spacing="0" Width="576">
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Gold"          Width="120" StyleName="muted"/>
+                  <Label Id="lblGold"         Text="1,240" StyleName="questTitle"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Carry Weight"  Width="120" StyleName="muted"/>
+                  <Label Id="lblCarry"        Text="42 / 80" StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+              <VerticalStackPanel Spacing="6" Width="288">
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Reputation"    Width="120" StyleName="muted"/>
+                  <Label Id="lblRep"          Text="Neutral" StyleName="hud"/>
+                </HorizontalStackPanel>
+                <HorizontalStackPanel Spacing="8">
+                  <Label Text="Play Time"     Width="120" StyleName="muted"/>
+                  <Label Id="lblTime"         Text="04:32:11" StyleName="hud"/>
+                </HorizontalStackPanel>
+              </VerticalStackPanel>
+            </HorizontalStackPanel>
+
+            <!-- bottom padding -->
+            <Panel Height="16"/>
+
+          </VerticalStackPanel>
+        </ScrollViewer>
+
+      </VerticalStackPanel>
 
     </Panel>
+
+  </Panel>
 </Project>
