@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <Panel>
+
+    <!-- backdrop -->
+    <Panel HorizontalAlignment="Center" VerticalAlignment="Center"
+           Width="700" Height="500">
+
+      <HorizontalStackPanel Spacing="0" Width="700" Height="500">
+
+        <!-- left side: quest list -->
+        <VerticalStackPanel Width="220" Height="500" Spacing="0">
+
+          <Label Text="Quest Log"
+                 HorizontalAlignment="Center"
+                 Top="10" Bottom="10"/>
+
+          <HorizontalSeparator/>
+
+          <ScrollViewer Width="220" Height="440">
+            <VerticalStackPanel Id="questList" Spacing="4" Left="8" Right="8" Top="8">
+
+              <TextButton Id="quest0" Text="The Lost Sword"        Width="196" HorizontalAlignment="Left"/>
+              <TextButton Id="quest1" Text="Dark Forest"           Width="196" HorizontalAlignment="Left"/>
+              <TextButton Id="quest2" Text="The Missing Merchant"  Width="196" HorizontalAlignment="Left"/>
+              <TextButton Id="quest3" Text="Ruins of Aldor"        Width="196" HorizontalAlignment="Left"/>
+              <TextButton Id="quest4" Text="Shadow of the King"    Width="196" HorizontalAlignment="Left"/>
+              <TextButton Id="quest5" Text="Poisoned Wells"        Width="196" HorizontalAlignment="Left"/>
+              <TextButton Id="quest6" Text="The Forgotten Tower"   Width="196" HorizontalAlignment="Left"/>
+              <TextButton Id="quest7" Text="Bandits at the Gate"   Width="196" HorizontalAlignment="Left"/>
+
+            </VerticalStackPanel>
+          </ScrollViewer>
+
+        </VerticalStackPanel>
+
+        <VerticalSeparator/>
+
+        <!-- right side: quest detail -->
+        <VerticalStackPanel Width="476" Height="500" Spacing="8" Left="12" Right="12">
+
+          <Label Id="questTitle" Text="The Lost Sword"
+                 Top="10"
+                 HorizontalAlignment="Left"/>
+
+          <HorizontalSeparator/>
+
+          <!-- status row -->
+          <HorizontalStackPanel Spacing="12" Top="4">
+            <Label Text="Status:"/>
+            <Label Id="questStatus" Text="In Progress"/>
+            <Label Text="  |  "/>
+            <Label Text="Reward:"/>
+            <Label Id="questReward" Text="150 Gold"/>
+          </HorizontalStackPanel>
+
+          <HorizontalSeparator/>
+
+          <!-- scrollable description -->
+          <ScrollViewer Width="452" Height="280">
+            <VerticalStackPanel Spacing="10">
+
+              <Label Id="questDescription" Wrap="true" Width="430"
+                     Text="A legendary sword said to have been wielded by the first king of Aldor has gone missing from the royal vault. The royal guard suspects an inside job, but no evidence has been found yet. You have been hired to investigate the disappearance and recover the blade before it falls into the wrong hands."/>
+
+              <Label Text="Objectives:" HorizontalAlignment="Left"/>
+
+              <VerticalStackPanel Id="objectivesList" Spacing="4" Left="12">
+                <Label Id="obj0" Text="[x]  Speak to the royal guard captain"/>
+                <Label Id="obj1" Text="[x]  Search the vault for clues"/>
+                <Label Id="obj2" Text="[ ]  Track down the thief"/>
+                <Label Id="obj3" Text="[ ]  Recover the lost sword"/>
+                <Label Id="obj4" Text="[ ]  Return the sword to the king"/>
+              </VerticalStackPanel>
+
+              <Label Text="Notes:" HorizontalAlignment="Left"/>
+              <Label Id="questNotes" Wrap="true" Width="430"
+                     Text="The guard captain mentioned a hooded figure was seen near the vault the night before the disappearance. A torn piece of cloth was found near the window — dark red, possibly from a noble's cloak."/>
+
+            </VerticalStackPanel>
+          </ScrollViewer>
+
+          <!-- close button -->
+          <TextButton Id="btnCloseQuestBook" Text="Close"
+                      Width="120" HorizontalAlignment="Right"
+                      Top="8"/>
+
+        </VerticalStackPanel>
+
+      </HorizontalStackPanel>
+
+    </Panel>
+
+  </Panel>
+</Project>

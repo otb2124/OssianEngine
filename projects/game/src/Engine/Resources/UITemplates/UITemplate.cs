@@ -14,6 +14,8 @@ namespace Resources
     {
         NONE,
         INGAME,
+        HUD,
+        QUESTBOOK
     };
 
 
@@ -35,7 +37,7 @@ namespace Resources
 
         public void Load()
         {
-            var xml = File.ReadAllText(ResourceLoader.GLOBAL_RES_PATH + "uitemplates/" + Path + ".xml");
+            var xml = File.ReadAllText(ResourceLoader.GLOBAL_RES_PATH + "ui/templates/" + Path + ".xml");
             Project = Project.LoadFromXml(xml);
         }
 
@@ -44,6 +46,8 @@ namespace Resources
         {
                 { UITemplates.NONE,          "none" },
                 { UITemplates.INGAME,        "ingame" },
+                { UITemplates.HUD,           "hud" },
+                { UITemplates.QUESTBOOK,     "questbook" },
         };
     }
 }

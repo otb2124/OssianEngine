@@ -3,12 +3,15 @@
                       VerticalAlignment="Center" 
                       Spacing="20">
 
-    <Label Id="lblTitle" Text="CS Platformer Sandbox"
-           HorizontalAlignment="Center"/>
+    <Label Id="lblTitle" Text="CS Platformer Sandbox" StyleName="title"/>
 
     <TextButton Id="btnPlay"    Text="Play"      Width="220"/>
     <TextButton Id="btnOptions" Text="Options"   Width="220"/>
     <TextButton Id="btnQuit"    Text="Quit"      Width="220"/>
+
+    <ImageButton Id="btnSword"
+             ImageTextureId="icon_sword"
+             Width="48" Height="48"/>
 
   </VerticalStackPanel>
 </Project>

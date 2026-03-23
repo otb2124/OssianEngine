@@ -1,4 +1,5 @@
-﻿using Myra.Graphics2D.UI;
+﻿using Microsoft.Xna.Framework;
+using Myra.Graphics2D.UI;
 using Resources;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,9 @@ namespace UI
 
             //btnPlay.Click += (s, e) => GameStateManager.SetState(GameState.Playing);
             btnQuit.Click += (s, e) => Console.WriteLine("quit");
+
+
+            UI.UIManager.UIDesktop.SetButtonImage("btnSword", new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(0, 0, 64, 64)));
 
             base.Init();
         }

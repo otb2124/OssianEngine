@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using System;
 using Resources;
 using System.Collections.Generic;
+using AssetManagementBase;
+using Myra.Graphics2D.TextureAtlases;
 
 namespace UI
 {
@@ -27,7 +29,6 @@ namespace UI
             //TODO: change to custom cursor
             game.IsMouseVisible = true;
         }
-
 
         public bool HasComponent<T>() where T : UIComponent
         {
@@ -74,6 +75,13 @@ namespace UI
         public void Draw()
         {
             Desktop?.Render();
+        }
+
+
+        public void SetButtonImage(string id, StaticSprite sprite)
+        {
+            var btn = FindById(id) as ImageButton;
+            btn.Image = new TextureRegion(ResourceLoader.spriteSheets[sprite.SpriteSheet].Texture, sprite.SrcRect);
         }
     }
 }
