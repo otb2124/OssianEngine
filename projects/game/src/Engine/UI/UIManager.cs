@@ -43,6 +43,7 @@ namespace UI
             RegisterAction("ingame.stats", () => UIIngameMenuComponent.OnIngameMenuOptionButtonPressed(typeof(UIStatsComponent)));
             RegisterAction("ingame.settings", () => UIIngameMenuComponent.OnIngameMenuOptionButtonPressed(typeof(UISettingsComponent)));
             RegisterAction("ingame.quit", () => UIIngameMenuComponent.OnIngameMenuOptionButtonPressed(typeof(UIQuitComponent)));
+            RegisterAction("ingame.quit.exit", () => System.Environment.Exit(0));
         }
 
         public void Update()

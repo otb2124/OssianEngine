@@ -1,10 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
-    <Panel>
+  <Panel>
+
+    <Panel
+      Id="quitPopup"
+      HorizontalAlignment="Center"
+      VerticalAlignment="Center"
+      Width="300"
+      Height="160"
+      Padding="20">
+
+      <VerticalStackPanel
+        Spacing="20"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
 
         <Label
-            Text="quit"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"/>
+          Text="Are you sure you want to quit?"
+          HorizontalAlignment="Center"
+          Wrap="true"/>
+
+        <HorizontalStackPanel
+          Spacing="12"
+          HorizontalAlignment="Center">
+
+          <TextButton
+            Id="btnQuitConfirm"
+            Text="Quit"
+            Width="100"
+            StyleName="dangerButton"/>
+
+          <TextButton
+            Id="btnQuitCancel"
+            Text="Cancel"
+            Width="100"
+            StyleName="menuButton"/>
+
+        </HorizontalStackPanel>
+
+      </VerticalStackPanel>
 
     </Panel>
+
+  </Panel>
 </Project>

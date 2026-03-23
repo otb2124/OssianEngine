@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utils;
 
 
 namespace UI
@@ -20,12 +21,11 @@ namespace UI
 
         public override void Init()
         {
+            var btnConfirm = UI.UIManager.UIDesktop.FindById("btnQuitConfirm") as TextButton;
+            var btnCancel = UI.UIManager.UIDesktop.FindById("btnQuitCancel") as TextButton;
 
-
-            //var btnClose = UI.UIManager.UIDesktop.FindById("btnCloseQuestBook") as TextButton;
-            //btnClose.TouchUp += (s, e) => Visible = false;
-
-            base.Init();
+            btnConfirm.TouchUp += (s, e) => UI.UIManager.ExecuteAction("ingame.quit.exit");
+            btnCancel.TouchUp += (s, e) => UI.UIManager.ExecuteAction("ingame.quit");
         }
     }
 }
