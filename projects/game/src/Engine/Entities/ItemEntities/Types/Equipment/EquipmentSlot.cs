@@ -2,32 +2,32 @@
 {
     public class EquipmentSlot
     {
-        public enum EquipmentSlotTypes
+        public enum EquipmentSlots
         {
             NONE,
 
             WEAPON,
 
-            CHESTPLATE,
-            HELMET,
-            BOOTS,
-            GLOVES,
+            TORSO,
+            HEAD,
+            HANDS,
+            LEGS,
 
             NECKLACE,
             CAPE,
             BELT,
-            RING_L,
-            RING_R,
+            RING_0,
+            RING_1,
 
-            PET,
-            PET_LIGHT,
+            PET_0,
+            PET_1,
             CONTAINMENT
         }
 
         public Equipment Equipment;
-        public EquipmentSlotTypes EquipmentSlotType;
+        public EquipmentSlots EquipmentSlotType;
 
-        public EquipmentSlot(EquipmentSlotTypes type)
+        public EquipmentSlot(EquipmentSlots type)
         {
             EquipmentSlotType = type;
         }

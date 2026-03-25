@@ -80,6 +80,34 @@ namespace Entities
             }
         }
 
+        public void RemoveItem(Item item)
+        {
+            if (item == null) return;
+
+            Item existing = GetItemWithItemKey(item.ItemKey);
+
+            if (existing == null)
+                return; //Item not found in inventory
+
+            if (item.Stackable && existing.Count > 1)
+            {
+                //Just decrease stack count
+                existing.Count--;
+            }
+            else
+            {
+                //Remove the entire item from its slot (set to null)
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    if (Items[i] != null && Items[i].ItemKey == item.ItemKey)
+                    {
+                        Items[i] = null;
+                        break;
+                    }
+                }
+            }
+        }
+
         public void AddInventory(Inventory inventoryToAdd)
         {
             foreach (Item item in inventoryToAdd.Items)

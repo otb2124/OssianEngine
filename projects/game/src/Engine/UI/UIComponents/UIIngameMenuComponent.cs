@@ -21,12 +21,12 @@ namespace UI
 
         public static readonly Type[] IngameMenuOptions =
         {
-            typeof(UIInventoryComponent),
+            typeof(UIEquipmentComponent), typeof(UIInventoryComponent),
             typeof(UISkillsComponent),
             typeof(UIQuestbookComponent),
             typeof(UIStatsComponent),
             typeof(UISettingsComponent),
-            typeof(UIQuitComponent)
+            typeof(UIQuitComponent),
         };
 
 
@@ -86,16 +86,25 @@ namespace UI
                 ToggleIngameMenu();
         }
 
-        public static void OnIngameMenuOptionButtonPressed(Type type)
+        public static void OnIngameMenuOptionButtonPressed(params Type[] types)
         {
-            if (UI.UIManager.UIDesktop.HasComponent(type))
+            if (types == null || types.Length == 0)
+                return;
+
+            if (types.Any(t => UI.UIManager.UIDesktop.HasComponent(t)))
             {
-                UI.UIManager.UIDesktop.RemoveComponent(type);
+                RemoveAllOptions();
                 return;
             }
 
             RemoveAllOptions();
-            UI.UIManager.UIDesktop.AddComponent((UIComponent)Activator.CreateInstance(type));
+            foreach (Type item in types)
+            {
+                UI.UIManager.UIDesktop.AddComponent(
+                    (UIComponent)Activator.CreateInstance(item)
+                );
+            }
+            
         }
     }
 }

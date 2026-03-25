@@ -38,21 +38,21 @@ namespace Entities
 
         public virtual void Draw(Model model) { }
 
-        public static Dictionary<EquipmentSlot.EquipmentSlotTypes, EquipmentSlotsTakes[]> EquipmentSlotTakeEquipmentSlotTypesMap = new()
+        public static Dictionary<EquipmentSlot.EquipmentSlots, EquipmentSlotsTakes[]> EquipmentSlotTakeEquipmentSlotTypesMap = new()
         {
-            { EquipmentSlot.EquipmentSlotTypes.WEAPON,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.WEAPON }},
-            { EquipmentSlot.EquipmentSlotTypes.HELMET,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.HEAD }},
-            { EquipmentSlot.EquipmentSlotTypes.CHESTPLATE,  new EquipmentSlotsTakes[] { EquipmentSlotsTakes.TORSO }},
-            { EquipmentSlot.EquipmentSlotTypes.GLOVES,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.HANDS }},
-            { EquipmentSlot.EquipmentSlotTypes.BOOTS,       new EquipmentSlotsTakes[] { EquipmentSlotsTakes.LEGS }},
-            { EquipmentSlot.EquipmentSlotTypes.CAPE,        new EquipmentSlotsTakes[] { EquipmentSlotsTakes.CAPE }},
-            { EquipmentSlot.EquipmentSlotTypes.NECKLACE,    new EquipmentSlotsTakes[] { EquipmentSlotsTakes.NECKLACE }},
-            { EquipmentSlot.EquipmentSlotTypes.BELT,        new EquipmentSlotsTakes[] { EquipmentSlotsTakes.BELT }},
-            { EquipmentSlot.EquipmentSlotTypes.RING_L,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.RING }},
-            { EquipmentSlot.EquipmentSlotTypes.RING_R,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.RING }},
-            { EquipmentSlot.EquipmentSlotTypes.PET,         new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET }},
-            { EquipmentSlot.EquipmentSlotTypes.PET_LIGHT,   new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET_LIGHT }},
-            { EquipmentSlot.EquipmentSlotTypes.CONTAINMENT, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.CONTAINMENT }},
+            { EquipmentSlot.EquipmentSlots.WEAPON,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.WEAPON }},
+            { EquipmentSlot.EquipmentSlots.HEAD,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.HEAD }},
+            { EquipmentSlot.EquipmentSlots.TORSO,  new EquipmentSlotsTakes[] { EquipmentSlotsTakes.TORSO }},
+            { EquipmentSlot.EquipmentSlots.HANDS,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.HANDS }},
+            { EquipmentSlot.EquipmentSlots.LEGS,       new EquipmentSlotsTakes[] { EquipmentSlotsTakes.LEGS }},
+            { EquipmentSlot.EquipmentSlots.CAPE,        new EquipmentSlotsTakes[] { EquipmentSlotsTakes.CAPE }},
+            { EquipmentSlot.EquipmentSlots.NECKLACE,    new EquipmentSlotsTakes[] { EquipmentSlotsTakes.NECKLACE }},
+            { EquipmentSlot.EquipmentSlots.BELT,        new EquipmentSlotsTakes[] { EquipmentSlotsTakes.BELT }},
+            { EquipmentSlot.EquipmentSlots.RING_0,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.RING }},
+            { EquipmentSlot.EquipmentSlots.RING_1,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.RING }},
+            { EquipmentSlot.EquipmentSlots.PET_0,         new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET }},
+            { EquipmentSlot.EquipmentSlots.PET_1,   new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET_LIGHT }},
+            { EquipmentSlot.EquipmentSlots.CONTAINMENT, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.CONTAINMENT }},
         };
     }
 }

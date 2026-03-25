@@ -13,36 +13,36 @@ namespace Entities
 
         public Equipments()
         {
-            TogglingWeaponSlot = new EquipmentSlot(EquipmentSlot.EquipmentSlotTypes.WEAPON);
+            TogglingWeaponSlot = new EquipmentSlot(EquipmentSlot.EquipmentSlots.WEAPON);
 
             EquipmentSlots = new EquipmentSlot[]
             {
-                new(EquipmentSlot.EquipmentSlotTypes.WEAPON),
-                new(EquipmentSlot.EquipmentSlotTypes.HELMET),
-                new(EquipmentSlot.EquipmentSlotTypes.CHESTPLATE),
-                new(EquipmentSlot.EquipmentSlotTypes.BOOTS),
-                new(EquipmentSlot.EquipmentSlotTypes.GLOVES),
-                new(EquipmentSlot.EquipmentSlotTypes.NECKLACE),
-                new(EquipmentSlot.EquipmentSlotTypes.CAPE),
-                new(EquipmentSlot.EquipmentSlotTypes.BELT),
-                new(EquipmentSlot.EquipmentSlotTypes.RING_L),
-                new(EquipmentSlot.EquipmentSlotTypes.RING_R),
-                new(EquipmentSlot.EquipmentSlotTypes.PET),
-                new(EquipmentSlot.EquipmentSlotTypes.PET_LIGHT),
-                new(EquipmentSlot.EquipmentSlotTypes.CONTAINMENT)
+                new(EquipmentSlot.EquipmentSlots.WEAPON),
+                new(EquipmentSlot.EquipmentSlots.HEAD),
+                new(EquipmentSlot.EquipmentSlots.TORSO),
+                new(EquipmentSlot.EquipmentSlots.LEGS),
+                new(EquipmentSlot.EquipmentSlots.HANDS),
+                new(EquipmentSlot.EquipmentSlots.NECKLACE),
+                new(EquipmentSlot.EquipmentSlots.CAPE),
+                new(EquipmentSlot.EquipmentSlots.BELT),
+                new(EquipmentSlot.EquipmentSlots.RING_0),
+                new(EquipmentSlot.EquipmentSlots.RING_1),
+                new(EquipmentSlot.EquipmentSlots.PET_0),
+                new(EquipmentSlot.EquipmentSlots.PET_1),
+                new(EquipmentSlot.EquipmentSlots.CONTAINMENT)
             };
         }
 
-        public EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes type) =>
+        public EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type) =>
             Array.Find(EquipmentSlots, slot => slot.EquipmentSlotType == type);
 
-        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, Equipment item) =>
+        public void SetEquipment(EquipmentSlot.EquipmentSlots slotType, Equipment item) =>
             EquipmentHelper.GetEquipmentSlot(slotType, EquipmentSlots).Equipment = item;
 
-        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, Item item) =>
+        public void SetEquipment(EquipmentSlot.EquipmentSlots slotType, Item item) =>
             SetEquipment(slotType, (Equipment)item);
 
-        public void SetEquipment(EquipmentSlot.EquipmentSlotTypes slotType, EquatableKey itemKey) =>
+        public void SetEquipment(EquipmentSlot.EquipmentSlots slotType, EquatableKey itemKey) =>
             SetEquipment(slotType, ItemFactory.CreateItem(itemKey));
 
         public void SetEquipment(Item item) =>

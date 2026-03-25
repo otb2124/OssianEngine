@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Utils;
+using static Entities.EquipmentSlot;
 
 namespace Entities
 {
@@ -51,6 +52,11 @@ namespace Entities
         public virtual void SetItem()
         {
             
+        }
+
+        public bool CanEquipTo(EquipmentSlots slot)
+        {
+            return true;
         }
     }
 }

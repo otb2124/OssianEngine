@@ -24,13 +24,13 @@ namespace Entities
         public BattleBody GetCurrentWeaponBody(BattleBodyManager manager) =>
             manager.WeaponBody;
 
-        public EquipmentSlot.EquipmentSlotTypes GetCurrentWeaponSlot() =>
-            EquipmentSlot.EquipmentSlotTypes.WEAPON;
+        public EquipmentSlot.EquipmentSlots GetCurrentWeaponSlot() =>
+            EquipmentSlot.EquipmentSlots.WEAPON;
 
         public void SetWeapon(BattleBodyManager manager, WeaponEquipment weapon)
         {
             WeaponInOutToggler.SetWeaponPlaceholder(weapon);
-            Equipments.SetEquipment(EquipmentSlot.EquipmentSlotTypes.WEAPON, weapon);
+            Equipments.SetEquipment(EquipmentSlot.EquipmentSlots.WEAPON, weapon);
             Equipments.TogglingWeaponSlot.Equipment = EquipmentHelper.CreateBareHands();
             manager.WeaponBody.Init(EquipmentHelper.CreateBareHands().WeaponBodyData);
         }

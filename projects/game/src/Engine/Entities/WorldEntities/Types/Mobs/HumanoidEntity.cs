@@ -278,7 +278,7 @@ namespace Entities
             base.SetEquipment();
 
             EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.BARE_HAND)));
-            EquipmentManager.Equipments.GetEquipmentSlot(EquipmentSlot.EquipmentSlotTypes.CHESTPLATE).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Chestplates.IRON_CHESTPLATE));
+            EquipmentManager.Equipments.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.TORSO).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Chestplates.IRON_CHESTPLATE));
         }
 
 

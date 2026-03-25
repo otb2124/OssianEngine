@@ -107,6 +107,7 @@ namespace Entities
 
         public enum ItemTypes
         {
+            ANY,
             //EQUPMENT
             //WEAPON
             WEAPON,

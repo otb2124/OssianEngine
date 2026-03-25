@@ -16,6 +16,8 @@ namespace UI
         public Panel Root;
         public List<UIComponent> Components;
 
+        public UIDragDropService DragDropService;
+
         public static float UIScale { get; private set; } = 1f;
 
         public UIDesktop() { }
@@ -36,6 +38,8 @@ namespace UI
             UIStylesheet.Apply();
 
             Components = new List<UIComponent>();
+
+            DragDropService = new UIDragDropService();
 
             //TODO: change to custom cursor
             game.IsMouseVisible = true;

@@ -1,10 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
-    <Panel>
+  <Panel>
+    <Panel
+      Id="inventoryFrame"
+      HorizontalAlignment="Left"
+      VerticalAlignment="Center"
+      Width="320"
+      Height="480"
+      Left="80"
+      StyleName="questPanel">
 
-        <Label
-            Text="inv"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"/>
+      <VerticalStackPanel Width="320" Spacing="0">
+
+        <!-- header -->
+        <HorizontalStackPanel Height="36" Spacing="0">
+          <Label Text="Inventory" StyleName="title" VerticalAlignment="Center" Left="12"/>
+          <TextButton Id="btnCloseInventory" Text="X" Width="30"
+                      HorizontalAlignment="Right" StyleName="dangerButton"
+                      Left="278" Top="4"/>
+        </HorizontalStackPanel>
+
+        <HorizontalSeparator/>
+
+        <!-- sort tabs -->
+        <ScrollViewer Width="320" Height="44">
+          <HorizontalStackPanel Id="sortTabs" Spacing="2" Top="4" Left="4">
+            <TextButton Id="tabAll"          Text="All"             Width="60" Height="32" StyleName="questItem"/>
+            <TextButton Id="tabWeapons"      Text="Weapons"         Width="70" Height="32" StyleName="questItem"/>
+            <TextButton Id="tabArmor"        Text="Armors"          Width="60" Height="32" StyleName="questItem"/>
+            <TextButton Id="tabAccessories"  Text="Accessories"     Width="60" Height="32" StyleName="questItem"/>
+            <TextButton Id="tabMaterials"    Text="Materials"       Width="70" Height="32" StyleName="questItem"/>
+            <TextButton Id="tabConsumables"  Text="Consumables"     Width="60" Height="32" StyleName="questItem"/>
+            <TextButton Id="tabKeys"         Text="Keys"            Width="60" Height="32" StyleName="questItem"/>
+            <TextButton Id="tabQuestItems"   Text="Quest Items"     Width="60" Height="32" StyleName="questItem"/>
+            <TextButton Id="tabCurrencies"   Text="Currencies"      Width="60" Height="32" StyleName="questItem"/>
+          </HorizontalStackPanel>
+        </ScrollViewer>
+
+        <HorizontalSeparator/>
+
+        <!-- item grid (scrollable) -->
+        <ScrollViewer Id="inventoryScroll" Width="320" Height="388">
+          <Panel Id="inventoryGrid" Width="300" Height="2000"/>
+        </ScrollViewer>
+
+      </VerticalStackPanel>
 
     </Panel>
+  </Panel>
 </Project>
