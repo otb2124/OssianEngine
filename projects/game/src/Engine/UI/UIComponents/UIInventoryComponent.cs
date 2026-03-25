@@ -7,6 +7,9 @@ using Resources;
 using Myra.Graphics2D;
 using static Entities.ItemLib;
 using Entities;
+using System;
+using Myra.Graphics2D.TextureAtlases;
+using SharpDX.Direct3D9;
 
 namespace UI
 {
@@ -64,23 +67,33 @@ namespace UI
         {
             _grid.Widgets.Clear();
             _slotEntries.Clear();
-
             UI.UIManager.UIDesktop.DragDropService.UnregisterInventorySlots(this);
 
-            var filtered = _currentFilter == ItemTypes.ANY
+            // Get the correct list of items
+            var itemsToShow = _currentFilter == ItemTypes.ANY
                 ? Entities.Entities.Player.Inventory.Items
-                : Entities.Entities.Player.Inventory.Items.Where(i => i.Type == _currentFilter).ToList();
+                    .Where(i => i != null)                    // remove any null gaps if they exist
+                    .ToList()
+                : Entities.Entities.Player.Inventory.Items
+                    .Where(i => i != null && i.Type == _currentFilter)
+                    .ToList();
 
-            // fill slots (always show full grid, empty slots too)
-            int totalSlots = System.Math.Max(filtered.Count, 25);
-            int rows = (int)System.Math.Ceiling(totalSlots / (float)Columns);
-
-            for (int i = 0; i < rows * Columns; i++)
+            if (itemsToShow.Count == 0)
             {
-                int col = i % Columns;
-                int row = i / Columns;
+                // Optional: show empty inventory message or just leave grid empty
+                _grid.Height = 100; // or whatever minimum height you want
+                return;
+            }
 
-                var item = i < filtered.Count ? filtered[i] : null;
+            int columns = Columns; // 5
+            int rows = (int)Math.Ceiling(itemsToShow.Count / (float)columns);
+
+            for (int i = 0; i < itemsToShow.Count; i++)   // ← Only create slots for actual items!
+            {
+                int col = i % columns;
+                int row = i / columns;
+
+                var item = itemsToShow[i];
 
                 var slot = new ImageButton
                 {
@@ -88,23 +101,31 @@ namespace UI
                     Height = SlotSize,
                     Left = col * (SlotSize + SlotGap) + 4,
                     Top = row * (SlotSize + SlotGap) + 4,
+
                     Background = new SolidBrush(new Color(30, 30, 40, 180)),
                     OverBackground = new SolidBrush(new Color(60, 60, 80, 200)),
                     PressedBackground = new SolidBrush(new Color(20, 20, 30, 220)),
                     Border = new SolidBrush(new Color(80, 80, 100, 160)),
                     BorderThickness = new Thickness(1),
-                    //Image = StaticSpriteFactory.GetItemUISprite(item)
                 };
+
+                // Set item image correctly using Sprite / TextureRegion
+                var sprite = StaticSpriteFactory.GetItemUISprite(item);
+                if (sprite.SpriteSheet != SpriteSheets.NONE)
+                {
+                    var texture = ResourceLoader.spriteSheets[sprite.SpriteSheet].Texture;
+                    slot.Image = new TextureRegion(texture, sprite.SrcRect);
+                }
 
                 _grid.Widgets.Add(slot);
 
-                // register with drag drop
-                var capturedItem = item;
+                // Register for drag & drop
+                var capturedItem = item; // avoid closure issue
                 UI.UIManager.UIDesktop.DragDropService
                     .RegisterInventorySlot(slot, _grid, () => capturedItem);
             }
 
-            // update grid height
+            // Update grid height to fit content exactly
             _grid.Height = rows * (SlotSize + SlotGap) + 8;
         }
 

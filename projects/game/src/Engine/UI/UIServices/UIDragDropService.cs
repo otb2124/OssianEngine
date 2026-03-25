@@ -32,6 +32,8 @@ namespace UI
         public Action<SlotEntry, SlotEntry> OnEquip;           // inv -> equip
         public Action<SlotEntry, SlotEntry> OnUnequip;         // equip -> inv
 
+        private ImageButton _dragGhost;
+
         public void RegisterInventorySlot(ImageButton widget, Panel rootPanel, Func<Item> getItem)
         {
             var entry = new SlotEntry
@@ -72,35 +74,62 @@ namespace UI
                 if (entry.Item == null) return;
 
                 _dragging = entry;
-                _dragging.OriginalLeft = widget.Left;
-                _dragging.OriginalTop = widget.Top;
+                _dragging.OriginalLeft = (int)widget.Left;
+                _dragging.OriginalTop = (int)widget.Top;
 
-                // bring to front
-                entry.RootPanel.Widgets.Remove(widget);
-                entry.RootPanel.Widgets.Add(widget);
+                // === CREATE GHOST (duplicate) for free dragging ===
+                _dragGhost = new ImageButton
+                {
+                    Id = "dragGhost",
+                    Width = widget.Width,
+                    Height = widget.Height,
+                    Background = null,
+                    Image = widget.Image,                    // copy the icon
+                    Opacity = 0.8f,
+                    ZIndex = 1000                            // make sure it's on top
+                };
 
-                widget.Opacity = 0.7f;
+                // Add ghost to desktop (top level)
+                UI.UIManager.UIDesktop.Root.Widgets.Add(_dragGhost);
+
+                // Position ghost at original location first
+                _dragGhost.Left = UIDesktop.GetAbsoluteBounds(widget).Left;
+                _dragGhost.Top = UIDesktop.GetAbsoluteBounds(widget).Top;
             };
 
-            widget.MouseMoved += (s, e) =>
+            // === Move the ghost smoothly ===
+            widget.TouchMoved += (s, e) =>
             {
-                if (_dragging?.Widget != widget) return;
-                //widget.Left = e.Position.X - (widget.Width / 2);
-                //widget.Top = e.Position.Y - (widget.Height / 2);
+                if (_dragGhost == null || _dragging?.Widget != widget) return;
+
+                var mousePos = Inputs.Inputs.mouse.GetMouseScreenPosition();
+
+                _dragGhost.Left = (int)(mousePos.X * UIDesktop.UIScale - _dragGhost.Width / 2);
+                _dragGhost.Top = (int)(mousePos.Y * UIDesktop.UIScale - _dragGhost.Height / 2);
             };
 
+            // === Release ===
             widget.TouchUp += (s, e) =>
             {
-                if (_dragging?.Widget != widget) return;
+                if (_dragging == null || _dragGhost == null) return;
+
+                var finalMousePos = Inputs.Inputs.mouse.GetMouseScreenPosition().ToPoint();
+                var target = FindSlotUnder(finalMousePos);
+
+                // Clean up ghost
+                UI.UIManager.UIDesktop.Root.Widgets.Remove(_dragGhost);
+                _dragGhost = null;
 
                 widget.Opacity = 1f;
 
-                var target = FindSlotUnder(new Point()); //FindSlotUnder(e.Position);
-
                 if (target != null && target != _dragging)
+                {
                     HandleDrop(_dragging, target);
+                }
                 else
+                {
                     SnapBack(_dragging);
+                }
 
                 _dragging = null;
             };
@@ -108,6 +137,9 @@ namespace UI
 
         private void HandleDrop(SlotEntry from, SlotEntry to)
         {
+
+            Console.WriteLine("from: ", from.Item?.Name, ", to: ", to.Item?.Name);
+
             // inventory -> equipment
             if (from.Owner == SlotOwner.Inventory && to.Owner == SlotOwner.Equipment)
             {
@@ -153,8 +185,11 @@ namespace UI
 
         private void SnapBack(SlotEntry entry)
         {
+            if (entry == null) return;
+
             entry.Widget.Left = entry.OriginalLeft;
             entry.Widget.Top = entry.OriginalTop;
+            entry.Widget.Opacity = 1f;
         }
 
         private SlotEntry FindSlotUnder(Point position)

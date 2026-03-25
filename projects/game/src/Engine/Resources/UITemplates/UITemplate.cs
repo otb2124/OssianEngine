@@ -13,6 +13,7 @@ namespace Resources
     public enum UITemplates
     {
         NONE,
+        PANEL,
         INGAME,
         INVENTORY,
         EQUIPMENT,
@@ -60,6 +61,7 @@ namespace Resources
                 { UITemplates.SETTINGS,      "settings" },
                 { UITemplates.QUIT,          "quit" },
                 { UITemplates.HUD,           "hud" },
+                { UITemplates.PANEL,         "panel"}
         };
     }
 }
