@@ -56,6 +56,7 @@ namespace Entities
 
         public bool CanEquipTo(EquipmentSlots slot)
         {
+            Console.WriteLine(slot.ToString() + ", " + Name);
             return true;
         }
     }

@@ -42,12 +42,8 @@ namespace UI
                 if (widget == null) continue;
 
                 UI.UIManager.UIDesktop.DragDropService
-                    .RegisterEquipmentSlot(widget, frame, kvp.Value);
+                    .RegisterEquipmentSlot(widget, kvp.Value);
             }
-
-            var btnClose = UI.UIManager.UIDesktop.FindById("btnCloseEquipment") as TextButton;
-            if (btnClose != null)
-                btnClose.TouchUp += (s, e) => UI.UIManager.ExecuteAction("ingame.equipment");
 
             base.Init();
         }

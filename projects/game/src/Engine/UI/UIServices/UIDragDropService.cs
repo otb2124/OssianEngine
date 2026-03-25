@@ -19,7 +19,7 @@ namespace UI
         public Item Item;
         public int OriginalLeft;
         public int OriginalTop;
-        public Panel RootPanel;
+        public Widget RootPanel;
     }
 
     public class UIDragDropService
@@ -34,10 +34,7 @@ namespace UI
 
         private ImageButton _dragGhost;
 
-        private Panel _tooltip;
-        private Label _tooltipName;
-        private Label _tooltipDesc;
-        private Label _tooltipType;
+        public UITooltipComponent tooltip;
 
 
         public UIDragDropService()
@@ -46,26 +43,26 @@ namespace UI
             InitializeGlobalHandlers();
         }
 
-        public void RegisterInventorySlot(ImageButton widget, Panel rootPanel, Func<Item> getItem)
+        public void RegisterInventorySlot(ImageButton widget, Func<Item> getItem)
         {
             var entry = new SlotEntry
             {
                 Widget = widget,
                 Owner = SlotOwner.Inventory,
-                RootPanel = rootPanel
+                RootPanel = widget.Parent
             };
             _slots.Add(entry);
             WireEvents(entry, getItem);
         }
 
-        public void RegisterEquipmentSlot(ImageButton widget, Panel rootPanel, EquipmentSlots slot)
+        public void RegisterEquipmentSlot(ImageButton widget, EquipmentSlots slot)
         {
             var entry = new SlotEntry
             {
                 Widget = widget,
                 Owner = SlotOwner.Equipment,
                 EquipSlot = slot,
-                RootPanel = rootPanel
+                RootPanel = widget.Parent
             };
             _slots.Add(entry);
             WireEvents(entry, () => entry.Item);
@@ -105,7 +102,7 @@ namespace UI
                 // Add ghost to top level
                 UI.UIManager.UIDesktop.Desktop.Widgets.Add(_dragGhost);
 
-                var absPos = UIDesktop.GetAbsolutePosition(widget);
+                var absPos = entry.Widget.ToGlobal(Point.Zero);
                 _dragGhost.Left = absPos.X;
                 _dragGhost.Top = absPos.Y;
 
@@ -144,7 +141,9 @@ namespace UI
             HideTooltip();
 
             // Get final mouse position
-            var finalPos = new Vector2(Inputs.Inputs.mouse.GetMouseScreenPosition().X * UIDesktop.UIScale, Inputs.Inputs.mouse.GetMouseScreenPosition().Y * UIDesktop.UIScale).ToPoint();
+
+            var mousePos = Inputs.Inputs.mouse.GetMouseScreenPosition();
+            var finalPos = new Vector2(mousePos.X * UIDesktop.UIScale, mousePos.Y * UIDesktop.UIScale).ToPoint();
             var target = FindSlotUnder(finalPos);
 
             // Clean up ghost
@@ -186,7 +185,6 @@ namespace UI
 
         private void HandleDrop(SlotEntry from, SlotEntry to)
         {
-            Console.WriteLine(to.EquipSlot);
             // inventory -> equipment
             if (from.Owner == SlotOwner.Inventory && to.Owner == SlotOwner.Equipment)
             {
@@ -241,11 +239,17 @@ namespace UI
 
         private SlotEntry FindSlotUnder(Point position)
         {
-            Console.WriteLine(position);
             foreach (var entry in _slots)
             {
                 if (entry == _dragging) continue;
-                if (UIDesktop.GetAbsoluteBounds(entry.Widget).Contains(position))
+
+                var absoluteBounds = new Rectangle(entry.Widget.ToGlobal(Point.Zero), new Point((int)entry.Widget.Width, (int)entry.Widget.Width));
+
+                Console.WriteLine(entry.EquipSlot.ToString());
+                Console.WriteLine(absoluteBounds);
+                Console.WriteLine(position);
+
+                if (absoluteBounds.Contains(position))
                     return entry;
             }
             return null;
@@ -260,73 +264,41 @@ namespace UI
 
         private void InitializeTooltip()
         {
-            _tooltipName = new Label
-            {
-                StyleName = "questTitle",
-                Width = 164
-            };
-
-            _tooltipDesc = new Label
-            {
-                StyleName = "muted",
-                Width = 164
-            };
-
-            _tooltipType = new Label
-            {
-                StyleName = "hud",
-                Width = 164
-            };
-
-            var content = new VerticalStackPanel
-            {
-                Spacing = 4,
-                Left = 8,
-                Top = 8,
-            };
-            content.Widgets.Add(_tooltipName);
-            content.Widgets.Add(_tooltipType);
-            content.Widgets.Add(_tooltipDesc);
-
-            _tooltip = new Panel
-            {
-                Width = 180,
-                Visible = false,
-                ZIndex = 9999,
-                Background = new SolidBrush(new Color(15, 15, 25, 230)),
-                Border = new SolidBrush(new Color(120, 120, 160, 200)),
-                BorderThickness = new Thickness(1)
-            };
-            _tooltip.Widgets.Add(content);
-
-            UI.UIManager.UIDesktop.Desktop.Widgets.Add(_tooltip);
+            
         }
 
         private void ShowTooltip(Item item, Point position)
         {
-            if (item == null || _tooltip == null) return;
+            if(tooltip == null)
+            {
+                tooltip = new UITooltipComponent();
+                UI.UIManager.UIDesktop.AddComponent(tooltip);
+            }
 
-            _tooltipName.Text = item.Name;
-            _tooltipType.Text = item.Type.ToString();
-            _tooltipDesc.Text = item.Description ?? "";
+
+            if (item == null || tooltip == null) return;
+
+            tooltip.SetLabel("tooltipName", item.Name);
+            tooltip.SetLabel("tooltipType", item.Type.ToString());
+            tooltip.SetLabel("tooltipDesc", item.Description);
 
             // position tooltip offset from cursor
-            _tooltip.Left = position.X + 16;
-            _tooltip.Top = position.Y + 16;
-            _tooltip.Visible = true;
+            tooltip.Template.Project.Root.Left = position.X + 16;
+            tooltip.Template.Project.Root.Top = position.Y + 16;
+            tooltip.Template.Project.Root.Visible = true;
         }
 
         private void HideTooltip()
         {
-            if (_tooltip != null)
-                _tooltip.Visible = false;
+            if (tooltip != null)
+                tooltip.Template.Project.Root.Visible = false;
         }
 
         private void UpdateTooltipPosition(Point position)
         {
-            if (_tooltip == null || !_tooltip.Visible) return;
-            _tooltip.Left = position.X + 16;
-            _tooltip.Top = position.Y + 16;
+            if (tooltip == null || !tooltip.Template.Project.Root.Visible) return;
+            tooltip.Template.Project.Root.Left = position.X + 16;
+            tooltip.Template.Project.Root.Top = position.Y + 16;
         }
     }
 }

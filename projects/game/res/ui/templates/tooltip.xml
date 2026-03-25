@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <Panel Id="tooltipPanel"
-         Visible="false"
-         ZIndex="9999"
-         Background="#0F0F19E6"
-         Border="#7878A0C8"
-         BorderThickness="1">
+        Visible="false"
+        Background="#0F0F19E6"
+        Border="#7878A0C8"
+        BorderThickness="1"
+        Width="200"
+        Height="200">
 
-    <VerticalStackPanel Id="tooltipContent" Spacing="4" Left="8" Top="8" Width="164">
-
+    <VerticalStackPanel Id="tooltipContent" Spacing="4" Left="8" Top="8">
         <Label Id="tooltipName" StyleName="questTitle" Text="Item Name" />
-
         <Label Id="tooltipType" StyleName="hud" Text="Type" />
-
         <Label Id="tooltipDesc" StyleName="muted" Text="Description goes here..." />
-
     </VerticalStackPanel>
 
   </Panel>

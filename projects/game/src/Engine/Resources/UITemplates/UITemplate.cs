@@ -23,6 +23,8 @@ namespace Resources
         SETTINGS,
         QUIT,
         HUD,
+        TOOLTIP,
+
     };
 
 
@@ -61,7 +63,8 @@ namespace Resources
                 { UITemplates.SETTINGS,      "settings" },
                 { UITemplates.QUIT,          "quit" },
                 { UITemplates.HUD,           "hud" },
-                { UITemplates.PANEL,         "panel"}
+                { UITemplates.PANEL,         "panel"},
+                { UITemplates.TOOLTIP,       "tooltip"}
         };
     }
 }

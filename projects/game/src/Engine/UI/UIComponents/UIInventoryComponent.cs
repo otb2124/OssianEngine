@@ -15,9 +15,9 @@ namespace UI
 {
     public class UIInventoryComponent : UIComponent
     {
-        private readonly int Columns = 5;
-        private readonly int SlotSize = 48;
-        private readonly int SlotGap = 2;
+        public static readonly int Columns = 5;
+        public static readonly int SlotSize = 48;
+        public static readonly int SlotGap = 2;
 
         private Panel _grid;
         private List<SlotEntry> _slotEntries = new List<SlotEntry>();
@@ -128,7 +128,7 @@ namespace UI
                 // Register for drag & drop
                 var capturedItem = item; // avoid closure issue
                 UI.UIManager.UIDesktop.DragDropService
-                    .RegisterInventorySlot(slot, _grid, () => capturedItem);
+                    .RegisterInventorySlot(slot, () => capturedItem);
             }
 
             // Update grid height to fit content exactly
