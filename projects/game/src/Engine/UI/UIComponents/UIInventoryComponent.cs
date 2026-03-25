@@ -15,9 +15,9 @@ namespace UI
 {
     public class UIInventoryComponent : UIComponent
     {
-        private const int Columns = 5;
-        private const int SlotSize = 56;
-        private const int SlotGap = 4;
+        private readonly int Columns = 5;
+        private readonly int SlotSize = 48;
+        private readonly int SlotGap = 2;
 
         private Panel _grid;
         private List<SlotEntry> _slotEntries = new List<SlotEntry>();
@@ -54,17 +54,21 @@ namespace UI
 
         private void WireTab(string id, ItemTypes filter)
         {
-            var btn = UI.UIManager.UIDesktop.FindById(id) as TextButton;
+            var btn = UI.UIManager.UIDesktop.FindById(id) as ImageButton;
             if (btn == null) return;
             btn.TouchUp += (s, e) =>
             {
                 _currentFilter = filter;
                 RefreshGrid();
             };
+
+            UI.UIManager.UIDesktop.SetButtonImage(id, new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64+32+ 32 * 0, 64+64, 32, 32)));
         }
 
         public void RefreshGrid()
         {
+            int scaledSlotSize = (int)(SlotSize * UIDesktop.UIScale);
+
             _grid.Widgets.Clear();
             _slotEntries.Clear();
             UI.UIManager.UIDesktop.DragDropService.UnregisterInventorySlots(this);
@@ -97,16 +101,16 @@ namespace UI
 
                 var slot = new ImageButton
                 {
-                    Width = SlotSize,
-                    Height = SlotSize,
-                    Left = col * (SlotSize + SlotGap) + 4,
-                    Top = row * (SlotSize + SlotGap) + 4,
+                    Width = scaledSlotSize,
+                    Height = scaledSlotSize,
+                    Left = col * (scaledSlotSize + SlotGap),
+                    Top = row * (scaledSlotSize + SlotGap),
 
                     Background = new SolidBrush(new Color(30, 30, 40, 180)),
                     OverBackground = new SolidBrush(new Color(60, 60, 80, 200)),
                     PressedBackground = new SolidBrush(new Color(20, 20, 30, 220)),
                     Border = new SolidBrush(new Color(80, 80, 100, 160)),
-                    BorderThickness = new Thickness(1),
+                    BorderThickness = new Thickness(1)
                 };
 
                 // Set item image correctly using Sprite / TextureRegion
@@ -117,6 +121,8 @@ namespace UI
                     slot.Image = new TextureRegion(texture, sprite.SrcRect);
                 }
 
+                //UI.UIManager.UIDesktop.ScaleWidgets(slot);
+
                 _grid.Widgets.Add(slot);
 
                 // Register for drag & drop
@@ -126,7 +132,7 @@ namespace UI
             }
 
             // Update grid height to fit content exactly
-            _grid.Height = rows * (SlotSize + SlotGap) + 8;
+            _grid.Height = rows * (scaledSlotSize + SlotGap) + 8;
         }
 
         public void PushItem(Item item)

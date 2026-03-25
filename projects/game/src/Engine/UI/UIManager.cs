@@ -64,6 +64,8 @@ namespace UI
             {
                 UIIngameMenuComponent.OnIngameMenuButtonPressed();
             }
+
+            UIDesktop.DragDropService.Update();
         }
 
         public void Draw()

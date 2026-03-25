@@ -5,43 +5,42 @@
       Id="inventoryFrame"
       HorizontalAlignment="Left"
       VerticalAlignment="Center"
-      Width="320"
       Height="480"
       Left="80"
       StyleName="questPanel">
 
-      <VerticalStackPanel Width="320" Spacing="0">
+      <VerticalStackPanel Spacing="2">
 
         <!-- header -->
-        <HorizontalStackPanel Height="36" Spacing="0">
-          <Label Text="Inventory" StyleName="title" VerticalAlignment="Center" Left="12"/>
-          <TextButton Id="btnCloseInventory" Text="X" Width="30"
-                      HorizontalAlignment="Right" StyleName="dangerButton"
-                      Left="278" Top="4"/>
+        <HorizontalStackPanel>
+          <Label Text="Inventory" StyleName="title"/>
         </HorizontalStackPanel>
 
-        <HorizontalSeparator/>
-
         <!-- sort tabs -->
-        <ScrollViewer Width="320" Height="44">
-          <HorizontalStackPanel Id="sortTabs" Spacing="2" Top="4" Left="4">
-            <TextButton Id="tabAll"          Text="All"             Width="60" Height="32" StyleName="questItem"/>
-            <TextButton Id="tabWeapons"      Text="Weapons"         Width="70" Height="32" StyleName="questItem"/>
-            <TextButton Id="tabArmor"        Text="Armors"          Width="60" Height="32" StyleName="questItem"/>
-            <TextButton Id="tabAccessories"  Text="Accessories"     Width="60" Height="32" StyleName="questItem"/>
-            <TextButton Id="tabMaterials"    Text="Materials"       Width="70" Height="32" StyleName="questItem"/>
-            <TextButton Id="tabConsumables"  Text="Consumables"     Width="60" Height="32" StyleName="questItem"/>
-            <TextButton Id="tabKeys"         Text="Keys"            Width="60" Height="32" StyleName="questItem"/>
-            <TextButton Id="tabQuestItems"   Text="Quest Items"     Width="60" Height="32" StyleName="questItem"/>
-            <TextButton Id="tabCurrencies"   Text="Currencies"      Width="60" Height="32" StyleName="questItem"/>
-          </HorizontalStackPanel>
-        </ScrollViewer>
+        <HorizontalStackPanel Id="sortTabs" Spacing="2">
+          <ImageButton Id="tabAll"        Width="26" Height="26"  StyleName="slot"/>
+          <ImageButton Id="tabWeapons"        Width="26" Height="26"  StyleName="slot"/>
+          <ImageButton Id="tabArmor"        Width="26" Height="26" StyleName="slot"/>
+          <ImageButton Id="tabAccessories"        Width="26" Height="26"  StyleName="slot"/>
+          <ImageButton Id="tabMaterials"        Width="26" Height="26" StyleName="slot"/>
+          <ImageButton Id="tabConsumables"        Width="26" Height="26" StyleName="slot"/>
+          <ImageButton Id="tabKeys"        Width="26" Height="26" StyleName="slot"/>
+          <ImageButton Id="tabQuestItems"        Width="26" Height="26" StyleName="slot"/>
+          <ImageButton Id="tabCurrencies"        Width="26" Height="26" StyleName="slot"/>
 
-        <HorizontalSeparator/>
+          <VerticalStackPanel Spacing="2">
+            <ImageButton Id="sortAZ" Width="12" Height="12" StyleName="slot"/>
+            <ImageButton Id="sortVal" Width="12" Height="12" StyleName="slot"/>
+          </VerticalStackPanel>
+          <VerticalStackPanel Spacing="2">
+            <ImageButton Id="sortRarity" Width="12" Height="12" StyleName="slot"/>
+            <ImageButton Id="sortNewest" Width="12" Height="12" StyleName="slot"/>
+          </VerticalStackPanel>
+        </HorizontalStackPanel>
 
         <!-- item grid (scrollable) -->
-        <ScrollViewer Id="inventoryScroll" Width="320" Height="388">
-          <Panel Id="inventoryGrid" Width="300" Height="2000"/>
+        <ScrollViewer Id="inventoryScroll" Width="260" Height="388">
+          <Panel Id="inventoryGrid" Width="400" Height="2000"/>
         </ScrollViewer>
 
       </VerticalStackPanel>

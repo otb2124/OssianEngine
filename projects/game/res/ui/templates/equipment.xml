@@ -5,65 +5,48 @@
       Id="equipmentFrame"
       HorizontalAlignment="Left"
       VerticalAlignment="Center"
-      Width="220"
       Height="480"
       Left="410"
       StyleName="questPanel">
 
-      <VerticalStackPanel Width="220" Spacing="0">
+      <VerticalStackPanel Width="300" Spacing="0">
 
         <!-- header -->
-        <HorizontalStackPanel Height="36" Spacing="0">
-          <Label Text="Equipment" StyleName="title" VerticalAlignment="Center" Left="12"/>
-          <TextButton Id="btnCloseEquipment" Text="X" Width="30"
-                      HorizontalAlignment="Right" StyleName="dangerButton"
-                      Left="178" Top="4"/>
+        <HorizontalStackPanel>
+          <Label Text="Equipment" StyleName="title"/>
         </HorizontalStackPanel>
 
-        <HorizontalSeparator/>
-
         <!-- equipment slots layout -->
-        <Panel Width="220" Height="436">
+        <Panel Top="28">
+          <VerticalStackPanel Spacing="2">
+            <HorizontalStackPanel Spacing="2">
+              <VerticalStackPanel Spacing="2">
+                <ImageButton Id="eqHead"        Width="48" Height="48" StyleName="slot"/>
+                <ImageButton Id="eqTorso"       Width="48" Height="48" StyleName="slot"/>
+                <ImageButton Id="eqHands"       Width="48" Height="48" StyleName="slot"/>
+                <ImageButton Id="eqLegs"        Width="48" Height="48" StyleName="slot"/>
+              </VerticalStackPanel>
 
-          <!-- row 1: head -->
-          <ImageButton Id="eqHead"      Width="52" Height="52" Left="84"  Top="8"   StyleName="slot"/>
+              <Image Id="characterImage" Width="148" Height="148"></Image>
 
-          <!-- row 2: shoulders, chest, back -->
-          <ImageButton Id="eqTorso"  Width="52" Height="52" Left="8"   Top="68"  StyleName="slot"/>
-          <ImageButton Id="eqHands"     Width="52" Height="52" Left="84"  Top="68"  StyleName="slot"/>
-          <ImageButton Id="eqLegs"      Width="52" Height="52" Left="160" Top="68"  StyleName="slot"/>
-
-          <!-- row 3: mainhand, gloves, offhand -->
-          <ImageButton Id="eqNecklace"  Width="52" Height="52" Left="8"   Top="128" StyleName="slot"/>
-          <ImageButton Id="eqCape"    Width="52" Height="52" Left="84"  Top="128" StyleName="slot"/>
-          <ImageButton Id="eqContainment"   Width="52" Height="52" Left="160" Top="128" StyleName="slot"/>
-
-          <!-- row 4: ring1, belt, ring2 -->
-          <ImageButton Id="eqBelt"     Width="52" Height="52" Left="8"   Top="188" StyleName="slot"/>
-          <ImageButton Id="eqPet0"      Width="52" Height="52" Left="84"  Top="188" StyleName="slot"/>
-          <ImageButton Id="eqPet1"     Width="52" Height="52" Left="160" Top="188" StyleName="slot"/>
-
-          <!-- row 5: boots + amulet -->
-          <ImageButton Id="eqWeapon"     Width="52" Height="52" Left="84"  Top="248" StyleName="slot"/>
-          <ImageButton Id="eqRing0"    Width="52" Height="52" Left="160" Top="248" StyleName="slot"/>
-
-          <!-- row 6: ammo + trinket -->
-          <ImageButton Id="eqRing1"      Width="52" Height="52" Left="8"   Top="308" StyleName="slot"/>
-
-          <!-- slot labels -->
-          <Label Text="Head"      Left="84"  Top="62"  Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Torso"  Left="8"   Top="122" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Hands"     Left="84"  Top="122" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Legs"      Left="160" Top="122" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Necklace"      Left="8"   Top="182" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Cape"    Left="84"  Top="182" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Containment"       Left="160" Top="182" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Belt"      Left="8"   Top="242" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Pet0"      Left="84"  Top="242" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Pet1"      Left="160" Top="242" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Weapon"     Left="84"  Top="302" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="Ring0"    Left="160" Top="302" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
-          <Label Text="RIng1"      Left="8"   Top="362" Width="52" HorizontalAlignment="Left" StyleName="muted"/>
+              <VerticalStackPanel Spacing="2">
+                <ImageButton Id="eqNecklace"    Width="48" Height="48" StyleName="slot"/>
+                <ImageButton Id="eqCape"        Width="48" Height="48" StyleName="slot"/>
+                <ImageButton Id="eqContainment" Width="48" Height="48" StyleName="slot"/>
+                <ImageButton Id="eqBelt"        Width="48" Height="48" StyleName="slot"/>
+              </VerticalStackPanel>
+            </HorizontalStackPanel>
+            
+            <HorizontalStackPanel Spacing="3">
+              <ImageButton Id="eqPet0"        Width="48" Height="48" StyleName="slot"/>
+              <ImageButton Id="eqPet1"        Width="48" Height="48" StyleName="slot"/>
+              <ImageButton Id="eqWeapon"      Width="48" Height="48" StyleName="slot"/>
+              <ImageButton Id="eqRing0"       Width="48" Height="48" StyleName="slot"/>
+              <ImageButton Id="eqRing1"       Width="48" Height="48" StyleName="slot"/>
+            </HorizontalStackPanel>
+          </VerticalStackPanel>
+          
+          
 
         </Panel>
 

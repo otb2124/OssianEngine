@@ -1,11 +1,11 @@
 ﻿using Myra.Graphics2D.UI;
 using Myra.Graphics2D.Brushes;
-using Myra.Graphics2D.TextureAtlases;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using Entities;
 using static Entities.EquipmentSlot;
+using Myra.Graphics2D;
 
 namespace UI
 {
@@ -33,6 +33,18 @@ namespace UI
         public Action<SlotEntry, SlotEntry> OnUnequip;         // equip -> inv
 
         private ImageButton _dragGhost;
+
+        private Panel _tooltip;
+        private Label _tooltipName;
+        private Label _tooltipDesc;
+        private Label _tooltipType;
+
+
+        public UIDragDropService()
+        {
+            InitializeTooltip();
+            InitializeGlobalHandlers();
+        }
 
         public void RegisterInventorySlot(ImageButton widget, Panel rootPanel, Func<Item> getItem)
         {
@@ -73,73 +85,108 @@ namespace UI
                 entry.Item = getItem();
                 if (entry.Item == null) return;
 
+                HideTooltip();
+
                 _dragging = entry;
                 _dragging.OriginalLeft = (int)widget.Left;
                 _dragging.OriginalTop = (int)widget.Top;
 
-                // === CREATE GHOST (duplicate) for free dragging ===
+                // Create ghost
                 _dragGhost = new ImageButton
                 {
-                    Id = "dragGhost",
                     Width = widget.Width,
                     Height = widget.Height,
                     Background = null,
-                    Image = widget.Image,                    // copy the icon
-                    Opacity = 0.8f,
-                    ZIndex = 1000                            // make sure it's on top
+                    Image = widget.Image,
+                    Opacity = 0.75f,
+                    ZIndex = 10000
                 };
 
-                // Add ghost to desktop (top level)
-                UI.UIManager.UIDesktop.Root.Widgets.Add(_dragGhost);
+                // Add ghost to top level
+                UI.UIManager.UIDesktop.Desktop.Widgets.Add(_dragGhost);
 
-                // Position ghost at original location first
-                _dragGhost.Left = UIDesktop.GetAbsoluteBounds(widget).Left;
-                _dragGhost.Top = UIDesktop.GetAbsoluteBounds(widget).Top;
+                var absPos = UIDesktop.GetAbsolutePosition(widget);
+                _dragGhost.Left = absPos.X;
+                _dragGhost.Top = absPos.Y;
+
+                widget.Opacity = 0.7f;   // dim original slot
             };
 
-            // === Move the ghost smoothly ===
-            widget.TouchMoved += (s, e) =>
+            widget.MouseEntered += (s, e) =>
             {
-                if (_dragGhost == null || _dragging?.Widget != widget) return;
-
+                if (_dragging != null) return; // don't show tooltip while dragging
+                var item = getItem();
+                if (item == null) return;
                 var mousePos = Inputs.Inputs.mouse.GetMouseScreenPosition();
-
-                _dragGhost.Left = (int)(mousePos.X * UIDesktop.UIScale - _dragGhost.Width / 2);
-                _dragGhost.Top = (int)(mousePos.Y * UIDesktop.UIScale - _dragGhost.Height / 2);
+                var scaledPos = new Point(
+                    (int)(mousePos.X * UIDesktop.UIScale),
+                    (int)(mousePos.Y * UIDesktop.UIScale)
+                );
+                ShowTooltip(item, scaledPos);
             };
 
-            // === Release ===
-            widget.TouchUp += (s, e) =>
+            widget.MouseLeft += (s, e) =>
             {
-                if (_dragging == null || _dragGhost == null) return;
-
-                var finalMousePos = Inputs.Inputs.mouse.GetMouseScreenPosition().ToPoint();
-                var target = FindSlotUnder(finalMousePos);
-
-                // Clean up ghost
-                UI.UIManager.UIDesktop.Root.Widgets.Remove(_dragGhost);
-                _dragGhost = null;
-
-                widget.Opacity = 1f;
-
-                if (target != null && target != _dragging)
-                {
-                    HandleDrop(_dragging, target);
-                }
-                else
-                {
-                    SnapBack(_dragging);
-                }
-
-                _dragging = null;
+                HideTooltip();
             };
+        }
+
+        public void InitializeGlobalHandlers()
+        {
+            // One-time setup - call this once after creating UIDragDropService
+            UI.UIManager.UIDesktop.Desktop.TouchUp += OnDesktopTouchUp;
+        }
+
+        private void OnDesktopTouchUp(object sender, EventArgs e)
+        {
+            if (_dragging == null || _dragGhost == null) return;
+
+            HideTooltip();
+
+            // Get final mouse position
+            var finalPos = new Vector2(Inputs.Inputs.mouse.GetMouseScreenPosition().X * UIDesktop.UIScale, Inputs.Inputs.mouse.GetMouseScreenPosition().Y * UIDesktop.UIScale).ToPoint();
+            var target = FindSlotUnder(finalPos);
+
+            // Clean up ghost
+            UI.UIManager.UIDesktop.Desktop.Widgets.Remove(_dragGhost);
+            _dragGhost = null;
+
+            // Restore original slot opacity
+            if (_dragging.Widget != null)
+                _dragging.Widget.Opacity = 1f;
+
+            if (target != null && target != _dragging)
+            {
+                HandleDrop(_dragging, target);
+            }
+            else
+            {
+                SnapBack(_dragging);
+            }
+
+            _dragging = null;
+        }
+
+        public void Update()
+        {
+            var mousePos = Inputs.Inputs.mouse.GetMouseScreenPosition();
+            var scaledPos = new Point(
+                (int)(mousePos.X * UIDesktop.UIScale),
+                (int)(mousePos.Y * UIDesktop.UIScale)
+            );
+
+            if (_dragGhost != null && _dragging != null)
+            {
+                _dragGhost.Left = (int)(scaledPos.X - _dragGhost.Width / 2);
+                _dragGhost.Top = (int)(scaledPos.Y - _dragGhost.Height / 2);
+            }
+
+            UpdateTooltipPosition(scaledPos);
         }
 
         private void HandleDrop(SlotEntry from, SlotEntry to)
         {
-
-            Console.WriteLine("from: ", from.Item?.Name, ", to: ", to.Item?.Name);
-
+            Console.WriteLine(to.EquipSlot);
             // inventory -> equipment
             if (from.Owner == SlotOwner.Inventory && to.Owner == SlotOwner.Equipment)
             {
@@ -164,8 +211,8 @@ namespace UI
             // inventory -> inventory
             else if (from.Owner == SlotOwner.Inventory && to.Owner == SlotOwner.Inventory)
             {
-                SwapImages(from, to);
-                OnSwapInventory?.Invoke(from, to);
+                //SwapImages(from, to);
+                //OnSwapInventory?.Invoke(from, to);
             }
             // equipment -> equipment: not allowed
             else
@@ -194,10 +241,11 @@ namespace UI
 
         private SlotEntry FindSlotUnder(Point position)
         {
+            Console.WriteLine(position);
             foreach (var entry in _slots)
             {
                 if (entry == _dragging) continue;
-                if (entry.Widget.Bounds.Contains(position))
+                if (UIDesktop.GetAbsoluteBounds(entry.Widget).Contains(position))
                     return entry;
             }
             return null;
@@ -206,6 +254,79 @@ namespace UI
         public void UnregisterInventorySlots(UIInventoryComponent owner)
         {
             _slots.RemoveAll(e => e.Owner == SlotOwner.Inventory);
+        }
+
+
+
+        private void InitializeTooltip()
+        {
+            _tooltipName = new Label
+            {
+                StyleName = "questTitle",
+                Width = 164
+            };
+
+            _tooltipDesc = new Label
+            {
+                StyleName = "muted",
+                Width = 164
+            };
+
+            _tooltipType = new Label
+            {
+                StyleName = "hud",
+                Width = 164
+            };
+
+            var content = new VerticalStackPanel
+            {
+                Spacing = 4,
+                Left = 8,
+                Top = 8,
+            };
+            content.Widgets.Add(_tooltipName);
+            content.Widgets.Add(_tooltipType);
+            content.Widgets.Add(_tooltipDesc);
+
+            _tooltip = new Panel
+            {
+                Width = 180,
+                Visible = false,
+                ZIndex = 9999,
+                Background = new SolidBrush(new Color(15, 15, 25, 230)),
+                Border = new SolidBrush(new Color(120, 120, 160, 200)),
+                BorderThickness = new Thickness(1)
+            };
+            _tooltip.Widgets.Add(content);
+
+            UI.UIManager.UIDesktop.Desktop.Widgets.Add(_tooltip);
+        }
+
+        private void ShowTooltip(Item item, Point position)
+        {
+            if (item == null || _tooltip == null) return;
+
+            _tooltipName.Text = item.Name;
+            _tooltipType.Text = item.Type.ToString();
+            _tooltipDesc.Text = item.Description ?? "";
+
+            // position tooltip offset from cursor
+            _tooltip.Left = position.X + 16;
+            _tooltip.Top = position.Y + 16;
+            _tooltip.Visible = true;
+        }
+
+        private void HideTooltip()
+        {
+            if (_tooltip != null)
+                _tooltip.Visible = false;
+        }
+
+        private void UpdateTooltipPosition(Point position)
+        {
+            if (_tooltip == null || !_tooltip.Visible) return;
+            _tooltip.Left = position.X + 16;
+            _tooltip.Top = position.Y + 16;
         }
     }
 }

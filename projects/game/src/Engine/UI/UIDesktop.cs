@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using AssetManagementBase;
 using Myra.Graphics2D.TextureAtlases;
 using SharpDX.Direct2D1.Effects;
+using Button = Myra.Graphics2D.UI.Button;
+using Panel = Myra.Graphics2D.UI.Panel;
 
 namespace UI
 {
@@ -49,15 +51,29 @@ namespace UI
         {
             if (widget == null) return;
 
-            if (widget.Width.HasValue)
+            bool wasWidthSet = widget.Width.HasValue;
+            bool wasHeightSet = widget.Height.HasValue;
+
+            if (wasWidthSet)
                 widget.Width = (int)(widget.Width.Value * UIScale);
 
-            if (widget.Height.HasValue)
+            if (wasHeightSet)
                 widget.Height = (int)(widget.Height.Value * UIScale);
 
             widget.Left = (int)(widget.Left * UIScale);
             widget.Top = (int)(widget.Top * UIScale);
 
+            // Critical: Force full re-layout
+            widget.InvalidateMeasure();
+            widget.InvalidateArrange();
+
+            // If it's a button-like widget, also reset its internal state
+            if (widget is Button buttonBase)
+            {
+                buttonBase.InvalidateMeasure();   // extra safety for buttons
+            }
+
+            // Recurse
             if (widget is Container container)
             {
                 foreach (var child in container.Widgets)
