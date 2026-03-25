@@ -12,6 +12,8 @@
         <Label Id="tooltipName" StyleName="questTitle" Text="Item Name" />
         <Label Id="tooltipType" StyleName="hud" Text="Type" />
         <Label Id="tooltipDesc" StyleName="muted" Text="Description goes here..." />
+        <Label Id="tooltipRarity" StyleName="muted" Text="Description goes here..." />
+        <Label Id="tooltipValue" StyleName="muted" Text="Description goes here..." />
     </VerticalStackPanel>
 
   </Panel>

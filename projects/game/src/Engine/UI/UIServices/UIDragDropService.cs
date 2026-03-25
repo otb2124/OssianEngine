@@ -281,6 +281,8 @@ namespace UI
             tooltip.SetLabel("tooltipName", item.Name);
             tooltip.SetLabel("tooltipType", item.Type.ToString());
             tooltip.SetLabel("tooltipDesc", item.Description);
+            tooltip.SetLabel("tooltipRarity", item.Rarity.ToString());
+            tooltip.SetLabel("tooltipValue", item.Value.ToString());
 
             // position tooltip offset from cursor
             tooltip.Template.Project.Root.Left = position.X + 16;

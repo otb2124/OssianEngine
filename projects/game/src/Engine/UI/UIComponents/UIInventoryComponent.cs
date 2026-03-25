@@ -23,6 +23,25 @@ namespace UI
         private List<SlotEntry> _slotEntries = new List<SlotEntry>();
         private ItemTypes _currentFilter = ItemTypes.ANY;
 
+        private SortMode _currentSortMode = SortMode.None;
+        private bool _isSortReversed = false;
+
+        private ImageButton _btnSortAZ;
+        private ImageButton _btnSortVal;
+        private ImageButton _btnSortRarity;
+        private ImageButton _btnSortNewest;
+
+        private enum SortMode
+        {
+            None,
+            ByName,      // AZ
+            ByValue,     // Value / Price
+            ByRarity,
+            ByNewest
+        }
+
+
+
         public UIInventoryComponent()
         {
             SetTemplate(UITemplates.INVENTORY);
@@ -32,7 +51,7 @@ namespace UI
         {
             _grid = UI.UIManager.UIDesktop.FindById("inventoryGrid") as Panel;
 
-            // sort tabs
+            //filter tabs
             WireTab("tabAll", ItemTypes.ANY);
             WireTab("tabWeapons", ItemTypes.WEAPON);
             WireTab("tabArmor", ItemTypes.CHESTPLATE); //armor
@@ -42,6 +61,18 @@ namespace UI
             WireTab("tabKeys", ItemTypes.KEY);
             WireTab("tabQuestItems", ItemTypes.QUEST_ITEM);
             WireTab("tabCurrencies", ItemTypes.CURRENCY);
+
+            _btnSortAZ = UI.UIManager.UIDesktop.FindById("sortAZ") as ImageButton;
+            _btnSortVal = UI.UIManager.UIDesktop.FindById("sortVal") as ImageButton;
+            _btnSortRarity = UI.UIManager.UIDesktop.FindById("sortRarity") as ImageButton;
+            _btnSortNewest = UI.UIManager.UIDesktop.FindById("sortNewest") as ImageButton;
+
+            WireSortButton(_btnSortAZ, SortMode.ByName);
+            WireSortButton(_btnSortVal, SortMode.ByValue);
+            WireSortButton(_btnSortRarity, SortMode.ByRarity);
+            WireSortButton(_btnSortNewest, SortMode.ByNewest);
+
+            //sort tabs
 
             // close
             var btnClose = UI.UIManager.UIDesktop.FindById("btnCloseInventory") as TextButton;
@@ -67,36 +98,72 @@ namespace UI
 
         public void RefreshGrid()
         {
-            int scaledSlotSize = (int)(SlotSize * UIDesktop.UIScale);
-
             _grid.Widgets.Clear();
             _slotEntries.Clear();
             UI.UIManager.UIDesktop.DragDropService.UnregisterInventorySlots(this);
 
-            // Get the correct list of items
-            var itemsToShow = _currentFilter == ItemTypes.ANY
-                ? Entities.Entities.Player.Inventory.Items
-                    .Where(i => i != null)                    // remove any null gaps if they exist
-                    .ToList()
-                : Entities.Entities.Player.Inventory.Items
-                    .Where(i => i != null && i.Type == _currentFilter)
+            // Start with filtered items
+            var itemsToShow = Entities.Entities.Player.Inventory.Items
+                .Where(i => i != null)
+                .ToList();
+
+            // Apply current filter
+            if (_currentFilter != ItemTypes.ANY)
+            {
+                itemsToShow = itemsToShow
+                    .Where(i => i.Type == _currentFilter)
                     .ToList();
+            }
+
+            // === APPLY SORTING ===
+            if (_currentSortMode != SortMode.None && itemsToShow.Count > 0)
+            {
+                switch (_currentSortMode)
+                {
+                    case SortMode.ByName:
+                        itemsToShow = itemsToShow
+                            .OrderBy(i => i.Name)
+                            .ToList();
+                        break;
+
+                    case SortMode.ByValue:
+                        itemsToShow = itemsToShow
+                            .OrderBy(i => i.Value)        // or i.SellPrice / whatever you use
+                            .ToList();
+                        break;
+
+                    case SortMode.ByRarity:
+                        itemsToShow = itemsToShow
+                            .OrderBy(i => (int)i.Rarity)  // assuming you have Rarity enum
+                            .ToList();
+                        break;
+
+                    case SortMode.ByNewest:
+                        // TODO: implement when you have timestamps / acquisition order
+                        // itemsToShow = itemsToShow.OrderByDescending(i => i.AcquiredTime).ToList();
+                        break;
+                }
+
+                if (_isSortReversed)
+                    itemsToShow.Reverse();
+            }
 
             if (itemsToShow.Count == 0)
             {
-                // Optional: show empty inventory message or just leave grid empty
-                _grid.Height = 100; // or whatever minimum height you want
+                _grid.Height = 100;
+                RefreshSortButtonVisuals(); // still update button visuals
                 return;
             }
 
-            int columns = Columns; // 5
+            // === Create slots (your existing code) ===
+            int scaledSlotSize = (int)(SlotSize * UIDesktop.UIScale);
+            int columns = Columns;
             int rows = (int)Math.Ceiling(itemsToShow.Count / (float)columns);
 
-            for (int i = 0; i < itemsToShow.Count; i++)   // ← Only create slots for actual items!
+            for (int i = 0; i < itemsToShow.Count; i++)
             {
                 int col = i % columns;
                 int row = i / columns;
-
                 var item = itemsToShow[i];
 
                 var slot = new ImageButton
@@ -105,7 +172,6 @@ namespace UI
                     Height = scaledSlotSize,
                     Left = col * (scaledSlotSize + SlotGap),
                     Top = row * (scaledSlotSize + SlotGap),
-
                     Background = new SolidBrush(new Color(30, 30, 40, 180)),
                     OverBackground = new SolidBrush(new Color(60, 60, 80, 200)),
                     PressedBackground = new SolidBrush(new Color(20, 20, 30, 220)),
@@ -113,7 +179,6 @@ namespace UI
                     BorderThickness = new Thickness(1)
                 };
 
-                // Set item image correctly using Sprite / TextureRegion
                 var sprite = StaticSpriteFactory.GetItemUISprite(item);
                 if (sprite.SpriteSheet != SpriteSheets.NONE)
                 {
@@ -121,18 +186,16 @@ namespace UI
                     slot.Image = new TextureRegion(texture, sprite.SrcRect);
                 }
 
-                //UI.UIManager.UIDesktop.ScaleWidgets(slot);
-
                 _grid.Widgets.Add(slot);
 
-                // Register for drag & drop
-                var capturedItem = item; // avoid closure issue
-                UI.UIManager.UIDesktop.DragDropService
-                    .RegisterInventorySlot(slot, () => capturedItem);
+                var capturedItem = item;
+                UI.UIManager.UIDesktop.DragDropService.RegisterInventorySlot(slot, () => capturedItem);
             }
 
-            // Update grid height to fit content exactly
             _grid.Height = rows * (scaledSlotSize + SlotGap) + 8;
+
+            // Always refresh button visuals after grid rebuild
+            RefreshSortButtonVisuals();
         }
 
         public void PushItem(Item item)
@@ -145,6 +208,71 @@ namespace UI
         {
             Entities.Entities.Player.Inventory.RemoveItem(item);
             RefreshGrid();
+        }
+
+        private void WireSortButton(ImageButton btn, SortMode mode)
+        {
+            if (btn == null) return;
+
+            btn.TouchUp += (s, e) =>
+            {
+                if (_currentSortMode == mode)
+                {
+                    // Cycle: Applied -> Applied_Reverse -> None
+                    if (!_isSortReversed)
+                    {
+                        _isSortReversed = true;   // now reverse
+                    }
+                    else
+                    {
+                        _currentSortMode = SortMode.None;  // back to none
+                        _isSortReversed = false;
+                    }
+                }
+                else
+                {
+                    // Switch to this sort in normal direction
+                    _currentSortMode = mode;
+                    _isSortReversed = false;
+                }
+
+                RefreshSortButtonVisuals();
+                RefreshGrid();
+            };
+        }
+
+        private void RefreshSortButtonVisuals()
+        {
+            UpdateSortButtonVisual(_btnSortAZ, SortMode.ByName);
+            UpdateSortButtonVisual(_btnSortVal, SortMode.ByValue);
+            UpdateSortButtonVisual(_btnSortRarity, SortMode.ByRarity);
+            UpdateSortButtonVisual(_btnSortNewest, SortMode.ByNewest);
+        }
+
+        private void UpdateSortButtonVisual(ImageButton btn, SortMode mode)
+        {
+            if (btn == null) return;
+
+            if (_currentSortMode == mode)
+            {
+                if (_isSortReversed)
+                {
+                    // APPLIED_REVERSE state - e.g. red tint or different icon
+                    //btn.Background = new Color(255, 100, 100, 255);        // reddish
+                                                                      // Or change image if you have a "sort descending" icon:
+                                                                      // btn.Image = ... descending sprite ...
+                }
+                else
+                {
+                    // APPLIED (normal) state - e.g. green/blue tint
+                    //btn.Color = new Color(100, 255, 100, 255);
+                }
+            }
+            else
+            {
+                // NONE state - default look
+                //btn.Color = Color.White;
+            }
         }
     }
 }
