@@ -26,10 +26,6 @@ namespace UI
         private SortMode _currentSortMode = SortMode.None;
         private bool _isSortReversed = false;
 
-        private ImageButton _btnSortAZ;
-        private ImageButton _btnSortVal;
-        private ImageButton _btnSortRarity;
-        private ImageButton _btnSortNewest;
 
         private enum SortMode
         {
@@ -62,15 +58,10 @@ namespace UI
             WireTab("tabQuestItems", ItemTypes.QUEST_ITEM);
             WireTab("tabCurrencies", ItemTypes.CURRENCY);
 
-            _btnSortAZ = UI.UIManager.UIDesktop.FindById("sortAZ") as ImageButton;
-            _btnSortVal = UI.UIManager.UIDesktop.FindById("sortVal") as ImageButton;
-            _btnSortRarity = UI.UIManager.UIDesktop.FindById("sortRarity") as ImageButton;
-            _btnSortNewest = UI.UIManager.UIDesktop.FindById("sortNewest") as ImageButton;
-
-            WireSortButton(_btnSortAZ, SortMode.ByName);
-            WireSortButton(_btnSortVal, SortMode.ByValue);
-            WireSortButton(_btnSortRarity, SortMode.ByRarity);
-            WireSortButton(_btnSortNewest, SortMode.ByNewest);
+            WireSortButton("sortAZ", SortMode.ByName);
+            WireSortButton("sortVal", SortMode.ByValue);
+            WireSortButton("sortRarity", SortMode.ByRarity);
+            WireSortButton("sortNewest", SortMode.ByNewest);
 
             //sort tabs
 
@@ -87,13 +78,29 @@ namespace UI
         {
             var btn = UI.UIManager.UIDesktop.FindById(id) as ImageButton;
             if (btn == null) return;
+
             btn.TouchUp += (s, e) =>
             {
                 _currentFilter = filter;
                 RefreshGrid();
             };
 
-            UI.UIManager.UIDesktop.SetButtonImage(id, new StaticSprite(SpriteSheets.UI_ICONS, new Rectangle(64+32+ 32 * 0, 64+64, 32, 32)));
+            // Set correct icon based on ID
+            Rectangle srcRect = id switch
+            {
+                "tabAll" =>         new Rectangle(64 + 32 + 32 * 0, 64 + 64, 32, 32),
+                "tabWeapons" =>     new Rectangle(64 + 32 + 32 * 1, 64 + 64, 32, 32),
+                "tabArmor" =>       new Rectangle(64 + 32 + 32 * 2, 64 + 64, 32, 32),
+                "tabAccessories" => new Rectangle(64 + 32 + 32 * 3, 64 + 64, 32, 32),
+                "tabMaterials" =>   new Rectangle(64 + 32 + 32 * 4, 64 + 64, 32, 32),
+                "tabConsumables" => new Rectangle(64 + 32 + 32 * 5, 64 + 64, 32, 32),
+                "tabKeys" =>        new Rectangle(64 + 32 + 32 * 6, 64 + 64, 32, 32),
+                "tabQuestItems" =>  new Rectangle(64 + 32 + 32 * 7, 64 + 64, 32, 32),
+                "tabCurrencies" =>  new Rectangle(64 + 32 + 32 * 8, 64 + 64, 32, 32),
+                _ => new Rectangle(64 + 32, 64 + 64, 32, 32)  // fallback
+            };
+
+            UI.UIManager.UIDesktop.SetButtonImage(id, new StaticSprite(SpriteSheets.UI_ICONS, srcRect));
         }
 
         public void RefreshGrid()
@@ -210,8 +217,10 @@ namespace UI
             RefreshGrid();
         }
 
-        private void WireSortButton(ImageButton btn, SortMode mode)
+        private void WireSortButton(string id, SortMode mode)
         {
+            ImageButton btn = UI.UIManager.UIDesktop.FindById(id) as ImageButton;
+
             if (btn == null) return;
 
             btn.TouchUp += (s, e) =>
@@ -239,18 +248,32 @@ namespace UI
                 RefreshSortButtonVisuals();
                 RefreshGrid();
             };
+
+            // Set correct icon based on ID
+            Rectangle srcRect = id switch
+            {
+                "sortAZ" => new     Rectangle(64 * 6, 128, 16, 16),
+                "sortVal" => new    Rectangle(64 * 6, 128 + 16, 16, 16),
+                "sortRarity" => new Rectangle(64 * 6 + 16, 128, 16, 16),
+                "sortNewest" => new Rectangle(64 * 6 + 16, 128 + 16, 16, 16),
+                _ => new Rectangle(64 + 32, 64 + 64, 32, 32)  // fallback
+            };
+
+            UI.UIManager.UIDesktop.SetButtonImage(id, new StaticSprite(SpriteSheets.UI_ICONS, srcRect));
         }
 
         private void RefreshSortButtonVisuals()
         {
-            UpdateSortButtonVisual(_btnSortAZ, SortMode.ByName);
-            UpdateSortButtonVisual(_btnSortVal, SortMode.ByValue);
-            UpdateSortButtonVisual(_btnSortRarity, SortMode.ByRarity);
-            UpdateSortButtonVisual(_btnSortNewest, SortMode.ByNewest);
+            UpdateSortButtonVisual("sortAZ", SortMode.ByName);
+            UpdateSortButtonVisual("sortVal", SortMode.ByValue);
+            UpdateSortButtonVisual("sortRarity", SortMode.ByRarity);
+            UpdateSortButtonVisual("sortNewest", SortMode.ByNewest);
         }
 
-        private void UpdateSortButtonVisual(ImageButton btn, SortMode mode)
+        private void UpdateSortButtonVisual(string id, SortMode mode)
         {
+            ImageButton btn = UI.UIManager.UIDesktop.FindById(id) as ImageButton;
+
             if (btn == null) return;
 
             if (_currentSortMode == mode)
@@ -274,5 +297,7 @@ namespace UI
                 //btn.Color = Color.White;
             }
         }
+
+
     }
 }
