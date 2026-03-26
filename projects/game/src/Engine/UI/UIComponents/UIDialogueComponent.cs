@@ -3,18 +3,16 @@ using Resources;
 
 namespace UI
 {
-    public class UITooltipComponent : UIComponent
+    public class UIDialogueComponent : UIComponent
     {
-        public UITooltipComponent()
+        public UIDialogueComponent()
         {
-            SetTemplate(UITemplates.TOOLTIP);
+            SetTemplate(UITemplates.DIALOGUE);
         }
 
         public override void Init()
         {
             base.Init();
         }
-
-        
     }
 }

@@ -278,11 +278,11 @@ namespace UI
 
             if (item == null || tooltip == null) return;
 
-            tooltip.SetLabel("tooltipName", item.Name);
-            tooltip.SetLabel("tooltipType", item.Type.ToString());
-            tooltip.SetLabel("tooltipDesc", item.Description);
-            tooltip.SetLabel("tooltipRarity", item.Rarity.ToString());
-            tooltip.SetLabel("tooltipValue", item.Value.ToString());
+            UI.UIManager.UIDesktop.SetLabelText("tooltipName", item.Name);
+            UI.UIManager.UIDesktop.SetLabelText("tooltipType", item.Type.ToString());
+            UI.UIManager.UIDesktop.SetLabelText("tooltipDesc", item.Description);
+            UI.UIManager.UIDesktop.SetLabelText("tooltipRarity", item.Rarity.ToString());
+            UI.UIManager.UIDesktop.SetLabelText("tooltipValue", item.Value.ToString());
 
             // position tooltip offset from cursor
             tooltip.Template.Project.Root.Left = position.X + 16;

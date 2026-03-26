@@ -24,7 +24,7 @@ namespace Resources
         QUIT,
         HUD,
         TOOLTIP,
-
+        DIALOGUE,
     };
 
 
@@ -64,7 +64,8 @@ namespace Resources
                 { UITemplates.QUIT,          "quit" },
                 { UITemplates.HUD,           "hud" },
                 { UITemplates.PANEL,         "panel"},
-                { UITemplates.TOOLTIP,       "tooltip"}
+                { UITemplates.TOOLTIP,       "tooltip"},
+                { UITemplates.DIALOGUE,      "dialogue"}
         };
     }
 }

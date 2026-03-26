@@ -141,5 +141,11 @@ namespace UI
             var btn = FindById(id) as ImageButton;
             btn.Image = new TextureRegion(ResourceLoader.spriteSheets[sprite.SpriteSheet].Texture, sprite.SrcRect);
         }
+
+        public void SetLabelText(string id, string text)
+        {
+            var lbl = FindById(id) as Label;
+            if (lbl != null) lbl.Text = text;
+        }
     }
 }

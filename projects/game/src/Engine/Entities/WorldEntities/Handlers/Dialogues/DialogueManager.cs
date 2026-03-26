@@ -43,7 +43,7 @@ namespace Entities
 
         public void InitializeUIDialogueComponent()
         {
-            //UI.UI.UIOuterNavigator.ShowDialogueComponent(CurrentSequence.GetDialogueById(CurrentDialogueId));
+            UI.UI.UIManager.UIDesktop.AddComponent(new UI.UIDialogueComponent());
         }
 
         public void UpdateUIDialogueComponent()
