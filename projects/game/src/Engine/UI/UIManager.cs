@@ -22,6 +22,11 @@ namespace UI
             RegisterInitialActions();
         }
 
+        public void Setup()
+        {
+            UIDesktop.AddComponent(new UIHUDComponent());
+        }
+
         public void RegisterAction(string key, Action<object[]> action)
         {
             Actions[key] = action;
@@ -66,6 +71,21 @@ namespace UI
             }
 
             UIDesktop.DragDropService.Update();
+
+            if(UIIngameMenuComponent.AnyOptionOpen() || UIDesktop.HasComponent(typeof(UIIngameMenuComponent)))
+            {
+                UI.PreventButtonPressedOverlap = true;
+            }
+            else
+            {
+                UI.PreventButtonPressedOverlap = false;
+            }
+
+            foreach (var component in UIDesktop.Components)
+            {
+                if(component != null)
+                    component.Update();
+            }
         }
 
         public void Draw()

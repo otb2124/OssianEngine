@@ -2,56 +2,37 @@
 <Project>
   <Panel>
 
-    <!-- top left: health + stamina -->
     <VerticalStackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
                         Spacing="6" Left="16" Top="16">
 
-      <HorizontalStackPanel Spacing="8">
-        <Label Text="HP" Width="24" StyleName="hud"/>
-        <HorizontalProgressBar Id="healthBar"  StyleName="healthBar"  Width="180" Height="14" Value="80"/>
-        <Label Id="lblHealth" Text="80/100"/>
-      </HorizontalStackPanel>
+      <Panel Width="180" Height="14">
+        <HorizontalProgressBar Id="healthBar" StyleName="healthBar" 
+                               Width="180" Height="14" Value="80"/>
+        <Label Id="lblHealth" Text="60/100"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               TextColor="White"
+               FontScale="0.9"/>
+      </Panel>
 
-      <HorizontalStackPanel Spacing="8">
-        <Label Text="SP" Width="24"/>
-        <HorizontalProgressBar Id="staminaBar" StyleName="staminaBar" Width="180" Height="14" Value="60"/>
-        <Label Id="lblStamina" Text="60/100"/>
-      </HorizontalStackPanel>
+      <Panel Width="180" Height="14">
+        <HorizontalProgressBar Id="manaBar" StyleName="manaBar" 
+                               Width="180" Height="14" Value="60"/>
+        <Label Id="lblMana" Text="60/100"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               TextColor="White"/>
+      </Panel>
 
-    </VerticalStackPanel>
+      <Panel Width="180" Height="14">
+        <HorizontalProgressBar Id="staminaBar" StyleName="staminaBar" 
+                               Width="180" Height="14" Value="60"/>
+        <Label Id="lblStamina" Text="60/100"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               TextColor="White"/>
+      </Panel>
 
-    <!-- top right: score + level -->
-    <VerticalStackPanel HorizontalAlignment="Right" VerticalAlignment="Top"
-                        Spacing="6" Left="16" Top="16">
-      <Label Id="lblScore" Text="Score: 0" HorizontalAlignment="Right"/>
-      <Label Id="lblLevel" Text="Level: 1" HorizontalAlignment="Right"/>
-      <Label Id="lblCoins" Text="Coins: 0" HorizontalAlignment="Right"/>
-    </VerticalStackPanel>
-
-    <!-- bottom left: ammo -->
-    <HorizontalStackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom"
-                          Spacing="6" Left="16" Top="16">
-      <Label Text="Ammo"/>
-      <Label Id="lblAmmo" Text="30"/>
-      <Label Text="/"/>
-      <Label Id="lblAmmoReserve" Text="90"/>
-    </HorizontalStackPanel>
-
-    <!-- bottom center: hotbar -->
-    <HorizontalStackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                          Spacing="4">
-      <ImageButton Id="slot0" Width="48" Height="48"/>
-      <ImageButton Id="slot1" Width="48" Height="48"/>
-      <ImageButton Id="slot2" Width="48" Height="48"/>
-      <ImageButton Id="slot3" Width="48" Height="48"/>
-      <ImageButton Id="slot4" Width="48" Height="48"/>
-    </HorizontalStackPanel>
-
-    <!-- boss health bar hidden by default -->
-    <VerticalStackPanel Id="bossPanel" HorizontalAlignment="Center" VerticalAlignment="Bottom"
-                        Spacing="4" Visible="false">
-      <Label Id="lblBossName" Text="Boss Name" HorizontalAlignment="Center"/>
-      <HorizontalProgressBar Id="bossHealthBar" Width="400" Height="18" Value="100"/>
     </VerticalStackPanel>
 
   </Panel>

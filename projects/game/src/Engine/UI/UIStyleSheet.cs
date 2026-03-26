@@ -96,9 +96,14 @@ namespace UI
             healthBar.Filler = new SolidBrush(new Color(221, 51, 51, 204));
             s.HorizontalProgressBarStyles["healthBar"] = healthBar;
 
+            var manaBar = (ProgressBarStyle)s.HorizontalProgressBarStyle.Clone();
+            manaBar.Background = new SolidBrush(new Color(0, 0, 0, 136));
+            manaBar.Filler = new SolidBrush(new Color(51, 170, 221, 204));
+            s.HorizontalProgressBarStyles["manaBar"] = manaBar;
+
             var staminaBar = (ProgressBarStyle)s.HorizontalProgressBarStyle.Clone();
             staminaBar.Background = new SolidBrush(new Color(0, 0, 0, 136));
-            staminaBar.Filler = new SolidBrush(new Color(51, 170, 221, 204));
+            staminaBar.Filler = new SolidBrush(new Color(21, 220, 10, 204));
             s.HorizontalProgressBarStyles["staminaBar"] = staminaBar;
 
             var bossBar = (ProgressBarStyle)s.HorizontalProgressBarStyle.Clone();

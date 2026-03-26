@@ -12,6 +12,14 @@ namespace UI
     public class UIHUDComponent : UIComponent
     {
 
+        public HorizontalProgressBar healthBar;
+        public HorizontalProgressBar manaBar;
+        public HorizontalProgressBar staminaBar;
+
+        public Label healthLabel;
+        public Label manaLabel;
+        public Label staminaLabel;
+
         public UIHUDComponent()
         {
             SetTemplate(UITemplates.HUD);
@@ -20,15 +28,38 @@ namespace UI
 
         public override void Init()
         {
-            var healthBar = UI.UIManager.UIDesktop.FindById("healthBar") as HorizontalProgressBar;
-            var lblScore = UI.UIManager.UIDesktop.FindById("lblScore") as Label;
-            var bossPanel = UI.UIManager.UIDesktop.FindById("bossPanel") as VerticalStackPanel;
+            healthBar = UI.UIManager.UIDesktop.FindById("healthBar") as HorizontalProgressBar;
+            manaBar = UI.UIManager.UIDesktop.FindById("manaBar") as HorizontalProgressBar;
+            staminaBar = UI.UIManager.UIDesktop.FindById("staminaBar") as HorizontalProgressBar;
 
-            healthBar.Value = 100;
-            lblScore.Text = $"Score: {100}";
-            bossPanel.Visible = false;
+            healthLabel = UI.UIManager.UIDesktop.FindById("lblHealth") as Label;
+            manaLabel = UI.UIManager.UIDesktop.FindById("lblMana") as Label;
+            staminaLabel = UI.UIManager.UIDesktop.FindById("lblStamina") as Label;
 
             base.Init();
+        }
+
+        public override void Update()
+        {
+            var hp = Entities.Entities.Player.StatsManager.GetStat(EntityStats.HP).CurrentValue;
+            var maxHP = Entities.Entities.Player.StatsManager.GetStat(EntityStats.HP).MaximumValue;
+            var mana = Entities.Entities.Player.StatsManager.GetStat(EntityStats.MANA).CurrentValue;
+            var maxMana = Entities.Entities.Player.StatsManager.GetStat(EntityStats.MANA).MaximumValue;
+            var stamina = Entities.Entities.Player.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue;
+            var maxStamina = Entities.Entities.Player.StatsManager.GetStat(EntityStats.STAMINA).MaximumValue;
+
+            healthBar.Value = hp;
+            healthBar.Maximum = maxHP;
+            manaBar.Value = mana;
+            manaBar.Maximum = maxMana;
+            staminaBar.Value = stamina;
+            staminaBar.Maximum = maxStamina;
+
+            healthLabel.Text = Math.Round(hp) + "/" + Math.Round(maxHP);
+            manaLabel.Text = Math.Round(mana) + "/" + Math.Round(maxMana);
+            staminaLabel.Text = Math.Round(stamina) + "/" + Math.Round(maxStamina);
+
+            base.Update();
         }
     }
 }

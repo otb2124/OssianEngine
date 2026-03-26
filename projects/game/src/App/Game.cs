@@ -39,6 +39,8 @@ namespace App
             Entities.Entities.EntityMapManager.LoadInitialMap();
 
             ResourceLoader.ContentLoaded = true;
+
+            UI.UI.Setup();
         }
 
         protected override void Update(GameTime gameTime)

@@ -60,7 +60,7 @@ namespace Entities
         public void SetState(KeyStates key, bool pressed)
         {
             if(ApplyUIPrevention && 
-               //UI.UI.PreventButtonPressedOverlap && 
+               UI.UI.PreventButtonPressedOverlap && 
                (key == KeyStates.ATTACKLIGHTPRESSED || key == KeyStates.ATTACKHEAVYPRESSED))
                return;
 

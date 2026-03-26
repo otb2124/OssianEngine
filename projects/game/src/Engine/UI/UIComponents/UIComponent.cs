@@ -13,15 +13,9 @@ namespace UI
         public readonly string EMPTY_TEMPLATE_STRING = "<Label Text=\"NO TEMPLATE\"/>";
         public UITemplate Template;
 
-        public UIComponent() 
-        {
+        public UIComponent() { }
 
-        }
-
-        public virtual void Init()
-        {
-
-        }
+        public virtual void Init() { }
 
         public void SetTemplate(UITemplates template)
         {
@@ -32,5 +26,7 @@ namespace UI
         {
             Template.Load();
         }
+
+        public virtual void Update() { }
     }
 }
