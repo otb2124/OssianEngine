@@ -3,7 +3,7 @@
   <Panel>
 
     <VerticalStackPanel HorizontalAlignment="Left" VerticalAlignment="Top"
-                        Spacing="6" Left="16" Top="16">
+                        Spacing="2" Left="16" Top="16">
 
       <Panel Width="180" Height="14">
         <HorizontalProgressBar Id="healthBar" StyleName="healthBar" 
