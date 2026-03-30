@@ -51,11 +51,11 @@ namespace Graphics
 
         public void Init()
         {
-            Effect fadeShader = ResourceLoader.shaders[Shaders.FX_CRT].Shader;
-
-            // Pass it to the effect class
-            var fade = new CRTEffect(fadeShader);
-            //Add(fade);
+            Effect crtShader = ResourceLoader.shaders[Shaders.FX_CRT].Shader;
+            var crt = new CRTEffect(crtShader);
+            crt.ScanlineStrength = 0.2f;
+            crt.Curvature = 0.9f;
+            //Add(crt);
         }
 
         // ── Effect list management ─────────────────────────────────────────────
@@ -74,9 +74,10 @@ namespace Graphics
         public void BeginCapture()
         {
             if (isCapturing)
-                throw new InvalidOperationException("PostProcessManager.BeginCapture() called twice without Process().");
+                throw new InvalidOperationException("...");
 
             game.GraphicsDevice.SetRenderTarget(rt[0]);
+            game.GraphicsDevice.Clear(Color.Black);   // ← ADD THIS
             isCapturing = true;
         }
 
@@ -87,38 +88,39 @@ namespace Graphics
         public void EndCaptureAndProcess(Sprites sprites, Rectangle destRect, GameTime gameTime)
         {
             if (!isCapturing)
-                throw new InvalidOperationException("PostProcessManager.EndCaptureAndProcess() called without BeginCapture().");
+                throw new InvalidOperationException("...");
 
-            // Return to backbuffer before the loop so each pass can write to the other RT.
-            game.GraphicsDevice.SetRenderTarget(null);
             isCapturing = false;
 
-            int src = 0; // RT index that contains the current frame
-            int dst = 1; // RT index to write the next effect into
+            int src = 0;
+            int dst = 1;
+
+            Rectangle fullRect = new Rectangle(0, 0, rt[0].Width, rt[0].Height);
 
             foreach (PostProcessEffect fx in effects)
             {
                 if (!fx.Enabled) continue;
 
-                // Write this effect's output into rt[dst].
                 game.GraphicsDevice.SetRenderTarget(rt[dst]);
-                game.GraphicsDevice.Clear(Color.Transparent);
+                game.GraphicsDevice.Clear(Color.Black);
 
                 fx.Apply(rt[src], gameTime);
 
+                // ← ADD THIS: bind the source RT to the shader's ScreenTexture sampler
+                fx.Shader.Parameters["ScreenTexture"]?.SetValue(rt[src]);
+
                 sprites.Begin(null, BlendState.Opaque, fx.Shader);
-                sprites.Draw(rt[src], destRect, Color.White);
+                sprites.DrawRT(rt[src], fullRect, Color.White);
                 sprites.End();
 
-                game.GraphicsDevice.SetRenderTarget(null);
-
-                // Swap roles.
                 (src, dst) = (dst, src);
             }
 
-            // Blit the final processed frame to the backbuffer.
+            // Unbind all RTs → back to backbuffer for the final present
+            game.GraphicsDevice.SetRenderTarget(null);
+
             sprites.Begin(null, BlendState.Opaque);
-            sprites.Draw(rt[src], destRect, Color.White);
+            sprites.DrawRT(rt[src], destRect, Color.White);   // ← DrawRT
             sprites.End();
         }
 

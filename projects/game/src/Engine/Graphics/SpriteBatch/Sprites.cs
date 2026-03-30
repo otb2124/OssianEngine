@@ -64,7 +64,18 @@ namespace Graphics
         public void Begin(Camera camera, BlendState blendState, Effect customEffect)
         {
             blendState = blendState ?? BlendState.Opaque;
+
+            // SpriteSortMode.Immediate is required for custom effects — without it
+            // SpriteBatch batches the draw and the effect never runs on the texture.
+            // MatrixTransform must be set manually since SpriteBatch can't inject it
+            // into a custom Effect the way it does with BasicEffect.
+            Viewport vp = game.GraphicsDevice.Viewport;
+            Matrix projection = Matrix.CreateOrthographicOffCenter(
+                0, vp.Width, vp.Height, 0, 0, 1);
+            customEffect.Parameters["MatrixTransform"]?.SetValue(projection);
+
             sprites.Begin(
+                sortMode: SpriteSortMode.Immediate,
                 samplerState: SamplerState.LinearClamp,
                 blendState: blendState,
                 rasterizerState: RasterizerState.CullNone,
@@ -81,7 +92,8 @@ namespace Graphics
             {
                 Viewport viewport = game.GraphicsDevice.Viewport;
                 effect.View = Matrix.Identity;
-                effect.Projection = Matrix.CreateOrthographicOffCenter(0, viewport.Width, 0, viewport.Height, 0, 1);
+                effect.Projection = Matrix.CreateOrthographicOffCenter(
+                    0, viewport.Width, 0, viewport.Height, 0, 1);
             }
             else
             {
@@ -160,6 +172,11 @@ namespace Graphics
         public void DrawString(SpriteFont font, string text, Vector2 position, float rotation, Vector2 origin, Vector2 scale, Color color, SpriteEffects effect, float layerDepth)
         {
             sprites.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.FlipVertically | effect, 0f);
+        }
+
+        public void DrawRT(Texture2D texture, Rectangle destinationRectangle, Color color)
+        {
+            sprites.Draw(texture, destinationRectangle, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
         }
     }
 }

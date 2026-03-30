@@ -168,32 +168,28 @@ namespace Graphics
             GraphicsDeviceManager.GraphicsDevice.Clear(Color.Black);
             Rectangle destRect = Screen.GetDestinationRectangle();
 
+            //GraphicsDeviceManager.GraphicsDevice.Clear(Color.Black);
+
             PostProcess.BeginCapture();
 
-            // Blit the raw world
+            // Use full RT dimensions — destRect letterboxing only applies on the final backbuffer blit
+            Rectangle fullRect = new Rectangle(0, 0, Screen.Width, Screen.Height);
+
             Sprites.Begin(null, BlendState.Opaque);
-            Sprites.Draw(Screen.Target, destRect, Color.White);
+            Sprites.DrawRT(Screen.Target, fullRect, Color.White);
             Sprites.End();
 
-            // Multiply the light mask over it
             if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
-                LightMask.Composite(Sprites, destRect);
+                LightMask.Composite(Sprites, fullRect);   // ← fullRect here too
             }
 
-            // Vignette and map-specific filter layers on top of the lit world
             if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 Sprites.Begin(null, BlendState.AlphaBlend);
                 FilterManager.Draw();
                 Sprites.End();
             }
-
-            // ── 4. Post-process chain → backbuffer ───────────────────────────────
-            //
-            // Runs all enabled PostProcessEffects in order (ping-pong between RT[0]/RT[1])
-            // then blits the final result to the backbuffer.
-            // If no effects are added, this just blits the captured frame directly.
 
             PostProcess.EndCaptureAndProcess(Sprites, destRect, _lastGameTime);
 
