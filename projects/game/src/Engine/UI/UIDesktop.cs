@@ -83,7 +83,7 @@ namespace UI
 
         public bool HasComponent(Type type)
         {
-            return Components.Find(c => c.GetType() == type) != null;
+            return GetComponent(type) != null;
         }
 
         public void ToggleComponent(Type type)
@@ -92,6 +92,12 @@ namespace UI
                 AddComponent((UIComponent)Activator.CreateInstance(type));
             else
                 RemoveComponent(type);
+        }
+
+
+        public UIComponent GetComponent(Type type)
+        {
+            return Components.Find(c => c.GetType() == type);
         }
 
         public void AddComponent(UIComponent component)
@@ -142,10 +148,18 @@ namespace UI
             btn.Image = new TextureRegion(ResourceLoader.spriteSheets[sprite.SpriteSheet].Texture, sprite.SrcRect);
         }
 
-        public void SetLabelText(string id, string text)
+        public void SetText(string id, string text)
         {
-            var lbl = FindById(id) as Label;
-            if (lbl != null) lbl.Text = text;
+            var component = FindById(id);
+
+            if (component == null)
+                return;
+
+            if (component is Label label)
+                label.Text = text;
+            if (component is TextBox textbox)
+                textbox.Text = text;
+            
         }
     }
 }

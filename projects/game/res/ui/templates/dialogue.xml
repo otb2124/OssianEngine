@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
   <Panel Id="root" Width="400" Height="300" Background="#1E1E28" BorderThickness="2" Border="#4A4A5A">
-    
-    <!-- Header / Author Section -->
+
     <HorizontalStackPanel Id="authorPanel" Top="10" Left="15" Height="30" Spacing="8">
       <Label Id="lblAuthorName" Text="Unknown Author" FontSize="18" TextColor="#FFFFFF" VerticalAlignment="Center" />
     </HorizontalStackPanel>
 
-    <!-- Description TextArea -->
     <TextBox Id="txtDescription" 
              Top="95" 
              Left="20" 
@@ -15,11 +13,9 @@
              Height="200" 
              FontSize="16" 
              TextColor="#CCCCCC" 
-             Background="#2A2A38" 
-             BorderThickness="1" 
+             Background="#1E1E28"  
              Border="#555566"
              Multiline="true"
-             WordWrap="true"
              ReadOnly="true" />
 
   </Panel>

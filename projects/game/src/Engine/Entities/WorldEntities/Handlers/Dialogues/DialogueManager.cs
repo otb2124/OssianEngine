@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UI;
 using static Utils.TupleObjectsHelper;
 
 namespace Entities
@@ -44,16 +45,19 @@ namespace Entities
         public void InitializeUIDialogueComponent()
         {
             UI.UI.UIManager.UIDesktop.AddComponent(new UI.UIDialogueComponent());
+            UpdateUIDialogueComponent();
         }
 
         public void UpdateUIDialogueComponent()
         {
-            //UI.UI.UIOuterNavigator.SetDialogueComponentData(CurrentSequence.GetDialogueById(CurrentDialogueId));
+            Dialogue dialogue = CurrentSequence.GetDialogueById(CurrentDialogueId);
+            UI.UI.UIManager.UIDesktop.SetText("lblAuthorName", dialogue.AuthorName);
+            UI.UI.UIManager.UIDesktop.SetText("txtDescription", dialogue.Text);
         }
 
         public void RemoveUIDialogueComponent()
         {
-            //UI.UI.UIOuterNavigator.RemoveDialogueComponent();
+            UI.UI.UIManager.UIDesktop.RemoveComponent(typeof(UI.UIDialogueComponent));
         }
 
         public void SetAnswer(int oldDialogueChosenOptionId)

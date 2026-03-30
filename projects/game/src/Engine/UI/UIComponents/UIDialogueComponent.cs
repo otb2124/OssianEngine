@@ -12,6 +12,8 @@ namespace UI
 
         public override void Init()
         {
+            var textbox = UI.UIManager.UIDesktop.FindById("txtDescription") as TextBox;
+            textbox.Readonly = true;
             base.Init();
         }
     }
