@@ -19,6 +19,8 @@ namespace Graphics
         private RenderTarget2D target;
         private bool isSet;
 
+        public RenderTarget2D Target => target;      // expose so Graphics.cs can restore it
+
         public Screen(Game game, int width, int height)
         {
             isDisposed = false;
@@ -38,17 +40,12 @@ namespace Graphics
 
         private void Dispose(bool disposing)
         {
-            if (isDisposed)
-            {
-                return;
-            }
-
+            if (isDisposed) return;
             if (disposing)
             {
                 target?.Dispose();
                 target = null;
             }
-
             isDisposed = true;
             GC.SuppressFinalize(this);
         }
@@ -56,9 +53,7 @@ namespace Graphics
         public void Set()
         {
             if (isSet)
-            {
                 throw new Exception("The Screen is already set as the rendering target.");
-            }
 
             game.GraphicsDevice.SetRenderTarget(target);
             isSet = true;
@@ -67,9 +62,7 @@ namespace Graphics
         public void Unset()
         {
             if (!isSet)
-            {
                 throw new Exception("Function \"SetGameProps\" must be called before \"UnSet\" as pairs.");
-            }
 
             game.GraphicsDevice.SetRenderTarget(null);
             isSet = false;
@@ -83,14 +76,10 @@ namespace Graphics
         public void Present(Sprites sprites, Color backgroundColor, bool textureFiltering = true)
         {
             if (isSet)
-            {
                 throw new Exception("The \"Screen\" is currently set as the render target. \"UnSet\" the \"Screen\" before presenting.");
-            }
 
             if (sprites is null)
-            {
                 throw new ArgumentNullException("Sprites");
-            }
 
             game.GraphicsDevice.Clear(backgroundColor);
 
@@ -101,10 +90,15 @@ namespace Graphics
             sprites.End();
         }
 
+        /// <summary>
+        /// Returns the letterboxed/pillarboxed destination rectangle used when blitting
+        /// the Screen to the backbuffer. Use this in Graphics.cs when compositing the
+        /// light mask so it lines up perfectly with the world blit.
+        /// </summary>
+        public Rectangle GetDestinationRectangle() => CalculateDestinationRectangle();
+
         internal Rectangle CalculateDestinationRectangle()
         {
-            // TODO: Should I recalculate the destination rectangle everytime or just calculate it when the game window size changes?
-
             Rectangle backbufferRectangle = game.GraphicsDevice.PresentationParameters.Bounds;
             float backbuffer_aspect = backbufferRectangle.Width / (float)backbufferRectangle.Height;
             float screen_aspect = Width / (float)Height;
@@ -125,8 +119,7 @@ namespace Graphics
                 rx = (backbufferRectangle.Width - rw) / 2f;
             }
 
-            Rectangle result = new Rectangle((int)rx, (int)ry, (int)rw, (int)rh);
-            return result;
+            return new Rectangle((int)rx, (int)ry, (int)rw, (int)rh);
         }
     }
 }

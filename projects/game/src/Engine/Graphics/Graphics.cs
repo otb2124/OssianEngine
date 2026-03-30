@@ -25,6 +25,9 @@ namespace Graphics
         public static FilterManager FilterManager;
         public static VFXManager VFXManager;
 
+        // ── Light mask ────────────────────────────────────────────────────────
+        public static LightMaskTarget LightMask;
+
         public const double UpdatesPerSecond = 120d;
         public const double TargetLogicFrameRate = 60d;
         public const double TimeScale = UpdatesPerSecond / TargetLogicFrameRate;
@@ -55,6 +58,10 @@ namespace Graphics
             ContentManager = game.Content;
             ContentManager.RootDirectory = ResourceLoader.ContentFolderPath;
             Camera = new Camera(Screen, game);
+
+            // Create the light mask at the same resolution as the Screen so
+            // every pixel lines up 1-to-1 when we blit both to the backbuffer.
+            LightMask = new LightMaskTarget(game, ScreenResolution.X, ScreenResolution.Y);
         }
 
 
@@ -97,19 +104,18 @@ namespace Graphics
         {
             GraphicsDeviceManager.GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            // ── 1. World pass → Screen RenderTarget ───────────────────────────
+
             Screen.Set();
 
-            //bg
             Sprites.Begin(Camera, BlendState.Additive);
             BackgroundManager.DrawCanvas();
             Sprites.End();
 
-            //bg MapLayers
             Sprites.Begin(Camera, BlendState.NonPremultiplied);
             BackgroundManager.Draw();
             Sprites.End();
 
-            //entity Sprites
             Sprites.Begin(Camera);
             Entities.Entities.EntityManager.Draw();
             ParticleManager.Draw();
@@ -117,20 +123,65 @@ namespace Graphics
             BackgroundManager.DrawParallaxFrontLayers();
             Sprites.End();
 
+            Screen.Unset();
+
+            // ── 2. Light mask pass → LightMask RenderTarget ───────────────────
+            //
+            // AmbientColor is set from the day/night darkness layers so the mask
+            // automatically tracks the time of day:
+            //   noon    → FilterManager returns White  → no darkening
+            //   sunset  → returns dark orange-ish      → warm dim ambient
+            //   midnight→ returns near-Black            → only lit spots visible
+            //
+            // Light blobs are drawn additively on top of that ambient base,
+            // then multiplied over the world in step 3.
+
             if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
-                //filters
-                Sprites.Begin(Camera, BlendState.AlphaBlend);
-                FilterManager.Draw();
+                LightMask.AmbientColor = FilterManager.GetDayTimeAmbient();
+
+                LightMask.BeginMask();
+
+                Sprites.Begin(Camera, BlendState.Additive);
+                LightManager.Draw();
                 Sprites.End();
 
-                //light
-                Sprites.Begin(Camera, BlendState.Additive, false, true);
-                LightManager.Draw();
+                LightMask.EndMask(previousTarget: null);
+            }
+
+            // ── 3. Composite world + mask onto backbuffer ─────────────────────
+
+            GraphicsDeviceManager.GraphicsDevice.Clear(Color.Black);
+            Rectangle destRect = Screen.GetDestinationRectangle();
+
+            // Blit the raw world
+            Sprites.Begin(null, BlendState.Opaque);
+            Sprites.Draw(Screen.Target, destRect, Color.White);
+            Sprites.End();
+
+            // Multiply the light mask over it
+            // (dark ambient pixels stay dark; lit pixels survive)
+            if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
+            {
+                LightMask.Composite(Sprites, destRect);
+            }
+
+            // ── 4. Post-composite sprite overlays ─────────────────────────────
+            //
+            // Vignette and map-specific filter layers (fog, color tints) draw
+            // here — after the mask — so they sit on top of the lit world.
+            // The full-screen darkness layer is handled by the mask above and
+            // is intentionally skipped inside FilterManager.Draw().
+
+            if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
+            {
+                Sprites.Begin(null, BlendState.AlphaBlend);
+                FilterManager.Draw();
                 Sprites.End();
             }
 
-            //hitboxes over models (fix to over entity Sprites, but under weapon Sprites)
+            // ── 5. Debug overlays ─────────────────────────────────────────────
+
             if (GameStateManager.gameMode == GameStateManager.GameModes.COLLISION_DEBUG_MODE)
             {
                 Shapes.Begin(Camera);
@@ -146,10 +197,7 @@ namespace Graphics
                 Shapes.End();
             }
 
-            Screen.Unset();
-            Screen.Present(Sprites, Color.Black, true);
-
-            //ui
+            // ── 6. UI ─────────────────────────────────────────────────────────
             UI.UI.Draw();
         }
 

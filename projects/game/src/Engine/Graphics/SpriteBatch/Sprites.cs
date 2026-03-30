@@ -79,7 +79,7 @@ namespace Graphics
                 {
                     samplerState = SamplerState.AnisotropicClamp;
                 }
-                else if(alwaysAnisoTroph)
+                else if (alwaysAnisoTroph)
                 {
                     samplerState = SamplerState.AnisotropicClamp;
                 }
@@ -101,6 +101,11 @@ namespace Graphics
         public void Draw(Texture2D texture, Rectangle destinationRectangle, Color color)
         {
             sprites.Draw(texture, destinationRectangle, null, color, 0f, Vector2.Zero, SpriteEffects.FlipVertically, 0f);
+        }
+
+        public void Draw(Texture2D texture, Rectangle destinationRectangle, Rectangle? sourceRectangle, Color color)
+        {
+            sprites.Draw(texture, destinationRectangle, sourceRectangle, color, 0f, Vector2.Zero, SpriteEffects.FlipVertically, 0f);
         }
 
         public void Draw(Texture2D texture, Rectangle? sourceRectangle, Vector2 origin, Vector2 position, float rotation, float scale, Color color)

@@ -6,6 +6,7 @@ namespace Entities
     public class GlobalMapTime
     {
         public float TotalGameHours;
+        //private const float HoursPerSecond = 0.01f;
         private const float HoursPerSecond = 0.01f;
 
         public GlobalMapTime()

@@ -65,7 +65,7 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
+            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TORCH)));
 
             /*
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Helmets.IRON_HELMET));
@@ -97,7 +97,7 @@ namespace Entities
             Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
             Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
             Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TORCH)));
+            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
 
 
 
