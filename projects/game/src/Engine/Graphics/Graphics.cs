@@ -28,6 +28,9 @@ namespace Graphics
         // ── Light mask ────────────────────────────────────────────────────────
         public static LightMaskTarget LightMask;
 
+        // ── Post-process ──────────────────────────────────────────────────────
+        public static PostProcessManager PostProcess;
+
         public const double UpdatesPerSecond = 120d;
         public const double TargetLogicFrameRate = 60d;
         public const double TimeScale = UpdatesPerSecond / TargetLogicFrameRate;
@@ -62,6 +65,9 @@ namespace Graphics
             // Create the light mask at the same resolution as the Screen so
             // every pixel lines up 1-to-1 when we blit both to the backbuffer.
             LightMask = new LightMaskTarget(game, ScreenResolution.X, ScreenResolution.Y);
+
+            // Post-process ping-pong buffers at Screen resolution.
+            PostProcess = new PostProcessManager(game, ScreenResolution.X, ScreenResolution.Y);
         }
 
 
@@ -95,9 +101,13 @@ namespace Graphics
             VFXManager.Update();
         }
 
+        // Store GameTime so Draw() can pass it to PostProcessManager.
+        private static GameTime _lastGameTime;
+
         public static void UpdateGameTime(GameTime newGameTime)
         {
             CurrentLogicTime = (double)newGameTime.ElapsedGameTime.TotalSeconds * TimeScale;
+            _lastGameTime = newGameTime;
         }
 
         public static void Draw()
@@ -149,10 +159,16 @@ namespace Graphics
                 LightMask.EndMask(previousTarget: null);
             }
 
-            // ── 3. Composite world + mask onto backbuffer ─────────────────────
+            // ── 3. Composite world + mask → captured into PostProcess RT ─────────
+            //
+            // BeginCapture() redirects rendering into the post-process ping-pong buffer.
+            // Everything drawn between BeginCapture and EndCaptureAndProcess becomes
+            // the input texture for the first post-process effect in the chain.
 
             GraphicsDeviceManager.GraphicsDevice.Clear(Color.Black);
             Rectangle destRect = Screen.GetDestinationRectangle();
+
+            PostProcess.BeginCapture();
 
             // Blit the raw world
             Sprites.Begin(null, BlendState.Opaque);
@@ -160,25 +176,26 @@ namespace Graphics
             Sprites.End();
 
             // Multiply the light mask over it
-            // (dark ambient pixels stay dark; lit pixels survive)
             if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 LightMask.Composite(Sprites, destRect);
             }
 
-            // ── 4. Post-composite sprite overlays ─────────────────────────────
-            //
-            // Vignette and map-specific filter layers (fog, color tints) draw
-            // here — after the mask — so they sit on top of the lit world.
-            // The full-screen darkness layer is handled by the mask above and
-            // is intentionally skipped inside FilterManager.Draw().
-
+            // Vignette and map-specific filter layers on top of the lit world
             if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 Sprites.Begin(null, BlendState.AlphaBlend);
                 FilterManager.Draw();
                 Sprites.End();
             }
+
+            // ── 4. Post-process chain → backbuffer ───────────────────────────────
+            //
+            // Runs all enabled PostProcessEffects in order (ping-pong between RT[0]/RT[1])
+            // then blits the final result to the backbuffer.
+            // If no effects are added, this just blits the captured frame directly.
+
+            PostProcess.EndCaptureAndProcess(Sprites, destRect, _lastGameTime);
 
             // ── 5. Debug overlays ─────────────────────────────────────────────
 

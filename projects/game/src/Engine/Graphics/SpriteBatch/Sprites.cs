@@ -57,6 +57,20 @@ namespace Graphics
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Post-process overload: bypasses BasicEffect entirely and uses the supplied
+        /// custom Effect instead. Always draws without a camera (screen-space).
+        /// </summary>
+        public void Begin(Camera camera, BlendState blendState, Effect customEffect)
+        {
+            blendState = blendState ?? BlendState.Opaque;
+            sprites.Begin(
+                samplerState: SamplerState.LinearClamp,
+                blendState: blendState,
+                rasterizerState: RasterizerState.CullNone,
+                effect: customEffect);
+        }
+
         public void Begin(Camera camera = null, BlendState blendState = null, bool zAnisoTroph = false, bool alwaysAnisoTroph = false)
         {
             bool textureFiltering = false;

@@ -41,6 +41,8 @@ namespace App
             ResourceLoader.ContentLoaded = true;
 
             UI.UI.Setup();
+
+            Graphics.Graphics.PostProcess.Init();
         }
 
         protected override void Update(GameTime gameTime)
