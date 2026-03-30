@@ -18,7 +18,7 @@ namespace Entities
             string methodName) where T : PhysicalEntity
         {
             EntityMap map = Entities.EntityMapManager.GetCurrentMap();
-            if (map == null || map.Entities == null)
+            if (map == null || map.Layers[Entities.EntityMapManager.CurrentMapLayerId].Entities == null)
             {
                 return null;
             }
@@ -26,7 +26,7 @@ namespace Entities
             T nearestEntity = null;
             float minDistance = float.MaxValue;
 
-            foreach (var entity in map.Entities.OfType<T>().Where(predicate))
+            foreach (var entity in map.Layers[Entities.EntityMapManager.CurrentMapLayerId].Entities.OfType<T>().Where(predicate))
             {
                 if (entity == entFrom) continue;
 

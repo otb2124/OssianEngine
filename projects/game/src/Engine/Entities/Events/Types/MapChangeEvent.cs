@@ -18,6 +18,7 @@ namespace Entities
 
         public Directions Direction;
         public int MapTo;
+        public int LayerTo;
         public Vector2 PosTo;
 
         public MapChangeEvents Type;
@@ -28,11 +29,12 @@ namespace Entities
             INTERACT_PRESSED,
         }
 
-        public MapChangeEvent(int id, Vector2 pos, Vector2 size, Directions direction, int mapTo, Vector2 posTo, MapChangeEvents type = MapChangeEvents.AUTO) : base(id)
+        public MapChangeEvent(int id, Vector2 pos, Vector2 size, Directions direction, int mapTo, int layerTo, Vector2 posTo, MapChangeEvents type = MapChangeEvents.AUTO) : base(id)
         {
             Position = pos;
             Size = size;
             MapTo = mapTo;
+            LayerTo = layerTo;
             Direction = direction;
             PosTo = posTo;
             Type = type;
@@ -61,7 +63,7 @@ namespace Entities
                 if(Type == MapChangeEvents.AUTO)
                 {
                     Entities.EntityMapManager.GlobalMapTime.AdjustForTravel(GlobalMapTime.MapTravelTimeMap[new Point(Entities.EntityMapManager.CurrentMapId, MapTo)]);
-                    Entities.EntityMapManager.LoadMap(MapTo, PosTo);
+                    Entities.EntityMapManager.LoadLayer(MapTo, LayerTo, PosTo);
                 }
 
                 if(Type == MapChangeEvents.INTERACT_PRESSED)
@@ -69,14 +71,14 @@ namespace Entities
                     if (Entities.Player.EntityControlHandler.ControlStateMap[Inputs.KeyHandler.KeyStates.INTERACTRESSED])
                     {
                         Entities.EntityMapManager.GlobalMapTime.AdjustForTravel(GlobalMapTime.MapTravelTimeMap[new Point(Entities.EntityMapManager.CurrentMapId, MapTo)]);
-                        Entities.EntityMapManager.LoadMap(MapTo, PosTo);
+                        Entities.EntityMapManager.LoadLayer(MapTo, LayerTo, PosTo);
                     }
                 }
             }
         }
 
 
-        public void DrawCollider()
+        public override void DrawCollider()
         {
             LocationChangeHitbox.Draw(Color.Purple);
         }

@@ -22,12 +22,12 @@ namespace Entities
 
         public void Init()
         {
-            //Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities = EntityMapSetter.FillEntityMap(Entities.EntityMapManager.CurrentMapId);
+            //Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities = EntityMapSetter.FillEntityMapLayer(Entities.EntityMapManager.CurrentMapId);
         }
 
         public void Update()
         {
-            var entitiesSnapshot = Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.ToList();
+            var entitiesSnapshot = Entities.EntityMapManager.GetCurrentMapLayer().Entities.ToList();
 
             foreach (var entFrom in entitiesSnapshot)
             {
@@ -83,7 +83,7 @@ namespace Entities
 
         public bool HasPlayer()
         {
-            return Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.Contains(Entities.Player);
+            return Entities.EntityMapManager.GetCurrentMapLayer().Entities.Contains(Entities.Player);
         }
 
         public void AddEntity(WorldEntity ent)
@@ -92,7 +92,7 @@ namespace Entities
             {
                 Physics.Physics.flatWorld.AddBody(physicalEntity.Model.Body);
             }
-            Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.Add(ent);
+            Entities.EntityMapManager.GetCurrentMapLayer().Entities.Add(ent);
 
         }
         public void RemoveEntity(WorldEntity ent)
@@ -101,12 +101,12 @@ namespace Entities
             {
                 Physics.Physics.flatWorld.RemoveBody(physicalEntity.Model.Body);
             }
-            Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.Remove(ent);   
+            Entities.EntityMapManager.GetCurrentMapLayer().Entities.Remove(ent);   
         }
 
         public void RemoveAll()
         {
-            var entitiesSnapshot = Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.ToList();
+            var entitiesSnapshot = Entities.EntityMapManager.GetCurrentMapLayer().Entities.ToList();
             foreach (WorldEntity entity in entitiesSnapshot)
             {
                 if(!(entity is Player))
@@ -120,7 +120,7 @@ namespace Entities
         public void RemovePhysicalEntityWhenOutOfBounds(PhysicalEntity ent)
         {
             Vector2 entPos = ent.Model.Body.Position.ToVector2();
-            Vector2 mapSize = Entities.EntityMapManager.GetCurrentMap().Size.ToVector2() * EntityOutOfBoudsDeletionMapSizeMultiplier;
+            Vector2 mapSize = Entities.EntityMapManager.GetCurrentMapLayer().Size.ToVector2() * EntityOutOfBoudsDeletionMapSizeMultiplier;
             Rectangle worldBounds = new Rectangle((int)-mapSize.X/2, (int)-mapSize.Y/2, (int)mapSize.X, (int)mapSize.Y);
 
             if (!worldBounds.Contains(entPos))
@@ -138,7 +138,7 @@ namespace Entities
                 return nextId++;
             }
 
-            var entities = Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities ?? (Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities = new List<WorldEntity>());
+            var entities = Entities.EntityMapManager.GetCurrentMapLayer().Entities ?? (Entities.EntityMapManager.GetCurrentMapLayer().Entities = new List<WorldEntity>());
             while (entities.Any(e => e.Id == nextId))
             {
                 nextId++;
@@ -152,12 +152,12 @@ namespace Entities
 
         public WorldEntity GetEntityById(int id)
         {
-            return Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities.FirstOrDefault(e => e.Id == id);
+            return Entities.EntityMapManager.GetCurrentMapLayer().Entities.FirstOrDefault(e => e.Id == id);
         }
 
         public NPCEntity GetEntityByEntityDialogueId(int entityDialogueId)
         {
-            foreach (WorldEntity entity in Entities.EntityMapManager.GetCurrentMap().Entities)
+            foreach (WorldEntity entity in Entities.EntityMapManager.GetCurrentMapLayer().Entities)
             {
                 if(entity is NPCEntity interactiveEnt)
                 {
@@ -184,7 +184,7 @@ namespace Entities
         //models
         public void Draw()
         {
-            var sortedEntities = Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities
+            var sortedEntities = Entities.EntityMapManager.GetCurrentMapLayer().Entities
                 .OrderBy(e =>
                     (e is TileEntity plent) ? plent.SpriteZ
                     : (e is PhysicalEntity phent) ? phent.SpriteZ
@@ -202,7 +202,7 @@ namespace Entities
         //collisions
         public void DrawColliders()
         {
-            foreach (var entity in Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities)
+            foreach (var entity in Entities.EntityMapManager.GetCurrentMapLayer().Entities)
             {
                 if (entity is PhysicalEntity physEnt)
                 {
@@ -220,7 +220,7 @@ namespace Entities
         //hitboxes
         public void DrawHitboxes()
         {
-            foreach (var entity in Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Entities)
+            foreach (var entity in Entities.EntityMapManager.GetCurrentMapLayer().Entities)
             {
                 if (entity is BattleEntity bEnt)
                 {

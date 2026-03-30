@@ -11,7 +11,7 @@ namespace Entities
 
         public void Update()
         {
-            foreach (Event Event in Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Events)
+            foreach (Event Event in Entities.EntityMapManager.GetCurrentMapLayer().Events)
             {
                 Event.Update();
             }
@@ -19,12 +19,11 @@ namespace Entities
 
         public void DrawColliders()
         {
-            foreach (Event Event in Entities.EntityMapManager.maps[Entities.EntityMapManager.CurrentMapId].Events)
+            foreach (Event Event in Entities.EntityMapManager.GetCurrentMapLayer().Events)
             {
-                if(Event is MapChangeEvent lce)
-                {
-                    lce.DrawCollider();
-                }
+
+                Event.DrawCollider();
+                
             }
         }
     }

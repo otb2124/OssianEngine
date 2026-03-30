@@ -328,7 +328,7 @@ namespace Entities {
                     foreach (Item item in droppedItems)
                     {
                         InteractiveItemEntity itemEnt = EntityHelper.CreateItemDrop(item, Entity.Model.Body.Position.ToVector2());
-                        Entities.EntityMapManager.GetCurrentMap().Entities.Add(itemEnt);
+                        Entities.EntityMapManager.GetCurrentMapLayer().Entities.Add(itemEnt);
                         Graphics.Graphics.LightManager.AddEntityEmissionLightSource(itemEnt);
                     }
                 }

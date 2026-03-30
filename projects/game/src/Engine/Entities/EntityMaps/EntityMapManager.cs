@@ -16,8 +16,9 @@ namespace Entities
 
         public EntityMap[] maps;
         public int CurrentMapId;
-        public int MapsCount;
+        public int CurrentMapLayerId = 0; //TODO: RE HARDCODE
 
+        public int MapsCount;
         public GlobalMapTime GlobalMapTime;
 
         public EntityMapManager()
@@ -33,9 +34,13 @@ namespace Entities
             for (int i = 0; i < MapsCount; i++)
             {
                 maps[i] = new EntityMap(i);
-                maps[i].Entities = EntityMapSetter.FillEntityMap(i);
-                maps[i].Events = EventMapSetter.FillEventMap(i);
-                maps[i].FilterLayers = FilterLayerMapSetter.FillFilterLayerMap(i);
+
+                for (global::System.Int32 j = 0; j < maps[i].Layers.Count; j++)
+                {
+                    maps[i].Layers[j].Entities = EntityMapSetter.FillEntityMapLayer(i, j);
+                    maps[i].Layers[j].Events = EventMapSetter.FillEventMap(i, j);
+                    maps[i].Layers[j].FilterLayers = FilterLayerMapSetter.FillFilterLayerMap(i, j);
+                }
             }
         }
 
@@ -44,7 +49,7 @@ namespace Entities
             GlobalMapTime.Update();
         }
 
-        public void LoadMap(int nextId, Vector2 playerPos)
+        public void LoadLayer(int nextMapId, int nextLayerId, Vector2 playerPos)
         {
             ResourceLoader.MapLoaded = false;
 
@@ -57,11 +62,11 @@ namespace Entities
                 Entities.EntityManager.RemoveEntity(Entities.Player);
             }
 
-            CurrentMapId = nextId;
+            CurrentMapId = nextMapId;
             Entities.Player.Model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(playerPos));
-            maps[nextId].Entities.Add(Entities.Player);
+            maps[nextMapId].Layers[nextLayerId].Entities.Add(Entities.Player);
 
-            Physics.Physics.flatWorld.RefreshList(maps[nextId].Entities);
+            Physics.Physics.flatWorld.RefreshList(maps[nextMapId].Layers[nextLayerId].Entities);
 
             Graphics.Graphics.BackgroundManager.RemoveAll();
             Graphics.Graphics.BackgroundManager.Init();
@@ -72,9 +77,26 @@ namespace Entities
             ResourceLoader.MapLoaded = true;
         }
 
+        public void LoadPreviousLayer()
+        {
+            CurrentMapLayerId--;
+            ReloadLayer();
+        }
+
+        public void LoadNextLayer()
+        {
+            CurrentMapLayerId++;
+            ReloadLayer();
+        }
+
+        public void ReloadLayer()
+        {
+            LoadLayer(CurrentMapId, CurrentMapLayerId, Entities.Player.Model.Body.Position.ToVector2());
+        }
+
         public void LoadInitialMap()
         {
-            LoadMap(0, new Vector2(0, 1000));
+            LoadLayer(0, 0, new Vector2(0, 1000));
         }
 
 
@@ -83,5 +105,9 @@ namespace Entities
             return maps[CurrentMapId];
         }
 
+        public EntityMapLayer GetCurrentMapLayer()
+        {
+            return GetCurrentMap().GetLayer(CurrentMapLayerId);
+        }
     }
 }

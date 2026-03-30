@@ -11,15 +11,12 @@ namespace Entities
     public class EntityMap
     {
         public int Id;
-
-        public Point Size;
-        public List<WorldEntity> Entities;
-        public List<Event> Events;
-        public List<FilterLayer> FilterLayers;
+        public List<EntityMapLayer> Layers;
 
         public EntityMap(int id)
         {
             Id = id;
+            Layers = new List<EntityMapLayer>();
             Init();
         }
 
@@ -28,13 +25,18 @@ namespace Entities
             switch(Id)
             {
                 case 0:
-                    Size = new Point(2560, 1440);
+                    Layers.Add(new EntityMapLayer(0, new Point(2560, 1440)));
+                    Layers.Add(new EntityMapLayer(1, new Point(2560, 1440)));
                     break;
                 case 1:
-                    Size = new Point(2560, 1440);
+                    Layers.Add(new EntityMapLayer(0, new Point(2560, 1440)));
                     break;
             }
-            
+        }
+
+        public EntityMapLayer GetLayer(int id)
+        {
+            return Layers.Where(layer => layer.Id == id).FirstOrDefault();
         }
     }
 }
