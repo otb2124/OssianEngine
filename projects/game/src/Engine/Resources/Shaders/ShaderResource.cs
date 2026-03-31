@@ -11,6 +11,13 @@ namespace Resources
         FX_COLOR_GRADE,
         FX_SCREEN_FADE,
         FX_CRT,
+        FX_SATURATION,
+        FX_BRIGHTNESS_CONTRAST,
+        FX_GAMMA_Correction,
+        FX_SIMPLE_SHADOW,
+        FX_VIGNETTE,
+        FX_BLOOM,
+        FX_RIM_LIGHT_COMPOSITE,
     }
 
     public class ShaderResource
@@ -35,7 +42,7 @@ namespace Resources
                                                                                                    // Better way:
                 AppDomain.CurrentDomain.BaseDirectory,   // or use Content.RootDirectory if you prefer
                 "Content",
-                ShaderPath + ".mgfxo"
+                "res/shaders/" + ShaderPath + ".mgfxo"
             );
 
             if (!File.Exists(fullPath))
@@ -57,10 +64,17 @@ namespace Resources
 
         public static Dictionary<Shaders, string> PathMap = new Dictionary<Shaders, string>()
         {
-            { Shaders.NONE,          "res/shaders/None" },
-            { Shaders.FX_COLOR_GRADE,"res/shaders/ColorGrade" },
-            { Shaders.FX_SCREEN_FADE,"res/shaders/ScreenFade" },
-            { Shaders.FX_CRT,        "res/shaders/CRT" },
+            { Shaders.NONE,          "None" },
+            { Shaders.FX_COLOR_GRADE,"ColorGrade" },
+            { Shaders.FX_SCREEN_FADE,"ScreenFade" },
+            { Shaders.FX_CRT,        "CRT" },
+            { Shaders.FX_SATURATION, "Saturation" },
+            { Shaders.FX_BRIGHTNESS_CONTRAST, "BrightnessContrast" },
+            { Shaders.FX_SIMPLE_SHADOW, "SimpleShadow" },
+            { Shaders.FX_GAMMA_Correction, "GammaCorrection" },
+            { Shaders.FX_VIGNETTE, "Vignette" },
+            { Shaders.FX_BLOOM,    "Bloom" },
+            { Shaders.FX_RIM_LIGHT_COMPOSITE, "RimLightComposite" }
         };
     }
 }

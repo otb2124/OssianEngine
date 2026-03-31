@@ -51,11 +51,46 @@ namespace Graphics
 
         public void Init()
         {
-            Effect crtShader = ResourceLoader.shaders[Shaders.FX_CRT].Shader;
-            var crt = new CRTEffect(crtShader);
-            crt.ScanlineStrength = 0.2f;
-            crt.Curvature = 0.9f;
-            //Add(crt);
+            Effect saturationShader = ResourceLoader.shaders[Shaders.FX_SATURATION].Shader;
+            var saturation = new SaturationEffect(saturationShader);
+            saturation.Saturation = 0.75f;
+            Add(saturation);
+
+            Effect contrastShader = ResourceLoader.shaders[Shaders.FX_BRIGHTNESS_CONTRAST].Shader;
+            var contrast = new BrightnessContrastEffect(contrastShader);
+            contrast.Brightness = 1.08f;
+            contrast.Contrast = 1.18f;
+            Add(contrast);
+
+            Effect colorGradeShader = ResourceLoader.shaders[Shaders.FX_COLOR_GRADE].Shader;
+            var colorGrade = new ColorGradeEffect(colorGradeShader);
+            colorGrade.TintColor = new Color(255, 240, 200);
+            colorGrade.Intensity = 0.22f;
+            Add(colorGrade);
+
+            Effect vignetteShader = ResourceLoader.shaders[Shaders.FX_VIGNETTE].Shader;
+            var vignette = new VignetteEffect(vignetteShader);
+            vignette.Intensity = 0.2f;
+            vignette.Radius = 0.1f;
+            Add(vignette);
+
+            var bloom = new BloomEffect(ResourceLoader.shaders[Shaders.FX_BLOOM].Shader);
+            bloom.Threshold = 0.75f;
+            bloom.Intensity = 0.5f;      // ← tweak this (higher = stronger glow)
+            bloom.Radius = 4.0f;
+            //Add(bloom);
+
+            // 4. Rim light - Makes characters and bright objects stand out
+            var rimLight = new RimLightEffect(ResourceLoader.shaders[Shaders.FX_RIM_LIGHT_COMPOSITE].Shader);
+            rimLight.Intensity = 0.15f;
+            rimLight.Power = 4.0f;
+            rimLight.RimColor = new Color(255, 248, 220);
+            Add(rimLight);
+
+            // Effect gammaShader = ResourceLoader.shaders[Shaders.FX_GAMMA].Shader;
+            // var gamma = new GammaCorrectionEffect(gammaShader);
+            // gamma.Gamma = 2.1f;     // slightly lower than 2.2 for softer feel
+            // Add(gamma);
         }
 
         // ── Effect list management ─────────────────────────────────────────────

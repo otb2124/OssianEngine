@@ -5,18 +5,11 @@ namespace Graphics
 {
     // ─────────────────────────────────────────────────────────────────────────
     // ColorGradeEffect
-    //
-    // Tints the entire screen toward a color at a given intensity.
-    // Good for: hurt flash, poison overlay, underwater tint, area transitions.
-    //
-    // Shader parameters expected in the .fx file:
-    //   float4 TintColor   — the color to blend toward
-    //   float  Intensity   — 0 = no effect, 1 = fully the tint color
     // ─────────────────────────────────────────────────────────────────────────
     public class ColorGradeEffect : PostProcessEffect
     {
         public Color TintColor = Color.White;
-        public float Intensity = 0f;           // 0–1
+        public float Intensity = 0f; // 0 = no tint, 1 = full tint
 
         public ColorGradeEffect(Effect shader) : base(shader) { }
 
@@ -29,21 +22,11 @@ namespace Graphics
 
     // ─────────────────────────────────────────────────────────────────────────
     // ScreenFadeEffect
-    //
-    // Fades the screen to a solid color (default black).
-    // Drive Alpha from 0 → 1 to fade out, 1 → 0 to fade in.
-    //
-    // Uses no shader — just draws a solid color quad over the composited frame
-    // using AlphaBlend, so it works without any .fx file.
-    //
-    // Shader parameters expected in the .fx file:
-    //   float4 FadeColor  — the fade-to color (usually black)
-    //   float  Alpha      — 0 = invisible, 1 = fully opaque
     // ─────────────────────────────────────────────────────────────────────────
     public class ScreenFadeEffect : PostProcessEffect
     {
         public Color FadeColor = Color.Black;
-        public float Alpha = 0f;            // 0 = scene visible, 1 = fully faded
+        public float Alpha = 0f; // 0 = fully visible, 1 = fully faded
 
         public ScreenFadeEffect(Effect shader) : base(shader) { }
 
@@ -56,20 +39,11 @@ namespace Graphics
 
     // ─────────────────────────────────────────────────────────────────────────
     // CRTEffect
-    //
-    // Scanlines + slight barrel distortion for a retro CRT feel.
-    //
-    // Shader parameters expected in the .fx file:
-    //   float2 Resolution      — screen size in pixels (for scanline spacing)
-    //   float  ScanlineStrength — 0 = no lines, 1 = heavy lines
-    //   float  Curvature       — 0 = flat, 0.1–0.3 = subtle barrel warp
-    //   float  Time            — elapsed seconds (for scrolling scanlines)
     // ─────────────────────────────────────────────────────────────────────────
     public class CRTEffect : PostProcessEffect
     {
-        public float ScanlineStrength = 0.2f;   // 0–1
-        public float Curvature = 0.05f;  // 0–0.5
-
+        public float ScanlineStrength = 0.25f; // 0–1
+        public float Curvature = 0.08f;        // 0–0.3 recommended
         private float _elapsedSeconds = 0f;
 
         public CRTEffect(Effect shader) : base(shader) { }
@@ -78,11 +52,126 @@ namespace Graphics
         {
             _elapsedSeconds += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            Shader.Parameters["Resolution"]?.SetValue(
-                new Vector2(source.Width, source.Height));
+            Shader.Parameters["Resolution"]?.SetValue(new Vector2(source.Width, source.Height));
             Shader.Parameters["ScanlineStrength"]?.SetValue(ScanlineStrength);
             Shader.Parameters["Curvature"]?.SetValue(Curvature);
             Shader.Parameters["Time"]?.SetValue(_elapsedSeconds);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // SaturationEffect
+    // ─────────────────────────────────────────────────────────────────────────
+    public class SaturationEffect : PostProcessEffect
+    {
+        public float Saturation = 1.0f; // 0 = grayscale, 1 = normal, >1 = vibrant
+
+        public SaturationEffect(Effect shader) : base(shader) { }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["Saturation"]?.SetValue(Saturation);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // BrightnessContrastEffect
+    // ─────────────────────────────────────────────────────────────────────────
+    public class BrightnessContrastEffect : PostProcessEffect
+    {
+        public float Brightness = 1.0f; // 0 = dark, 1 = normal, >1 = bright
+        public float Contrast = 1.0f; // 0 = flat, 1 = normal, >1 = high contrast
+
+        public BrightnessContrastEffect(Effect shader) : base(shader) { }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["Brightness"]?.SetValue(Brightness);
+            Shader.Parameters["Contrast"]?.SetValue(Contrast);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // VignetteEffect
+    // ─────────────────────────────────────────────────────────────────────────
+    public class VignetteEffect : PostProcessEffect
+    {
+        public float Intensity = 0.6f;   // 0 = none, 1 = strong
+        public float Radius = 0.85f;  // 0.5–1.0 (how large the vignette area is)
+
+        public VignetteEffect(Effect shader) : base(shader) { }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["Intensity"]?.SetValue(Intensity);
+            Shader.Parameters["Radius"]?.SetValue(Radius);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // SimpleShadowEffect
+    // ─────────────────────────────────────────────────────────────────────────
+    public class SimpleShadowEffect : PostProcessEffect
+    {
+        public Color ShadowColor = new Color(10, 10, 30); // dark bluish tint
+        public float Intensity = 0f; // 0–1
+
+        public SimpleShadowEffect(Effect shader) : base(shader) { }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["ShadowColor"]?.SetValue(ShadowColor.ToVector4());
+            Shader.Parameters["Intensity"]?.SetValue(Intensity);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // GammaCorrectionEffect
+    // ─────────────────────────────────────────────────────────────────────────
+    public class GammaCorrectionEffect : PostProcessEffect
+    {
+        public float Gamma = 2.2f; // Standard monitor gamma (usually 2.2)
+
+        public GammaCorrectionEffect(Effect shader) : base(shader) { }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["Gamma"]?.SetValue(Gamma);
+        }
+    }
+
+    public class BloomEffect : PostProcessEffect
+    {
+        public float Threshold = 0.78f;   // Higher = only very bright areas bloom
+        public float Intensity = 1.45f;   // Strength of the glow (1.0 - 2.5)
+        public float Radius = 3.5f;    // How soft/wide the bloom is
+
+        public BloomEffect(Effect shader) : base(shader) { }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["Threshold"]?.SetValue(Threshold);
+            Shader.Parameters["Intensity"]?.SetValue(Intensity);
+            Shader.Parameters["Radius"]?.SetValue(Radius);
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // RimLightEffect - Adds soft glowing halo around bright edges (makes entities pop)
+    // ─────────────────────────────────────────────────────────────────────────
+    public class RimLightEffect : PostProcessEffect
+    {
+        public float Intensity = 0.75f;     // Overall strength of the rim glow
+        public float Power = 3.2f;      // Higher = thinner, sharper rim
+        public Color RimColor = new Color(255, 245, 210); // Warm golden rim (Fable 2 style)
+
+        public RimLightEffect(Effect shader) : base(shader) { }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["RimIntensity"]?.SetValue(Intensity);
+            Shader.Parameters["RimPower"]?.SetValue(Power);
+            Shader.Parameters["RimColor"]?.SetValue(RimColor.ToVector4());
         }
     }
 }

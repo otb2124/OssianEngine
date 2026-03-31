@@ -20,18 +20,25 @@
     <None Remove="Content\res\fonts\Roboto_12_Regular.xnb" />
     <None Remove="Content\res\fonts\Roboto_18_Regular.xnb" />
     <None Remove="Content\res\fonts\Roboto_26_Regular.xnb" />
+    <None Remove="Content\res\shaders\Bloom.mgfxo" />
+    <None Remove="Content\res\shaders\BrightnessContrast.mgfxo" />
     <None Remove="Content\res\shaders\ColorGrade.fx" />
     <None Remove="Content\res\shaders\ColorGrade.mgfxo" />
     <None Remove="Content\res\shaders\ColorGrade.xnb" />
     <None Remove="Content\res\shaders\CRT.fx" />
     <None Remove="Content\res\shaders\CRT.mgfxo" />
     <None Remove="Content\res\shaders\CRT.xnb" />
+    <None Remove="Content\res\shaders\GammaCorrection.mgfxo" />
     <None Remove="Content\res\shaders\None.fx" />
     <None Remove="Content\res\shaders\None.mgfxo" />
     <None Remove="Content\res\shaders\None.xnb" />
+    <None Remove="Content\res\shaders\RimLightComposite.mgfxo" />
+    <None Remove="Content\res\shaders\Saturation.mgfxo" />
     <None Remove="Content\res\shaders\ScreenFade.fx" />
     <None Remove="Content\res\shaders\ScreenFade.mgfxo" />
     <None Remove="Content\res\shaders\ScreenFade.xnb" />
+    <None Remove="Content\res\shaders\SimpleShadow.mgfxo" />
+    <None Remove="Content\res\shaders\Vignette.mgfxo" />
     <None Remove="Content\res\sounds\sfx\body-armor-1.xnb" />
     <None Remove="Content\res\sounds\sfx\body-armor-2.xnb" />
     <None Remove="Content\res\sounds\sfx\body-armor-3.xnb" />
@@ -89,16 +96,37 @@
     <Content Include="Content\res\fonts\Roboto_26_Regular.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\res\shaders\Bloom.mgfxo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\BrightnessContrast.mgfxo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\res\shaders\ColorGrade.mgfxo">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\shaders\CRT.mgfxo">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\res\shaders\GammaCorrection.mgfxo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\res\shaders\None.mgfxo">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\res\shaders\RimLightComposite.mgfxo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\Saturation.mgfxo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\res\shaders\ScreenFade.mgfxo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\SimpleShadow.mgfxo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\Vignette.mgfxo">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\sounds\sfx\body-armor-1.xnb">
