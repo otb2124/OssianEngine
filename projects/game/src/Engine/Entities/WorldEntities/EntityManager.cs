@@ -6,6 +6,7 @@ using Utils;
 using System.Diagnostics;
 using System;
 using Physics;
+using Graphics;
 
 namespace Entities
 {
@@ -229,5 +230,13 @@ namespace Entities
             }
         }
 
+        public void BlitEntityFXResults(Sprites sprites, Rectangle fullRect)
+        {
+            foreach (var entity in Entities.EntityMapManager.GetCurrentMapLayer().Entities)
+            {
+                if (entity is PhysicalEntity phys)
+                    phys.BlitFXResult(sprites, fullRect);
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace Entities
             SetInventory();
             SetControl();
             //SetDropInventory();
+            SetEntityFX();
         }
 
         public override void SetStats()
@@ -168,6 +169,21 @@ namespace Entities
         public override void SetControl()
         {
             EntityControlHandler = new EntityControlHandler(true);
+        }
+
+
+        public override void SetEntityFX()
+        {
+            EntityFX = new EntityFXRenderer(
+                Graphics.Graphics.ScreenResolution.X,
+                Graphics.Graphics.ScreenResolution.Y
+            );
+
+            var bloom = new BloomEffect(ResourceLoader.shaders[Shaders.FX_BLOOM].Shader);
+            bloom.Threshold = 0.4f;
+            bloom.Intensity = 0.5f;
+            bloom.Radius = 4.0f;
+            EntityFX.Add(bloom);
         }
 
         public override void Update()

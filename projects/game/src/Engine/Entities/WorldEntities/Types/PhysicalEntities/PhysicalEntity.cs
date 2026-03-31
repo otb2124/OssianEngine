@@ -20,7 +20,9 @@ namespace Entities
 
         public bool UpdatesSurroundingRectangles = true;
 
-        
+        public EntityFXRenderer EntityFX;
+        private RenderTarget2D _pendingFXResult;
+
 
         public LightSource.LightSourceData Emission;
         public bool IsWall = false;
@@ -192,15 +194,59 @@ namespace Entities
             Model.ModelAppearance.AppearanceParts.Add(bodyPart);
         }
 
+        public virtual void SetEntityFX()
+        {
+            //EntityFX = new EntityFXRenderer(rtWidth, rtHeight);
+        }
+
         public override void Draw()
         {
             Model.DrawAngle = Model.Body.Angle;
-            Model.Draw();
+
+            if (EntityFX != null && EntityFX.HasEffects)
+            {
+                _pendingFXResult = EntityFX.CaptureAndProcess(
+                    Graphics.Graphics.Sprites,
+                    () => Model.Draw(),
+                    () => Graphics.Graphics.Sprites.End(),
+                    () => Graphics.Graphics.Sprites.Begin(Graphics.Graphics.Camera),
+                    Graphics.Graphics._lastGameTime
+                );
+            }
+            else
+            {
+                Model.Draw();
+                _pendingFXResult = null;
+            }
+        }
+
+
+        public void BlitFXResult(Sprites sprites, Rectangle fullRect)
+        {
+            if (_pendingFXResult == null) return;
+            sprites.DrawRT(_pendingFXResult, fullRect, Color.White);
+            _pendingFXResult = null;
         }
 
         public virtual void DrawCollider()
         {
             Model.DrawCollider();
+        }
+
+        private Rectangle GetScreenBoundingRect()
+        {
+            Vector2 worldPos = Physics.PhysicalConverter.ToVector2(Model.Body.Position);
+            Vector2 screenPos = Graphics.Graphics.Camera.WorldToScreen(worldPos);
+
+            // Pad generously so glow/bloom doesn't get clipped.
+            int pad = 32;
+            int w = (int)(Model.Body.Width * Graphics.Graphics.Camera.Zoom) + pad * 2;
+            int h = (int)(Model.Body.Height * Graphics.Graphics.Camera.Zoom) + pad * 2;
+
+            return new Rectangle(
+                (int)screenPos.X - w / 2,
+                (int)screenPos.Y - h / 2,
+                w, h);
         }
     }
 }

@@ -63,15 +63,12 @@ namespace Graphics
         /// </summary>
         public void Begin(Camera camera, BlendState blendState, Effect customEffect)
         {
-            blendState = blendState ?? BlendState.Opaque;
+            blendState = blendState ?? BlendState.AlphaBlend;
 
-            // SpriteSortMode.Immediate is required for custom effects — without it
-            // SpriteBatch batches the draw and the effect never runs on the texture.
-            // MatrixTransform must be set manually since SpriteBatch can't inject it
-            // into a custom Effect the way it does with BasicEffect.
             Viewport vp = game.GraphicsDevice.Viewport;
-            Matrix projection = Matrix.CreateOrthographicOffCenter(
-                0, vp.Width, vp.Height, 0, 0, 1);
+
+            Matrix projection = Matrix.CreateOrthographicOffCenter(0, vp.Width, vp.Height, 0, 0, 1);
+
             customEffect.Parameters["MatrixTransform"]?.SetValue(projection);
 
             sprites.Begin(
@@ -174,9 +171,9 @@ namespace Graphics
             sprites.DrawString(font, text, position, color, rotation, origin, scale, SpriteEffects.FlipVertically | effect, 0f);
         }
 
-        public void DrawRT(Texture2D texture, Rectangle destinationRectangle, Color color)
+        public void DrawRT(Texture2D texture, Rectangle destinationRectangle, Color color, SpriteEffects effect = SpriteEffects.None)
         {
-            sprites.Draw(texture, destinationRectangle, null, color, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+            sprites.Draw(texture, destinationRectangle, null, color, 0f, Vector2.Zero, effect, 0f);
         }
     }
 }

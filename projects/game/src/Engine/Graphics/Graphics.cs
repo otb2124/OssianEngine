@@ -102,7 +102,7 @@ namespace Graphics
         }
 
         // Store GameTime so Draw() can pass it to PostProcessManager.
-        private static GameTime _lastGameTime;
+        public static GameTime _lastGameTime;
 
         public static void UpdateGameTime(GameTime newGameTime)
         {
@@ -177,6 +177,10 @@ namespace Graphics
 
             Sprites.Begin(null, BlendState.Opaque);
             Sprites.DrawRT(Screen.Target, fullRect, Color.White);
+            Sprites.End();
+
+            Sprites.Begin(null, BlendState.AlphaBlend);
+            Entities.Entities.EntityManager.BlitEntityFXResults(Sprites, fullRect);
             Sprites.End();
 
             if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)

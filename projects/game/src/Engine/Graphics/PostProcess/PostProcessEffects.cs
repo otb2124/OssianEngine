@@ -142,17 +142,59 @@ namespace Graphics
 
     public class BloomEffect : PostProcessEffect
     {
-        public float Threshold = 0.78f;   // Higher = only very bright areas bloom
-        public float Intensity = 1.45f;   // Strength of the glow (1.0 - 2.5)
-        public float Radius = 3.5f;    // How soft/wide the bloom is
+        public float Threshold { get; set; } = 0.4f;
+        public float Intensity { get; set; } = 1.5f;
+        public float Radius { get; set; } = 3.0f;
 
         public BloomEffect(Effect shader) : base(shader) { }
 
-        public override void Apply(Texture2D source, GameTime gameTime)
+        // No Apply() override needed — bloom is always multipass
+
+        public void ApplyMultiPass(
+            GraphicsDevice gd, Sprites sprites,
+            RenderTarget2D source, RenderTarget2D target, RenderTarget2D scratch,
+            GameTime gameTime)
         {
             Shader.Parameters["Threshold"]?.SetValue(Threshold);
             Shader.Parameters["Intensity"]?.SetValue(Intensity);
             Shader.Parameters["Radius"]?.SetValue(Radius);
+
+            Rectangle fullRect = new Rectangle(0, 0, source.Width, source.Height);
+
+            // Pass 1: extract → scratch
+            gd.SetRenderTarget(scratch);
+            gd.Clear(new Color(0, 0, 0, 0));
+            Shader.Parameters["ScreenTexture"]?.SetValue(source);
+            Shader.CurrentTechnique.Passes[0].Apply();
+            sprites.Begin(null, BlendState.Opaque, Shader);
+            sprites.DrawRT(source, fullRect, Color.White);
+            sprites.End();
+
+            // Pass 2: blur H scratch → target
+            gd.SetRenderTarget(target);
+            gd.Clear(new Color(0, 0, 0, 0));
+            Shader.Parameters["ScreenTexture"]?.SetValue(scratch);
+            Shader.CurrentTechnique.Passes[1].Apply();
+            sprites.Begin(null, BlendState.Opaque, Shader);
+            sprites.DrawRT(scratch, fullRect, Color.White);
+            sprites.End();
+
+            // Pass 3: blur V + composite, reuse scratch as intermediate then blit to target
+            gd.SetRenderTarget(scratch);
+            gd.Clear(new Color(0, 0, 0, 0));
+            Shader.Parameters["ScreenTexture"]?.SetValue(target);
+            Shader.Parameters["OriginalTexture"]?.SetValue(source);
+            Shader.CurrentTechnique.Passes[2].Apply();
+            sprites.Begin(null, BlendState.Opaque, Shader);
+            sprites.DrawRT(target, fullRect, Color.White);
+            sprites.End();
+
+            // Copy scratch → target so result is always in target
+            gd.SetRenderTarget(target);
+            gd.Clear(new Color(0, 0, 0, 0));
+            sprites.Begin(null, BlendState.Opaque);
+            sprites.DrawRT(scratch, fullRect, Color.White, SpriteEffects.FlipVertically);
+            sprites.End();
         }
     }
 

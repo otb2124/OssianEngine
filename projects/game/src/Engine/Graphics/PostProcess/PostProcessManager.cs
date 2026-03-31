@@ -66,13 +66,13 @@ namespace Graphics
             var colorGrade = new ColorGradeEffect(colorGradeShader);
             colorGrade.TintColor = new Color(255, 240, 200);
             colorGrade.Intensity = 0.22f;
-            Add(colorGrade);
+            //Add(colorGrade);
 
             Effect vignetteShader = ResourceLoader.shaders[Shaders.FX_VIGNETTE].Shader;
             var vignette = new VignetteEffect(vignetteShader);
             vignette.Intensity = 0.2f;
             vignette.Radius = 0.1f;
-            Add(vignette);
+            //Add(vignette);
 
             var bloom = new BloomEffect(ResourceLoader.shaders[Shaders.FX_BLOOM].Shader);
             bloom.Threshold = 0.75f;
@@ -85,7 +85,7 @@ namespace Graphics
             rimLight.Intensity = 0.15f;
             rimLight.Power = 4.0f;
             rimLight.RimColor = new Color(255, 248, 220);
-            Add(rimLight);
+            //Add(rimLight);
 
             // Effect gammaShader = ResourceLoader.shaders[Shaders.FX_GAMMA].Shader;
             // var gamma = new GammaCorrectionEffect(gammaShader);
