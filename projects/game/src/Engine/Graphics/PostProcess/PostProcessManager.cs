@@ -73,6 +73,14 @@ namespace Graphics
             // Add(gamma);
         }
 
+        public void SetShaders()
+        {
+            foreach (var effect in effects)
+            {
+                effect.SetShader();
+            }
+        }
+
         // ── Effect list management ─────────────────────────────────────────────
 
         public void Add(ProcessEffect effect) => effects.Add(effect);

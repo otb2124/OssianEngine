@@ -28,6 +28,8 @@ namespace App
             GameStateManager.SetDefault();
             commandManager = new ConsoleCommandManager();
 
+            Graphics.Graphics.PostProcess.Init();
+
             base.Initialize();
         }
 
@@ -42,7 +44,8 @@ namespace App
 
             UI.UI.Setup();
 
-            Graphics.Graphics.PostProcess.Init();
+            Graphics.Graphics.PostProcess.SetShaders();
+            Entities.Entities.EntityManager.SetShaders();
         }
 
         protected override void Update(GameTime gameTime)

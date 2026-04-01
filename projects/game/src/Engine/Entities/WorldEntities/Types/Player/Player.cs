@@ -176,10 +176,7 @@ namespace Entities
 
         public override void SetEntityFX()
         {
-            EntityFX = new EntityProcessManager(
-                Graphics.Graphics.ScreenResolution.X,
-                Graphics.Graphics.ScreenResolution.Y
-            );
+            EntityFX = new EntityProcessManager();
 
             var dissolve = new DissolveEffect(new Color(210, 180, 140), 0.09f);
             EntityFX.Add(dissolve);

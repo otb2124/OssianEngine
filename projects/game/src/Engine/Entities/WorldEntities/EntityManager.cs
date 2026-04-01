@@ -82,6 +82,18 @@ namespace Entities
         }
 
 
+        public void SetShaders()
+        {
+            foreach (var entity in Entities.EntityMapManager.GetCurrentMapLayer().Entities)
+            {
+                if(entity is PhysicalEntity physEnt && physEnt.EntityFX != null)
+                {
+                    physEnt.EntityFX.SetShaders();
+                }
+            }
+        }
+
+
         public bool HasPlayer()
         {
             return Entities.EntityMapManager.GetCurrentMapLayer().Entities.Contains(Entities.Player);

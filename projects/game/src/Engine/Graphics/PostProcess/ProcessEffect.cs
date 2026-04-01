@@ -17,8 +17,10 @@ namespace Graphics
 
         protected ProcessEffect() { }
 
-        public virtual void LoadShader()
+        public virtual void SetShader()
         {
+            ShaderResource shRes = ResourceLoader.shaders[ShaderType];
+            shRes.Load();
             Shader = ResourceLoader.shaders[ShaderType].Shader;
         }
 

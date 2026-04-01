@@ -30,6 +30,7 @@ namespace Entities
             SetDropInventory();
             SetAI();
             SetControl();
+            SetEntityFX();
         }
 
         public virtual void SetAnimalMobData(out Models modelType)
@@ -162,7 +163,34 @@ namespace Entities
             bodyPart.AddAnimationSet(AnimationSetSetter.CreateAnimationSetBySpriteSheet(Model.SpriteData.SpriteSheet));
 
             Model.ModelAppearance.AppearanceParts.Add(bodyPart);
+        }
 
+        public override void SetEntityFX()
+        {
+            EntityFX = new EntityProcessManager();
+
+            var dissolve = new DissolveEffect(new Color(210, 180, 140), 0.09f);
+            EntityFX.Add(dissolve);
+
+            var bloom = new BloomEffect(0.5f, 0.25f, 3f);
+            EntityFX.Add(bloom);
+
+            var rim = new RimLightEffect(0.1f, 0.1f, Color.White);
+            rim.Power = 0.1f;
+            rim.Intensity = 0.1f;
+            //EntityFX.Add(rim);
+
+            //var outline = new OutlineEffect(Color.Yellow, 1f);
+            //EntityFX.Add(outline);
+
+            //var hitFlash = new HitFlashEffect(ResourceLoader.shaders[Shaders.FX_HIT_FLASH].Shader);
+            //EntityFX.Add(hitFlash);
+
+            /*
+            var lighting = new EntityLightingEffect(ResourceLoader.shaders[Shaders.FX_ENTITY_LIGHT].Shader);
+            lighting.AmbientColor = new Color(55, 50, 85);   // dark bluish ambient
+            EntityFX.Add(lighting);
+            */
         }
 
         public override void SetBattleBodies()

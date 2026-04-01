@@ -16,7 +16,6 @@ namespace Graphics
             Intensity = intensity;
 
             ShaderType = Shaders.FX_COLOR_GRADE;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -37,7 +36,6 @@ namespace Graphics
             Alpha = alpha;
 
             ShaderType = Shaders.FX_SCREEN_FADE;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -59,7 +57,6 @@ namespace Graphics
             Curvature = curvature;
 
             ShaderType = Shaders.FX_CRT;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -82,7 +79,6 @@ namespace Graphics
             Saturation = saturation;
 
             ShaderType = Shaders.FX_SATURATION;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -102,7 +98,6 @@ namespace Graphics
             Contrast = contrast;
 
             ShaderType = Shaders.FX_BRIGHTNESS_CONTRAST;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -123,7 +118,6 @@ namespace Graphics
             Radius = radius;
 
             ShaderType = Shaders.FX_VIGNETTE;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -144,7 +138,6 @@ namespace Graphics
             Intensity = intensity;
 
             ShaderType = Shaders.FX_SIMPLE_SHADOW;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -163,7 +156,6 @@ namespace Graphics
             Gamma = gamma;
 
             ShaderType = Shaders.FX_GAMMA_Correction;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -185,7 +177,6 @@ namespace Graphics
             Radius = radius;
 
             ShaderType = Shaders.FX_BLOOM;
-            LoadShader();
         }
 
         // No Apply() override needed — bloom is always multipass
@@ -260,7 +251,6 @@ namespace Graphics
             RimColor = rimColor;
 
             ShaderType = Shaders.FX_RIM_LIGHT_COMPOSITE;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -287,7 +277,6 @@ namespace Graphics
         public EntityLightingEffect() : base() 
         {
             ShaderType = Shaders.FX_ENTITY_LIGHT;
-            LoadShader();
         }
 
         /// <summary>
@@ -336,7 +325,6 @@ namespace Graphics
             Intensity = intensity;
 
             ShaderType = Shaders.FX_CHROMATIC_ABERRATION;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -355,7 +343,6 @@ namespace Graphics
             Intensity = intensity;
 
             ShaderType = Shaders.FX_DISTORTION;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -377,7 +364,6 @@ namespace Graphics
             OutlineThickness = outlineThickness;
 
             ShaderType = Shaders.FX_OUTLINE;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -403,7 +389,6 @@ namespace Graphics
             EdgeWidth = edgeWidth;
 
             ShaderType = Shaders.FX_DISSOLVE;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)
@@ -430,7 +415,6 @@ namespace Graphics
             FlashIntensity = flashIntensity;
 
             ShaderType = Shaders.FX_HIT_FLASH;
-            LoadShader();
         }
 
         public override void Trigger()
@@ -463,7 +447,6 @@ namespace Graphics
             Smoothness = smoothness;
 
             ShaderType = Shaders.FX_COLOR_ISOLATION;
-            LoadShader();
         }
 
         public override void Apply(Texture2D source, GameTime gameTime)

@@ -15,11 +15,11 @@ namespace Graphics
 
         public bool HasEffects => Effects.Count > 0;
 
-        public EntityProcessManager(int width, int height)
+        public EntityProcessManager()
         {
             var gd = Graphics.GraphicsDeviceManager.GraphicsDevice;
             for (int i = 0; i < 3; i++)
-                rt[i] = new RenderTarget2D(gd, width, height, false,
+                rt[i] = new RenderTarget2D(gd, Graphics.ScreenResolution.X, Graphics.ScreenResolution.Y, false,
                     SurfaceFormat.Color, DepthFormat.None, 0,
                     RenderTargetUsage.PreserveContents);
         }
@@ -29,6 +29,14 @@ namespace Graphics
         public ProcessEffect GetEffect(Type type)
         {
             return Effects.FirstOrDefault(fx => fx.GetType() == type);
+        }
+
+        public void SetShaders()
+        {
+            foreach (var effect in Effects)
+            {
+                effect.SetShader();
+            }
         }
 
         public RenderTarget2D CaptureAndProcess(
