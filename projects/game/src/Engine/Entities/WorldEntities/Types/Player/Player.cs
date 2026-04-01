@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Resources;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Utils;
 
 namespace Entities
@@ -174,21 +175,59 @@ namespace Entities
 
         public override void SetEntityFX()
         {
-            EntityFX = new EntityFXRenderer(
+            EntityFX = new EntityProcessManager(
                 Graphics.Graphics.ScreenResolution.X,
                 Graphics.Graphics.ScreenResolution.Y
             );
 
             var bloom = new BloomEffect(ResourceLoader.shaders[Shaders.FX_BLOOM].Shader);
-            bloom.Threshold = 0.4f;
+            bloom.Threshold = 0.5f;
             bloom.Intensity = 0.5f;
-            bloom.Radius = 4.0f;
+            bloom.Radius = 1.5f;
             EntityFX.Add(bloom);
+
+            var rim = new RimLightEffect(ResourceLoader.shaders[Shaders.FX_RIM_LIGHT_COMPOSITE].Shader);
+            rim.Power = 0.1f;
+            rim.Intensity = 0.1f;
+            EntityFX.Add(rim);
+
+            /*
+            var lighting = new EntityLightingEffect(ResourceLoader.shaders[Shaders.FX_ENTITY_LIGHT].Shader);
+            lighting.AmbientColor = new Color(55, 50, 85);   // dark bluish ambient
+            EntityFX.Add(lighting);
+            */
         }
 
         public override void Update()
         {
-            
+
+            /*
+            if (EntityFX != null)
+            {
+                var lightingEffect = EntityFX.Effects.OfType<EntityLightingEffect>().FirstOrDefault();
+                if (lightingEffect != null)
+                {
+                    lightingEffect.ClearLights();
+
+                    List<LightSource> nearbyLights = Graphics.Graphics.LightManager.GetNearbyLights(Model.Body.Position.ToVector2(), maxDistance: 350f, maxCount: 3);
+
+                    // Example: Add nearby torch lights
+                    foreach (var light in nearbyLights)
+                    {
+                        if(light == null || light.Data == null)
+                            continue;
+
+                        lightingEffect.AddLight(
+                            light.Position,
+                            Model.Body.Position.ToVector2(),
+                            new Vector2(Model.Body.Width, Model.Body.Height),
+                            light.Data.Color,
+                            light.Data.Size.X);
+                    }
+                }
+            }
+            */
+
             //Console.WriteLine(Model.ModelState);
             base.Update();
         }

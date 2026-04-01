@@ -18,6 +18,7 @@ namespace Resources
         FX_VIGNETTE,
         FX_BLOOM,
         FX_RIM_LIGHT_COMPOSITE,
+        FX_ENTITY_LIGHT,
     }
 
     public class ShaderResource
@@ -36,30 +37,25 @@ namespace Resources
 
         public void Load()
         {
-            // Build full path to the .mgfxo file
-            string fullPath = Path.Combine(
-                Graphics.Graphics.GraphicsDeviceManager.GraphicsDevice?.Adapter?.Description ?? "", // not needed
-                                                                                                   // Better way:
-                AppDomain.CurrentDomain.BaseDirectory,   // or use Content.RootDirectory if you prefer
-                "Content",
-                "res/shaders/" + ShaderPath + ".mgfxo"
-            );
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string fullPath = Path.Combine(baseDir, "Content", "res", "shaders", ShaderPath + ".mgfxo");
 
             if (!File.Exists(fullPath))
+                fullPath = Path.Combine(baseDir, ShaderPath + ".mgfxo");
+
+            if (!File.Exists(fullPath))
+                throw new FileNotFoundException($"Could not find shader: {ShaderPath}.mgfxo");
+
+            byte[] data = File.ReadAllBytes(fullPath);
+
+            try
             {
-                // Fallback: try without "Content\" if your .mgfxo files are directly in bin/Debug/net6.0-windows/res/shaders/
-                fullPath = Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    ShaderPath + ".mgfxo"
-                );
+                Shader = new Effect(Graphics.Graphics.GraphicsDeviceManager.GraphicsDevice, data);
             }
-
-            if (!File.Exists(fullPath))
-                throw new FileNotFoundException($"Could not find shader file: {fullPath}");
-
-            byte[] effectData = File.ReadAllBytes(fullPath);
-            Shader = new Effect(Graphics.Graphics.GraphicsDeviceManager.GraphicsDevice, effectData);
-            Console.WriteLine("shader: " + Shader);
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to load shader '{ShaderPath}'. Make sure it was compiled with mgfxc /Profile:DirectX_11\nError: {ex.Message}");
+            }
         }
 
         public static Dictionary<Shaders, string> PathMap = new Dictionary<Shaders, string>()
@@ -74,7 +70,8 @@ namespace Resources
             { Shaders.FX_GAMMA_Correction, "GammaCorrection" },
             { Shaders.FX_VIGNETTE, "Vignette" },
             { Shaders.FX_BLOOM,    "Bloom" },
-            { Shaders.FX_RIM_LIGHT_COMPOSITE, "RimLightComposite" }
+            { Shaders.FX_RIM_LIGHT_COMPOSITE, "RimLightComposite" },
+            { Shaders.FX_ENTITY_LIGHT, "EntityLight" },
         };
     }
 }

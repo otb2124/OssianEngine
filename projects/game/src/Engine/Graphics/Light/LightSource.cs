@@ -95,31 +95,40 @@ namespace Graphics
 
         public virtual void Draw()
         {
-            if (Data == null)
-                return;
+            if (Data == null) return;
 
+            // How many pixels per world unit at current zoom
+            float visibleWorldHeight = (float)(2.0 * Math.Tan(MathHelper.PiOver2 * 0.5f) * Graphics.Camera.Z);
+            float worldToScreen = Graphics.Screen.Height / visibleWorldHeight;
+
+            Vector2 screenPos = Graphics.Camera.WorldToScreen(new Vector2(Position.X, Position.Y));
 
             if (Data.Form == LightSourceData.LightSourceForms.CIRCULAR)
             {
+                float screenRadius = Data.Size.X * worldToScreen;
+                Vector2 scale = new Vector2(screenRadius * 2f / texture.Width);
+
                 Graphics.Sprites.Draw(
                     texture,
                     null,
                     new Vector2(texture.Width / 2f, texture.Height / 2f),
-                new Vector2(Position.X, Position.Y),
-                0f,
-                    new Vector2(Data.Size.X * 2f / texture.Width),
+                    screenPos,
+                    0f,
+                    scale,
                     Data.Color
                 );
             }
             else
             {
+                Vector2 screenSize = Data.Size * worldToScreen;
+
                 Graphics.Sprites.Draw(
                     texture,
                     null,
                     new Vector2(0.5f, 0.5f),
-                new Vector2(Position.X, Position.Y),
-                0f,
-                    Data.Size,
+                    screenPos,
+                    0f,
+                    screenSize,
                     Data.Color
                 );
             }

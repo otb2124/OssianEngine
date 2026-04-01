@@ -238,15 +238,19 @@ namespace Graphics
 
         public Vector2 WorldToScreen(Vector2 worldPos)
         {
-            // Create world position in 3D space (Z = 0 for 2D games)
-            Vector3 worldPosition3D = new Vector3(worldPos.X, worldPos.Y, 0);
+            Vector4 worldPosition4D = new Vector4(worldPos.X, worldPos.Y, 0, 1);
 
-            // Transform world position to screen space
-            Vector3 screenSpace = Vector3.Transform(worldPosition3D, view * proj);
+            Matrix viewProj = view * proj;
+            Vector4 clipSpace = Vector4.Transform(worldPosition4D, viewProj);
 
-            // Convert from normalized device coordinates (-1 to 1) to pixel coordinates
-            float screenX = (screenSpace.X / screenSpace.Z + 1.0f) * 0.5f * Graphics.Screen.Width;
-            float screenY = (-screenSpace.Y / screenSpace.Z + 1.0f) * 0.5f * Graphics.Screen.Height;
+            // Perspective divide by w (not z)
+            float ndcX = clipSpace.X / clipSpace.W;
+            float ndcY = clipSpace.Y / clipSpace.W;
+
+            // NDC (-1 to 1) → pixel coordinates
+            // Note: NDC Y is flipped relative to screen Y
+            float screenX = (ndcX + 1.0f) * 0.5f * Graphics.Screen.Width;
+            float screenY = (-ndcY + 1.0f) * 0.5f * Graphics.Screen.Height;
 
             return new Vector2(screenX, screenY);
         }

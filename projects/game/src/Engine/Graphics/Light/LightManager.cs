@@ -96,21 +96,62 @@ namespace Graphics
             return nextId++;
         }
 
-        public LightSource GetEntityById(int id)
+        public LightSource GetLightById(int id)
         {
             return lightSources.FirstOrDefault(e => e.Id == id);
+        }
+
+        public List<LightSource> GetNearbyLights(Vector2 worldPosition, float maxDistance = 1000f)
+        {
+            var nearby = new List<LightSource>();
+
+            foreach (var light in lightSources)
+            {
+                if (light == null) continue;
+
+                float distance = Vector2.Distance(worldPosition, light.Position);
+
+                if (distance <= maxDistance)
+                {
+                    nearby.Add(light);
+                }
+            }
+
+            // Optional: Sort by distance (closest first)
+            nearby.Sort((a, b) =>
+                Vector2.DistanceSquared(worldPosition, a.Position)
+                       .CompareTo(Vector2.DistanceSquared(worldPosition, b.Position)));
+
+            return nearby;
+        }
+
+        public List<LightSource> GetNearbyLights(Vector2 worldPosition, float maxDistance, int maxCount)
+        {
+            var nearby = GetNearbyLights(worldPosition, maxDistance);
+
+            if (nearby.Count > maxCount)
+                nearby.RemoveRange(maxCount, nearby.Count - maxCount);
+
+            return nearby;
         }
 
 
         public void Draw()
         {
+            DrawInScreenSpace();
+        }
+
+        public void DrawInScreenSpace()
+        {
             foreach (var light in lightSources)
             {
-                if (light != null)
-                {
-                    light.Draw();
-                }
+                if (light == null || light.Data == null || light.texture == null)
+                    continue;
+
+                light.Draw();
             }
         }
+
+
     }
 }

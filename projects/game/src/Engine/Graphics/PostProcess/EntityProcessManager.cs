@@ -1,21 +1,20 @@
-﻿// Graphics/EntityFXRenderer.cs
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Graphics
 {
-    public class EntityFXRenderer : IDisposable
+    public class EntityProcessManager : IDisposable
     {
         private bool isDisposed = false;
         private readonly RenderTarget2D[] rt = new RenderTarget2D[3];
 
-        public List<PostProcessEffect> Effects { get; } = new();
+        public List<ProcessEffect> Effects { get; } = new();
 
         public bool HasEffects => Effects.Count > 0;
 
-        public EntityFXRenderer(int width, int height)
+        public EntityProcessManager(int width, int height)
         {
             var gd = Graphics.GraphicsDeviceManager.GraphicsDevice;
             for (int i = 0; i < 3; i++)
@@ -24,25 +23,21 @@ namespace Graphics
                     RenderTargetUsage.PreserveContents);
         }
 
-        public void Add(PostProcessEffect fx) => Effects.Add(fx);
+        public void Add(ProcessEffect fx) => Effects.Add(fx);
 
         public RenderTarget2D CaptureAndProcess(
-            Sprites sprites,
-            Action drawAction,
-            Action endOuterBatch,
-            Action beginOuterBatch,
-            GameTime gameTime)
+            Action drawAction)
         {
             var gd = Graphics.GraphicsDeviceManager.GraphicsDevice;
 
-            endOuterBatch();
+            Graphics.Sprites.End();
 
             // Capture entity into rt[0] with camera transform
             gd.SetRenderTarget(rt[0]);
             gd.Clear(new Color(0, 0, 0, 0));
-            sprites.Begin(Graphics.Camera, BlendState.NonPremultiplied);
+            Graphics.Sprites.Begin(Graphics.Camera, BlendState.NonPremultiplied);
             drawAction();
-            sprites.End();
+            Graphics.Sprites.End();
 
             // Ping-pong
             int src = 0, dst = 1;
@@ -55,24 +50,24 @@ namespace Graphics
                 if (fx is BloomEffect bloom)
                 {
                     // rt[2] is dedicated scratch, result always lands in rt[dst]
-                    bloom.ApplyMultiPass(gd, sprites, rt[src], rt[dst], rt[2], gameTime);
+                    bloom.ApplyMultiPass(Graphics.Sprites, rt[src], rt[dst], rt[2]);
                     (src, dst) = (dst, src);
                 }
                 else
                 {
                     gd.SetRenderTarget(rt[dst]);
                     gd.Clear(new Color(0, 0, 0, 0));
-                    fx.Apply(rt[src], gameTime);
+                    fx.Apply(rt[src], Graphics._lastGameTime);
                     fx.Shader.Parameters["ScreenTexture"]?.SetValue(rt[src]);
-                    sprites.Begin(null, BlendState.AlphaBlend, fx.Shader);
-                    sprites.DrawRT(rt[src], fullRect, Color.White, SpriteEffects.FlipVertically);
-                    sprites.End();
+                    Graphics.Sprites.Begin(null, BlendState.AlphaBlend, fx.Shader);
+                    Graphics.Sprites.DrawRT(rt[src], fullRect, Color.White);
+                    Graphics.Sprites.End();
                     (src, dst) = (dst, src);
                 }
             }
 
             // DON'T blit back here — just return which RT has the result
-            beginOuterBatch();
+            Graphics.Sprites.Begin(Graphics.Camera);
 
             return rt[src];
         }

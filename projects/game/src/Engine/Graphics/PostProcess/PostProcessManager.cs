@@ -33,7 +33,7 @@ namespace Graphics
         // Roles swap after each effect pass.
         private RenderTarget2D[] rt = new RenderTarget2D[2];
 
-        private List<PostProcessEffect> effects;
+        private List<ProcessEffect> effects;
 
         /// <summary>True while Capture() has been called and Process() has not yet.</summary>
         private bool isCapturing;
@@ -41,7 +41,7 @@ namespace Graphics
         public PostProcessManager(Game game, int width, int height)
         {
             this.game = game ?? throw new ArgumentNullException(nameof(game));
-            effects = new List<PostProcessEffect>();
+            effects = new List<ProcessEffect>();
 
             rt[0] = new RenderTarget2D(game.GraphicsDevice, width, height);
             rt[1] = new RenderTarget2D(game.GraphicsDevice, width, height);
@@ -95,8 +95,8 @@ namespace Graphics
 
         // ── Effect list management ─────────────────────────────────────────────
 
-        public void Add(PostProcessEffect effect) => effects.Add(effect);
-        public void Remove(PostProcessEffect effect) => effects.Remove(effect);
+        public void Add(ProcessEffect effect) => effects.Add(effect);
+        public void Remove(ProcessEffect effect) => effects.Remove(effect);
         public void Clear() => effects.Clear();
 
         // ── Pipeline control ──────────────────────────────────────────────────
@@ -120,7 +120,7 @@ namespace Graphics
         /// Stop capturing, run all enabled effects in sequence using ping-pong,
         /// then blit the final result to the backbuffer at the given destination.
         /// </summary>
-        public void EndCaptureAndProcess(Sprites sprites, Rectangle destRect, GameTime gameTime)
+        public void EndCaptureAndProcess(Sprites sprites, Rectangle destRect)
         {
             if (!isCapturing)
                 throw new InvalidOperationException("...");
@@ -132,14 +132,14 @@ namespace Graphics
 
             Rectangle fullRect = new Rectangle(0, 0, rt[0].Width, rt[0].Height);
 
-            foreach (PostProcessEffect fx in effects)
+            foreach (ProcessEffect fx in effects)
             {
                 if (!fx.Enabled) continue;
 
                 game.GraphicsDevice.SetRenderTarget(rt[dst]);
                 game.GraphicsDevice.Clear(Color.Black);
 
-                fx.Apply(rt[src], gameTime);
+                fx.Apply(rt[src], Graphics._lastGameTime);
 
                 // ← ADD THIS: bind the source RT to the shader's ScreenTexture sampler
                 fx.Shader.Parameters["ScreenTexture"]?.SetValue(rt[src]);

@@ -46,6 +46,7 @@ namespace Graphics
         {
             GraphicsDeviceManager = new GraphicsDeviceManager(Game);
             GraphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
+            GraphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             Game.IsMouseVisible = false;
             Game.IsFixedTimeStep = true;
             Game.TargetElapsedTime = TimeSpan.FromTicks((long)Math.Round((double)TimeSpan.TicksPerSecond / UpdatesPerSecond));
@@ -149,11 +150,11 @@ namespace Graphics
             if (GameStateManager.gameMode == GameStateManager.GameModes.PLAY_MODE)
             {
                 LightMask.AmbientColor = FilterManager.GetDayTimeAmbient();
-
                 LightMask.BeginMask();
 
-                Sprites.Begin(Camera, BlendState.Additive);
-                LightManager.Draw();
+                // IMPORTANT: Draw lights in SCREEN SPACE (no camera)
+                Sprites.Begin(null, BlendState.Additive);        // ← null = screen space
+                LightManager.DrawInScreenSpace();                // ← New method
                 Sprites.End();
 
                 LightMask.EndMask(previousTarget: null);
@@ -195,7 +196,7 @@ namespace Graphics
                 Sprites.End();
             }
 
-            PostProcess.EndCaptureAndProcess(Sprites, destRect, _lastGameTime);
+            PostProcess.EndCaptureAndProcess(Sprites, destRect);
 
             // ── 5. Debug overlays ─────────────────────────────────────────────
 

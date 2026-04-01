@@ -8,13 +8,16 @@ namespace Graphics
     /// Subclass this and override Apply() to set shader parameters before the blit.
     /// The PostProcessManager handles the render targets and calls Apply() automatically.
     /// </summary>
-    public abstract class PostProcessEffect
+    public abstract class ProcessEffect
     {
         public Effect Shader;
         public bool Enabled = true;
 
-        protected PostProcessEffect(Effect shader) { Shader = shader; }
+        protected ProcessEffect(Effect shader) { Shader = shader; }
 
         public virtual void Apply(Texture2D source, GameTime gameTime) { }  // ← Texture2D
+
+        public virtual void ApplyMultiPass(Sprites sprites,
+            RenderTarget2D source, RenderTarget2D target, RenderTarget2D scratch) { }
     }
 }

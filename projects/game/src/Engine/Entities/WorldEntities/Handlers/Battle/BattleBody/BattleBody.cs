@@ -130,7 +130,7 @@ namespace Entities
                     || model.ModelState == ModelStates.WEAPON_OUT_IDLE || model.ModelState == ModelStates.WEAPON_OUT_MOVING 
                     || model.ModelState == ModelStates.FLYING || model.ModelState == ModelStates.FLYING_AND_MOVING)
                 {
-                    if (Graphics.Graphics.LightManager.GetEntityById(LightSource.Id) == null)
+                    if (Graphics.Graphics.LightManager.GetLightById(LightSource.Id) == null)
                     {
                         LightSource.Init(Combo, NoAttackHitbox, model, BattleBodyData.LightSourceData);
                         Graphics.Graphics.LightManager.AddLightSource(LightSource);

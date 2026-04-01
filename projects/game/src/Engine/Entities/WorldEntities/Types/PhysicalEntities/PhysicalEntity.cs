@@ -20,7 +20,7 @@ namespace Entities
 
         public bool UpdatesSurroundingRectangles = true;
 
-        public EntityFXRenderer EntityFX;
+        public EntityProcessManager EntityFX;
         private RenderTarget2D _pendingFXResult;
 
 
@@ -196,7 +196,7 @@ namespace Entities
 
         public virtual void SetEntityFX()
         {
-            //EntityFX = new EntityFXRenderer(rtWidth, rtHeight);
+            //EntityFX = new EntityProcessManager(rtWidth, rtHeight);
         }
 
         public override void Draw()
@@ -206,11 +206,7 @@ namespace Entities
             if (EntityFX != null && EntityFX.HasEffects)
             {
                 _pendingFXResult = EntityFX.CaptureAndProcess(
-                    Graphics.Graphics.Sprites,
-                    () => Model.Draw(),
-                    () => Graphics.Graphics.Sprites.End(),
-                    () => Graphics.Graphics.Sprites.Begin(Graphics.Graphics.Camera),
-                    Graphics.Graphics._lastGameTime
+                    () => Model.Draw()
                 );
             }
             else

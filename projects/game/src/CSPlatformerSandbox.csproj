@@ -28,6 +28,7 @@
     <None Remove="Content\res\shaders\CRT.fx" />
     <None Remove="Content\res\shaders\CRT.mgfxo" />
     <None Remove="Content\res\shaders\CRT.xnb" />
+    <None Remove="Content\res\shaders\EntityLight.mgfxo" />
     <None Remove="Content\res\shaders\GammaCorrection.mgfxo" />
     <None Remove="Content\res\shaders\None.fx" />
     <None Remove="Content\res\shaders\None.mgfxo" />
@@ -106,6 +107,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\shaders\CRT.mgfxo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\EntityLight.mgfxo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\shaders\GammaCorrection.mgfxo">
