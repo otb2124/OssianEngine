@@ -136,9 +136,9 @@ namespace Graphics
             sprites.Draw(texture, position, sourceRectangle, color, rotation, origin, new Vector2(scale), SpriteEffects.FlipVertically, 0f);
         }
 
-        public void Draw(Texture2D texture, Rectangle? sourceRectangle, Vector2 origin, Vector2 position, float rotation, Vector2 scale, Color color)
+        public void Draw(Texture2D texture, Rectangle? sourceRectangle, Vector2 origin, Vector2 position, float rotation, Vector2 scale, Color color, SpriteEffects spriteEffects = SpriteEffects.None)
         {
-            sprites.Draw(texture, position, sourceRectangle, color, rotation, origin, scale, SpriteEffects.FlipVertically, 0f);
+            sprites.Draw(texture, position, sourceRectangle, color, rotation, origin, scale, spriteEffects | SpriteEffects.FlipVertically, 0f);
         }
 
         public void Draw(Texture2D texture, Rectangle? sourceRectangle, Vector2 origin, Vector2 position, Color color)

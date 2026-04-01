@@ -19,6 +19,7 @@ namespace Entities
             SetControl();
             //SetDropInventory();
             SetEntityFX();
+            SetTrail();
         }
 
         public override void SetStats()
@@ -203,6 +204,17 @@ namespace Entities
             lighting.AmbientColor = new Color(55, 50, 85);   // dark bluish ambient
             EntityFX.Add(lighting);
             */
+        }
+
+        public override void SetTrail()
+        {
+            Trail = new TrailRenderer();
+
+            Trail.TintColor = new Color(100, 160, 255);
+            Trail.TintStrength = 0.7f;
+            Trail.SnapshotInterval = 0.1f;
+            Trail.SnapshotLifetime = 0.7f;
+            Trail.OnlyWhenMoving = true;
         }
 
         public override void Update()

@@ -23,6 +23,8 @@ namespace Entities
         public EntityProcessManager EntityFX;
         private RenderTarget2D _pendingFXResult;
 
+        public TrailRenderer Trail;
+
 
         public LightSource.LightSourceData Emission;
         public bool IsWall = false;
@@ -177,6 +179,7 @@ namespace Entities
         {
             UpdateAnimationState();
             UpdateSoundState();
+            UpdateTrail();
             base.Update();
         }
 
@@ -199,8 +202,15 @@ namespace Entities
             //EntityFX = new EntityProcessManager(rtWidth, rtHeight);
         }
 
+        public virtual void SetTrail()
+        {
+            //Trail = new TrailRenderer();
+        }
+
         public override void Draw()
         {
+            Trail?.Draw();
+
             Model.DrawAngle = Model.Body.Angle;
 
             if (EntityFX != null && EntityFX.HasEffects)
@@ -243,6 +253,60 @@ namespace Entities
                 (int)screenPos.X - w / 2,
                 (int)screenPos.Y - h / 2,
                 w, h);
+        }
+
+
+        private void UpdateTrail()
+        {
+            if (Trail == null) return;
+
+            float deltaTime = (float)Graphics.Graphics.CurrentLogicTime
+                              / (float)Graphics.Graphics.TimeScale;
+
+            Trail.Update(deltaTime);
+
+            // Only snapshot when moving if configured
+            bool isMoving = Model.ModelState == ModelStates.MOVING
+                         || Model.ModelState == ModelStates.SPRINTING
+                         || Model.ModelState == ModelStates.JUMPING
+                         || Model.ModelState == ModelStates.JUMPING_AND_MOVING
+                         || Model.ModelState == ModelStates.ROLLING;
+
+            if (Trail.OnlyWhenMoving && !isMoving) return;
+            if (!Trail.ShouldSnapshot()) return;
+
+            // Capture current animation frame
+            var anim = Model.ModelAppearance
+                                .GetAnimationSets(EntityAppearanceAttributes.BODY)[0]
+                                .GetCurrent();
+
+            Rectangle srcRect = anim.GetCurrentFrame();
+            SpriteEffects fx = anim.AnimationFramesData.Effect | SpriteEffects.FlipVertically;
+
+            // Reproduce the same position/scale logic as ModelAppearancePart.Draw()
+            float bodyWidth = Model.Body.Width + Model.BodyOffset.X;
+            float bodyHeight = Model.Body.Height + Model.BodyOffset.Y;
+            float scaleX = bodyWidth / (srcRect.Width - anim.AnimationFramesData.EachFrameSizeOffset.X);
+            float scaleY = bodyHeight / (srcRect.Height - anim.AnimationFramesData.EachFrameSizeOffset.Y);
+
+            Vector2 pos = Physics.PhysicalConverter.ToVector2(Model.Body.Position)
+                        - new Vector2(bodyWidth / 2f, bodyHeight / 2f)
+                        + new Vector2(srcRect.Width / 2f * scaleX, srcRect.Height / 2f * scaleY)
+                        + new Vector2(anim.AnimationFramesData.EachFramePositionOffset.X * scaleX,
+                                      anim.AnimationFramesData.EachFramePositionOffset.Y * scaleY);
+
+            Vector2 origin = new Vector2(srcRect.Width / 2f, srcRect.Height / 2f);
+
+            Trail.AddSnapshot(new TrailSnapshot(
+                position: pos,
+                rotation: Model.DrawAngle,
+                sheet: Model.SpriteData.SpriteSheet,
+                srcRect: srcRect,
+                origin: origin,
+                scale: new Vector2(scaleX, scaleY),
+                effect: fx,
+                lifetime: Trail.SnapshotLifetime
+            ));
         }
     }
 }
