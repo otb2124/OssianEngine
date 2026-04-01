@@ -184,7 +184,7 @@ namespace Entities
             var dissolve = new DissolveEffect(new Color(210, 180, 140), 0.09f);
             EntityFX.Add(dissolve);
 
-            var bloom = new BloomEffect(0.5f, 0.75f, 3f);
+            var bloom = new BloomEffect(0.5f, 0.25f, 3f);
             EntityFX.Add(bloom);
 
             var rim = new RimLightEffect(0.1f, 0.1f, Color.White);
@@ -210,11 +210,10 @@ namespace Entities
         {
             Trail = new TrailRenderer();
 
-            Trail.TintColor = new Color(100, 160, 255);
-            Trail.TintStrength = 0.7f;
+            Trail.TintColor = new Color(255, 255, 255);
+            Trail.TintStrength = 0.5f;
             Trail.SnapshotInterval = 0.1f;
             Trail.SnapshotLifetime = 0.7f;
-            Trail.OnlyWhenMoving = true;
         }
 
         public override void Update()

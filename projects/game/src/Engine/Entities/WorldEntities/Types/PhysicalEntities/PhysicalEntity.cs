@@ -266,13 +266,18 @@ namespace Entities
             Trail.Update(deltaTime);
 
             // Only snapshot when moving if configured
-            bool isMoving = Model.ModelState == ModelStates.MOVING
-                         || Model.ModelState == ModelStates.SPRINTING
+            bool isMoving = Model.ModelState == ModelStates.SPRINTING
                          || Model.ModelState == ModelStates.JUMPING
                          || Model.ModelState == ModelStates.JUMPING_AND_MOVING
-                         || Model.ModelState == ModelStates.ROLLING;
+                         || Model.ModelState == ModelStates.ROLLING
+                         || Model.ModelState == ModelStates.DOUBLE_JUMPING
+                         || Model.ModelState == ModelStates.DOUBLE_JUMPING_AND_MOVING
+                         || Model.ModelState == ModelStates.ATTACKING_LIGHT
+                         || Model.ModelState == ModelStates.ATTACKING_HEAVY
+                         || Model.ModelState == ModelStates.JUMPING_DESCENDING
+                         || Model.ModelState == ModelStates.JUMPING_DESCENDING_AND_MOVING;
 
-            if (Trail.OnlyWhenMoving && !isMoving) return;
+            if (!isMoving) return;
             if (!Trail.ShouldSnapshot()) return;
 
             // Capture current animation frame

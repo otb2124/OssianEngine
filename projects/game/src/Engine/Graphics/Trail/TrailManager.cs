@@ -50,7 +50,6 @@ namespace Graphics
         public float SnapshotLifetime = 0.3f;    // how long each ghost lasts
         public Color TintColor = Color.CornflowerBlue;
         public float TintStrength = 0.6f;    // 0 = white ghost, 1 = full tint
-        public bool OnlyWhenMoving = true;
 
         private float _timeSinceLastSnapshot = 0f;
 
