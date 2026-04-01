@@ -19,6 +19,12 @@ namespace Resources
         FX_BLOOM,
         FX_RIM_LIGHT_COMPOSITE,
         FX_ENTITY_LIGHT,
+        FX_CHROMATIC_ABERRATION,
+        FX_DISTORTION,
+        FX_HIT_FLASH,
+        FX_OUTLINE,
+        FX_DISSOLVE,
+        FX_COLOR_ISOLATION,
     }
 
     public class ShaderResource
@@ -72,6 +78,12 @@ namespace Resources
             { Shaders.FX_BLOOM,    "Bloom" },
             { Shaders.FX_RIM_LIGHT_COMPOSITE, "RimLightComposite" },
             { Shaders.FX_ENTITY_LIGHT, "EntityLight" },
+            { Shaders.FX_CHROMATIC_ABERRATION, "ChromaticAberration" },
+            { Shaders.FX_DISTORTION, "Distortion" },
+            { Shaders.FX_HIT_FLASH, "HitFlash" },
+            { Shaders.FX_OUTLINE, "Outline" },
+            { Shaders.FX_DISSOLVE, "Dissolve" },
+            { Shaders.FX_COLOR_ISOLATION, "ColorIsolation" },
         };
     }
 }

@@ -51,41 +51,21 @@ namespace Graphics
 
         public void Init()
         {
-            Effect saturationShader = ResourceLoader.shaders[Shaders.FX_SATURATION].Shader;
-            var saturation = new SaturationEffect(saturationShader);
-            saturation.Saturation = 0.75f;
+            var saturation = new SaturationEffect(0.75f);
             Add(saturation);
 
-            Effect contrastShader = ResourceLoader.shaders[Shaders.FX_BRIGHTNESS_CONTRAST].Shader;
-            var contrast = new BrightnessContrastEffect(contrastShader);
-            contrast.Brightness = 1.08f;
-            contrast.Contrast = 1.18f;
+            var contrast = new BrightnessContrastEffect(1.08f, 1.18f);
             Add(contrast);
 
-            Effect colorGradeShader = ResourceLoader.shaders[Shaders.FX_COLOR_GRADE].Shader;
-            var colorGrade = new ColorGradeEffect(colorGradeShader);
-            colorGrade.TintColor = new Color(255, 240, 200);
-            colorGrade.Intensity = 0.22f;
-            //Add(colorGrade);
+            var ca = new ChromaticAberrationEffect(0.005f);
+            //Add(ca);
 
-            Effect vignetteShader = ResourceLoader.shaders[Shaders.FX_VIGNETTE].Shader;
-            var vignette = new VignetteEffect(vignetteShader);
-            vignette.Intensity = 0.2f;
-            vignette.Radius = 0.1f;
-            //Add(vignette);
+            var isolation = new ColorIsolationEffect(Color.Green, 0.1f, 0.05f);
+            //Add(isolation);
 
-            var bloom = new BloomEffect(ResourceLoader.shaders[Shaders.FX_BLOOM].Shader);
-            bloom.Threshold = 0.75f;
-            bloom.Intensity = 0.5f;      // ← tweak this (higher = stronger glow)
-            bloom.Radius = 4.0f;
-            //Add(bloom);
-
-            // 4. Rim light - Makes characters and bright objects stand out
-            var rimLight = new RimLightEffect(ResourceLoader.shaders[Shaders.FX_RIM_LIGHT_COMPOSITE].Shader);
-            rimLight.Intensity = 0.15f;
-            rimLight.Power = 4.0f;
-            rimLight.RimColor = new Color(255, 248, 220);
-            //Add(rimLight);
+            //var distortion = new DistortionEffect(ResourceLoader.shaders[Shaders.FX_DISTORTION].Shader);
+            //distortion.Intensity = 0.02f;  // driven externally on screenshake
+            //Add(distortion);
 
             // Effect gammaShader = ResourceLoader.shaders[Shaders.FX_GAMMA].Shader;
             // var gamma = new GammaCorrectionEffect(gammaShader);

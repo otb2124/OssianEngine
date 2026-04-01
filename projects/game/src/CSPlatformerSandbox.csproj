@@ -22,17 +22,23 @@
     <None Remove="Content\res\fonts\Roboto_26_Regular.xnb" />
     <None Remove="Content\res\shaders\Bloom.mgfxo" />
     <None Remove="Content\res\shaders\BrightnessContrast.mgfxo" />
+    <None Remove="Content\res\shaders\ChromaticAberration.mgfxo" />
     <None Remove="Content\res\shaders\ColorGrade.fx" />
     <None Remove="Content\res\shaders\ColorGrade.mgfxo" />
     <None Remove="Content\res\shaders\ColorGrade.xnb" />
+    <None Remove="Content\res\shaders\ColorIsolation.mgfxo" />
     <None Remove="Content\res\shaders\CRT.fx" />
     <None Remove="Content\res\shaders\CRT.mgfxo" />
     <None Remove="Content\res\shaders\CRT.xnb" />
+    <None Remove="Content\res\shaders\Dissolve.mgfxo" />
+    <None Remove="Content\res\shaders\Distortion.mgfxo" />
     <None Remove="Content\res\shaders\EntityLight.mgfxo" />
     <None Remove="Content\res\shaders\GammaCorrection.mgfxo" />
+    <None Remove="Content\res\shaders\HitFlash.mgfxo" />
     <None Remove="Content\res\shaders\None.fx" />
     <None Remove="Content\res\shaders\None.mgfxo" />
     <None Remove="Content\res\shaders\None.xnb" />
+    <None Remove="Content\res\shaders\Outline.mgfxo" />
     <None Remove="Content\res\shaders\RimLightComposite.mgfxo" />
     <None Remove="Content\res\shaders\Saturation.mgfxo" />
     <None Remove="Content\res\shaders\ScreenFade.fx" />
@@ -103,10 +109,22 @@
     <Content Include="Content\res\shaders\BrightnessContrast.mgfxo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\res\shaders\ChromaticAberration.mgfxo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\res\shaders\ColorGrade.mgfxo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\res\shaders\ColorIsolation.mgfxo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\res\shaders\CRT.mgfxo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\Dissolve.mgfxo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\Distortion.mgfxo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\shaders\EntityLight.mgfxo">
@@ -115,7 +133,13 @@
     <Content Include="Content\res\shaders\GammaCorrection.mgfxo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\res\shaders\HitFlash.mgfxo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\res\shaders\None.mgfxo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\Outline.mgfxo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\shaders\RimLightComposite.mgfxo">

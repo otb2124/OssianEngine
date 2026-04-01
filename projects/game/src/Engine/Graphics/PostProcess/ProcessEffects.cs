@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Resources;
+using System;
 
 namespace Graphics
 {
@@ -8,7 +10,14 @@ namespace Graphics
         public Color TintColor = Color.White;
         public float Intensity = 0f;
 
-        public ColorGradeEffect(Effect shader) : base(shader) { }
+        public ColorGradeEffect(Color tintColor, float intensity) : base() 
+        {
+            TintColor = tintColor;
+            Intensity = intensity;
+
+            ShaderType = Shaders.FX_COLOR_GRADE;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -22,7 +31,14 @@ namespace Graphics
         public Color FadeColor = Color.Black;
         public float Alpha = 0f; // 0 = fully visible, 1 = fully faded
 
-        public ScreenFadeEffect(Effect shader) : base(shader) { }
+        public ScreenFadeEffect(Color fadeColor, float alpha) : base() 
+        {
+            FadeColor = fadeColor;
+            Alpha = alpha;
+
+            ShaderType = Shaders.FX_SCREEN_FADE;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -37,7 +53,14 @@ namespace Graphics
         public float Curvature = 0.08f;        // 0–0.3 recommended
         private float _elapsedSeconds = 0f;
 
-        public CRTEffect(Effect shader) : base(shader) { }
+        public CRTEffect(float scanlineStrength, float curvature) : base() 
+        {
+            ScanlineStrength = scanlineStrength;
+            Curvature = curvature;
+
+            ShaderType = Shaders.FX_CRT;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -54,7 +77,13 @@ namespace Graphics
     {
         public float Saturation = 1.0f; // 0 = grayscale, 1 = normal, >1 = vibrant
 
-        public SaturationEffect(Effect shader) : base(shader) { }
+        public SaturationEffect(float saturation) : base() 
+        {
+            Saturation = saturation;
+
+            ShaderType = Shaders.FX_SATURATION;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -67,7 +96,14 @@ namespace Graphics
         public float Brightness = 1.0f; // 0 = dark, 1 = normal, >1 = bright
         public float Contrast = 1.0f; // 0 = flat, 1 = normal, >1 = high contrast
 
-        public BrightnessContrastEffect(Effect shader) : base(shader) { }
+        public BrightnessContrastEffect(float brightness, float contrast) : base() 
+        {
+            Brightness = brightness;
+            Contrast = contrast;
+
+            ShaderType = Shaders.FX_BRIGHTNESS_CONTRAST;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -81,7 +117,14 @@ namespace Graphics
         public float Intensity = 0.6f;   // 0 = none, 1 = strong
         public float Radius = 0.85f;  // 0.5–1.0 (how large the vignette area is)
 
-        public VignetteEffect(Effect shader) : base(shader) { }
+        public VignetteEffect(float intensity, float radius) : base() 
+        {
+            Intensity = intensity;
+            Radius = radius;
+
+            ShaderType = Shaders.FX_VIGNETTE;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -95,7 +138,14 @@ namespace Graphics
         public Color ShadowColor = new Color(10, 10, 30); // dark bluish tint
         public float Intensity = 0f; // 0–1
 
-        public SimpleShadowEffect(Effect shader) : base(shader) { }
+        public SimpleShadowEffect(Color shadowColor, float intensity) : base() 
+        {
+            ShadowColor = shadowColor;
+            Intensity = intensity;
+
+            ShaderType = Shaders.FX_SIMPLE_SHADOW;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -108,7 +158,13 @@ namespace Graphics
     {
         public float Gamma = 2.2f; // Standard monitor gamma (usually 2.2)
 
-        public GammaCorrectionEffect(Effect shader) : base(shader) { }
+        public GammaCorrectionEffect(float gamma) : base() 
+        {
+            Gamma = gamma;
+
+            ShaderType = Shaders.FX_GAMMA_Correction;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -122,7 +178,15 @@ namespace Graphics
         public float Intensity { get; set; } = 1.5f;
         public float Radius { get; set; } = 3.0f;
 
-        public BloomEffect(Effect shader) : base(shader) { }
+        public BloomEffect(float threshold, float intensity, float radius) : base() 
+        {
+            Threshold = threshold;
+            Intensity = intensity;
+            Radius = radius;
+
+            ShaderType = Shaders.FX_BLOOM;
+            LoadShader();
+        }
 
         // No Apply() override needed — bloom is always multipass
 
@@ -130,6 +194,8 @@ namespace Graphics
             RenderTarget2D source, RenderTarget2D target, RenderTarget2D scratch)
         {
             var gd = Graphics.GraphicsDeviceManager.GraphicsDevice;
+
+            Vector2 resolution = new Vector2(source.Width, source.Height);
 
             Shader.Parameters["Threshold"]?.SetValue(Threshold);
             Shader.Parameters["Intensity"]?.SetValue(Intensity);
@@ -149,6 +215,8 @@ namespace Graphics
             // Pass 2: blur H scratch → target
             gd.SetRenderTarget(target);
             gd.Clear(new Color(0, 0, 0, 0));
+            Shader.Parameters["Radius"]?.SetValue(Radius);
+            Shader.Parameters["Resolution"]?.SetValue(resolution);
             Shader.Parameters["ScreenTexture"]?.SetValue(scratch);
             Shader.CurrentTechnique.Passes[1].Apply();
             sprites.Begin(null, BlendState.Opaque, Shader);
@@ -158,8 +226,11 @@ namespace Graphics
             // Pass 3: blur V + composite, reuse scratch as intermediate then blit to target
             gd.SetRenderTarget(scratch);
             gd.Clear(new Color(0, 0, 0, 0));
+            Shader.Parameters["Radius"]?.SetValue(Radius);
+            Shader.Parameters["Resolution"]?.SetValue(resolution);  // ← set again before Apply()
             Shader.Parameters["ScreenTexture"]?.SetValue(target);
             Shader.Parameters["OriginalTexture"]?.SetValue(source);
+            Shader.Parameters["Intensity"]?.SetValue(Intensity);
             Shader.CurrentTechnique.Passes[2].Apply();
             sprites.Begin(null, BlendState.Opaque, Shader);
             sprites.DrawRT(target, fullRect, Color.White);
@@ -169,6 +240,8 @@ namespace Graphics
             gd.SetRenderTarget(target);
             gd.Clear(new Color(0, 0, 0, 0));
             sprites.Begin(null, BlendState.Opaque);
+            Shader.Parameters["Resolution"]?.SetValue(resolution);
+            Shader.Parameters["Radius"]?.SetValue(Radius);
             sprites.DrawRT(scratch, fullRect, Color.White, SpriteEffects.FlipVertically);
             sprites.End();
         }
@@ -180,7 +253,15 @@ namespace Graphics
         public float Power = 3.2f;      // Higher = thinner, sharper rim
         public Color RimColor = new Color(255, 245, 210); // Warm golden rim (Fable 2 style)
 
-        public RimLightEffect(Effect shader) : base(shader) { }
+        public RimLightEffect(float intensity, float power, Color rimColor) : base() 
+        {
+            Intensity = intensity;
+            Power = power;
+            RimColor = rimColor;
+
+            ShaderType = Shaders.FX_RIM_LIGHT_COMPOSITE;
+            LoadShader();
+        }
 
         public override void Apply(Texture2D source, GameTime gameTime)
         {
@@ -203,7 +284,11 @@ namespace Graphics
         private readonly float[] _lightIntensity = new float[MAX_LIGHTS];
         private int _activeLights = 0;
 
-        public EntityLightingEffect(Effect shader) : base(shader) { }
+        public EntityLightingEffect() : base() 
+        {
+            ShaderType = Shaders.FX_ENTITY_LIGHT;
+            LoadShader();
+        }
 
         /// <summary>
         /// Add a light that affects this entity.
@@ -238,6 +323,154 @@ namespace Graphics
             Shader.Parameters["LightColors"]?.SetValue(_lightColors);
             Shader.Parameters["LightRadii"]?.SetValue(_lightRadii);
             Shader.Parameters["LightIntensity"]?.SetValue(_lightIntensity);
+        }
+    }
+
+
+    public class ChromaticAberrationEffect : ProcessEffect
+    {
+        public float Intensity = 0.0f;  // animate this on hit/screenshake
+
+        public ChromaticAberrationEffect(float intensity) : base() 
+        {
+            Intensity = intensity;
+
+            ShaderType = Shaders.FX_CHROMATIC_ABERRATION;
+            LoadShader();
+        }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["Intensity"]?.SetValue(Intensity);
+        }
+    }
+
+    public class DistortionEffect : ProcessEffect
+    {
+        public float Intensity = 0.0f;  // set to ~0.01 during screenshake, then decay
+        private float _elapsed = 0f;
+
+        public DistortionEffect(float intensity) : base() 
+        {
+            Intensity = intensity;
+
+            ShaderType = Shaders.FX_DISTORTION;
+            LoadShader();
+        }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            _elapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Shader.Parameters["Intensity"]?.SetValue(Intensity);
+            Shader.Parameters["Time"]?.SetValue(_elapsed);
+        }
+    }
+
+    public class OutlineEffect : ProcessEffect
+    {
+        public Color OutlineColor = Color.White;
+        public float OutlineThickness = 1.5f;
+
+        public OutlineEffect(Color outlineColor, float outlineThickness) : base() 
+        {
+            OutlineColor = outlineColor;
+            OutlineThickness = outlineThickness;
+
+            ShaderType = Shaders.FX_OUTLINE;
+            LoadShader();
+        }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["OutlineColor"]?.SetValue(OutlineColor.ToVector4());
+            Shader.Parameters["OutlineThickness"]?.SetValue(OutlineThickness);
+            Shader.Parameters["TextureSize"]?.SetValue(
+                new Vector2(source.Width, source.Height));
+        }
+    }
+
+    public class DissolveEffect : ProcessEffect
+    {
+        public float Progress = 0.0f;
+        public Color EdgeColor = new Color(210, 180, 140, 255);  // ash/sand
+        public float EdgeWidth = 0.08f;
+
+        private float _elapsed = 0f;
+
+        public DissolveEffect(Color edgeColor, float edgeWidth) : base() 
+        {
+            EdgeColor = edgeColor;
+            EdgeWidth = edgeWidth;
+
+            ShaderType = Shaders.FX_DISSOLVE;
+            LoadShader();
+        }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["Progress"]?.SetValue(Progress);
+            Shader.Parameters["EdgeColor"]?.SetValue(EdgeColor.ToVector4());
+            Shader.Parameters["EdgeWidth"]?.SetValue(EdgeWidth);
+            Shader.Parameters["Time"]?.SetValue(_elapsed);
+        }
+
+        public bool IsComplete => Progress >= 1.0f;
+    }
+
+    public class HitFlashEffect : ProcessEffect
+    {
+        public Color FlashColor = Color.White;
+        public float FlashIntensity = 0.0f;     // set to 1 on hit, decay each frame
+
+        private float _decaySpeed = 8.0f;       // units per second
+
+        public HitFlashEffect(Color flashColor, float flashIntensity) : base() 
+        {
+            FlashColor = flashColor;
+            FlashIntensity = flashIntensity;
+
+            ShaderType = Shaders.FX_HIT_FLASH;
+            LoadShader();
+        }
+
+        public override void Trigger()
+        {
+            FlashColor = Color.White;
+            FlashIntensity = 1.0f;
+        }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            // Auto-decay so you only need to call Trigger() on hit
+            FlashIntensity = Math.Max(0f,
+                FlashIntensity - _decaySpeed * (float)gameTime.ElapsedGameTime.TotalSeconds);
+
+            Shader.Parameters["FlashColor"]?.SetValue(FlashColor.ToVector4());
+            Shader.Parameters["FlashIntensity"]?.SetValue(FlashIntensity);
+        }
+    }
+
+    public class ColorIsolationEffect : ProcessEffect
+    {
+        public Color TargetColor = Color.Red;
+        public float Tolerance = 0.3f;   // higher = more colors preserved
+        public float Smoothness = 0.05f;  // soft edge width
+
+        public ColorIsolationEffect(Color target, float tolerance, float smoothness) : base() 
+        {
+            TargetColor = target;
+            Tolerance = tolerance;
+            Smoothness = smoothness;
+
+            ShaderType = Shaders.FX_COLOR_ISOLATION;
+            LoadShader();
+        }
+
+        public override void Apply(Texture2D source, GameTime gameTime)
+        {
+            Shader.Parameters["TargetColor"]?.SetValue(TargetColor.ToVector4());
+            Shader.Parameters["Tolerance"]?.SetValue(Tolerance);
+            Shader.Parameters["Smoothness"]?.SetValue(Smoothness);
         }
     }
 }

@@ -48,8 +48,9 @@ namespace Graphics
             GraphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
             GraphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
             Game.IsMouseVisible = false;
-            Game.IsFixedTimeStep = true;
+            Game.IsFixedTimeStep = false;
             Game.TargetElapsedTime = TimeSpan.FromTicks((long)Math.Round((double)TimeSpan.TicksPerSecond / UpdatesPerSecond));
+            GraphicsDeviceManager.ApplyChanges();
         }
 
         public static void SetGameProps(Game game)

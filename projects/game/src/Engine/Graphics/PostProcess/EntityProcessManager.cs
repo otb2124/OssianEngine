@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -24,6 +25,11 @@ namespace Graphics
         }
 
         public void Add(ProcessEffect fx) => Effects.Add(fx);
+
+        public ProcessEffect GetEffect(Type type)
+        {
+            return Effects.FirstOrDefault(fx => fx.GetType() == type);
+        }
 
         public RenderTarget2D CaptureAndProcess(
             Action drawAction)

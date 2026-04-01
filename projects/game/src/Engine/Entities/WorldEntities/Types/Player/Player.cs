@@ -180,16 +180,23 @@ namespace Entities
                 Graphics.Graphics.ScreenResolution.Y
             );
 
-            var bloom = new BloomEffect(ResourceLoader.shaders[Shaders.FX_BLOOM].Shader);
-            bloom.Threshold = 0.5f;
-            bloom.Intensity = 0.5f;
-            bloom.Radius = 1.5f;
+            var dissolve = new DissolveEffect(new Color(210, 180, 140), 0.09f);
+            EntityFX.Add(dissolve);
+
+            var bloom = new BloomEffect(0.5f, 0.75f, 3f);
             EntityFX.Add(bloom);
 
-            var rim = new RimLightEffect(ResourceLoader.shaders[Shaders.FX_RIM_LIGHT_COMPOSITE].Shader);
+            var rim = new RimLightEffect(0.1f, 0.1f, Color.White);
             rim.Power = 0.1f;
             rim.Intensity = 0.1f;
-            EntityFX.Add(rim);
+            //EntityFX.Add(rim);
+
+            //var outline = new OutlineEffect(ResourceLoader.shaders[Shaders.FX_OUTLINE].Shader);
+            //outline.OutlineColor = Color.Yellow;
+            //EntityFX.Add(outline);
+
+            //var hitFlash = new HitFlashEffect(ResourceLoader.shaders[Shaders.FX_HIT_FLASH].Shader);
+            //EntityFX.Add(hitFlash);
 
             /*
             var lighting = new EntityLightingEffect(ResourceLoader.shaders[Shaders.FX_ENTITY_LIGHT].Shader);
@@ -200,6 +207,8 @@ namespace Entities
 
         public override void Update()
         {
+            //var dissolve = EntityFX.GetEffect(typeof(DissolveEffect)) as DissolveEffect;
+            //dissolve.Progress += 0.1f / (float)Graphics.Graphics.UpdatesPerSecond;
 
             /*
             if (EntityFX != null)
