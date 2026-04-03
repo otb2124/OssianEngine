@@ -30,6 +30,8 @@ namespace App
 
             Graphics.Graphics.PostProcess.Init();
 
+            ResourceLoader.Init();
+
             base.Initialize();
         }
 
@@ -46,6 +48,8 @@ namespace App
 
             Graphics.Graphics.PostProcess.SetShaders();
             Entities.Entities.EntityManager.SetShaders();
+
+            Console.WriteLine(ResourceLoader.IOConfigManager.GetConfig(typeof(IOGameConfig)).RawJsonData);
         }
 
         protected override void Update(GameTime gameTime)

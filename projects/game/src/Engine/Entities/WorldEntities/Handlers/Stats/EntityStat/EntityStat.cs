@@ -40,8 +40,6 @@ namespace Entities
             CurrentValue = currentValue;
             MaximumValue = maximumValue;
             StaminaDependencySec = staminaCostSec;
-
-            Console.WriteLine(StaminaDependencySec);
         }
 
         public void Refill()

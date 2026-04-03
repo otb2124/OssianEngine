@@ -10,25 +10,35 @@ namespace Resources
         public static readonly string GLOBAL_RES_PATH = "../../../../res/";
         public static readonly string ContentFolderPath = "Content";
 
+        public static IOConfigManager IOConfigManager;
+
         public static Font[] fonts;
         public static Dictionary<SpriteSheets, SpriteSheet> spriteSheets;
         public static Dictionary<Sounds, SoundResource> soundResources;
         public static Dictionary<UITemplates, UITemplate> uiTemplates;
-        public static Dictionary<Shaders, ShaderResource> shaders;      // ← new
+        public static Dictionary<Shaders, ShaderResource> shaders;
 
         public static bool ResourcesLoaded = false;
         public static bool MapLoaded = false;
         public static bool ContentLoaded = false;
 
+        public static void Init()
+        {
+            IOConfigManager = new IOConfigManager();
+            IOConfigManager.Init();
+        }
+
         public static void LoadResources()
         {
             ResourcesLoaded = false;
+
+            IOConfigManager.Load();
 
             LoadSprites();
             LoadFonts();
             LoadSounds();
             LoadUITemplates();
-            LoadShaders();                                               // ← new
+            LoadShaders();
 
             ResourcesLoaded = true;
         }

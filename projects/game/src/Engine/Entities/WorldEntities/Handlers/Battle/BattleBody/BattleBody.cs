@@ -128,7 +128,6 @@ namespace Entities
                 {
                     if(!LightOn && !Graphics.Graphics.LightManager.HasLightSource(LightSource))
                     {
-                        Console.WriteLine("add");
                         LightSource.Init(Combo, NoAttackHitbox, model, BattleBodyData.LightSourceData);
                         Graphics.Graphics.LightManager.AddLightSource(LightSource);
                         LightOn = true;
@@ -138,7 +137,6 @@ namespace Entities
                 {
                     if(LightOn)
                     {
-                        Console.WriteLine("remove");
                         Graphics.Graphics.LightManager.lightSourcesToRemove.Add(LightSource);
                         LightOn = false;
                     }

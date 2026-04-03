@@ -74,7 +74,6 @@ namespace Graphics
             foreach (var light in lightSourcesToRemove)
             {
                 lightSources.Remove(light);
-                Console.WriteLine("removed light, left: " + lightSources.Count);
             }
             lightSourcesToRemove.Clear();
         }

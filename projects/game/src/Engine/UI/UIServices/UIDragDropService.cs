@@ -245,10 +245,6 @@ namespace UI
 
                 var absoluteBounds = new Rectangle(entry.Widget.ToGlobal(Point.Zero), new Point((int)entry.Widget.Width, (int)entry.Widget.Width));
 
-                Console.WriteLine(entry.EquipSlot.ToString());
-                Console.WriteLine(absoluteBounds);
-                Console.WriteLine(position);
-
                 if (absoluteBounds.Contains(position))
                     return entry;
             }
