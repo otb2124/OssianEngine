@@ -99,7 +99,7 @@ namespace Entities
                     WeaponBodyData.Sprite = StaticSprites.ENTITIES_WEAPONS_TORCH;
                     WeaponBodyData.MoveSet = BattleMovesets.WEAPON_SWORD;
                     WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationFramesData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
-                    WeaponBodyData.LightSourceData = new Graphics.LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(150f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.5f), 10f, 0f);
+                    WeaponBodyData.LightSourceData = new Graphics.LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(150f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.9f), 0f);
                     break;
                 case ItemLib.Weapons.FIREBALL_SPELL:
                     Name = "Fireball Spell";

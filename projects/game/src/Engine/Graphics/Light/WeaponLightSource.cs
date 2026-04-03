@@ -20,6 +20,7 @@ namespace Graphics
 
         public WeaponLightSource(LightSourceData data) : base(Vector2.Zero, data)
         {
+            Id = Graphics.LightManager.GenerateId();
         }
 
         public void Init(BattleCombo combo, RotatedRectangle noAttackHitbox, Model model, LightSourceData newData)
@@ -40,16 +41,20 @@ namespace Graphics
                 Model.ModelState == ModelStates.BLOCKING)
             {
                 var currentHit = Combo.GetCurrentHit();
-                int horizontalXFactor = Model.Direction == Directions.RIGHT ? 1 : -1;
+                Vector2 horizontalXFactor = Model.Direction == Directions.RIGHT ? new Vector2(1, 1) : new Vector2(-1, 1);
 
-                Vector2 oldWeaponPosition = Model.Body.Position.ToVector2() + NoAttackHitbox.Position * new Vector2(horizontalXFactor, 1f);
+                Vector2 modelCenter = new Vector2(Model.Body.Position.ToVector2().X + Model.Body.Width / 2f, Model.Body.Position.ToVector2().Y + Model.Body.Height / 2f);
+
+                Vector2 oldWeaponPosition = modelCenter + NoAttackHitbox.Position * horizontalXFactor;
+
+
                 Vector2 weaponRotOffset = new Vector2(0, NoAttackHitbox.Height);
                 weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(NoAttackHitbox.Rotation));
                 Vector2 lightPos = oldWeaponPosition - (weaponRotOffset * horizontalXFactor);
 
                 if (currentHit != null)
                 {
-                    oldWeaponPosition = Model.Body.Position.ToVector2() + currentHit.HitboxOffset.Position * new Vector2(horizontalXFactor, 1f);
+                    oldWeaponPosition = modelCenter + currentHit.HitboxOffset.Position * horizontalXFactor;
                     weaponRotOffset = new Vector2(0, currentHit.HitboxOffset.Height);
                     weaponRotOffset = Vector2.Transform(weaponRotOffset, Matrix.CreateRotationZ(currentHit.HitboxOffset.Rotation));
                     lightPos = oldWeaponPosition - (weaponRotOffset * horizontalXFactor);

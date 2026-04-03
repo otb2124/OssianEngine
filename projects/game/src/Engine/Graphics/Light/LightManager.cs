@@ -74,6 +74,7 @@ namespace Graphics
             foreach (var light in lightSourcesToRemove)
             {
                 lightSources.Remove(light);
+                Console.WriteLine("removed light, left: " + lightSources.Count);
             }
             lightSourcesToRemove.Clear();
         }
@@ -99,6 +100,11 @@ namespace Graphics
         public LightSource GetLightById(int id)
         {
             return lightSources.FirstOrDefault(e => e.Id == id);
+        }
+
+        public bool HasLightSource(LightSource lightSource)
+        {
+            return lightSources.Contains(lightSource) || lightSourcesToRemove.Contains(lightSource);
         }
 
         public List<LightSource> GetNearbyLights(Vector2 worldPosition, float maxDistance = 1000f)

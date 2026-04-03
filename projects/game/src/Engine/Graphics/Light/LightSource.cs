@@ -26,7 +26,7 @@ namespace Graphics
         public LightSource(Vector2 position, float radius, Color color)
         {
             Position = position;
-            Data = new LightSourceData(LightSourceData.LightSourceForms.CIRCULAR, new Vector2(radius, radius), Vector2.Zero, color, 50f, 0f);
+            Data = new LightSourceData(LightSourceData.LightSourceForms.CIRCULAR, new Vector2(radius, radius), Vector2.Zero, color, 0f);
             texture = CreateCircleTexture(64);
 
             Id = Graphics.LightManager.GenerateId();
@@ -44,7 +44,7 @@ namespace Graphics
         public LightSource(Vector2 position, Vector2 size, Color color)
         {
             Position = position;
-            Data = new LightSourceData(LightSourceData.LightSourceForms.RECTANGULAR, size, Vector2.Zero, color, 50f, 0f);
+            Data = new LightSourceData(LightSourceData.LightSourceForms.RECTANGULAR, size, Vector2.Zero, color, 0f);
             texture = new Texture2D(Graphics.GraphicsDeviceManager.GraphicsDevice, 1, 1);
             texture.SetData(new[] { Color.White });
 
@@ -146,17 +146,15 @@ namespace Graphics
             public LightSourceForms Form;
             public Vector2 Size;
             public Color Color;
-            public float Power;
             public Vector2 Origin;
             public float Rotation;
 
-            public LightSourceData(LightSourceForms form, Vector2 size, Vector2 origin, Color color, float power, float rotation)
+            public LightSourceData(LightSourceForms form, Vector2 size, Vector2 origin, Color color, float rotation)
             {
                 Form = form;
                 Size = size;
                 Origin = origin;
                 Color = color;
-                Power = power;
                 Rotation = rotation;
             }
         }

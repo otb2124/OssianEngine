@@ -1,5 +1,6 @@
 ﻿using Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Physics;
 using Resources;
 using System;
@@ -57,6 +58,7 @@ namespace Entities
         public bool IsSwinging = false;
         public BattleCombo Combo; 
         public WeaponLightSource LightSource;
+        public bool LightOn = false;
 
         public RotatedRectangle NoAttackHitbox;
 
@@ -84,28 +86,20 @@ namespace Entities
             BattleBodyData = data;
             MoveSetComboHits = GetWeaponComboHits(BattleBodyData.MoveSet);
 
+            AManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[BattleBodyData.Sprite].SpriteSheet, new List<Animation>());
+
             for (int i = 0; i < MoveSetComboHits.Length; i++)
             {
                 MoveSetComboHits[i].SetAnimation(BattleBodyData.MoveSet, GlobalWeaponSwingSpeedMultiplier * BattleBodyData.WeaponSwingSpeedMultiplier);
 
-                AManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[BattleBodyData.Sprite].SpriteSheet,
-                    new List<Animation>()
-                    {
-                        new Animation(new AnimationKey(MoveSetComboHits[i].AnimationState, Directions.LEFT), MoveSetComboHits[i].AnimationData),
-                        new Animation(new AnimationKey(MoveSetComboHits[i].AnimationState, Directions.RIGHT), MoveSetComboHits[i].AnimationData),
-                    }
-                );
+                AManager.AddAnimation(new Animation(new AnimationKey(MoveSetComboHits[i].AnimationState, Directions.LEFT), MoveSetComboHits[i].AnimationData));
+                AManager.AddAnimation(new Animation(new AnimationKey(MoveSetComboHits[i].AnimationState, Directions.RIGHT), MoveSetComboHits[i].AnimationData));
             }
 
             if(BattleBodyData.ModelStateBetweenHits == ModelStates.WEAPON_OUT_IDLE)
             {
-                AManager = new AnimationSet(StaticSpriteFactory.StaticSpriteMappings[BattleBodyData.Sprite].SpriteSheet,
-                    new List<Animation>()
-                    {
-                        new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.LEFT), BattleBodyData.WeaponOutAnimationData),
-                        new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.RIGHT), BattleBodyData.WeaponOutAnimationData),
-                    }
-                );
+                AManager.AddAnimation(new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.LEFT), BattleBodyData.WeaponOutAnimationData));
+                AManager.AddAnimation(new Animation(new AnimationKey(AnimationStates.WEAPON_OUT_IDLE, Directions.RIGHT), BattleBodyData.WeaponOutAnimationData));
             }
             
 
@@ -117,7 +111,7 @@ namespace Entities
                 LightSource = new WeaponLightSource(BattleBodyData.LightSourceData);
             }
 
-            NoAttackHitbox = new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(10, 30), 0f);
+            NoAttackHitbox = new Utils.RotatedRectangle(new Vector2(15, 20), new Vector2(20, 30), 0f);
         }
 
         public void Update(Model model, EquipmentManager equipmentManager = null)
@@ -126,20 +120,30 @@ namespace Entities
 
             if (LightSource != null)
             {
-                if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY || model.ModelState == ModelStates.BLOCKING
-                    || model.ModelState == ModelStates.WEAPON_OUT_IDLE || model.ModelState == ModelStates.WEAPON_OUT_MOVING 
-                    || model.ModelState == ModelStates.FLYING || model.ModelState == ModelStates.FLYING_AND_MOVING)
+                bool allowLightState = model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY || model.ModelState == ModelStates.BLOCKING
+                    || model.ModelState == ModelStates.WEAPON_OUT_IDLE || model.ModelState == ModelStates.WEAPON_OUT_MOVING
+                    || model.ModelState == ModelStates.FLYING || model.ModelState == ModelStates.FLYING_AND_MOVING;
+
+                if (allowLightState)
                 {
-                    if (Graphics.Graphics.LightManager.GetLightById(LightSource.Id) == null)
+                    if(!LightOn && !Graphics.Graphics.LightManager.HasLightSource(LightSource))
                     {
+                        Console.WriteLine("add");
                         LightSource.Init(Combo, NoAttackHitbox, model, BattleBodyData.LightSourceData);
                         Graphics.Graphics.LightManager.AddLightSource(LightSource);
+                        LightOn = true;
                     }
                 }
                 else
                 {
-                    Graphics.Graphics.LightManager.lightSourcesToRemove.Add(LightSource);
+                    if(LightOn)
+                    {
+                        Console.WriteLine("remove");
+                        Graphics.Graphics.LightManager.lightSourcesToRemove.Add(LightSource);
+                        LightOn = false;
+                    }
                 }
+                
             }
 
             if (model.ModelState == ModelStates.ATTACKING_LIGHT || model.ModelState == ModelStates.ATTACKING_HEAVY || model.ModelState == ModelStates.BLOCKING)
@@ -318,8 +322,8 @@ namespace Entities
             {
                 return;
             }
-            AManager.Update(new AnimationKey(Combo.GetCurrentHit().AnimationState, model.Direction));
 
+            AManager.Update(new AnimationKey(Combo.GetCurrentHit().AnimationState, model.Direction));
             model.AnimationState = Combo.GetCurrentHit().AnimationState;
 
             if (!ModelAnimationTimeUpdated)
@@ -342,6 +346,7 @@ namespace Entities
                 return;
 
             var currentHit = Combo.GetCurrentHit();
+
             if (currentHit == null)
             {
                 AManager.Update(new AnimationKey(Model.ModelStateToAnimationState(BattleBodyData.ModelStateBetweenHits, model.AnimationState), model.Direction));
@@ -350,16 +355,22 @@ namespace Entities
             Rectangle spriteSize = model.ModelAppearance.GetAnimationSets(EntityAppearanceAttributes.BODY)[0].GetCurrent().GetCurrentFrame();
             float scaleX = 1f;
             float scaleY = 1f;
-            float bodyWidth = model.Body.Width + model.BodyOffset.X;
-            float bodyHeight = model.Body.Height + model.BodyOffset.Y;
+
+            float forcedScale = 0.5f;
+
+            float bodyWidth = model.Body.Width * forcedScale + model.BodyOffset.X;
+            float bodyHeight = model.Body.Height * forcedScale + model.BodyOffset.Y;
             scaleX = bodyWidth / spriteSize.Width;
             scaleY = bodyHeight / spriteSize.Height;
 
             Vector2 entityBodyPos = model.Body.Position.ToVector2();
-            float directionXOffset = model.Direction == Directions.RIGHT ? -10 : model.Body.Width * 3f + 10;
-            Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - model.Body.Width / 2f - directionXOffset, entityBodyPos.Y - model.Body.Height / 2f);
+            float directionXOffset = model.Direction == Directions.LEFT ? bodyWidth*2f : 0;
+            float directionXFactor = model.Direction == Directions.LEFT ? -1 : 1;
+            Vector2 handOffset = new Vector2((bodyWidth/2f - 5f) * directionXFactor , 0);
+            Vector2 entityBodyPosWithOffset = new Vector2(entityBodyPos.X - directionXOffset - handOffset.X, entityBodyPos.Y - model.Body.Height / 2f - handOffset.Y);
+            SpriteEffects effect = model.Direction == Directions.RIGHT ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            AManager.GetCurrent().Draw(AManager.SpriteSheet, entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f);
+            AManager.DrawCurrent(entityBodyPosWithOffset, Color.White, 0f, Vector2.Zero, new Vector2(scaleX, scaleY), 0f, effect | SpriteEffects.FlipVertically);
         }
 
         public void DrawHitbox()

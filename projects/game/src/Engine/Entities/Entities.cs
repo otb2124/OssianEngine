@@ -10,7 +10,7 @@ namespace Entities
         public static EntityMapManager EntityMapManager;
         public static EventManager EventManager;
 
-        public static readonly float GlobalStartTime = 12f;
+        public static readonly float GlobalStartTime = 24f;
 
         public static DialogueManager DialogueManager;
 

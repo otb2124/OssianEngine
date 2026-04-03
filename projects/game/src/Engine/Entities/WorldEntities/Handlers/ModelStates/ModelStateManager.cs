@@ -59,11 +59,52 @@ namespace Entities
 
 
                             new IsGroundedRequirement(),
+
+                            new CurrentWeaponOutRequirement(true),
                         }
                     )
                 }
             ),
 
+            //WEAPON_OUT_IDLE
+            new ModelStateSwap(
+                ModelStates.WEAPON_OUT_IDLE,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                            new OrRequirement(
+                                new Requirement[]
+                                {
+                                    //new ModelStateRequirement(ModelStates.MOVING),
+                                    new ModelStateRequirement(ModelStates.JUMPING),
+                                    new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING),
+                                    new ModelStateRequirement(ModelStates.ATTACKING_LIGHT),
+                                    new ModelStateRequirement(ModelStates.ATTACKING_HEAVY),
+                                },
+                                true
+                             ),
+
+                            new OrRequirement(
+                                new Requirement[]
+                                {
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED),
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED),
+                                },
+                                true
+                             ),
+
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
+
+                            new IsGroundedRequirement(),
+
+                            new CurrentWeaponOutRequirement(),
+                        }
+                    )
+                }
+            ),
 
             //ATTACKING_LIGHT
             new ModelStateSwap(
@@ -201,26 +242,6 @@ namespace Entities
                     )
                 }
             ),
-            new ModelStateSwap(
-                ModelStates.WEAPON_OUT_IDLE,
-                new Requirement[]
-                {
-                    new AndRequirement(
-                        new Requirement[]
-                        {
-                            new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.BLOCKPRESSED, true),
-
-                            new ModelStateRequirement(ModelStates.BLOCKING),
-
-                            new ModelStateRequirement(ModelStates.DYING, true),
-
-                            new CurrentWeaponOutRequirement(true),
-                        }
-                    )
-                }
-            ),
-
-
 
             //JUMPING
             new ModelStateSwap(
@@ -611,12 +632,57 @@ namespace Entities
 
                             new IsGroundedRequirement(),
                             new AllowJumpDescendingRequirement(true),
+
+                            new CurrentWeaponOutRequirement(true),
                         }
                     )
                 }
             ),
 
-            //MOVING
+            //WEAPON_OUT_MOVING
+            new ModelStateSwap(
+                ModelStates.WEAPON_OUT_MOVING,
+                new Requirement[]
+                {
+                    new AndRequirement(
+                        new Requirement[]
+                        {
+                             new OrRequirement(
+                                new Requirement[]
+                                {
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVELEFTPRESSED),
+                                    new CurrentInputKeyRequirement(Inputs.KeyHandler.KeyStates.MOVERIGHTPRESSED)
+                                }
+                             ),
+
+                            new ModelStateRequirement(ModelStates.JUMPING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_AND_MOVING, true),
+
+                            new ModelStateRequirement(ModelStates.SPRINTING, true),
+                            new ModelStateRequirement(ModelStates.ROLLING, true),
+
+                            //new ModelStateRequirement(ModelStates.DESCENDING, true),
+                            new ModelStateRequirement(ModelStates.JUMPING_DESCENDING, true),
+                            //new ModelStateRequirement(ModelStates.JUMPING_DESCENDING_AND_MOVING, true),
+
+                            new ModelStateRequirement(ModelStates.ATTACKING_LIGHT, true),
+                            new ModelStateRequirement(ModelStates.ATTACKING_HEAVY, true),
+                            new ModelStateRequirement(ModelStates.FALLEN, true),
+
+                            new ModelStateRequirement(ModelStates.INWATER_MOVING, true),
+
+                            new ModelStateRequirement(ModelStates.DYING, true),
+
+                            new IsGroundedRequirement(),
+                            new AllowJumpDescendingRequirement(true),
+
+                            new CurrentWeaponOutRequirement()
+                        }
+                    )
+                }
+            ),
+
+            //INWATER_MOVING
             new ModelStateSwap(
                 ModelStates.INWATER_MOVING,
                 new Requirement[]
@@ -652,6 +718,8 @@ namespace Entities
 
                             new IsGroundedRequirement(),
                             new AllowJumpDescendingRequirement(true),
+
+                            new CurrentWeaponOutRequirement(true)
                         }
                     )
                 }

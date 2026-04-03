@@ -56,7 +56,7 @@ namespace Entities
 
         public override void SetEmission()
         {
-            Emission = new LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(10f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.7f), 50f, 0f);
+            Emission = new LightSource.LightSourceData(LightSource.LightSourceData.LightSourceForms.CIRCULAR, new Vector2(10f, 0f), Vector2.Zero, new Color(1f, 1f, 0.8f, 0.7f), 0f);
             base.SetEmission();
         }
         public virtual void Init(Models modelPreset, Vector2 pos, Vector2 interactionFieldSize, Inventory containment, InteractionData data)
