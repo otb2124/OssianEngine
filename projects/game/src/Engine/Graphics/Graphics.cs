@@ -42,6 +42,15 @@ namespace Graphics
         public static readonly float BufferRatio = 0.85f;
 
 
+        public static readonly BlendState OverwriteBlend = new BlendState
+        {
+            ColorSourceBlend = Blend.One,
+            ColorDestinationBlend = Blend.InverseSourceAlpha,
+            AlphaSourceBlend = Blend.One,
+            AlphaDestinationBlend = Blend.InverseSourceAlpha,
+        };
+
+
         public static void OnGameObjectConstruction(Game Game)
         {
             GraphicsDeviceManager = new GraphicsDeviceManager(Game);
@@ -181,7 +190,9 @@ namespace Graphics
             Sprites.DrawRT(Screen.Target, fullRect, Color.White);
             Sprites.End();
 
-            Sprites.Begin(null, BlendState.AlphaBlend);
+            //Entities.Entities.EntityManager.DrawFXEntities();
+
+            Sprites.Begin(null, OverwriteBlend);
             Entities.Entities.EntityManager.BlitEntityFXResults(Sprites, fullRect);
             Sprites.End();
 

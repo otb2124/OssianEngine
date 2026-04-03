@@ -17,6 +17,10 @@ namespace Graphics
         private SpriteBatch sprites;
         private BasicEffect effect;
 
+        private bool _isBatchOpen = false;
+
+        public bool IsBatchOpen => _isBatchOpen;
+
         public Sprites(Game game)
         {
             isDisposed = false;
@@ -63,6 +67,8 @@ namespace Graphics
         /// </summary>
         public void Begin(Camera camera, BlendState blendState, Effect customEffect)
         {
+            _isBatchOpen = true;
+
             blendState = blendState ?? BlendState.AlphaBlend;
 
             Viewport vp = game.GraphicsDevice.Viewport;
@@ -81,6 +87,8 @@ namespace Graphics
 
         public void Begin(Camera camera = null, BlendState blendState = null, bool zAnisoTroph = false, bool alwaysAnisoTroph = false)
         {
+            _isBatchOpen = true;
+
             bool textureFiltering = false;
 
             SamplerState samplerState = textureFiltering ? SamplerState.AnisotropicClamp : SamplerState.PointClamp;
@@ -118,6 +126,7 @@ namespace Graphics
 
         public void End()
         {
+            _isBatchOpen = false;
             sprites.End();
         }
 

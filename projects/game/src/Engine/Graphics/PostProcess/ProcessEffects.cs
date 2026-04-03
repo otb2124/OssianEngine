@@ -456,4 +456,77 @@ namespace Graphics
             Shader.Parameters["Smoothness"]?.SetValue(Smoothness);
         }
     }
+
+
+    public class BurningEffect : ProcessEffect
+    {
+        public float Intensity = 1.0f;
+        public Vector2 Radius = new Vector2(40f, 40f);
+        public bool FlipX = false;   // set from Model.Direction
+
+        private float _elapsed = 0f;
+
+        public BurningEffect(float intensity, float radius) : base() 
+        {
+            Intensity = intensity;
+            Radius = new Vector2(radius, radius);
+
+            ShaderType = Shaders.FX_BURNING;
+        }
+
+        public override void ApplyMultiPass(
+            Sprites sprites,
+            RenderTarget2D source,
+            RenderTarget2D target,
+            RenderTarget2D scratch)
+        {
+            var gd = Graphics.GraphicsDeviceManager.GraphicsDevice;
+            Rectangle fullRect = new Rectangle(0, 0, source.Width, source.Height);
+            Vector2 resolution = new Vector2(source.Width, source.Height);
+
+            _elapsed += (float)Graphics._lastGameTime.ElapsedGameTime.TotalSeconds;
+
+            // Pass 1: expand silhouette — source → scratch
+            gd.SetRenderTarget(scratch);
+            gd.Clear(new Color(0, 0, 0, 0));
+            sprites.Begin(null, BlendState.AlphaBlend, Shader);
+            Shader.Parameters["ScreenTexture"]?.SetValue(source);
+            Shader.Parameters["RadiusX"]?.SetValue(Radius.X / source.Width);
+            Shader.Parameters["RadiusY"]?.SetValue(Radius.Y / source.Height);
+            Shader.Parameters["Resolution"]?.SetValue(resolution);
+            Shader.CurrentTechnique.Passes[0].Apply();
+            sprites.DrawRT(source, fullRect, Color.White);
+            sprites.End();
+
+            // Pass 2: color fire — scratch → target
+            gd.SetRenderTarget(target);
+            gd.Clear(new Color(0, 0, 0, 0));
+            sprites.Begin(null, BlendState.AlphaBlend, Shader);
+            Shader.Parameters["ScreenTexture"]?.SetValue(scratch);
+            Shader.Parameters["Time"]?.SetValue(_elapsed);
+            Shader.Parameters["Intensity"]?.SetValue(Intensity);
+            Shader.CurrentTechnique.Passes[1].Apply();
+            sprites.DrawRT(scratch, fullRect, Color.White);
+            sprites.End();
+
+            // Final: copy flame result to scratch flipped, then draw original entity on top
+            gd.SetRenderTarget(scratch);
+            gd.Clear(new Color(0, 0, 0, 0));
+            sprites.Begin(null, BlendState.Opaque);
+            sprites.DrawRT(target, fullRect, Color.White);  // flame aura
+            sprites.End();
+
+            // Draw original entity on top — flipped to match
+            sprites.Begin(null, BlendState.NonPremultiplied);
+            sprites.DrawRT(source, fullRect, Color.White);  // entity over flame
+            sprites.End();
+
+            // Copy scratch → target so caller reads rt[dst]
+            gd.SetRenderTarget(target);
+            gd.Clear(new Color(0, 0, 0, 0));
+            sprites.Begin(null, BlendState.Opaque);
+            sprites.DrawRT(scratch, fullRect, Color.White);
+            sprites.End();
+        }
+    }
 }

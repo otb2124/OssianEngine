@@ -206,7 +206,23 @@ namespace Entities
 
             foreach (var entity in sortedEntities)
             {
+                // Skip entities with FX — they get drawn separately via BlitEntityFXResults
+                //if (entity is PhysicalEntity phys && phys.EntityFX != null && phys.EntityFX.HasEffects)
+                //    continue;
+
                 entity.Draw();
+            }
+        }
+
+        public void DrawFXEntities()
+        {
+            var sortedEntities = Entities.EntityMapManager.GetCurrentMapLayer().Entities
+                .OrderBy(e => (e is PhysicalEntity phent) ? phent.SpriteZ : float.MaxValue);
+
+            foreach (var entity in sortedEntities)
+            {
+                if (entity is PhysicalEntity phys && phys.EntityFX != null && phys.EntityFX.HasEffects)
+                    entity.Draw();  // this sets _pendingFXResult
             }
         }
 

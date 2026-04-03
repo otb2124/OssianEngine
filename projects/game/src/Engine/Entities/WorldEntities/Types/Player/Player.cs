@@ -31,7 +31,7 @@ namespace Entities
                 new EntityStat(EntityStats.HP, 100, 100),
                 new EntityStat(EntityStats.MANA, 100, 100),
                 new EntityStat(EntityStats.STAMINA, 100, 100),
-                new EntityStat(EntityStats.MOVEMENT_SPEED, 1f, 1f),
+                new EntityStat(EntityStats.MOVEMENT_SPEED, 1.5f, 1.5f),
                 new EntityStat(EntityStats.JUMP_SPEED, 2.8f, 2.8f, 60),
                 new EntityStat(EntityStats.SPRINT_SPEED_MULTIPLIER, 1.5f, 1.5f, 15),
                 new EntityStat(EntityStats.ROLL_SPEED_MULTIPLIER, 2f, 2f, 200),
@@ -182,12 +182,13 @@ namespace Entities
             EntityFX.Add(dissolve);
 
             var bloom = new BloomEffect(0.5f, 0.25f, 3f);
-            EntityFX.Add(bloom);
+            //EntityFX.Add(bloom);
 
             var rim = new RimLightEffect(0.1f, 0.1f, Color.White);
-            rim.Power = 0.1f;
-            rim.Intensity = 0.1f;
             //EntityFX.Add(rim);
+
+            var burning = new BurningEffect(2.0f, 25.0f);
+            EntityFX.Add(burning);
 
             //var outline = new OutlineEffect(ResourceLoader.shaders[Shaders.FX_OUTLINE].Shader);
             //outline.OutlineColor = Color.Yellow;

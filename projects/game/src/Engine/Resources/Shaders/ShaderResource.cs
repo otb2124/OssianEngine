@@ -25,6 +25,7 @@ namespace Resources
         FX_OUTLINE,
         FX_DISSOLVE,
         FX_COLOR_ISOLATION,
+        FX_BURNING,
     }
 
     public class ShaderResource
@@ -84,6 +85,7 @@ namespace Resources
             { Shaders.FX_OUTLINE, "Outline" },
             { Shaders.FX_DISSOLVE, "Dissolve" },
             { Shaders.FX_COLOR_ISOLATION, "ColorIsolation" },
+            { Shaders.FX_BURNING, "Burning" }
         };
     }
 }

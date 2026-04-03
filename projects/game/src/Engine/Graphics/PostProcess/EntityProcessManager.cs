@@ -39,12 +39,14 @@ namespace Graphics
             }
         }
 
-        public RenderTarget2D CaptureAndProcess(
-            Action drawAction)
+        public RenderTarget2D CaptureAndProcess(Action drawAction)
         {
             var gd = Graphics.GraphicsDeviceManager.GraphicsDevice;
 
-            Graphics.Sprites.End();
+            bool wasOpen = Graphics.Sprites.IsBatchOpen;
+
+            if (wasOpen)
+                Graphics.Sprites.End();
 
             // Capture entity into rt[0] with camera transform
             gd.SetRenderTarget(rt[0]);
@@ -60,11 +62,9 @@ namespace Graphics
             foreach (var fx in Effects)
             {
                 if (!fx.Enabled) continue;
-
-                if (fx is BloomEffect bloom)
+                if (fx is BloomEffect || fx is BurningEffect)
                 {
-                    // rt[2] is dedicated scratch, result always lands in rt[dst]
-                    bloom.ApplyMultiPass(Graphics.Sprites, rt[src], rt[dst], rt[2]);
+                    fx.ApplyMultiPass(Graphics.Sprites, rt[src], rt[dst], rt[2]);
                     (src, dst) = (dst, src);
                 }
                 else
@@ -80,8 +80,9 @@ namespace Graphics
                 }
             }
 
-            // DON'T blit back here — just return which RT has the result
-            Graphics.Sprites.Begin(Graphics.Camera);
+            // Restore previous RT and reopen batch only if it was open before
+            if (wasOpen)
+                Graphics.Sprites.Begin(Graphics.Camera);
 
             return rt[src];
         }
@@ -93,6 +94,7 @@ namespace Graphics
             if (isDisposed) return;
             rt[0]?.Dispose();
             rt[1]?.Dispose();
+            rt[2]?.Dispose();
             isDisposed = true;
         }
     }

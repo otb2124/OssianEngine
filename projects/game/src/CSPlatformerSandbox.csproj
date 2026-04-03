@@ -22,6 +22,7 @@
     <None Remove="Content\res\fonts\Roboto_26_Regular.xnb" />
     <None Remove="Content\res\shaders\Bloom.mgfxo" />
     <None Remove="Content\res\shaders\BrightnessContrast.mgfxo" />
+    <None Remove="Content\res\shaders\Burning.mgfxo" />
     <None Remove="Content\res\shaders\ChromaticAberration.mgfxo" />
     <None Remove="Content\res\shaders\ColorGrade.fx" />
     <None Remove="Content\res\shaders\ColorGrade.mgfxo" />
@@ -107,6 +108,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\shaders\BrightnessContrast.mgfxo">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\res\shaders\Burning.mgfxo">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\res\shaders\ChromaticAberration.mgfxo">
