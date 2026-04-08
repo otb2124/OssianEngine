@@ -1,0 +1,367 @@
+[
+  {
+    "key": "Weapons.BARE_HAND",
+    "name": "Bare Hands",
+    "description": "Bare hands",
+    "value": 0,
+    "rarity": 1,
+    "equipmentSlot": 4,
+    "stackable": false,
+    "battleStatsData": {
+      "physDamage": 1.0,
+      "magicDamage": 0.0,
+      "poiseDamage": 10.0,
+      "knockbackPower": 0.1,
+      "staminaCost": 5.0,
+      "manaCost": 0.0
+    },
+    "weaponBodyData": {
+      "weaponSwingSpeedMultiplier": 2.0,
+      "sprite": "NONE",
+      "moveSet": "WEAPON_BARE_HANDS",
+      "projectileToCast": "NONE",
+      "disableHitBoxDamage": false
+    }
+  },
+  {
+    "key": "Weapons.TERRABLADE",
+    "name": "Terrablade",
+    "description": "A powerful terrablade",
+    "value": 500,
+    "rarity": 1,
+    "equipmentSlot": 4,
+    "stackable": false,
+    "battleStatsData": {
+      "physDamage": 20.0,
+      "magicDamage": 0.0,
+      "poiseDamage": 50.0,
+      "knockbackPower": 2.0,
+      "staminaCost": 25.0,
+      "manaCost": 0.0
+    },
+    "weaponBodyData": {
+      "weaponSwingSpeedMultiplier": 1.0,
+      "sprite": "ENTITIES_WEAPONS_TERRABLADE",
+      "moveSet": "WEAPON_SWORD",
+      "projectileToCast": "NONE",
+      "disableHitBoxDamage": false
+    }
+  },
+  {
+    "key": "Weapons.KNIFE",
+    "name": "Knife",
+    "description": "Iron knife",
+    "value": 10,
+    "rarity": 1,
+    "equipmentSlot": 4,
+    "stackable": false,
+    "battleStatsData": {
+      "physDamage": 20.0,
+      "magicDamage": 0.0,
+      "poiseDamage": 50.0,
+      "knockbackPower": 2.0,
+      "staminaCost": 25.0,
+      "manaCost": 0.0
+    },
+    "weaponBodyData": {
+      "weaponSwingSpeedMultiplier": 1.5,
+      "sprite": "ENTITIES_WEAPONS_TERRABLADE",
+      "moveSet": "WEAPON_KNIFE",
+      "projectileToCast": "NONE",
+      "disableHitBoxDamage": false
+    }
+  },
+  {
+    "key": "Weapons.TORCH",
+    "name": "Torch",
+    "description": "A torch",
+    "value": 500,
+    "rarity": 1,
+    "equipmentSlot": 4,
+    "stackable": false,
+    "battleStatsData": {
+      "physDamage": 20.0,
+      "magicDamage": 0.0,
+      "poiseDamage": 50.0,
+      "knockbackPower": 2.0,
+      "staminaCost": 25.0,
+      "manaCost": 0.0
+    },
+    "weaponBodyData": {
+      "weaponSwingSpeedMultiplier": 1.0,
+      "sprite": "ENTITIES_WEAPONS_TORCH",
+      "moveSet": "WEAPON_SWORD",
+      "projectileToCast": "NONE",
+      "disableHitBoxDamage": false,
+      "lightSource": {
+        "form": "CIRCULAR",
+        "size": 150.0,
+        "color": "1.0,1.0,0.8,0.9"
+      }
+    }
+  },
+  {
+    "key": "Weapons.FIREBALL_SPELL",
+    "name": "Fireball Spell",
+    "description": "A fireball spell",
+    "value": 500,
+    "rarity": 1,
+    "equipmentSlot": 4,
+    "stackable": false,
+    "battleStatsData": {
+      "physDamage": 0.0,
+      "magicDamage": 20.0,
+      "poiseDamage": 50.0,
+      "knockbackPower": 2.0,
+      "staminaCost": 0.0,
+      "manaCost": 25.0
+    },
+    "weaponBodyData": {
+      "weaponSwingSpeedMultiplier": 1.0,
+      "sprite": "NONE",
+      "moveSet": "WEAPON_SPELL",
+      "projectileToCast": "FIREBALL",
+      "disableHitBoxDamage": true,
+      "lightSource": null
+    }
+  },
+  {
+    "key": "Weapons.BOW",
+    "name": "Bow",
+    "description": "A bow",
+    "value": 500,
+    "rarity": 1,
+    "equipmentSlot": 4,
+    "stackable": false,
+    "battleStatsData": {
+      "physDamage": 5.0,
+      "magicDamage": 0.0,
+      "poiseDamage": 10.0,
+      "knockbackPower": 1.0,
+      "staminaCost": 15.0,
+      "manaCost": 0.0
+    },
+    "weaponBodyData": {
+      "weaponSwingSpeedMultiplier": 1.0,
+      "sprite": "NONE",
+      "moveSet": "WEAPON_BOW",
+      "projectileToCast": "ARROW",
+      "disableHitBoxDamage": true,
+      "lightSource": null
+    }
+  },
+  {
+    "key": "Chestplates.IRON_CHESTPLATE",
+    "name": "Iron Chestplate",
+    "description": "An iron chestplate",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "TORSO",
+    "stackable": false,
+    "spriteSheet": "ENTITIES_HUMAN_M_ARMOR_CHESTPLATE_0",
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Helmets.IRON_HELMET",
+    "name": "Iron Helmet",
+    "description": "An iron helmet",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "HEAD",
+    "stackable": false,
+    "spriteSheet": "ENTITIES_HUMAN_M_ARMOR_HELMET_0",
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Boots.IRON_BOOTS",
+    "name": "Iron Boots",
+    "description": "An iron boots",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "LEGS",
+    "stackable": false,
+    "spriteSheet": "ENTITIES_HUMAN_M_ARMOR_BOOTS_0",
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Gloves.IRON_GLOVES",
+    "name": "Iron Gloves",
+    "description": "An iron gloves",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "HANDS",
+    "stackable": false,
+    "spriteSheet": "ENTITIES_HUMAN_M_ARMOR_GLOVES_0",
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Necklaces.IRON_NECKLACE",
+    "name": "Iron Necklace",
+    "description": "old necklace",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "NECKLACE",
+    "stackable": false,
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Capes.LEATHER_CAPE",
+    "name": "Leather Cape",
+    "description": "A warm leather cape",
+    "value": 100,
+    "rarity": "COMMON",
+    "equipmentSlot": "CAPE",
+    "stackable": false,
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Belts.IRON_BELT",
+    "name": "Iron Belt",
+    "description": "A sturdy iron belt",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "BELT",
+    "stackable": false,
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Rings.IRON_RING",
+    "name": "Iron Ring",
+    "description": "A simple iron ring",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "RING",
+    "stackable": false,
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Pets.CALL_DOG",
+    "name": "Dog bone",
+    "description": "A bone for your loyal companion",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "PET",
+    "stackable": false,
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "LightPets.CALL_FIREFLY",
+    "name": "Firefly in a Jar",
+    "description": "A glowing friend in a jar",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "PET",
+    "stackable": false,
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Containments.BACKPACK",
+    "name": "Backpack",
+    "description": "A sturdy backpack",
+    "value": 500,
+    "rarity": "COMMON",
+    "equipmentSlot": "CONTAINMENT",
+    "stackable": false,
+    "battleStatsData": {
+      "defenseSet": {
+        "physDef": 5.0
+      }
+    }
+  },
+  {
+    "key": "Consumables.HEALTH_POTION",
+    "name": "Health Potion",
+    "description": "A health potion",
+    "value": 10,
+    "rarity": 1,
+    "stackable": true
+  },
+  {
+    "key": "Currencies.GOLD_COIN",
+    "name": "Gold Coin",
+    "description": "A gold coin",
+    "value": 1,
+    "rarity": 1,
+    "stackable": true
+  },
+  {
+    "key": "Keys.GOLDEN_KEY",
+    "name": "Golden Key",
+    "description": "A golden key",
+    "value": 1,
+    "rarity": 1,
+    "stackable": true
+  },
+  {
+    "key": "Materials.SWORD_HILT",
+    "name": "Sword Hilt",
+    "description": "A sword hilt",
+    "value": 2,
+    "rarity": 1,
+    "stackable": true
+  },
+  {
+    "key": "QuestItems.NOTE",
+    "name": "Richard's Note",
+    "description": "A note from richard",
+    "value": 0,
+    "rarity": 1,
+    "stackable": false
+  },
+  {
+    "key": "QuestItems.STONE",
+    "name": "Strange Stone",
+    "description": "A mysterious stone",
+    "value": 0,
+    "rarity": 1,
+    "stackable": false
+  },
+  {
+    "key": "QuestItems.HEAD",
+    "name": "Richard's Head",
+    "description": "A severed head",
+    "value": 0,
+    "rarity": 1,
+    "stackable": false
+  }
+]

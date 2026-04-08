@@ -26,7 +26,7 @@ namespace Entities
             if (!AllowPickup)
             {
                 PickupCounter++;
-                if (PickupCounter > PickupLockSec * Graphics.Graphics.UpdatesPerSecond)
+                if (PickupCounter > PickupLockSec * Graphics.Graphics.GraphicsFrameRate)
                 {
                     AllowPickup = true;
                     PickupCounter = 0;

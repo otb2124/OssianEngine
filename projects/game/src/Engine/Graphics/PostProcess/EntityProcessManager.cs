@@ -19,7 +19,7 @@ namespace Graphics
         {
             var gd = Graphics.GraphicsDeviceManager.GraphicsDevice;
             for (int i = 0; i < 3; i++)
-                rt[i] = new RenderTarget2D(gd, Graphics.ScreenResolution.X, Graphics.ScreenResolution.Y, false,
+                rt[i] = new RenderTarget2D(gd, Graphics.PreferredBackBufferSize.X, Graphics.PreferredBackBufferSize.Y, false,
                     SurfaceFormat.Color, DepthFormat.None, 0,
                     RenderTargetUsage.PreserveContents);
         }

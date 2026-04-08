@@ -19,9 +19,13 @@ namespace Utils
 
         public ConsoleCommandManager()
         {
+            commands = new Dictionary<string, IConsoleCommand>();
+        }
+
+        public void Init()
+        {
             Console.WriteLine("Console allocated. Command Prompt Ready. Use Minecraft-style commands (e.g., /spawn entity). EquipmentSlotType /help for commands.");
             commandQueue = new ConcurrentQueue<string>();
-            commands = new Dictionary<string, IConsoleCommand>();
             isRunning = true;
             inputThread = new Thread(ReadConsoleInput);
             inputThread.IsBackground = true;
@@ -72,6 +76,9 @@ namespace Utils
 
         public void ProcessCommands()
         {
+            if (!isRunning)
+                return;
+
             while (commandQueue.TryDequeue(out string command))
             {
                 ExecuteCommand(command);

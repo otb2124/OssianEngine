@@ -45,7 +45,7 @@ namespace Entities
 
                     BattleItemStatsData.DefenseSet.PhysDef = 5f;
                     break;
-                case ItemLib.Rings:
+                case ItemLib.Rings.IRON_RING:
                     Name = "Iron Ring";
                     Description = "An iron ring";
                     Value = 500;
@@ -72,7 +72,7 @@ namespace Entities
                     Description = "An iron chestplate";
                     Value = 500;
                     Rarity = ItemRarity.COMMON;
-                    EquipmentSlotTake = EquipmentSlotsTakes.PET_LIGHT;
+                    EquipmentSlotTake = EquipmentSlotsTakes.PET;
 
                     Stackable = false;
 

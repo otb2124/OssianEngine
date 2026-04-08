@@ -29,7 +29,7 @@ namespace Entities
             {
                 UnHangingCounter++;
 
-                if (UnHangingCounter > 0.5f * Graphics.Graphics.UpdatesPerSecond)
+                if (UnHangingCounter > 0.5f * Graphics.Graphics.GraphicsFrameRate)
                 {
                     AllowHangingOnLedge = true;
                     UnHangingCounter = 0;
@@ -49,7 +49,7 @@ namespace Entities
                     model.Body.MoveTo(PhysicalConverter.ToPhysicalVector(ledge.HangingPosition));
 
                     HangingCounter++;
-                    if (HangingCounter > 0.25f * Graphics.Graphics.UpdatesPerSecond)
+                    if (HangingCounter > 0.25f * Graphics.Graphics.GraphicsFrameRate)
                     {
                         AllowHangingOnLedge = false;
                         HangingCounter = 0;

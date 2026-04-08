@@ -50,7 +50,7 @@ namespace Entities
             if (IsFallen)
             {
                 FallenTimer++;
-                if (FallenTimer >= FallenDurationAllowedSec * Graphics.Graphics.UpdatesPerSecond)
+                if (FallenTimer >= FallenDurationAllowedSec * Graphics.Graphics.GraphicsFrameRate)
                 {
                     IsFallen = false;
                     FallenTimer = 0f;

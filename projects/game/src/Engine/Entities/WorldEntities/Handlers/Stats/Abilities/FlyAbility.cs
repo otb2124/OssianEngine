@@ -51,10 +51,10 @@ namespace Entities
             {
                 FlyingCounter++;
 
-                if (FlyingCounter >= MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond)
+                if (FlyingCounter >= MaxFlyTimeSec * Graphics.Graphics.GraphicsFrameRate)
                 {
                     FlyingUpwards = false;
-                    FlyingCounter = (int)(MaxFlyTimeSec * Graphics.Graphics.UpdatesPerSecond);
+                    FlyingCounter = (int)(MaxFlyTimeSec * Graphics.Graphics.GraphicsFrameRate);
                 }
             }
             else

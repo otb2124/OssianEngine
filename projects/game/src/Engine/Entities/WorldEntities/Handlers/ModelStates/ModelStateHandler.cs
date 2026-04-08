@@ -138,7 +138,7 @@ namespace Entities {
         public static void Jump(StatsEntity Entity)
         {
             Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue);
-            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate;
             Entity.StatsManager.GetStatAbility<DescencionAbility>().AllowJumpDescendingLock = true;
             Entity.Model.Body.IsFrozen = false;
         }
@@ -146,7 +146,7 @@ namespace Entities {
         public static void JumpAndMove(StatsEntity Entity, int directionXFactor)
         {
             Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue);
-            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate;
             Entity.Model.Body.Move(new PhysicalVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
             Entity.StatsManager.GetStatAbility<DescencionAbility>().AllowJumpDescendingLock = true;
             Entity.Model.Body.IsFrozen = false;
@@ -155,7 +155,7 @@ namespace Entities {
         public static void DoubleJump(StatsEntity Entity)
         {
             Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue * 1.5f);
-            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate;
             Entity.StatsManager.GetStatAbility<DescencionAbility>().AllowJumpDescendingLock = true;
             Entity.Model.Body.IsFrozen = false;
         }
@@ -163,7 +163,7 @@ namespace Entities {
         public static void DoubleJumpAndMove(StatsEntity Entity, int directionXFactor)
         {
             Entity.Model.Body.Jump(Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).CurrentValue * 1.5f);
-            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate;
             Entity.StatsManager.GetStatAbility<DescencionAbility>().AllowJumpDescendingLock = true;
             Entity.Model.Body.IsFrozen = false;
             Entity.Model.Body.Move(new PhysicalVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * directionXFactor, 0));
@@ -198,10 +198,10 @@ namespace Entities {
 
         public static void Sprint(StatsEntity Entity, int directionXFactor)
         {
-            if (Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0)
+            if (Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue - Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate > 0)
             {
                 Entity.Model.Body.Move(new PhysicalVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).CurrentValue * directionXFactor, 0));
-                Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+                Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.SPRINT_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate;
                 Entity.StatsManager.GetStatAbility<StaminaRegenerationAbility>().OnUsingStamina = true;
             }
             else
@@ -225,7 +225,7 @@ namespace Entities {
 
         public static void Roll(StatsEntity Entity, int directionXFactor)
         {
-            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate;
             Entity.Model.Body.Move(new PhysicalVector(Entity.StatsManager.GetStat(EntityStats.MOVEMENT_SPEED).CurrentValue * Entity.StatsManager.GetStat(EntityStats.ROLL_SPEED_MULTIPLIER).CurrentValue * directionXFactor, 0));
         }
 
@@ -292,7 +292,7 @@ namespace Entities {
                 Entity.Model.Body.Jump(-Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
             }
 
-            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate;
             Entity.StatsManager.GetStatAbility<DescencionAbility>().AllowJumpDescendingLock = true;
             Entity.Model.Body.IsFrozen = false;
         }
@@ -310,7 +310,7 @@ namespace Entities {
                 Entity.Model.Body.Jump(-Entity.StatsManager.GetStat(EntityStats.FLY_SPEED).CurrentValue);
             }
 
-            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond;
+            Entity.StatsManager.GetStat(EntityStats.STAMINA).CurrentValue -= Entity.StatsManager.GetStat(EntityStats.JUMP_SPEED).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate;
             Entity.StatsManager.GetStatAbility<DescencionAbility>().AllowJumpDescendingLock = true;
             Entity.Model.Body.IsFrozen = false;
 

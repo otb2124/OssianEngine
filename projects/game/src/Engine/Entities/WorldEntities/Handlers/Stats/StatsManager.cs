@@ -150,7 +150,7 @@ namespace Entities
 
         public bool CheckEnoughStaminaForStat(EntityStats stat)
         {
-            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(stat).StaminaDependencySec / (float)Graphics.Graphics.UpdatesPerSecond > 0;
+            return GetStat(EntityStats.STAMINA).CurrentValue - GetStat(stat).StaminaDependencySec / (float)Graphics.Graphics.GraphicsFrameRate > 0;
         }
 
         public bool LostPoise()

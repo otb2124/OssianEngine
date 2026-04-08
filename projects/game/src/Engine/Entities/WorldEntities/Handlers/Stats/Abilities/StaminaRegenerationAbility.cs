@@ -36,12 +36,12 @@ namespace Entities
             {
                 StaminaUnlockCounter++;
 
-                if (StaminaUnlockCounter < StaminaUnlockSec * Graphics.Graphics.UpdatesPerSecond)
+                if (StaminaUnlockCounter < StaminaUnlockSec * Graphics.Graphics.GraphicsFrameRate)
                 {
                     OnStaminaRegen = true;
                 }
 
-                statsManager.GetStat(EntityStats.STAMINA).CurrentValue += StaminaRegenSec / (float)Graphics.Graphics.UpdatesPerSecond;
+                statsManager.GetStat(EntityStats.STAMINA).CurrentValue += StaminaRegenSec / (float)Graphics.Graphics.GraphicsFrameRate;
 
                 if (GameStateManager.IsGod)
                 {

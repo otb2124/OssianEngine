@@ -1,5 +1,4 @@
-﻿using Entities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Physics;
@@ -25,21 +24,30 @@ namespace Graphics
         public static FilterManager FilterManager;
         public static VFXManager VFXManager;
 
+        //from ini config
+        public static Point WindowPosition;
+        public static Point PreferredBackBufferSize;
+        public static float BufferRatio;
+        public static bool IsFullscreen;
+        public static bool SynchronizeWithVerticalRetrace;
+        public static bool IsBorderLess;
+        public static double GraphicsFrameRate = 120d;
+        public static double LogicUpdateRate = 60d;
+        public static bool IsMouseVisible;
+        public static bool ConsoleVisible;
+        
+
         // ── Light mask ────────────────────────────────────────────────────────
         public static LightMaskTarget LightMask;
 
         // ── Post-process ──────────────────────────────────────────────────────
         public static PostProcessManager PostProcess;
 
-        public const double UpdatesPerSecond = 120d;
-        public const double TargetLogicFrameRate = 60d;
-        public const double TimeScale = UpdatesPerSecond / TargetLogicFrameRate;
+        public static double TimeScale = GraphicsFrameRate / LogicUpdateRate;
 
         public static double CurrentLogicTime;
 
-        public static readonly Point WindowPositon = new Point(400, 40);
-        public static readonly Point ScreenResolution = new Point(1280, 720);
-        public static readonly float BufferRatio = 0.85f;
+        
 
 
         public static readonly BlendState OverwriteBlend = new BlendState
@@ -53,20 +61,24 @@ namespace Graphics
 
         public static void OnGameObjectConstruction(Game Game)
         {
+            ConsoleHelper.SetConsoleVisibility(ConsoleVisible);
             GraphicsDeviceManager = new GraphicsDeviceManager(Game);
-            GraphicsDeviceManager.SynchronizeWithVerticalRetrace = true;
+            GraphicsDeviceManager.SynchronizeWithVerticalRetrace = SynchronizeWithVerticalRetrace;
             GraphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
-            Game.IsMouseVisible = false;
-            Game.IsFixedTimeStep = false;
-            Game.TargetElapsedTime = TimeSpan.FromTicks((long)Math.Round((double)TimeSpan.TicksPerSecond / UpdatesPerSecond));
+            GraphicsDeviceManager.PreferredBackBufferWidth = PreferredBackBufferSize.X;
+            GraphicsDeviceManager.PreferredBackBufferHeight = PreferredBackBufferSize.Y;
+            GraphicsDeviceManager.IsFullScreen = IsFullscreen;
+            Game.IsMouseVisible = IsMouseVisible;
+            Game.IsFixedTimeStep = true;
+            Game.TargetElapsedTime = TimeSpan.FromTicks((long)Math.Round((double)TimeSpan.TicksPerSecond / GraphicsFrameRate));
             GraphicsDeviceManager.ApplyChanges();
         }
 
         public static void SetGameProps(Game game)
         {
-            game.Window.Position = WindowPositon;
+            game.Window.Position = WindowPosition;
             PhysicalUtil.SetRelativeBackBufferSize(GraphicsDeviceManager, BufferRatio);
-            Screen = new Screen(game, ScreenResolution.X, ScreenResolution.Y);
+            Screen = new Screen(game, PreferredBackBufferSize.X, PreferredBackBufferSize.Y);
             Sprites = new Sprites(game);
             Shapes = new Shapes(game);
             ContentManager = game.Content;
@@ -75,10 +87,10 @@ namespace Graphics
 
             // Create the light mask at the same resolution as the Screen so
             // every pixel lines up 1-to-1 when we blit both to the backbuffer.
-            LightMask = new LightMaskTarget(game, ScreenResolution.X, ScreenResolution.Y);
+            LightMask = new LightMaskTarget(game, PreferredBackBufferSize.X, PreferredBackBufferSize.Y);
 
             // Post-process ping-pong buffers at Screen resolution.
-            PostProcess = new PostProcessManager(game, ScreenResolution.X, ScreenResolution.Y);
+            PostProcess = new PostProcessManager(game, PreferredBackBufferSize.X, PreferredBackBufferSize.Y);
         }
 
 

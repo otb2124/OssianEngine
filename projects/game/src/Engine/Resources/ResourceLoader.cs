@@ -11,6 +11,7 @@ namespace Resources
         public static readonly string ContentFolderPath = "Content";
 
         public static IOConfigManager IOConfigManager;
+        public static IOIniConfigManager IOIniConfigManager;
 
         public static Font[] fonts;
         public static Dictionary<SpriteSheets, SpriteSheet> spriteSheets;
@@ -26,6 +27,11 @@ namespace Resources
         {
             IOConfigManager = new IOConfigManager();
             IOConfigManager.Init();
+
+            IOIniConfigManager = new IOIniConfigManager();
+            IOIniConfigManager.Init();
+            IOIniConfigManager.Load();
+            IOIniConfigManager.ApplyAll();
         }
 
         public static void LoadResources()
@@ -106,6 +112,11 @@ namespace Resources
 
                 shaders[shaderEnum] = new ShaderResource(shaderEnum);
             }
+        }
+
+        public static void ApplyConfig()
+        {
+            IOConfigManager.ApplyAll();
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -10,14 +13,13 @@ namespace Resources
         [JsonIgnore]
         public string FilePath { get; protected set; }
 
-        // This will store the raw JSON string after loading
         [JsonIgnore]
         public string RawJsonData { get; private set; } = string.Empty;
 
         protected IOConfig() { }
 
         /// <summary>
-        /// Loads the config from JSON file and stores the raw JSON string.
+        /// Universal Load that handles both single objects and arrays (List<T> properties)
         /// </summary>
         public virtual void Load()
         {
@@ -33,7 +35,7 @@ namespace Resources
             if (!File.Exists(fullPath))
             {
                 Console.WriteLine($"Config not found: {FilePath}. Creating default...");
-                Save(); // Save default values
+                Save();
                 RawJsonData = string.Empty;
                 return;
             }
@@ -41,40 +43,67 @@ namespace Resources
             try
             {
                 string json = File.ReadAllText(fullPath);
-                RawJsonData = json; // ← Store raw JSON here
+                RawJsonData = json;
 
                 var options = new JsonSerializerOptions
                 {
                     WriteIndented = true,
                     ReadCommentHandling = JsonCommentHandling.Skip,
-                    AllowTrailingCommas = true
+                    AllowTrailingCommas = true,
+                    PropertyNameCaseInsensitive = true
                 };
 
-                // Deserialize into current instance
-                JsonSerializer.Deserialize(json, this.GetType(), options);
+                // First attempt: Deserialize as normal object
+                try
+                {
+                    JsonSerializer.Deserialize(json, this.GetType(), options);
+                    Console.WriteLine($"Loaded config (object): {FilePath}");
+                    return;
+                }
+                catch
+                {
+                    // Not a single object → probably an array. Continue below.
+                }
 
-                Console.WriteLine($"Loaded config: {FilePath}");
+                // Second attempt: Look for any property that contains "List" or "list" in its name
+                var listProperties = this.GetType()
+                    .GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .Where(p => p.PropertyType.IsGenericType &&
+                                p.PropertyType.GetGenericTypeDefinition() == typeof(List<>) &&
+                                (p.Name.Contains("List", StringComparison.OrdinalIgnoreCase) ||
+                                 p.Name.Contains("Items", StringComparison.OrdinalIgnoreCase)))
+                    .ToList();
+
+                if (listProperties.Count > 0)
+                {
+                    var listProperty = listProperties.First(); // Take the first matching property
+
+                    var listType = listProperty.PropertyType;
+                    var deserializedList = JsonSerializer.Deserialize(json, listType, options);
+
+                    if (deserializedList != null)
+                    {
+                        listProperty.SetValue(this, deserializedList);
+                        int count = ((dynamic)deserializedList).Count;
+                        Console.WriteLine($"Loaded config (array): {FilePath} → {count} items into '{listProperty.Name}'");
+                        return;
+                    }
+                }
+
+                Console.WriteLine($"Warning: Could not deserialize {FilePath} as object or recognized list.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error loading {FilePath}: {ex.Message}");
-                Console.WriteLine("Using default values.");
                 RawJsonData = string.Empty;
             }
         }
 
-        /// <summary>
-        /// Returns the raw JSON string that was loaded from file.
-        /// Returns empty string if no file was loaded or loading failed.
-        /// </summary>
         public string GetRawJson()
         {
             return RawJsonData ?? string.Empty;
         }
 
-        /// <summary>
-        /// Saves current config to its FilePath
-        /// </summary>
         public virtual void Save()
         {
             if (string.IsNullOrEmpty(FilePath))
@@ -86,10 +115,8 @@ namespace Resources
             {
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 string json = JsonSerializer.Serialize(this, this.GetType(), options);
-
                 File.WriteAllText(fullPath, json);
-                RawJsonData = json; // Update raw data after saving
-
+                RawJsonData = json;
                 Console.WriteLine($"Saved config: {FilePath}");
             }
             catch (Exception ex)
@@ -106,5 +133,7 @@ namespace Resources
                 "config",
                 FilePath + ".json");
         }
+
+        public virtual void Apply() { }
     }
 }

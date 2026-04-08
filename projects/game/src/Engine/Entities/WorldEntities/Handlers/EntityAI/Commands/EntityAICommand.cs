@@ -166,7 +166,7 @@ namespace Entities
             }
             
 
-            if (CommandTime < CurrentDuration * Graphics.Graphics.UpdatesPerSecond / 1.5f)
+            if (CommandTime < CurrentDuration * Graphics.Graphics.GraphicsFrameRate / 1.5f)
             {
                 Entity.Model.ModelState = state;
             }

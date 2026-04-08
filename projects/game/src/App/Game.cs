@@ -12,6 +12,7 @@ namespace App
 
         public Game()
         {
+            ResourceLoader.Init();
             Graphics.Graphics.OnGameObjectConstruction(this);
         }
 
@@ -26,11 +27,17 @@ namespace App
             Sounds.Sounds.Init();
 
             GameStateManager.SetDefault();
+
             commandManager = new ConsoleCommandManager();
+            if (Graphics.Graphics.ConsoleVisible)
+            {
+                commandManager.Init();
+            }
+            
 
             Graphics.Graphics.PostProcess.Init();
 
-            ResourceLoader.Init();
+            
 
             base.Initialize();
         }
@@ -49,7 +56,7 @@ namespace App
             Graphics.Graphics.PostProcess.SetShaders();
             Entities.Entities.EntityManager.SetShaders();
 
-            Console.WriteLine(ResourceLoader.IOConfigManager.GetConfig(typeof(IOGameConfig)).RawJsonData);
+            ResourceLoader.ApplyConfig();
         }
 
         protected override void Update(GameTime gameTime)

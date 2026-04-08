@@ -125,7 +125,7 @@ namespace Graphics
 
         public void HandleParticleDuration(Particle particle)
         {
-            if (particle.DurationCounter < particle.DurationSec * Graphics.UpdatesPerSecond)
+            if (particle.DurationCounter < particle.DurationSec * Graphics.GraphicsFrameRate)
             {
                 particle.DurationCounter++;
             }

@@ -21,7 +21,7 @@ namespace Utils
         public static Vector2 ToScreenPos(Vector2 worldPos)
         {
             Vector2 screenPos = worldPos - Graphics.Graphics.Camera.Position;
-            Vector2 screenPosPlusScreenBounds = new Vector2(screenPos.X + Graphics.Graphics.ScreenResolution.X / 2f, screenPos.Y + Graphics.Graphics.ScreenResolution.Y / 2f);
+            Vector2 screenPosPlusScreenBounds = new Vector2(screenPos.X + Graphics.Graphics.PreferredBackBufferSize.X / 2f, screenPos.Y + Graphics.Graphics.PreferredBackBufferSize.Y / 2f);
 
             return screenPosPlusScreenBounds;
         }

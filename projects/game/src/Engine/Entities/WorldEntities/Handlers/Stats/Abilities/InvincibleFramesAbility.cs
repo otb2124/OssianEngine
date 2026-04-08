@@ -24,7 +24,7 @@ namespace Entities
             if (IsInvincible)
             {
                 InvincibleCounter++;
-                if (InvincibleCounter > InvincibleFramesDurationSec * Graphics.Graphics.UpdatesPerSecond)
+                if (InvincibleCounter > InvincibleFramesDurationSec * Graphics.Graphics.GraphicsFrameRate)
                 {
                     IsInvincible = false;
                     InvincibleCounter = 0;

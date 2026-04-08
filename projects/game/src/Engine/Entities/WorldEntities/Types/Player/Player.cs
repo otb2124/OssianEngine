@@ -217,7 +217,7 @@ namespace Entities
         public override void Update()
         {
             //var dissolve = EntityFX.GetEffect(typeof(DissolveEffect)) as DissolveEffect;
-            //dissolve.Progress += 0.1f / (float)Graphics.Graphics.UpdatesPerSecond;
+            //dissolve.Progress += 0.1f / (float)Graphics.Graphics.GraphicsFrameRate;
 
             /*
             if (EntityFX != null)

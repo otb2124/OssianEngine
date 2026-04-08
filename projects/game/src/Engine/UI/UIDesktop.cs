@@ -32,8 +32,8 @@ namespace UI
             Desktop.Root = Root;
 
             var viewport = Graphics.Graphics.GraphicsDeviceManager.GraphicsDevice.Viewport;
-            var scaleX = (float)viewport.Width / Graphics.Graphics.ScreenResolution.X;
-            var scaleY = (float)viewport.Height / Graphics.Graphics.ScreenResolution.Y;
+            var scaleX = (float)viewport.Width / Graphics.Graphics.PreferredBackBufferSize.X;
+            var scaleY = (float)viewport.Height / Graphics.Graphics.PreferredBackBufferSize.Y;
             UIScale = Math.Min(scaleX, scaleY);
 
 

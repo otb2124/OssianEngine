@@ -48,7 +48,7 @@ namespace Entities
             {
                 DescendingCounter++;
                 AllowJumpDescending = true;
-                if (DescendingCounter > MaxDescendingSec * Graphics.Graphics.UpdatesPerSecond)
+                if (DescendingCounter > MaxDescendingSec * Graphics.Graphics.GraphicsFrameRate)
                 {
                     IsJumpDescending = false;
                     AllowJumpDescendingLock = false;

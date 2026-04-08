@@ -22,7 +22,6 @@ namespace Entities
             RING,
 
             PET,
-            PET_LIGHT,
             CONTAINMENT,
         }
 
@@ -51,7 +50,7 @@ namespace Entities
             { EquipmentSlot.EquipmentSlots.RING_0,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.RING }},
             { EquipmentSlot.EquipmentSlots.RING_1,      new EquipmentSlotsTakes[] { EquipmentSlotsTakes.RING }},
             { EquipmentSlot.EquipmentSlots.PET_0,         new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET }},
-            { EquipmentSlot.EquipmentSlots.PET_1,   new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET_LIGHT }},
+            { EquipmentSlot.EquipmentSlots.PET_1,   new EquipmentSlotsTakes[] { EquipmentSlotsTakes.PET }},
             { EquipmentSlot.EquipmentSlots.CONTAINMENT, new EquipmentSlotsTakes[] { EquipmentSlotsTakes.CONTAINMENT }},
         };
     }

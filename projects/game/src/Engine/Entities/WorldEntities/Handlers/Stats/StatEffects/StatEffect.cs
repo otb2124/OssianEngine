@@ -39,9 +39,9 @@ namespace Entities
         {
             Type = type;
             EntityStatAffection = entityStatAffection;
-            MaxDuration = (uint)(maxDuration * Graphics.Graphics.UpdatesPerSecond);
+            MaxDuration = (uint)(maxDuration * Graphics.Graphics.GraphicsFrameRate);
             CurrentDuration = MaxDuration;
-            IntensivitySec = (uint)(intensivitySec * Graphics.Graphics.UpdatesPerSecond);
+            IntensivitySec = (uint)(intensivitySec * Graphics.Graphics.GraphicsFrameRate);
             IsAffectMultiplying = isAffectMultiplying;
             ApplyOnce = applyOnce;
             RestoresToDefault = restoresToDefault;
