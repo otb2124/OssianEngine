@@ -183,11 +183,11 @@ namespace Entities
             //var outline = new OutlineEffect(Color.Yellow, 1f);
             //EntityFX.Add(outline);
 
-            //var hitFlash = new HitFlashEffect(ResourceLoader.shaders[Shaders.FX_HIT_FLASH].Shader);
+            //var hitFlash = new HitFlashEffect(ResourceLoader.ShaderResources[Shaders.FX_HIT_FLASH].Shader);
             //EntityFX.Add(hitFlash);
 
             /*
-            var lighting = new EntityLightingEffect(ResourceLoader.shaders[Shaders.FX_ENTITY_LIGHT].Shader);
+            var lighting = new EntityLightingEffect(ResourceLoader.ShaderResources[Shaders.FX_ENTITY_LIGHT].Shader);
             lighting.AmbientColor = new Color(55, 50, 85);   // dark bluish ambient
             EntityFX.Add(lighting);
             */

@@ -23,7 +23,7 @@ namespace Entities
             Init(keys.Length);
             foreach (EquatableKey key in keys)
             {
-                AddItem(ItemFactory.CreateItem(key));
+                AddItem(ItemFactory.CreateItemFromConfig(key));
             }
         }
 

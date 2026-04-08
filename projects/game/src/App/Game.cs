@@ -55,8 +55,6 @@ namespace App
 
             Graphics.Graphics.PostProcess.SetShaders();
             Entities.Entities.EntityManager.SetShaders();
-
-            ResourceLoader.ApplyConfig();
         }
 
         protected override void Update(GameTime gameTime)

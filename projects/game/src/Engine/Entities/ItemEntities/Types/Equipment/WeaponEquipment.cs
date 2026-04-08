@@ -13,14 +13,17 @@ namespace Entities
 
         public WeaponEquipment(EquatableKey itemKey) : base(itemKey)
         {
-
+            WeaponBodyData = new BattleBodyData();
+            WeaponBodyData.WeaponOutAnimationData = new Graphics.AnimationFramesData(1, new Vector2(0, 0), new Vector2(128, 128), 0f);
         }
 
+
+        /*
         public override void SetItem()
         {
             base.SetItem();
 
-            WeaponBodyData = new BattleBodyData();
+            
 
             switch (ItemKey.EnumValue)
             {
@@ -146,8 +149,8 @@ namespace Entities
                     break;
             }
 
-            WeaponBodyData.ModelStateBetweenHits = ModelStates.WEAPON_OUT_IDLE;
+            
         }
-
+        */
     }
 }

@@ -19,9 +19,9 @@ namespace Graphics
 
         public virtual void SetShader()
         {
-            ShaderResource shRes = ResourceLoader.shaders[ShaderType];
+            ShaderResource shRes = ResourceLoader.ShaderResources[ShaderType];
             shRes.Load();
-            Shader = ResourceLoader.shaders[ShaderType].Shader;
+            Shader = ResourceLoader.ShaderResources[ShaderType].Shader;
         }
 
         public virtual void Apply(Texture2D source, GameTime gameTime) { }  // ← Texture2D

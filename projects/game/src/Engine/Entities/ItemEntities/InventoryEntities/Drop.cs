@@ -16,7 +16,7 @@ namespace Entities
         public Drop(EquatableKey itemKey, float dropChance)
         {
             DropChance = dropChance;
-            Item = ItemFactory.CreateItem(itemKey);
+            Item = ItemFactory.CreateItemFromConfig(itemKey);
         }
 
         public bool TryDrop()

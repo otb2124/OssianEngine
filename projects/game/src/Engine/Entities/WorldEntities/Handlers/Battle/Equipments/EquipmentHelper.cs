@@ -7,7 +7,7 @@ namespace Entities
     public static class EquipmentHelper
     {
         public static WeaponEquipment CreateBareHands() =>
-            (WeaponEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.BARE_HAND));
+            (WeaponEquipment)ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.BARE_HAND));
 
         public static EquipmentSlot GetEquipmentSlot(EquipmentSlot.EquipmentSlots type, EquipmentSlot[] equipmentSlots) =>
             Array.Find(equipmentSlots, slot => slot.EquipmentSlotType == type);
@@ -42,6 +42,6 @@ namespace Entities
         public static Type ItemToType(Item item) => item.GetType();
 
         public static Type ItemKeyToType(EquatableKey itemKey) =>
-            ItemFactory.CreateItem(itemKey).GetType();
+            ItemFactory.CreateItemFromConfig(itemKey).GetType();
     }
 }

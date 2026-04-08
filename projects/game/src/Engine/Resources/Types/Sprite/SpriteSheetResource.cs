@@ -94,17 +94,17 @@ namespace Resources
     }
 
 
-    public class SpriteSheet
+    public class SpriteSheetResource
     {
         
         public SpriteSheets Type;
         public Texture2D Texture;
 
-        public SpriteSheet(string texturePath)
+        public SpriteSheetResource(string texturePath)
         {
            Load(texturePath);
         }
-        public SpriteSheet(SpriteSheets spriteSheetType)
+        public SpriteSheetResource(SpriteSheets spriteSheetType)
         {
             Type = spriteSheetType;
             Load(GetSpriteSheetTexturePath());

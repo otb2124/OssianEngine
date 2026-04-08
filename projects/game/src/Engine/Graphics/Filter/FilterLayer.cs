@@ -74,7 +74,7 @@ namespace Graphics
         {
             Rectangle dest = Graphics.Screen.GetDestinationRectangle();
             Animation anim = aManager.GetCurrent();
-            Texture2D tex = ResourceLoader.spriteSheets[aManager.SpriteSheet].Texture;
+            Texture2D tex = ResourceLoader.SpriteSheetResources[aManager.SpriteSheet].Texture;
             Rectangle src = anim.SourceRectangles[anim.CurrentFrame];
 
             // Draw directly as a destination rectangle so the sprite is stretched to

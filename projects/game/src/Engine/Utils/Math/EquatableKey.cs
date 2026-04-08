@@ -33,4 +33,29 @@ namespace Utils
 
         public override string ToString() => $"{EnumType.Name}.{EnumValue}";
     }
+
+    public static class EnumExtensions
+    {
+        /// <summary>
+        /// Converts string to enum safely, with fallback
+        /// </summary>
+        public static T ToEnum<T>(this string value, T defaultValue = default) where T : Enum
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return defaultValue;
+
+            if (Enum.TryParse(typeof(T), value, true, out object result))
+                return (T)result;
+
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// Converts string to enum, ignoring case
+        /// </summary>
+        public static T ToEnum<T>(this string value) where T : Enum
+        {
+            return value.ToEnum(default(T));
+        }
+    }
 }

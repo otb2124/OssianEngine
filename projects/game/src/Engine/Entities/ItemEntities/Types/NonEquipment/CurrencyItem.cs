@@ -15,19 +15,5 @@ namespace Entities
         }
 
 
-
-        public override void SetItem()
-        {
-            switch (ItemKey.EnumValue)
-            {
-                case ItemLib.Currencies.GOLD_COIN:
-                    Name = "Gold Coin";
-                    Description = "A gold coin";
-                    Value = 1;
-                    Rarity = ItemRarity.COMMON;
-                    Stackable = true;
-                    break;
-            }
-        }
     }
 }

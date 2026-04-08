@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Entities;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using Utils;
@@ -13,11 +14,13 @@ namespace Resources
         public static IOConfigManager IOConfigManager;
         public static IOIniConfigManager IOIniConfigManager;
 
-        public static Font[] fonts;
-        public static Dictionary<SpriteSheets, SpriteSheet> spriteSheets;
-        public static Dictionary<Sounds, SoundResource> soundResources;
-        public static Dictionary<UITemplates, UITemplate> uiTemplates;
-        public static Dictionary<Shaders, ShaderResource> shaders;
+        public static Font[] FontResources;
+        public static Dictionary<SpriteSheets, SpriteSheetResource> SpriteSheetResources;
+        public static Dictionary<Sounds, SoundResource> SoundResources;
+        public static Dictionary<UITemplates, UITemplateResource> UITemplateResources;
+        public static Dictionary<Shaders, ShaderResource> ShaderResources;
+
+        public static Dictionary<EquatableKey, ItemConfig> ItemResources;
 
         public static bool ResourcesLoaded = false;
         public static bool MapLoaded = false;
@@ -25,20 +28,24 @@ namespace Resources
 
         public static void Init()
         {
-            IOConfigManager = new IOConfigManager();
-            IOConfigManager.Init();
-
+            
+            //fix the lifecycle to move load and apply to LoadResources()
             IOIniConfigManager = new IOIniConfigManager();
             IOIniConfigManager.Init();
             IOIniConfigManager.Load();
             IOIniConfigManager.ApplyAll();
+
+            IOConfigManager = new IOConfigManager();
+            IOConfigManager.Init();
+            IOConfigManager.Load();
+            IOConfigManager.ApplyAll();
         }
 
         public static void LoadResources()
         {
             ResourcesLoaded = false;
 
-            IOConfigManager.Load();
+            
 
             LoadSprites();
             LoadFonts();
@@ -47,18 +54,20 @@ namespace Resources
             LoadShaders();
 
             ResourcesLoaded = true;
+
+            ItemResources[new EquatableKey(ItemLib.Weapons.TERRABLADE)].ToItem();
         }
 
         public static void LoadSprites()
         {
-            spriteSheets = new Dictionary<SpriteSheets, SpriteSheet>();
+            SpriteSheetResources = new Dictionary<SpriteSheets, SpriteSheetResource>();
 
             foreach (SpriteSheets spriteEnum in Enum.GetValues(typeof(SpriteSheets)))
             {
                 if (spriteEnum == SpriteSheets.NONE)
                     continue;
 
-                spriteSheets[spriteEnum] = new SpriteSheet(spriteEnum);
+                SpriteSheetResources[spriteEnum] = new SpriteSheetResource(spriteEnum);
             }
         }
 
@@ -71,52 +80,47 @@ namespace Resources
                 new string[] { "Roboto", "12", "Regular" },
             };
 
-            fonts = new Font[fontAttributesToUse.Length];
-            for (int i = 0; i < fonts.Length; i++)
+            FontResources = new Font[fontAttributesToUse.Length];
+            for (int i = 0; i < FontResources.Length; i++)
             {
-                fonts[i] = new Font(fontAttributesToUse[i]);
+                FontResources[i] = new Font(fontAttributesToUse[i]);
             }
         }
 
         public static void LoadSounds()
         {
-            soundResources = new Dictionary<Sounds, SoundResource>();
+            SoundResources = new Dictionary<Sounds, SoundResource>();
 
             foreach (Sounds soundEnum in Enum.GetValues(typeof(Sounds)))
             {
                 if (soundEnum == Sounds.NONE) continue;
 
-                soundResources[soundEnum] = new SoundResource(soundEnum);
+                SoundResources[soundEnum] = new SoundResource(soundEnum);
             }
         }
 
         public static void LoadUITemplates()
         {
-            uiTemplates = new Dictionary<UITemplates, UITemplate>();
+            UITemplateResources = new Dictionary<UITemplates, UITemplateResource>();
 
             foreach (UITemplates uiTemplateEnum in Enum.GetValues(typeof(UITemplates)))
             {
                 if (uiTemplateEnum == UITemplates.NONE) continue;
 
-                uiTemplates[uiTemplateEnum] = new UITemplate(uiTemplateEnum);
+                UITemplateResources[uiTemplateEnum] = new UITemplateResource(uiTemplateEnum);
             }
         }
 
         public static void LoadShaders()
         {
-            shaders = new Dictionary<Shaders, ShaderResource>();
+            ShaderResources = new Dictionary<Shaders, ShaderResource>();
 
             foreach (Shaders shaderEnum in Enum.GetValues(typeof(Shaders)))
             {
                 if (shaderEnum == Shaders.NONE) continue;
 
-                shaders[shaderEnum] = new ShaderResource(shaderEnum);
+                ShaderResources[shaderEnum] = new ShaderResource(shaderEnum);
             }
-        }
-
-        public static void ApplyConfig()
-        {
-            IOConfigManager.ApplyAll();
         }
     }
 }

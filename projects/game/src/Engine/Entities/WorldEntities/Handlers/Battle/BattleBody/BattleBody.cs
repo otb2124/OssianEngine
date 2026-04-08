@@ -30,6 +30,7 @@ namespace Entities
 
         public BattleBodyData()
         {
+            ModelStateBetweenHits = ModelStates.WEAPON_OUT_IDLE;
         }
 
         public BattleBodyData(float weaponSwingSpeedMultiplier, StaticSprites sprite, BattleMovesets moveSet, AnimationFramesData weaponOutAnimationData, LightSource.LightSourceData lightSourceData, ModelStates stateBetweenHits = ModelStates.WEAPON_OUT_IDLE, Projectiles projectileToCast = Projectiles.NONE)

@@ -45,13 +45,6 @@ namespace Entities
         {
             ItemKey = itemKey;
             Type = ItemFactory.GetItemType(itemKey);
-
-            SetItem();
-        }
-
-        public virtual void SetItem()
-        {
-            
         }
 
         public bool CanEquipTo(EquipmentSlots slot)

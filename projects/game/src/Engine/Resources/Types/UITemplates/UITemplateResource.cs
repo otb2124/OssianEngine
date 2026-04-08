@@ -28,12 +28,12 @@ namespace Resources
     };
 
 
-    public class UITemplate
+    public class UITemplateResource
     {
         public string Path;
         public Project Project;
 
-        public UITemplate(UITemplates type)
+        public UITemplateResource(UITemplates type)
         {
             Path = GetPath(type);
             Load();

@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Resources
 {
@@ -18,9 +16,6 @@ namespace Resources
 
         protected IOConfig() { }
 
-        /// <summary>
-        /// Universal Load that handles both single objects and arrays (List<T> properties)
-        /// </summary>
         public virtual void Load()
         {
             if (string.IsNullOrEmpty(FilePath))
@@ -45,30 +40,22 @@ namespace Resources
                 string json = File.ReadAllText(fullPath);
                 RawJsonData = json;
 
-                var options = new JsonSerializerOptions
-                {
-                    WriteIndented = true,
-                    ReadCommentHandling = JsonCommentHandling.Skip,
-                    AllowTrailingCommas = true,
-                    PropertyNameCaseInsensitive = true
-                };
-
-                // First attempt: Deserialize as normal object
+                // Try as single object first
                 try
                 {
-                    JsonSerializer.Deserialize(json, this.GetType(), options);
-                    Console.WriteLine($"Loaded config (object): {FilePath}");
+                    JsonConvert.PopulateObject(json, this);
+                    Console.WriteLine($"{FilePath}.json loaded successfully.");
                     return;
                 }
-                catch
+                catch (Exception ex1)
                 {
-                    // Not a single object → probably an array. Continue below.
                 }
 
-                // Second attempt: Look for any property that contains "List" or "list" in its name
+                // Try as array into List properties
                 var listProperties = this.GetType()
-                    .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .Where(p => p.PropertyType.IsGenericType &&
+                    .GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance)
+                    .Where(p => p.CanWrite &&
+                                p.PropertyType.IsGenericType &&
                                 p.PropertyType.GetGenericTypeDefinition() == typeof(List<>) &&
                                 (p.Name.Contains("List", StringComparison.OrdinalIgnoreCase) ||
                                  p.Name.Contains("Items", StringComparison.OrdinalIgnoreCase)))
@@ -76,45 +63,47 @@ namespace Resources
 
                 if (listProperties.Count > 0)
                 {
-                    var listProperty = listProperties.First(); // Take the first matching property
+                    var targetProperty = listProperties.First();
+                    var listType = targetProperty.PropertyType;
 
-                    var listType = listProperty.PropertyType;
-                    var deserializedList = JsonSerializer.Deserialize(json, listType, options);
-
-                    if (deserializedList != null)
+                    try
                     {
-                        listProperty.SetValue(this, deserializedList);
-                        int count = ((dynamic)deserializedList).Count;
-                        Console.WriteLine($"Loaded config (array): {FilePath} → {count} items into '{listProperty.Name}'");
-                        return;
+                        var deserializedList = JsonConvert.DeserializeObject(json, listType);
+
+                        if (deserializedList != null)
+                        {
+                            targetProperty.SetValue(this, deserializedList);
+                            int count = ((dynamic)deserializedList).Count;
+                            Console.WriteLine($"{FilePath}.json with {count} objects loaded successfully.");
+                            return;
+                        }
+                    }
+                    catch (Exception ex2)
+                    {
+                        Console.WriteLine($"Array deserialization failed: {ex2.Message}");
                     }
                 }
 
-                Console.WriteLine($"Warning: Could not deserialize {FilePath} as object or recognized list.");
+                Console.WriteLine($"Warning: Could not deserialize {FilePath}.");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading {FilePath}: {ex.Message}");
+                Console.WriteLine($"Critical error loading {FilePath}: {ex.Message}");
                 RawJsonData = string.Empty;
             }
         }
 
-        public string GetRawJson()
-        {
-            return RawJsonData ?? string.Empty;
-        }
+        public string GetRawJson() => RawJsonData ?? string.Empty;
 
         public virtual void Save()
         {
-            if (string.IsNullOrEmpty(FilePath))
-                return;
+            if (string.IsNullOrEmpty(FilePath)) return;
 
             string fullPath = GetFullPath();
 
             try
             {
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                string json = JsonSerializer.Serialize(this, this.GetType(), options);
+                string json = JsonConvert.SerializeObject(this, Formatting.Indented);
                 File.WriteAllText(fullPath, json);
                 RawJsonData = json;
                 Console.WriteLine($"Saved config: {FilePath}");

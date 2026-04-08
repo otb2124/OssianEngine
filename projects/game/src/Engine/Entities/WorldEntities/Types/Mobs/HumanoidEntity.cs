@@ -51,27 +51,27 @@ namespace Entities
 
                     Inventory.Init(40);
 
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Consumables.HEALTH_POTION)));
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TORCH)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Consumables.HEALTH_POTION)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TORCH)));
                     break;
                 case HumanoidMobs.VIGO:
                     base.SetInventory();
 
                     Inventory.Init(40);
 
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Consumables.HEALTH_POTION)));
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TORCH)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Consumables.HEALTH_POTION)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TORCH)));
                     break;
                 case HumanoidMobs.WANEGRO:
                     base.SetInventory();
 
                     Inventory.Init(40);
 
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Consumables.HEALTH_POTION)));
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
-                    Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TORCH)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Consumables.HEALTH_POTION)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
+                    Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TORCH)));
                     break;
                 default:
                     break;
@@ -278,8 +278,8 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.BARE_HAND)));
-            EquipmentManager.Equipments.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.TORSO).Equipment = (ArmorEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Chestplates.IRON_CHESTPLATE));
+            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.BARE_HAND)));
+            EquipmentManager.Equipments.GetEquipmentSlot(EquipmentSlot.EquipmentSlots.TORSO).Equipment = (ArmorEquipment)ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Chestplates.IRON_CHESTPLATE));
         }
 
 
@@ -309,11 +309,11 @@ namespace Entities
             //var outline = new OutlineEffect(Color.Yellow, 1f);
             //EntityFX.Add(outline);
 
-            //var hitFlash = new HitFlashEffect(ResourceLoader.shaders[Shaders.FX_HIT_FLASH].Shader);
+            //var hitFlash = new HitFlashEffect(ResourceLoader.ShaderResources[Shaders.FX_HIT_FLASH].Shader);
             //EntityFX.Add(hitFlash);
 
             /*
-            var lighting = new EntityLightingEffect(ResourceLoader.shaders[Shaders.FX_ENTITY_LIGHT].Shader);
+            var lighting = new EntityLightingEffect(ResourceLoader.ShaderResources[Shaders.FX_ENTITY_LIGHT].Shader);
             lighting.AmbientColor = new Color(55, 50, 85);   // dark bluish ambient
             EntityFX.Add(lighting);
             */

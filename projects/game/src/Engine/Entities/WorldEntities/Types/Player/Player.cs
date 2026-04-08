@@ -68,7 +68,7 @@ namespace Entities
         {
             base.SetEquipment();
 
-            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TORCH)));
+            EquipmentManager.SetWeapon(BattleBodyManager, (WeaponEquipment)ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TORCH)));
 
             /*
             EquipmentManager.Equipments.SetEquipment(new EquatableKey(ItemLib.Helmets.IRON_HELMET));
@@ -93,63 +93,63 @@ namespace Entities
 
             Inventory.Init(60);
 
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Consumables.HEALTH_POTION)));
-            //Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Materials.SWORD_HILT)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Materials.SWORD_HILT)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Consumables.HEALTH_POTION)));
+            //Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Materials.SWORD_HILT)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Materials.SWORD_HILT)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.Weapons.TERRABLADE)));
 
 
 
             //test for inventory capacity
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.NOTE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.HEAD)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
-            Inventory.AddItem(ItemFactory.CreateItem(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.NOTE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.HEAD)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
+            Inventory.AddItem(ItemFactory.CreateItemFromConfig(new EquatableKey(ItemLib.QuestItems.STONE)));
         }
 
         public override void SetSounds()
@@ -190,15 +190,15 @@ namespace Entities
             var burning = new BurningEffect(2.0f, 25.0f);
             EntityFX.Add(burning);
 
-            //var outline = new OutlineEffect(ResourceLoader.shaders[Shaders.FX_OUTLINE].Shader);
+            //var outline = new OutlineEffect(ResourceLoader.ShaderResources[Shaders.FX_OUTLINE].Shader);
             //outline.OutlineColor = Color.Yellow;
             //EntityFX.Add(outline);
 
-            //var hitFlash = new HitFlashEffect(ResourceLoader.shaders[Shaders.FX_HIT_FLASH].Shader);
+            //var hitFlash = new HitFlashEffect(ResourceLoader.ShaderResources[Shaders.FX_HIT_FLASH].Shader);
             //EntityFX.Add(hitFlash);
 
             /*
-            var lighting = new EntityLightingEffect(ResourceLoader.shaders[Shaders.FX_ENTITY_LIGHT].Shader);
+            var lighting = new EntityLightingEffect(ResourceLoader.ShaderResources[Shaders.FX_ENTITY_LIGHT].Shader);
             lighting.AmbientColor = new Color(55, 50, 85);   // dark bluish ambient
             EntityFX.Add(lighting);
             */

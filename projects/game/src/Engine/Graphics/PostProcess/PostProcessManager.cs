@@ -63,11 +63,11 @@ namespace Graphics
             var isolation = new ColorIsolationEffect(Color.Green, 0.1f, 0.05f);
             //Add(isolation);
 
-            //var distortion = new DistortionEffect(ResourceLoader.shaders[Shaders.FX_DISTORTION].Shader);
+            //var distortion = new DistortionEffect(ResourceLoader.ShaderResources[Shaders.FX_DISTORTION].Shader);
             //distortion.Intensity = 0.02f;  // driven externally on screenshake
             //Add(distortion);
 
-            // Effect gammaShader = ResourceLoader.shaders[Shaders.FX_GAMMA].Shader;
+            // Effect gammaShader = ResourceLoader.ShaderResources[Shaders.FX_GAMMA].Shader;
             // var gamma = new GammaCorrectionEffect(gammaShader);
             // gamma.Gamma = 2.1f;     // slightly lower than 2.2 for softer feel
             // Add(gamma);

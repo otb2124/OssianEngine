@@ -15,18 +15,6 @@ namespace Entities
         }
 
 
-        public override void SetItem()
-        {
-            switch (ItemKey.EnumValue)
-            {
-                case ItemLib.Materials.SWORD_HILT:
-                    Name = "Sword Hilt";
-                    Description = "A sword hilt";
-                    Value = 2;
-                    Rarity = ItemRarity.COMMON;
-                    Stackable = true;
-                    break;
-            }
-        }
+        
     }
 }

@@ -91,7 +91,7 @@ namespace Graphics
                 drawColor.A = (byte)(s.Alpha * 180f);   // never fully opaque
 
                 Graphics.Sprites.Draw(
-                    ResourceLoader.spriteSheets[s.SpriteSheet].Texture,
+                    ResourceLoader.SpriteSheetResources[s.SpriteSheet].Texture,
                     s.SourceRect,
                     s.Origin,
                     s.Position,

@@ -41,7 +41,7 @@ namespace Sounds
             IsLooping = isLooping;
             Id = Sounds.SoundManager.GenerateId();
 
-            if (ResourceLoader.soundResources.TryGetValue(Key, out var soundResource))
+            if (ResourceLoader.SoundResources.TryGetValue(Key, out var soundResource))
             {
                 Instance = soundResource.Effect.CreateInstance();
                 Instance.IsLooped = IsLooping;
@@ -58,7 +58,7 @@ namespace Sounds
             IsLooping = isLooping;
             Id = id;
 
-            if (ResourceLoader.soundResources.TryGetValue(Key, out var soundResource))
+            if (ResourceLoader.SoundResources.TryGetValue(Key, out var soundResource))
             {
                 Instance = soundResource.Effect.CreateInstance();
                 Instance.IsLooped = IsLooping;

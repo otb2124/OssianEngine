@@ -16,18 +16,6 @@ namespace Entities
 
 
 
-        public override void SetItem()
-        {
-            switch (ItemKey.EnumValue)
-            {
-                case ItemLib.Keys.GOLDEN_KEY:
-                    Name = "Golden Key";
-                    Description = "A golden key";
-                    Value = 1;
-                    Rarity = ItemRarity.COMMON;
-                    Stackable = true;
-                    break;
-            }
-        }
+        
     }
 }

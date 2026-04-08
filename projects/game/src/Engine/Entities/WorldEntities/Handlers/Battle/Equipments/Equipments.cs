@@ -43,13 +43,13 @@ namespace Entities
             SetEquipment(slotType, (Equipment)item);
 
         public void SetEquipment(EquipmentSlot.EquipmentSlots slotType, EquatableKey itemKey) =>
-            SetEquipment(slotType, ItemFactory.CreateItem(itemKey));
+            SetEquipment(slotType, ItemFactory.CreateItemFromConfig(itemKey));
 
         public void SetEquipment(Item item) =>
             SetEquipment(EquipmentHelper.ItemkeyToEquipmentSlot(item.ItemKey, EquipmentSlots), item);
 
         public void SetEquipment(EquatableKey itemKey) =>
-            SetEquipment(ItemFactory.CreateItem(itemKey));
+            SetEquipment(ItemFactory.CreateItemFromConfig(itemKey));
 
         public Inventory ToInventory()
         {

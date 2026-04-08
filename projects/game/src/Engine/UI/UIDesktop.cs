@@ -145,7 +145,7 @@ namespace UI
         public void SetButtonImage(string id, StaticSprite sprite)
         {
             var btn = FindById(id) as ImageButton;
-            btn.Image = new TextureRegion(ResourceLoader.spriteSheets[sprite.SpriteSheet].Texture, sprite.SrcRect);
+            btn.Image = new TextureRegion(ResourceLoader.SpriteSheetResources[sprite.SpriteSheet].Texture, sprite.SrcRect);
         }
 
         public void SetText(string id, string text)

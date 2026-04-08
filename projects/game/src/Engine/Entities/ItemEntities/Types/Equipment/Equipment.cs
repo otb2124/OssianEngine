@@ -28,9 +28,7 @@ namespace Entities
         public EquipmentSlotsTakes EquipmentSlotTake;
         public BattleHitStatsSet BattleItemStatsData;
 
-        public Equipment(EquatableKey itemKey) : base(itemKey) { }
-
-        public override void SetItem()
+        public Equipment(EquatableKey itemKey) : base(itemKey) 
         {
             BattleItemStatsData = new BattleHitStatsSet();
         }

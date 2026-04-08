@@ -15,19 +15,5 @@ namespace Entities
             
         }
 
-
-        public override void SetItem()
-        {
-            switch(ItemKey.EnumValue)
-            {
-                case ItemLib.Consumables.HEALTH_POTION:
-                    Name = "Health Potion";
-                    Description = "A health potion";
-                    Value = 10;
-                    Rarity = ItemRarity.COMMON;
-                    Stackable = true;
-                    break;
-            }
-        }
     }
 }

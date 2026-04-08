@@ -189,7 +189,7 @@ namespace UI
                 var sprite = StaticSpriteFactory.GetItemUISprite(item);
                 if (sprite.SpriteSheet != SpriteSheets.NONE)
                 {
-                    var texture = ResourceLoader.spriteSheets[sprite.SpriteSheet].Texture;
+                    var texture = ResourceLoader.SpriteSheetResources[sprite.SpriteSheet].Texture;
                     slot.Image = new TextureRegion(texture, sprite.SrcRect);
                 }
 

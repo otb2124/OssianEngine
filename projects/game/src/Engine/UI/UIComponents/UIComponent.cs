@@ -11,7 +11,7 @@ namespace UI
     {
 
         public readonly string EMPTY_TEMPLATE_STRING = "<Label Text=\"NO TEMPLATE\"/>";
-        public UITemplate Template;
+        public UITemplateResource Template;
 
         public UIComponent() { }
 
@@ -19,7 +19,7 @@ namespace UI
 
         public void SetTemplate(UITemplates template)
         {
-            Template = ResourceLoader.uiTemplates[template];
+            Template = ResourceLoader.UITemplateResources[template];
         }
 
         public void ReloadTemplate()

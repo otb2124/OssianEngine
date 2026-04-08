@@ -55,7 +55,7 @@ namespace Graphics
             }
 
             Graphics.Sprites.Draw(
-                 ResourceLoader.spriteSheets[aManager.SpriteSheet].Texture,
+                 ResourceLoader.SpriteSheetResources[aManager.SpriteSheet].Texture,
                  adjustedPos,
                  aManager.GetCurrent().GetCurrentFrame(),
                  Color.White,

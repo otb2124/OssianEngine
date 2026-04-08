@@ -119,7 +119,7 @@ namespace Graphics
             if(revertVerticalDraw)
             {
                 Graphics.Sprites.Draw(
-                ResourceLoader.spriteSheets[spriteSheet].Texture,
+                ResourceLoader.SpriteSheetResources[spriteSheet].Texture,
                 position,
                 GetCurrentFrame(),
                 color,
@@ -132,7 +132,7 @@ namespace Graphics
             else
             {
                 Graphics.Sprites.Draw(
-                ResourceLoader.spriteSheets[spriteSheet].Texture,
+                ResourceLoader.SpriteSheetResources[spriteSheet].Texture,
                 position,
                 GetCurrentFrame(),
                 color,
@@ -147,7 +147,7 @@ namespace Graphics
         public void Draw(SpriteSheets spriteSheet, Vector2 position, Color color, float angle, Vector2 origin, Vector2 scale, float layerDepth, SpriteEffects newEffect)
         {
             Graphics.Sprites.Draw(
-                ResourceLoader.spriteSheets[spriteSheet].Texture,
+                ResourceLoader.SpriteSheetResources[spriteSheet].Texture,
                 position,
                 GetCurrentFrame(),
                 color,
