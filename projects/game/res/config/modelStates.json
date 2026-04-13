@@ -1,0 +1,80 @@
+[
+  {
+    "type": "dying",
+    "animationState": "dying",
+    "requirements": [
+      {
+        "type": "andRequirement",
+        "requirements": [
+          {
+            "type": "isGrounded",
+            "data": []
+          },
+          {
+            "type": "isDying",
+            "data": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "idle",
+    "animationState": "idle",
+    "requirements": [
+      {
+        "type": "andRequirement",
+        "data": [true],
+        "requirements": [
+          {
+            "type": "orRequirement",
+            "requirements": [
+              {
+                "type": "modelState",
+                "data": ["jumping"]
+              },
+              {
+                "type": "modelState",
+                "data": ["jumping_and_moving"]
+              },
+              {
+                "type": "modelState",
+                "data": ["attacking_light"]
+              },
+              {
+                "type": "modelState",
+                "data": ["attacking_heavy"]
+              }
+            ]
+          },
+          {
+            "type": "orRequirement",
+            "data": [true],
+            "requirements": [
+              {
+                "type": "inputKey",
+                "data": ["moveLeft"]
+              },
+              {
+                "type": "inputKey",
+                "data": ["moveRight"]
+              }
+            ]
+          },
+          {
+            "type": "modelState",
+            "data": ["dying", true]
+          },
+          {
+            "type": "isGrounded",
+            "data": []
+          },
+          {
+            "type": "weaponOut",
+            "data": [true]
+          }
+        ]
+      }
+    ]
+  }
+]

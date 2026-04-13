@@ -1,0 +1,69 @@
+[
+  {
+    "id": 0,
+    "initialId": 0,
+    "choicePriority": 0,
+    "dialogues": [
+      {
+        "id": 0,
+        "text": "Hey",
+        "authorName": "Unknown Man",
+        "authorId": 0,
+        "dialogueOptions": [
+          {
+            "id": 0,
+            "text": "Hey.",
+            "dialogueActions": [
+              {
+                "type": "nextDialogue",
+                "data": ["1"]
+              }
+            ]
+          },
+          {
+            "id": 1,
+            "text": "*Leave*",
+            "dialogueActions": [
+              {
+                "type": "exitDialogue",
+                "data": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "requirements": [{}]
+  },
+  {
+    "id": 1,
+    "initialId": 13,
+    "choicePriority": 1,
+    "dialogues": [
+      {
+        "id": 13,
+        "text": "Sequence 1",
+        "authorName": "Vigo",
+        "authorId": 0,
+        "dialogueOptions": [
+          {
+            "id": 17,
+            "text": "*Leave*",
+            "dialogueActions": [
+              {
+                "type": "exitDialogue",
+                "data": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "requirements": [
+      {
+        "type": "currentInventoryItemKey",
+        "data": ["Weapons.Terrablade"]
+      }
+    ]
+  }
+]

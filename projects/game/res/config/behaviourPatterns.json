@@ -1,0 +1,242 @@
+[
+  {
+    "type": "animal_walking",
+    "cases": [
+      {
+        "type": "still",
+        "shuffle": false,
+        "commands": [
+          {
+            "type": "standStill",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          }
+        ]
+      },
+      {
+        "type": "idle",
+        "shuffle": false,
+        "commands": [
+          {
+            "type": "moveUntilGrounded",
+            "data": [],
+            "duration": 3,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "jump",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "moveUntilGrounded",
+            "data": [],
+            "duration": 3,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "standStill",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          }
+        ]
+      },
+      {
+        "type": "idle_random",
+        "shuffle": true,
+        "commands": [
+          {
+            "type": "moveUntilGrounded",
+            "data": [],
+            "duration": 3,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "jump",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "moveUntilGrounded",
+            "data": [],
+            "duration": 3,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "standStill",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          }
+        ]
+      },
+      {
+        "type": "aggro",
+        "shuffle": false,
+        "commands": [
+          {
+            "type": "followEntityAndAttackNearestOfAggroFraction",
+            "data": ["light"],
+            "duration": 10,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "followEntityAndAttackNearestOfAggroFraction",
+            "data": ["light"],
+            "duration": 10,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "followEntityAndAttackNearestOfAggroFraction",
+            "data": ["light"],
+            "duration": 10,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "standStill",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "animal_flying",
+    "cases": [
+      {
+        "type": "still",
+        "shuffle": false,
+        "commands": [
+          {
+            "type": "standStill",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          }
+        ]
+      },
+      {
+        "type": "idle",
+        "shuffle": false,
+        "commands": [
+          {
+            "type": "moveUntilGrounded",
+            "data": [],
+            "duration": 3,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "jump",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "moveUntilGrounded",
+            "data": [],
+            "duration": 3,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "standStill",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          }
+        ]
+      },
+      {
+        "type": "idle_random",
+        "shuffle": true,
+        "commands": [
+          {
+            "type": "moveUntilGrounded",
+            "data": [],
+            "duration": 3,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "jump",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "moveUntilGrounded",
+            "data": [],
+            "duration": 3,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "standStill",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          }
+        ]
+      },
+      {
+        "type": "aggro",
+        "shuffle": false,
+        "commands": [
+          {
+            "type": "followEntityAndAttackNearestOfAggroFraction",
+            "data": ["light"],
+            "duration": 10,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "followEntityAndAttackNearestOfAggroFraction",
+            "data": ["light"],
+            "duration": 10,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "followEntityAndAttackNearestOfAggroFraction",
+            "data": ["light"],
+            "duration": 10,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          },
+          {
+            "type": "standStill",
+            "data": [],
+            "duration": 1.5,
+            "repeatAfterRestart": true,
+            "repeatAfterCommandsCount": -1
+          }
+        ]
+      }
+    ]
+  }
+]

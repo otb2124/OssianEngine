@@ -1,0 +1,91 @@
+[
+  {
+    "type": "WEAPON_SWORD",
+    "combos": [
+      {
+        "attackSequence": ["light"],
+        "hitboxOffset": {
+          "pos": {
+            "x": 1,
+            "y": 2
+          },
+          "size": {
+            "x": 10,
+            "y": 20
+          },
+          "rotation": 1.2
+        },
+        "entityPositionOffset": {
+          "x": 1,
+          "y": 2
+        },
+        "swingTimeSec": 1.2,
+        "hitboxAppearancePeriod": 1.1,
+        "battleStatsDataMultiplier": {
+          "physDamage": 1.0,
+          "magicDamage": 0.0,
+          "poiseDamage": 10.0,
+          "knockbackPower": 0.1,
+          "staminaCost": 5.0,
+          "manaCost": 0.0
+        },
+        "animationState": "ATTACKING_SWORD_LIGHT",
+        "animationFramesData": {
+          "framesCount": 4,
+          "startPos": {
+            "x": 1,
+            "y": 2
+          },
+          "frameSize": {
+            "x": 10,
+            "y": 20
+          },
+          "frameTime": 1.2,
+          "spriteEffects": "none"
+        }
+      },
+      {
+        "attackSequence": ["heavy"],
+        "hitboxOffset": {
+          "pos": {
+            "x": 1,
+            "y": 2
+          },
+          "size": {
+            "x": 10,
+            "y": 20
+          },
+          "rotation": 1.2
+        },
+        "entityPositionOffset": {
+          "x": 1,
+          "y": 2
+        },
+        "swingTimeSec": 1.2,
+        "hitboxAppearancePeriod": 1.1,
+        "battleStatsDataMultiplier": {
+          "physDamage": 1.0,
+          "magicDamage": 0.0,
+          "poiseDamage": 10.0,
+          "knockbackPower": 0.1,
+          "staminaCost": 5.0,
+          "manaCost": 0.0
+        },
+        "animationState": "ATTACKING_SWORD_LIGHT",
+        "animationFramesData": {
+          "framesCount": 4,
+          "startPos": {
+            "x": 1,
+            "y": 2
+          },
+          "frameSize": {
+            "x": 10,
+            "y": 20
+          },
+          "frameTime": 1.2,
+          "spriteEffects": "none"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "neutral",
+    "name": "Neutrals",
+    "autoAggro": []
+  },
+  {
+    "id": "player",
+    "name": "Players",
+    "autoAggro": []
+  },
+  {
+    "id": "animal",
+    "name": "Animals",
+    "autoAggro": ["player", "bandit"]
+  },
+  {
+    "id": "bandit",
+    "name": "Bandits",
+    "autoAggro": ["player", "animals"]
+  }
+]
