@@ -1,0 +1,9 @@
+[
+  {
+    "id": "common",
+    "value": 1,
+    "title": "Common",
+    "description": "Common item",
+    "color": { "r": 10, "g": 10, "b": 1 }
+  }
+]

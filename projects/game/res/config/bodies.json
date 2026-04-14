@@ -1,0 +1,10 @@
+[
+    {
+        "id": "HUMAN",
+        "dynamics": "dynamic",
+        "shape": "box",
+        "size": {"x": 20, "y": "20"},
+        "density": 1,
+        "restitution": 0
+    }
+]

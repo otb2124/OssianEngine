@@ -1,0 +1,14 @@
+[
+    {
+        "id": "aggro",
+        "actions": ["aggro"],
+        "title": "Aggressive",
+        "description": "description"
+    },
+    {
+        "id": "alert",
+        "actions": ["alert"],
+        "title": "Alert",
+        "description": "description"
+    }
+]

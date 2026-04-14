@@ -1,0 +1,7 @@
+[
+  {
+    "id": "MOVERIGHTPRESSED",
+    "clickOnly": false,
+    "keys": ["D"]
+  }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "id": "HUMAN_M",
+        "body": "HUMAN",
+        "sprite": "ENTITIES_HUMAN_M",
+        "offset":
+        {
+            "x": 30, "y": 5
+        }
+    }
+]

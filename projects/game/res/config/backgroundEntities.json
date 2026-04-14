@@ -1,0 +1,8 @@
+[
+    {
+        "id": "sun",
+        "sprite": "GRAPHICS_SUN",
+        "stickToCamera": true,
+        "stickToZoom": true
+    }
+]

@@ -1,0 +1,7 @@
+[
+    {
+        "type": "Player",
+        "ignoreTypes": ["PlatformEntity", "HumanoidEntity", "AnimalMob", "LedgeEntity", "WaterTileEntity", "LadderEntity", "SpikeEntity"],
+        "additionalIgnoreTypes": ["ProjectileEntity"]
+    }
+]

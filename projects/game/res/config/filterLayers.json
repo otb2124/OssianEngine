@@ -1,11 +1,11 @@
 [
-    {
-        "type": "desert",
-        "color": 
-        {
-            "r": 1,
-            "g": 5,
-            "b": 1
-        }
-    }
+  {
+    "type": "desert",
+    "color": {
+      "r": 1,
+      "g": 5,
+      "b": 1
+    },
+    "sprite": ""
+  }
 ]

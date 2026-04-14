@@ -1,0 +1,13 @@
+{
+    "id": "cloud_sky",
+    "dynamics": "leftRight",
+    "spawns":
+    [
+        {
+            "sprite": "CLOUD",
+            "spawnTimer": 0,
+            "spawnInterval": 0.25,
+            "limit": 30
+        }
+    ]
+}

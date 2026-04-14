@@ -1,0 +1,5 @@
+{
+    "id": "ChromaticAberration0",
+    "shader": "ChromaticAberration",
+    "data": [1, 2, "test"]
+}

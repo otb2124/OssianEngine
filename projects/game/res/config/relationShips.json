@@ -1,0 +1,14 @@
+[
+    {
+        "id": "very_bad",
+        "value": -100,
+        "title": "Very Bad",
+        "treatments": ["aggro"]
+    },
+    {
+        "id": "bad",
+        "value": -50,
+        "title": "Bad",
+        "treatments": ["alert"]
+    }
+]

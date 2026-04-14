@@ -1,0 +1,16 @@
+[
+    {
+        "id": "SEASIDE_EVENING",
+        "layers":
+        [
+            {
+                "id": -1,
+                "sprite": "GRAPHICS_BG0_B0"
+            },
+            {
+                "id": 1,
+                "sprite": "GRAPHICS_BG0_B1"
+            }
+        ]
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {
+        "id": "HUMANOID_FOOTSTEP",
+        "soundResources":
+        [
+            {
+                "id": "HUMANOID_FOOTSTEP0",
+                "chance": 0.2
+            },
+            {
+                "id": "HUMANOID_FOOTSTEP1",
+                "chance": 0.2
+            }
+        ]
+    }
+]
