@@ -1,0 +1,11 @@
+{
+    "hoursPerSecond": 0.01,
+    "mapTravelTimeTaxes":
+    [
+        {
+            "from": "great_hills",
+            "to": "larnbridge",
+            "value": 2
+        }
+    ]
+}

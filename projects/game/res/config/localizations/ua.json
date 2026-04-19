@@ -1,0 +1,12 @@
+{
+    "id": "ua",
+    "title": "accessibility.languages.ua",
+    "texts":
+    {
+        "maps.great_hills": "Великі Горби",
+        "dialogues.vigo0.0": "Агов",
+        "dialogueOptions.vigo0.0": "Привіт",
+        "accessibility.localizations.en": "Англійська",
+        "accessibility.localizations.ua": "Українська"
+    }
+}

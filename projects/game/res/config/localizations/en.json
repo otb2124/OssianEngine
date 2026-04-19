@@ -1,0 +1,12 @@
+{
+    "id": "en",
+    "title": "accessibility.languages.en",
+    "texts":
+    {
+        "maps.great_hills": "Great Hills",
+        "dialogues.vigo0.0": "Hey",
+        "dialogueOptions.vigo0.0": "Hi",
+        "accessibility.localizations.en": "English",
+        "accessibility.localizations.ua": "Ukrainian"
+    }
+}

@@ -16,7 +16,7 @@ namespace Resources
 
         public IOItemsConfig()
         {
-            FilePath = "items";
+            FilePath = "items/items";
         }
 
         public override void Apply()

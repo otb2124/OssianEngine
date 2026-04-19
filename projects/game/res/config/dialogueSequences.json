@@ -12,7 +12,7 @@
         "dialogueOptions": [
           {
             "id": 0,
-            "text": "Hey.",
+            "text": "Hi.",
             "dialogueActions": [
               {
                 "type": "nextDialogue",

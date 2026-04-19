@@ -69,6 +69,12 @@ namespace Resources
             set => SetValue("ConsoleVisible", value.ToString().ToLower());
         }
 
+        public string Localization
+        {
+            get => GetValue("Localization");
+            set => SetValue("Localization", value.ToString());
+        }
+
         protected override void InitializeDefaults()
         {
             Lines.Add(new IOIniLine("Resolution", "1280,720", "resolution"));
@@ -81,6 +87,7 @@ namespace Resources
             Lines.Add(new IOIniLine("LogicUpdateRate", "60", "ups"));
             Lines.Add(new IOIniLine("MouseVisible", "false"));
             Lines.Add(new IOIniLine("ConsoleVisible", "false"));
+            Lines.Add(new IOIniLine("Localization", "en"));
         }
 
         public override void Apply()
@@ -94,7 +101,9 @@ namespace Resources
             Graphics.Graphics.GraphicsFrameRate = GraphicsFrameRate;
             Graphics.Graphics.LogicUpdateRate = LogicUpdateRate;
             Graphics.Graphics.IsMouseVisible = MouseVisible;
-            Graphics.Graphics.ConsoleVisible = ConsoleVisible;
+            Graphics.Graphics.ConsoleVisible = ConsoleVisible; 
+
+            Console.WriteLine(Localization);
         }
     }
 }

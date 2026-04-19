@@ -1,0 +1,83 @@
+<div class="p-8 flex flex-col gap-8">
+
+  <!-- Tailwind basic utilities -->
+  <section>
+    <h2 class="text-xl font-bold mb-4 text-blue-500">Tailwind utilities</h2>
+    <div class="flex gap-4">
+      <div class="bg-blue-500 text-white p-4 rounded-lg">bg-blue-500</div>
+      <div class="bg-green-500 text-white p-4 rounded-lg">bg-green-500</div>
+      <div class="bg-red-500 text-white p-4 rounded-lg">bg-red-500</div>
+      <div class="border-2 border-purple-500 text-purple-500 p-4 rounded-lg">border</div>
+    </div>
+  </section>
+
+  <!-- Tailwind PrimeUI tokens -->
+  <section>
+    <h2 class="text-xl font-bold mb-4 text-blue-500">Tailwind + PrimeUI tokens</h2>
+    <div class="flex gap-4">
+      <div class="bg-primary text-primary-contrast p-4 rounded-lg">bg-primary</div>
+      <div class="bg-surface-100 text-surface-900 p-4 rounded-lg">bg-surface-100</div>
+      <div class="bg-surface-200 text-surface-900 p-4 rounded-lg">bg-surface-200</div>
+      <div class="bg-surface-800 text-surface-100 p-4 rounded-lg">bg-surface-800</div>
+    </div>
+  </section>
+
+  <!-- PrimeIcons -->
+  <section>
+    <h2 class="text-xl font-bold mb-4 text-blue-500">PrimeIcons</h2>
+    <div class="flex gap-6 text-2xl">
+      <i class="pi pi-cog"></i>
+      <i class="pi pi-folder"></i>
+      <i class="pi pi-file"></i>
+      <i class="pi pi-play"></i>
+      <i class="pi pi-trash"></i>
+      <i class="pi pi-search"></i>
+    </div>
+  </section>
+
+  <!-- PrimeNG Buttons -->
+  <section>
+    <h2 class="text-xl font-bold mb-4 text-blue-500">PrimeNG buttons</h2>
+    <div class="flex gap-4 flex-wrap">
+      <p-button label="Primary" />
+      <p-button label="Secondary" severity="secondary" />
+      <p-button label="Success" severity="success" />
+      <p-button label="Danger" severity="danger" />
+      <p-button label="Warning" severity="warn" />
+      <p-button label="With icon" icon="pi pi-cog" />
+      <p-button label="Outlined" [outlined]="true" />
+      <p-button label="Text" [text]="true" />
+    </div>
+  </section>
+
+  <!-- PrimeNG Inputs -->
+  <section>
+    <h2 class="text-xl font-bold mb-4 text-blue-500">PrimeNG inputs</h2>
+    <div class="flex gap-4 flex-wrap items-center">
+      <input pInputText placeholder="Text input" />
+      <p-select [options]="['Option A', 'Option B', 'Option C']" placeholder="Select" />
+      <p-toggleswitch [(ngModel)]="toggle" />
+      <span class="text-sm">Toggle: {{ toggle }}</span>
+    </div>
+  </section>
+
+  <!-- PrimeNG Panel -->
+  <section>
+    <h2 class="text-xl font-bold mb-4 text-blue-500">PrimeNG panel</h2>
+    <p-panel header="Engine config">
+      <p class="text-surface-600">This is a PrimeNG panel with Aura theme styling.</p>
+    </p-panel>
+  </section>
+
+  <!-- PrimeNG Tags -->
+  <section>
+    <h2 class="text-xl font-bold mb-4 text-blue-500">PrimeNG tags</h2>
+    <div class="flex gap-4">
+      <p-tag value="JSON" />
+      <p-tag value="XML" severity="success" />
+      <p-tag value="INI" severity="warn" />
+      <p-tag value="Error" severity="danger" />
+    </div>
+  </section>
+
+</div>

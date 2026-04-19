@@ -1,6 +1,7 @@
 [
   {
-    "id": 0,
+    "id": "great_hills",
+    "title": "maps.great_hills",
     "layers": [
       {
         "id": 0,
