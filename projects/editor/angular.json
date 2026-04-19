@@ -6,7 +6,7 @@
     "analytics": false
   },
   "projects": {
-    "csplatformersandbox-ui": {
+    "editor": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -67,10 +67,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "csplatformersandbox-ui:build:production"
+              "buildTarget": "editor:build:production"
             },
             "development": {
-              "buildTarget": "csplatformersandbox-ui:build:development"
+              "buildTarget": "editor:build:development"
             }
           },
           "defaultConfiguration": "development"

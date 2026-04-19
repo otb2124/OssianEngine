@@ -1,0 +1,62 @@
+[
+    {
+      "id": "tag-001",
+      "label": "angular",
+      "color": "#dd0031"
+    },
+    {
+      "id": "tag-002",
+      "label": "tailwind",
+      "color": "#38bdf8"
+    },
+    {
+      "id": "tag-003",
+      "label": "frontend",
+      "color": "#6366f1"
+    },
+    {
+      "id": "tag-004",
+      "label": "backend",
+      "color": "#10b981"
+    },
+    {
+      "id": "tag-005",
+      "label": "nestjs",
+      "color": "#e0234e"
+    },
+    {
+      "id": "tag-006",
+      "label": "postgresql",
+      "color": "#336791"
+    },
+    {
+      "id": "tag-007",
+      "label": "rust",
+      "color": "#f59e0b"
+    },
+    {
+      "id": "tag-008",
+      "label": "cli",
+      "color": "#8b5cf6"
+    },
+    {
+      "id": "tag-009",
+      "label": "tooling",
+      "color": "#64748b"
+    },
+    {
+      "id": "tag-010",
+      "label": "pwa",
+      "color": "#3b82f6"
+    },
+    {
+      "id": "tag-011",
+      "label": "charts",
+      "color": "#f97316"
+    },
+    {
+      "id": "tag-012",
+      "label": "primeng",
+      "color": "#10b981"
+    }
+  ]

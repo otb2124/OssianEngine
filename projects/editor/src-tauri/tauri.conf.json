@@ -1,18 +1,18 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "csplatformersandbox-ui",
+  "productName": "editor",
   "version": "0.1.0",
-  "identifier": "com.orest.csplatformersandbox-ui",
+  "identifier": "com.orest.editor",
   "build": {
     "beforeDevCommand": "npm run start",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist/csplatformersandbox-ui/browser"
+    "frontendDist": "../dist/editor/browser"
   },
   "app": {
     "windows": [
       {
-        "title": "csplatformersandbox-ui",
+        "title": "editor",
         "width": 800,
         "height": 600
       }

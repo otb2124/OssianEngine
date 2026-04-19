@@ -1,0 +1,77 @@
+<div class="flex items-center gap-0.5 text-sm w-full min-w-0">
+
+    <!-- Home icon -->
+    <span
+      [routerLink]="''"
+      class="flex items-center gap-1 px-2 py-1 rounded text-gray-400 dark:text-gray-500
+             hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800
+             transition-colors cursor-pointer shrink-0 select-none">
+      <i class="pi pi-home text-xs"></i>
+    </span>
+  
+    <ng-container *ngFor="let item of items; let i = index; let last = last">
+  
+      <!-- Separator + sibling trigger -->
+      <button
+        (click)="toggleSiblings($event, i)"
+        class="flex items-center justify-center w-5 h-5 shrink-0 rounded
+               text-gray-300 dark:text-gray-600 select-none focus:outline-none
+               hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100
+               dark:hover:bg-gray-800 transition-colors relative group"
+        [class.text-gray-500!]="openIndex === i"
+        [class.bg-gray-100!]="openIndex === i"
+        [class.dark:bg-gray-800!]="openIndex === i">
+  
+        <!-- Normal state: / separator -->
+        <span class="transition-opacity" [class.opacity-0]="openIndex === i">/</span>
+        <!-- Hover/open state: chevron -->
+        <span class="absolute inset-0 flex items-center justify-center transition-opacity opacity-0
+                     group-hover:opacity-100"
+              [class.opacity-100!]="openIndex === i">
+          <i class="pi pi-chevron-down text-[10px]"
+             [class.rotate-180]="openIndex === i"
+             style="transition: transform 0.15s"></i>
+        </span>
+  
+        <!-- Sibling dropdown -->
+        <div
+          *ngIf="openIndex === i && item.siblings && item.siblings.length > 0"
+          class="absolute top-full left-1/2 -translate-x-1/2 mt-2 min-w-[11rem]
+                 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700
+                 rounded-lg shadow-xl z-50 overflow-hidden py-1">
+          <div
+            *ngFor="let sib of item.siblings"
+            (click)="selectSibling(sib)"
+            class="flex items-center gap-2.5 px-3 py-1.5 cursor-pointer transition-colors
+                   hover:bg-gray-50 dark:hover:bg-gray-800 text-left">
+            <i class="pi text-xs shrink-0"
+               [ngClass]="sib.label === item.label
+                 ? 'pi-check text-blue-500 dark:text-blue-400'
+                 : 'pi-minus text-transparent'">
+            </i>
+            <span
+              class="text-sm truncate"
+              [class.text-gray-900]="sib.label === item.label"
+              [class.font-medium]="sib.label === item.label"
+              [class.dark:text-white]="sib.label === item.label"
+              [class.text-gray-600]="sib.label !== item.label"
+              [class.dark:text-gray-400]="sib.label !== item.label">
+              {{ sib.label }}
+            </span>
+          </div>
+        </div>
+      </button>
+  
+      <!-- Crumb label -->
+      <span
+        [routerLink]="item.routerLink"
+        class="px-1.5 py-1 rounded cursor-pointer truncate transition-colors select-none
+               hover:bg-gray-100 dark:hover:bg-gray-800"
+        [ngClass]="last
+          ? 'text-gray-900 dark:text-white font-medium'
+          : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'">
+        {{ item.label }}
+      </span>
+  
+    </ng-container>
+  </div>

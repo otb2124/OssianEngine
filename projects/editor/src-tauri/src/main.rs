@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    csplatformersandbox_ui_lib::run()
+    editor_lib::run()
 }
