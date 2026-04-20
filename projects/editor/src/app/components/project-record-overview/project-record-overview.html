@@ -17,11 +17,6 @@
     {{ project.title }}
   </a>
 
-  <span *ngIf="isActive()"
-     class="text-[var(--theme-color)] text-xs shrink-0">
-     Current
-  </span>
-
   <p-button
     (click)="toggleFavorite($event)"
     [text]="true"

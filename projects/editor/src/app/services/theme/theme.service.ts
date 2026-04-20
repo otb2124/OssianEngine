@@ -1,43 +1,37 @@
 import { Injectable, inject, signal, computed, effect } from '@angular/core';
+import { ProjectRecordService } from '../projects/project-record/project-record.service';
 import { AppConfigService } from '../app-config/app-config.service';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { filter } from 'rxjs';
-import { PrimeNG } from 'primeng/config';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
 
+  private projectService = inject(ProjectRecordService);
   private appConfigService = inject(AppConfigService);
-  private primeng = inject(PrimeNG);
 
   private readonly _themeColor = signal<string>('#ffffff');
   readonly themeColor = this._themeColor.asReadonly();
 
-  // Derived colors
   readonly themeColorMuted = computed(() => this.withOpacity(this._themeColor(), 0.15));
   readonly themeColorBorder = computed(() => this.withOpacity(this._themeColor(), 0.3));
   readonly themeColorGlow = computed(() => this.withOpacity(this._themeColor(), 0.08));
 
-  constructor() {
-    // Load from config once it's available
-    toObservable(this.appConfigService.hasConfig).pipe(
-      filter(loaded => loaded),
-    ).subscribe(() => {
-      const color = this.appConfigService.themeColor();
-      if (color) this.setColor(color);
-    });
+  readonly borderStyle = computed(() => ({ 'border-color': this._themeColor() }));
+  readonly bgStyle = computed(() => ({ 'background-color': this._themeColor() }));
+  readonly bgMutedStyle = computed(() => ({ 'background-color': this.themeColorMuted() }));
+  readonly textStyle = computed(() => ({ 'color': this._themeColor() }));
+  readonly glowStyle = computed(() => ({ 'box-shadow': `0 0 20px ${this.themeColorGlow()}` }));
 
-    // React to config changes (e.g. after saving settings)
+  constructor() {
     effect(() => {
-      const color = this.appConfigService.themeColor();
-      if (color) this.setColor(color);
+      const projectColor = this.projectService.currentProject()?.color;
+      const fallback = this.appConfigService.themeColor() ?? '#ffffff';
+      this.setColor(projectColor ?? fallback);
     });
   }
 
   setColor(color: string): void {
     this._themeColor.set(color);
     this.applyToDom(color);
-    console.log('theme applied:', color, getComputedStyle(document.documentElement).getPropertyValue('--theme-color'));
   }
 
   private applyToDom(color: string): void {
@@ -45,10 +39,9 @@ export class ThemeService {
     document.documentElement.style.setProperty('--theme-color-muted', this.withOpacity(color, 0.15));
     document.documentElement.style.setProperty('--theme-color-border', this.withOpacity(color, 0.3));
     document.documentElement.style.setProperty('--theme-color-glow', this.withOpacity(color, 0.08));
-  
+
     const { r, g, b } = this.hexToRgb(color);
-  
-    // PrimeNG Aura CSS variable overrides
+
     document.documentElement.style.setProperty('--p-primary-50',  this.lighten(r, g, b, 0.95));
     document.documentElement.style.setProperty('--p-primary-100', this.lighten(r, g, b, 0.85));
     document.documentElement.style.setProperty('--p-primary-200', this.lighten(r, g, b, 0.70));
@@ -60,8 +53,7 @@ export class ThemeService {
     document.documentElement.style.setProperty('--p-primary-800', this.darken(r, g, b, 0.35));
     document.documentElement.style.setProperty('--p-primary-900', this.darken(r, g, b, 0.50));
     document.documentElement.style.setProperty('--p-primary-950', this.darken(r, g, b, 0.65));
-  
-    // Semantic primary aliases used by components
+
     document.documentElement.style.setProperty('--p-primary-color', color);
     document.documentElement.style.setProperty('--p-primary-contrast-color', '#ffffff');
     document.documentElement.style.setProperty('--p-primary-hover-color', this.darken(r, g, b, 0.10));
@@ -76,9 +68,7 @@ export class ThemeService {
   }
 
   private withOpacity(hex: string, opacity: number): string {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
+    const { r, g, b } = this.hexToRgb(hex);
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
   }
 
