@@ -6,6 +6,7 @@ import { Topbar } from "./components/topbar/topbar";
 import { AppConfigService } from './services/app-config/app-config.service';
 import { ProjectRecordService } from './services/projects/project-record/project-record.service';
 import { filter, switchMap } from 'rxjs';
+import { ThemeService } from './services/theme/theme.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class AppComponent {
 
   private appConfigService = inject(AppConfigService);
   private projectRecordService = inject(ProjectRecordService);
+  private themeService = inject(ThemeService);
   
   ngOnInit(): void {
     this.appConfigService.load().pipe(

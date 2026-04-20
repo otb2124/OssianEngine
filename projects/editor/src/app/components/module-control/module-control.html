@@ -1,4 +1,4 @@
-<div class="flex items-center border-b border-gray-200 dark:border-gray-800 gap-1 px-2 shrink-0 text-xs">
+<div class="flex items-center border-b border-[var(--theme-color-border)] gap-1 px-2 shrink-0 text-xs">
   @for (nav of navRoutes(); track nav.route.path) {
     <p-select
       [options]="nav.options"
