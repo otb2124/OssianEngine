@@ -1,15 +1,6 @@
 <div class="flex items-center gap-0.5 text-sm w-full min-w-0">
-
-    <!-- Home icon -->
-    <span
-      [routerLink]="''"
-      class="flex items-center gap-1 px-2 py-1 rounded text-gray-400 dark:text-gray-500
-             hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800
-             transition-colors cursor-pointer shrink-0 select-none">
-      <i class="pi pi-home text-xs"></i>
-    </span>
   
-    <ng-container *ngFor="let item of items; let i = index; let last = last">
+  <ng-container *ngFor="let item of items(); let i = index; let last = last">
   
       <!-- Separator + sibling trigger -->
       <button

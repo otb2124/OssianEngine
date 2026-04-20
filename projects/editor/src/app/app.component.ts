@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterOutlet} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UrlControl } from "./components/url-control/url-control";
+import { Topbar } from "./components/topbar/topbar";
 
 
 @Component({
@@ -11,7 +12,8 @@ import { UrlControl } from "./components/url-control/url-control";
     FormsModule,
     CommonModule,
     RouterOutlet,
-    UrlControl
+    UrlControl,
+    Topbar
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

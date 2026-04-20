@@ -1,7 +1,16 @@
-<div class="app-container">
+<div class="app-container flex flex-col h-screen">
+
   <!-- Breadcrumb -->
   <app-url-control></app-url-control>
 
-  <!-- Router Outlet -->
-  <router-outlet></router-outlet>
+  <!-- Topbar (two rows) -->
+  <app-topbar></app-topbar>
+
+  <!-- Body: sidebar + outlet -->
+  <div class="flex flex-1 min-h-0">
+    <main class="flex-1 overflow-auto">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
 </div>

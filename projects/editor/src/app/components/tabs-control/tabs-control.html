@@ -1,0 +1,33 @@
+<div class="flex items-end h-full w-full">
+
+    <div
+      *ngFor="let tab of tabs"
+      (click)="activateTab(tab)"
+      class="group relative flex items-center gap-2 px-3 h-full border-r border-gray-200
+             dark:border-gray-800 cursor-pointer select-none transition-colors shrink-0
+             min-w-0 max-w-[180px]"
+      [ngClass]="tab.path === activeTab
+        ? 'bg-white dark:bg-gray-950 text-gray-900 dark:text-white'
+        : 'bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'">
+  
+      <span
+        *ngIf="tab.path === activeTab"
+        class="absolute top-0 left-0 right-0 h-[2px] bg-blue-500">
+      </span>
+  
+      <i *ngIf="tab.icon" [class]="tab.icon + ' text-xs shrink-0'"></i>
+  
+      <span class="text-sm truncate">{{ tab.label }}</span>
+  
+      <button
+        (click)="closeTab(tab, $event)"
+        class="shrink-0 w-4 h-4 flex items-center justify-center rounded
+               opacity-0 group-hover:opacity-100 transition-opacity ml-1
+               hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
+        [class.opacity-100!]="tab.path === activeTab">
+        <i class="pi pi-times text-[10px]"></i>
+      </button>
+  
+    </div>
+  
+  </div>

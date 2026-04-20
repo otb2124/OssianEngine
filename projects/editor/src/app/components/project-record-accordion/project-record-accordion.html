@@ -1,0 +1,16 @@
+<p-accordion [multiple]="true">
+    <p-accordion-panel *ngFor="let project of projects" [value]="project.id">
+  
+      <p-accordion-header>
+        <app-project-record-overview [project]="project" />
+      </p-accordion-header>
+  
+      <p-accordion-content>
+        <app-project-record-details
+          [project]="project"
+          (deleted)="onDeleted(project.id)">
+        </app-project-record-details>
+      </p-accordion-content>
+  
+    </p-accordion-panel>
+  </p-accordion>
