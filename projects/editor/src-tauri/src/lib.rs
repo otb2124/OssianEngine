@@ -1,6 +1,53 @@
 use tauri::Manager;
 use std::fs;
 
+#[derive(serde::Serialize)]
+struct GitCommit {
+    hash: String,
+    hash_short: String,
+    message: String,
+    author: String,
+    date: String,
+    branch: String,
+}
+
+#[tauri::command]
+fn get_latest_commit(path: String) -> Result<GitCommit, String> {
+    let cwd = std::env::current_dir().map_err(|e| e.to_string())?;
+    let repo_path = cwd.join(&path);
+    let repo_str = repo_path.to_str().ok_or("Invalid path")?;
+
+    let hash = run_git(repo_str, &["rev-parse", "HEAD"])?;
+    let message = run_git(repo_str, &["log", "-1", "--pretty=%s"])?;
+    let author = run_git(repo_str, &["log", "-1", "--pretty=%an"])?;
+    let date = run_git(repo_str, &["log", "-1", "--pretty=%aI"])?;
+    let branch = run_git(repo_str, &["rev-parse", "--abbrev-ref", "HEAD"])?;
+
+    Ok(GitCommit {
+        hash_short: hash.chars().take(7).collect(),
+        hash,
+        message,
+        author,
+        date,
+        branch,
+    })
+}
+
+fn run_git(cwd: &str, args: &[&str]) -> Result<String, String> {
+    let output = std::process::Command::new("git")
+        .args(args)
+        .current_dir(cwd)
+        .output()
+        .map_err(|e| format!("Failed to run git: {}", e))?;
+
+    if !output.status.success() {
+        return Err(String::from_utf8_lossy(&output.stderr).to_string());
+    }
+
+    Ok(String::from_utf8_lossy(&output.stdout).trim().to_string())
+}
+
+
 #[tauri::command]
 fn read_config(relative_path: String) -> Result<String, String> {
     let cwd = std::env::current_dir().map_err(|e| e.to_string())?;
@@ -100,7 +147,8 @@ pub fn run() {
             write_config,
             read_config_absolute,
             write_config_absolute,
-            scan_for_projects
+            scan_for_projects,
+            get_latest_commit
         ])
         .setup(|app| {
             #[cfg(debug_assertions)]

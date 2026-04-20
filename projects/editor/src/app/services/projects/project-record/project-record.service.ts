@@ -3,12 +3,14 @@ import { forkJoin, map, Observable, switchMap } from 'rxjs';
 import { HydratedProjectRecord, ProjectRecord, ProjectRecordTag } from '../../../model/project-record.model';
 import { ProjectRecordTagService } from './project-record-tag.service';
 import { PersistenceService } from '../../persistence/persistence.service';
+import { AppConfigService } from '../../app-config/app-config.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectRecordService {
 
   private persistence = inject(PersistenceService);
   private projectTagService = inject(ProjectRecordTagService);
+  private appConfigService = inject(AppConfigService);
 
   private readonly file = 'project-records.json';
 
@@ -22,6 +24,7 @@ export class ProjectRecordService {
   // State actions
   setProject(project: HydratedProjectRecord): void {
     this._currentProject.set(project);
+    this.appConfigService.update({ currentProjectId: project.id }).subscribe();
   }
 
   updateCurrentProject(partial: Partial<HydratedProjectRecord>): void {
@@ -34,6 +37,7 @@ export class ProjectRecordService {
 
   clearProject(): void {
     this._currentProject.set(null);
+    this.appConfigService.update({ currentProjectId: undefined }).subscribe();
   }
 
   // Queries

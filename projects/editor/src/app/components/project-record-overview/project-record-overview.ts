@@ -5,7 +5,6 @@ import { TagModule } from 'primeng/tag';
 import { HydratedProjectRecord } from '../../model/project-record.model';
 import { ButtonModule } from "primeng/button";
 import { ProjectRecordService } from '../../services/projects/project-record/project-record.service';
-import { ProjectConfigService } from '../../services/projects/project-config/project-config.service';
 
 @Component({
   selector: 'app-project-record-overview',
@@ -16,7 +15,6 @@ export class ProjectRecordOverview {
   @Input({ required: true }) project!: HydratedProjectRecord;
 
   private projectService = inject(ProjectRecordService);
-  private projectConfigService = inject(ProjectConfigService);
 
   private router = inject(Router);
 
@@ -26,7 +24,6 @@ export class ProjectRecordOverview {
     event.stopPropagation();
     if (this.isActive()) return;
     this.projectService.setProject(this.project);
-    this.projectConfigService.getOrCreate(this.project).subscribe();
     this.router.navigateByUrl('/project');
   }
 

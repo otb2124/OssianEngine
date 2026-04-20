@@ -1,12 +1,12 @@
-import { Component, inject } from '@angular/core';
-import { ProjectConfigService } from '../../../services/projects/project-config/project-config.service';
+import { Component } from '@angular/core';
+import { ProjectConfigDetails } from "../../../components/project-config-details/project-config-details";
 
 @Component({
   selector: 'app-project-overview',
-  imports: [],
+  imports: [ProjectConfigDetails],
   templateUrl: './project-overview.html',
   styleUrl: './project-overview.css',
 })
 export class ProjectOverview {
-  protected configService = inject(ProjectConfigService);
+  
 }

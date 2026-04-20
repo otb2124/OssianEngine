@@ -9,7 +9,6 @@ import { ProjectRecordService } from '../../services/projects/project-record/pro
 import { DialogWrapper } from '../dialog-wrapper/dialog-wrapper';
 import { ProjectRecordForm } from '../project-record-form/project-record-form';
 import { ConfirmForm } from '../confirm-form/confirm-form';
-import { ProjectConfigService } from '../../services/projects/project-config/project-config.service';
 
 @Component({
   selector: 'app-project-record-details',
@@ -23,7 +22,6 @@ export class ProjectRecordDetails {
   readonly updated = output<HydratedProjectRecord>();
 
   private projectService = inject(ProjectRecordService);
-  private projectConfigService = inject(ProjectConfigService);
   private router = inject(Router);
 
   readonly isActive = computed(() => this.projectService.projectId() === this.project.id);
@@ -35,7 +33,6 @@ export class ProjectRecordDetails {
     event.stopPropagation();
     if (this.isActive()) return;
     this.projectService.setProject(this.project);
-    this.projectConfigService.getOrCreate(this.project).subscribe();
     this.router.navigateByUrl('/project');
   }
 

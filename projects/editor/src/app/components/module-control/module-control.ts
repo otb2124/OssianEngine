@@ -22,6 +22,7 @@ export interface NavRoute {
   imports: [CommonModule, SelectModule, FormsModule],
   templateUrl: './module-control.html',
   styleUrl: './module-control.css',
+  host: { class: 'block shrink-0' }
 })
 export class ModuleControl {
   private router = inject(Router);
