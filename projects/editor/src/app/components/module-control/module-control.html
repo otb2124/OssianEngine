@@ -1,4 +1,4 @@
-<div class="flex items-center border-b border-gray-200 dark:border-gray-800 gap-1 px-2 shrink-0">
+<div class="flex items-center border-b border-gray-200 dark:border-gray-800 gap-1 px-2 shrink-0 text-xs">
   @for (nav of navRoutes(); track nav.route.path) {
     <p-select
       [options]="nav.options"
@@ -8,9 +8,10 @@
       [placeholder]="nav.route.title ?? ''"
       [showClear]="false"
       [dropdownIcon]="'none'"
+      appendTo="body"
     >
       <ng-template #selectedItem let-option>
-        <span>{{ nav.route.title }}</span>
+        <span >{{ nav.route.title }}</span>
       </ng-template>
 
       <ng-template #item let-option>
