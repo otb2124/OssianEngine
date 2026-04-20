@@ -11,7 +11,7 @@ export interface ProjectConfig {
 export class ProjectConfigService {
 
   private persistence = inject(PersistenceService);
-  private readonly configFileName = 'config.json';
+  private readonly configFileName = '.ossian.project.json';
 
   // State
   private readonly _config = signal<ProjectConfig | null>(null);

@@ -12,7 +12,6 @@ import { Topbar } from "./components/topbar/topbar";
     FormsModule,
     CommonModule,
     RouterOutlet,
-    UrlControl,
     Topbar
 ],
   templateUrl: './app.component.html',
