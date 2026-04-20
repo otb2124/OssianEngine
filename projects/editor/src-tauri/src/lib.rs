@@ -79,6 +79,16 @@ fn write_config_absolute(path: String, content: String) -> Result<(), String> {
 }
 
 #[tauri::command]
+fn delete_directory(path: String) -> Result<(), String> {
+    let p = std::path::Path::new(&path);
+    if p.exists() {
+        fs::remove_dir_all(&p).map_err(|e| format!("{}: {}", path, e))
+    } else {
+        Err(format!("Path does not exist: {}", path))
+    }
+}
+
+#[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
@@ -148,7 +158,8 @@ pub fn run() {
             read_config_absolute,
             write_config_absolute,
             scan_for_projects,
-            get_latest_commit
+            get_latest_commit,
+            delete_directory
         ])
         .setup(|app| {
             #[cfg(debug_assertions)]

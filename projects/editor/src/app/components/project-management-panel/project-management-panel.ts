@@ -8,6 +8,7 @@ import { ProjectRecordService } from '../../services/projects/project-record/pro
 import { DialogWrapper } from '../dialog-wrapper/dialog-wrapper';
 import { ProjectRecordForm } from '../project-record-form/project-record-form';
 import { HydratedProjectRecord } from '../../model/project-record.model';
+import { NotificationService } from '../../services/notifications/notification.service';
 
 @Component({
   selector: 'app-project-management-panel',
@@ -19,6 +20,7 @@ export class ProjectManagementPanel {
   private dialog = inject(DialogService);
   private projectService = inject(ProjectRecordService);
   private projectConfigService = inject(ProjectConfigService);
+  private notifications = inject(NotificationService);
 
   readonly projectsChanged = output<void>();
 
@@ -29,6 +31,9 @@ export class ProjectManagementPanel {
   }
 
   onCreateSubmitted(partial: Partial<HydratedProjectRecord>): void {
+
+    let projectTitle = partial.title;
+
     const newProject: any = {
       id: crypto.randomUUID(),
       isFavorite: false,
@@ -44,6 +49,8 @@ export class ProjectManagementPanel {
       this.showCreateDialog = false;
       this.projectsChanged.emit();
     });
+
+    this.notifications.success(`${projectTitle} created`, 'Changes have been written to disk.');
   }
 
   importProject(): void {
@@ -60,6 +67,9 @@ export class ProjectManagementPanel {
           updatedAt: new Date(),
           tags: [],
         };
+
+        this.notifications.success(`${name} imported`, 'Changes have been written to disk.');
+
         return this.projectConfigService.getOrCreate(newProject as any).pipe(
           switchMap(config => {
             const projectWithConfig = { ...newProject, id: config.projectId };
@@ -88,6 +98,9 @@ export class ProjectManagementPanel {
             updatedAt: new Date(),
             tags: [],
           };
+
+          this.notifications.success(`${name} imported from scan`, 'Changes have been written to disk.');
+
           return this.projectConfigService.getOrCreate(newProject as any).pipe(
             switchMap(config => {
               const projectWithConfig = { ...newProject, id: config.projectId };

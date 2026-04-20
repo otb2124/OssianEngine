@@ -9,6 +9,7 @@ import { ProjectRecordService } from '../../services/projects/project-record/pro
 import { DialogWrapper } from '../dialog-wrapper/dialog-wrapper';
 import { ProjectRecordForm } from '../project-record-form/project-record-form';
 import { ConfirmForm } from '../confirm-form/confirm-form';
+import { NotificationService } from '../../services/notifications/notification.service';
 
 @Component({
   selector: 'app-project-record-details',
@@ -23,11 +24,13 @@ export class ProjectRecordDetails {
 
   private projectService = inject(ProjectRecordService);
   private router = inject(Router);
+  private notifications = inject(NotificationService);
 
   readonly isActive = computed(() => this.projectService.projectId() === this.project.id);
 
   showEditDialog = false;
   showDeleteDialog = false;
+  showRemoveDialog = false;
 
   openProject(event: Event): void {
     event.stopPropagation();
@@ -52,12 +55,32 @@ export class ProjectRecordDetails {
     this.showDeleteDialog = true;
   }
 
-  confirmDelete(): void {
-    if (this.isActive()) {
-      this.projectService.clearProject();
-      this.router.navigateByUrl('/general');
-    }
+  openRemoveDialog(event: Event): void {
+    event.stopPropagation();
+    this.showRemoveDialog = true;
+  }
+
+  // Remove from config only
+  confirmRemove(): void {
+
+    let projectTitle = this.project.title;
+
+    if (this.isActive()) this.projectService.clearProject();
     this.projectService.delete(this.project.id).subscribe(() => this.deleted.emit());
+
+    this.notifications.success(`${projectTitle} removed`, 'Changes have been written to disk.');
+  }
+
+  // Remove from config + delete files
+  async confirmDelete(): Promise<void> {
+
+    let projectTitle = this.project.title;
+
+    if (this.isActive()) this.projectService.clearProject();
+    await invoke('delete_directory', { path: this.project.directoryPath });
+    this.projectService.delete(this.project.id).subscribe(() => this.deleted.emit());
+
+    this.notifications.success(`${projectTitle} deleted`, 'Changes have been written to disk.');
   }
 
   openEditDialog(event: Event): void {
@@ -66,6 +89,9 @@ export class ProjectRecordDetails {
   }
 
   onEditSubmitted(partial: Partial<HydratedProjectRecord>): void {
+
+    let projectTitle = this.project.title;
+
     const updated: HydratedProjectRecord = {
       ...this.project,
       ...partial,
@@ -73,11 +99,11 @@ export class ProjectRecordDetails {
     };
     this.projectService.save(updated).subscribe(() => {
       this.project = updated;
-      if (this.isActive()) {
-        this.projectService.setProject(updated);
-      }
+      if (this.isActive()) this.projectService.setProject(updated);
       this.showEditDialog = false;
       this.updated.emit(updated);
     });
+
+    this.notifications.success(`${projectTitle} edited`, 'Changes have been written to disk.');
   }
 }

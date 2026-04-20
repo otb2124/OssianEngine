@@ -1,47 +1,12 @@
 [
   {
-    "id": "proj-001",
-    "title": "123Portfolio Website",
-    "description": "Personal portfolio built with Angular and Tailwind, deployed on Vercel.1231",
-    "color": "#c9448b",
-    "directoryPath": "C:/Users/orest/Downloads/pojects/CSPlatformerSandbox_projects/new_project",
+    "id": "2b4c6236-e8e4-4b1b-9799-466558472941",
+    "title": "New project",
+    "color": "#ea00ff",
+    "directoryPath": "C:\\Users\\orest\\Downloads\\pojects\\CSPlatformerSandbox_projects\\new_project_123",
     "isFavorite": false,
-    "createdAt": "2024-09-12T10:00:00.000Z",
-    "updatedAt": "2026-04-20T00:21:13.207Z",
-    "lastOpenedAt": "2025-04-17T09:15:00.000Z",
-    "tags": []
-  },
-  {
-    "id": "b4c36ca8-9e8c-45e0-89b6-aa21eaa1519c",
-    "title": "anoth1341",
-    "description": "bxc",
-    "color": "#6ac8eb",
-    "directoryPath": "C:\\Users\\orest\\Downloads\\pojects\\CSPlatformerSandbox_projects\\anoth",
-    "isFavorite": true,
-    "createdAt": "2026-04-20T00:18:01.663Z",
-    "updatedAt": "2026-04-20T21:26:51.945Z",
-    "tags": [
-      "proj-001"
-    ]
-  },
-  {
-    "id": "b0ca0dc9-9ba0-4e75-80be-132211cf8a82",
-    "title": "ajdsksjafa",
-    "color": "#09ff00",
-    "directoryPath": "C:\\Users\\orest\\Downloads\\pojects\\CSPlatformerSandbox_projects\\ajdsksjafa",
-    "isFavorite": false,
-    "createdAt": "2026-04-20T00:26:38.904Z",
-    "updatedAt": "2026-04-20T21:31:11.936Z",
-    "tags": []
-  },
-  {
-    "id": "9c050a79-1758-454c-884d-d726259a2557",
-    "title": "newly_proj",
-    "color": "#3b1d1d",
-    "directoryPath": "C:\\Users\\orest\\Downloads\\pojects\\CSPlatformerSandbox_projects\\newly_proj",
-    "isFavorite": false,
-    "createdAt": "2026-04-20T00:27:11.889Z",
-    "updatedAt": "2026-04-20T00:27:43.213Z",
+    "createdAt": "2026-04-20T22:03:23.063Z",
+    "updatedAt": "2026-04-20T22:08:22.907Z",
     "tags": []
   }
 ]

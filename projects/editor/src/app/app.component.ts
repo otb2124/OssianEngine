@@ -7,7 +7,7 @@ import { AppConfigService } from './services/app-config/app-config.service';
 import { ProjectRecordService } from './services/projects/project-record/project-record.service';
 import { filter, switchMap } from 'rxjs';
 import { ThemeService } from './services/theme/theme.service';
-
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +15,8 @@ import { ThemeService } from './services/theme/theme.service';
     FormsModule,
     CommonModule,
     RouterOutlet,
-    Topbar
+    Topbar,
+    ToastModule
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
