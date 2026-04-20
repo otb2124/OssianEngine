@@ -40,7 +40,6 @@ export class ProjectRecordDetails {
     event.stopPropagation();
     if (!this.isActive()) return;
     this.projectService.clearProject();
-    this.router.navigateByUrl('/general');
   }
 
   async openInExplorer(event: Event): Promise<void> {

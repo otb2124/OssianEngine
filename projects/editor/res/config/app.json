@@ -3,13 +3,14 @@
   "versionTags": [
     "dev_start"
   ],
-  "currentProjectId": "proj-001",
   "settings": {
     "themeColor": "#a619a6"
   },
   "engineProjectPath": "C:/Users/orest/Downloads/pojects/CSPlatformerSandbox/projects/game/src/CSPlatformerSandbox.sln",
   "openTabs": [
-    "/general/home"
+    "/general/home",
+    "/general/settings"
   ],
-  "activeTab": "/general/home"
+  "activeTab": "/general/home",
+  "currentProjectId": "b4c36ca8-9e8c-45e0-89b6-aa21eaa1519c"
 }

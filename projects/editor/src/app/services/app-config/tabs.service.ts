@@ -1,10 +1,11 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, effect } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { AppConfigService } from '../app-config/app-config.service';
 import { RoutesService } from '../routes/routes.service';
-import { RouteChild } from '../../app.routes';
+import { ProjectRecordService } from '../projects/project-record/project-record.service';
+import { RouteChild, routes } from '../../app.routes';
 
 @Injectable({ providedIn: 'root' })
 export class TabsService {
@@ -12,6 +13,7 @@ export class TabsService {
   private router = inject(Router);
   private appConfigService = inject(AppConfigService);
   private routesService = inject(RoutesService);
+  private projectService = inject(ProjectRecordService);
 
   private readonly _tabs = signal<RouteChild[]>([]);
   private readonly _activeTab = signal<string>('');
@@ -23,6 +25,46 @@ export class TabsService {
     toObservable(this.appConfigService.hasConfig).pipe(
       filter(loaded => loaded),
     ).subscribe(() => this.init());
+
+    // Close project-only tabs when project is cleared
+    effect(() => {
+      const hasProject = this.projectService.hasProject();
+      if (!hasProject) {
+        this.closeProjectTabs();
+      }
+    });
+  }
+
+  private closeProjectTabs(): void {
+    const projectPaths = new Set(
+      routes
+        .filter(r => r.displayOnProjectLoad && r.path)
+        .map(r => `/${r.path}`)
+    );
+
+    const updated = this._tabs().filter(t => {
+      const topSegment = '/' + (t.path ?? '').split('/').filter(Boolean)[0];
+      return !projectPaths.has(topSegment);
+    });
+
+    if (updated.length === this._tabs().length) return;
+
+    this._tabs.set(updated);
+
+    const activeStillExists = updated.some(t => t.path === this._activeTab());
+    if (!activeStillExists) {
+      if (updated.length === 0) {
+        this._activeTab.set('');
+        this.persist();
+        this.router.navigate(['/empty']);
+        return;
+      } else {
+        const next = updated[updated.length - 1];
+        this.router.navigate([next.path]);
+      }
+    }
+
+    this.persist();
   }
 
   private init(): void {
@@ -54,15 +96,15 @@ export class TabsService {
 
   private onNavigate(url: string): void {
     if (url === '/empty') return;
-  
+
     const tab = this.resolveTab(url);
     if (!tab) return;
-  
+
     this._activeTab.set(tab.path!);
-  
+
     const exists = this._tabs().some(t => t.path === tab.path);
     if (!exists) this._tabs.update(tabs => [...tabs, tab]);
-  
+
     this.persist();
   }
 
@@ -93,7 +135,7 @@ export class TabsService {
     const index = tabs.indexOf(tab);
     const updated = tabs.filter(t => t.path !== tab.path);
     this._tabs.set(updated);
-  
+
     if (tab.path === this._activeTab()) {
       if (updated.length === 0) {
         this._activeTab.set('');
@@ -105,7 +147,7 @@ export class TabsService {
         this.router.navigate([next.path]);
       }
     }
-  
+
     this.persist();
   }
 }

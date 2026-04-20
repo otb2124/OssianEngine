@@ -27,7 +27,10 @@ export class AppConfigService {
   update(partial: Partial<AppConfig>): Observable<void> {
     const current = this._config();
     if (!current) return EMPTY;
-    const updated: AppConfig = { ...current, ...partial };
+    const merged = { ...current, ...partial };
+    const updated = Object.fromEntries(
+      Object.entries(merged).filter(([_, v]) => v !== undefined)
+    ) as unknown as AppConfig;
     return this.persistence.write(this.file, updated).pipe(
       tap(() => this._config.set(updated))
     );
