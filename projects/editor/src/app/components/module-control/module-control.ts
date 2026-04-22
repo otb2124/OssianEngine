@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { routes, RouteChild } from '../../app.routes';
-import { ProjectRecordService } from '../../services/projects/project-record/project-record.service';
+import { ProjectService } from '../../services/projects/project.service';
 
 export interface RouteOption {
   label: string;
@@ -26,7 +26,7 @@ export interface NavRoute {
 })
 export class ModuleControl {
   private router = inject(Router);
-  private projectService = inject(ProjectRecordService);
+  private projectService = inject(ProjectService);
 
   readonly navRoutes = computed(() => {
     const hasProject = this.projectService.hasProject();

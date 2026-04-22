@@ -42,13 +42,7 @@
     <!-- Tags -->
     <div class="flex flex-col gap-1.5">
       <label class="text-xs font-medium text-gray-500 dark:text-gray-400">Tags</label>
-      <p-multiselect
-        [(ngModel)]="selectedTags"
-        [options]="availableTags"
-        optionLabel="label"
-        placeholder="Select tags"
-        styleClass="w-full">
-      </p-multiselect>
+      <app-tag-selector [(ngModel)]="selectedTags"></app-tag-selector>
     </div>
   
     <!-- Color + Favorite -->

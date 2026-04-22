@@ -5,7 +5,7 @@ import { invoke } from '@tauri-apps/api/core';
 @Injectable({ providedIn: 'root' })
 export class PersistenceService {
 
-  private readonly basePath = '../res/config';
+  private readonly basePath = '../.ossian';
 
   read<T>(fileName: string): Observable<T> {
     const path = `${this.basePath}/${fileName}`;

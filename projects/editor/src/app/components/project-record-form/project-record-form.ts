@@ -9,8 +9,9 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { HydratedProjectRecord, ProjectRecordTag } from '../../model/project-record.model';
-import { ProjectRecordTagService } from '../../services/projects/project-record/project-record-tag.service';
 import { DialogService } from '../../services/persistence/dialog.service';
+import { UserTagService } from '../../services/user-tags/user-tag.service';
+import { TagSelector } from "../tag-selector/tag-selector";
 
 @Component({
   selector: 'app-project-record-form',
@@ -24,7 +25,8 @@ import { DialogService } from '../../services/persistence/dialog.service';
     MultiSelectModule,
     CheckboxModule,
     ColorPickerModule,
-  ],
+    TagSelector
+],
   templateUrl: './project-record-form.html',
 })
 export class ProjectRecordForm implements OnInit {
@@ -33,7 +35,7 @@ export class ProjectRecordForm implements OnInit {
   readonly submitted = output<Partial<HydratedProjectRecord>>();
   readonly cancelled = output<void>();
 
-  private tagService = inject(ProjectRecordTagService);
+  private tagService = inject(UserTagService);
   private dialog = inject(DialogService);
 
   availableTags: ProjectRecordTag[] = [];

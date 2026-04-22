@@ -35,6 +35,13 @@ export const routes: RouteChild[] =
         loadComponent: () => import('./modules/general/home/home.js').then(m => m.Home),
       },
       {
+        path: 'notification-log',
+        title: 'Notification Log',
+        icon: 'pi pi-bell',
+        displayInNavigation: true,
+        loadComponent: () => import('./modules/general/notifications-page/notifications-page.js').then(m => m.NotificationsPage),
+      },
+      {
         path: 'settings',
         title: 'Settings',
         icon: 'pi pi-cog',

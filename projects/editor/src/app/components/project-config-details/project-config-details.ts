@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ProjectConfigService } from '../../services/projects/project-config/project-config.service';
+import { ProjectService } from '../../services/projects/project.service';
 
 @Component({
   selector: 'app-project-config-details',
@@ -9,9 +9,9 @@ import { ProjectConfigService } from '../../services/projects/project-config/pro
 })
 export class ProjectConfigDetails implements OnInit{
 
-  protected configService = inject(ProjectConfigService);
+  protected projectService = inject(ProjectService);
 
   ngOnInit(): void {
-    this.configService.getOrCreateFromCurrent().subscribe();
+    this.projectService.loadConfigFromCurrent().subscribe();
   }
 }

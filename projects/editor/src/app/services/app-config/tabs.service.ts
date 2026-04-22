@@ -4,8 +4,8 @@ import { filter } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { AppConfigService } from '../app-config/app-config.service';
 import { RoutesService } from '../routes/routes.service';
-import { ProjectRecordService } from '../projects/project-record/project-record.service';
 import { RouteChild, routes } from '../../app.routes';
+import { ProjectService } from '../projects/project.service';
 
 @Injectable({ providedIn: 'root' })
 export class TabsService {
@@ -13,7 +13,7 @@ export class TabsService {
   private router = inject(Router);
   private appConfigService = inject(AppConfigService);
   private routesService = inject(RoutesService);
-  private projectService = inject(ProjectRecordService);
+  private projectService = inject(ProjectService);
 
   private readonly _tabs = signal<RouteChild[]>([]);
   private readonly _activeTab = signal<string>('');

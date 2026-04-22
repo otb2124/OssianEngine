@@ -2,6 +2,11 @@ export interface HydratedProjectRecord extends Omit<ProjectRecord, 'tags'> {
     tags: ProjectRecordTag[];
 }
 
+export interface ProjectRegistryEntry {
+  id: string;
+  directoryPath: string;
+}
+
 export interface ProjectRecord {
   id: string;
   title: string;

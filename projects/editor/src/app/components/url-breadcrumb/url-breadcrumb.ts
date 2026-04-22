@@ -6,7 +6,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { routes, RouteChild } from '../../app.routes';
-import { ProjectRecordService } from '../../services/projects/project-record/project-record.service';
+import { ProjectService } from '../../services/projects/project.service';
 
 interface SiblingItem {
   label: string;
@@ -29,7 +29,7 @@ interface BreadcrumbItem {
 export class UrlBreadcrumbComponent {
 
   private router = inject(Router);
-  private projectService = inject(ProjectRecordService);
+  private projectService = inject(ProjectService);
 
   openIndex: number | null = null;
 

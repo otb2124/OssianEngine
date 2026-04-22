@@ -28,7 +28,8 @@
       *ngFor="let tag of project.tags"
       [value]="tag.label"
       severity="secondary"
-      styleClass="text-xs px-2 py-0.5">
+      styleClass="text-xs px-2 py-0.5"
+      [style.background-color]="tag.color ?? '#6b7280'">
     </p-tag>
   </div>
 

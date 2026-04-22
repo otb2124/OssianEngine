@@ -1,11 +1,11 @@
 import { Injectable, inject, signal, computed, effect } from '@angular/core';
-import { ProjectRecordService } from '../projects/project-record/project-record.service';
 import { AppConfigService } from '../app-config/app-config.service';
+import { ProjectService } from '../projects/project.service';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
 
-  private projectService = inject(ProjectRecordService);
+  private projectService = inject(ProjectService);
   private appConfigService = inject(AppConfigService);
 
   private readonly _themeColor = signal<string>('#ffffff');

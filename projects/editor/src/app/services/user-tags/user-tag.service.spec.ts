@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ProjectConfigService } from './project-config.service';
+import { UserTagService } from './user-tag.service';
 
-describe('ProjectConfigService', () => {
-  let service: ProjectConfigService;
+describe('UserTagService', () => {
+  let service: UserTagService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ProjectConfigService);
+    service = TestBed.inject(UserTagService);
   });
 
   it('should be created', () => {

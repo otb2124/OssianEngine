@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { TagModule } from 'primeng/tag';
 import { HydratedProjectRecord } from '../../model/project-record.model';
 import { ButtonModule } from "primeng/button";
-import { ProjectRecordService } from '../../services/projects/project-record/project-record.service';
+import { ProjectService } from '../../services/projects/project.service';
 
 @Component({
   selector: 'app-project-record-overview',
@@ -14,7 +14,7 @@ import { ProjectRecordService } from '../../services/projects/project-record/pro
 export class ProjectRecordOverview {
   @Input({ required: true }) project!: HydratedProjectRecord;
 
-  private projectService = inject(ProjectRecordService);
+  private projectService = inject(ProjectService);
 
   private router = inject(Router);
 

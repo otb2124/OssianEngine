@@ -5,11 +5,11 @@ import { ButtonModule } from 'primeng/button';
 import { HydratedProjectRecord } from '../../model/project-record.model';
 import { Router } from '@angular/router';
 import { invoke } from '@tauri-apps/api/core';
-import { ProjectRecordService } from '../../services/projects/project-record/project-record.service';
 import { DialogWrapper } from '../dialog-wrapper/dialog-wrapper';
 import { ProjectRecordForm } from '../project-record-form/project-record-form';
 import { ConfirmForm } from '../confirm-form/confirm-form';
 import { NotificationService } from '../../services/notifications/notification.service';
+import { ProjectService } from '../../services/projects/project.service';
 
 @Component({
   selector: 'app-project-record-details',
@@ -22,7 +22,7 @@ export class ProjectRecordDetails {
   readonly deleted = output<void>();
   readonly updated = output<HydratedProjectRecord>();
 
-  private projectService = inject(ProjectRecordService);
+  private projectService = inject(ProjectService);
   private router = inject(Router);
   private notifications = inject(NotificationService);
 
@@ -62,25 +62,15 @@ export class ProjectRecordDetails {
 
   // Remove from config only
   confirmRemove(): void {
-
-    let projectTitle = this.project.title;
-
     if (this.isActive()) this.projectService.clearProject();
     this.projectService.delete(this.project.id).subscribe(() => this.deleted.emit());
-
-    this.notifications.success(`${projectTitle} removed`, 'Changes have been written to disk.');
   }
 
   // Remove from config + delete files
   async confirmDelete(): Promise<void> {
-
-    let projectTitle = this.project.title;
-
     if (this.isActive()) this.projectService.clearProject();
     await invoke('delete_directory', { path: this.project.directoryPath });
     this.projectService.delete(this.project.id).subscribe(() => this.deleted.emit());
-
-    this.notifications.success(`${projectTitle} deleted`, 'Changes have been written to disk.');
   }
 
   openEditDialog(event: Event): void {
@@ -89,9 +79,6 @@ export class ProjectRecordDetails {
   }
 
   onEditSubmitted(partial: Partial<HydratedProjectRecord>): void {
-
-    let projectTitle = this.project.title;
-
     const updated: HydratedProjectRecord = {
       ...this.project,
       ...partial,
@@ -103,7 +90,5 @@ export class ProjectRecordDetails {
       this.showEditDialog = false;
       this.updated.emit(updated);
     });
-
-    this.notifications.success(`${projectTitle} edited`, 'Changes have been written to disk.');
   }
 }

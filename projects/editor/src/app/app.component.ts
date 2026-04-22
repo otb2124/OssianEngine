@@ -4,10 +4,10 @@ import { RouterOutlet} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Topbar } from "./components/topbar/topbar";
 import { AppConfigService } from './services/app-config/app-config.service';
-import { ProjectRecordService } from './services/projects/project-record/project-record.service';
 import { filter, switchMap } from 'rxjs';
 import { ThemeService } from './services/theme/theme.service';
 import { ToastModule } from 'primeng/toast';
+import { ProjectService } from './services/projects/project.service';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +24,7 @@ import { ToastModule } from 'primeng/toast';
 export class AppComponent {
 
   private appConfigService = inject(AppConfigService);
-  private projectRecordService = inject(ProjectRecordService);
+  private projectRecordService = inject(ProjectService);
   private themeService = inject(ThemeService);
   
   ngOnInit(): void {

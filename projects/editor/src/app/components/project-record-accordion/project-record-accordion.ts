@@ -1,11 +1,11 @@
 import { Component, OnInit, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccordionModule } from 'primeng/accordion';
-import { ProjectRecordService } from '../../services/projects/project-record/project-record.service';
 import { HydratedProjectRecord } from '../../model/project-record.model';
 import { ProjectRecordOverview } from '../project-record-overview/project-record-overview';
 import { ProjectRecordDetails } from '../project-record-details/project-record-details';
 import { ProjectUiService } from '../../services/projects/project-ui/project-ui.service';
+import { ProjectService } from '../../services/projects/project.service';
 
 @Component({
   selector: 'app-project-record-accordion',
@@ -17,7 +17,7 @@ export class ProjectRecordAccordion implements OnInit {
   projects: HydratedProjectRecord[] = [];
   activeValues = signal<string[]>([]);
 
-  private projectService = inject(ProjectRecordService);
+  private projectService = inject(ProjectService);
   private projectUiService = inject(ProjectUiService);
 
   constructor() {
