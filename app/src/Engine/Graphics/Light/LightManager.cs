@@ -55,27 +55,7 @@ namespace Graphics
 
         public void Update()
         {
-            foreach (var light in lightSources)
-            {
-                if (light != null)
-                {
-                    if (light is EntityEmissionLightSource eesource)
-                    {
-                        if (Entities.Entities.EntityManager.GetEntityById(eesource.EntityId) == null)
-                        {
-                            lightSourcesToRemove.Add(light);
-                            continue;
-                        }
-                    }
-                    light.Update();
-                }
-            }
-
-            foreach (var light in lightSourcesToRemove)
-            {
-                lightSources.Remove(light);
-            }
-            lightSourcesToRemove.Clear();
+            
         }
 
         public int GenerateId()
