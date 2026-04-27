@@ -17,19 +17,7 @@ namespace Entities
 
             EquipmentSlots = new EquipmentSlot[]
             {
-                new(EquipmentSlot.EquipmentSlots.WEAPON),
-                new(EquipmentSlot.EquipmentSlots.HEAD),
-                new(EquipmentSlot.EquipmentSlots.TORSO),
-                new(EquipmentSlot.EquipmentSlots.LEGS),
-                new(EquipmentSlot.EquipmentSlots.HANDS),
-                new(EquipmentSlot.EquipmentSlots.NECKLACE),
-                new(EquipmentSlot.EquipmentSlots.CAPE),
-                new(EquipmentSlot.EquipmentSlots.BELT),
-                new(EquipmentSlot.EquipmentSlots.RING_0),
-                new(EquipmentSlot.EquipmentSlots.RING_1),
-                new(EquipmentSlot.EquipmentSlots.PET_0),
-                new(EquipmentSlot.EquipmentSlots.PET_1),
-                new(EquipmentSlot.EquipmentSlots.CONTAINMENT)
+
             };
         }
 
